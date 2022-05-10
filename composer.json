@@ -27,7 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Dystcz\\GetcandyApi\\": "src"
+            "Dystcz\\GetcandyApi\\": "src",
         }
     },
     "autoload-dev": {
