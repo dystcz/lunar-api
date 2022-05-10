@@ -9,6 +9,17 @@ return [
     // Leave empty if you don't want to use a prefix
     'route_prefix' => 'api',
 
+    // Middleware for all the API routes
+    'route_middleware' => ['api'],
+
+    // Route groups definition
+    'route_groups' => [
+        'products' => [
+            'prefix' => 'products',
+            'middleware' => ['auth:api'],
+        ],
+    ],
+
     // Here you can define the API controllers
     // If you want to change a behaviour or add some data,
     // simply extend the package controller and add your logic
