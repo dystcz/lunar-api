@@ -1,0 +1,54 @@
+{
+    "name": "dystcz/getcandy-api",
+    "description": "Getcandy API",
+    "keywords": [
+        "dystcz",
+        "getcandy-api"
+    ],
+    "homepage": "https://github.com/dystcz/getcandy-api",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jakub Theimer",
+            "email": "jakub@dy.st",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dystcz\\GetcandyApi\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dystcz\\GetcandyApi\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dystcz\\GetcandyApi\\GetcandyApiServiceProvider"
+            ],
+            "aliases": {
+                "GetcandyApi": "Dystcz\\GetcandyApi\\GetcandyApiFacade"
+            }
+        }
+    }
+}
