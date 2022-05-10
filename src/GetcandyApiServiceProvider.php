@@ -11,33 +11,12 @@ class GetcandyApiServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /*
-         * Optional methods to load your package assets
-         */
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'getcandy-api');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'getcandy-api');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadRoutesFrom(__DIR__.'/routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/getcandy-api.php' => config_path('getcandy-api.php'),
             ], 'config');
-
-            // Publishing the views.
-            /*$this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/getcandy-api'),
-            ], 'views');*/
-
-            // Publishing assets.
-            /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/getcandy-api'),
-            ], 'assets');*/
-
-            // Publishing the translation files.
-            /*$this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/getcandy-api'),
-            ], 'lang');*/
 
             // Registering package commands.
             // $this->commands([]);
@@ -50,7 +29,7 @@ class GetcandyApiServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'getcandy-api');
+        $this->mergeConfigFrom(__DIR__.'/../config/getcandy-api.php', 'getcandy-api');
 
         // Register the main class to use with the facade
         $this->app->singleton('getcandy-api', function () {
