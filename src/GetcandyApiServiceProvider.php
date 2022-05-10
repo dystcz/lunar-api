@@ -17,11 +17,11 @@ class GetcandyApiServiceProvider extends ServiceProvider
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'getcandy-api');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'getcandy-api');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
+        $this->loadRoutesFrom(__DIR__.'/routes/api.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('getcandy-api.php'),
+                __DIR__.'/../config/getcandy-api.php' => config_path('getcandy-api.php'),
             ], 'config');
 
             // Publishing the views.
