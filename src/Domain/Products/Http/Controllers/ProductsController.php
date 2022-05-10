@@ -1,7 +1,13 @@
 <?php
 
-namespace Domain\Products\Http\Controllers;
+namespace Dystcz\GetcandyApi\Domain\Products\Http\Controllers;
 
-class ProductsController
+use Illuminate\Routing\Controller;
+
+class ProductsController extends Controller
 {
+    public function __invoke()
+    {
+        return 'it works!';
+    }
 }
