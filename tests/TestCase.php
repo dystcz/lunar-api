@@ -1,13 +1,13 @@
 <?php
 
-namespace Madnest\Madzipper\Tests;
+namespace Dystcz\GetcandyApi\Tests;
 
 use Dystcz\GetcandyApi\GetcandyApiServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
     }
