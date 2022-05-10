@@ -5,7 +5,7 @@ namespace Dystcz\GetcandyApi;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Dystcz\GetcandyApi\Skeleton\SkeletonClass
+ * @see \Dystcz\GetcandyApi\GetcandyApi
  */
 class GetcandyApiFacade extends Facade
 {
