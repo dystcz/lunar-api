@@ -3,17 +3,31 @@
 namespace Dystcz\GetcandyApi\Routing\RouteGroups;
 
 use Dystcz\GetcandyApi\Routing\Contracts\RouteGroup;
-use Illuminate\Container\Container;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\App;
 
-class BaseRouteGroup implements RouteGroup
+abstract class BaseRouteGroup implements RouteGroup
 {
+    /** @var string */
+    public string $prefix = '';
+
+    /** @var array */
+    public array $middleware = [];
+
+    /** @var \Illuminate\Routing\Router */
     protected Router $router;
 
+    /**
+     * BaseRouteGroup constructor.
+     *
+     * @return void
+     * @throws BindingResolutionException
+     */
     public function __construct()
     {
-        $this->router = Container::getInstance()->make('router');
+        /** @var Illuminate\Routing\Router */
+        $this->router = App::make('router');
     }
 
     /**
@@ -42,7 +56,7 @@ class BaseRouteGroup implements RouteGroup
     protected function getPrefix(?string $prefix = null): ?string
     {
         if (! $prefix) {
-            return Config::get('getcandy-api.route_groups.products.prefix');
+            return $this->prefix;
         }
 
         return $prefix;
@@ -56,8 +70,8 @@ class BaseRouteGroup implements RouteGroup
      */
     protected function getMiddleware(array|string $middleware = []): array
     {
-        if (! $middleware) {
-            return Config::get('getcandy-api.route_groups.products.middleware');
+        if (is_array($middleware) && empty($middleware)) {
+            return $this->middleware;
         }
 
         if (is_string($middleware)) {
@@ -65,23 +79,5 @@ class BaseRouteGroup implements RouteGroup
         }
 
         return $middleware;
-    }
-
-    /**
-     * Call static methods on a new instance.
-     *
-     * @param string $method
-     * @param mixed $args
-     * @return mixed
-     */
-    public static function __callStatic(string $method, $args)
-    {
-        if (! in_array($method, ['routes'])) {
-            throw new \BadMethodCallException("Method {$method} does not exist.");
-        }
-
-        $instance = new self;
-
-        return $instance->$method(...$args);
     }
 }

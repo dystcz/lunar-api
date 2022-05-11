@@ -4,11 +4,16 @@ namespace Dystcz\GetcandyApi\Routing\RouteGroups;
 
 use Dystcz\GetcandyApi\Domain\Products\Http\Controllers\ProductsController;
 use Dystcz\GetcandyApi\Routing\Contracts\RouteGroup;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 
 class ProductsRouteGroup extends BaseRouteGroup implements RouteGroup
 {
+    /** @var string */
+    public string $prefix = 'products';
+
+    /** @var array */
+    public array $middleware = [];
+
     /**
      * Register routes.
      *
@@ -19,10 +24,10 @@ class ProductsRouteGroup extends BaseRouteGroup implements RouteGroup
     public function routes(?string $prefix = null, array|string $middleware = []): void
     {
         $this->router->group([
-            'prefix' => $prefix ?? Config::get('getcandy-api.route_groups.products.prefix'),
-            'middleware' => $middleware ?? Config::get('getcandy-api.route_groups.products.middleware'),
+            'prefix' => $this->getPrefix($prefix),
+            'middleware' => $this->getMiddleware($middleware),
         ], function () {
-            Route::get('/', ProductsController::class);
+            Route::get('/', [ProductsController::class, 'index']);
         });
     }
 }
