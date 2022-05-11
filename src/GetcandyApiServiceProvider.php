@@ -11,6 +11,7 @@ class GetcandyApiServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Register routes
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
         if ($this->app->runningInConsole()) {
@@ -18,8 +19,10 @@ class GetcandyApiServiceProvider extends ServiceProvider
                 __DIR__.'/../config/getcandy-api.php' => config_path('getcandy-api.php'),
             ], 'config');
 
-            // Registering package commands.
-            // $this->commands([]);
+            // Register commands.
+            $this->commands([
+                \Dystcz\GetcandyApi\Console\GenerateOpenApiSpec::class,
+            ]);
         }
     }
 
