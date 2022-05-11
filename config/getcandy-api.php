@@ -12,19 +12,21 @@ return [
     // Middleware for all the API routes
     'route_middleware' => ['api'],
 
-    // Route groups definition
+    // Route groups which get registered
+    // If you want to change the behaviour or add some data,
+    // simply extend the package product groups and add your logic
     'route_groups' => [
-        'products' => [
-            'prefix' => 'products',
-            'middleware' => ['auth:api'],
-        ],
+        'products' => Dystcz\GetcandyApi\Routing\RouteGroups\ProductsRouteGroup::class,
+        'collections' => Dystcz\GetcandyApi\Routing\RouteGroups\CollectionsRouteGroup::class,
     ],
 
-    // Here you can define the API controllers
-    // If you want to change a behaviour or add some data,
-    // simply extend the package controller and add your logic
-    'controllers' => [
-        'products' => Dystcz\GetcandyApi\Domain\Products\Http\Controllers\ProductsController::class,
+    // OpenAPI config
+    'openapi' => [
+        'yaml_generate' => true, // Generate YAML file for OpenAPI spec?
+        'yaml_file_name' => 'openapi.yaml', // Name of the YAML OpenAPI spec file
+        'json_generate' => true, // Generate JSON file for OpenAPI spec?
+        'json_file_name' => 'openapi.json', // Name of the JSON OpenAPI spec file
+        'folder_path' => 'openapi', // This is where the generated files will be stored
     ],
 
 ];
