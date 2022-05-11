@@ -1,5 +1,7 @@
 <?php
 
+namespace Dystcz\GetcandyApi\Tests\Feature\Domain\Products\Http\Controllers;
+
 use Illuminate\Support\Facades\Config;
 
 uses(\Dystcz\GetcandyApi\Tests\TestCase::class);
