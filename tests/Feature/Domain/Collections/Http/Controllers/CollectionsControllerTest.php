@@ -1,0 +1,12 @@
+<?php
+
+namespace Dystcz\GetcandyApi\Tests\Feature\Domain\Collections\Http\Controllers;
+
+use Illuminate\Support\Facades\Config;
+
+uses(\Dystcz\GetcandyApi\Tests\TestCase::class);
+
+it('can list all collections', function () {
+    $response = $this->get(Config::get('getcandy-api.route_prefix').'/collections');
+    $response->assertStatus(200);
+});
