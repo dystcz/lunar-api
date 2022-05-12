@@ -7,7 +7,7 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;
 use Vyuldashev\LaravelOpenApi\Factories\ResponseFactory;
 
-class ShowCollectionResponse extends ResponseFactory
+class CollectionShowResponse extends ResponseFactory
 {
     public function build(): Response
     {
