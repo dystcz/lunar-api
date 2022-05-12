@@ -2,6 +2,7 @@
 
 namespace Dystcz\GetcandyApi\Routing\RouteGroups;
 
+use Dystcz\GetcandyApi\Domain\Collections\Http\Controllers\CollectionProductsController;
 use Dystcz\GetcandyApi\Domain\Collections\Http\Controllers\CollectionsController;
 use Dystcz\GetcandyApi\Routing\Contracts\RouteGroup;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,10 @@ class CollectionsRouteGroup extends BaseRouteGroup implements RouteGroup
             'middleware' => $this->getMiddleware($middleware),
         ], function () {
             Route::get('/', [CollectionsController::class, 'index']);
+            Route::group(['prefix' => '{slug}'], function () {
+                Route::get('/', [CollectionsController::class, 'show']);
+                Route::get('/products', [CollectionProductsController::class, 'show']);
+            });
         });
     }
 }
