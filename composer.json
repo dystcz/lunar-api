@@ -29,10 +29,10 @@
         "pestphp/pest": "^1.21",
         "phpunit/phpunit": "^9.0"
     },
-     "repositories": [
+    "repositories": [
         {
-            "type": "path",
-            "url": "../../getcandy"
+            "type": "git",
+            "url": "https://github.com/dystcz/getcandy"
         }
     ],
     "autoload": {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "628e327e76960518bd1464b09c7ed1d7",
+    "content-hash": "9be969bafa5b64f2a028e814aefa0b24",
     "packages": [
         {
             "name": "brick/math",
@@ -931,51 +931,63 @@
             "time": "2022-02-20T15:07:15+00:00"
         },
         {
-            "name": "getcandy/core",
-            "version": "2.0-beta12",
+            "name": "getcandy/getcandy",
+            "version": "dev-package-assets",
             "source": {
                 "type": "git",
-                "url": "https://github.com/getcandy/core.git",
-                "reference": "cb9849554cb2fa58024811bad642caf71ec7a75c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/getcandy/core/zipball/cb9849554cb2fa58024811bad642caf71ec7a75c",
-                "reference": "cb9849554cb2fa58024811bad642caf71ec7a75c",
-                "shasum": ""
+                "url": "https://github.com/dystcz/getcandy",
+                "reference": "0172576d8c2ea6f2f1244db7562a52b59bf318ea"
             },
             "require": {
                 "cartalyst/converter": "^6.1|^7.0",
                 "doctrine/dbal": "^3.3",
+                "getcandy/licensing": "dev-main",
                 "kalnoy/nestedset": "^6.0",
                 "laravel/framework": "^8.0|^9.0",
                 "laravel/scout": "^9.4",
+                "livewire/livewire": "^2.0",
                 "php": "^8.0",
                 "spatie/laravel-activitylog": "^4.4",
                 "spatie/laravel-medialibrary": "^9.0.0|^10.0.0",
                 "yab/laravel-scout-mysql-driver": "^5.0"
             },
+            "replace": {
+                "getcandy/admin": "self.version",
+                "getcandy/core": "self.version"
+            },
             "require-dev": {
                 "orchestra/testbench": "^6.0|^7.0",
-                "phpunit/phpunit": "^9.5"
+                "phpunit/phpunit": "^9.5",
+                "symplify/monorepo-builder": "^10.0"
             },
             "type": "library",
             "extra": {
                 "laravel": {
                     "providers": [
+                        "GetCandy\\Hub\\AdminHubServiceProvider",
                         "GetCandy\\GetCandyServiceProvider"
                     ]
                 }
             },
             "autoload": {
+                "files": [
+                    "packages/admin/src/helpers.php"
+                ],
                 "psr-4": {
-                    "GetCandy\\": "src",
-                    "GetCandy\\Database\\State\\": "database/state",
-                    "GetCandy\\Database\\Seeders\\": "database/seeders",
-                    "GetCandy\\Database\\Factories\\": "database/factories"
+                    "GetCandy\\": "packages/core/src",
+                    "GetCandy\\Database\\Factories\\": "packages/core/database/factories",
+                    "GetCandy\\Database\\Seeders\\": "packages/core/database/seeders",
+                    "GetCandy\\Database\\State\\": "packages/core/database/state",
+                    "GetCandy\\Hub\\": "packages/admin/src",
+                    "GetCandy\\Hub\\Database\\Factories\\": "packages/admin/database/factories"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "GetCandy\\Hub\\Tests\\": "packages/admin/tests",
+                    "GetCandy\\Tests\\": "packages/core/tests"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -985,21 +997,55 @@
                     "homepage": "https://getcandy.io/"
                 }
             ],
-            "description": "GetCandy Laravel e-commerce core functionality.",
-            "keywords": [
-                "cart",
-                "e-commerce",
-                "ecommerce",
-                "getcandy",
-                "headless",
-                "laravel",
-                "shop",
-                "store"
-            ],
-            "support": {
-                "source": "https://github.com/getcandy/core/tree/2.0-beta12"
+            "description": "GetCandy Monorepo",
+            "time": "2022-05-01T00:50:23+00:00"
+        },
+        {
+            "name": "getcandy/licensing",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getcandy/licensing.git",
+                "reference": "6a4f50803d3f738b4d8cd3d4d54bb0ca490fd73e"
             },
-            "time": "2022-04-08T11:08:46+00:00"
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getcandy/licensing/zipball/6a4f50803d3f738b4d8cd3d4d54bb0ca490fd73e",
+                "reference": "6a4f50803d3f738b4d8cd3d4d54bb0ca490fd73e",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.3",
+                "illuminate/http": "^8.0|^9.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0|^7.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "GetCandy\\Licensing\\LicensingServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GetCandy\\Licensing\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "GetCandy Licensing Package",
+            "support": {
+                "issues": "https://github.com/getcandy/licensing/issues",
+                "source": "https://github.com/getcandy/licensing/tree/main"
+            },
+            "time": "2022-02-11T12:29:34+00:00"
         },
         {
             "name": "goldspecdigital/oooas",
@@ -1595,16 +1641,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.12.0",
+            "version": "v9.12.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "1b2e596d4522bc0c7cf81acce9fe3327163e9891"
+                "reference": "b5b5c635f1a93f277b5248725a1f7ffc97e20810"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/1b2e596d4522bc0c7cf81acce9fe3327163e9891",
-                "reference": "1b2e596d4522bc0c7cf81acce9fe3327163e9891",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/b5b5c635f1a93f277b5248725a1f7ffc97e20810",
+                "reference": "b5b5c635f1a93f277b5248725a1f7ffc97e20810",
                 "shasum": ""
             },
             "require": {
@@ -1770,7 +1816,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-05-10T14:02:00+00:00"
+            "time": "2022-05-11T13:38:26+00:00"
         },
         {
             "name": "laravel/scout",
@@ -2301,6 +2347,79 @@
                 }
             ],
             "time": "2022-04-17T13:12:02+00:00"
+        },
+        {
+            "name": "livewire/livewire",
+            "version": "v2.10.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/livewire/livewire.git",
+                "reference": "9ea6237760f627b3b6a05d15137880780ac843b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/9ea6237760f627b3b6a05d15137880780ac843b5",
+                "reference": "9ea6237760f627b3b6a05d15137880780ac843b5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^7.0|^8.0|^9.0",
+                "illuminate/support": "^7.0|^8.0|^9.0",
+                "illuminate/validation": "^7.0|^8.0|^9.0",
+                "league/mime-type-detection": "^1.9",
+                "php": "^7.2.5|^8.0",
+                "symfony/http-kernel": "^5.0|^6.0"
+            },
+            "require-dev": {
+                "calebporzio/sushi": "^2.1",
+                "laravel/framework": "^7.0|^8.0|^9.0",
+                "mockery/mockery": "^1.3.1",
+                "orchestra/testbench": "^5.0|^6.0|^7.0",
+                "orchestra/testbench-dusk": "^5.2|^6.0|^7.0",
+                "phpunit/phpunit": "^8.4|^9.0",
+                "psy/psysh": "@stable"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Livewire\\LivewireServiceProvider"
+                    ],
+                    "aliases": {
+                        "Livewire": "Livewire\\Livewire"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Livewire\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caleb Porzio",
+                    "email": "calebporzio@gmail.com"
+                }
+            ],
+            "description": "A front-end framework for Laravel.",
+            "support": {
+                "issues": "https://github.com/livewire/livewire/issues",
+                "source": "https://github.com/livewire/livewire/tree/v2.10.5"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/livewire",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-04-07T21:38:12+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -7396,23 +7515,23 @@
         },
         {
             "name": "orchestra/testbench",
-            "version": "v7.4.0",
+            "version": "v7.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench.git",
-                "reference": "45a5ec02b90351a3f8cf33871cbe91bd0aebdbd7"
+                "reference": "39e4c9b147950a555e9f2b44035d5b06672f6951"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench/zipball/45a5ec02b90351a3f8cf33871cbe91bd0aebdbd7",
-                "reference": "45a5ec02b90351a3f8cf33871cbe91bd0aebdbd7",
+                "url": "https://api.github.com/repos/orchestral/testbench/zipball/39e4c9b147950a555e9f2b44035d5b06672f6951",
+                "reference": "39e4c9b147950a555e9f2b44035d5b06672f6951",
                 "shasum": ""
             },
             "require": {
                 "fakerphp/faker": "^1.9.2",
-                "laravel/framework": "^9.7",
+                "laravel/framework": "^9.12",
                 "mockery/mockery": "^1.4.4",
-                "orchestra/testbench-core": "^7.4",
+                "orchestra/testbench-core": "^7.5",
                 "php": "^8.0",
                 "phpunit/phpunit": "^9.5.10",
                 "spatie/laravel-ray": "^1.28",
@@ -7449,7 +7568,7 @@
             ],
             "support": {
                 "issues": "https://github.com/orchestral/testbench/issues",
-                "source": "https://github.com/orchestral/testbench/tree/v7.4.0"
+                "source": "https://github.com/orchestral/testbench/tree/v7.5.0"
             },
             "funding": [
                 {
@@ -7461,20 +7580,20 @@
                     "type": "liberapay"
                 }
             ],
-            "time": "2022-04-13T01:00:13+00:00"
+            "time": "2022-05-10T23:49:37+00:00"
         },
         {
             "name": "orchestra/testbench-core",
-            "version": "v7.4.0",
+            "version": "v7.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench-core.git",
-                "reference": "104ae725e41e49c1c7a2d09ffad7be63e52fe454"
+                "reference": "72eb3e159d17ff42bf786e9cea83f55e9c297380"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/104ae725e41e49c1c7a2d09ffad7be63e52fe454",
-                "reference": "104ae725e41e49c1c7a2d09ffad7be63e52fe454",
+                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/72eb3e159d17ff42bf786e9cea83f55e9c297380",
+                "reference": "72eb3e159d17ff42bf786e9cea83f55e9c297380",
                 "shasum": ""
             },
             "require": {
@@ -7482,7 +7601,7 @@
             },
             "require-dev": {
                 "fakerphp/faker": "^1.9.2",
-                "laravel/framework": "^9.7",
+                "laravel/framework": "^9.12",
                 "laravel/laravel": "9.x-dev",
                 "mockery/mockery": "^1.4.4",
                 "orchestra/canvas": "^7.0",
@@ -7494,7 +7613,7 @@
             "suggest": {
                 "brianium/paratest": "Allow using parallel tresting (^6.4).",
                 "fakerphp/faker": "Allow using Faker for testing (^1.9.2).",
-                "laravel/framework": "Required for testing (^9.6).",
+                "laravel/framework": "Required for testing (^9.12).",
                 "mockery/mockery": "Allow using Mockery for testing (^1.4.4).",
                 "nunomaduro/collision": "Allow using Laravel style tests output and parallel testing (^6.2).",
                 "orchestra/testbench-browser-kit": "Allow using legacy Laravel BrowserKit for testing (^7.0).",
@@ -7555,7 +7674,7 @@
                     "type": "liberapay"
                 }
             ],
-            "time": "2022-04-13T00:51:27+00:00"
+            "time": "2022-05-10T22:45:44+00:00"
         },
         {
             "name": "pestphp/pest",
@@ -10161,7 +10280,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "getcandy/core": 10
+        "getcandy/getcandy": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
