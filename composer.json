@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "getcandy/core": "^2.0@beta",
+        "getcandy/getcandy": "dev-package-assets",
         "illuminate/support": "^8.0|^9.0",
         "symfony/yaml": "^6.0",
         "vyuldashev/laravel-openapi": "^1.5"
@@ -29,6 +29,12 @@
         "pestphp/pest": "^1.21",
         "phpunit/phpunit": "^9.0"
     },
+     "repositories": [
+        {
+            "type": "path",
+            "url": "../../getcandy"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Dystcz\\GetcandyApi\\": "src"
