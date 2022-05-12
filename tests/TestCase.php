@@ -23,4 +23,26 @@ abstract class TestCase extends Orchestra
             GetcandyApiServiceProvider::class,
         ];
     }
+
+    /**
+     * @param \Illuminate\Foundation\Application $app
+     */
+    public function getEnvironmentSetUp($app)
+    {
+        config()->set('database.default', 'sqlite');
+        config()->set('database.connections.sqlite', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
+    }
+
+    /**
+     * @param \Illuminate\Foundation\Application $app
+     */
+    protected function setUpDatabase($app)
+    {
+        // Run migrations
+        // Run seeds
+    }
 }
