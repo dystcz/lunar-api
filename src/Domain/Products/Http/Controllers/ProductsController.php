@@ -2,12 +2,23 @@
 
 namespace Dystcz\GetcandyApi\Domain\Products\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 
+#[OpenApi\PathItem]
 class ProductsController extends Controller
 {
-    public function __invoke()
+    /**
+     * List products.
+     *
+     * Lists all products based on provided filters.
+     *
+     * @return JsonResponse
+     */
+    #[OpenApi\Operation]
+    public function index(): JsonResponse
     {
-        return 'it works!';
+        return new JsonResponse(['products' => []], 200);
     }
 }
