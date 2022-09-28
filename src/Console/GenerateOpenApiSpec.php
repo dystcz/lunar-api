@@ -18,8 +18,8 @@ class GenerateOpenApiSpec extends Command
     {
         $collectionExists = collect(config('openapi.collections'))->has($this->argument('collection'));
 
-        if (!$collectionExists) {
-            $this->error('Collection "' . $this->argument('collection') . '" does not exist.');
+        if (! $collectionExists) {
+            $this->error('Collection "'.$this->argument('collection').'" does not exist.');
 
             return;
         }
@@ -34,7 +34,7 @@ class GenerateOpenApiSpec extends Command
         if (Config::get('lunar-api.openapi.yaml_generate')) {
             // Store yaml file
             Storage::put(
-                Config::get('lunar-api.openapi.folder_path') . '/' . Config::get('lunar-api.openapi.yaml_file_name'),
+                Config::get('lunar-api.openapi.folder_path').'/'.Config::get('lunar-api.openapi.yaml_file_name'),
                 Yaml::dump($spec->toArray())
             );
         }
@@ -42,7 +42,7 @@ class GenerateOpenApiSpec extends Command
         if (Config::get('lunar-api.openapi.json_generate')) {
             // Store json file
             Storage::put(
-                Config::get('lunar-api.openapi.folder_path') . '/' . Config::get('lunar-api.openapi.json_file_name'),
+                Config::get('lunar-api.openapi.folder_path').'/'.Config::get('lunar-api.openapi.json_file_name'),
                 $spec->toJson()
             );
         }

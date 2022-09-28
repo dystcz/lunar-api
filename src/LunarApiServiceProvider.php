@@ -12,11 +12,11 @@ class LunarApiServiceProvider extends ServiceProvider
     public function boot()
     {
         // Register routes
-        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/lunar-api.php' => config_path('lunar-api.php'),
+                __DIR__.'/../config/lunar-api.php' => config_path('lunar-api.php'),
             ], 'config');
 
             // Register commands.
@@ -32,7 +32,7 @@ class LunarApiServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__ . '/../config/lunar-api.php', 'lunar-api');
+        $this->mergeConfigFrom(__DIR__.'/../config/lunar-api.php', 'lunar-api');
 
         // Register the main class to use with the facade
         $this->app->singleton('lunar-api', function () {
