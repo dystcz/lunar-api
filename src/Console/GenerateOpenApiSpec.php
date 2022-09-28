@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\GetcandyApi\Console;
+namespace Dystcz\LunarApi\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
@@ -10,7 +10,7 @@ use Vyuldashev\LaravelOpenApi\Generator;
 
 class GenerateOpenApiSpec extends Command
 {
-    protected $signature = 'getcandy-api:generate-open-api {collection=default}';
+    protected $signature = 'lunar-api:generate-open-api {collection=default}';
 
     protected $description = 'Generate OpenAPI specification';
 
@@ -31,18 +31,18 @@ class GenerateOpenApiSpec extends Command
             $spec->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
         );
 
-        if (Config::get('getcandy-api.openapi.yaml_generate')) {
+        if (Config::get('lunar-api.openapi.yaml_generate')) {
             // Store yaml file
             Storage::put(
-                Config::get('getcandy-api.openapi.folder_path').'/'.Config::get('getcandy-api.openapi.yaml_file_name'),
+                Config::get('lunar-api.openapi.folder_path').'/'.Config::get('lunar-api.openapi.yaml_file_name'),
                 Yaml::dump($spec->toArray())
             );
         }
 
-        if (Config::get('getcandy-api.openapi.json_generate')) {
+        if (Config::get('lunar-api.openapi.json_generate')) {
             // Store json file
             Storage::put(
-                Config::get('getcandy-api.openapi.folder_path').'/'.Config::get('getcandy-api.openapi.json_file_name'),
+                Config::get('lunar-api.openapi.folder_path').'/'.Config::get('lunar-api.openapi.json_file_name'),
                 $spec->toJson()
             );
         }

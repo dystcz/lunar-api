@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Getcandy API configuration
+ * Lunar API configuration
  */
 return [
 
@@ -16,8 +16,8 @@ return [
     // If you want to change the behaviour or add some data,
     // simply extend the package product groups and add your logic
     'route_groups' => [
-        'products' => Dystcz\GetcandyApi\Routing\RouteGroups\ProductsRouteGroup::class,
-        'collections' => Dystcz\GetcandyApi\Routing\RouteGroups\CollectionsRouteGroup::class,
+        'products' => Dystcz\LunarApi\Routing\RouteGroups\ProductsRouteGroup::class,
+        'collections' => Dystcz\LunarApi\Routing\RouteGroups\CollectionsRouteGroup::class,
     ],
 
     // OpenAPI config

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\GetcandyApi\Routing\Contracts;
+namespace Dystcz\LunarApi\Routing\Contracts;
 
 interface RouteGroup
 {

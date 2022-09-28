@@ -1,10 +1,10 @@
 <?php
 
-namespace Dystcz\GetcandyApi;
+namespace Dystcz\LunarApi;
 
 use Illuminate\Support\ServiceProvider;
 
-class GetcandyApiServiceProvider extends ServiceProvider
+class LunarApiServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -16,12 +16,12 @@ class GetcandyApiServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/getcandy-api.php' => config_path('getcandy-api.php'),
+                __DIR__.'/../config/lunar-api.php' => config_path('lunar-api.php'),
             ], 'config');
 
             // Register commands.
             $this->commands([
-                \Dystcz\GetcandyApi\Console\GenerateOpenApiSpec::class,
+                \Dystcz\LunarApi\Console\GenerateOpenApiSpec::class,
             ]);
         }
     }
@@ -32,11 +32,11 @@ class GetcandyApiServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/getcandy-api.php', 'getcandy-api');
+        $this->mergeConfigFrom(__DIR__.'/../config/lunar-api.php', 'lunar-api');
 
         // Register the main class to use with the facade
-        $this->app->singleton('getcandy-api', function () {
-            return new GetcandyApi;
+        $this->app->singleton('lunar-api', function () {
+            return new LunarApi();
         });
     }
 }

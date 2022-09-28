@@ -1,0 +1,21 @@
+<?php
+
+namespace Dystcz\LunarApi;
+
+use Illuminate\Support\Facades\Facade;
+
+/**
+ * @see \Dystcz\LunarApi\LunarApi
+ */
+class LunarApiFacade extends Facade
+{
+    /**
+     * Get the registered name of the component.
+     *
+     * @return string
+     */
+    protected static function getFacadeAccessor()
+    {
+        return 'lunar-api';
+    }
+}

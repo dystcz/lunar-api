@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\GetcandyApi;
+namespace Dystcz\LunarApi;
 
-class GetcandyApi
+class LunarApi
 {
     // Build your next great package.
 }

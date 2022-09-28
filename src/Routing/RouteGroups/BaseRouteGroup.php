@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\GetcandyApi\Routing\RouteGroups;
+namespace Dystcz\LunarApi\Routing\RouteGroups;
 
-use Dystcz\GetcandyApi\Routing\Contracts\RouteGroup;
+use Dystcz\LunarApi\Routing\Contracts\RouteGroup;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
