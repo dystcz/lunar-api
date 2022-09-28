@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\GetcandyApi\Domain\Products\Http\Controllers;
+namespace Dystcz\LunarApi\Domain\Products\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;

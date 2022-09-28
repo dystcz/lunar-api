@@ -1,10 +1,10 @@
 <?php
 
-namespace Dystcz\GetcandyApi\Routing\RouteGroups;
+namespace Dystcz\LunarApi\Routing\RouteGroups;
 
-use Dystcz\GetcandyApi\Domain\Collections\Http\Controllers\CollectionProductsController;
-use Dystcz\GetcandyApi\Domain\Collections\Http\Controllers\CollectionsController;
-use Dystcz\GetcandyApi\Routing\Contracts\RouteGroup;
+use Dystcz\LunarApi\Domain\Collections\Http\Controllers\CollectionProductsController;
+use Dystcz\LunarApi\Domain\Collections\Http\Controllers\CollectionsController;
+use Dystcz\LunarApi\Routing\Contracts\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 class CollectionsRouteGroup extends BaseRouteGroup implements RouteGroup

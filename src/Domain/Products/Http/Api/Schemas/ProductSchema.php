@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\GetcandyApi\Domain\Products\Http\Api\Schemas;
+namespace Dystcz\LunarApi\Domain\Products\Http\Api\Schemas;
 
 use GoldSpecDigital\ObjectOrientedOAS\Contracts\SchemaContract;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\AllOf;

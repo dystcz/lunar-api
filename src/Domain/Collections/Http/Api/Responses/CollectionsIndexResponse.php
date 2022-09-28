@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\GetcandyApi\Domain\Collections\Http\Api\Responses;
+namespace Dystcz\LunarApi\Domain\Collections\Http\Api\Responses;
 
-use Dystcz\GetcandyApi\Domain\Collections\Http\Api\Schemas\CollectionSchema;
+use Dystcz\LunarApi\Domain\Collections\Http\Api\Schemas\CollectionSchema;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;
 use Vyuldashev\LaravelOpenApi\Factories\ResponseFactory;

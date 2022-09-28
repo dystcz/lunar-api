@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystcz\GetcandyApi\Routing\RouteGroups;
+namespace Dystcz\LunarApi\Routing\RouteGroups;
 
-use Dystcz\GetcandyApi\Domain\Products\Http\Controllers\ProductsController;
-use Dystcz\GetcandyApi\Routing\Contracts\RouteGroup;
+use Dystcz\LunarApi\Domain\Products\Http\Controllers\ProductsController;
+use Dystcz\LunarApi\Routing\Contracts\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 class ProductsRouteGroup extends BaseRouteGroup implements RouteGroup

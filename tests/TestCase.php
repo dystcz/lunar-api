@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\GetcandyApi\Tests;
+namespace Dystcz\LunarApi\Tests;
 
-use Dystcz\GetcandyApi\GetcandyApiServiceProvider;
+use Dystcz\LunarApi\LunarApiServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
@@ -20,7 +20,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            GetcandyApiServiceProvider::class,
+            LunarApiServiceProvider::class,
         ];
     }
 

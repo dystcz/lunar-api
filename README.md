@@ -1,17 +1,17 @@
-# Getcandy API
+# Lunar API
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/getcandy-api.svg?style=flat-square)](https://packagist.org/packages/dystcz/getcandy-api)
-[![Total Downloads](https://img.shields.io/packagist/dt/dystcz/getcandy-api.svg?style=flat-square)](https://packagist.org/packages/dystcz/getcandy-api)
-![GitHub Actions](https://github.com/dystcz/getcandy-api/actions/workflows/main.yml/badge.svg)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/lunar-api.svg?style=flat-square)](https://packagist.org/packages/dystcz/lunar-api)
+[![Total Downloads](https://img.shields.io/packagist/dt/dystcz/lunar-api.svg?style=flat-square)](https://packagist.org/packages/dystcz/lunar-api)
+![GitHub Actions](https://github.com/dystcz/lunar-api/actions/workflows/main.yml/badge.svg)
 
-This package introduces an API layer for Getcandy ecommerce package.
+This package introduces an API layer for Lunar ecommerce package.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require dystcz/getcandy-api
+composer require dystcz/lunar-api
 ```
 
 ## Usage

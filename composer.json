@@ -1,11 +1,14 @@
 {
-    "name": "dystcz/getcandy-api",
-    "description": "Getcandy API",
+    "name": "dystcz/lunar-api",
+    "description": "Lunar API",
     "keywords": [
         "dystcz",
-        "getcandy-api"
+        "lunar",
+        "lunar-api",
+        "laravel",
+        "php"
     ],
-    "homepage": "https://github.com/dystcz/getcandy-api",
+    "homepage": "https://github.com/dystcz/lunar-api",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -17,7 +20,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "getcandy/getcandy": "dev-package-assets",
+        "lunarphp/lunar": "^0.1",
         "illuminate/support": "^8.0|^9.0",
         "symfony/yaml": "^6.0",
         "vyuldashev/laravel-openapi": "^1.5"
@@ -29,20 +32,14 @@
         "pestphp/pest": "^1.21",
         "phpunit/phpunit": "^9.0"
     },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/dystcz/getcandy"
-        }
-    ],
     "autoload": {
         "psr-4": {
-            "Dystcz\\GetcandyApi\\": "src"
+            "Dystcz\\LunarApi\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Dystcz\\GetcandyApi\\Tests\\": "tests"
+            "Dystcz\\LuanrApi\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -59,10 +56,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Dystcz\\GetcandyApi\\GetcandyApiServiceProvider"
+                "Dystcz\\LunarApi\\LunarApiServiceProvider"
             ],
             "aliases": {
-                "GetcandyApi": "Dystcz\\GetcandyApi\\GetcandyApiFacade"
+                "LunarApi": "Dystcz\\LunarApi\\LunarApiFacade"
             }
         }
     },

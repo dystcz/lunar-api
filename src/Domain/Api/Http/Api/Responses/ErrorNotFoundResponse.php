@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\GetcandyApi\Domain\Api\Http\Api\Responses;
+namespace Dystcz\LunarApi\Domain\Api\Http\Api\Responses;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;

@@ -36,7 +36,7 @@ class GetcandyApiServiceProvider extends ServiceProvider
 
         // Register the main class to use with the facade
         $this->app->singleton('getcandy-api', function () {
-            return new GetcandyApi;
+            return new GetcandyApi();
         });
     }
 }
