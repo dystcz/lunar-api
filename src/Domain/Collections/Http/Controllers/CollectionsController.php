@@ -5,7 +5,6 @@ namespace Dystcz\LunarApi\Domain\Collections\Http\Controllers;
 use Dystcz\LunarApi\Domain\Api\Http\Api\Responses\ErrorNotFoundResponse;
 use Dystcz\LunarApi\Domain\Collections\Http\Api\Responses\CollectionShowResponse;
 use Dystcz\LunarApi\Domain\Collections\Http\Api\Responses\CollectionsIndexResponse;
-use Dystcz\LunarApi\Domain\Collections\Http\Api\Responses\ShowCollectionResponse;
 use Dystcz\LunarApi\Domain\Collections\Http\Resources\CollectionResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
