@@ -1,8 +1,9 @@
 <?php
 
-namespace Dystcz\LunarApi\Routing\RouteGroups;
+namespace Dystcz\LunarApi\Domain\Products;
 
 use Dystcz\LunarApi\Domain\Products\Http\Controllers\ProductsController;
+use Dystcz\LunarApi\Routing\BaseRouteGroup;
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup;
 use Illuminate\Support\Facades\Route;
 

@@ -1,10 +1,11 @@
 <?php
 
-namespace Dystcz\LunarApi\Routing\RouteGroups;
+namespace Dystcz\LunarApi\Routing;
 
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 
 abstract class BaseRouteGroup implements RouteGroup
@@ -27,7 +28,7 @@ abstract class BaseRouteGroup implements RouteGroup
      */
     public function __construct()
     {
-        /** @var Illuminate\Routing\Router */
+        /** @var \Illuminate\Routing\Router */
         $this->router = App::make('router');
     }
 
@@ -75,10 +76,6 @@ abstract class BaseRouteGroup implements RouteGroup
             return $this->middleware;
         }
 
-        if (is_string($middleware)) {
-            $middleware = [$middleware];
-        }
-
-        return $middleware;
+        return Arr::wrap($middleware);
     }
 }
