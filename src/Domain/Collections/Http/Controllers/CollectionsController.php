@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Collections\Http\Controllers;
 
 use Dystcz\LunarApi\Domain\Api\Http\Api\Responses\ErrorNotFoundResponse;
+use Dystcz\LunarApi\Domain\Collections\Http\Api\Responses\CollectionShowResponse;
 use Dystcz\LunarApi\Domain\Collections\Http\Api\Responses\CollectionsIndexResponse;
 use Dystcz\LunarApi\Domain\Collections\Http\Api\Responses\ShowCollectionResponse;
 use Dystcz\LunarApi\Domain\Collections\Http\Resources\CollectionResource;
@@ -21,7 +22,7 @@ class CollectionsController extends Controller
      *
      * Lists all collections.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResource
      */
     #[OpenApi\Operation(tags: ['collections'])]
@@ -42,13 +43,14 @@ class CollectionsController extends Controller
      *
      * Show collection by slug.
      *
-     * @param Request $request
-     * @param string $slug
+     * @param  Request  $request
+     * @param  string  $slug
      * @return JsonResource
-     * @throws \Illuminate\Database\Exceptions\ModelNotFoundException
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     #[OpenApi\Operation(tags: ['collections'])]
-    #[OpenApi\Response(factory: ShowCollectionResponse::class, statusCode: 200)]
+    #[OpenApi\Response(factory: CollectionShowResponse::class, statusCode: 200)]
     #[OpenApi\Response(factory: ErrorNotFoundResponse::class, statusCode: 404)]
     public function show(Request $request, string $slug): JsonResource
     {

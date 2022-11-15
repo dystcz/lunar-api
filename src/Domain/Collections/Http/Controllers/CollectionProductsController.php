@@ -19,10 +19,11 @@ class CollectionProductsController extends Controller
      *
      * Show collection and lists its products.
      *
-     * @param Request $request
-     * @param string $slug
+     * @param  Request  $request
+     * @param  string  $slug
      * @return JsonResource
-     * @throws \Illuminate\Database\Exceptions\ModelNotFoundException
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     #[OpenApi\Operation(tags: ['collections'])]
     #[OpenApi\Response(factory: CollectionProductsShowResponse::class, statusCode: 200)]
