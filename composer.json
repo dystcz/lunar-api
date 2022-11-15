@@ -40,7 +40,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Dystcz\\LuanrApi\\Tests\\": "tests"
+            "Dystcz\\LunarApi\\Tests\\": "tests"
         }
     },
     "scripts": {
