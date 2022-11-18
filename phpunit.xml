@@ -4,9 +4,6 @@
          bootstrap="vendor/autoload.php"
          colors="true"
          verbose="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
          printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printer"
 >
   <coverage processUncoveredFiles="true">
@@ -19,4 +16,11 @@
       <directory suffix=".php">./tests/</directory>
     </testsuite>
   </testsuites>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="BCRYPT_ROUNDS" value="4"/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_DATABASE" value=":memory:"/>
+    </php>
 </phpunit>
