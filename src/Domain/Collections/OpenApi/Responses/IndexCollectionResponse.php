@@ -1,10 +1,10 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Collections\Http\Api\Responses;
+namespace Dystcz\LunarApi\Domain\Collections\OpenApi\Responses;
 
-use Dystcz\LunarApi\Domain\Collections\Http\Api\Schemas\CollectionSchema;
-use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
+use Dystcz\LunarApi\Domain\JsonApi\OpenApi\Schemas\JsonApiSchema;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;
+use Lunar\Models\Collection;
 use Vyuldashev\LaravelOpenApi\Factories\ResponseFactory;
 
 class CollectionsIndexResponse extends ResponseFactory
@@ -12,7 +12,9 @@ class CollectionsIndexResponse extends ResponseFactory
     public function build(): Response
     {
         return Response::ok()->description('Successful response')->content(
-            MediaType::json()->schema(CollectionSchema::ref())
+            JsonApiSchema::model(Collection::class)
+                ->collection()
+                ->generate()
         );
     }
 }
