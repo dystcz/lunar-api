@@ -14,6 +14,8 @@ class LunarApiServiceProvider extends ServiceProvider
         // Register routes
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
+        config()->set('openapi', require __DIR__.'/../config/openapi.php');
+
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/lunar-api.php' => config_path('lunar-api.php'),
