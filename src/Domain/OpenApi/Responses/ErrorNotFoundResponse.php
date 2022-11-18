@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Api\Http\Api\Responses;
+namespace Dystcz\LunarApi\Domain\OpenApi\Responses;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;
@@ -11,14 +11,14 @@ class ErrorNotFoundResponse extends ResponseFactory
 {
     public function build(): Response
     {
-        $response = Schema::object()->properties(
+        $schema = Schema::object()->properties(
             Schema::string('message')->example('No query results for model ...'),
         );
 
-        return Response::create('Model not found')
+        return Response::notFound()
             ->description('Errors')
             ->content(
-                MediaType::json()->schema($response)
+                MediaType::json()->schema($schema)
             );
     }
 }
