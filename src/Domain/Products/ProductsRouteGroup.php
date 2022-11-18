@@ -29,6 +29,7 @@ class ProductsRouteGroup extends BaseRouteGroup implements RouteGroup
             'middleware' => $this->getMiddleware($middleware),
         ], function () {
             Route::get('/', [ProductsController::class, 'index']);
+            Route::get('/{slug}', [ProductsController::class, 'show']);
         });
     }
 }

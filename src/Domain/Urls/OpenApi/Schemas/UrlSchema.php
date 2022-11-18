@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Collections\OpenApi\Schemas;
+namespace Dystcz\LunarApi\Domain\Urls\OpenApi\Schemas;
 
-use Dystcz\LunarApi\Domain\JsonApi\Builders\CollectionJsonApiBuilder;
+use Dystcz\LunarApi\Domain\JsonApi\Builders\UrlJsonApiBuilder;
 use GoldSpecDigital\ObjectOrientedOAS\Contracts\SchemaContract;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\AllOf;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\AnyOf;
@@ -12,13 +12,13 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Contracts\Reusable;
 use Vyuldashev\LaravelOpenApi\Factories\SchemaFactory;
 
-class CollectionSchema extends SchemaFactory implements Reusable
+class UrlSchema extends SchemaFactory implements Reusable
 {
     /**
      * @return AllOf|OneOf|AnyOf|Not|Schema
      */
     public function build(): SchemaContract
     {
-        return app(CollectionJsonApiBuilder::class)->schema();
+        return app(UrlJsonApiBuilder::class)->schema();
     }
 }

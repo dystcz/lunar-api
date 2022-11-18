@@ -12,34 +12,28 @@ use Lunar\Database\Factories\ProductVariantFactory;
 uses(\Dystcz\LunarApi\Tests\TestCase::class, RefreshDatabase::class);
 
 it('can list all collections', function () {
-    $collection = CollectionFactory::new()
+    CollectionFactory::new()
         ->has(
             ProductFactory::new()
                 ->has(
                     ProductVariantFactory::new()
-                        ->has(
-                            PriceFactory::new(),
-                            'basePrices'
-                        )
-                        ->count(1),
+                        ->has(PriceFactory::new(), 'basePrices'),
                     'variants'
                 )
-                ->count(1)
         )
-        ->count(1)
+        ->count(3)
         ->create();
 
     $response = $this->get(
         Config::get('lunar-api.route_prefix').
         '/collections'.
-        '?include=products.variants.basePrices,products.defaultUrl'
+        '?include=products.variants.basePrices,products.defaultUrl'.
+        '&fields[lunar_collections]=id,attribute_data'
     );
-
-    ray($response->json());
 
     $response->assertStatus(200);
 
-    expect($response->json('data'))->toHaveCount(1);
+    expect($response->json('data'))->toHaveCount(3);
 });
 
 it('can read collection detail', function () {

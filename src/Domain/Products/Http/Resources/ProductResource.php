@@ -2,19 +2,28 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-use JsonSerializable;
+use Dystcz\LunarApi\Domain\JsonApi\Http\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\Media\Http\Resources\MediaResource;
+use Dystcz\LunarApi\Domain\Urls\Http\Resources\UrlResource;
+use Illuminate\Http\Request;
 
-class ProductResource extends JsonResource
+class ProductResource extends JsonApiResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|JsonSerializable
-     */
-    public function toArray($request)
+    protected function toAttributes(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            ...$this->attribute_data->keys()->mapWithKeys(function ($key) {
+                return [$key => $this->attr($key)];
+            }),
+        ];
+    }
+
+    protected function toRelationships(Request $request): array
+    {
+        return [
+            'variants' => $this->optionalCollection(ProductVariantResource::class, 'variants'),
+            'thumbnail' => $this->optionalResource(MediaResource::class, 'thumbnail'),
+            'defaultUrl' => $this->optionalResource(UrlResource::class, 'defaultUrl'),
+        ];
     }
 }
