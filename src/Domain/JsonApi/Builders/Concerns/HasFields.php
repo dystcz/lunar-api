@@ -15,7 +15,7 @@ trait HasFields
      * Prepare list of fields to be used in allowedFields() to limit fields returned.
      * Returns an array in two possible formats
      * 1. dotted notation: ['users.name', 'users.email']
-     * 2. nested array: ['users' => ['name', 'email']]
+     * 2. nested array: ['users' => ['name', 'email']].
      */
     public function fields(string $format = 'dotted'): array
     {

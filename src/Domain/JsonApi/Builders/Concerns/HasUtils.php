@@ -27,7 +27,7 @@ trait HasUtils
 
     /**
      * Merges the given values into a single string using dot.
-     * eg. ['users' => ['posts' => 'comments']] => ['users.posts.comments']
+     * eg. ['users' => ['posts' => 'comments']] => ['users.posts.comments'].
      */
     protected function dottedUsingValues(array $fields): array
     {
@@ -71,7 +71,7 @@ trait HasUtils
 
     /**
      * Group values under a key.
-     * eg. ['users' => ['name', 'posts' => ['title']] => ['users' => ['name'], 'posts' => ['title']]
+     * eg. ['users' => ['name', 'posts' => ['title']] => ['users' => ['name'], 'posts' => ['title']].
      */
     protected function flattenValues(array $values, ?array &$result = null, ?string $parentKey = null): array
     {
