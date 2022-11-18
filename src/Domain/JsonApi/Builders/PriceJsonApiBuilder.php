@@ -32,7 +32,7 @@ class PriceJsonApiBuilder extends JsonApiBuilder
     protected function attributesSchema(): array
     {
         return [
-            Schema::integer('price')->example(9.99),
+            Schema::number('price')->example(9.99),
         ];
     }
 }
