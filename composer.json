@@ -18,11 +18,20 @@
             "role": "Developer"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/lorinczdev/json-api"
+        }
+    ],
     "require": {
         "php": "^8.0",
-        "lunarphp/lunar": "^0.1",
         "illuminate/support": "^8.0|^9.0",
+        "lorisleiva/laravel-actions": "^2.4",
+        "lunarphp/lunar": "^0.1",
+        "spatie/laravel-query-builder": "^5.0",
         "symfony/yaml": "^6.0",
+        "timacdonald/json-api": "dev-feature/multiple-nested-relations",
         "vyuldashev/laravel-openapi": "^1.5"
     },
     "require-dev": {
