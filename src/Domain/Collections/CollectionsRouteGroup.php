@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Collections;
 
-use Dystcz\LunarApi\Domain\Collections\Http\Controllers\CollectionProductsController;
 use Dystcz\LunarApi\Domain\Collections\Http\Controllers\CollectionsController;
 use Dystcz\LunarApi\Routing\BaseRouteGroup;
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup;
@@ -32,7 +31,6 @@ class CollectionsRouteGroup extends BaseRouteGroup implements RouteGroup
             Route::get('/', [CollectionsController::class, 'index']);
             Route::group(['prefix' => '{slug}'], function () {
                 Route::get('/', [CollectionsController::class, 'show']);
-                Route::get('/products', [CollectionProductsController::class, 'show']);
             });
         });
     }
