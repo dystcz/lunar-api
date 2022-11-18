@@ -41,8 +41,6 @@ it('can read collection detail', function () {
 
     $response = $this->get(Config::get('lunar-api.route_prefix').'/collections/'.$collection->defaultUrl->slug);
 
-    ray($response->json());
-
     $response->assertStatus(200);
 
     expect($response->json('data.id'))->toBe((string) $collection->id);
@@ -65,8 +63,6 @@ it('can read products in a collection', function () {
         ->create();
 
     $response = $this->get(Config::get('lunar-api.route_prefix').'/collections/'.$collection->defaultUrl->slug.'?include=products');
-
-    ray($response->json());
 
     $response->assertStatus(200);
 });

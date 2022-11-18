@@ -77,7 +77,7 @@ trait CreatesSchemas
             $this->fieldsParametersSchema(),
             $this->sortParametersSchema(),
             $this->filterParametersSchema(),
-            $this->includedParametersSchema(),
+            $this->includeParametersSchema(),
         ];
     }
 
@@ -123,10 +123,10 @@ trait CreatesSchemas
             );
     }
 
-    protected function includedParametersSchema(): Parameter
+    protected function includeParametersSchema(): Parameter
     {
         return Parameter::query()
-            ->name('included')
+            ->name('include')
             ->description('Including relationships')
             ->examples(
                 ...array_map(function ($include) {

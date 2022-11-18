@@ -18,7 +18,7 @@ class ShowCollectionParameters extends ParametersFactory
             Parameter::path()
                 ->name('slug')
                 ->description('Slug of the collection')
-                ->example('my-collection')
+                ->example('mechanical-keyboards')
                 ->required()
                 ->schema(Schema::string()),
 

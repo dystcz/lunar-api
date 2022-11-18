@@ -18,7 +18,7 @@ class ShowProductParameters extends ParametersFactory
             Parameter::path()
                 ->name('slug')
                 ->description('Slug of the product')
-                ->example('my-product')
+                ->example('cherry-mx-silent-red-plate-mount')
                 ->required()
                 ->schema(Schema::string()),
 

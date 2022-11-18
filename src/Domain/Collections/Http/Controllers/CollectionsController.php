@@ -11,7 +11,6 @@ use Dystcz\LunarApi\Domain\JsonApi\Builders\CollectionJsonApiBuilder;
 use Dystcz\LunarApi\Domain\OpenApi\Responses\ErrorNotFoundResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
-use Lunar\Models\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use TiMacDonald\JsonApi\JsonApiResource;
 use TiMacDonald\JsonApi\JsonApiResourceCollection;
