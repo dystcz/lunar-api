@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\JsonApi\Builders\Concerns;
 
 use GoldSpecDigital\ObjectOrientedOAS\Contracts\SchemaContract;
+use GoldSpecDigital\ObjectOrientedOAS\Objects\AllOf;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Example;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Parameter;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
@@ -11,6 +12,9 @@ trait CreatesSchemas
 {
     abstract protected function attributesSchema(): array;
 
+    /**
+     * Create a relationships schema based on the model's relationships.
+     */
     protected function relationshipsSchema(): SchemaContract
     {
         $schemas = [];
@@ -18,6 +22,7 @@ trait CreatesSchemas
         foreach ($this->includes as $relationName => $builderClass) {
             $relation = (new static::$model)->$relationName();
 
+            // Determine the type of the relationship.
             $collection = ! $relation instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo
                 && ! $relation instanceof \Illuminate\Database\Eloquent\Relations\HasOne
                 && ! $relation instanceof \Illuminate\Database\Eloquent\Relations\HasOneThrough
@@ -30,14 +35,14 @@ trait CreatesSchemas
                 );
 
             if (! $collection) {
+                // If the relationship returns a single model, we can add the attributes to the schema.
                 $schema = Schema::object($relationName)->properties(
                     $dataSchema
-                    // Schema::array('meta')->items(),
-                    // Schema::array('links')->items(),
                 );
             } else {
+                // If the relationship returns a collection of models, the data property must be an array of objects.
                 $schema = Schema::array($relationName)->items(
-                    \GoldSpecDigital\ObjectOrientedOAS\Objects\AllOf::create()->schemas(
+                    AllOf::create()->schemas(
                         Schema::object()->properties($dataSchema),
                     )
                 );
@@ -49,6 +54,9 @@ trait CreatesSchemas
         return Schema::object('relationships')->properties(...$schemas);
     }
 
+    /**
+     * Create a data schema for the given model with relationships and the model's attributes.
+     */
     public function schema(): SchemaContract
     {
         $properties = [
@@ -57,8 +65,6 @@ trait CreatesSchemas
             Schema::object('attributes')->properties(
                 ...$this->attributesSchema(),
             ),
-            // Schema::array('meta')->items(),
-            // Schema::array('links')->items(),
         ];
 
         if (! empty($this->includes)) {
@@ -71,6 +77,9 @@ trait CreatesSchemas
             );
     }
 
+    /**
+     * Generate schema based of JSON API parameters options.
+     */
     public function parametersSchema(): array
     {
         return [
@@ -81,6 +90,11 @@ trait CreatesSchemas
         ];
     }
 
+    /**
+     * Fields parameter schema.
+     * See https://jsonapi.org/format/#fetching-sparse-fieldsets.
+     * See https://spatie.be/docs/laravel-query-builder/v5/features/selecting-fields.
+     */
     protected function fieldsParametersSchema(): Parameter
     {
         $fields = [
@@ -100,6 +114,11 @@ trait CreatesSchemas
             );
     }
 
+    /**
+     * Sort parameter schema.
+     * See https://jsonapi.org/format/#fetching-sorting.
+     * See https://spatie.be/docs/laravel-query-builder/v5/features/sorting.
+     */
     protected function sortParametersSchema(): Parameter
     {
         return Parameter::query()
@@ -109,6 +128,11 @@ trait CreatesSchemas
             ->schema(Schema::string());
     }
 
+    /**
+     * Filter parameter schema.
+     * See https://jsonapi.org/format/#fetching-filtering.
+     * See https://spatie.be/docs/laravel-query-builder/v5/features/filtering.
+     */
     protected function filterParametersSchema(): Parameter
     {
         return Parameter::query()
@@ -123,6 +147,11 @@ trait CreatesSchemas
             );
     }
 
+    /**
+     * Include parameter schema.
+     * See https://jsonapi.org/format/#fetching-includes.
+     * See https://spatie.be/docs/laravel-query-builder/v5/features/including-relationships.
+     */
     protected function includeParametersSchema(): Parameter
     {
         return Parameter::query()

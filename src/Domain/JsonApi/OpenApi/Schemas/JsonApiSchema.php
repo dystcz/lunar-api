@@ -17,8 +17,14 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 
 class JsonApiSchema
 {
+    /**
+     * When set to true, the schema for data property will be generated as an array of objects.
+     */
     protected bool $collection = false;
 
+    /**
+     * Map of builders.
+     */
     protected array $builders = [
         CollectionJsonApiBuilder::class,
         UrlJsonApiBuilder::class,
@@ -38,6 +44,9 @@ class JsonApiSchema
         return new static($modelClass);
     }
 
+    /**
+     * Find the builder for the given model.
+     */
     public function getBuilderByModel(): JsonApiBuilder
     {
         foreach ($this->builders as $builder) {
@@ -49,6 +58,9 @@ class JsonApiSchema
         throw new \RuntimeException("Builder for model {$this->modelClass} not found.");
     }
 
+    /**
+     * Set the collection flag.
+     */
     public function collection(): static
     {
         $this->collection = true;
@@ -56,6 +68,9 @@ class JsonApiSchema
         return $this;
     }
 
+    /**
+     * Generate the schema for the given model.
+     */
     public function generate(): MediaType|SchemaContract
     {
         return MediaType::json()->schema(
@@ -67,6 +82,9 @@ class JsonApiSchema
         );
     }
 
+    /**
+     * Generate the schema for the data property.
+     */
     protected function getDataSchema(): SchemaContract
     {
         if ($this->collection) {
@@ -80,6 +98,9 @@ class JsonApiSchema
         );
     }
 
+    /**
+     * Generate the schema for the included property.
+     */
     protected function getIncludedSchema(): Schema
     {
         return Schema::array('included')->items(
@@ -87,6 +108,9 @@ class JsonApiSchema
         );
     }
 
+    /**
+     * Generate the schema for the jsonapi property.
+     */
     protected function getJsonApiSchema(): Schema
     {
         return Schema::object('jsonapi')->properties(
@@ -95,11 +119,17 @@ class JsonApiSchema
         );
     }
 
+    /**
+     * Find the schema for the model.
+     */
     protected function getModelSchema(): SchemaContract
     {
         return $this->getBuilderByModel()::$schema::ref();
     }
 
+    /**
+     * Prepare the schemas for model's relationships.
+     */
     protected function getRelationshipsSchema(): SchemaContract
     {
         $builder = $this->getBuilderByModel();

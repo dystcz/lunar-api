@@ -13,10 +13,19 @@ abstract class JsonApiBuilder
     use Concerns\HasUtils;
     use Concerns\CreatesSchemas;
 
+    /**
+     * Model class the builder is for.
+     */
     public static string $model;
 
+    /**
+     * Model's schema.
+     */
     public static string $schema;
 
+    /**
+     * Prepare default query with JsonApi parameters.
+     */
     public function query(): QueryBuilder
     {
         return QueryBuilder::for(static::$model)

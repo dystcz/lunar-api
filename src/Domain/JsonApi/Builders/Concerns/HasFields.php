@@ -2,10 +2,21 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Builders\Concerns;
 
+/**
+ * Trait HasFields.
+ *
+ * eg. ?fields[users]=name,email where 'users' is the model's table name.
+ */
 trait HasFields
 {
     public array $fields = [];
 
+    /**
+     * Prepare list of fields to be used in allowedFields() to limit fields returned.
+     * Returns an array in two possible formats
+     * 1. dotted notation: ['users.name', 'users.email']
+     * 2. nested array: ['users' => ['name', 'email']]
+     */
     public function fields(string $format = 'dotted'): array
     {
         return [
@@ -14,6 +25,9 @@ trait HasFields
         ];
     }
 
+    /**
+     * Get a list of fields from related resources.
+     */
     protected function includesFields(string $format = 'dotted'): array
     {
         $filters = [];
@@ -31,25 +45,5 @@ trait HasFields
         }
 
         return $filters;
-    }
-
-    protected function flattenValues(array $values, ?array &$result = null, ?string $parentKey = null): array
-    {
-        $result ??= [];
-
-        foreach ($values as $key => $value) {
-            $resultKey = $parentKey ?? $key;
-            if (! isset($result[$resultKey])) {
-                $result[$resultKey] = [];
-            }
-
-            if (is_array($value)) {
-                $this->flattenValues($value, $result, $key);
-            } elseif (! in_array($value, $result[$resultKey])) {
-                $result[$resultKey][] = $value;
-            }
-        }
-
-        return $result;
     }
 }

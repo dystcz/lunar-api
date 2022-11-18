@@ -9,6 +9,8 @@ use Illuminate\Support\Collection;
 abstract class JsonApiResource extends \TiMacDonald\JsonApi\JsonApiResource
 {
     /**
+     * Helper method to create a single resource.
+     *
      * @param  class-string<JsonApiResource>  $resourceClass
      * @param  string  $key
      * @return Closure
@@ -19,6 +21,8 @@ abstract class JsonApiResource extends \TiMacDonald\JsonApi\JsonApiResource
     }
 
     /**
+     * Helper method to create a resoruce collection.
+     *
      * @param  class-string<JsonApiResource>  $resourceClass
      * @param  string  $key
      * @return Closure

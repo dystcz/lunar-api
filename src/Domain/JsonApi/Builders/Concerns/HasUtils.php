@@ -4,6 +4,9 @@ namespace Dystcz\LunarApi\Domain\JsonApi\Builders\Concerns;
 
 trait HasUtils
 {
+    /**
+     * Prepend the given string to the given values.
+     */
     protected function prependKey(string $key, array $values): array
     {
         $prepended = [];
@@ -22,6 +25,10 @@ trait HasUtils
         return $prepended;
     }
 
+    /**
+     * Merges the given values into a single string using dot.
+     * eg. ['users' => ['posts' => 'comments']] => ['users.posts.comments']
+     */
     protected function dottedUsingValues(array $fields): array
     {
         $dotted = [];
@@ -42,6 +49,9 @@ trait HasUtils
         return $dotted;
     }
 
+    /**
+     * Get a list of values for provided property from related resources.
+     */
     protected function includesProperty(string $property, string $format = 'dotted'): array
     {
         $filters = [];
@@ -57,5 +67,29 @@ trait HasUtils
         $filters = array_filter($filters, fn ($filter) => ! empty($filter));
 
         return $filters;
+    }
+
+    /**
+     * Group values under a key.
+     * eg. ['users' => ['name', 'posts' => ['title']] => ['users' => ['name'], 'posts' => ['title']]
+     */
+    protected function flattenValues(array $values, ?array &$result = null, ?string $parentKey = null): array
+    {
+        $result ??= [];
+
+        foreach ($values as $key => $value) {
+            $resultKey = $parentKey ?? $key;
+            if (! isset($result[$resultKey])) {
+                $result[$resultKey] = [];
+            }
+
+            if (is_array($value)) {
+                $this->flattenValues($value, $result, $key);
+            } elseif (! in_array($value, $result[$resultKey])) {
+                $result[$resultKey][] = $value;
+            }
+        }
+
+        return $result;
     }
 }
