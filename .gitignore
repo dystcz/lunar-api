@@ -6,3 +6,5 @@ composer.phar
 .php-cs-fixer.cache
 /node_modules
 Session.vim
+phpstan.neon
+ray.php
