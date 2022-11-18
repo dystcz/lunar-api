@@ -15,13 +15,6 @@ class IndexCollectionParameters extends ParametersFactory
     public function build(): array
     {
         return [
-            Parameter::path()
-                ->name('slug')
-                ->description('Slug of the collection')
-                ->example('my-collection')
-                ->required()
-                ->schema(Schema::string()),
-
             ...app(CollectionJsonApiBuilder::class)->parametersSchema(),
         ];
     }
