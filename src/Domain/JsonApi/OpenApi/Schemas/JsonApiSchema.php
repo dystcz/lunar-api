@@ -82,7 +82,7 @@ class JsonApiSchema
 
     protected function getIncludedSchema(): Schema
     {
-        return Schema::array('included')->items(
+        return Schema::array('include')->items(
             $this->getRelationshipsSchema()
         );
     }
