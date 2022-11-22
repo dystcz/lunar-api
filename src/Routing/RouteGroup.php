@@ -66,7 +66,7 @@ abstract class RouteGroup implements RouteGroupContract
      */
     protected function getPrefix(?string $prefix = null): ?string
     {
-        if (!$prefix) {
+        if (! $prefix) {
             return $this->prefix;
         }
 
