@@ -2,13 +2,11 @@
 
 namespace Dystcz\LunarApi\Routing;
 
-use Dystcz\LunarApi\Routing\Contracts\RouteGroup;
-use Illuminate\Contracts\Container\BindingResolutionException;
+use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 
-abstract class BaseRouteGroup implements RouteGroup
+abstract class RouteGroup implements RouteGroupContract
 {
     /** @var string */
     public string $prefix = '';
@@ -20,23 +18,34 @@ abstract class BaseRouteGroup implements RouteGroup
     protected Router $router;
 
     /**
-     * BaseRouteGroup constructor.
+     * RouteGroup constructor.
      *
      * @return void
-     *
      * @throws BindingResolutionException
      */
     public function __construct()
     {
-        /** @var \Illuminate\Routing\Router */
+        /** @var Illuminate\Routing\Router */
         $this->router = App::make('router');
+    }
+
+    /**
+     * Register routes by invoking.
+     *
+     * @param null|string $prefix
+     * @param array|string $middleware
+     * @return void
+     */
+    public function __invoke(?string $prefix = null, array|string $middleware = []): void
+    {
+        $this->routes($prefix, $middleware);
     }
 
     /**
      * Register routes.
      *
-     * @param  null|string  $prefix
-     * @param  array|string  $middleware
+     * @param null|string $prefix
+     * @param array|string $middleware
      * @return void
      */
     public function routes(?string $prefix = null, array|string $middleware = []): void
@@ -52,12 +61,12 @@ abstract class BaseRouteGroup implements RouteGroup
     /**
      * Get prefix for route group.
      *
-     * @param  string|null  $prefix
+     * @param string|null $prefix
      * @return ?string
      */
     protected function getPrefix(?string $prefix = null): ?string
     {
-        if (! $prefix) {
+        if (!$prefix) {
             return $this->prefix;
         }
 
@@ -67,7 +76,7 @@ abstract class BaseRouteGroup implements RouteGroup
     /**
      * Get middleware for route group.
      *
-     * @param  array|string  $middleware
+     * @param array|string $middleware
      * @return array
      */
     protected function getMiddleware(array|string $middleware = []): array
@@ -76,6 +85,10 @@ abstract class BaseRouteGroup implements RouteGroup
             return $this->middleware;
         }
 
-        return Arr::wrap($middleware);
+        if (is_string($middleware)) {
+            $middleware = [$middleware];
+        }
+
+        return $middleware;
     }
 }
