@@ -6,14 +6,14 @@ use Dystcz\LunarApi\Domain\JsonApi\Http\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Prices\Http\Resources\PriceResource;
 use Illuminate\Http\Request;
 
-class ProductVariantResource extends JsonApiResource
+class ProductVariantIndexResource extends JsonApiResource
 {
     protected function toAttributes(Request $request): array
     {
         return [
             'sku' => $this->sku,
             'ean' => $this->ean,
-            ...! $this->attribute_data ? [] : $this->attribute_data->keys()->mapWithKeys(function ($key) {
+            ...!$this->attribute_data ? [] : $this->attribute_data->keys()->mapWithKeys(function ($key) {
                 return [$key => $this->attr($key)];
             }),
         ];
