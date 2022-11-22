@@ -1,13 +1,13 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Products;
+namespace Dystcz\LunarApi\Domain\Products\Http\Routing;
 
 use Dystcz\LunarApi\Domain\Products\Http\Controllers\ProductsController;
-use Dystcz\LunarApi\Routing\BaseRouteGroup;
-use Dystcz\LunarApi\Routing\Contracts\RouteGroup;
+use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
+use Dystcz\LunarApi\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
-class ProductsRouteGroup extends BaseRouteGroup implements RouteGroup
+class ProductsRouteGroup extends RouteGroup implements RouteGroupContract
 {
     /** @var string */
     public string $prefix = 'products';

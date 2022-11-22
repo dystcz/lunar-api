@@ -1,13 +1,13 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Collections;
+namespace Dystcz\LunarApi\Domain\Collections\Http\Routing;
 
 use Dystcz\LunarApi\Domain\Collections\Http\Controllers\CollectionsController;
-use Dystcz\LunarApi\Routing\BaseRouteGroup;
-use Dystcz\LunarApi\Routing\Contracts\RouteGroup;
+use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
+use Dystcz\LunarApi\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
-class CollectionsRouteGroup extends BaseRouteGroup implements RouteGroup
+class CollectionsRouteGroup extends RouteGroup implements RouteGroupContract
 {
     /** @var string */
     public string $prefix = 'collections';
