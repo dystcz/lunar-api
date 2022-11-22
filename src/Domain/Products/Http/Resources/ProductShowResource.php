@@ -1,14 +1,13 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Collections\Http\Resources;
+namespace Dystcz\LunarApi\Domain\Products\Http\Resources;
 
 use Dystcz\LunarApi\Domain\JsonApi\Http\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Media\Http\Resources\MediaResource;
-use Dystcz\LunarApi\Domain\Products\Http\Resources\ProductResource;
 use Dystcz\LunarApi\Domain\Urls\Http\Resources\UrlResource;
 use Illuminate\Http\Request;
 
-class CollectionResource extends JsonApiResource
+class ProductShowResource extends JsonApiResource
 {
     protected function toAttributes(Request $request): array
     {
@@ -22,9 +21,9 @@ class CollectionResource extends JsonApiResource
     protected function toRelationships(Request $request): array
     {
         return [
+            'variants' => $this->optionalCollection(ProductVariantResource::class, 'variants'),
             'thumbnail' => $this->optionalResource(MediaResource::class, 'thumbnail'),
             'defaultUrl' => $this->optionalResource(UrlResource::class, 'defaultUrl'),
-            'products' => $this->optionalCollection(ProductResource::class, 'products'),
         ];
     }
 }

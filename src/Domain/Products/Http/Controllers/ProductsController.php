@@ -4,7 +4,8 @@ namespace Dystcz\LunarApi\Domain\Products\Http\Controllers;
 
 use Dystcz\LunarApi\Domain\JsonApi\Builders\ProductJsonApiBuilder;
 use Dystcz\LunarApi\Domain\OpenApi\Responses\ErrorNotFoundResponse;
-use Dystcz\LunarApi\Domain\Products\Http\Resources\ProductResource;
+use Dystcz\LunarApi\Domain\Products\Http\Resources\ProductIndexResource;
+use Dystcz\LunarApi\Domain\Products\Http\Resources\ProductShowResource;
 use Dystcz\LunarApi\Domain\Products\OpenApi\Parameters\IndexProductParameters;
 use Dystcz\LunarApi\Domain\Products\OpenApi\Parameters\ShowProductParameters;
 use Dystcz\LunarApi\Domain\Products\OpenApi\Responses\IndexProductResponse;
@@ -40,7 +41,7 @@ class ProductsController extends Controller
     {
         $products = $this->query->get();
 
-        return ProductResource::collection($products);
+        return ProductIndexResource::collection($products);
     }
 
     /**
@@ -69,6 +70,6 @@ class ProductsController extends Controller
             )
             ->firstOrFail();
 
-        return new ProductResource($product);
+        return new ProductShowResource($product);
     }
 }
