@@ -16,8 +16,8 @@ return [
     // If you want to change the behaviour or add some data,
     // simply extend the package product groups and add your logic
     'route_groups' => [
-        'products' => Dystcz\LunarApi\Domain\Products\ProductsRouteGroup::class,
-        'collections' => Dystcz\LunarApi\Domain\Collections\CollectionsRouteGroup::class,
+        'products' => Dystcz\LunarApi\Domain\Products\Http\Routing\ProductsRouteGroup::class,
+        'collections' => Dystcz\LunarApi\Domain\Collections\Http\Routing\CollectionsRouteGroup::class,
     ],
 
     // OpenAPI config
