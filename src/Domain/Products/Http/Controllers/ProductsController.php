@@ -11,7 +11,6 @@ use Dystcz\LunarApi\Domain\Products\OpenApi\Responses\IndexProductResponse;
 use Dystcz\LunarApi\Domain\Products\OpenApi\Responses\ShowProductResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
-use Lunar\Models\Product;
 use Spatie\QueryBuilder\QueryBuilder;
 use TiMacDonald\JsonApi\JsonApiResource;
 use TiMacDonald\JsonApi\JsonApiResourceCollection;
