@@ -12,6 +12,7 @@ use Dystcz\LunarApi\Domain\Products\OpenApi\Responses\IndexProductResponse;
 use Dystcz\LunarApi\Domain\Products\OpenApi\Responses\ShowProductResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Spatie\QueryBuilder\QueryBuilder;
 use TiMacDonald\JsonApi\JsonApiResource;
 use TiMacDonald\JsonApi\JsonApiResourceCollection;
@@ -39,7 +40,9 @@ class ProductsController extends Controller
     #[OpenApi\Response(factory: IndexProductResponse::class, statusCode: 200)]
     public function index(): JsonApiResourceCollection
     {
-        $products = $this->query->get();
+        $products = $this
+            ->query
+            ->paginate(Config::get('lunar-api.domains.products.pagination', 12));
 
         return ProductIndexResource::collection($products);
     }
