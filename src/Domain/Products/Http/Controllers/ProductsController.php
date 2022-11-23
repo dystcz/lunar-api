@@ -4,8 +4,7 @@ namespace Dystcz\LunarApi\Domain\Products\Http\Controllers;
 
 use Dystcz\LunarApi\Domain\JsonApi\Builders\ProductJsonApiBuilder;
 use Dystcz\LunarApi\Domain\OpenApi\Responses\ErrorNotFoundResponse;
-use Dystcz\LunarApi\Domain\Products\Http\Resources\ProductIndexResource;
-use Dystcz\LunarApi\Domain\Products\Http\Resources\ProductShowResource;
+use Dystcz\LunarApi\Domain\Products\Http\Resources\ProductResource;
 use Dystcz\LunarApi\Domain\Products\OpenApi\Parameters\IndexProductParameters;
 use Dystcz\LunarApi\Domain\Products\OpenApi\Parameters\ShowProductParameters;
 use Dystcz\LunarApi\Domain\Products\OpenApi\Responses\IndexProductResponse;
@@ -51,7 +50,7 @@ class ProductsController extends Controller
             ->withCount(['variants'])
             ->paginate(Config::get('lunar-api.domains.products.pagination', 12));
 
-        return ProductIndexResource::collection($products);
+        return ProductResource::collection($products);
     }
 
     /**
@@ -80,6 +79,6 @@ class ProductsController extends Controller
             )
             ->firstOrFail();
 
-        return new ProductShowResource($product);
+        return new ProductResource($product);
     }
 }

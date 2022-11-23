@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Lunar\Models\Product;
 use TiMacDonald\JsonApi\Link;
 
-class ProductIndexResource extends JsonApiResource
+class ProductResource extends JsonApiResource
 {
     protected function toAttributes(Request $request): array
     {
@@ -22,7 +22,7 @@ class ProductIndexResource extends JsonApiResource
                 ->mapToAttributeGroups($model)
                 ->toArray(),
             [
-                'variants_count' => $model->variants_count,
+                'variants_count' => fn () => $model->variants_count,
             ]
         );
     }

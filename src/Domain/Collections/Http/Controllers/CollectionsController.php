@@ -2,8 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Collections\Http\Controllers;
 
-use Dystcz\LunarApi\Domain\Collections\Http\Resources\CollectionIndexResource;
-use Dystcz\LunarApi\Domain\Collections\Http\Resources\CollectionShowResource;
+use Dystcz\LunarApi\Domain\Collections\Http\Resources\CollectionResource;
 use Dystcz\LunarApi\Domain\Collections\OpenApi\Parameters\IndexCollectionParameters;
 use Dystcz\LunarApi\Domain\Collections\OpenApi\Parameters\ShowCollectionParameters;
 use Dystcz\LunarApi\Domain\Collections\OpenApi\Responses\IndexCollectionResponse;
@@ -41,7 +40,7 @@ class CollectionsController extends Controller
     {
         $collections = $this->query->get();
 
-        return CollectionIndexResource::collection($collections);
+        return CollectionResource::collection($collections);
     }
 
     /**
@@ -70,6 +69,6 @@ class CollectionsController extends Controller
             )
             ->firstOrFail();
 
-        return new CollectionShowResource($collection);
+        return new CollectionResource($collection);
     }
 }
