@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Http\Resources;
 
+use Dystcz\LunarApi\Domain\Attributes\Collections\AttributeCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Http\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Media\Http\Resources\MediaResource;
 use Dystcz\LunarApi\Domain\Urls\Http\Resources\UrlResource;
@@ -16,15 +17,14 @@ class ProductIndexResource extends JsonApiResource
         /** @var Product */
         $model = $this->resource;
 
-        return $model->productType->mappedAttributes
-            ->groupBy(
-                fn ($attribute) => $attribute->attributeGroup->handle
-            )
-            ->map(
-                fn ($group) => $group->mapWithKeys(
-                    fn ($attribute) => [$attribute->handle => $model->attr($attribute->handle)]
-                )
-            )->toArray();
+        return array_merge(
+            AttributeCollection::make($model->mappedAttributes())
+                ->mapToAttributeGroups($model)
+                ->toArray(),
+            [
+                'variants_count' => $model->variants_count,
+            ]
+        );
     }
 
     protected function toRelationships(Request $request): array
