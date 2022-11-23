@@ -2,11 +2,14 @@
 
 namespace Dystcz\LunarApi\Tests\Feature\Domain\Products\Http\Controllers;
 
+use Dystcz\LunarApi\Domain\Media\Factories\MediaFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Lunar\Database\Factories\PriceFactory;
 use Lunar\Database\Factories\ProductFactory;
 use Lunar\Database\Factories\ProductVariantFactory;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\Support\ImageFactory;
 
 uses(\Dystcz\LunarApi\Tests\TestCase::class, RefreshDatabase::class);
 
@@ -34,4 +37,16 @@ it('can read product detail', function () {
     $response->assertStatus(200);
 
     expect($response->json('data.id'))->toBe((string) $product->id);
+});
+
+it('can list product\'s images', function () {
+    $product = ProductFactory::new()
+        ->has(MediaFactory::new(), 'images')
+        ->create();
+
+    $response = $this->get(Config::get('lunar-api.route_prefix').'/products/'.$product->defaultUrl->slug.'?include=images');
+
+    $response->assertStatus(200);
+
+    expect($response->json())->toHaveKey('data.relationships.images');
 });
