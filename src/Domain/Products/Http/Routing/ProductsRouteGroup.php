@@ -28,8 +28,8 @@ class ProductsRouteGroup extends RouteGroup implements RouteGroupContract
             'prefix' => $this->getPrefix($prefix),
             'middleware' => $this->getMiddleware($middleware),
         ], function () {
-            Route::get('/', [ProductsController::class, 'index']);
-            Route::get('/{slug}', [ProductsController::class, 'show']);
+            Route::get('/', [ProductsController::class, 'index'])->name("{$this->prefix}.index");
+            Route::get('/{slug}', [ProductsController::class, 'show'])->name("{$this->prefix}.show");
         });
     }
 }
