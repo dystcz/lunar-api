@@ -25,6 +25,7 @@ class ProductJsonApiBuilder extends JsonApiBuilder
         'variants' => ProductVariantJsonApiBuilder::class,
         'defaultUrl' => UrlJsonApiBuilder::class,
         'thumbnail' => MediaJsonApiBuilder::class,
+        'images' => MediaJsonApiBuilder::class,
     ];
 
     protected function attributesSchema(): array

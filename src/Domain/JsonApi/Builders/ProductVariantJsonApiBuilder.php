@@ -23,6 +23,8 @@ class ProductVariantJsonApiBuilder extends JsonApiBuilder
 
     public array $includes = [
         'basePrices' => PriceJsonApiBuilder::class,
+        'prices' => PriceJsonApiBuilder::class,
+        'images' => MediaJsonApiBuilder::class,
     ];
 
     protected function attributesSchema(): array
