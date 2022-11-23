@@ -48,6 +48,7 @@ class ProductsController extends Controller
                 'productType.mappedAttributes',
                 'productType.mappedAttributes.attributeGroup',
             ])
+            ->withCount(['variants'])
             ->paginate(Config::get('lunar-api.domains.products.pagination', 12));
 
         return ProductIndexResource::collection($products);
