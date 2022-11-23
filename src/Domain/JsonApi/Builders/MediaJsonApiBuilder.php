@@ -14,12 +14,22 @@ class MediaJsonApiBuilder extends JsonApiBuilder
 
     public array $fields = [
         'id',
+        'path',
         'url',
+        'name',
+        'type',
+        'size',
+        'collection_name',
+        'order_column',
     ];
 
-    public array $sorts = [];
+    public array $sorts = [
+        'order_column'
+    ];
 
-    public array $filters = [];
+    public array $filters = [
+        'collection_name'
+    ];
 
     public array $includes = [];
 
@@ -27,7 +37,13 @@ class MediaJsonApiBuilder extends JsonApiBuilder
     {
         return [
             // TODO fill in example value
+            Schema::string('path')->example(''),
             Schema::string('url')->example('some-url'),
+            Schema::string('name')->example(''),
+            Schema::string('type')->example(''),
+            Schema::number('size')->example(69),
+            Schema::string('collection_name')->example('images'),
+            Schema::number('order_column')->example(1),
         ];
     }
 }
