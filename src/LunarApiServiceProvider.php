@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use TiMacDonald\JsonApi\JsonApiResource;
@@ -17,7 +18,7 @@ class LunarApiServiceProvider extends ServiceProvider
         // Register routes
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
 
-        config()->set('openapi', require __DIR__ . '/../config/openapi.php');
+        Config::set('openapi', require __DIR__ . '/../config/openapi.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
