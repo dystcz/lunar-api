@@ -42,6 +42,12 @@ class ProductsController extends Controller
     {
         $products = $this
             ->query
+            ->with([
+                'defaultUrl',
+                'productType',
+                'productType.mappedAttributes',
+                'productType.mappedAttributes.attributeGroup',
+            ])
             ->paginate(Config::get('lunar-api.domains.products.pagination', 12));
 
         return ProductIndexResource::collection($products);
