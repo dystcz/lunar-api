@@ -13,7 +13,7 @@ class ProductVariantIndexResource extends JsonApiResource
         return [
             'sku' => $this->sku,
             'ean' => $this->ean,
-            ...!$this->attribute_data ? [] : $this->attribute_data->keys()->mapWithKeys(function ($key) {
+            ...! $this->attribute_data ? [] : $this->attribute_data->keys()->mapWithKeys(function ($key) {
                 return [$key => $this->attr($key)];
             }),
         ];
