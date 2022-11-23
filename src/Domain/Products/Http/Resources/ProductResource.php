@@ -3,9 +3,8 @@
 namespace Dystcz\LunarApi\Domain\Products\Http\Resources;
 
 use Dystcz\LunarApi\Domain\Attributes\Collections\AttributeCollection;
+use Dystcz\LunarApi\Domain\JsonApi\Builders\ProductJsonApiBuilder;
 use Dystcz\LunarApi\Domain\JsonApi\Http\Resources\JsonApiResource;
-use Dystcz\LunarApi\Domain\Media\Http\Resources\MediaResource;
-use Dystcz\LunarApi\Domain\Urls\Http\Resources\UrlResource;
 use Illuminate\Http\Request;
 use Lunar\Models\Product;
 use TiMacDonald\JsonApi\Link;
@@ -29,12 +28,7 @@ class ProductResource extends JsonApiResource
 
     protected function toRelationships(Request $request): array
     {
-        return [
-            'variants' => $this->optionalCollection(ProductVariantResource::class, 'variants'),
-            'thumbnail' => $this->optionalResource(MediaResource::class, 'thumbnail'),
-            'defaultUrl' => $this->optionalResource(UrlResource::class, 'defaultUrl'),
-            'images' => $this->optionalCollection(MediaResource::class, 'images'),
-        ];
+        return app(ProductJsonApiBuilder::class)->toRelationships();
     }
 
     protected function toLinks(Request $request): array

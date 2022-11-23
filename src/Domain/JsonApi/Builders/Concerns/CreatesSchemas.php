@@ -7,6 +7,7 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\AllOf;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Example;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Parameter;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 trait CreatesSchemas
 {
@@ -23,10 +24,7 @@ trait CreatesSchemas
             $relation = (new static::$model)->$relationName();
 
             // Determine the type of the relationship.
-            $collection = ! $relation instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo
-                && ! $relation instanceof \Illuminate\Database\Eloquent\Relations\HasOne
-                && ! $relation instanceof \Illuminate\Database\Eloquent\Relations\HasOneThrough
-                && ! $relation instanceof \Illuminate\Database\Eloquent\Relations\MorphOne;
+            $collection = $this->isCollectionRelationship($relation);
 
             $dataSchema = Schema::object('data')
                 ->properties(
@@ -163,5 +161,14 @@ trait CreatesSchemas
                 }, $this->includes()),
             )
             ->schema(Schema::string());
+    }
+
+    protected function isCollectionRelationship(Relation $relation): bool
+    {
+        // Determine the type of the relationship.
+        return ! $relation instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo
+            && ! $relation instanceof \Illuminate\Database\Eloquent\Relations\HasOne
+            && ! $relation instanceof \Illuminate\Database\Eloquent\Relations\HasOneThrough
+            && ! $relation instanceof \Illuminate\Database\Eloquent\Relations\MorphOne;
     }
 }

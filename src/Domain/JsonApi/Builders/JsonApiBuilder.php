@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Builders;
 
+use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\QueryBuilder;
 
 abstract class JsonApiBuilder
@@ -12,6 +13,7 @@ abstract class JsonApiBuilder
     use Concerns\HasIncludes;
     use Concerns\HasUtils;
     use Concerns\CreatesSchemas;
+    use Concerns\CreatesResources;
 
     /**
      * Model class the builder is for.
@@ -22,6 +24,11 @@ abstract class JsonApiBuilder
      * Model's schema.
      */
     public static string $schema;
+
+    /**
+     * Model's resource.
+     */
+    public static string $resource;
 
     /**
      * Prepare default query with JsonApi parameters.

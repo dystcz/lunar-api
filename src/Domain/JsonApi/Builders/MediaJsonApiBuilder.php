@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Builders;
 
+use Dystcz\LunarApi\Domain\Media\Http\Resources\MediaResource;
 use Dystcz\LunarApi\Domain\Media\OpenApi\Schemas\MediaSchema;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -11,6 +12,8 @@ class MediaJsonApiBuilder extends JsonApiBuilder
     public static string $model = Media::class;
 
     public static string $schema = MediaSchema::class;
+
+    public static string $resource = MediaResource::class;
 
     public array $fields = [
         'id',

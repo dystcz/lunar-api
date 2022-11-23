@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Builders;
 
+use Dystcz\LunarApi\Domain\Products\Http\Resources\ProductResource;
 use Dystcz\LunarApi\Domain\Products\OpenApi\Schemas\ProductSchema;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Lunar\Models\Product;
@@ -11,6 +12,8 @@ class ProductJsonApiBuilder extends JsonApiBuilder
     public static string $model = Product::class;
 
     public static string $schema = ProductSchema::class;
+
+    public static string $resource = ProductResource::class;
 
     public array $fields = [
         'id',

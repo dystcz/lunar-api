@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Config;
 use Lunar\Database\Factories\PriceFactory;
 use Lunar\Database\Factories\ProductFactory;
 use Lunar\Database\Factories\ProductVariantFactory;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\MediaLibrary\Support\ImageFactory;
 
 uses(\Dystcz\LunarApi\Tests\TestCase::class, RefreshDatabase::class);
 

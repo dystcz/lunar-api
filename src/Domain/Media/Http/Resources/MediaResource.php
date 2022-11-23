@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Media\Http\Resources;
 
+use Dystcz\LunarApi\Domain\JsonApi\Builders\MediaJsonApiBuilder;
 use Dystcz\LunarApi\Domain\JsonApi\Http\Resources\JsonApiResource;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -22,5 +23,10 @@ class MediaResource extends JsonApiResource
             'collection_name' => $model->collection_name,
             'order_column' => $model->order_column,
         ];
+    }
+
+    protected function toRelationships(Request $request): array
+    {
+        return app(MediaJsonApiBuilder::class)->toRelationships();
     }
 }

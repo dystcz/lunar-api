@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Builders;
 
+use Dystcz\LunarApi\Domain\Prices\Http\Resources\PriceResource;
 use Dystcz\LunarApi\Domain\Prices\OpenApi\Schemas\PriceSchema;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Lunar\Models\Price;
@@ -11,6 +12,8 @@ class PriceJsonApiBuilder extends JsonApiBuilder
     public static string $model = Price::class;
 
     public static string $schema = PriceSchema::class;
+
+    public static string $resource = PriceResource::class;
 
     public array $fields = [
         'id',
