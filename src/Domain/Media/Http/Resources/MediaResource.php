@@ -14,14 +14,13 @@ class MediaResource extends JsonApiResource
         $model = $this->resource;
 
         return [
-            'id' => $model->id,
             'path' => "{$model->id}/{$model->file_name}",
             'url' => $model->getFullUrl(),
             'name' => $model->file_name,
             'type' => $model->mime_type,
             'size' => $model->size,
             'collection_name' => $model->collection_name,
-            'order' => $model->order_column,
+            'order_column' => $model->order_column,
         ];
     }
 }
