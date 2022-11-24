@@ -16,8 +16,8 @@ class MediaResource extends JsonApiResource
         return [
             'path' => "{$model->id}/{$model->file_name}",
             'url' => $model->getFullUrl(),
-            'name' => $model->file_name,
-            'type' => $model->mime_type,
+            'file_name' => $model->file_name,
+            'mime_type' => $model->mime_type,
             'size' => $model->size,
             'collection_name' => $model->collection_name,
             'order_column' => $model->order_column,
