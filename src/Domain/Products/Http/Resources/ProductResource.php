@@ -30,7 +30,7 @@ class ProductResource extends JsonApiResource
     protected function toRelationships(Request $request): array
     {
         return [
-            'variants' => $this->optionalCollection(ProductVariantIndexResource::class, 'variants'),
+            'variants' => $this->optionalCollection(ProductVariantResource::class, 'variants'),
             'thumbnail' => $this->optionalResource(MediaResource::class, 'thumbnail'),
             'defaultUrl' => $this->optionalResource(UrlResource::class, 'defaultUrl'),
             'images' => $this->optionalCollection(MediaResource::class, 'images'),

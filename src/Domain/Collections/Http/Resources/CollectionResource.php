@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\Collections\Http\Resources;
 use Dystcz\LunarApi\Domain\JsonApi\Http\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Media\Http\Resources\MediaResource;
 use Dystcz\LunarApi\Domain\Products\Http\Resources\ProductResource;
-use Dystcz\LunarApi\Domain\Products\Http\Resources\ProductVariantIndexResource;
+use Dystcz\LunarApi\Domain\Products\Http\Resources\ProductVariantResource;
 use Dystcz\LunarApi\Domain\Urls\Http\Resources\UrlResource;
 use Illuminate\Http\Request;
 
