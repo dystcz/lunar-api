@@ -20,15 +20,14 @@ class ProductResource extends JsonApiResource
             AttributeCollection::make($model->mappedAttributes())
                 ->mapToAttributeGroups($model)
                 ->toArray(),
-            [
-                'variants_count' => fn () => $model->variants_count,
-            ]
+            ['variants_count' => fn () => $model->variants_count],
+            ['images_count' => fn () => $model->images_count],
         );
     }
 
     protected function toRelationships(Request $request): array
     {
-        return app(ProductJsonApiBuilder::class)->toRelationships();
+        return app(ProductJsonApiBuilder::class)->toRelationships($this->resource);
     }
 
     protected function toLinks(Request $request): array

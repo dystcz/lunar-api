@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\JsonApi\OpenApi\Schemas;
 
 use Dystcz\LunarApi\Domain\JsonApi\Builders\CollectionJsonApiBuilder;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\CurrencyJsonApiBuilder;
+use Dystcz\LunarApi\Domain\JsonApi\Builders\Elements\IncludeElement;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\JsonApiBuilder;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\MediaJsonApiBuilder;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\PriceJsonApiBuilder;
@@ -136,8 +137,9 @@ class JsonApiSchema
 
         $schemas = [];
 
-        foreach ($builder->includes as $builder) {
-            $schemas[] = $builder::$schema::ref();
+        /** @var IncludeElement $includeElement */
+        foreach ($builder->includes() as $includeElement) {
+            $schemas[] = $includeElement->getBuilderClass()::$schema::ref();
         }
 
         return AnyOf::create()->schemas(...$schemas);

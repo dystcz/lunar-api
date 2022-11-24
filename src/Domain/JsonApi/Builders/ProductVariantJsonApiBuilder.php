@@ -2,7 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Builders;
 
-use Dystcz\LunarApi\Domain\Products\Http\Resources\ProductVariantIndexResource;
+use Dystcz\LunarApi\Domain\JsonApi\Builders\Elements\IncludeElement;
+use Dystcz\LunarApi\Domain\Products\Http\Resources\ProductVariantResource;
 use Dystcz\LunarApi\Domain\Products\OpenApi\Schemas\ProductVariantSchema;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Lunar\Models\ProductVariant;
@@ -13,22 +14,35 @@ class ProductVariantJsonApiBuilder extends JsonApiBuilder
 
     public static string $schema = ProductVariantSchema::class;
 
-    public static string $resource = ProductVariantIndexResource::class;
+    public static string $resource = ProductVariantResource::class;
 
-    public array $fields = [
-        'id',
-        'attribute_data',
-    ];
+    public function fields(): array
+    {
+        return [
+            'id',
+            'attribute_data',
+        ];
+    }
 
-    public array $sorts = [];
+    public function sorts(): array
+    {
+        return [];
+    }
 
-    public array $filters = [];
+    public function filters(): array
+    {
+        return [];
+    }
 
-    public array $includes = [
-        'basePrices' => PriceJsonApiBuilder::class,
-        'prices' => PriceJsonApiBuilder::class,
-        'images' => MediaJsonApiBuilder::class,
-    ];
+    public function includes(): array
+    {
+        return [
+            IncludeElement::make('basePrices', PriceJsonApiBuilder::class),
+            IncludeElement::make('prices', PriceJsonApiBuilder::class),
+            IncludeElement::make('images', MediaJsonApiBuilder::class)
+                ->withCount(),
+        ];
+    }
 
     protected function attributesSchema(): array
     {
@@ -36,6 +50,7 @@ class ProductVariantJsonApiBuilder extends JsonApiBuilder
             Schema::string('sku')->example('MK-LEO-FC750PS-BLUE'),
             Schema::string('ean')->example('MK-LEO-FC750PS-BLUE'),
             Schema::string('name')->example('Cherry MX Blue'),
+            Schema::number('images_count')->example(5),
         ];
     }
 }

@@ -18,6 +18,6 @@ class CurrencyResource extends JsonApiResource
 
     protected function toRelationships(Request $request): array
     {
-        return app(CurrencyJsonApiBuilder::class)->toRelationships();
+        return app(CurrencyJsonApiBuilder::class)->toRelationships($this->resource);
     }
 }

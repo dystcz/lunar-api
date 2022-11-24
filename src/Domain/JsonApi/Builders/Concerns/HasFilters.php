@@ -9,15 +9,18 @@ namespace Dystcz\LunarApi\Domain\JsonApi\Builders\Concerns;
  */
 trait HasFilters
 {
-    public array $filters = [];
+    public function filters(): array
+    {
+        return [];
+    }
 
     /**
      * Prepare list of filters to be used in allowedFilters() to filter data with.
      */
-    public function filters(): array
+    public function getFilters(): array
     {
         return [
-            ...$this->filters,
+            ...$this->filters(),
             ...$this->includesProperty('filters'),
         ];
     }

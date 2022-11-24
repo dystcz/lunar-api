@@ -11,7 +11,7 @@ class AttributeCollection extends EloquentCollection
     /**
      * Map Attributes into groups based on AttributeGroup they are part of.
      *
-     * @param Model $model
+     * @param  Model  $model
      * @return Collection
      */
     public function mapToAttributeGroups(Model $model): Collection

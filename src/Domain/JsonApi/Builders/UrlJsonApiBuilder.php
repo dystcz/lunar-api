@@ -15,20 +15,32 @@ class UrlJsonApiBuilder extends JsonApiBuilder
 
     public static string $resource = UrlResource::class;
 
-    public array $fields = [
-        'id',
-        'slug',
-    ];
+    public function fields(): array
+    {
+        return [
+            'id',
+            'slug',
+        ];
+    }
 
-    public array $sorts = [
-        'slug',
-    ];
+    public function sorts(): array
+    {
+        return [
+            'slug',
+        ];
+    }
 
-    public array $filters = [
-        'slug',
-    ];
+    public function filters(): array
+    {
+        return [
+            'slug',
+        ];
+    }
 
-    public array $includes = [];
+    public function includes(): array
+    {
+        return [];
+    }
 
     protected function attributesSchema(): array
     {

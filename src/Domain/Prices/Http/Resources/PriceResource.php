@@ -17,6 +17,6 @@ class PriceResource extends JsonApiResource
 
     protected function toRelationships(Request $request): array
     {
-        return app(PriceJsonApiBuilder::class)->toRelationships();
+        return app(PriceJsonApiBuilder::class)->toRelationships($this->resource);
     }
 }

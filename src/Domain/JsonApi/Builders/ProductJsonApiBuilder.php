@@ -2,10 +2,13 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Builders;
 
+use Dystcz\LunarApi\Domain\JsonApi\Builders\CustomIncludes\AggregateInclude;
+use Dystcz\LunarApi\Domain\JsonApi\Builders\Elements\IncludeElement;
 use Dystcz\LunarApi\Domain\Products\Http\Resources\ProductResource;
 use Dystcz\LunarApi\Domain\Products\OpenApi\Schemas\ProductSchema;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Lunar\Models\Product;
+use Spatie\QueryBuilder\AllowedInclude;
 
 class ProductJsonApiBuilder extends JsonApiBuilder
 {
@@ -15,21 +18,38 @@ class ProductJsonApiBuilder extends JsonApiBuilder
 
     public static string $resource = ProductResource::class;
 
-    public array $fields = [
-        'id',
-        'attribute_data',
-    ];
+    public function fields(): array
+    {
+        return [
+            'id',
+            'attribute_data',
+        ];
+    }
 
-    public array $sorts = [];
+    public function sorts(): array
+    {
+        return [];
+    }
 
-    public array $filters = [];
+    public function filters(): array
+    {
+        return [];
+    }
 
-    public array $includes = [
-        'variants' => ProductVariantJsonApiBuilder::class,
-        'defaultUrl' => UrlJsonApiBuilder::class,
-        'thumbnail' => MediaJsonApiBuilder::class,
-        'images' => MediaJsonApiBuilder::class,
-    ];
+    public function includes(): array
+    {
+        return [
+            IncludeElement::make('variants', ProductVariantJsonApiBuilder::class)
+                ->withCount(),
+            IncludeElement::make('defaultUrl', UrlJsonApiBuilder::class),
+            IncludeElement::make('thumbnail', MediaJsonApiBuilder::class),
+            IncludeElement::make('images', MediaJsonApiBuilder::class)
+                ->withCount(),
+
+            // Custom includes.
+            // AllowedInclude::custom('sumOfIds', new AggregateInclude('id', 'sum'))
+        ];
+    }
 
     protected function attributesSchema(): array
     {
@@ -44,6 +64,8 @@ class ProductJsonApiBuilder extends JsonApiBuilder
             Schema::string('layout')->example('ansi'),
             Schema::string('seo_title')->example('Leopold FC980PD (Black)'),
             Schema::string('seo_description')->example('<div>Leopold FC980PD (Black)</div>'),
+            Schema::number('variants_count')->example(5),
+            Schema::number('images_count')->example(5),
         ];
     }
 }

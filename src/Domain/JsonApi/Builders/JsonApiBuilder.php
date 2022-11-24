@@ -36,9 +36,9 @@ abstract class JsonApiBuilder
     public function query(): QueryBuilder
     {
         return QueryBuilder::for(static::$model)
-            ->allowedFields($this->fields())
-            ->allowedSorts($this->sorts())
-            ->allowedFilters($this->filters())
-            ->allowedIncludes($this->includes());
+            ->allowedFields($this->getFields())
+            ->allowedSorts($this->getSorts())
+            ->allowedFilters($this->getFilters())
+            ->allowedIncludes($this->getIncludes());
     }
 }

@@ -11,7 +11,7 @@ class ProductVariantResource extends JsonApiResource
 {
     protected function toAttributes(Request $request): array
     {
-        /** @var ProductVariant */
+        /** @var ProductVariant $model */
         $model = $this->resource;
 
         return [
@@ -22,11 +22,12 @@ class ProductVariantResource extends JsonApiResource
                 : $model->attribute_data->keys()->mapWithKeys(
                     fn ($key) => [$key => $this->attr($key)]
                 ),
+            'images_count' => fn () => $this->images_count,
         ];
     }
 
     protected function toRelationships(Request $request): array
     {
-        return app(ProductVariantJsonApiBuilder::class)->toRelationships();
+        return app(ProductVariantJsonApiBuilder::class)->toRelationships($this->resource);
     }
 }

@@ -15,25 +15,36 @@ class MediaJsonApiBuilder extends JsonApiBuilder
 
     public static string $resource = MediaResource::class;
 
-    public array $fields = [
-        'id',
-        'url',
-        'file_name',
-        'mime_type',
-        'size',
-        'collection_name',
-        'order_column',
-    ];
+    public function fields(): array
+    {
+        return [
+            'url',
+            'file_name',
+            'mime_type',
+            'size',
+            'collection_name',
+            'order_column',
+        ];
+    }
 
-    public array $sorts = [
-        'order_column',
-    ];
+    public function sorts(): array
+    {
+        return [
+            'order_column',
+        ];
+    }
 
-    public array $filters = [
-        'collection_name',
-    ];
+    public function filters(): array
+    {
+        return [
+            'collection_name',
+        ];
+    }
 
-    public array $includes = [];
+    public function includes(): array
+    {
+        return [];
+    }
 
     protected function attributesSchema(): array
     {

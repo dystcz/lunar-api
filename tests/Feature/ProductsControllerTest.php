@@ -48,3 +48,18 @@ it('can list product\'s images', function () {
 
     expect($response->json())->toHaveKey('data.relationships.images');
 });
+
+it('can read product\'s variants count', function () {
+    $product = ProductFactory::new()
+        ->has(
+            ProductVariantFactory::new()->has(PriceFactory::new())->count(5),
+            'variants'
+        )
+        ->create();
+
+    $response = $this->get(Config::get('lunar-api.route_prefix').'/products/'.$product->defaultUrl->slug.'?include=variantsCount');
+
+    $response->assertStatus(200);
+
+    expect($response->json('data.attributes.variants_count'))->toBe(5);
+});

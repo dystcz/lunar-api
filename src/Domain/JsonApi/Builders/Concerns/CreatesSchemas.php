@@ -2,12 +2,14 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Builders\Concerns;
 
+use Dystcz\LunarApi\Domain\JsonApi\Builders\Elements\IncludeElement;
 use GoldSpecDigital\ObjectOrientedOAS\Contracts\SchemaContract;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\AllOf;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Example;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Parameter;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Collection;
 
 trait CreatesSchemas
 {
@@ -20,7 +22,10 @@ trait CreatesSchemas
     {
         $schemas = [];
 
-        foreach ($this->includes as $relationName => $builderClass) {
+        /** @var IncludeElement $includeElement */
+        foreach ($this->includes() as $includeElement) {
+            $relationName = $includeElement->getName();
+
             $relation = (new static::$model)->$relationName();
 
             // Determine the type of the relationship.
@@ -65,7 +70,7 @@ trait CreatesSchemas
             ),
         ];
 
-        if (! empty($this->includes)) {
+        if (! empty($this->includes())) {
             $properties[] = $this->relationshipsSchema();
         }
 
@@ -96,7 +101,7 @@ trait CreatesSchemas
     protected function fieldsParametersSchema(): Parameter
     {
         $fields = [
-            (new static::$model)->getTable() => $this->fields,
+            (new static::$model)->getTable() => $this->fields(),
             ...$this->includesFields('flatten'),
         ];
 
@@ -122,7 +127,7 @@ trait CreatesSchemas
         return Parameter::query()
             ->name('sort')
             ->description('Sorting')
-            ->example(implode(',', $this->sorts))
+            ->example(implode(',', $this->sorts()))
             ->schema(Schema::string());
     }
 
@@ -140,7 +145,7 @@ trait CreatesSchemas
                 Schema::object()->properties(
                     ...array_map(function ($filter) {
                         return Schema::string($filter);
-                    }, $this->filters()),
+                    }, $this->getFilters()),
                 )
             );
     }
@@ -156,9 +161,9 @@ trait CreatesSchemas
             ->name('include')
             ->description('Including relationships')
             ->examples(
-                ...array_map(function ($include) {
+                ...array_map(function (string $include) {
                     return Example::create($include)->value($include);
-                }, $this->includes()),
+                }, $this->getIncludes()),
             )
             ->schema(Schema::string());
     }

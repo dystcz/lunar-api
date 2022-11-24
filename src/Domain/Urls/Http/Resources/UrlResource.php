@@ -17,6 +17,6 @@ class UrlResource extends JsonApiResource
 
     protected function toRelationships(Request $request): array
     {
-        return app(UrlJsonApiBuilder::class)->toRelationships();
+        return app(UrlJsonApiBuilder::class)->toRelationships($this->resource);
     }
 }

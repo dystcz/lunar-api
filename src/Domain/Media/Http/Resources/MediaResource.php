@@ -27,6 +27,6 @@ class MediaResource extends JsonApiResource
 
     protected function toRelationships(Request $request): array
     {
-        return app(MediaJsonApiBuilder::class)->toRelationships();
+        return app(MediaJsonApiBuilder::class)->toRelationships($this->resource);
     }
 }

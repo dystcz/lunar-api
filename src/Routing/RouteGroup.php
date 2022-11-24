@@ -21,6 +21,7 @@ abstract class RouteGroup implements RouteGroupContract
      * RouteGroup constructor.
      *
      * @return void
+     *
      * @throws BindingResolutionException
      */
     public function __construct()
@@ -32,8 +33,8 @@ abstract class RouteGroup implements RouteGroupContract
     /**
      * Register routes by invoking.
      *
-     * @param null|string $prefix
-     * @param array|string $middleware
+     * @param  null|string  $prefix
+     * @param  array|string  $middleware
      * @return void
      */
     public function __invoke(?string $prefix = null, array|string $middleware = []): void
@@ -44,8 +45,8 @@ abstract class RouteGroup implements RouteGroupContract
     /**
      * Register routes.
      *
-     * @param null|string $prefix
-     * @param array|string $middleware
+     * @param  null|string  $prefix
+     * @param  array|string  $middleware
      * @return void
      */
     public function routes(?string $prefix = null, array|string $middleware = []): void
@@ -61,7 +62,7 @@ abstract class RouteGroup implements RouteGroupContract
     /**
      * Get prefix for route group.
      *
-     * @param string|null $prefix
+     * @param  string|null  $prefix
      * @return ?string
      */
     protected function getPrefix(?string $prefix = null): ?string
@@ -76,7 +77,7 @@ abstract class RouteGroup implements RouteGroupContract
     /**
      * Get middleware for route group.
      *
-     * @param array|string $middleware
+     * @param  array|string  $middleware
      * @return array
      */
     protected function getMiddleware(array|string $middleware = []): array

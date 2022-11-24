@@ -15,23 +15,32 @@ class CurrencyJsonApiBuilder extends JsonApiBuilder
 
     public static string $resource = CurrencyResource::class;
 
-    public array $fields = [
-        'id',
-        'name',
-        'code',
-    ];
+    public function fields(): array
+    {
+        return [
+            'id',
+            'name',
+            'code', ];
+    }
 
-    public array $sorts = [
-        'name',
-        'code',
-    ];
+    public function sorts(): array
+    {
+        return [
+            'name',
+            'code', ];
+    }
 
-    public array $filters = [
-        'name',
-        'code',
-    ];
+    public function filters(): array
+    {
+        return [
+            'name',
+            'code', ];
+    }
 
-    public array $includes = [];
+    public function includes(): array
+    {
+        return [];
+    }
 
     protected function attributesSchema(): array
     {

@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Builders;
 
+use Dystcz\LunarApi\Domain\JsonApi\Builders\Elements\IncludeElement;
 use Dystcz\LunarApi\Domain\Prices\Http\Resources\PriceResource;
 use Dystcz\LunarApi\Domain\Prices\OpenApi\Schemas\PriceSchema;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
@@ -15,22 +16,33 @@ class PriceJsonApiBuilder extends JsonApiBuilder
 
     public static string $resource = PriceResource::class;
 
-    public array $fields = [
-        'id',
-        'price',
-    ];
+    public function fields(): array
+    {
+        return [
+            'id',
+            'price', ];
+    }
 
-    public array $sorts = [
-        'price',
-    ];
+    public function sorts(): array
+    {
+        return [
+            'price',
+        ];
+    }
 
-    public array $filters = [
-        'price',
-    ];
+    public function filters(): array
+    {
+        return [
+            'price',
+        ];
+    }
 
-    public array $includes = [
-        'currency' => CurrencyJsonApiBuilder::class,
-    ];
+    public function includes(): array
+    {
+        return [
+            IncludeElement::make('currency', CurrencyJsonApiBuilder::class),
+        ];
+    }
 
     protected function attributesSchema(): array
     {

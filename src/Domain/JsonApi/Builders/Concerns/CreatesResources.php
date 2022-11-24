@@ -2,24 +2,27 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Builders\Concerns;
 
+use Dystcz\LunarApi\Domain\JsonApi\Builders\Elements\IncludeElement;
 use Dystcz\LunarApi\Domain\JsonApi\Http\Resources\JsonApiResource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 trait CreatesResources
 {
-    public function toRelationships(): array
+    public function toRelationships(Model $model): array
     {
-        return collect($this->includes)
-            ->mapWithKeys(function (string $includeBuilderClass, string $relationship) {
+        return collect($this->includes())
+            ->mapWithKeys(function (IncludeElement $includeElement) use ($model) {
+                $relationship = $includeElement->getName();
+
                 // Relation instance.
-                $relation = (new static::$model)->$relationship();
+                $relation = $model->$relationship();
 
                 // Collection or Model returned by the relationship.
-                $related = (new static::$model)->$relationship;
+                $related = $model->$relationship;
 
                 /** @var JsonApiResource $includeResource */
-                $includeResource = $includeBuilderClass::$resource;
+                $includeResource = $includeElement->getBuilderClass()::$resource;
 
                 return [
                     $relationship => fn () => optional(

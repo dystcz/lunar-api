@@ -2,6 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Builders\Concerns;
 
+use Dystcz\LunarApi\Domain\JsonApi\Builders\Elements\IncludeElement;
+use Dystcz\LunarApi\Domain\JsonApi\Builders\JsonApiBuilder;
+use Illuminate\Support\Str;
+
 trait HasUtils
 {
     /**
@@ -56,8 +60,10 @@ trait HasUtils
     {
         $filters = [];
 
-        foreach ($this->includes as $relationName => $builderClass) {
-            $filters[$relationName] = (new $builderClass())->$property();
+        /** @var IncludeElement $includeElement */
+        foreach ($this->includes() as $includeElement) {
+            $relationName = $includeElement->getName();
+            $filters[$relationName] = $includeElement->getBuilder()->{'get'.Str::ucfirst($property)}();
         }
 
         if ($format === 'dotted') {
@@ -91,5 +97,10 @@ trait HasUtils
         }
 
         return $result;
+    }
+
+    public function isBuilderClass($value): bool
+    {
+        return is_string($value) && class_exists($value) && is_subclass_of($value, JsonApiBuilder::class);
     }
 }
