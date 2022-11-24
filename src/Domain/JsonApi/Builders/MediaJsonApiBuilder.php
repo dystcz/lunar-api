@@ -24,11 +24,11 @@ class MediaJsonApiBuilder extends JsonApiBuilder
     ];
 
     public array $sorts = [
-        'order_column'
+        'order_column',
     ];
 
     public array $filters = [
-        'collection_name'
+        'collection_name',
     ];
 
     public array $includes = [];
@@ -37,10 +37,10 @@ class MediaJsonApiBuilder extends JsonApiBuilder
     {
         return [
             // TODO fill in example value
-            Schema::string('path')->example(''),
-            Schema::string('url')->example('some-url'),
-            Schema::string('name')->example(''),
-            Schema::string('type')->example(''),
+            Schema::string('path')->example('1/image.jpg'),
+            Schema::string('url')->example('https://example.com/storage/1/image.jpg'),
+            Schema::string('file_name')->example('example.jpg'),
+            Schema::string('mime_type')->example('image/jpeg'),
             Schema::number('size')->example(69),
             Schema::string('collection_name')->example('images'),
             Schema::number('order_column')->example(1),
