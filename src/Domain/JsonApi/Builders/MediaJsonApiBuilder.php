@@ -14,10 +14,9 @@ class MediaJsonApiBuilder extends JsonApiBuilder
 
     public array $fields = [
         'id',
-        'path',
         'url',
-        'name',
-        'type',
+        'file_name',
+        'mime_type',
         'size',
         'collection_name',
         'order_column',
