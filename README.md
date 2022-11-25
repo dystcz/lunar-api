@@ -20,6 +20,10 @@ composer require dystcz/lunar-api
 // Usage description here
 ```
 
+### TODO:
+
+- [ ] Create and register policies for each resource and each resource method ideally
+
 ### Testing
 
 ```bash
