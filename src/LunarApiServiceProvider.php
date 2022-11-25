@@ -2,14 +2,18 @@
 
 namespace Dystcz\LunarApi;
 
-use Illuminate\Http\Request;
+use Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
-use TiMacDonald\JsonApi\JsonApiResource;
+use Lunar\Models\Product;
 
 class LunarApiServiceProvider extends ServiceProvider
 {
+    protected $policies = [
+        Product::class => ProductPolicy::class,
+    ];
+
     /**
      * Bootstrap the application services.
      */
@@ -25,16 +29,17 @@ class LunarApiServiceProvider extends ServiceProvider
                 __DIR__ . '/../config/lunar-api.php' => config_path('lunar-api.php'),
             ], 'config');
 
+            // $this->publishes([
+            //     __DIR__ . '/../config/jsonapi.php' => config_path('jsonapi.php'),
+            // ], 'config');
+
             // Register commands.
             $this->commands([
                 \Dystcz\LunarApi\Console\GenerateOpenApiSpec::class,
             ]);
-        }
 
-        // Change how json api resource type is resolved
-        JsonApiResource::resolveTypeUsing(function (mixed $resource, Request $request): string {
-            return Str::kebab(Str::plural(class_basename($resource)));
-        });
+            $this->registerPolicies();
+        }
     }
 
     /**
@@ -44,10 +49,33 @@ class LunarApiServiceProvider extends ServiceProvider
     {
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__ . '/../config/lunar-api.php', 'lunar-api');
+        $this->mergeConfigFrom(__DIR__ . '/../config/jsonapi.php', 'jsonapi');
 
         // Register the main class to use with the facade
         $this->app->singleton('lunar-api', function () {
             return new LunarApi();
         });
+    }
+
+    /**
+     * Register the application's policies.
+     *
+     * @return void
+     */
+    public function registerPolicies()
+    {
+        foreach ($this->policies() as $model => $policy) {
+            Gate::policy($model, $policy);
+        }
+    }
+
+    /**
+     * Get the policies defined on the provider.
+     *
+     * @return array<class-string, class-string>
+     */
+    public function policies()
+    {
+        return $this->policies;
     }
 }
