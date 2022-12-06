@@ -16,6 +16,8 @@ return [
     'domains' => [
 
         'products' => [
+            'model' => Dystcz\LunarApi\Domain\Products\Models\Product::class,
+
             // Route groups which get registered
             // If you want to change the behaviour or add some data,
             // simply extend the package product groups and add your logic
@@ -27,10 +29,22 @@ return [
             'pagination' => 12,
         ],
 
+        'variants' => [
+            'model' => Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class,
+
+            'pagination' => 12,
+        ],
+
         'collections' => [
             'route_groups' => [
                 'collections' => Dystcz\LunarApi\Domain\Collections\Http\Routing\CollectionsRouteGroup::class,
             ],
+
+            'pagination' => 12,
+        ],
+
+        'prices' => [
+            'model' => Dystcz\LunarApi\Domain\Prices\Models\Price::class,
 
             'pagination' => 12,
         ],
