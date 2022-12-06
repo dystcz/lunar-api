@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
@@ -12,6 +11,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema;
+use Lunar\Models\ProductVariant;
 
 class ProductVariantSchema extends Schema
 {
@@ -62,6 +62,18 @@ class ProductVariantSchema extends Schema
     {
         return [
             //
+        ];
+    }
+
+    /**
+     * Get the include paths supported by this resource.
+     *
+     * @return string[]|iterable
+     */
+    public function includePaths(): iterable
+    {
+        return [
+            'images',
         ];
     }
 
