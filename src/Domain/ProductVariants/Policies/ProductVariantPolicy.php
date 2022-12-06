@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\ProductVariants\Policies;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Lunar\Models\Product;
+use Lunar\Models\ProductVariant;
 
 class ProductVariantPolicy
 {
@@ -22,7 +22,7 @@ class ProductVariantPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(Authenticatable $user, Product $post): Response|bool
+    public function view(Authenticatable $user, ProductVariant $post): Response|bool
     {
         return true;
     }
