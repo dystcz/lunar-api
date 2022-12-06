@@ -41,9 +41,8 @@ class ProductResource extends JsonApiResource
     public function relationships($request): iterable
     {
         return [
+            $this->relation('productVariants'),
             $this->relation('media'),
-            // $this->relation('comments'),
-            // $this->relation('tags'),
         ];
     }
 }

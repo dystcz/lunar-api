@@ -2,9 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Attributes\Collections\AttributeCollection;
 use LaravelJsonApi\Core\Resources\JsonApiResource;
-use Lunar\Models\Product;
+use Lunar\Models\ProductVariant;
 
 class ProductVariantResource extends JsonApiResource
 {
@@ -16,19 +15,11 @@ class ProductVariantResource extends JsonApiResource
      */
     public function attributes($request): iterable
     {
-        /** @var Product */
+        /** @var ProductVariant */
         $model = $this->resource;
 
         return [
             'slug' => $this->when($model->relationLoaded('defaultUrl'), fn () => $model->defaultUrl->slug),
-            $this->mergeWhen(
-                $model->relationLoaded('productType'),
-                fn () => AttributeCollection::make($model->mappedAttributes())
-                    ->mapToAttributeGroups($model)
-                    ->toArray()
-            ),
-            'variants_count' => $this->when($model->variants_count, fn () => $model->variants_count),
-            'images_count' => $this->when($model->images_count, fn () => $model->images_count),
         ];
     }
 
@@ -42,8 +33,6 @@ class ProductVariantResource extends JsonApiResource
     {
         return [
             $this->relation('media'),
-            // $this->relation('comments'),
-            // $this->relation('tags'),
         ];
     }
 }

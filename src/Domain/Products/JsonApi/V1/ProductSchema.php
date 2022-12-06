@@ -2,12 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Attributes\Collections\AttributeCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
-use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
@@ -82,13 +80,7 @@ class ProductSchema extends Schema
 
             HasMany::make('media'),
 
-            // ArrayHash::make('attribute_data')
-            //     ->extractUsing(
-            //         static fn ($model, $column, $value) => AttributeCollection::make($model->mappedAttributes())
-            //             ->mapToAttributeGroups($model)
-            //             ->toArray()
-            //     )
-            //     ->readOnly(),
+            HasMany::make('productVariants'),
         ];
     }
 

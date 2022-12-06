@@ -2,18 +2,16 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Attributes\Collections\AttributeCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
-use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema;
-use Lunar\Models\Product;
+use Lunar\Models\ProductVariant;
 
 class ProductVariantSchema extends Schema
 {
@@ -29,7 +27,7 @@ class ProductVariantSchema extends Schema
      *
      * @var string
      */
-    public static string $model = Product::class;
+    public static string $model = ProductVariant::class;
 
     /**
      * Build an index query for this resource.
@@ -64,9 +62,6 @@ class ProductVariantSchema extends Schema
     {
         return [
             'defaultUrl',
-            'productType',
-            'productType.mappedAttributes',
-            'productType.mappedAttributes.attributeGroup',
         ];
     }
 
@@ -81,14 +76,6 @@ class ProductVariantSchema extends Schema
             ID::make(),
 
             HasMany::make('media'),
-
-            // ArrayHash::make('attribute_data')
-            //     ->extractUsing(
-            //         static fn ($model, $column, $value) => AttributeCollection::make($model->mappedAttributes())
-            //             ->mapToAttributeGroups($model)
-            //             ->toArray()
-            //     )
-            //     ->readOnly(),
         ];
     }
 
@@ -122,6 +109,6 @@ class ProductVariantSchema extends Schema
      */
     public static function type(): string
     {
-        return 'products';
+        return 'productVariants';
     }
 }
