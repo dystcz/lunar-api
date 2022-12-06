@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Products\JsonApi\Schemas\ProductSchema;
+use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Core\Server\Server as BaseServer;
 use LaravelJsonApi\Core\Support\AppResolver;
