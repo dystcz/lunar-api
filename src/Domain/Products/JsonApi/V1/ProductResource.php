@@ -42,7 +42,7 @@ class ProductResource extends JsonApiResource
     {
         return [
             $this->relation('variants'),
-            $this->relation('media'),
+            $this->relation('images'),
         ];
     }
 }
