@@ -61,7 +61,7 @@ class ProductVariantSchema extends Schema
     public function with(): array
     {
         return [
-            'defaultUrl',
+            //
         ];
     }
 
