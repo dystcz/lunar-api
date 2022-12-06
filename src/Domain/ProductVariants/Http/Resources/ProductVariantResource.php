@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Products\Http\Resources;
+namespace Dystcz\LunarApi\Domain\ProductVariants\Http\Resources;
 
 use Dystcz\LunarApi\Domain\JsonApi\Builders\ProductVariantJsonApiBuilder;
 use Dystcz\LunarApi\Domain\JsonApi\Http\Resources\JsonApiResource;
