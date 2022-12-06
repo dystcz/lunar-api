@@ -24,6 +24,11 @@ composer require dystcz/lunar-api
 
 - [ ] Create and register policies for each resource and each resource method ideally
 
+
+### Useful resource
+
+- laravel-json-api stubs [https://github.com/laravel-json-api/laravel/tree/develop/stubs](https://github.com/laravel-json-api/laravel/tree/develop/stubs)
+
 ### Testing
 
 ```bash
