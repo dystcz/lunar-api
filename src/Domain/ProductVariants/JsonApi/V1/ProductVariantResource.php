@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use LaravelJsonApi\Core\Resources\JsonApiResource;
+use Lunar\Models\ProductVariant;
 
 class ProductVariantResource extends JsonApiResource
 {
