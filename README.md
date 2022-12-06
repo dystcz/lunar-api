@@ -24,6 +24,16 @@ composer require dystcz/lunar-api
 
 - [ ] Create and register policies for each resource and each resource method ideally
 
+#### Products
+
+- [ ] Index
+- [ ] Show
+
+#### Product variants
+
+- [ ] Index (via product)
+- [ ] Show
+
 
 ### Useful resource
 
