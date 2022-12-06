@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ba1240fccc1b1585f35901fb00b34a6",
+    "content-hash": "1f0533b401852d438aedea9b98626a2d",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -7835,90 +7835,6 @@
             "time": "2022-09-12T13:28:28+00:00"
         },
         {
-            "name": "timacdonald/json-api",
-            "version": "dev-feature/multiple-nested-relations",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lorinczdev/json-api.git",
-                "reference": "fdd4e2caa673453a1de6101c2156a62976e06587"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lorinczdev/json-api/zipball/fdd4e2caa673453a1de6101c2156a62976e06587",
-                "reference": "fdd4e2caa673453a1de6101c2156a62976e06587",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "^8.0 || ^9.0",
-                "php": "^7.4 || ^8.0"
-            },
-            "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "TiMacDonald\\JsonApi\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "bin": [
-                    "echo 'bin not installed'"
-                ],
-                "post-install-cmd": [
-                    "@composer bin all install --ansi"
-                ],
-                "post-update-cmd": [
-                    "@composer bin all update --ansi"
-                ],
-                "fix": [
-                    "clear",
-                    "@composer normalize",
-                    "./vendor/bin/php-cs-fixer fix"
-                ],
-                "lint": [
-                    "clear",
-                    "@composer normalize --dry-run",
-                    "./vendor/bin/php-cs-fixer fix --dry-run",
-                    "./vendor/bin/psalm --threads=8",
-                    "./vendor/bin/phpstan analyse"
-                ],
-                "test": [
-                    "clear",
-                    "./vendor/bin/phpunit",
-                    "./vendor/bin/infection --threads=8"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Tim MacDonald",
-                    "email": "hello@timacdonald.me",
-                    "homepage": "https://timacdonald.me"
-                }
-            ],
-            "description": "A Lightweight JSON:API Resource for Laravel",
-            "keywords": [
-                "Json API",
-                "json-api",
-                "jsonapi",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/timacdonald/json-api/issues",
-                "source": "https://github.com/timacdonald/json-api/releases/latest",
-                "docs": "https://github.com/timacdonald/json-api/blob/master/readme.md"
-            },
-            "time": "2022-10-03T19:33:05+00:00"
-        },
-        {
             "name": "vlucas/phpdotenv",
             "version": "v5.5.0",
             "source": {
@@ -11778,9 +11694,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "timacdonald/json-api": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
