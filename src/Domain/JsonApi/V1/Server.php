@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaSchema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Core\Server\Server as BaseServer;
@@ -41,6 +42,7 @@ class Server extends BaseServer
     {
         return [
             ProductSchema::class,
+            MediaSchema::class,
         ];
     }
 
