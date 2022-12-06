@@ -32,6 +32,10 @@ return [
         'variants' => [
             'model' => Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class,
 
+            'route_groups' => [
+                //
+            ],
+
             'pagination' => 12,
         ],
 
@@ -45,6 +49,10 @@ return [
 
         'prices' => [
             'model' => Dystcz\LunarApi\Domain\Prices\Models\Price::class,
+
+            'route_groups' => [
+                //
+            ],
 
             'pagination' => 12,
         ],
