@@ -80,7 +80,7 @@ class ProductSchema extends Schema
 
             HasMany::make('media'),
 
-            HasMany::make('productVariants'),
+            HasMany::make('variants'),
         ];
     }
 

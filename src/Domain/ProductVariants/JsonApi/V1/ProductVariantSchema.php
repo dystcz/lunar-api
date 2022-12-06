@@ -109,6 +109,6 @@ class ProductVariantSchema extends Schema
      */
     public static function type(): string
     {
-        return 'productVariants';
+        return 'variants';
     }
 }
