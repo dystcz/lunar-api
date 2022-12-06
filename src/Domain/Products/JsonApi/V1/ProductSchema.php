@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
@@ -13,6 +12,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema;
+use Lunar\Models\Product;
 
 class ProductSchema extends Schema
 {
@@ -22,13 +22,6 @@ class ProductSchema extends Schema
      * @var array|null
      */
     protected ?array $defaultPagination = ['number' => 1];
-
-    /**
-     * The maximum depth of include paths.
-     *
-     * @var int
-     */
-    protected int $maxDepth = 3;
 
     /**
      * The model the schema corresponds to.
@@ -77,6 +70,20 @@ class ProductSchema extends Schema
     }
 
     /**
+     * Get the include paths supported by this resource.
+     *
+     * @return string[]|iterable
+     */
+    public function includePaths(): iterable
+    {
+        return [
+            'images',
+            'variants',
+            'variants.images',
+        ];
+    }
+
+    /**
      * Get the resource fields.
      *
      * @return array
@@ -86,7 +93,7 @@ class ProductSchema extends Schema
         return [
             ID::make(),
 
-            HasMany::make('media'),
+            HasMany::make('images'),
 
             HasMany::make('variants'),
         ];
