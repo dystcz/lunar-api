@@ -26,7 +26,6 @@ class ProductResource extends JsonApiResource
         // dd($model->productType->mappedAttributes, $model->productType->productAttributes);
 
         return [
-            'slug' => $this->when($model->relationLoaded('defaultUrl'), fn () => $model->defaultUrl->slug),
             'stock' => $this->stock,
             $this->mergeWhen(
                 $model->relationLoaded('productType'),
@@ -34,8 +33,9 @@ class ProductResource extends JsonApiResource
                     ->mapToAttributeGroups($model)
                     ->toArray()
             ),
-            'variants_count' => $this->when($model->variants_count, fn () => $model->variants_count),
+            'urls_count' => $this->when($model->urls_count, fn () => $model->urls_count),
             'images_count' => $this->when($model->images_count, fn () => $model->images_count),
+            'variants_count' => $this->when($model->variants_count, fn () => $model->variants_count),
         ];
     }
 
@@ -48,8 +48,9 @@ class ProductResource extends JsonApiResource
     public function relationships($request): iterable
     {
         return [
-            $this->relation('variants'),
+            $this->relation('urls'),
             $this->relation('images'),
+            $this->relation('variants'),
         ];
     }
 }

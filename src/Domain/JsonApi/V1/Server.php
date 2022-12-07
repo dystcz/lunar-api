@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaSchema;
 use Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceSchema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
+use Dystcz\LunarApi\Domain\Urls\JsonApi\V1\UrlSchema;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Core\Server\Server as BaseServer;
 use LaravelJsonApi\Core\Support\AppResolver;
@@ -49,6 +50,7 @@ class Server extends BaseServer
             MediaSchema::class,
             ImageSchema::class,
             PriceSchema::class,
+            UrlSchema::class,
         ];
     }
 

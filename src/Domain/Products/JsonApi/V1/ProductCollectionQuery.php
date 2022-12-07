@@ -8,6 +8,13 @@ use LaravelJsonApi\Validation\Rule as JsonApiRule;
 class ProductCollectionQuery extends ResourceQuery
 {
     /**
+     * The default include paths to use if the client provides none.
+     *
+     * @var array|null
+     */
+    protected ?array $defaultIncludePaths = ['urls'];
+
+    /**
      * Get the validation rules that apply to the request query parameters.
      *
      * @return array
