@@ -19,7 +19,7 @@ class PriceResource extends JsonApiResource
         $model = $this->resource;
 
         return [
-            'price' => $model->price,
+            'price' => $model->price->formatted(),
         ];
     }
 
