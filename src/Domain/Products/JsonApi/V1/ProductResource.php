@@ -49,6 +49,7 @@ class ProductResource extends JsonApiResource
     {
         return [
             $this->relation('urls'),
+            $this->relation('defaultUrl'),
             $this->relation('images'),
             $this->relation('variants'),
         ];
