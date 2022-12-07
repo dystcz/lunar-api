@@ -21,6 +21,7 @@ class ProductResource extends JsonApiResource
 
         return [
             'slug' => $this->when($model->relationLoaded('defaultUrl'), fn () => $model->defaultUrl->slug),
+            'stock' => $this->stock,
             $this->mergeWhen(
                 $model->relationLoaded('productType'),
                 fn () => AttributeCollection::make($model->mappedAttributes())

@@ -20,8 +20,9 @@ class ProductVariantResource extends JsonApiResource
 
         return [
             'sku' => $model->sku,
-            'name' => $model->translateAttribute('name'),
-            'eta' => $model->translateAttribute('eta'),
+            'stock' => $model->stock,
+            'purchasable' => $model->purchasable,
+            //todo: add mappedAttributes
         ];
     }
 
