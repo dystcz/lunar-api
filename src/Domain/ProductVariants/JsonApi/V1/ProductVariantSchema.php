@@ -74,6 +74,7 @@ class ProductVariantSchema extends Schema
     {
         return [
             'images',
+            'prices',
         ];
     }
 
@@ -88,6 +89,7 @@ class ProductVariantSchema extends Schema
             ID::make(),
 
             HasMany::make('images'),
+            HasMany::make('prices'),
         ];
     }
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\Prices\JsonApi\V1;
 
 use LaravelJsonApi\Core\Resources\JsonApiResource;
-use Lunar\Models\ProductVariant;
+use Lunar\Models\Price;
 
-class ProductVariantResource extends JsonApiResource
+class PriceResource extends JsonApiResource
 {
     /**
      * Get the resource's attributes.
@@ -15,13 +15,11 @@ class ProductVariantResource extends JsonApiResource
      */
     public function attributes($request): iterable
     {
-        /** @var ProductVariant */
+        /** @var Price */
         $model = $this->resource;
 
         return [
-            'sku' => $model->sku,
-            'name' => $model->translateAttribute('name'),
-            'eta' => $model->translateAttribute('eta'),
+            'price' => $model->price,
         ];
     }
 
@@ -33,9 +31,6 @@ class ProductVariantResource extends JsonApiResource
      */
     public function relationships($request): iterable
     {
-        return [
-            $this->relation('images'),
-            $this->relation('prices'),
-        ];
+        return [];
     }
 }

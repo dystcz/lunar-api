@@ -1,20 +1,20 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\Prices\JsonApi\V1;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema;
-use Lunar\Models\Product;
+use Lunar\Models\Price;
 
-class ProductSchema extends Schema
+class PriceSchema extends Schema
 {
     /**
      * The default paging parameters to use if the client supplies none.
@@ -28,7 +28,7 @@ class ProductSchema extends Schema
      *
      * @var string
      */
-    public static string $model = Product::class;
+    public static string $model = Price::class;
 
     /**
      * Build an index query for this resource.
@@ -62,10 +62,7 @@ class ProductSchema extends Schema
     public function with(): array
     {
         return [
-            'defaultUrl',
-            'productType',
-            'productType.mappedAttributes',
-            'productType.mappedAttributes.attributeGroup',
+            //
         ];
     }
 
@@ -76,12 +73,7 @@ class ProductSchema extends Schema
      */
     public function includePaths(): iterable
     {
-        return [
-            'images',
-            'variants',
-            'variants.images',
-            'variants.prices',
-        ];
+        return [];
     }
 
     /**
@@ -93,10 +85,6 @@ class ProductSchema extends Schema
     {
         return [
             ID::make(),
-
-            HasMany::make('images'),
-
-            HasMany::make('variants'),
         ];
     }
 
@@ -120,7 +108,7 @@ class ProductSchema extends Schema
     public function pagination(): ?Paginator
     {
         return PagePagination::make()
-            ->withDefaultPerPage(Config::get('lunar-api.domains.products.pagination', 12));
+            ->withDefaultPerPage(12);
     }
 
     /**
@@ -130,6 +118,6 @@ class ProductSchema extends Schema
      */
     public static function type(): string
     {
-        return 'products';
+        return 'prices';
     }
 }
