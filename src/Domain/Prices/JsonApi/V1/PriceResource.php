@@ -20,6 +20,7 @@ class PriceResource extends JsonApiResource
 
         return [
             'price' => $model->price->formatted(),
+            'compare_price' => $model->compare_price->value > $model->price->value ? $model->compare_price->formatted() : null,
         ];
     }
 
