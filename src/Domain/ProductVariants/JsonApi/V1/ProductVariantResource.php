@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\Attributes\Collections\AttributeCollection;
 use LaravelJsonApi\Core\Resources\JsonApiResource;
 use Lunar\Models\ProductVariant;
 
@@ -18,10 +19,18 @@ class ProductVariantResource extends JsonApiResource
         /** @var ProductVariant */
         $model = $this->resource;
 
+        // dd($model->attribute_data);
+
         return [
             'sku' => $model->sku,
             'stock' => $model->stock,
             'purchasable' => $model->purchasable,
+            $this->mergeWhen(
+                $model->relationLoaded('product'),
+                fn () => AttributeCollection::make($model->product->productType->variantAttributes)
+                    ->mapToAttributeGroups($model)
+                    ->toArray()
+            ),
             //todo: add mappedAttributes
         ];
     }
