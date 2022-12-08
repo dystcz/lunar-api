@@ -103,7 +103,7 @@ class ProductSchema extends Schema
 
             BelongsTo::make('brand'),
             HasOne::make('default-urls', 'defaultUrl'),
-            HasMany::make('urls')->canCount(),
+            HasMany::make('urls'),
             HasMany::make('images')->canCount(),
             HasMany::make('variants')->canCount(),
         ];
