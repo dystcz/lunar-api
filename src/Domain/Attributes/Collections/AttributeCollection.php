@@ -22,9 +22,21 @@ class AttributeCollection extends EloquentCollection
                 fn ($attribute) => $attribute->attributeGroup->handle
             )
             ->map(
-                fn ($group) => $group->mapWithKeys(
-                    fn ($attribute) => [$attribute->translate('name') => $model->attr($attribute->handle)]
-                )
+                function ($attributes, $group) use ($model) {
+                    if (in_array($group, ['product_properties'])) {
+                        return $attributes->map(
+                            fn ($attribute) => [
+                                'key' => $attribute->handle,
+                                'name' => $attribute->translate('name'),
+                                'value' => $model->attr($attribute->handle),
+                            ]
+                        );
+                    }
+
+                    return $attributes->mapWithKeys(
+                        fn ($attribute) => [$attribute->handle => $model->attr($attribute->handle)]
+                    );
+                }
             );
     }
 }
