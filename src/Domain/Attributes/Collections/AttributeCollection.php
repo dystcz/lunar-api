@@ -17,7 +17,7 @@ class AttributeCollection extends EloquentCollection
     public function mapToAttributeGroups(Model $model): Collection
     {
         return $this
-            ->filter(fn ($attribute) => $model->attr($attribute->handle))
+            // ->filter(fn ($attribute) => $model->attr($attribute->handle))
             ->groupBy(
                 fn ($attribute) => $attribute->attributeGroup->handle
             )
