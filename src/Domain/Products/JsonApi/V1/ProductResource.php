@@ -33,9 +33,9 @@ class ProductResource extends JsonApiResource
                     ->mapToAttributeGroups($model)
                     ->toArray()
             ),
-            'urls_count' => $this->when($model->urls_count, fn () => $model->urls_count),
-            'images_count' => $this->when($model->images_count, fn () => $model->images_count),
-            'variants_count' => $this->when($model->variants_count, fn () => $model->variants_count),
+            // 'urls_count' => $this->when($model->urls_count, fn () => $model->urls_count),
+            // 'images_count' => $this->when($model->images_count, fn () => $model->images_count),
+            // 'variants_count' => $this->when($model->variants_count, fn () => $model->variants_count),
         ];
     }
 
@@ -47,12 +47,23 @@ class ProductResource extends JsonApiResource
      */
     public function relationships($request): iterable
     {
+        /** @var Product */
+        $model = $this->resource;
+
         return [
             $this->relation('brand'),
             $this->relation('urls'),
             $this->relation('defaultUrl'),
-            $this->relation('images'),
-            $this->relation('variants'),
+            $this
+                ->relation('images')
+                ->withMeta(array_filter([
+                    'count' => $model->images_count,
+                ], fn ($value) => null !== $value)),
+            $this
+                ->relation('variants')
+                ->withMeta(array_filter([
+                    'count' => $model->variants_count,
+                ], fn ($value) => null !== $value)),
         ];
     }
 }
