@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\Collections\Http\Routing;
 use Dystcz\LunarApi\Domain\Collections\Http\Controllers\CollectionsController;
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Dystcz\LunarApi\Routing\RouteGroup;
-use Illuminate\Support\Facades\Route;
+use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 
 class CollectionsRouteGroup extends RouteGroup implements RouteGroupContract
 {
@@ -25,12 +25,11 @@ class CollectionsRouteGroup extends RouteGroup implements RouteGroupContract
     public function routes(?string $prefix = null, array|string $middleware = []): void
     {
         $this->router->group([
-            'prefix' => $this->getPrefix($prefix),
+            // 'prefix' => $this->getPrefix($prefix),
             'middleware' => $this->getMiddleware($middleware),
         ], function () {
-            Route::get('/', [CollectionsController::class, 'index']);
-            Route::group(['prefix' => '{slug}'], function () {
-                Route::get('/', [CollectionsController::class, 'show']);
+            JsonApiRoute::server('v1')->prefix('v1')->resources(function ($server) {
+                $server->resource('collections', CollectionsController::class)->only('index', 'show')->readOnly();
             });
         });
     }
