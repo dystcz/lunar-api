@@ -19,8 +19,6 @@ class ProductVariantResource extends JsonApiResource
         /** @var ProductVariant */
         $model = $this->resource;
 
-        // dd($model->attribute_data);
-
         return [
             'sku' => $model->sku,
             'stock' => $model->stock,
@@ -31,7 +29,6 @@ class ProductVariantResource extends JsonApiResource
                     ->mapToAttributeGroups($model)
                     ->toArray()
             ),
-            //todo: add mappedAttributes
         ];
     }
 
