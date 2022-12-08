@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
@@ -79,6 +80,8 @@ class ProductSchema extends Schema
     public function includePaths(): iterable
     {
         return [
+            'brand',
+            'brand.thumbnail',
             'urls',
             'default-urls',
             'images',
@@ -98,6 +101,7 @@ class ProductSchema extends Schema
         return [
             ID::make(),
 
+            BelongsTo::make('brand'),
             HasMany::make('urls'),
             HasOne::make('default-urls', 'defaultUrl'),
             HasMany::make('images'),
