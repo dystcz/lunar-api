@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Brands\JsonApi;
+namespace Dystcz\LunarApi\Domain\Brands\JsonApi\V1;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
