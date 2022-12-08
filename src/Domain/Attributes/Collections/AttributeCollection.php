@@ -17,12 +17,13 @@ class AttributeCollection extends EloquentCollection
     public function mapToAttributeGroups(Model $model): Collection
     {
         return $this
+            ->filter(fn ($attribute) => $model->attr($attribute->handle))
             ->groupBy(
                 fn ($attribute) => $attribute->attributeGroup->handle
             )
             ->map(
                 fn ($group) => $group->mapWithKeys(
-                    fn ($attribute) => [$attribute->handle => $model->attr($attribute->handle)]
+                    fn ($attribute) => [$attribute->translate('name') => $model->attr($attribute->handle)]
                 )
             );
     }
