@@ -2,8 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\Brands\JsonApi\BrandSchema;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ImageSchema;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaSchema;
+use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ThumbnailSchema;
 use Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceSchema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
@@ -46,13 +48,15 @@ class Server extends BaseServer
     protected function allSchemas(): array
     {
         return [
+            BrandSchema::class,
+            DefaultUrlSchema::class,
+            ImageSchema::class,
+            MediaSchema::class,
+            PriceSchema::class,
             ProductSchema::class,
             ProductVariantSchema::class,
-            MediaSchema::class,
-            ImageSchema::class,
-            PriceSchema::class,
+            ThumbnailSchema::class,
             UrlSchema::class,
-            DefaultUrlSchema::class,
         ];
     }
 
