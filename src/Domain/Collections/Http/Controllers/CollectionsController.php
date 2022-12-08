@@ -2,73 +2,67 @@
 
 namespace Dystcz\LunarApi\Domain\Collections\Http\Controllers;
 
-use Dystcz\LunarApi\Domain\Collections\Http\Resources\CollectionResource;
+use Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionCollectionQuery;
+use Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionQuery;
+use Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionSchema;
 use Dystcz\LunarApi\Domain\Collections\OpenApi\Parameters\IndexCollectionParameters;
 use Dystcz\LunarApi\Domain\Collections\OpenApi\Parameters\ShowCollectionParameters;
 use Dystcz\LunarApi\Domain\Collections\OpenApi\Responses\IndexCollectionResponse;
 use Dystcz\LunarApi\Domain\Collections\OpenApi\Responses\ShowCollectionResponse;
-use Dystcz\LunarApi\Domain\JsonApi\Builders\CollectionJsonApiBuilder;
 use Dystcz\LunarApi\Domain\OpenApi\Responses\ErrorNotFoundResponse;
+use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\App;
-use Spatie\QueryBuilder\QueryBuilder;
-use TiMacDonald\JsonApi\JsonApiResource;
-use TiMacDonald\JsonApi\JsonApiResourceCollection;
+use LaravelJsonApi\Core\Responses\DataResponse;
+use Lunar\Models\Collection;
 use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 
 #[OpenApi\PathItem]
 class CollectionsController extends Controller
 {
-    protected QueryBuilder $query;
-
-    public function __construct(CollectionJsonApiBuilder $builder)
-    {
-        $this->query = $builder->query();
-    }
-
     /**
-     * List collections.
+     * Fetch zero to many JSON API resources.
      *
-     * Lists all collections.
-     *
-     * @return JsonApiResourceCollection
+     * @param CollectionSchema $schema
+     * @param CollectionCollectionQuery $request
+     * @return Responsable|Response
      */
     #[OpenApi\Operation(tags: ['collections'])]
     #[OpenApi\Parameters(factory: IndexCollectionParameters::class)]
     #[OpenApi\Response(factory: IndexCollectionResponse::class, statusCode: 200)]
-    public function index(): JsonApiResourceCollection
+    public function index(CollectionSchema $schema, CollectionCollectionQuery $request): Responsable|Response
     {
-        $collections = $this->query->get();
+        $models = $schema
+            ->repository()
+            ->queryAll()
+            ->withRequest($request)
+            ->firstOrPaginate($request->page());
 
-        return CollectionResource::collection($collections);
+        return new DataResponse($models);
     }
 
     /**
-     * Show collection.
+     * Fetch zero to one JSON API resource by id.
      *
-     * Show collection by slug.
-     *
-     * @param  string  $slug
-     * @return JsonApiResource
+     * @param CollectionSchema $schema
+     * @param CollectionQuery $request
+     * @param Collection $product
+     * @return Responsable|Response
      */
     #[OpenApi\Operation(tags: ['collections'])]
     #[OpenApi\Parameters(factory: ShowCollectionParameters::class)]
     #[OpenApi\Response(factory: ShowCollectionResponse::class, statusCode: 200)]
     #[OpenApi\Response(factory: ErrorNotFoundResponse::class, statusCode: 404)]
-    public function show(string $slug): JsonApiResource
+    public function show(CollectionSchema $schema, CollectionQuery $request, Collection $collection): Responsable|Response
     {
-        $collection = $this->query
-            ->whereHas(
-                'defaultUrl',
-                fn ($query) => $query
-                    ->where('slug', $slug)
-                    ->whereHas(
-                        'language',
-                        fn ($query) => $query->where('code', App::getLocale())
-                    )
-            )
-            ->firstOrFail();
+        $model = $schema
+            ->repository()
+            ->queryOne($collection)
+            ->withRequest($request)
+            ->first();
 
-        return new CollectionResource($collection);
+        // do something custom...
+
+        return new DataResponse($model);
     }
 }
