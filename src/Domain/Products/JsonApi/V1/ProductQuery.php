@@ -39,7 +39,7 @@ class ProductQuery extends ResourceQuery
             ],
             'page' => JsonApiRule::notSupported(),
             'sort' => JsonApiRule::notSupported(),
-            '{{ withCount }}' => [
+            'withCount' => [
                 'nullable',
                 'string',
                 JsonApiRule::countable(),

@@ -47,7 +47,7 @@ class ProductCollectionQuery extends ResourceQuery
                 'string',
                 JsonApiRule::sort(),
             ],
-            '{{ withCount }}' => [
+            'withCount' => [
                 'nullable',
                 'string',
                 JsonApiRule::countable(),
