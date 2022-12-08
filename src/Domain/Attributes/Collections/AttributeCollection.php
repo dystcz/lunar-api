@@ -22,12 +22,8 @@ class AttributeCollection extends EloquentCollection
                 fn ($attribute) => $attribute->attributeGroup->handle
             )
             ->map(
-                fn ($group) => $group->map(
-                    fn ($attribute) => [
-                        'key' => $attribute->handle,
-                        'name' => $attribute->translate('name'),
-                        'value' => $model->attr($attribute->handle),
-                    ]
+                fn ($group) => $group->mapWithKeys(
+                    fn ($attribute) => [$attribute->translate('name') => $model->attr($attribute->handle)]
                 )
             );
     }
