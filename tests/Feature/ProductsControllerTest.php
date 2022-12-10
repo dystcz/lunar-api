@@ -30,11 +30,68 @@ it('can list all products', function () {
 it('can read product detail', function () {
     $product = ProductFactory::new()->create();
 
-    $response = $this->get(Config::get('lunar-api.route_prefix').'/products/'.$product->defaultUrl->slug);
+    $self = 'http://localhost/api/v1/products/' . $product->getRouteKey();
 
-    $response->assertStatus(200);
+    $expected = [
+        'type' => 'products',
+        'id' => (string) $product->getRouteKey(),
+        // 'attributes' => [
+        //     'content' => $post->content,
+        //     'createdAt' => $post->created_at,
+        //     'slug' => $post->slug,
+        //     'title' => $post->title,
+        //     'updatedAt' => $post->updated_at,
+        // ],
+        'relationships' => [
+            'brand' => [
+                'links' => [
+                    'related' => "{$self}/brand",
+                    'self' => "{$self}/relationships/brand"
+                ],
+            ],
+            'defaultUrl' => [
+                'links' => [
+                    'related' => "{$self}/default-url",
+                    'self' => "{$self}/relationships/default-url"
+                ],
+            ],
+            'images' => [
+                'links' => [
+                    'related' => "{$self}/images",
+                    'self' => "{$self}/relationships/images"
+                ],
+            ],
+            'urls' => [
+                'links' => [
+                    'related' => "{$self}/urls",
+                    'self' => "{$self}/relationships/urls"
+                ],
+            ],
+            'variants' => [
+                'links' => [
+                    'related' => "{$self}/variants",
+                    'self' => "{$self}/relationships/variants"
+                ],
+            ],
+        ],
+        'links' => [
+            'self' => $self,
+        ],
+    ];
 
-    expect($response->json('data.id'))->toBe((string) $product->id);
+    // $response = $this->get(Config::get('lunar-api.route_prefix').'/products/'.$product->defaultUrl->slug);
+
+    // $response->assertStatus(200);
+
+    // expect($response->json('data.id'))->toBe((string) $product->id);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->get($self);
+
+    $response->assertFetchedOne($product);
+    // $response->assertFetchedOneExact($expected);
 });
 
 it('can list product\'s images', function () {

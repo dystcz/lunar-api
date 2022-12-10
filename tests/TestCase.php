@@ -5,6 +5,9 @@ namespace Dystcz\LunarApi\Tests;
 use Cartalyst\Converter\Laravel\ConverterServiceProvider;
 use Dystcz\LunarApi\LunarApiServiceProvider;
 use Kalnoy\Nestedset\NestedSetServiceProvider;
+use LaravelJsonApi\Encoder\Neomerx\ServiceProvider;
+use LaravelJsonApi\Laravel\ServiceProvider as LaravelJsonApiServiceProvider;
+use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use Lunar\Database\Factories\LanguageFactory;
 use Lunar\LunarServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -14,6 +17,8 @@ use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
+    use MakesJsonApiRequests;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -34,6 +39,8 @@ abstract class TestCase extends Orchestra
     {
         return [
             LunarApiServiceProvider::class,
+            ServiceProvider::class,
+            LaravelJsonApiServiceProvider::class,
 
             LunarServiceProvider::class,
             MediaLibraryServiceProvider::class,
