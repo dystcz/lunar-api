@@ -150,7 +150,9 @@ class ProductSchema extends Schema
     public function pagination(): ?Paginator
     {
         return PagePagination::make()
-            ->withDefaultPerPage(Config::get('lunar-api.domains.products.pagination', 12));
+            ->withDefaultPerPage(
+                Config::get('lunar-api.domains.products.pagination', 12)
+            );
     }
 
     /**
