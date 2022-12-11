@@ -7,7 +7,7 @@ use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 
-class ProductsRouteGroup extends RouteGroup implements RouteGroupContract
+class ProductRouteGroup extends RouteGroup implements RouteGroupContract
 {
     /** @var string */
     public string $prefix = 'products';
@@ -24,13 +24,15 @@ class ProductsRouteGroup extends RouteGroup implements RouteGroupContract
      */
     public function routes(?string $prefix = null, array|string $middleware = []): void
     {
-        $this->router->group([
-            // 'prefix' => $this->getPrefix($prefix),
-            'middleware' => $this->getMiddleware($middleware),
-        ], function () {
-            JsonApiRoute::server('v1')->prefix('v1')->resources(function ($server) {
-                $server->resource('products', ProductsController::class)->only('index', 'show')->readOnly();
+        JsonApiRoute::server('v1')
+            ->prefix('v1')
+            ->resources(function ($server) {
+                $server->resource($this->getPrefix(), ProductsController::class)
+                    ->relationships(function ($relationships) {
+                        $relationships->hasOne('default-urls')->readOnly();
+                    })
+                    ->only('index', 'show')
+                    ->readOnly();
             });
-        });
     }
 }
