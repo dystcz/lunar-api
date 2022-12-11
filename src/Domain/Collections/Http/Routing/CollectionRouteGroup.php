@@ -7,7 +7,7 @@ use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 
-class CollectionsRouteGroup extends RouteGroup implements RouteGroupContract
+class CollectionRouteGroup extends RouteGroup implements RouteGroupContract
 {
     /** @var string */
     public string $prefix = 'collections';
