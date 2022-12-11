@@ -22,7 +22,7 @@ return [
             // If you want to change the behaviour or add some data,
             // simply extend the package product groups and add your logic
             'route_groups' => [
-                'products' => Dystcz\LunarApi\Domain\Products\Http\Routing\ProductsRouteGroup::class,
+                'products' => Dystcz\LunarApi\Domain\Products\Http\Routing\ProductRouteGroup::class,
             ],
 
             // Default pagination
@@ -41,7 +41,7 @@ return [
 
         'collections' => [
             'route_groups' => [
-                'collections' => Dystcz\LunarApi\Domain\Collections\Http\Routing\CollectionsRouteGroup::class,
+                'collections' => Dystcz\LunarApi\Domain\Collections\Http\Routing\CollectionRouteGroup::class,
             ],
 
             'pagination' => 12,
@@ -52,6 +52,14 @@ return [
 
             'route_groups' => [
                 //
+            ],
+
+            'pagination' => 12,
+        ],
+
+        'urls' => [
+            'route_groups' => [
+                'collections' => Dystcz\LunarApi\Domain\Urls\Http\Routing\UrlRouteGroup::class,
             ],
 
             'pagination' => 12,
