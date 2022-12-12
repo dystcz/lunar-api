@@ -8,16 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
-use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
-use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema;
-use Lunar\Models\Product;
 use Lunar\Models\ProductAssociation;
 
 class ProductAssociationSchema extends Schema
@@ -67,8 +63,7 @@ class ProductAssociationSchema extends Schema
      */
     public function with(): array
     {
-        return [
-        ];
+        return [];
     }
 
     /**
@@ -78,9 +73,7 @@ class ProductAssociationSchema extends Schema
      */
     public function includePaths(): iterable
     {
-        return [
-
-        ];
+        return [];
     }
 
     /**
@@ -92,6 +85,7 @@ class ProductAssociationSchema extends Schema
     {
         return [
             ID::make(),
+
             Str::make('type'),
 
             HasOne::make('target')->type('products'),
@@ -140,7 +134,7 @@ class ProductAssociationSchema extends Schema
     {
         return PagePagination::make()
             ->withDefaultPerPage(
-                Config::get('lunar-api.domains.products.pagination', 12)
+                Config::get('lunar-api.domains.associations.pagination', 12)
             );
     }
 
