@@ -66,6 +66,10 @@ return [
         ],
     ],
 
+    'taxation' => [
+        'prices_with_default_tax' => true,
+    ],
+
     // OpenAPI config
     'openapi' => [
         'yaml_generate' => true, // Generate YAML file for OpenAPI spec?
