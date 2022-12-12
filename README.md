@@ -14,30 +14,40 @@ You can install the package via composer:
 composer require dystcz/lunar-api
 ```
 
+Publish config and migrations, run migrations
+
+```bash
+php artisan vendor:publish --provider="Dystcz\LunarApi\LunarApiServiceProvider" --tag="config"
+```
+
 ## Usage
 
 ```php
 // Usage description here
 ```
 
-### TODO:
+### Todo list
 
+- [x] Products
+    - [ ] Filters
+    - [ ] Associations
+- [x] Product variants
+- [ ] Collections
+- [x] Brands
+- [x] Prices
+    - [x] Prices with tax
+- [x] Media
+    - [ ] Thumbnails
+- [ ] Cart
+- [ ] Orders
+- [ ] Shippings
+- [ ] Payments
+- [ ] Create documentation
 - [ ] Create and register policies for each resource and each resource method ideally
-
-#### Products
-
-- [ ] Index
-- [ ] Show
-
-#### Product variants
-
-- [ ] Index (via product)
-- [ ] Show
-
 
 ### Useful resource
 
-- laravel-json-api stubs [https://github.com/laravel-json-api/laravel/tree/develop/stubs](https://github.com/laravel-json-api/laravel/tree/develop/stubs)
+- `laravel-json-api` stubs [https://github.com/laravel-json-api/laravel/tree/develop/stubs](https://github.com/laravel-json-api/laravel/tree/develop/stubs)
 
 ### Testing
 
