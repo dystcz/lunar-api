@@ -65,7 +65,6 @@ class ProductSchema extends Schema
     public function with(): array
     {
         return [
-            'defaultUrl',
             'productType',
             'productType.mappedAttributes',
             'productType.mappedAttributes.attributeGroup',
@@ -80,13 +79,14 @@ class ProductSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'brand',
-            'brand.thumbnail',
-            'urls',
-            'default-urls',
-            'images',
             'associations',
             'associations.target',
+            'brand',
+            'brand.thumbnail',
+            'default-urls',
+            'images',
+            'thumbnail',
+            'urls',
             'variants',
             'variants.images',
             'variants.prices',
@@ -107,6 +107,7 @@ class ProductSchema extends Schema
             HasOne::make('default-urls', 'defaultUrl'),
             HasMany::make('urls'),
             HasMany::make('images')->canCount(),
+            HasOne::make('thumbnail'),
             HasMany::make('variants')->canCount(),
             HasMany::make('associations')->canCount(),
         ];
