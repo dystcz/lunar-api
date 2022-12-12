@@ -70,8 +70,6 @@ it('can list product\'s images', function () {
         ->includePaths('images')
         ->get($self);
 
-    ray($response);
-
     $response->assertFetchedOne($product);
 });
 

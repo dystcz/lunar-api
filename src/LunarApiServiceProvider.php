@@ -6,7 +6,11 @@ use Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Lunar\Facades\ModelManifest;
+use Lunar\Models\Brand;
+use Lunar\Models\Price;
 use Lunar\Models\Product;
+use Lunar\Models\ProductVariant;
 
 class LunarApiServiceProvider extends ServiceProvider
 {
@@ -23,6 +27,13 @@ class LunarApiServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
 
         Config::set('openapi', require __DIR__ . '/../config/openapi.php');
+
+        ModelManifest::register(collect([
+            Product::class => Domain\Products\Models\Product::class,
+            ProductVariant::class => Domain\ProductVariants\Models\ProductVariant::class,
+            Price::class => Domain\Prices\Models\Price::class,
+            Brand::class => Domain\Brands\Models\Brand::class,
+        ]));
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
