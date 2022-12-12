@@ -111,7 +111,7 @@ class DefaultUrlSchema extends Schema
     {
         return PagePagination::make()
             ->withDefaultPerPage(
-                Config::get('lunar-api.domains.products.pagination', 12)
+                Config::get('lunar-api.domains.urls.pagination', 12)
             );
     }
 
