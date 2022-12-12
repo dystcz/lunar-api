@@ -12,86 +12,49 @@ use Lunar\Database\Factories\ProductVariantFactory;
 uses(\Dystcz\LunarApi\Tests\TestCase::class, RefreshDatabase::class);
 
 it('can list all products', function () {
-    ProductFactory::new()
+    $products = ProductFactory::new()
         ->has(
-            ProductVariantFactory::new()->has(PriceFactory::new())->count(1),
+            ProductVariantFactory::new()->has(PriceFactory::new())->count(2),
             'variants'
         )
         ->count(3)
         ->create();
 
-    $response = $this->get(Config::get('lunar-api.route_prefix').'/products');
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->includePaths('variants.prices')
+        ->get('/api/v1/products');
 
-    $response->assertStatus(200);
+    ray($response->json());
 
-    expect($response->json('data'))->toHaveCount(3);
+    $response->assertFetchedMany($products);
 });
 
 it('can read product detail', function () {
     $product = ProductFactory::new()->create();
 
-    $self = 'http://localhost/api/v1/products/' . $product->getRouteKey();
-
-    $expected = [
-        'type' => 'products',
-        'id' => (string) $product->getRouteKey(),
-        // 'attributes' => [
-        //     'content' => $post->content,
-        //     'createdAt' => $post->created_at,
-        //     'slug' => $post->slug,
-        //     'title' => $post->title,
-        //     'updatedAt' => $post->updated_at,
-        // ],
-        'relationships' => [
-            'brand' => [
-                'links' => [
-                    'related' => "{$self}/brand",
-                    'self' => "{$self}/relationships/brand"
-                ],
-            ],
-            'defaultUrl' => [
-                'links' => [
-                    'related' => "{$self}/default-url",
-                    'self' => "{$self}/relationships/default-url"
-                ],
-            ],
-            'images' => [
-                'links' => [
-                    'related' => "{$self}/images",
-                    'self' => "{$self}/relationships/images"
-                ],
-            ],
-            'urls' => [
-                'links' => [
-                    'related' => "{$self}/urls",
-                    'self' => "{$self}/relationships/urls"
-                ],
-            ],
-            'variants' => [
-                'links' => [
-                    'related' => "{$self}/variants",
-                    'self' => "{$self}/relationships/variants"
-                ],
-            ],
-        ],
-        'links' => [
-            'self' => $self,
-        ],
-    ];
-
-    // $response = $this->get(Config::get('lunar-api.route_prefix').'/products/'.$product->defaultUrl->slug);
-
-    // $response->assertStatus(200);
-
-    // expect($response->json('data.id'))->toBe((string) $product->id);
+    $self = 'http://localhost/api/v1/products/'.$product->getRouteKey();
 
     $response = $this
         ->jsonApi()
         ->expects('products')
         ->get($self);
 
+    ray($response->json());
+
     $response->assertFetchedOne($product);
-    // $response->assertFetchedOneExact($expected);
+});
+
+it('return error response when product doesnt exists', function () {
+    $self = 'http://localhost/api/v1/products/1';
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->get($self);
+
+    ray($response->json());
 });
 
 it('can list product\'s images', function () {
@@ -99,11 +62,17 @@ it('can list product\'s images', function () {
         ->has(MediaFactory::new(), 'images')
         ->create();
 
-    $response = $this->get(Config::get('lunar-api.route_prefix').'/products/'.$product->defaultUrl->slug.'?include=images');
+    $self = 'http://localhost/api/v1/products/'.$product->getRouteKey();
 
-    $response->assertStatus(200);
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->includePaths('images')
+        ->get($self);
 
-    expect($response->json())->toHaveKey('data.relationships.images');
+    ray($response);
+
+    $response->assertFetchedOne($product);
 });
 
 it('can read product\'s variants count', function () {
