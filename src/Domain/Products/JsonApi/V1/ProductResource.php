@@ -52,6 +52,7 @@ class ProductResource extends JsonApiResource
             $this->relation('urls'),
             $this->relation('default_url'),
             $this->relation('associations'),
+            $this->relation('thumbnail'),
             $this
                 ->relation('images')
                 ->withMeta(array_filter([

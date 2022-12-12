@@ -80,7 +80,8 @@ class ProductSchema extends Schema
     {
         return [
             'associations',
-            'associations.target',
+            'associations.target.variants.prices',
+            'associations.target.thumbnail',
             'brand',
             'brand.thumbnail',
             'default_url',
@@ -105,9 +106,9 @@ class ProductSchema extends Schema
 
             BelongsTo::make('brand'),
             HasOne::make('default_url', 'defaultUrl'),
+            HasOne::make('thumbnail'),
             HasMany::make('urls'),
             HasMany::make('images')->canCount(),
-            HasOne::make('thumbnail'),
             HasMany::make('variants')->canCount(),
             HasMany::make('associations')->canCount(),
         ];

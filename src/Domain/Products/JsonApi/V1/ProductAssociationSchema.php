@@ -73,7 +73,12 @@ class ProductAssociationSchema extends Schema
      */
     public function includePaths(): iterable
     {
-        return [];
+        return [
+            'target',
+            'target.thumbnail',
+            'target.variants',
+            'target.variants.prices',
+        ];
     }
 
     /**
