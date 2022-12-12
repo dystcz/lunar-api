@@ -48,18 +48,20 @@ class ProductResource extends JsonApiResource
         $model = $this->resource;
 
         return [
-            $this->relation('brand'),
-            $this->relation('urls'),
+            $this->relation('brand')->withoutLinks(),
+            $this->relation('urls')->withoutLinks(),
             $this->relation('default_url'),
             $this->relation('associations'),
-            $this->relation('thumbnail'),
+            $this->relation('thumbnail')->withoutLinks(),
             $this
                 ->relation('images')
+                ->withoutLinks()
                 ->withMeta(array_filter([
                     'count' => $model->images_count,
                 ], fn ($value) => null !== $value)),
             $this
                 ->relation('variants')
+                ->withoutLinks()
                 ->withMeta(array_filter([
                     'count' => $model->variants_count,
                 ], fn ($value) => null !== $value)),
