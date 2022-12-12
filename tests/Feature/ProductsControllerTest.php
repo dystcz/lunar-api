@@ -41,8 +41,6 @@ it('can read product detail', function () {
         ->expects('products')
         ->get($self);
 
-    ray($response->json());
-
     $response->assertFetchedOne($product);
 });
 

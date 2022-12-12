@@ -8,6 +8,15 @@ class MediaFactory extends \Illuminate\Database\Eloquent\Factories\Factory
 {
     protected $model = Media::class;
 
+    public function thumbnail(): self
+    {
+        return $this->state([
+           'custom_properties' => [
+               'primary' => true,
+           ],
+        ]);
+    }
+    
     public function definition(): array
     {
         return [
