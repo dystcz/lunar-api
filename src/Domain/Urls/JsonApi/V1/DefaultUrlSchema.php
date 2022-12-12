@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi\Domain\Urls\JsonApi\V1;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Filters\Where;
@@ -109,7 +110,9 @@ class DefaultUrlSchema extends Schema
     public function pagination(): ?Paginator
     {
         return PagePagination::make()
-            ->withDefaultPerPage(12);
+            ->withDefaultPerPage(
+                Config::get('lunar-api.domains.products.pagination', 12)
+            );
     }
 
     /**

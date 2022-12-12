@@ -11,13 +11,16 @@ use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
+use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema;
 use Lunar\Models\Product;
+use Lunar\Models\ProductAssociation;
 
-class ProductSchema extends Schema
+class ProductAssociationSchema extends Schema
 {
     /**
      * The default paging parameters to use if the client supplies none.
@@ -31,7 +34,7 @@ class ProductSchema extends Schema
      *
      * @var string
      */
-    public static string $model = Product::class;
+    public static string $model = ProductAssociation::class;
 
     /**
      * Build an index query for this resource.
@@ -65,10 +68,6 @@ class ProductSchema extends Schema
     public function with(): array
     {
         return [
-            'defaultUrl',
-            'productType',
-            'productType.mappedAttributes',
-            'productType.mappedAttributes.attributeGroup',
         ];
     }
 
@@ -80,16 +79,7 @@ class ProductSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'brand',
-            'brand.thumbnail',
-            'urls',
-            'default-urls',
-            'images',
-            'associations',
-            'associations.target',
-            'variants',
-            'variants.images',
-            'variants.prices',
+
         ];
     }
 
@@ -102,13 +92,9 @@ class ProductSchema extends Schema
     {
         return [
             ID::make(),
+            Str::make('type'),
 
-            BelongsTo::make('brand'),
-            HasOne::make('default-urls', 'defaultUrl'),
-            HasMany::make('urls'),
-            HasMany::make('images')->canCount(),
-            HasMany::make('variants')->canCount(),
-            HasMany::make('associations')->canCount(),
+            HasOne::make('target')->type('products'),
         ];
     }
 
@@ -122,7 +108,7 @@ class ProductSchema extends Schema
         return [
             WhereIdIn::make($this),
 
-            WhereHas::make($this, 'default-urls', 'url')->singular(),
+            Where::make('type'),
         ];
     }
 
@@ -165,6 +151,6 @@ class ProductSchema extends Schema
      */
     public static function type(): string
     {
-        return 'products';
+        return 'associations';
     }
 }

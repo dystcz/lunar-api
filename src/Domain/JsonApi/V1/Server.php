@@ -8,6 +8,7 @@ use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ImageSchema;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaSchema;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ThumbnailSchema;
 use Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceSchema;
+use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductAssociationSchema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystcz\LunarApi\Domain\Urls\JsonApi\V1\DefaultUrlSchema;
@@ -55,6 +56,7 @@ class Server extends BaseServer
             ImageSchema::class,
             MediaSchema::class,
             PriceSchema::class,
+            ProductAssociationSchema::class,
             ProductSchema::class,
             ProductVariantSchema::class,
             ThumbnailSchema::class,
