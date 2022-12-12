@@ -12,7 +12,7 @@ class ProductCollectionQuery extends ResourceQuery
      *
      * @var array|null
      */
-    protected ?array $defaultIncludePaths = ['default-urls'];
+    protected ?array $defaultIncludePaths = [];
 
     /**
      * Get the validation rules that apply to the request query parameters.
