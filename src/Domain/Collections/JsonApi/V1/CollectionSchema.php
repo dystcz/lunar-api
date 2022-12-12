@@ -78,10 +78,10 @@ class CollectionSchema extends Schema
         return [
             'products',
             'products.urls',
-            'products.default-urls',
+            'products.default_url',
             'products.images',
             'urls',
-            'default-urls',
+            'default_url',
         ];
     }
 
@@ -96,7 +96,7 @@ class CollectionSchema extends Schema
             ID::make(),
 
             HasMany::make('products'),
-            HasOne::make('default-urls', 'defaultUrl'),
+            HasOne::make('default_url', 'defaultUrl'),
             HasMany::make('urls'),
         ];
     }
@@ -111,7 +111,7 @@ class CollectionSchema extends Schema
         return [
             WhereIdIn::make($this),
 
-            WhereHas::make($this, 'default-urls', 'url')->singular(),
+            WhereHas::make($this, 'default_urls', 'url')->singular(),
         ];
     }
 

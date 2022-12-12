@@ -17,6 +17,13 @@ use Lunar\Models\Url;
 class DefaultUrlSchema extends Schema
 {
     /**
+     * The resource type as it appears in URIs.
+     *
+     * @var string|null
+     */
+    protected ?string $uriType = 'default_urls';
+
+    /**
      * The default paging parameters to use if the client supplies none.
      *
      * @var array|null

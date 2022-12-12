@@ -83,7 +83,7 @@ class ProductSchema extends Schema
             'associations.target',
             'brand',
             'brand.thumbnail',
-            'default-url',
+            'default_url',
             'images',
             'thumbnail',
             'urls',
@@ -104,7 +104,7 @@ class ProductSchema extends Schema
             ID::make(),
 
             BelongsTo::make('brand'),
-            HasOne::make('default-url', 'defaultUrl'),
+            HasOne::make('default_url', 'defaultUrl'),
             HasMany::make('urls'),
             HasMany::make('images')->canCount(),
             HasOne::make('thumbnail'),
@@ -123,7 +123,7 @@ class ProductSchema extends Schema
         return [
             WhereIdIn::make($this),
 
-            WhereHas::make($this, 'default-url', 'url')->singular(),
+            WhereHas::make($this, 'default_url', 'url')->singular(),
         ];
     }
 

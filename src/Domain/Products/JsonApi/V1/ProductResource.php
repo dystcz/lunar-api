@@ -49,7 +49,7 @@ class ProductResource extends JsonApiResource
         return [
             $this->relation('brand'),
             $this->relation('urls'),
-            $this->relation('default-url'),
+            $this->relation('default_url'),
             $this->relation('associations'),
             $this
                 ->relation('images')
