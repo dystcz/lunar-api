@@ -30,6 +30,7 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
                 $server->resource($this->getPrefix(), ProductsController::class)
                     ->relationships(function ($relationships) {
                         $relationships->hasOne('default-urls')->readOnly();
+                        $relationships->hasMany('associations')->readOnly();
                     })
                     ->only('index', 'show')
                     ->readOnly();
