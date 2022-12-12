@@ -64,6 +64,14 @@ return [
 
             'pagination' => 12,
         ],
+
+        'associations' => [
+            'route_groups' => [
+                //
+            ],
+
+            'pagination' => 12,
+        ],
     ],
 
     'taxation' => [
