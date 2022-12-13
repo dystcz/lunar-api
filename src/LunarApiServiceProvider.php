@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -23,7 +24,7 @@ class LunarApiServiceProvider extends ServiceProvider
 
         Config::set('openapi', require __DIR__ . '/../config/openapi.php');
 
-        ModelManifest::register(collect([
+        $models = new Collection([
             \Lunar\Models\Product::class => \Dystcz\LunarApi\Domain\Products\Models\Product::class,
             \Lunar\Models\ProductOption::class => \Dystcz\LunarApi\Domain\Products\Models\ProductOption::class,
             \Lunar\Models\ProductOptionValue::class => \Dystcz\LunarApi\Domain\Products\Models\ProductOptionValue::class,
@@ -36,7 +37,9 @@ class LunarApiServiceProvider extends ServiceProvider
             \Lunar\Models\CartLine::class => \Dystcz\LunarApi\Domain\Carts\Models\CartLine::class,
             \Lunar\Models\Order::class => \Dystcz\LunarApi\Domain\Orders\Models\Order::class,
             \Lunar\Models\OrderLine::class => \Dystcz\LunarApi\Domain\Orders\Models\OrderLine::class,
-        ]));
+        ]);
+
+        ModelManifest::register($models);
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
