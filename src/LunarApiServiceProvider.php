@@ -2,21 +2,16 @@
 
 namespace Dystcz\LunarApi;
 
-use Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Facades\ModelManifest;
-use Lunar\Models\Brand;
-use Lunar\Models\Price;
-use Lunar\Models\Product;
-use Lunar\Models\ProductVariant;
 
 class LunarApiServiceProvider extends ServiceProvider
 {
-    protected $policies = [
-        Product::class => ProductPolicy::class,
-    ];
+    // protected $policies = [
+    //     Product::class => ProductPolicy::class,
+    // ];
 
     /**
      * Bootstrap the application services.
@@ -29,10 +24,18 @@ class LunarApiServiceProvider extends ServiceProvider
         Config::set('openapi', require __DIR__ . '/../config/openapi.php');
 
         ModelManifest::register(collect([
-            Product::class => Domain\Products\Models\Product::class,
-            ProductVariant::class => Domain\ProductVariants\Models\ProductVariant::class,
-            Price::class => Domain\Prices\Models\Price::class,
-            Brand::class => Domain\Brands\Models\Brand::class,
+            Lunar\Models\Product::class => Domain\Products\Models\Product::class,
+            Lunar\Models\ProductOption::class => Domain\Products\Models\ProductOption::class,
+            Lunar\Models\ProductOptionValue::class => Domain\Products\Models\ProductOptionValue::class,
+            Lunar\Models\ProductVariant::class => Domain\ProductVariants\Models\ProductVariant::class,
+            Lunar\Models\Price::class => Domain\Prices\Models\Price::class,
+            Lunar\Models\Brand::class => Domain\Brands\Models\Brand::class,
+            Lunar\Models\Collection::class => Domain\Collections\Models\Collection::class,
+            Lunar\Models\Customer::class => Domain\Customers\Models\Customer::class,
+            Lunar\Models\Cart::class => Domain\Carts\Models\Cart::class,
+            Lunar\Models\CartLine::class => Domain\Carts\Models\CartLine::class,
+            Lunar\Models\Order::class => Domain\Orders\Models\Order::class,
+            Lunar\Models\OrderLine::class => Domain\Orders\Models\OrderLine::class,
         ]));
 
         if ($this->app->runningInConsole()) {
@@ -49,7 +52,7 @@ class LunarApiServiceProvider extends ServiceProvider
                 \Dystcz\LunarApi\Console\GenerateOpenApiSpec::class,
             ]);
 
-            $this->registerPolicies();
+            // $this->registerPolicies();
         }
     }
 
