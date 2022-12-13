@@ -1,3 +1,12 @@
 env:
-  - DB_CONNECTION="sqlite"
-  - DB_DATABASE=":memory:"
+  - DB_CONNECTION=mysql
+  - DB_HOST=mysql
+  - DB_PORT=3306
+  - DB_DATABASE="lunar-api-testing"
+  - DB_USERNAME=homestead
+  - DB_PASSWORD=secret
+#  - DB_CONNECTION="sqlite"
+#  - DB_DATABASE=":memory:"
+
+providers:
+  - Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider

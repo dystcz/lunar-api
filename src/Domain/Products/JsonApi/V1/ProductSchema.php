@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\Products\JsonApi\Sorting\RecentlyViewedSort;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
@@ -111,6 +112,13 @@ class ProductSchema extends Schema
             HasMany::make('images')->canCount(),
             HasMany::make('variants')->canCount(),
             HasMany::make('associations')->canCount(),
+        ];
+    }
+
+    public function sortables(): iterable
+    {
+        return [
+            RecentlyViewedSort::make('recently_viewed'),
         ];
     }
 

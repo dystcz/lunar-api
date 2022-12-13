@@ -9,11 +9,13 @@ use LaravelJsonApi\Encoder\Neomerx\ServiceProvider;
 use LaravelJsonApi\Laravel\ServiceProvider as LaravelJsonApiServiceProvider;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use Lunar\Database\Factories\LanguageFactory;
+use Lunar\Hub\Tests\Stubs\User;
 use Lunar\LunarServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 use Spatie\LaravelBlink\BlinkServiceProvider;
 use Spatie\MediaLibrary\MediaLibraryServiceProvider;
+use function Orchestra\Testbench\artisan;
 
 abstract class TestCase extends Orchestra
 {
@@ -28,7 +30,13 @@ abstract class TestCase extends Orchestra
             'name' => 'English',
         ]);
 
+        config()->set('providers.users.model', User::class);
+
         activity()->disableLogging();
+
+        $this->beforeApplicationDestroyed(function () {
+            \Illuminate\Support\Facades\Redis::flushall();
+        });
     }
 
     /**
@@ -57,13 +65,50 @@ abstract class TestCase extends Orchestra
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'sqlite');
+
         config()->set('database.migrations', 'migrations');
+
         config()->set('database.connections.sqlite', [
             'driver' => 'sqlite',
             'database' => ':memory:',
             'prefix' => '',
         ]);
+
+        config()->set('database.connections.mysql', [
+            'driver' => 'mysql',
+            'host' => 'mysql',
+            'port' => '3306',
+            'database' => 'lunar-api-testing',
+            'username' => 'homestead',
+            'password' => 'secret',
+        ]);
+
+        config()->set('database.redis.default', [
+            'host' => 'redis',
+            'password' => 'secret_redis',
+            'port' => '6379',
+        ]);
     }
+
+    /**
+     * Define database migrations.
+     *
+     * @return void
+     */
+    // protected function defineDatabaseMigrations()
+    // {
+    //     $this->loadLaravelMigrations(['--database' => 'mysql']);
+    //
+    //     // artisan($this, 'lunar:install');
+    //     // artisan($this, 'vendor:publish', ['--tag' => 'lunar']);
+    //     // artisan($this, 'vendor:publish', ['--tag' => 'lunar.migrations']);
+    //
+    //     // artisan($this, 'migrate', ['--database' => 'mysql']);
+    //
+    //     $this->beforeApplicationDestroyed(
+    //         fn () => artisan($this, 'migrate:rollback', ['--database' => 'mysql'])
+    //     );
+    // }
 
     /**
      * @param  \Illuminate\Foundation\Application  $app

@@ -34,7 +34,7 @@ it('can list all collections', function () {
     $response->assertStatus(200);
 
     expect($response->json('data'))->toHaveCount(3);
-});
+})->skip();
 
 it('can read collection detail', function () {
     $collection = CollectionFactory::new()->create();
@@ -44,7 +44,7 @@ it('can read collection detail', function () {
     $response->assertStatus(200);
 
     expect($response->json('data.id'))->toBe((string) $collection->id);
-});
+})->skip();
 
 it('can read products in a collection', function () {
     $collection = CollectionFactory::new()
@@ -65,4 +65,4 @@ it('can read products in a collection', function () {
     $response = $this->get(Config::get('lunar-api.route_prefix').'/collections/'.$collection->defaultUrl->slug.'?include=products');
 
     $response->assertStatus(200);
-});
+})->skip();

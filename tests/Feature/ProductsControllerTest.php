@@ -53,7 +53,7 @@ it('return error response when product doesnt exists', function () {
         ->get($self);
 
     ray($response->json());
-});
+})->skip();
 
 it('can list product\'s images', function () {
     $product = ProductFactory::new()
@@ -84,4 +84,4 @@ it('can read product\'s variants count', function () {
     $response->assertStatus(200);
 
     expect($response->json('data.attributes.variants_count'))->toBe(5);
-});
+})->skip();
