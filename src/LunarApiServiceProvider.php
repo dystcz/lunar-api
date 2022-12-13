@@ -24,18 +24,18 @@ class LunarApiServiceProvider extends ServiceProvider
         Config::set('openapi', require __DIR__ . '/../config/openapi.php');
 
         ModelManifest::register(collect([
-            \Lunar\Models\Product::class => Domain\Products\Models\Product::class,
-            \Lunar\Models\ProductOption::class => Domain\Products\Models\ProductOption::class,
-            \Lunar\Models\ProductOptionValue::class => Domain\Products\Models\ProductOptionValue::class,
-            \Lunar\Models\ProductVariant::class => Domain\ProductVariants\Models\ProductVariant::class,
-            \Lunar\Models\Price::class => Domain\Prices\Models\Price::class,
-            \Lunar\Models\Brand::class => Domain\Brands\Models\Brand::class,
-            \Lunar\Models\Collection::class => Domain\Collections\Models\Collection::class,
-            \Lunar\Models\Customer::class => Domain\Customers\Models\Customer::class,
-            \Lunar\Models\Cart::class => Domain\Carts\Models\Cart::class,
-            \Lunar\Models\CartLine::class => Domain\Carts\Models\CartLine::class,
-            \Lunar\Models\Order::class => Domain\Orders\Models\Order::class,
-            \Lunar\Models\OrderLine::class => Domain\Orders\Models\OrderLine::class,
+            \Lunar\Models\Product::class => \Dystcz\LunarApi\Domain\Products\Models\Product::class,
+            \Lunar\Models\ProductOption::class => \Dystcz\LunarApi\Domain\Products\Models\ProductOption::class,
+            \Lunar\Models\ProductOptionValue::class => \Dystcz\LunarApi\Domain\Products\Models\ProductOptionValue::class,
+            \Lunar\Models\ProductVariant::class => \Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class,
+            \Lunar\Models\Price::class => \Dystcz\LunarApi\Domain\Prices\Models\Price::class,
+            \Lunar\Models\Brand::class => \Dystcz\LunarApi\Domain\Brands\Models\Brand::class,
+            \Lunar\Models\Collection::class => \Dystcz\LunarApi\Domain\Collections\Models\Collection::class,
+            \Lunar\Models\Customer::class => \Dystcz\LunarApi\Domain\Customers\Models\Customer::class,
+            \Lunar\Models\Cart::class => \Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
+            \Lunar\Models\CartLine::class => \Dystcz\LunarApi\Domain\Carts\Models\CartLine::class,
+            \Lunar\Models\Order::class => \Dystcz\LunarApi\Domain\Orders\Models\Order::class,
+            \Lunar\Models\OrderLine::class => \Dystcz\LunarApi\Domain\Orders\Models\OrderLine::class,
         ]));
 
         if ($this->app->runningInConsole()) {
