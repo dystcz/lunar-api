@@ -11,7 +11,9 @@ use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasManyThrough;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
@@ -89,6 +91,11 @@ class ProductSchema extends Schema
             'images',
             'thumbnail',
             'urls',
+            'prices',
+            'lowestPrice',
+            'cheapestVariant',
+            'cheapestVariant.images',
+            'cheapestVariant.prices',
             'variants',
             'variants.images',
             'variants.prices',
@@ -108,10 +115,13 @@ class ProductSchema extends Schema
             BelongsTo::make('brand'),
             HasOne::make('default_url', 'defaultUrl'),
             HasOne::make('thumbnail'),
+            HasOne::make('cheapestVariant')->type('variants'),
             HasMany::make('urls'),
             HasMany::make('images')->canCount(),
             HasMany::make('variants')->canCount(),
             HasMany::make('associations')->canCount(),
+            HasOneThrough::make('lowestPrice')->type('prices'),
+            HasManyThrough::make('prices'),
         ];
     }
 
