@@ -62,6 +62,9 @@ class ProductResource extends JsonApiResource
             $this->relation('default_url'),
             $this->relation('associations'),
 
+            $this->relation('prices'),
+            $this->relation('lowestPrice'),
+
             $this
                 ->relation('thumbnail')
                 ->withoutLinks(),
@@ -75,6 +78,7 @@ class ProductResource extends JsonApiResource
                     ], fn ($value) => null !== $value)
                 ),
 
+            $this->relation('cheapestVariant'),
             $this
                 ->relation('variants')
                 ->withoutLinks()

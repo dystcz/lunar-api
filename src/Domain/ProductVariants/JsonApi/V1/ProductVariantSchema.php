@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema;
@@ -89,6 +90,7 @@ class ProductVariantSchema extends Schema
         return [
             ID::make(),
 
+            HasOne::make('lowestPrice')->type('prices'),
             HasMany::make('images'),
             HasMany::make('prices'),
         ];

@@ -12,11 +12,9 @@ class ProductViews
      */
     public function getLists(): array
     {
-        [, $lists] = Redis::scan(+INF, 'MATCH', 'product:views:*');
-
         return array_map(
             fn ($list) => Str::after($list, 'laravel_database_'),
-            $lists
+            Redis::keys('product:views:*')
         );
     }
 

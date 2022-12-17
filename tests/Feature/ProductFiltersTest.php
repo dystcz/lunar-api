@@ -1,9 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Str;
-use Lunar\Database\Factories\ProductFactory;
+use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 
 uses(\Dystcz\LunarApi\Tests\MySqlTestCase::class, RefreshDatabase::class);
 

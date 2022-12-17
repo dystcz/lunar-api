@@ -1,13 +1,11 @@
 <?php
 
-namespace Dystcz\LunarApi\Tests\Feature\Domain\Collections\Http\Controllers;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Lunar\Database\Factories\CollectionFactory;
-use Lunar\Database\Factories\PriceFactory;
-use Lunar\Database\Factories\ProductFactory;
-use Lunar\Database\Factories\ProductVariantFactory;
+use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
+use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
+use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 
 uses(\Dystcz\LunarApi\Tests\TestCase::class, RefreshDatabase::class);
 

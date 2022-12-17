@@ -3,11 +3,11 @@
 namespace Dystcz\LunarApi\Tests\Feature\Domain\Products\Http\Controllers;
 
 use Dystcz\LunarApi\Domain\Media\Factories\MediaFactory;
+use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
+use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
-use Lunar\Database\Factories\PriceFactory;
-use Lunar\Database\Factories\ProductFactory;
-use Lunar\Database\Factories\ProductVariantFactory;
+use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 
 uses(\Dystcz\LunarApi\Tests\TestCase::class, RefreshDatabase::class);
 
