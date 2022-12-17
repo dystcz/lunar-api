@@ -23,6 +23,9 @@ class ProductResource extends JsonApiResource
             $model->variants->each(fn ($variant) => $variant->setRelation('product', $model));
         }
 
+        // dd($model->productType->mappedAttributes);
+        // dd($model->productType->getMorphClass());
+
         // dd($model->productType->mappedAttributes, $model->productType->productAttributes);
 
         return [
