@@ -22,19 +22,19 @@ class PriceResource extends JsonApiResource
 
         /** @var Price $model */
         $model = $this->resource;
-
+        
         /** @var PriceDataType $basePrice */
         $basePrice = $model->price;
 
         if ($showPricesWithTax) {
-            $basePrice = (new GetPriceWithDefaultTax())($model->purchasable, $basePrice);
+            $basePrice = (new GetPriceWithDefaultTax())($model->priceable, $basePrice);
         }
 
         /** @var PriceDataType|null $comparePrice */
         $comparePrice = $model->compare_price->value > $model->price->value ? $model->compare_price : null;
 
         if ($showPricesWithTax && $comparePrice) {
-            $comparePrice = (new GetPriceWithDefaultTax())($model->purchasable, $comparePrice);
+            $comparePrice = (new GetPriceWithDefaultTax())($model->priceable, $comparePrice);
         }
 
         return [
