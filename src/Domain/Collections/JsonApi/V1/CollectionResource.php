@@ -39,7 +39,7 @@ class CollectionResource extends JsonApiResource
 
         return [
             $this->relation('urls'),
-            $this->relation('defaultUrl'),
+            $this->relation('default_url'),
             $this->relation('group'),
             $this
                 ->relation('products')
