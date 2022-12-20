@@ -87,6 +87,15 @@ class ProductResource extends JsonApiResource
                         'count' => $model->variants_count,
                     ], fn ($value) => null !== $value)
                 ),
+
+            $this
+                ->relation('collections')
+                ->withoutLinks()
+                ->withMeta(
+                    array_filter([
+                        'count' => $model->collections_count,
+                    ], fn ($value) => null !== $value)
+                ),
         ];
     }
 }

@@ -1,22 +1,17 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
-use LaravelJsonApi\Eloquent\Filters\WhereHas;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema;
-use Lunar\Models\Collection;
+use Lunar\Models\CollectionGroup;
 
-class CollectionSchema extends Schema
+class CollectionGroupSchema extends Schema
 {
     /**
      * The default paging parameters to use if the client supplies none.
@@ -30,7 +25,7 @@ class CollectionSchema extends Schema
      *
      * @var string
      */
-    public static string $model = Collection::class;
+    public static string $model = CollectionGroup::class;
 
     /**
      * Build an index query for this resource.
@@ -64,7 +59,7 @@ class CollectionSchema extends Schema
     public function with(): array
     {
         return [
-            'defaultUrl',
+            //
         ];
     }
 
@@ -75,14 +70,7 @@ class CollectionSchema extends Schema
      */
     public function includePaths(): iterable
     {
-        return [
-            'products',
-            'products.urls',
-            'products.default_url',
-            'products.images',
-            'urls',
-            'default_url',
-        ];
+        return [];
     }
 
     /**
@@ -94,11 +82,6 @@ class CollectionSchema extends Schema
     {
         return [
             ID::make(),
-
-            HasMany::make('products'),
-            HasOne::make('default_url', 'defaultUrl'),
-            HasOne::make('group'),
-            HasMany::make('urls'),
         ];
     }
 
@@ -109,30 +92,7 @@ class CollectionSchema extends Schema
      */
     public function filters(): array
     {
-        return [
-            WhereIdIn::make($this),
-
-            WhereHas::make($this, 'default_urls', 'url')->singular(),
-        ];
-    }
-
-    /**
-     * Will the set of filters result in zero-to-one resource?
-     *
-     * While individual filters can be marked as singular, there may be instances
-     * where the combination of filters should result in a singular response
-     * (zero-to-one resource instead of zero-to-many). Developers can use this
-     * hook to add complex logic for working out if a set of filters should
-     * return a singular resource.
-     *
-     * @param array $filters
-     * @return bool
-     */
-    public function isSingular(array $filters): bool
-    {
-        // return isset($filters['userId'], $filters['clientId']);
-
-        return false;
+        return [];
     }
 
     /**
@@ -143,7 +103,7 @@ class CollectionSchema extends Schema
     public function pagination(): ?Paginator
     {
         return PagePagination::make()
-            ->withDefaultPerPage(Config::get('lunar-api.domains.collections.pagination', 12));
+            ->withDefaultPerPage(12);
     }
 
     /**
@@ -153,6 +113,6 @@ class CollectionSchema extends Schema
      */
     public static function type(): string
     {
-        return 'collections';
+        return 'groups';
     }
 }

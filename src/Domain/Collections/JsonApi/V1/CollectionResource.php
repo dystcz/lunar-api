@@ -40,6 +40,7 @@ class CollectionResource extends JsonApiResource
         return [
             $this->relation('urls'),
             $this->relation('defaultUrl'),
+            $this->relation('group'),
             $this
                 ->relation('products')
                 ->withMeta(array_filter([

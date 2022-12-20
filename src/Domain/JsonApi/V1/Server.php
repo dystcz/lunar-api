@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Brands\JsonApi\V1\BrandSchema;
+use Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1\CollectionGroupSchema;
 use Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionSchema;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ImageSchema;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaSchema;
@@ -52,6 +53,7 @@ class Server extends BaseServer
         return [
             BrandSchema::class,
             CollectionSchema::class,
+            CollectionGroupSchema::class,
             DefaultUrlSchema::class,
             ImageSchema::class,
             MediaSchema::class,

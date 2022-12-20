@@ -99,6 +99,10 @@ class ProductSchema extends Schema
             'variants',
             'variants.images',
             'variants.prices',
+            'collections',
+            'collections.default_url',
+            'collections.urls',
+            'collections.group'
         ];
     }
 
@@ -120,6 +124,7 @@ class ProductSchema extends Schema
             HasMany::make('images')->canCount(),
             HasMany::make('variants')->canCount(),
             HasMany::make('associations')->canCount(),
+            HasMany::make('collections')->canCount(),
             HasOneThrough::make('lowestPrice')->type('prices'),
             HasManyThrough::make('prices'),
         ];
