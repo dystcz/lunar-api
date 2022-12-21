@@ -2,16 +2,25 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Models;
 
-use Dystcz\LunarApi\Domain\Prices\Models\Price;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use InvalidArgumentException;
+use Lunar\Models\Price as LunarPrice;
 use Lunar\Models\ProductVariant as LunarPoductVariant;
 
 class ProductVariant extends LunarPoductVariant
 {
-    public function lowestPrice(): \Illuminate\Database\Eloquent\Relations\MorphOne
+    /**
+     * Lowest price relation.
+     *
+     * @return MorphOne
+     * @throws InvalidArgumentException
+     */
+    public function lowestPrice(): MorphOne
     {
-        return $this->morphOne(
-            \Lunar\Models\Price::class,
-            'priceable'
-        )->ofMany('price', 'min');
+        return $this
+            ->morphOne(
+                LunarPrice::class,
+                'priceable'
+            )->ofMany('price', 'min');
     }
 }
