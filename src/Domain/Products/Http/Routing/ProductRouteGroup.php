@@ -35,6 +35,7 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
                         $relationships->hasOne('default_url')->readOnly();
                         $relationships->hasOne('lowest_price')->readOnly();
                         $relationships->hasMany('prices')->readOnly();
+                        $relationships->hasMany('variants')->readOnly();
                     })
                     ->only('index', 'show')
                     ->readOnly();
