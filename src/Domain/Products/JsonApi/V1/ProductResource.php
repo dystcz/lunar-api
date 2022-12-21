@@ -51,23 +51,22 @@ class ProductResource extends JsonApiResource
         $model = $this->resource;
 
         return [
-            $this
-                ->relation('brand')
-                ->withoutLinks(),
-
-            $this
-                ->relation('urls')
-                ->withoutLinks(),
-
-            $this->relation('default_url'),
             $this->relation('associations'),
 
-            $this->relation('prices'),
-            $this->relation('lowestPrice'),
+            $this->relation('brand'),
+
+            $this->relation('cheapest_variant'),
 
             $this
-                ->relation('thumbnail')
-                ->withoutLinks(),
+                ->relation('collections')
+                ->withoutLinks()
+                ->withMeta(
+                    array_filter([
+                        'count' => $model->collections_count,
+                    ], fn ($value) => null !== $value)
+                ),
+
+            $this->relation('default_url'),
 
             $this
                 ->relation('images')
@@ -78,7 +77,18 @@ class ProductResource extends JsonApiResource
                     ], fn ($value) => null !== $value)
                 ),
 
-            $this->relation('cheapestVariant'),
+            $this->relation('lowest_price'),
+
+            $this->relation('prices'),
+
+            $this
+                ->relation('thumbnail')
+                ->withoutLinks(),
+
+            $this
+                ->relation('urls')
+                ->withoutLinks(),
+
             $this
                 ->relation('variants')
                 ->withoutLinks()
@@ -88,14 +98,6 @@ class ProductResource extends JsonApiResource
                     ], fn ($value) => null !== $value)
                 ),
 
-            $this
-                ->relation('collections')
-                ->withoutLinks()
-                ->withMeta(
-                    array_filter([
-                        'count' => $model->collections_count,
-                    ], fn ($value) => null !== $value)
-                ),
         ];
     }
 }

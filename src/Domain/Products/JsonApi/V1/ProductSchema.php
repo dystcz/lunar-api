@@ -92,17 +92,17 @@ class ProductSchema extends Schema
             'thumbnail',
             'urls',
             'prices',
-            'lowestPrice',
-            'cheapestVariant',
-            'cheapestVariant.images',
-            'cheapestVariant.prices',
+            'lowest_price',
+            'cheapest_variant',
+            'cheapest_variant.images',
+            'cheapest_variant.prices',
             'variants',
             'variants.images',
             'variants.prices',
             'collections',
             'collections.default_url',
             'collections.urls',
-            'collections.group'
+            'collections.group',
         ];
     }
 
@@ -116,17 +116,35 @@ class ProductSchema extends Schema
         return [
             ID::make(),
 
-            BelongsTo::make('brand'),
-            HasOne::make('default_url', 'defaultUrl'),
-            HasOne::make('thumbnail'),
-            HasOne::make('cheapestVariant')->type('variants'),
-            HasMany::make('urls'),
-            HasMany::make('images')->canCount(),
-            HasMany::make('variants')->canCount(),
             HasMany::make('associations')->canCount(),
-            HasMany::make('collections')->canCount(),
-            HasOneThrough::make('lowestPrice')->type('prices'),
+
+            BelongsTo::make('brand'),
+
+            HasOne::make('cheapest_variant', 'cheapestVariant')
+                ->type('variants')
+                ->withUriFieldName('cheapest_variant'),
+
+            HasMany::make('collections')
+                ->canCount(),
+
+            HasOne::make('default_url', 'defaultUrl')
+                ->retainFieldName(),
+
+            HasMany::make('images')
+                ->canCount(),
+
+            HasOneThrough::make('lowest_price', 'lowestPrice')
+                ->type('prices')
+                ->retainFieldName(),
+
             HasManyThrough::make('prices'),
+
+            HasOne::make('thumbnail'),
+
+            HasMany::make('urls'),
+
+            HasMany::make('variants')
+                ->canCount(),
         ];
     }
 
