@@ -32,6 +32,11 @@ class Product extends LunarProduct
             );
     }
 
+    /**
+     * Lowest price relation.
+     *
+     * @return HasOneThrough
+     */
     public function lowestPrice(): HasOneThrough
     {
         $pricesTable = $this->prices()->getModel()->getTable();
@@ -58,6 +63,11 @@ class Product extends LunarProduct
             });
     }
 
+    /**
+     * Cheapest variant relation.
+     *
+     * @return HasOne
+     */
     public function cheapestVariant(): HasOne
     {
         $pricesTable = $this->prices()->getModel()->getTable();

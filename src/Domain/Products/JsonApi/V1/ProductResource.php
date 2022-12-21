@@ -91,7 +91,6 @@ class ProductResource extends JsonApiResource
 
             $this
                 ->relation('variants')
-                ->withoutLinks()
                 ->withMeta(
                     array_filter([
                         'count' => $model->variants_count,
