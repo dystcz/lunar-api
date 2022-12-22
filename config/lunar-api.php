@@ -64,7 +64,7 @@ return [
 
         'urls' => [
             'route_groups' => [
-                'collections' => Dystcz\LunarApi\Domain\Urls\Http\Routing\UrlRouteGroup::class,
+                'urls' => Dystcz\LunarApi\Domain\Urls\Http\Routing\UrlRouteGroup::class,
             ],
 
             'pagination' => 12,

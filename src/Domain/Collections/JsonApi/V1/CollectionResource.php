@@ -15,7 +15,7 @@ class CollectionResource extends JsonApiResource
      */
     public function attributes($request): iterable
     {
-        /** @var Collection */
+        /** @var Collection $model */
         $model = $this->resource;
 
         return array_merge(
@@ -38,14 +38,21 @@ class CollectionResource extends JsonApiResource
         $model = $this->resource;
 
         return [
-            $this->relation('urls'),
             $this->relation('default_url'),
-            $this->relation('group'),
+
+            $this
+                ->relation('group')
+                ->withoutLinks(),
+
             $this
                 ->relation('products')
                 ->withMeta(array_filter([
                     'count' => $model->products_count,
                 ], fn ($value) => null !== $value)),
+
+            $this
+                ->relation('urls')
+                ->withoutLinks(),
         ];
     }
 }
