@@ -5,7 +5,6 @@ namespace Dystcz\LunarApi\Domain\Products\Models;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Illuminate\Support\Facades\Config;
 use Lunar\Models\Price;
 use Lunar\Models\Product as LunarProduct;
 use Lunar\Models\ProductVariant;
@@ -56,7 +55,7 @@ class Product extends LunarProduct
                     ->whereIn('priceable_id', function ($query) use ($variantsTable) {
                         $query->select('variants.id')
                             ->from($variantsTable . ' as variants')
-                            ->whereRaw('variants.product_id = ' . $variantsTable . '.product_id');
+                            ->whereRaw("variants.product_id = {$variantsTable}.product_id");
                     })
                     ->orderBy($pricesTable . '.price', 'asc')
                     ->limit(1);
@@ -83,7 +82,7 @@ class Product extends LunarProduct
                         $join->on('priceable_id', '=', 'variants.id')
                             ->where('priceable_type', ProductVariant::class);
                     })
-                    ->whereRaw('variants.product_id = ' . Config::get('lunar.database.table_prefix') . 'product_variants.product_id')
+                    ->whereRaw("variants.product_id = {$variantsTable}.product_id")
                     ->orderBy($pricesTable . '.price', 'asc')
                     ->limit(1);
             });
