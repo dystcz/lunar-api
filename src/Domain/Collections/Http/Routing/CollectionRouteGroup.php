@@ -29,7 +29,13 @@ class CollectionRouteGroup extends RouteGroup implements RouteGroupContract
             'middleware' => $this->getMiddleware($middleware),
         ], function () {
             JsonApiRoute::server('v1')->prefix('v1')->resources(function ($server) {
-                $server->resource('collections', CollectionsController::class)->only('index', 'show')->readOnly();
+                $server->resource($this->getPrefix(), CollectionsController::class)
+                    ->relationships(function ($relationships) {
+                        $relationships->hasMany('products')->readOnly();
+                        $relationships->hasOne('default_url')->readOnly();
+                    })
+                    ->only('index', 'show')
+                    ->readOnly();
             });
         });
     }
