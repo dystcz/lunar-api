@@ -35,7 +35,7 @@ abstract class Server extends BaseServer
     }
 
     /**
-     * Get additional server schemas.
+     * Get all additional server schemas.
      *
      * @return array
      */
@@ -43,15 +43,20 @@ abstract class Server extends BaseServer
     {
         $additionalServers = Config::get('lunar-api.additional_servers');
 
-        // $schemas = array_reduce($additionalServers, function ($schemas, $server) {
-        //     $schemas[] = dd((new $server(new AppResolver(fn () => app()), $this->name()))->schemas());
-        //
-        //     return $schemas;
-        // }, []);
-        //
-        // dd($schemas);
+        $schemas = array_reduce($additionalServers, function ($schemas, $server) {
+            $server = (new $server(
+                new AppResolver(fn () => app()),
+                $this->name()
+            ));
 
-        return [];
+            foreach ($server->getSchemas() as $schema) {
+                $schemas[] = $schema;
+            }
+
+            return $schemas;
+        }, []);
+
+        return $schemas;
     }
 
     /**
