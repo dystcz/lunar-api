@@ -35,6 +35,8 @@ class BrandResource extends JsonApiResource
         $model = $this->resource;
 
         return [
+            $this->relation('default_url'),
+
             $this
                 ->relation('thumbnail')
                 ->withoutLinks(),
