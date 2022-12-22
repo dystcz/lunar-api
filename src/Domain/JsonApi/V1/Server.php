@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi\Domain\JsonApi\V1;
 use Dystcz\LunarApi\Domain\Brands\JsonApi\V1\BrandSchema;
 use Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1\CollectionGroupSchema;
 use Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionSchema;
+use Dystcz\LunarApi\Domain\JsonApi\Servers\Server as BaseServer;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ImageSchema;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaSchema;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ThumbnailSchema;
@@ -15,22 +16,20 @@ use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystcz\LunarApi\Domain\Urls\JsonApi\V1\DefaultUrlSchema;
 use Dystcz\LunarApi\Domain\Urls\JsonApi\V1\UrlSchema;
 use Illuminate\Support\Facades\Config;
-use LaravelJsonApi\Core\Server\Server as BaseServer;
-use LaravelJsonApi\Core\Support\AppResolver;
 
 class Server extends BaseServer
 {
     /**
-     * Server constructor.
+     * Set base server URI.
      *
-     * @param AppResolver $app
-     * @param string $name
+     * @param string $path
+     * @return void
      */
-    public function __construct(AppResolver $app, string $name)
+    protected function setBaseUri(string $path = 'v1'): void
     {
-        $this->baseUri = '/' . Config::get('lunar-api.route_prefix') . '/v1';
+        $prefix = Config::get('lunar-api.route_prefix');
 
-        parent::__construct($app, $name);
+        $this->baseUri = "/{$prefix}/{$path}";
     }
 
     /**
@@ -63,6 +62,7 @@ class Server extends BaseServer
             ProductVariantSchema::class,
             ThumbnailSchema::class,
             UrlSchema::class,
+            ...$this->getAdditionalServerSchemas(),
         ];
     }
 
