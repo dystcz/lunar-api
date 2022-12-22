@@ -19,26 +19,17 @@ return [
 
     // Configuration for specific domains
     'domains' => [
-
-        'products' => [
-            'model' => Dystcz\LunarApi\Domain\Products\Models\Product::class,
-
-            // Route groups which get registered
-            // If you want to change the behaviour or add some data,
-            // simply extend the package product groups and add your logic
+        'associations' => [
             'route_groups' => [
-                'products' => Dystcz\LunarApi\Domain\Products\Http\Routing\ProductRouteGroup::class,
+                //
             ],
 
-            // Default pagination
             'pagination' => 12,
         ],
 
-        'variants' => [
-            'model' => Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class,
-
+        'brands' => [
             'route_groups' => [
-                //
+                'brands' => Dystcz\LunarApi\Domain\Brands\Http\Routing\BrandRouteGroup::class,
             ],
 
             'pagination' => 12,
@@ -62,6 +53,20 @@ return [
             'pagination' => 12,
         ],
 
+        'products' => [
+            'model' => Dystcz\LunarApi\Domain\Products\Models\Product::class,
+
+            // Route groups which get registered
+            // If you want to change the behaviour or add some data,
+            // simply extend the package product groups and add your logic
+            'route_groups' => [
+                'products' => Dystcz\LunarApi\Domain\Products\Http\Routing\ProductRouteGroup::class,
+            ],
+
+            // Default pagination
+            'pagination' => 12,
+        ],
+
         'urls' => [
             'route_groups' => [
                 'urls' => Dystcz\LunarApi\Domain\Urls\Http\Routing\UrlRouteGroup::class,
@@ -70,7 +75,9 @@ return [
             'pagination' => 12,
         ],
 
-        'associations' => [
+        'variants' => [
+            'model' => Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class,
+
             'route_groups' => [
                 //
             ],
