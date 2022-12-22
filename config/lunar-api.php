@@ -12,6 +12,11 @@ return [
     // Middleware for all the API routes
     'route_middleware' => ['api'],
 
+    // Additional Lunar API compatible servers
+    'additional_servers' => [
+        //
+    ],
+
     // Configuration for specific domains
     'domains' => [
 
