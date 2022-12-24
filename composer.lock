@@ -1723,16 +1723,16 @@
         },
         {
             "name": "laravel-json-api/eloquent",
-            "version": "v2.1.1",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-json-api/eloquent.git",
-                "reference": "f64ff8c16971fe3918458ee06e47fdf89ccfa4d9"
+                "reference": "e0d2ac7e34fc1e591d52b927f496720a570e2a10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-json-api/eloquent/zipball/f64ff8c16971fe3918458ee06e47fdf89ccfa4d9",
-                "reference": "f64ff8c16971fe3918458ee06e47fdf89ccfa4d9",
+                "url": "https://api.github.com/repos/laravel-json-api/eloquent/zipball/e0d2ac7e34fc1e591d52b927f496720a570e2a10",
+                "reference": "e0d2ac7e34fc1e591d52b927f496720a570e2a10",
                 "shasum": ""
             },
             "require": {
@@ -1781,9 +1781,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel-json-api/eloquent/issues",
-                "source": "https://github.com/laravel-json-api/eloquent/tree/v2.1.1"
+                "source": "https://github.com/laravel-json-api/eloquent/tree/v2.2.0"
             },
-            "time": "2022-04-04T13:16:28+00:00"
+            "time": "2022-12-22T11:33:36+00:00"
         },
         {
             "name": "laravel-json-api/encoder-neomerx",
@@ -2209,16 +2209,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.45.0",
+            "version": "v9.45.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f2c51fdfcb0c50c19cdc49c2e82690ad1a21eafe"
+                "reference": "faeb20d3fc61b69790068161ab42bcf2d5faccbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/f2c51fdfcb0c50c19cdc49c2e82690ad1a21eafe",
-                "reference": "f2c51fdfcb0c50c19cdc49c2e82690ad1a21eafe",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/faeb20d3fc61b69790068161ab42bcf2d5faccbc",
+                "reference": "faeb20d3fc61b69790068161ab42bcf2d5faccbc",
                 "shasum": ""
             },
             "require": {
@@ -2391,20 +2391,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-12-20T14:16:06+00:00"
+            "time": "2022-12-21T19:37:46+00:00"
         },
         {
             "name": "laravel/scout",
-            "version": "v9.6.1",
+            "version": "v9.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/scout.git",
-                "reference": "feb8cdca5ea15ff7ce8b5a3fd3b6b93c360e7e38"
+                "reference": "7c4d294bd2dbed781515fd9a4747fd0133e687c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/scout/zipball/feb8cdca5ea15ff7ce8b5a3fd3b6b93c360e7e38",
-                "reference": "feb8cdca5ea15ff7ce8b5a3fd3b6b93c360e7e38",
+                "url": "https://api.github.com/repos/laravel/scout/zipball/7c4d294bd2dbed781515fd9a4747fd0133e687c9",
+                "reference": "7c4d294bd2dbed781515fd9a4747fd0133e687c9",
                 "shasum": ""
             },
             "require": {
@@ -2463,7 +2463,7 @@
                 "issues": "https://github.com/laravel/scout/issues",
                 "source": "https://github.com/laravel/scout"
             },
-            "time": "2022-12-20T17:18:18+00:00"
+            "time": "2022-12-21T11:34:25+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -2927,16 +2927,16 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v2.10.7",
+            "version": "v2.10.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "fa0441bf82f1674beecb3a8ad8a4ae428736ed18"
+                "reference": "4cc5dedaab1e9512efb4d528fde67df98e9b465a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/fa0441bf82f1674beecb3a8ad8a4ae428736ed18",
-                "reference": "fa0441bf82f1674beecb3a8ad8a4ae428736ed18",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/4cc5dedaab1e9512efb4d528fde67df98e9b465a",
+                "reference": "4cc5dedaab1e9512efb4d528fde67df98e9b465a",
                 "shasum": ""
             },
             "require": {
@@ -2988,7 +2988,7 @@
             "description": "A front-end framework for Laravel.",
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v2.10.7"
+                "source": "https://github.com/livewire/livewire/tree/v2.10.8"
             },
             "funding": [
                 {
@@ -2996,7 +2996,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-08T13:52:53+00:00"
+            "time": "2022-12-21T22:28:25+00:00"
         },
         {
             "name": "lunarphp/licensing",
@@ -9051,16 +9051,16 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v6.3.1",
+            "version": "v6.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "0f6349c3ed5dd28467087b08fb59384bb458a22b"
+                "reference": "83699b231e7f277bfa2e823788973bf4082f019a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/0f6349c3ed5dd28467087b08fb59384bb458a22b",
-                "reference": "0f6349c3ed5dd28467087b08fb59384bb458a22b",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/83699b231e7f277bfa2e823788973bf4082f019a",
+                "reference": "83699b231e7f277bfa2e823788973bf4082f019a",
                 "shasum": ""
             },
             "require": {
@@ -9135,20 +9135,20 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-09-29T12:29:49+00:00"
+            "time": "2022-12-23T21:36:49+00:00"
         },
         {
             "name": "nunomaduro/larastan",
-            "version": "2.2.9",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/larastan.git",
-                "reference": "333e7915b984ce6606175749430081a372ead37e"
+                "reference": "2217d0725884fd68f029fe22919edd3f910683d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/larastan/zipball/333e7915b984ce6606175749430081a372ead37e",
-                "reference": "333e7915b984ce6606175749430081a372ead37e",
+                "url": "https://api.github.com/repos/nunomaduro/larastan/zipball/2217d0725884fd68f029fe22919edd3f910683d3",
+                "reference": "2217d0725884fd68f029fe22919edd3f910683d3",
                 "shasum": ""
             },
             "require": {
@@ -9163,7 +9163,7 @@
                 "mockery/mockery": "^1.4.4",
                 "php": "^8.0.2",
                 "phpmyadmin/sql-parser": "^5.5",
-                "phpstan/phpstan": "^1.9.0"
+                "phpstan/phpstan": "^1.9.4"
             },
             "require-dev": {
                 "nikic/php-parser": "^4.13.2",
@@ -9212,7 +9212,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nunomaduro/larastan/issues",
-                "source": "https://github.com/nunomaduro/larastan/tree/2.2.9"
+                "source": "https://github.com/nunomaduro/larastan/tree/2.3.1"
             },
             "funding": [
                 {
@@ -9232,27 +9232,27 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-11-04T14:58:00+00:00"
+            "time": "2022-12-23T14:56:31+00:00"
         },
         {
             "name": "orchestra/testbench",
-            "version": "v7.16.0",
+            "version": "v7.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench.git",
-                "reference": "ee49131989293c548870f648d6b3b70cee054d50"
+                "reference": "ad16d4c73d7027aaf5635fd8315773de05cda06c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench/zipball/ee49131989293c548870f648d6b3b70cee054d50",
-                "reference": "ee49131989293c548870f648d6b3b70cee054d50",
+                "url": "https://api.github.com/repos/orchestral/testbench/zipball/ad16d4c73d7027aaf5635fd8315773de05cda06c",
+                "reference": "ad16d4c73d7027aaf5635fd8315773de05cda06c",
                 "shasum": ""
             },
             "require": {
                 "fakerphp/faker": "^1.21",
-                "laravel/framework": "^9.44",
+                "laravel/framework": "^9.45",
                 "mockery/mockery": "^1.5.1",
-                "orchestra/testbench-core": "^7.16",
+                "orchestra/testbench-core": "^7.17",
                 "php": "^8.0",
                 "phpunit/phpunit": "^9.5.10",
                 "spatie/laravel-ray": "^1.28",
@@ -9289,32 +9289,22 @@
             ],
             "support": {
                 "issues": "https://github.com/orchestral/testbench/issues",
-                "source": "https://github.com/orchestral/testbench/tree/v7.16.0"
+                "source": "https://github.com/orchestral/testbench/tree/v7.17.0"
             },
-            "funding": [
-                {
-                    "url": "https://paypal.me/crynobone",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://liberapay.com/crynobone",
-                    "type": "liberapay"
-                }
-            ],
-            "time": "2022-12-17T05:29:10+00:00"
+            "time": "2022-12-22T02:17:10+00:00"
         },
         {
             "name": "orchestra/testbench-core",
-            "version": "v7.16.0",
+            "version": "v7.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench-core.git",
-                "reference": "44ad7354f0bde2cd70fbe7daff6274c7e3838a41"
+                "reference": "fb2408561c92cf9ef54a8af36e6d8965a9e15e52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/44ad7354f0bde2cd70fbe7daff6274c7e3838a41",
-                "reference": "44ad7354f0bde2cd70fbe7daff6274c7e3838a41",
+                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/fb2408561c92cf9ef54a8af36e6d8965a9e15e52",
+                "reference": "fb2408561c92cf9ef54a8af36e6d8965a9e15e52",
                 "shasum": ""
             },
             "require": {
@@ -9322,7 +9312,7 @@
             },
             "require-dev": {
                 "fakerphp/faker": "^1.21",
-                "laravel/framework": "^9.44",
+                "laravel/framework": "^9.45",
                 "laravel/laravel": "9.x-dev",
                 "laravel/pint": "^1.1",
                 "mockery/mockery": "^1.5.1",
@@ -9337,7 +9327,7 @@
             "suggest": {
                 "brianium/paratest": "Allow using parallel tresting (^6.4).",
                 "fakerphp/faker": "Allow using Faker for testing (^1.21).",
-                "laravel/framework": "Required for testing (^9.44).",
+                "laravel/framework": "Required for testing (^9.45).",
                 "mockery/mockery": "Allow using Mockery for testing (^1.5.1).",
                 "nunomaduro/collision": "Allow using Laravel style tests output and parallel testing (^6.2).",
                 "orchestra/testbench-browser-kit": "Allow using legacy Laravel BrowserKit for testing (^7.0).",
@@ -9388,7 +9378,7 @@
                 "issues": "https://github.com/orchestral/testbench/issues",
                 "source": "https://github.com/orchestral/testbench-core"
             },
-            "time": "2022-12-17T05:15:50+00:00"
+            "time": "2022-12-22T02:11:25+00:00"
         },
         {
             "name": "pestphp/pest",
