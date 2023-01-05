@@ -16,7 +16,7 @@ class BrandResource extends JsonApiResource
      */
     public function attributes($request): iterable
     {
-        /** @var Brand */
+        /** @var Brand $model */
         $model = $this->resource;
 
         return [
@@ -33,7 +33,16 @@ class BrandResource extends JsonApiResource
      */
     public function relationships($request): iterable
     {
+        /** @var Brand $model */
+        $model = $this->resource;
+
         return [
+            $this->relation('default_url'),
+
+            $this
+                ->relation('thumbnail')
+                ->withoutLinks(),
+
             ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
         ];
     }

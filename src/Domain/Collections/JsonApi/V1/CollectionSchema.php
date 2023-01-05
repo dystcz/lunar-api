@@ -99,9 +99,13 @@ class CollectionSchema extends Schema
 
             ID::make(),
 
-            HasMany::make('products'),
-            HasOne::make('default_url', 'defaultUrl'),
+            HasOne::make('default_url', 'defaultUrl')
+                ->retainFieldName(),
+
             HasOne::make('group'),
+
+            HasMany::make('products'),
+
             HasMany::make('urls'),
         ];
     }

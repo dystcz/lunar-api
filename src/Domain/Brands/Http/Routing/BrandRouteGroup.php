@@ -1,16 +1,16 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Collections\Http\Routing;
+namespace Dystcz\LunarApi\Domain\Brands\Http\Routing;
 
-use Dystcz\LunarApi\Domain\Collections\Http\Controllers\CollectionsController;
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
+use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
-class CollectionRouteGroup extends RouteGroup implements RouteGroupContract
+class BrandRouteGroup extends RouteGroup implements RouteGroupContract
 {
     /** @var string */
-    public string $prefix = 'collections';
+    public string $prefix = 'brands';
 
     /** @var array */
     public array $middleware = [];
@@ -24,19 +24,15 @@ class CollectionRouteGroup extends RouteGroup implements RouteGroupContract
      */
     public function routes(?string $prefix = null, array|string $middleware = []): void
     {
-        $this->router->group([
-            // 'prefix' => $this->getPrefix($prefix),
-            'middleware' => $this->getMiddleware($middleware),
-        ], function () {
-            JsonApiRoute::server('v1')->prefix('v1')->resources(function ($server) {
-                $server->resource($this->getPrefix(), CollectionsController::class)
+        JsonApiRoute::server('v1')
+            ->prefix('v1')
+            ->resources(function ($server) {
+                $server->resource($this->getPrefix(), JsonApiController::class)
                     ->relationships(function ($relationships) {
-                        $relationships->hasMany('products')->readOnly();
                         $relationships->hasOne('default_url')->readOnly();
                     })
                     ->only('index', 'show')
                     ->readOnly();
             });
-        });
     }
 }
