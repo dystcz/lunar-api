@@ -2,9 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\Prices\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\Prices\Actions\GetPriceWithDefaultTax;
 use Illuminate\Support\Facades\Config;
-use LaravelJsonApi\Core\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Lunar\Models\Price;
 
 class PriceResource extends JsonApiResource
@@ -48,6 +49,7 @@ class PriceResource extends JsonApiResource
                 'decimal' => $comparePrice?->decimal,
                 'value' => $comparePrice?->value,
             ],
+            ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];
     }
 
@@ -59,6 +61,8 @@ class PriceResource extends JsonApiResource
      */
     public function relationships($request): iterable
     {
-        return [];
+        return [
+            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
+        ];
     }
 }

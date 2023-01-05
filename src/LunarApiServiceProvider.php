@@ -2,6 +2,8 @@
 
 namespace Dystcz\LunarApi;
 
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
@@ -56,6 +58,13 @@ class LunarApiServiceProvider extends ServiceProvider
         // Register the main class to use with the facade
         $this->app->singleton('lunar-api', function () {
             return new LunarApi();
+        });
+
+        $this->app->singleton(SchemaManifest::class, function () {
+            return new SchemaManifest();
+        });
+        $this->app->singleton(ResourceManifest::class, function () {
+            return new ResourceManifest();
         });
     }
 

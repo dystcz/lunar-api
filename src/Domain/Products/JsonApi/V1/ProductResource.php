@@ -3,7 +3,8 @@
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Attributes\Collections\AttributeCollection;
-use LaravelJsonApi\Core\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Lunar\Models\Product;
 
 class ProductResource extends JsonApiResource
@@ -36,6 +37,7 @@ class ProductResource extends JsonApiResource
                     ->mapToAttributeGroups($model)
                     ->toArray()
             ),
+            ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];
     }
 
@@ -97,6 +99,7 @@ class ProductResource extends JsonApiResource
                     ], fn ($value) => null !== $value)
                 ),
 
+            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
         ];
     }
 }

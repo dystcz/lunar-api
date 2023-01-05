@@ -2,7 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
 
-use LaravelJsonApi\Core\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Lunar\Models\Collection;
 
 class CollectionResource extends JsonApiResource
@@ -22,7 +23,8 @@ class CollectionResource extends JsonApiResource
             $model->attribute_data->mapWithKeys(fn ($value, $field) => [
                 $field => $model->translateAttribute($field),
             ])->toArray(),
-            []
+            [],
+            ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         );
     }
 
@@ -46,6 +48,7 @@ class CollectionResource extends JsonApiResource
                 ->withMeta(array_filter([
                     'count' => $model->products_count,
                 ], fn ($value) => null !== $value)),
+            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
         ];
     }
 }

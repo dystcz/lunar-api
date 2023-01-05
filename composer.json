@@ -65,7 +65,7 @@
                 "Dystcz\\LunarApi\\LunarApiServiceProvider"
             ],
             "aliases": {
-                "LunarApi": "Dystcz\\LunarApi\\LunarApiFacade"
+                "LunarApi": "Dystcz\\LunarApi\\Facade\\LunarApi"
             }
         }
     },

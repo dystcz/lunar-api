@@ -13,7 +13,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use LaravelJsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Lunar\Models\Collection;
 
 class CollectionSchema extends Schema
@@ -64,6 +64,7 @@ class CollectionSchema extends Schema
     public function with(): array
     {
         return [
+            ...parent::with(),
             'defaultUrl',
         ];
     }
@@ -76,6 +77,7 @@ class CollectionSchema extends Schema
     public function includePaths(): iterable
     {
         return [
+            ...parent::includePaths(),
             'products',
             'products.urls',
             'products.default_url',
@@ -93,6 +95,8 @@ class CollectionSchema extends Schema
     public function fields(): array
     {
         return [
+            ...parent::fields(),
+
             ID::make(),
 
             HasMany::make('products'),
@@ -110,6 +114,8 @@ class CollectionSchema extends Schema
     public function filters(): array
     {
         return [
+            ...parent::filters(),
+
             WhereIdIn::make($this),
 
             WhereHas::make($this, 'default_urls', 'url')->singular(),

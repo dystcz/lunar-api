@@ -13,7 +13,7 @@ use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use LaravelJsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Lunar\Models\ProductAssociation;
 
 class ProductAssociationSchema extends Schema
@@ -63,7 +63,9 @@ class ProductAssociationSchema extends Schema
      */
     public function with(): array
     {
-        return [];
+        return [
+            ...parent::with(),
+        ];
     }
 
     /**
@@ -74,6 +76,8 @@ class ProductAssociationSchema extends Schema
     public function includePaths(): iterable
     {
         return [
+            ...parent::includePaths(),
+
             'target',
             'target.thumbnail',
             'target.variants',
@@ -89,6 +93,8 @@ class ProductAssociationSchema extends Schema
     public function fields(): array
     {
         return [
+            ...parent::fields(),
+
             ID::make(),
 
             Str::make('type'),
@@ -105,6 +111,8 @@ class ProductAssociationSchema extends Schema
     public function filters(): array
     {
         return [
+            ...parent::filters(),
+
             WhereIdIn::make($this),
 
             Where::make('type'),

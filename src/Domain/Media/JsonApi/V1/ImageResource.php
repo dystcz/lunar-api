@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Media\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ImageResource extends MediaResource
@@ -18,7 +19,7 @@ class ImageResource extends MediaResource
         $model = $this->resource;
 
         return array_merge(parent::attributes($request), [
-            //
+            ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ]);
     }
 
@@ -31,7 +32,7 @@ class ImageResource extends MediaResource
     public function relationships($request): iterable
     {
         return [
-            //
+            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
         ];
     }
 }

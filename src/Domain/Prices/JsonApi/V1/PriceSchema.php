@@ -11,7 +11,7 @@ use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use LaravelJsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Lunar\Models\Price;
 
 class PriceSchema extends Schema
@@ -62,7 +62,7 @@ class PriceSchema extends Schema
     public function with(): array
     {
         return [
-            //
+            ...parent::with(),
         ];
     }
 
@@ -73,7 +73,9 @@ class PriceSchema extends Schema
      */
     public function includePaths(): iterable
     {
-        return [];
+        return [
+            ...parent::includePaths(),
+            ];
     }
 
     /**
@@ -84,6 +86,8 @@ class PriceSchema extends Schema
     public function fields(): array
     {
         return [
+            ...parent::fields(),
+
             ID::make(),
         ];
     }
@@ -96,6 +100,8 @@ class PriceSchema extends Schema
     public function filters(): array
     {
         return [
+            ...parent::filters(),
+
             WhereIdIn::make($this),
         ];
     }

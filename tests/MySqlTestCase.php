@@ -52,9 +52,8 @@ abstract class MySqlTestCase extends TestCase
     /**
      * @param  \Illuminate\Foundation\Application  $app
      */
-    protected function setUpDatabase($app)
+    protected function defineDatabaseMigrations()
     {
-        // Run migrations
-        // Run seeds
+         // $this->loadLaravelMigrations();
     }
 }

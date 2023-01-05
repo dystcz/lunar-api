@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use LaravelJsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Lunar\Models\CollectionGroup;
 
 class CollectionGroupSchema extends Schema
@@ -59,7 +59,7 @@ class CollectionGroupSchema extends Schema
     public function with(): array
     {
         return [
-            //
+            ...parent::with(),
         ];
     }
 
@@ -70,7 +70,9 @@ class CollectionGroupSchema extends Schema
      */
     public function includePaths(): iterable
     {
-        return [];
+        return [
+            ...parent::includePaths()
+        ];
     }
 
     /**
@@ -81,6 +83,8 @@ class CollectionGroupSchema extends Schema
     public function fields(): array
     {
         return [
+            ...parent::fields(),
+
             ID::make(),
         ];
     }
@@ -92,7 +96,9 @@ class CollectionGroupSchema extends Schema
      */
     public function filters(): array
     {
-        return [];
+        return [
+            ...parent::filters(),
+        ];
     }
 
     /**

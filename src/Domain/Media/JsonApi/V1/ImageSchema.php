@@ -9,7 +9,7 @@ use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use LaravelJsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ImageSchema extends Schema
@@ -60,7 +60,7 @@ class ImageSchema extends Schema
     public function with(): array
     {
         return [
-            //
+            ...parent::with(),
         ];
     }
 
@@ -72,6 +72,7 @@ class ImageSchema extends Schema
     public function fields(): array
     {
         return [
+            ...parent::fields(),
             ID::make(),
         ];
     }
@@ -84,6 +85,7 @@ class ImageSchema extends Schema
     public function filters(): array
     {
         return [
+            ...parent::filters(),
             WhereIdIn::make($this),
         ];
     }

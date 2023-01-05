@@ -2,7 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Urls\JsonApi\V1;
 
-use LaravelJsonApi\Core\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Lunar\Models\Url;
 
 class UrlResource extends JsonApiResource
@@ -21,6 +22,7 @@ class UrlResource extends JsonApiResource
         return [
             'slug' => $model->slug,
             'default' => $model->default,
+            ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];
     }
 
@@ -32,6 +34,8 @@ class UrlResource extends JsonApiResource
      */
     public function relationships($request): iterable
     {
-        return [];
+        return [
+            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
+        ];
     }
 }

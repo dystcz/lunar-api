@@ -2,7 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1;
 
-use LaravelJsonApi\Core\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Lunar\Models\CollectionGroup;
 
 class CollectionGroupResource extends JsonApiResource
@@ -20,6 +21,7 @@ class CollectionGroupResource extends JsonApiResource
 
         return [
             'name' => $model->name,
+            ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];
     }
 
@@ -31,6 +33,8 @@ class CollectionGroupResource extends JsonApiResource
      */
     public function relationships($request): iterable
     {
-        return [];
+        return [
+            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
+        ];
     }
 }

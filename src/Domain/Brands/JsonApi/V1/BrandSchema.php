@@ -11,7 +11,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use LaravelJsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Lunar\Models\Brand;
 
 class BrandSchema extends Schema
@@ -62,7 +62,7 @@ class BrandSchema extends Schema
     public function with(): array
     {
         return [
-            //
+            ...parent::with(),
         ];
     }
 
@@ -74,6 +74,7 @@ class BrandSchema extends Schema
     public function includePaths(): iterable
     {
         return [
+            ...parent::includePaths(),
             'thumbnail',
         ];
     }
@@ -86,6 +87,8 @@ class BrandSchema extends Schema
     public function fields(): array
     {
         return [
+            ...parent::fields(),
+
             ID::make(),
 
             HasOne::make('thumbnail'),
@@ -100,6 +103,8 @@ class BrandSchema extends Schema
     public function filters(): array
     {
         return [
+            ...parent::filters(),
+
             WhereIdIn::make($this),
 
             Where::make('name'),

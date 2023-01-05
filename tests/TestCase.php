@@ -4,10 +4,10 @@ namespace Dystcz\LunarApi\Tests;
 
 use Cartalyst\Converter\Laravel\ConverterServiceProvider;
 use Dystcz\LunarApi\LunarApiServiceProvider;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Kalnoy\Nestedset\NestedSetServiceProvider;
-use LaravelJsonApi\Encoder\Neomerx\ServiceProvider;
-use LaravelJsonApi\Laravel\ServiceProvider as LaravelJsonApiServiceProvider;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
+use LaravelJsonApi\Testing\TestExceptionHandler;
 use Lunar\Database\Factories\LanguageFactory;
 use Lunar\Hub\Tests\Stubs\User;
 use Lunar\LunarServiceProvider;
@@ -47,9 +47,13 @@ abstract class TestCase extends Orchestra
     {
         return [
             LunarApiServiceProvider::class,
-            ServiceProvider::class,
-            LaravelJsonApiServiceProvider::class,
 
+            // Laravel JsonApi
+            \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
+            \LaravelJsonApi\Laravel\ServiceProvider::class,
+            \LaravelJsonApi\Spec\ServiceProvider::class,
+
+            // Lunar core
             LunarServiceProvider::class,
             MediaLibraryServiceProvider::class,
             ActivitylogServiceProvider::class,
@@ -74,6 +78,7 @@ abstract class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
+        // TODO move to testbench.yaml
         config()->set('database.connections.mysql', [
             'driver' => 'mysql',
             'host' => 'mysql',
@@ -83,6 +88,7 @@ abstract class TestCase extends Orchestra
             'password' => 'secret',
         ]);
 
+        // TODO move to testbench.yaml
         config()->set('database.redis.default', [
             'host' => 'redis',
             'password' => 'secret_redis',
@@ -110,12 +116,11 @@ abstract class TestCase extends Orchestra
     //     );
     // }
 
-    /**
-     * @param  \Illuminate\Foundation\Application  $app
-     */
-    protected function setUpDatabase($app)
+    protected function resolveApplicationExceptionHandler($app): void
     {
-        // Run migrations
-        // Run seeds
+        $app->singleton(
+            ExceptionHandler::class,
+            TestExceptionHandler::class
+        );
     }
 }
