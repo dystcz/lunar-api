@@ -13,6 +13,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Extensions\ExtensionCollection;
 class ResourceExtension extends Extension
 {
     protected ExtensionCollection $attributes;
+
     protected ExtensionCollection $relationships;
 
     public function __construct()

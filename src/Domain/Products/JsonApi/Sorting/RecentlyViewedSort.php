@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\Sorting;
 
 use Dystcz\LunarApi\Domain\Products\ProductViews;
-use Illuminate\Support\Facades\Redis;
 use LaravelJsonApi\Eloquent\Contracts\SortField;
 
 class RecentlyViewedSort implements SortField
@@ -16,8 +15,8 @@ class RecentlyViewedSort implements SortField
     /**
      * Create a new sort field.
      *
-     * @param string $name
-     * @param string|null $column
+     * @param  string  $name
+     * @param  string|null  $column
      * @return CustomSort
      */
     public static function make(string $name): self
@@ -28,7 +27,7 @@ class RecentlyViewedSort implements SortField
     /**
      * CustomSort constructor.
      *
-     * @param string $name
+     * @param  string  $name
      */
     public function __construct(string $name)
     {
@@ -48,16 +47,16 @@ class RecentlyViewedSort implements SortField
     /**
      * Apply the sort order to the query.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $direction
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  string  $direction
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function sort($query, string $direction = 'asc')
     {
         $list = app(ProductViews::class)->sorted();
 
-        if (!empty($list)) {
-            $query->orderByRaw("FIELD(id, ".implode(',', $list).")");
+        if (! empty($list)) {
+            $query->orderByRaw('FIELD(id, '.implode(',', $list).')');
         }
     }
 }

@@ -15,8 +15,9 @@ class ResourceManifest implements Manifest
     protected array $extensions = [];
 
     /**
-     * @param class-string<JsonApiResource> $class
+     * @param  class-string<JsonApiResource>  $class
      * @return ResourceExtension
+     *
      * @throws BindingResolutionException
      */
     public static function for(string $class): Extension

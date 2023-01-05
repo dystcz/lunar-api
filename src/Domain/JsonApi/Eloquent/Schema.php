@@ -8,52 +8,52 @@ use LaravelJsonApi\Eloquent\Schema as BaseSchema;
 abstract class Schema extends BaseSchema
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function with(): array
     {
         return [
-            ...SchemaManifest::for(static::class)->with()->all()
+            ...SchemaManifest::for(static::class)->with()->all(),
         ];
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function includePaths(): iterable
     {
         return [
-            ...SchemaManifest::for(static::class)->includePaths()->all()
+            ...SchemaManifest::for(static::class)->includePaths()->all(),
         ];
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function fields(): array
     {
         return [
-            ...SchemaManifest::for(static::class)->fields()->all()
+            ...SchemaManifest::for(static::class)->fields()->all(),
         ];
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function filters(): array
     {
         return [
-            ...SchemaManifest::for(static::class)->filters()->all()
+            ...SchemaManifest::for(static::class)->filters()->all(),
         ];
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function sortables(): iterable
     {
         return [
-            ...SchemaManifest::for(static::class)->sortables()->all()
+            ...SchemaManifest::for(static::class)->sortables()->all(),
         ];
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 // uses(\Dystcz\LunarApi\Tests\MySqlTestCase::class, RefreshDatabase::class);
 

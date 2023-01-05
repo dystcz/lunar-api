@@ -11,7 +11,7 @@ uses(TestCase::class, RefreshDatabase::class);
 test('a schema can be extended', function () {
     SchemaManifest::for(ProductSchema::class)
         ->fields([
-            'my-product-name'
+            'my-product-name',
         ]);
 
     expect(
@@ -24,7 +24,7 @@ test('a schema can be extended', function () {
 
     expect($productSchemaInstance->fields())->toBe([
         'product-name',
-        'my-product-name'
+        'my-product-name',
     ]);
 });
 

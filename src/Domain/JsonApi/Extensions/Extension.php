@@ -21,7 +21,7 @@ abstract class Extension
 
     public function __call(string $name, array $arguments): ExtensionCollection
     {
-        if (!property_exists($this, $name)) {
+        if (! property_exists($this, $name)) {
             throw new RuntimeException("{$name} can not be extended.");
         }
 

@@ -22,15 +22,15 @@ class LunarApiServiceProvider extends ServiceProvider
     public function boot()
     {
         // Register routes
-        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
-        Config::set('openapi', require __DIR__ . '/../config/openapi.php');
+        Config::set('openapi', require __DIR__.'/../config/openapi.php');
 
         $this->registerModels();
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/lunar-api.php' => config_path('lunar-api.php'),
+                __DIR__.'/../config/lunar-api.php' => config_path('lunar-api.php'),
             ], 'config');
 
             // $this->publishes([
@@ -52,8 +52,8 @@ class LunarApiServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__ . '/../config/lunar-api.php', 'lunar-api');
-        $this->mergeConfigFrom(__DIR__ . '/../config/jsonapi.php', 'jsonapi');
+        $this->mergeConfigFrom(__DIR__.'/../config/lunar-api.php', 'lunar-api');
+        $this->mergeConfigFrom(__DIR__.'/../config/jsonapi.php', 'jsonapi');
 
         // Register the main class to use with the facade
         $this->app->singleton('lunar-api', function () {

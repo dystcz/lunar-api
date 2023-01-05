@@ -17,7 +17,7 @@ class ProductVariantResource extends JsonApiResource
         return [
             'sku' => $this->sku,
             'ean' => $this->ean,
-            ...!$this->attribute_data
+            ...! $this->attribute_data
                 ? []
                 : $model->attribute_data->keys()->mapWithKeys(
                     fn ($key) => [$key => $this->attr($key)]

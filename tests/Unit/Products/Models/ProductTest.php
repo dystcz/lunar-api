@@ -2,8 +2,8 @@
 
 use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
-use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
+use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
 
@@ -14,7 +14,7 @@ it('has prices relation', function () {
     $product = ProductFactory::new()
         ->has(
             ProductVariantFactory::new()->has(PriceFactory::new()),
-        'variants'
+            'variants'
         )
         ->create();
 
@@ -26,7 +26,7 @@ it('has lowest price relation', function () {
     $products = ProductFactory::new()
         ->has(
             ProductVariantFactory::new()->has(PriceFactory::new()->count(5))->count(5),
-        'variants'
+            'variants'
         )
         ->count(5)
         ->create();
@@ -42,7 +42,7 @@ it('has cheapest variant relation', function () {
     $products = ProductFactory::new()
         ->has(
             ProductVariantFactory::new()->has(PriceFactory::new()->count(5))->count(5),
-        'variants'
+            'variants'
         )
         ->count(5)
         ->create();

@@ -2,18 +2,19 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema;
 
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Manifest;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 
 class SchemaManifest implements Manifest
 {
     protected array $extensions = [];
 
     /**
-     * @param class-string<Schema> $class
+     * @param  class-string<Schema>  $class
      * @return SchemaExtension
+     *
      * @throws BindingResolutionException
      */
     public static function for(string $class): Extension

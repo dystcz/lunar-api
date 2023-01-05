@@ -9,8 +9,6 @@ use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystcz\LunarApi\Domain\Products\ProductViews;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Str;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions;
 use Lunar\Models\Product;
@@ -33,8 +31,8 @@ class ProductsController extends Controller
     /**
      * Fetch zero to many JSON API resources.
      *
-     * @param ProductSchema          $schema
-     * @param ProductCollectionQuery $request
+     * @param  ProductSchema  $schema
+     * @param  ProductCollectionQuery  $request
      * @return Responsable|Response
      */
     // public function index(ProductSchema $schema, ProductCollectionQuery $request): Responsable|Response
@@ -51,9 +49,9 @@ class ProductsController extends Controller
     /**
      * Fetch zero to one JSON API resource by id.
      *
-     * @param ProductSchema $schema
-     * @param ProductQuery  $request
-     * @param Product       $product
+     * @param  ProductSchema  $schema
+     * @param  ProductQuery  $request
+     * @param  Product  $product
      * @return Responsable|Response
      */
     // public function show(ProductSchema $schema, ProductQuery $request, Product $product): Responsable|Response

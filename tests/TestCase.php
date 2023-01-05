@@ -11,11 +11,11 @@ use LaravelJsonApi\Testing\TestExceptionHandler;
 use Lunar\Database\Factories\LanguageFactory;
 use Lunar\Hub\Tests\Stubs\User;
 use Lunar\LunarServiceProvider;
+use function Orchestra\Testbench\artisan;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 use Spatie\LaravelBlink\BlinkServiceProvider;
 use Spatie\MediaLibrary\MediaLibraryServiceProvider;
-use function Orchestra\Testbench\artisan;
 
 abstract class TestCase extends Orchestra
 {

@@ -35,7 +35,7 @@ test('a resource attributes can be extended', function () {
 test('a resource relationships can be extended', function () {
     ResourceManifest::for(ProductResource::class)
         ->relationships(fn (JsonApiResource $resource) => [
-            $resource->relation('golden_chocolate')
+            $resource->relation('golden_chocolate'),
         ]);
 
     expect(
@@ -60,7 +60,7 @@ class ProductResourceMock extends ProductResource
     {
         return [
             ...ResourceManifest::for(ProductResource::class)
-                ->attributes()->toResourceArray($this)
+                ->attributes()->toResourceArray($this),
         ];
     }
 
@@ -68,7 +68,7 @@ class ProductResourceMock extends ProductResource
     {
         return [
             ...ResourceManifest::for(ProductResource::class)
-                ->relationships()->toResourceArray($this)
+                ->relationships()->toResourceArray($this),
         ];
     }
 }

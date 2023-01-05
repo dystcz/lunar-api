@@ -15,9 +15,13 @@ use Dystcz\LunarApi\Domain\JsonApi\Extensions\ExtensionCollection;
 class SchemaExtension extends Extension
 {
     protected ExtensionCollection $fields;
+
     protected ExtensionCollection $filters;
+
     protected ExtensionCollection $sortables;
+
     protected ExtensionCollection $with;
+
     protected ExtensionCollection $includePaths;
 
     public function __construct()

@@ -22,7 +22,7 @@ class Server extends BaseServer
     /**
      * Set base server URI.
      *
-     * @param string $path
+     * @param  string  $path
      * @return void
      */
     protected function setBaseUri(string $path = 'v1'): void
