@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Manifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
-use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Support\Facades\App;
 
 class ResourceManifest implements Manifest
 {
@@ -17,14 +17,12 @@ class ResourceManifest implements Manifest
     /**
      * @param  class-string<JsonApiResource>  $class
      * @return ResourceExtension
-     *
-     * @throws BindingResolutionException
      */
     public static function for(string $class): Extension
     {
-        $self = app()->make(self::class);
+        $self = App::make(self::class);
 
         return $self->extensions[$class]
-            ??= app()->make(ResourceExtension::class, ['resourceClass' => $class]);
+            ??= App::make(ResourceExtension::class, ['resourceClass' => $class]);
     }
 }

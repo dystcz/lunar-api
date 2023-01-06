@@ -20,7 +20,7 @@ test('a resource attributes can be extended', function () {
         ResourceManifest::for(ProductResource::class)->attributes()->first(),
     )->toBeInstanceOf(Closure::class);
 
-    $server = app()->make(Server::class, ['name' => 'v1']);
+    $server = App::make(Server::class, ['name' => 'v1']);
 
     $productSchemaInstance = $server->schemas()->schemaFor('products');
     $productResourceInstance = new ProductResourceMock(
@@ -42,7 +42,7 @@ test('a resource relationships can be extended', function () {
         ResourceManifest::for(ProductResource::class)->relationships()->first(),
     )->toBeInstanceOf(Closure::class);
 
-    $server = app()->make(Server::class, ['name' => 'v1']);
+    $server = App::make(Server::class, ['name' => 'v1']);
 
     $productSchemaInstance = $server->schemas()->schemaFor('products');
     $productResourceInstance = new ProductResourceMock(

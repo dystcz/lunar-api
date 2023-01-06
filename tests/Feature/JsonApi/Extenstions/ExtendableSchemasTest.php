@@ -18,7 +18,7 @@ test('a schema can be extended', function () {
         SchemaManifest::for(ProductSchema::class)->fields()->contains('my-product-name'),
     )->toBeTrue();
 
-    $server = app()->make(ServerMock::class, ['name' => 'v1']);
+    $server = App::make(ServerMock::class, ['name' => 'v1']);
 
     $productSchemaInstance = $server->schemas()->schemaFor('products');
 
