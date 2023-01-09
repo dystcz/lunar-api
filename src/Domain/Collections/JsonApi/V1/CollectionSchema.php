@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
@@ -13,7 +14,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use LaravelJsonApi\Eloquent\Schema;
 use Lunar\Models\Collection;
 
 class CollectionSchema extends Schema
@@ -35,8 +35,8 @@ class CollectionSchema extends Schema
     /**
      * Build an index query for this resource.
      *
-     * @param Request|null $request
-     * @param Builder $query
+     * @param  Request|null  $request
+     * @param  Builder  $query
      * @return Builder
      */
     public function indexQuery(?Request $request, Builder $query): Builder
@@ -47,8 +47,8 @@ class CollectionSchema extends Schema
     /**
      * Build a "relatable" query for this resource.
      *
-     * @param Request|null $request
-     * @param Relation $query
+     * @param  Request|null  $request
+     * @param  Relation  $query
      * @return Relation
      */
     public function relatableQuery(?Request $request, Relation $query): Relation
@@ -64,6 +64,7 @@ class CollectionSchema extends Schema
     public function with(): array
     {
         return [
+            ...parent::with(),
             'defaultUrl',
         ];
     }
@@ -76,6 +77,7 @@ class CollectionSchema extends Schema
     public function includePaths(): iterable
     {
         return [
+            ...parent::includePaths(),
             'products',
             'products.urls',
             'products.default_url',
@@ -93,6 +95,8 @@ class CollectionSchema extends Schema
     public function fields(): array
     {
         return [
+            ...parent::fields(),
+
             ID::make(),
 
             HasOne::make('default_url', 'defaultUrl')
@@ -114,6 +118,8 @@ class CollectionSchema extends Schema
     public function filters(): array
     {
         return [
+            ...parent::filters(),
+
             WhereIdIn::make($this),
 
             WhereHas::make($this, 'default_urls', 'url')->singular(),
@@ -129,7 +135,7 @@ class CollectionSchema extends Schema
      * hook to add complex logic for working out if a set of filters should
      * return a singular resource.
      *
-     * @param array $filters
+     * @param  array  $filters
      * @return bool
      */
     public function isSingular(array $filters): bool

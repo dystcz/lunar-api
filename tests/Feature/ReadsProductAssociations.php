@@ -2,10 +2,10 @@
 
 use Dystcz\LunarApi\Domain\Media\Factories\MediaFactory;
 use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
+use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 
 uses(\Dystcz\LunarApi\Tests\TestCase::class, RefreshDatabase::class);
 
@@ -21,7 +21,7 @@ it('can read products associations', function () {
         )
         ->has(MediaFactory::new()->thumbnail(), 'thumbnail')
         ->create();
-    
+
     $productA->associate(
         $productB,
         \Lunar\Models\ProductAssociation::CROSS_SELL

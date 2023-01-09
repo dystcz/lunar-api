@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
@@ -13,7 +14,6 @@ use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use LaravelJsonApi\Eloquent\Schema;
 use Lunar\Models\ProductAssociation;
 
 class ProductAssociationSchema extends Schema
@@ -35,8 +35,8 @@ class ProductAssociationSchema extends Schema
     /**
      * Build an index query for this resource.
      *
-     * @param Request|null $request
-     * @param Builder $query
+     * @param  Request|null  $request
+     * @param  Builder  $query
      * @return Builder
      */
     public function indexQuery(?Request $request, Builder $query): Builder
@@ -47,8 +47,8 @@ class ProductAssociationSchema extends Schema
     /**
      * Build a "relatable" query for this resource.
      *
-     * @param Request|null $request
-     * @param Relation $query
+     * @param  Request|null  $request
+     * @param  Relation  $query
      * @return Relation
      */
     public function relatableQuery(?Request $request, Relation $query): Relation
@@ -63,7 +63,9 @@ class ProductAssociationSchema extends Schema
      */
     public function with(): array
     {
-        return [];
+        return [
+            ...parent::with(),
+        ];
     }
 
     /**
@@ -74,6 +76,8 @@ class ProductAssociationSchema extends Schema
     public function includePaths(): iterable
     {
         return [
+            ...parent::includePaths(),
+
             'target',
             'target.thumbnail',
             'target.variants',
@@ -89,6 +93,8 @@ class ProductAssociationSchema extends Schema
     public function fields(): array
     {
         return [
+            ...parent::fields(),
+
             ID::make(),
 
             Str::make('type'),
@@ -105,6 +111,8 @@ class ProductAssociationSchema extends Schema
     public function filters(): array
     {
         return [
+            ...parent::filters(),
+
             WhereIdIn::make($this),
 
             Where::make('type'),
@@ -120,7 +128,7 @@ class ProductAssociationSchema extends Schema
      * hook to add complex logic for working out if a set of filters should
      * return a singular resource.
      *
-     * @param array $filters
+     * @param  array  $filters
      * @return bool
      */
     public function isSingular(array $filters): bool

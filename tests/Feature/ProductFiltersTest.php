@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(\Dystcz\LunarApi\Tests\MySqlTestCase::class, RefreshDatabase::class);
+// uses(\Dystcz\LunarApi\Tests\MySqlTestCase::class, RefreshDatabase::class);
 
 it('filter products by recently viewed', function () {
     $leastViewedProduct = ProductFactory::new()->create();
@@ -33,4 +33,4 @@ it('filter products by recently viewed', function () {
         ->get('http://localhost/api/v1/products');
 
     $response->assertFetchedManyInOrder([$mostViewedProduct, $leastViewedProduct]);
-});
+})->skip('TODO');

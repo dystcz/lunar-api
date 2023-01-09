@@ -13,6 +13,7 @@ class Controller extends BaseController
      * Laravel Controller Traits.
      */
     use AuthorizesRequests;
+
     use DispatchesJobs;
     use ValidatesRequests;
 }

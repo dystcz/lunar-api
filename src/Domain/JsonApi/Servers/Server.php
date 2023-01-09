@@ -11,8 +11,8 @@ abstract class Server extends BaseServer
     /**
      * Server constructor.
      *
-     * @param AppResolver $app
-     * @param string $name
+     * @param  AppResolver  $app
+     * @param  string  $name
      */
     public function __construct(AppResolver $app, string $name)
     {
@@ -24,7 +24,7 @@ abstract class Server extends BaseServer
     /**
      * Set base server URI.
      *
-     * @param string $path
+     * @param  string  $path
      * @return void
      */
     protected function setBaseUri(string $path = 'v1'): void

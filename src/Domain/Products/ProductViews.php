@@ -35,7 +35,7 @@ class ProductViews
                 'hits' => $hits,
             ]);
         }
-        
+
         return $sorted->sortByDesc('hits')->pluck('productId')->toArray();
     }
 

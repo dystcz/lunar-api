@@ -1,13 +1,10 @@
 <?php
 
-namespace Dystcz\LunarApi;
+namespace Dystcz\LunarApi\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-/**
- * @see \Dystcz\LunarApi\LunarApi
- */
-class LunarApiFacade extends Facade
+class LunarApi extends Facade
 {
     /**
      * Get the registered name of the component.

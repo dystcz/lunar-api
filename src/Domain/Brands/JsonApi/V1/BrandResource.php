@@ -2,7 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Brands\JsonApi\V1;
 
-use LaravelJsonApi\Core\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Lunar\Models\Brand;
 
 class BrandResource extends JsonApiResource
@@ -10,7 +11,7 @@ class BrandResource extends JsonApiResource
     /**
      * Get the resource's attributes.
      *
-     * @param \Illuminate\Http\Request|null $request
+     * @param  \Illuminate\Http\Request|null  $request
      * @return iterable
      */
     public function attributes($request): iterable
@@ -20,13 +21,14 @@ class BrandResource extends JsonApiResource
 
         return [
             'name' => $model->name,
+            ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];
     }
 
     /**
      * Get the resource's relationships.
      *
-     * @param \Illuminate\Http\Request|null $request
+     * @param  \Illuminate\Http\Request|null  $request
      * @return iterable
      */
     public function relationships($request): iterable
@@ -40,6 +42,8 @@ class BrandResource extends JsonApiResource
             $this
                 ->relation('thumbnail')
                 ->withoutLinks(),
+
+            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
         ];
     }
 }

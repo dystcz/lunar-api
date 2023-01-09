@@ -13,6 +13,7 @@ class ProductVariant extends LunarPoductVariant
      * Lowest price relation.
      *
      * @return MorphOne
+     *
      * @throws InvalidArgumentException
      */
     public function lowestPrice(): MorphOne

@@ -1,6 +1,5 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Media\Factories\MediaFactory;
 use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
@@ -27,7 +26,7 @@ it('can read product prices', function () {
             'prices',
         )
         ->get($self);
-    
+
     $response->assertFetchedOne($product)
         ->assertIsIncluded('prices', $product->prices->first());
 });

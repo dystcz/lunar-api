@@ -16,7 +16,7 @@ it('can record a view', function () {
 });
 
 it('removes old entries', function () {
-    Redis::zAdd("product:views:1", time() - 60 * 60, Str::uuid()->toString());
+    Redis::zAdd('product:views:1', time() - 60 * 60, Str::uuid()->toString());
 
     expect(\Illuminate\Support\Facades\Redis::zRange('product:views:1', 0, -1))
         ->toHaveCount(1);

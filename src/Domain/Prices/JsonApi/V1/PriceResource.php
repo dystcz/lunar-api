@@ -2,9 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\Prices\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Prices\Actions\GetPriceWithDefaultTax;
 use Illuminate\Support\Facades\Config;
-use LaravelJsonApi\Core\Resources\JsonApiResource;
 use Lunar\Models\Price;
 
 class PriceResource extends JsonApiResource
@@ -12,7 +13,7 @@ class PriceResource extends JsonApiResource
     /**
      * Get the resource's attributes.
      *
-     * @param \Illuminate\Http\Request|null $request
+     * @param  \Illuminate\Http\Request|null  $request
      * @return iterable
      */
     public function attributes($request): iterable
@@ -22,7 +23,7 @@ class PriceResource extends JsonApiResource
 
         /** @var Price $model */
         $model = $this->resource;
-        
+
         /** @var PriceDataType $basePrice */
         $basePrice = $model->price;
 
@@ -48,17 +49,20 @@ class PriceResource extends JsonApiResource
                 'decimal' => $comparePrice?->decimal,
                 'value' => $comparePrice?->value,
             ],
+            ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];
     }
 
     /**
      * Get the resource's relationships.
      *
-     * @param \Illuminate\Http\Request|null $request
+     * @param  \Illuminate\Http\Request|null  $request
      * @return iterable
      */
     public function relationships($request): iterable
     {
-        return [];
+        return [
+            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
+        ];
     }
 }

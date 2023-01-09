@@ -2,7 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Media\JsonApi\V1;
 
-use LaravelJsonApi\Core\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MediaResource extends JsonApiResource
@@ -10,7 +11,7 @@ class MediaResource extends JsonApiResource
     /**
      * Get the resource's attributes.
      *
-     * @param \Illuminate\Http\Request|null $request
+     * @param  \Illuminate\Http\Request|null  $request
      * @return iterable
      */
     public function attributes($request): iterable
@@ -26,19 +27,20 @@ class MediaResource extends JsonApiResource
             'size' => $model->size,
             'collection_name' => $model->collection_name,
             'order_column' => $model->order_column,
+            ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];
     }
 
     /**
      * Get the resource's relationships.
      *
-     * @param \Illuminate\Http\Request|null $request
+     * @param  \Illuminate\Http\Request|null  $request
      * @return iterable
      */
     public function relationships($request): iterable
     {
         return [
-            //
+            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
         ];
     }
 }
