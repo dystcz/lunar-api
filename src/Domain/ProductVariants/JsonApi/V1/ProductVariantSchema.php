@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
@@ -12,7 +13,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use LaravelJsonApi\Eloquent\Schema;
 use Lunar\Models\ProductVariant;
 
 class ProductVariantSchema extends Schema
@@ -34,8 +34,8 @@ class ProductVariantSchema extends Schema
     /**
      * Build an index query for this resource.
      *
-     * @param Request|null $request
-     * @param Builder $query
+     * @param  Request|null  $request
+     * @param  Builder  $query
      * @return Builder
      */
     public function indexQuery(?Request $request, Builder $query): Builder
@@ -46,8 +46,8 @@ class ProductVariantSchema extends Schema
     /**
      * Build a "relatable" query for this resource.
      *
-     * @param Request|null $request
-     * @param Relation $query
+     * @param  Request|null  $request
+     * @param  Relation  $query
      * @return Relation
      */
     public function relatableQuery(?Request $request, Relation $query): Relation
@@ -63,7 +63,7 @@ class ProductVariantSchema extends Schema
     public function with(): array
     {
         return [
-            //
+            ...parent::with(),
         ];
     }
 
@@ -75,6 +75,8 @@ class ProductVariantSchema extends Schema
     public function includePaths(): iterable
     {
         return [
+            ...parent::includePaths(),
+
             'images',
             'prices',
         ];
@@ -88,6 +90,8 @@ class ProductVariantSchema extends Schema
     public function fields(): array
     {
         return [
+            ...parent::fields(),
+
             ID::make(),
 
             HasOne::make('lowestPrice')->type('prices'),
@@ -104,6 +108,8 @@ class ProductVariantSchema extends Schema
     public function filters(): array
     {
         return [
+            ...parent::filters(),
+
             WhereIdIn::make($this),
         ];
     }

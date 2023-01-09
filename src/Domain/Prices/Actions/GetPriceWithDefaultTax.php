@@ -12,7 +12,7 @@ class GetPriceWithDefaultTax
     /**
      * Get Price with default tax.
      *
-     * @param Purchasable $purchasable
+     * @param  Purchasable  $purchasable
      * @return Price
      */
     public function __invoke(Purchasable $purchasable, Price $price): Price

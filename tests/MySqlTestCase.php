@@ -2,19 +2,6 @@
 
 namespace Dystcz\LunarApi\Tests;
 
-use Cartalyst\Converter\Laravel\ConverterServiceProvider;
-use Dystcz\LunarApi\LunarApiServiceProvider;
-use Kalnoy\Nestedset\NestedSetServiceProvider;
-use LaravelJsonApi\Encoder\Neomerx\ServiceProvider;
-use LaravelJsonApi\Laravel\ServiceProvider as LaravelJsonApiServiceProvider;
-use LaravelJsonApi\Testing\MakesJsonApiRequests;
-use Lunar\Database\Factories\LanguageFactory;
-use Lunar\Hub\Tests\Stubs\User;
-use Lunar\LunarServiceProvider;
-use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\Activitylog\ActivitylogServiceProvider;
-use Spatie\LaravelBlink\BlinkServiceProvider;
-use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 use function Orchestra\Testbench\artisan;
 
 abstract class MySqlTestCase extends TestCase
@@ -52,9 +39,8 @@ abstract class MySqlTestCase extends TestCase
     /**
      * @param  \Illuminate\Foundation\Application  $app
      */
-    protected function setUpDatabase($app)
+    protected function defineDatabaseMigrations()
     {
-        // Run migrations
-        // Run seeds
+        // $this->loadLaravelMigrations();
     }
 }

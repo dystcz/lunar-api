@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Brands\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
@@ -12,7 +13,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use LaravelJsonApi\Eloquent\Schema;
 use Lunar\Models\Brand;
 
 class BrandSchema extends Schema
@@ -34,8 +34,8 @@ class BrandSchema extends Schema
     /**
      * Build an index query for this resource.
      *
-     * @param Request|null $request
-     * @param Builder $query
+     * @param  Request|null  $request
+     * @param  Builder  $query
      * @return Builder
      */
     public function indexQuery(?Request $request, Builder $query): Builder
@@ -46,8 +46,8 @@ class BrandSchema extends Schema
     /**
      * Build a "relatable" query for this resource.
      *
-     * @param Request|null $request
-     * @param Relation $query
+     * @param  Request|null  $request
+     * @param  Relation  $query
      * @return Relation
      */
     public function relatableQuery(?Request $request, Relation $query): Relation
@@ -63,7 +63,7 @@ class BrandSchema extends Schema
     public function with(): array
     {
         return [
-            //
+            ...parent::with(),
         ];
     }
 
@@ -75,6 +75,7 @@ class BrandSchema extends Schema
     public function includePaths(): iterable
     {
         return [
+            ...parent::includePaths(),
             'default_url',
             'thumbnail',
         ];
@@ -88,6 +89,8 @@ class BrandSchema extends Schema
     public function fields(): array
     {
         return [
+            ...parent::fields(),
+
             ID::make(),
 
             HasOne::make('default_url', 'defaultUrl')
@@ -106,6 +109,8 @@ class BrandSchema extends Schema
     public function filters(): array
     {
         return [
+            ...parent::filters(),
+
             WhereIdIn::make($this),
 
             Where::make('name'),

@@ -3,7 +3,8 @@
 namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Attributes\Collections\AttributeCollection;
-use LaravelJsonApi\Core\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Lunar\Models\ProductVariant;
 
 class ProductVariantResource extends JsonApiResource
@@ -11,7 +12,7 @@ class ProductVariantResource extends JsonApiResource
     /**
      * Get the resource's attributes.
      *
-     * @param \Illuminate\Http\Request|null $request
+     * @param  \Illuminate\Http\Request|null  $request
      * @return iterable
      */
     public function attributes($request): iterable
@@ -33,13 +34,14 @@ class ProductVariantResource extends JsonApiResource
                     ->mapToAttributeGroups($model)
                     ->toArray()
             ),
+            ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];
     }
 
     /**
      * Get the resource's relationships.
      *
-     * @param \Illuminate\Http\Request|null $request
+     * @param  \Illuminate\Http\Request|null  $request
      * @return iterable
      */
     public function relationships($request): iterable
@@ -48,6 +50,7 @@ class ProductVariantResource extends JsonApiResource
             $this->relation('lowestPrice'),
             $this->relation('images'),
             $this->relation('prices'),
+            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
         ];
     }
 }

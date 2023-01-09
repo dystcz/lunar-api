@@ -16,6 +16,7 @@ class CollectionsController extends Controller
 {
     use Actions\FetchMany;
     use Actions\FetchOne;
+
     // use Actions\Store;
     // use Actions\Update;
     // use Actions\Destroy;
@@ -28,8 +29,8 @@ class CollectionsController extends Controller
     /**
      * Fetch zero to many JSON API resources.
      *
-     * @param CollectionSchema $schema
-     * @param CollectionCollectionQuery $request
+     * @param  CollectionSchema  $schema
+     * @param  CollectionCollectionQuery  $request
      * @return Responsable|Response
      */
     // public function index(CollectionSchema $schema, CollectionCollectionQuery $request): Responsable|Response
@@ -46,9 +47,9 @@ class CollectionsController extends Controller
     /**
      * Fetch zero to one JSON API resource by id.
      *
-     * @param CollectionSchema $schema
-     * @param CollectionQuery $request
-     * @param Collection $product
+     * @param  CollectionSchema  $schema
+     * @param  CollectionQuery  $request
+     * @param  Collection  $product
      * @return Responsable|Response
      */
     // public function show(CollectionSchema $schema, CollectionQuery $request, Collection $collection): Responsable|Response

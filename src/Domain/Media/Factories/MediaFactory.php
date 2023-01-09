@@ -11,12 +11,12 @@ class MediaFactory extends \Illuminate\Database\Eloquent\Factories\Factory
     public function thumbnail(): self
     {
         return $this->state([
-           'custom_properties' => [
-               'primary' => true,
-           ],
+            'custom_properties' => [
+                'primary' => true,
+            ],
         ]);
     }
-    
+
     public function definition(): array
     {
         return [

@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Sorting\RecentlyViewedSort;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -17,7 +18,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use LaravelJsonApi\Eloquent\Schema;
 use Lunar\Models\Product;
 
 class ProductSchema extends Schema
@@ -39,8 +39,8 @@ class ProductSchema extends Schema
     /**
      * Build an index query for this resource.
      *
-     * @param Request|null $request
-     * @param Builder $query
+     * @param  Request|null  $request
+     * @param  Builder  $query
      * @return Builder
      */
     public function indexQuery(?Request $request, Builder $query): Builder
@@ -51,8 +51,8 @@ class ProductSchema extends Schema
     /**
      * Build a "relatable" query for this resource.
      *
-     * @param Request|null $request
-     * @param Relation $query
+     * @param  Request|null  $request
+     * @param  Relation  $query
      * @return Relation
      */
     public function relatableQuery(?Request $request, Relation $query): Relation
@@ -68,6 +68,8 @@ class ProductSchema extends Schema
     public function with(): array
     {
         return [
+            ...parent::with(),
+
             'productType',
             'productType.mappedAttributes',
             'productType.mappedAttributes.attributeGroup',
@@ -82,6 +84,8 @@ class ProductSchema extends Schema
     public function includePaths(): iterable
     {
         return [
+            ...parent::includePaths(),
+
             'associations',
             'associations.target.thumbnail',
             'associations.target.variants.prices',
@@ -115,6 +119,8 @@ class ProductSchema extends Schema
     public function fields(): array
     {
         return [
+            ...parent::fields(),
+
             ID::make(),
 
             HasMany::make('associations')->canCount(),
@@ -152,6 +158,8 @@ class ProductSchema extends Schema
     public function sortables(): iterable
     {
         return [
+            ...parent::sortables(),
+
             RecentlyViewedSort::make('recently_viewed'),
         ];
     }
@@ -164,6 +172,8 @@ class ProductSchema extends Schema
     public function filters(): array
     {
         return [
+            ...parent::filters(),
+
             WhereIdIn::make($this),
 
             WhereHas::make($this, 'default_url', 'url')->singular(),
@@ -179,7 +189,7 @@ class ProductSchema extends Schema
      * hook to add complex logic for working out if a set of filters should
      * return a singular resource.
      *
-     * @param array $filters
+     * @param  array  $filters
      * @return bool
      */
     public function isSingular(array $filters): bool

@@ -2,7 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
 
-use LaravelJsonApi\Core\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Lunar\Models\Collection;
 
 class CollectionResource extends JsonApiResource
@@ -10,7 +11,7 @@ class CollectionResource extends JsonApiResource
     /**
      * Get the resource's attributes.
      *
-     * @param \Illuminate\Http\Request|null $request
+     * @param  \Illuminate\Http\Request|null  $request
      * @return iterable
      */
     public function attributes($request): iterable
@@ -22,14 +23,15 @@ class CollectionResource extends JsonApiResource
             $model->attribute_data->mapWithKeys(fn ($value, $field) => [
                 $field => $model->translateAttribute($field),
             ])->toArray(),
-            []
+            [],
+            ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         );
     }
 
     /**
      * Get the resource's relationships.
      *
-     * @param \Illuminate\Http\Request|null $request
+     * @param  \Illuminate\Http\Request|null  $request
      * @return iterable
      */
     public function relationships($request): iterable
@@ -49,10 +51,10 @@ class CollectionResource extends JsonApiResource
                 ->withMeta(array_filter([
                     'count' => $model->products_count,
                 ], fn ($value) => null !== $value)),
-
             $this
                 ->relation('urls')
                 ->withoutLinks(),
+            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
         ];
     }
 }
