@@ -3,7 +3,10 @@
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Dystcz\LunarApi\Domain\Products\JsonApi\Sorting\RecentlyViewedSort;
+use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\AttributeBoolFilter;
+use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\AttributeWhereInFilter;
+use Dystcz\LunarApi\Domain\Products\JsonApi\Sorts\RecentlyViewedSort;
+use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
@@ -18,7 +21,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use Lunar\Models\Product;
 
 class ProductSchema extends Schema
 {
@@ -176,7 +178,22 @@ class ProductSchema extends Schema
 
             WhereIdIn::make($this),
 
+            WhereHas::make($this, 'prices'),
+
+            WhereHas::make($this, 'brand'),
+
             WhereHas::make($this, 'default_url', 'url')->singular(),
+
+            // Attribute filters
+            AttributeWhereInFilter::make('keyboard_size', 'keyboard_size')->delimiter(','),
+
+            AttributeWhereInFilter::make('switch_manufacturer', 'switch_manufacturer')->delimiter(','),
+
+            AttributeWhereInFilter::make('keyboard_layout', 'keyboard_layout')->delimiter(','),
+
+            AttributeWhereInFilter::make('colors', 'colors')->delimiter(','),
+
+            AttributeBoolFilter::make('led', 'led'),
         ];
     }
 
