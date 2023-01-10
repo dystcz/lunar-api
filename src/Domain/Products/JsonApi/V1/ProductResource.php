@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 use Dystcz\LunarApi\Domain\Attributes\Collections\AttributeCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
-use Lunar\Models\Product;
+use Dystcz\LunarApi\Domain\Products\Models\Product;
 
 class ProductResource extends JsonApiResource
 {

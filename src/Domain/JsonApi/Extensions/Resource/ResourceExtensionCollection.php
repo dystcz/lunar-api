@@ -8,6 +8,12 @@ use Illuminate\Support\Collection;
 
 class ResourceExtensionCollection extends Collection implements ExtensionCollection
 {
+    /**
+     * Map data for use in a resource.
+     *
+     * @param JsonApiResource $resource
+     * @return array
+     */
     public function toResourceArray(JsonApiResource $resource): array
     {
         return $this->map(fn ($cb) => $cb($resource))->collapse()->all();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Products\JsonApi\Sorting;
+namespace Dystcz\LunarApi\Domain\Products\JsonApi\Sorts;
 
 use Dystcz\LunarApi\Domain\Products\ProductViews;
 use LaravelJsonApi\Eloquent\Contracts\SortField;
@@ -55,8 +55,8 @@ class RecentlyViewedSort implements SortField
     {
         $list = app(ProductViews::class)->sorted();
 
-        if (! empty($list)) {
-            $query->orderByRaw('FIELD(id, '.implode(',', $list).')');
+        if (!empty($list)) {
+            $query->orderByRaw('FIELD(id, ' . implode(',', $list) . ')');
         }
     }
 }

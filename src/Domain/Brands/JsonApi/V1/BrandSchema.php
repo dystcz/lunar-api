@@ -12,6 +12,7 @@ use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Filters\WhereIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use Lunar\Models\Brand;
 
@@ -111,9 +112,11 @@ class BrandSchema extends Schema
         return [
             ...parent::filters(),
 
-            WhereIdIn::make($this),
+            WhereIdIn::make($this)->delimiter(','),
 
             Where::make('name'),
+
+            WhereIn::make('names', 'name')->delimiter(','),
         ];
     }
 

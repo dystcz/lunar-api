@@ -3,6 +3,9 @@
 namespace Dystcz\LunarApi\Domain\Prices\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Domain\Prices\JsonApi\Filters\MaxPriceFilter;
+use Dystcz\LunarApi\Domain\Prices\JsonApi\Filters\MinPriceFilter;
+use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
@@ -10,7 +13,6 @@ use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use Lunar\Models\Price;
 
 class PriceSchema extends Schema
 {
@@ -101,6 +103,10 @@ class PriceSchema extends Schema
             ...parent::filters(),
 
             WhereIdIn::make($this),
+
+            MinPriceFilter::make('min_price', 'price'),
+
+            MaxPriceFilter::make('max_price', 'price'),
         ];
     }
 
