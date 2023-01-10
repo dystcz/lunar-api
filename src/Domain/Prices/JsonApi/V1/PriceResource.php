@@ -5,8 +5,8 @@ namespace Dystcz\LunarApi\Domain\Prices\JsonApi\V1;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Prices\Actions\GetPriceWithDefaultTax;
+use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Illuminate\Support\Facades\Config;
-use Lunar\Models\Price;
 
 class PriceResource extends JsonApiResource
 {
