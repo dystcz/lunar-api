@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\AttributeBoolFilter;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\AttributeWhereInFilter;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Sorts\RecentlyViewedSort;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
@@ -193,7 +192,7 @@ class ProductSchema extends Schema
 
             AttributeWhereInFilter::make('colors', 'colors')->delimiter(','),
 
-            AttributeBoolFilter::make('led', 'led'),
+            // AttributeBoolFilter::make('led', 'led'),
         ];
     }
 
