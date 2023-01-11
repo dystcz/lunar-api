@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\Filters;
 
+use Illuminate\Support\Str;
 use LaravelJsonApi\Eloquent\Contracts\Filter;
 use LaravelJsonApi\Eloquent\Filters\Concerns\DeserializesValue;
 use LaravelJsonApi\Eloquent\Filters\Concerns\HasColumn;
@@ -27,10 +28,10 @@ class AttributeWhereInFilter implements Filter
      * Create a new filter.
      *
      * @param string $name
-     * @param string $attribute
+     * @param string|null $attribute
      * @return static
      */
-    public static function make(string $name, string $attribute): self
+    public static function make(string $name, ?string $attribute = null): self
     {
         return new static($name, $attribute);
     }
@@ -39,13 +40,13 @@ class AttributeWhereInFilter implements Filter
      * CustomFilter constructor.
      *
      * @param string $name
-     * @param string $attribute
+     * @param string|null $attribute
      */
-    public function __construct(string $name, string $attribute)
+    public function __construct(string $name, ?string $attribute = null)
     {
         $this->name = $name;
         $this->column = 'attribute_data';
-        $this->attribute = $attribute;
+        $this->attribute = $attribute ?? Str::snake($this->name);
     }
 
     /**
