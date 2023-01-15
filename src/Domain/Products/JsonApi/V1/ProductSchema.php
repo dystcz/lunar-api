@@ -186,7 +186,7 @@ class ProductSchema extends Schema
 
             WhereHas::make($this, 'default_url', 'url')->singular(),
 
-            ...(new $filterCollection)->toArray(),
+            // ...(new $filterCollection)->toArray(),
         ];
     }
 
