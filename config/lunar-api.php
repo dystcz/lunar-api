@@ -63,6 +63,8 @@ return [
                 'products' => Dystcz\LunarApi\Domain\Products\Http\Routing\ProductRouteGroup::class,
             ],
 
+            'filters' => Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilterCollection::class,
+
             // Default pagination
             'pagination' => 12,
         ],

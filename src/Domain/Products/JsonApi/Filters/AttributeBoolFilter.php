@@ -6,12 +6,10 @@ use Illuminate\Support\Str;
 use LaravelJsonApi\Eloquent\Contracts\Filter;
 use LaravelJsonApi\Eloquent\Filters\Concerns\DeserializesValue;
 use LaravelJsonApi\Eloquent\Filters\Concerns\HasColumn;
-use LaravelJsonApi\Eloquent\Filters\Concerns\HasDelimiter;
 
-class AttributeWhereInFilter implements Filter
+class AttributeBoolFilter implements Filter
 {
     use HasColumn;
-    use HasDelimiter;
     use DeserializesValue;
 
     /**
@@ -71,36 +69,26 @@ class AttributeWhereInFilter implements Filter
     public function apply($query, $value)
     {
         $column = $query->getModel()->qualifyColumn($this->column());
-        $values = $this->deserialize($value);
-        // dd($values);
+        $value = $this->deserialize($value);
 
-        $query = $query->whereIn(
+        return $query->where(
             "{$column}->{$this->attribute}->value",
-            $values
+            $value ? 'true' : 'false'
         );
-
-        foreach ($values as $value) {
-            $query->orWhereJsonContains(
-                "{$column}->{$this->attribute}->value",
-                $value
-            );
-        }
-
-        return $query;
     }
 
     /**
      * Deserialize the fitler value.
      *
      * @param string|array $value
-     * @return array
+     * @return bool
      */
-    protected function deserialize($value): array
+    protected function deserialize($value): bool
     {
         if ($this->deserializer) {
             return ($this->deserializer)($value);
         }
 
-        return $this->toArray($value);
+        return filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) ?? false;
     }
 }

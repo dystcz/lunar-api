@@ -7,8 +7,8 @@ use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\ExtensionCollection;
 
 /**
- * @method ExtensionCollection attributes(Closure $callback = null)
- * @method ExtensionCollection relationships(Closure $callback = null)
+ * @method ResourceExtensionCollection attributes(Closure $callback = null)
+ * @method ResourceExtensionCollection relationships(Closure $callback = null)
  */
 class ResourceExtension extends Extension
 {

@@ -6,11 +6,11 @@ use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\ExtensionCollection;
 
 /**
- * @method ExtensionCollection fields(array $fields = [])
- * @method ExtensionCollection filters(array $filters = [])
- * @method ExtensionCollection sortables(array $sortables = [])
- * @method ExtensionCollection with(array $with = [])
- * @method ExtensionCollection includePaths(array $includePaths = [])
+ * @method SchemaExtensionCollection fields(array $fields = [])
+ * @method SchemaExtensionCollection filters(array $filters = [])
+ * @method SchemaExtensionCollection sortables(array $sortables = [])
+ * @method SchemaExtensionCollection with(array $with = [])
+ * @method SchemaExtensionCollection includePaths(array $includePaths = [])
  */
 class SchemaExtension extends Extension
 {
