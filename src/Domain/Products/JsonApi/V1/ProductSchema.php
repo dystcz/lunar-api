@@ -5,7 +5,6 @@ namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\FilterCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Sorts\RecentlyViewedSort;
-use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
@@ -20,6 +19,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
+use Lunar\Models\Product;
 
 class ProductSchema extends Schema
 {
@@ -173,7 +173,7 @@ class ProductSchema extends Schema
     public function filters(): array
     {
         /** @var FilterCollection $filterCollection */
-        $filterCollection = Config::get('lunar-api.domains.products.filters');
+        // $filterCollection = Config::get('lunar-api.domains.products.filters');
 
         return [
             ...parent::filters(),
