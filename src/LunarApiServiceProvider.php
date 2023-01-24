@@ -2,6 +2,8 @@
 
 namespace Dystcz\LunarApi;
 
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Policies\CartPolicy;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
 use Illuminate\Support\Collection;
@@ -12,9 +14,10 @@ use Lunar\Facades\ModelManifest;
 
 class LunarApiServiceProvider extends ServiceProvider
 {
-    // protected $policies = [
-    //     Product::class => ProductPolicy::class,
-    // ];
+    protected $policies = [
+        // Product::class => ProductPolicy::class,
+        // Cart::class => CartPolicy::class,
+    ];
 
     /**
      * Bootstrap the application services.

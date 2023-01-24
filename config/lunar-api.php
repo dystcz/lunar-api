@@ -69,6 +69,34 @@ return [
             'pagination' => 12,
         ],
 
+        'carts' => [
+            'model' => \Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
+
+            // Route groups which get registered
+            // If you want to change the behaviour or add some data,
+            // simply extend the package product groups and add your logic
+            'route_groups' => [
+                'carts' => \Dystcz\LunarApi\Domain\Carts\Http\Routing\CartRouteGroup::class,
+            ],
+
+            // Default pagination
+            'pagination' => 12,
+        ],
+
+        'cart_lines' => [
+            'model' => \Dystcz\LunarApi\Domain\Carts\Models\CartLine::class,
+
+            // Route groups which get registered
+            // If you want to change the behaviour or add some data,
+            // simply extend the package product groups and add your logic
+            'route_groups' => [
+                'cart_lines' => \Dystcz\LunarApi\Domain\Carts\Http\Routing\CartLineRouteGroup::class,
+            ],
+
+            // Default pagination
+            'pagination' => 12,
+        ],
+
         'urls' => [
             'route_groups' => [
                 'urls' => Dystcz\LunarApi\Domain\Urls\Http\Routing\UrlRouteGroup::class,
