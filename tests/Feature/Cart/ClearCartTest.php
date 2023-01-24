@@ -43,7 +43,7 @@ it('can empty the cart', function () {
 
     $response = $this
         ->jsonApi()
-        ->delete('/api/v1/carts/-actions/empty');
+        ->delete('/api/v1/carts/-actions/clear');
 
     $response->assertNoContent();
 
