@@ -1,29 +1,30 @@
 <?php
 
 use Dystcz\LunarApi\Domain\Products\ProductViews;
+use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 
-uses(\Dystcz\LunarApi\Tests\TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class);
 
 it('can record a view', function () {
     app(ProductViews::class)->record(1);
     app(ProductViews::class)->record(1);
 
-    expect(\Illuminate\Support\Facades\Redis::zRange('product:views:1', 0, -1))
+    expect(Redis::zRange('product:views:1', 0, -1))
         ->toHaveCount(2);
 });
 
 it('removes old entries', function () {
     Redis::zAdd('product:views:1', time() - 60 * 60, Str::uuid()->toString());
 
-    expect(\Illuminate\Support\Facades\Redis::zRange('product:views:1', 0, -1))
+    expect(Redis::zRange('product:views:1', 0, -1))
         ->toHaveCount(1);
 
     app(ProductViews::class)->record(1);
 
-    expect(\Illuminate\Support\Facades\Redis::zRange('product:views:1', 0, -1))
+    expect(Redis::zRange('product:views:1', 0, -1))
         ->toHaveCount(1);
 });
 

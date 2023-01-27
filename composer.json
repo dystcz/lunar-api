@@ -23,7 +23,7 @@
         "ext-redis": "*",
         "illuminate/support": "^8.0|^9.0",
         "laravel-json-api/laravel": "^2.4",
-        "lunarphp/lunar": "^0.1",
+        "lunarphp/lunar": "^0.2",
         "spatie/laravel-query-builder": "^5.0",
         "symfony/yaml": "^6.0",
         "vyuldashev/laravel-openapi": "^1.5"

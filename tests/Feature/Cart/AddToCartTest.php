@@ -2,16 +2,27 @@
 
 use Dystcz\LunarApi\Domain\Carts\Actions\AddToCart;
 use Dystcz\LunarApi\Domain\Carts\Data\CartLineData;
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Database\Factories\CartLineFactory;
+use Lunar\Models\Currency;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can add purchsable to the cart', function () {
+    $currency = Currency::factory()->create();
+
+    $cart = Cart::factory()->create(['currency_id' => $currency->id]);
+
     $cartLine = CartLineFactory::new()
-        ->for(ProductVariantFactory::new()->create(), 'purchasable')
+        ->for($cart)
+        ->for(
+            ProductVariantFactory::new()->has(Price::factory()),
+            'purchasable'
+        )
         ->make();
 
     $data = [
@@ -20,7 +31,7 @@ it('can add purchsable to the cart', function () {
             'quantity' => $cartLine->quantity,
             'purchasable_id' => $cartLine->purchasable_id,
             'purchasable_type' => $cartLine->purchasable_type,
-            'meta' => $cartLine->meta,
+            'meta' => [],
         ],
     ];
 
@@ -39,15 +50,20 @@ it('can add purchsable to the cart', function () {
         'purchasable_id' => $cartLine->purchasable_id,
         'purchasable_type' => $cartLine->purchasable_type,
         'quantity' => $cartLine->quantity,
-        'meta' => $cartLine->meta,
     ]);
 });
 
 test('cart line quantity will be incremented if already presented inside the user\'s cart', function () {
-    $productVariant = ProductVariantFactory::new()->create();
+    $currency = Currency::factory()->create();
+
+    $cart = Cart::factory()->create(['currency_id' => $currency->id]);
 
     $cartLine = CartLineFactory::new()
-        ->for($productVariant, 'purchasable')
+        ->for($cart)
+        ->for(
+            ProductVariantFactory::new()->has(Price::factory()),
+            'purchasable'
+        )
         ->make();
 
     App::make(AddToCart::class)(
@@ -65,7 +81,7 @@ test('cart line quantity will be incremented if already presented inside the use
             'quantity' => $cartLine->quantity,
             'purchasable_id' => $cartLine->purchasable_id,
             'purchasable_type' => $cartLine->purchasable_type,
-            'meta' => $cartLine->meta,
+            'meta' => [],
         ],
     ];
 
