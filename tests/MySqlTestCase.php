@@ -2,12 +2,12 @@
 
 namespace Dystcz\LunarApi\Tests;
 
-use function Orchestra\Testbench\artisan;
+use Illuminate\Foundation\Application;
 
 abstract class MySqlTestCase extends TestCase
 {
     /**
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      */
     public function getEnvironmentSetUp($app)
     {
@@ -37,7 +37,7 @@ abstract class MySqlTestCase extends TestCase
     // }
 
     /**
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      */
     protected function defineDatabaseMigrations()
     {

@@ -4,9 +4,10 @@ use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
+use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(\Dystcz\LunarApi\Tests\TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class);
 
 it('can read product prices', function () {
     /** @var Product $product */

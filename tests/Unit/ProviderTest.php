@@ -1,9 +1,10 @@
 <?php
 
+use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Models\Brand;
 
-uses(\Dystcz\LunarApi\Tests\TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class);
 
 it('extends Lunar models', function () {
     $lunarBrand = new Brand;

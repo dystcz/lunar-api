@@ -5,13 +5,15 @@ namespace Dystcz\LunarApi\Tests;
 use Cartalyst\Converter\Laravel\ConverterServiceProvider;
 use Dystcz\LunarApi\LunarApiServiceProvider;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Redis;
 use Kalnoy\Nestedset\NestedSetServiceProvider;
+use LaravelJsonApi\Spec\ServiceProvider;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
 use Lunar\Database\Factories\LanguageFactory;
 use Lunar\Hub\Tests\Stubs\User;
 use Lunar\LunarServiceProvider;
-use function Orchestra\Testbench\artisan;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 use Spatie\LaravelBlink\BlinkServiceProvider;
@@ -35,12 +37,12 @@ abstract class TestCase extends Orchestra
         activity()->disableLogging();
 
         $this->beforeApplicationDestroyed(function () {
-            \Illuminate\Support\Facades\Redis::flushall();
+            Redis::flushall();
         });
     }
 
     /**
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      * @return array
      */
     protected function getPackageProviders($app)
@@ -51,7 +53,7 @@ abstract class TestCase extends Orchestra
             // Laravel JsonApi
             \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
             \LaravelJsonApi\Laravel\ServiceProvider::class,
-            \LaravelJsonApi\Spec\ServiceProvider::class,
+            ServiceProvider::class,
 
             // Lunar core
             LunarServiceProvider::class,
@@ -64,7 +66,7 @@ abstract class TestCase extends Orchestra
     }
 
     /**
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      */
     public function getEnvironmentSetUp($app)
     {

@@ -5,9 +5,11 @@ use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
+use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Lunar\Models\ProductAssociation;
 
-uses(\Dystcz\LunarApi\Tests\TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class);
 
 it('can read products associations', function () {
     /** @var Product $productB */
@@ -24,7 +26,7 @@ it('can read products associations', function () {
 
     $productA->associate(
         $productB,
-        \Lunar\Models\ProductAssociation::CROSS_SELL
+        ProductAssociation::CROSS_SELL
     );
 
     $self = 'http://localhost/api/v1/products/'.$productA->getRouteKey();

@@ -11,7 +11,7 @@ class CartLineData
         public string $purchasable_type,
         public int $purchasable_id,
         public int $quantity = 1,
-        public ?array $meta = null,
+        public ?array $meta = [],
     ) {
     }
 

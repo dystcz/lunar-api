@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Http\Routing;
 
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartsController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ClearUserCartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ReadUserCartController;
 use Dystcz\LunarApi\Routing\RouteGroup;

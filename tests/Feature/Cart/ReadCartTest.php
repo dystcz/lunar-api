@@ -12,9 +12,7 @@ use Lunar\Models\Currency;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can read the cart', function () {
-    $currency = Currency::factory()->create([
-        'decimal_places' => 2,
-    ]);
+    $currency = Currency::factory()->create();
 
     $cart = Cart::factory()
         ->has(

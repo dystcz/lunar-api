@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
 use Dystcz\LunarApi\Controller;
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Response;
 use LaravelJsonApi\Contracts\Routing\Route;
@@ -24,7 +25,8 @@ class ReadUserCartController extends Controller
     {
         // $this->authorize('viewAny', Cart::class);
 
-        $cart = CartSession::manager()->getCart();
+        /** @var Cart $cart */
+        $cart = CartSession::manager();
 
         $request = ResourceQuery::queryOne(
             $resourceType = $route->resourceType()
