@@ -113,6 +113,16 @@ class CollectionGroupSchema extends Schema
     }
 
     /**
+     * Determine if the resource is authorizable.
+     *
+     * @return bool
+     */
+    public function authorizable(): bool
+    {
+        return false; // TODO create policies
+    }
+
+    /**
      * Get the JSON:API resource type.
      *
      * @return string

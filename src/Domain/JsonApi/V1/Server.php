@@ -78,6 +78,6 @@ class Server extends BaseServer
     public function authorizable(): bool
     {
         // TODO: Write policies
-        return false;
+        return true;
     }
 }

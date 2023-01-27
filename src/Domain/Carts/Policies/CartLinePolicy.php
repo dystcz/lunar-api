@@ -3,10 +3,12 @@
 namespace Dystcz\LunarApi\Domain\Carts\Policies;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Models\CartLine;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Facades\CartSession;
 
-class CartPolicy
+class CartLinePolicy
 {
     use HandlesAuthorization;
 
@@ -21,7 +23,7 @@ class CartPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, Cart $cart): bool
+    public function view(?Authenticatable $user, CartLine $cartLine): bool
     {
         return true;
     }
@@ -37,16 +39,19 @@ class CartPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, Cart $cart): bool
+    public function update(?Authenticatable $user, CartLine $cartLine): bool
     {
-        return true;
+        /** @var Cart $cart */
+        $cart = CartSession::manager();
+
+        return $cart->lines->contains($cartLine->id);
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, Cart $cart): bool
+    public function delete(?Authenticatable $user, CartLine $cartLine): bool
     {
-        return $this->update($user, $cart);
+        return $this->update($user, $cartLine);
     }
 }

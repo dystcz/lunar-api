@@ -3,9 +3,13 @@
 namespace Dystcz\LunarApi;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Models\CartLine;
+use Dystcz\LunarApi\Domain\Carts\Policies\CartLinePolicy;
 use Dystcz\LunarApi\Domain\Carts\Policies\CartPolicy;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
+use Dystcz\LunarApi\Domain\Products\Models\Product;
+use Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
@@ -15,8 +19,9 @@ use Lunar\Facades\ModelManifest;
 class LunarApiServiceProvider extends ServiceProvider
 {
     protected $policies = [
-        // Product::class => ProductPolicy::class,
-        // Cart::class => CartPolicy::class,
+        Product::class => ProductPolicy::class,
+        Cart::class => CartPolicy::class,
+        CartLine::class => CartLinePolicy::class,
     ];
 
     /**
@@ -30,6 +35,8 @@ class LunarApiServiceProvider extends ServiceProvider
         Config::set('openapi', require __DIR__.'/../config/openapi.php');
 
         $this->registerModels();
+
+        // $this->registerPolicies();
 
         if ($this->app->runningInConsole()) {
             $this->publishes([

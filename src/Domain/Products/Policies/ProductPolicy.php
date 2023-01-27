@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Products\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Lunar\Models\Product;
 
@@ -14,7 +13,7 @@ class ProductPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(Authenticatable $user): Response|bool
+    public function viewAny(?Authenticatable $user): bool
     {
         return true;
     }
@@ -22,8 +21,32 @@ class ProductPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(Authenticatable $user, Product $post): Response|bool
+    public function view(?Authenticatable $user, Product $product): bool
     {
         return true;
+    }
+
+    /**
+     * Determine if the given user can create posts.
+     */
+    public function create(?Authenticatable $user): bool
+    {
+        return true;
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     */
+    public function update(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     */
+    public function delete(?Authenticatable $user, Product $product): bool
+    {
+        return $this->update($user, $product);
     }
 }

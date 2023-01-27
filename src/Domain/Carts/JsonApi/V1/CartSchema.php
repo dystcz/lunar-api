@@ -37,6 +37,8 @@ class CartSchema extends Schema
     {
         return [
             ...parent::includePaths(),
+            'lines',
+            'lines.purchasable',
             'lines.purchasable.prices',
         ];
     }

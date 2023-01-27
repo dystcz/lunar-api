@@ -27,8 +27,6 @@ it('can list all products', function () {
         ->includePaths('variants.prices')
         ->get('/api/v1/products');
 
-    ray($response->json());
-
     $response->assertFetchedMany($products);
 });
 
