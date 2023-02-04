@@ -5,6 +5,7 @@ use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Database\Factories\CartLineFactory;
+use Lunar\Facades\CartSession;
 use Lunar\Models\Currency;
 
 uses(TestCase::class, RefreshDatabase::class);
@@ -19,7 +20,7 @@ it('can update a cart line', function () {
         ->for($cart)
         ->create();
 
-    \Lunar\Facades\CartSession::use($cart);
+    CartSession::use($cart);
 
     $data = [
         'type' => 'cart-lines',
