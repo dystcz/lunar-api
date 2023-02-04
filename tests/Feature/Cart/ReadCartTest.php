@@ -2,6 +2,7 @@
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Prices\Models\Price;
+use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,13 +18,15 @@ it('can read the cart', function () {
     $cart = Cart::factory()
         ->has(
             CartLineFactory::new()->for(
-                ProductVariantFactory::new()->has(
-                    Price::factory()->state([
-                        'price' => 100,
-                        'tier' => 1,
-                        'currency_id' => $currency->id,
-                    ])
-                ),
+                ProductVariantFactory::new()
+                    ->for(ProductFactory::new())
+                    ->has(
+                        Price::factory()->state([
+                            'price' => 100,
+                            'tier' => 1,
+                            'currency_id' => $currency->id,
+                        ])
+                    ),
                 'purchasable'
             ),
             'lines'
@@ -35,7 +38,7 @@ it('can read the cart', function () {
     $response = $this
         ->jsonApi()
         ->expects('carts')
-        ->includePaths('lines.purchasable.prices')
+        ->includePaths('lines.purchasable.prices', 'lines.purchasable.product')
         ->get('/api/v1/carts/-actions/my-cart');
 
     $response->assertFetchedOne($cart);

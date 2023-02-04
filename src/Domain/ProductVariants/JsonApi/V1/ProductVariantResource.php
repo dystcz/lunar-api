@@ -24,6 +24,10 @@ class ProductVariantResource extends JsonApiResource
             $model->prices->each(fn ($price) => $price->setRelation('purchasable', $model));
         }
 
+        if ($model->relationLoaded('product')) {
+            $model->product->each(fn ($variant) => $variant->setRelation('variants', $model));
+        }
+
         return [
             'sku' => $model->sku,
             'stock' => $model->stock,
@@ -47,6 +51,7 @@ class ProductVariantResource extends JsonApiResource
     public function relationships($request): iterable
     {
         return [
+            $this->relation('product'),
             $this->relation('lowestPrice'),
             $this->relation('images'),
             $this->relation('prices'),

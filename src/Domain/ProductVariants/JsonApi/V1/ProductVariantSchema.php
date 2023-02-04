@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
@@ -79,6 +80,7 @@ class ProductVariantSchema extends Schema
 
             'images',
             'prices',
+            'product',
         ];
     }
 
@@ -94,6 +96,7 @@ class ProductVariantSchema extends Schema
 
             ID::make(),
 
+            BelongsTo::make('product'),
             HasOne::make('lowestPrice')->type('prices'),
             HasMany::make('images'),
             HasMany::make('prices'),

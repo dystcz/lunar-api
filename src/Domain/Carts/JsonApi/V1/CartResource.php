@@ -21,7 +21,9 @@ class CartResource extends JsonApiResource
         /** @var Cart $model */
         $model = $this->resource;
 
-        $model->calculate();
+        if ($model->relationLoaded('lines')) {
+            $model->calculate();
+        }
 
         return [
             'subTotal' => $model->subTotal?->decimal,

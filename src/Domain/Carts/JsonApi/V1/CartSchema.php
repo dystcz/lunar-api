@@ -40,6 +40,7 @@ class CartSchema extends Schema
             'lines',
             'lines.purchasable',
             'lines.purchasable.prices',
+            'lines.purchasable.product',
         ];
     }
 
