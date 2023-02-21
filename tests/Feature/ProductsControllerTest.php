@@ -33,7 +33,7 @@ it('can list all products', function () {
 it('can read product detail', function () {
     $product = ProductFactory::new()->create();
 
-    $self = 'http://localhost/api/v1/products/'.$product->getRouteKey();
+    $self = 'http://localhost/api/v1/products/' . $product->getRouteKey();
 
     $response = $this
         ->jsonApi()
@@ -59,7 +59,7 @@ it('can list product\'s images', function () {
         ->has(MediaFactory::new(), 'images')
         ->create();
 
-    $self = 'http://localhost/api/v1/products/'.$product->getRouteKey();
+    $self = 'http://localhost/api/v1/products/' . $product->getRouteKey();
 
     $response = $this
         ->jsonApi()
@@ -78,7 +78,9 @@ it('can read product\'s variants count', function () {
         )
         ->create();
 
-    $response = $this->get(Config::get('lunar-api.route_prefix').'/products/'.$product->defaultUrl->slug.'?include=variantsCount');
+    $response = $this->get(
+        Config::get('lunar-api.route_prefix') . '/products/' . $product->defaultUrl->slug . '?include=variantsCount'
+    );
 
     $response->assertStatus(200);
 

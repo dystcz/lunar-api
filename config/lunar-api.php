@@ -97,6 +97,41 @@ return [
             'pagination' => 12,
         ],
 
+        'customers' => [
+            'model' => \Dystcz\LunarApi\Domain\Customers\Models\Customer::class,
+
+            // Route groups which get registered
+            // If you want to change the behaviour or add some data,
+            // simply extend the package product groups and add your logic
+            'route_groups' => [
+                'customers' => \Dystcz\LunarApi\Domain\Customers\Http\Routing\CustomerRouteGroup::class,
+            ],
+
+            // Default pagination
+            'pagination' => 12,
+        ],
+
+        'orders' => [
+            'model' => \Dystcz\LunarApi\Domain\Orders\Models\Order::class,
+
+            // Route groups which get registered
+            // If you want to change the behaviour or add some data,
+            // simply extend the package product groups and add your logic
+            'route_groups' => [
+                'orders' => \Dystcz\LunarApi\Domain\Orders\Http\Routing\OrderRouteGroup::class,
+            ],
+
+            // Default pagination
+            'pagination' => 12,
+        ],
+
+        'order_lines' => [
+            'model' => \Dystcz\LunarApi\Domain\Orders\Models\OrderLine::class,
+
+            // Default pagination
+            'pagination' => 12,
+        ],
+
         'urls' => [
             'route_groups' => [
                 'urls' => Dystcz\LunarApi\Domain\Urls\Http\Routing\UrlRouteGroup::class,

@@ -103,20 +103,20 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    // protected function defineDatabaseMigrations()
-    // {
-    //     $this->loadLaravelMigrations(['--database' => 'mysql']);
-    //
-    //     // artisan($this, 'lunar:install');
-    //     // artisan($this, 'vendor:publish', ['--tag' => 'lunar']);
-    //     // artisan($this, 'vendor:publish', ['--tag' => 'lunar.migrations']);
-    //
-    //     // artisan($this, 'migrate', ['--database' => 'mysql']);
-    //
-    //     $this->beforeApplicationDestroyed(
-    //         fn () => artisan($this, 'migrate:rollback', ['--database' => 'mysql'])
-    //     );
-    // }
+    protected function defineDatabaseMigrations()
+    {
+        $this->loadLaravelMigrations();
+
+        // // artisan($this, 'lunar:install');
+        // // artisan($this, 'vendor:publish', ['--tag' => 'lunar']);
+        // // artisan($this, 'vendor:publish', ['--tag' => 'lunar.migrations']);
+        //
+        // // artisan($this, 'migrate', ['--database' => 'mysql']);
+        //
+        // $this->beforeApplicationDestroyed(
+        //     fn () => artisan($this, 'migrate:rollback', ['--database' => 'mysql'])
+        // );
+    }
 
     protected function resolveApplicationExceptionHandler($app): void
     {

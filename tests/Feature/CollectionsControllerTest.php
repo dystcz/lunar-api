@@ -3,11 +3,12 @@
 use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
+use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Lunar\Database\Factories\CollectionFactory;
 
-uses(\Dystcz\LunarApi\Tests\TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class);
 
 it('can list all collections', function () {
     CollectionFactory::new()
@@ -23,9 +24,9 @@ it('can list all collections', function () {
         ->create();
 
     $response = $this->get(
-        Config::get('lunar-api.route_prefix').
-        '/collections'.
-        '?include=products.variants.basePrices,products.defaultUrl'.
+        Config::get('lunar-api.route_prefix') .
+        '/collections' .
+        '?include=products.variants.basePrices,products.defaultUrl' .
         '&fields[lunar_collections]=id,attribute_data'
     );
 
@@ -37,7 +38,7 @@ it('can list all collections', function () {
 it('can read collection detail', function () {
     $collection = CollectionFactory::new()->create();
 
-    $response = $this->get(Config::get('lunar-api.route_prefix').'/collections/'.$collection->defaultUrl->slug);
+    $response = $this->get(Config::get('lunar-api.route_prefix') . '/collections/' . $collection->defaultUrl->slug);
 
     $response->assertStatus(200);
 
@@ -60,7 +61,9 @@ it('can read products in a collection', function () {
         )
         ->create();
 
-    $response = $this->get(Config::get('lunar-api.route_prefix').'/collections/'.$collection->defaultUrl->slug.'?include=products');
+    $response = $this->get(
+        Config::get('lunar-api.route_prefix') . '/collections/' . $collection->defaultUrl->slug . '?include=products'
+    );
 
     $response->assertStatus(200);
 })->skip();

@@ -2,11 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Attributes\Collections\AttributeCollection;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
-use Dystcz\LunarApi\Domain\Products\Models\Product;
 
 class CartResource extends JsonApiResource
 {
@@ -48,7 +46,7 @@ class CartResource extends JsonApiResource
      */
     public function relationships($request): iterable
     {
-        /** @var Product */
+        /** @var Cart $cart */
         $model = $this->resource;
 
         return [

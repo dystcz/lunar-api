@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Models;
 
+use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use InvalidArgumentException;
 use Lunar\Models\Price as LunarPrice;
@@ -23,5 +24,10 @@ class ProductVariant extends LunarPoductVariant
                 LunarPrice::class,
                 'priceable'
             )->ofMany('price', 'min');
+    }
+
+    protected static function newFactory(): ProductVariantFactory
+    {
+        return ProductVariantFactory::new();
     }
 }

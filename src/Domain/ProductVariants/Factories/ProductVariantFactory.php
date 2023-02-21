@@ -2,16 +2,21 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Factories;
 
+use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Lunar\Models\TaxClass;
 use Lunar\Models\TaxRateAmount;
 
-class ProductVariantFactory extends Factory
+class ProductVariantFactory extends \Lunar\Database\Factories\ProductVariantFactory
 {
     protected $model = ProductVariant::class;
+
+    public function withPrice(): static
+    {
+        return $this->has(Price::factory());
+    }
 
     public function definition(): array
     {

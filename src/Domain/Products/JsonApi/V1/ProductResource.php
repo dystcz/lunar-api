@@ -17,7 +17,7 @@ class ProductResource extends JsonApiResource
      */
     public function attributes($request): iterable
     {
-        /** @var Product */
+        /** @var Product $model */
         $model = $this->resource;
 
         if ($model->relationLoaded('variants')) {
@@ -49,7 +49,7 @@ class ProductResource extends JsonApiResource
      */
     public function relationships($request): iterable
     {
-        /** @var Product */
+        /** @var Product $model */
         $model = $this->resource;
 
         return [

@@ -7,10 +7,13 @@ use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartLineSchema;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartSchema;
 use Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1\CollectionGroupSchema;
 use Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionSchema;
+use Dystcz\LunarApi\Domain\Customers\JsonApi\V1\CustomerSchema;
 use Dystcz\LunarApi\Domain\JsonApi\Servers\Server as BaseServer;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ImageSchema;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaSchema;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ThumbnailSchema;
+use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderLineSchema;
+use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderSchema;
 use Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceSchema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductAssociationSchema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
@@ -66,6 +69,9 @@ class Server extends BaseServer
             UrlSchema::class,
             CartSchema::class,
             CartLineSchema::class,
+            CustomerSchema::class,
+            OrderSchema::class,
+            OrderLineSchema::class,
             ...$this->getAdditionalServerSchemas(),
         ];
     }
