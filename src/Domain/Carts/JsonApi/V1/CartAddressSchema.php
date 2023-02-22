@@ -39,6 +39,7 @@ class CartAddressSchema extends Schema
         return [
             ...parent::includePaths(),
             'cart',
+            'country'
         ];
     }
 

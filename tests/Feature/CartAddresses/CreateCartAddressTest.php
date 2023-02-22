@@ -5,6 +5,7 @@ use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Facades\CartSession;
 use Lunar\Models\CartAddress;
+use Lunar\Models\Country;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -31,6 +32,12 @@ beforeEach(function () {
                     'id' => (string) $this->cart->getRouteKey(),
                 ],
             ],
+            'country' => [
+                'data' => [
+                    'type' => 'countries',
+                    'id' => (string) Country::factory()->create()->getRouteKey()
+                ],
+            ],
         ],
     ];
 });
@@ -42,7 +49,7 @@ it('can be created', function () {
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->includePaths('cart')
+        ->includePaths('cart', 'country')
         ->post('/api/v1/cart-addresses');
 
     $id = $response

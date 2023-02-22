@@ -35,7 +35,7 @@ class CartAddressRequest extends ResourceRequest
             'address_type' => ['required', 'string', Rule::in(['shipping', 'billing'])],
 
             'cart' => [\LaravelJsonApi\Validation\Rule::toOne(), 'required'],
-            'country' => [\LaravelJsonApi\Validation\Rule::toOne()]
+            'country' => [\LaravelJsonApi\Validation\Rule::toOne(), 'required']
         ];
     }
 
