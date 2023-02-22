@@ -97,6 +97,15 @@ return [
             'pagination' => 12,
         ],
 
+        'cart_addresses' => [
+            'route_groups' => [
+                'cart_addresses' => \Dystcz\LunarApi\Domain\Carts\Http\Routing\CartAddressRouteGroup::class,
+            ],
+
+            // Default pagination
+            'pagination' => 12,
+        ],
+
         'customers' => [
             'model' => \Dystcz\LunarApi\Domain\Customers\Models\Customer::class,
 

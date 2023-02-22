@@ -3,10 +3,12 @@
 namespace Dystcz\LunarApi\Domain\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Brands\JsonApi\V1\BrandSchema;
+use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartAddressSchema;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartLineSchema;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartSchema;
 use Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1\CollectionGroupSchema;
 use Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionSchema;
+use Dystcz\LunarApi\Domain\Countries\JsonApi\V1\CountrySchema;
 use Dystcz\LunarApi\Domain\Customers\JsonApi\V1\CustomerSchema;
 use Dystcz\LunarApi\Domain\JsonApi\Servers\Server as BaseServer;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ImageSchema;
@@ -58,6 +60,11 @@ class Server extends BaseServer
             BrandSchema::class,
             CollectionSchema::class,
             CollectionGroupSchema::class,
+            CartSchema::class,
+            CartLineSchema::class,
+            CartAddressSchema::class,
+            CustomerSchema::class,
+            CountrySchema::class,
             DefaultUrlSchema::class,
             ImageSchema::class,
             MediaSchema::class,
@@ -67,9 +74,6 @@ class Server extends BaseServer
             ProductVariantSchema::class,
             ThumbnailSchema::class,
             UrlSchema::class,
-            CartSchema::class,
-            CartLineSchema::class,
-            CustomerSchema::class,
             OrderSchema::class,
             OrderLineSchema::class,
             ...$this->getAdditionalServerSchemas(),

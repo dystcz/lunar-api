@@ -5,13 +5,14 @@ namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
+use Illuminate\Http\Request;
 
 class CartResource extends JsonApiResource
 {
     /**
      * Get the resource's attributes.
      *
-     * @param  \Illuminate\Http\Request|null  $request
+     * @param Request|null $request
      * @return iterable
      */
     public function attributes($request): iterable
@@ -41,16 +42,14 @@ class CartResource extends JsonApiResource
     /**
      * Get the resource's relationships.
      *
-     * @param  \Illuminate\Http\Request|null  $request
+     * @param Request|null $request
      * @return iterable
      */
     public function relationships($request): iterable
     {
-        /** @var Cart $cart */
-        $model = $this->resource;
-
         return [
             $this->relation('lines'),
+            $this->relation('order'),
 
             ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
         ];

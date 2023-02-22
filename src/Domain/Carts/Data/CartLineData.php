@@ -9,10 +9,11 @@ class CartLineData
 {
     public function __construct(
         public string $purchasable_type,
-        public int $purchasable_id,
-        public int $quantity = 1,
+        public int    $purchasable_id,
+        public int    $quantity = 1,
         public ?array $meta = [],
-    ) {
+    )
+    {
     }
 
     public static function fromRequest(CartLineRequest $request): CartLineData

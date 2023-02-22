@@ -10,7 +10,7 @@ use Lunar\Models\Currency;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-it('cat remove a cart line', function () {
+it('can remove a cart line', function () {
     $currency = Currency::factory()->create();
 
     $cart = Cart::factory()->create(['currency_id' => $currency->id]);
@@ -41,6 +41,7 @@ test('only the owner of the cart can delete cart lines', function () {
     $response = $this
         ->jsonApi()
         ->delete('/api/v1/cart-lines/' . $cartLine->getRouteKey());
+
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',
         'status' => '401',

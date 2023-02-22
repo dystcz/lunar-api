@@ -1,44 +1,25 @@
 <?php
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
-use Dystcz\LunarApi\Domain\Prices\Models\Price;
-use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
-use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Database\Factories\CartLineFactory;
 use Lunar\Facades\CartSession;
-use Lunar\Models\Currency;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can read the cart', function () {
-    $currency = Currency::factory()->create();
-
-    $cart = Cart::factory()
-        ->has(
-            CartLineFactory::new()->for(
-                ProductVariantFactory::new()
-                    ->for(ProductFactory::new())
-                    ->has(
-                        Price::factory()->state([
-                            'price' => 100,
-                            'tier' => 1,
-                            'currency_id' => $currency->id,
-                        ])
-                    ),
-                'purchasable'
-            ),
-            'lines'
-        )
-        ->create(['currency_id' => $currency->id]);
+    $cart = Cart::factory()->withLines()->create();
 
     CartSession::use($cart);
 
     $response = $this
         ->jsonApi()
         ->expects('carts')
-        ->includePaths('lines.purchasable.prices', 'lines.purchasable.product')
+        ->includePaths(
+            'lines.purchasable.prices',
+            'lines.purchasable.product',
+            'order'
+        )
         ->get('/api/v1/carts/-actions/my-cart');
 
     $response->assertFetchedOne($cart);

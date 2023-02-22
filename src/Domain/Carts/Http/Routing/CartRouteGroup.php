@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Http\Routing;
 
+use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CheckoutCartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ClearUserCartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ReadUserCartController;
 use Dystcz\LunarApi\Routing\RouteGroup;
@@ -19,8 +20,8 @@ class CartRouteGroup extends RouteGroup
     /**
      * Register routes.
      *
-     * @param  null|string  $prefix
-     * @param  array|string  $middleware
+     * @param null|string  $prefix
+     * @param array|string $middleware
      * @return void
      */
     public function routes(?string $prefix = null, array|string $middleware = []): void
@@ -38,6 +39,12 @@ class CartRouteGroup extends RouteGroup
                     ->only('')
                     ->actions('-actions', function ($actions) {
                         $actions->get('my-cart');
+                    });
+
+                $server->resource($this->getPrefix(), CheckoutCartController::class)
+                    ->only('')
+                    ->actions('-actions', function ($actions) {
+                        $actions->post('checkout');
                     });
             });
     }

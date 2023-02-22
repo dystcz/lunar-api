@@ -6,7 +6,7 @@ use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Lunar\Models\Currency;
 
-class PriceFactory extends Factory
+class PriceFactory extends \Lunar\Database\Factories\PriceFactory
 {
     protected $model = Price::class;
 
@@ -15,7 +15,7 @@ class PriceFactory extends Factory
         return [
             'price' => $this->faker->numberBetween(1, 2500),
             'compare_price' => $this->faker->numberBetween(1, 2500),
-            'currency_id' => Currency::factory(),
+            'currency_id' => Currency::first() ?? Currency::factory(),
         ];
     }
 }

@@ -128,7 +128,7 @@ class OrderSchema extends Schema
      */
     public function authorizable(): bool
     {
-        return false; // TODO create policies
+        return true;
     }
 
     /**

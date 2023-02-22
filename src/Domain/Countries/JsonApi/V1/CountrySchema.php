@@ -1,21 +1,19 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\Countries\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
-use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
+use Lunar\Models\Country;
 
-class CartSchema extends Schema
+class CountrySchema extends Schema
 {
     /**
      * The model the schema corresponds to.
      *
      * @var string
      */
-    public static string $model = Cart::class;
+    public static string $model = Country::class;
 
     /**
      * The relationships that should always be eager loaded.
@@ -38,13 +36,6 @@ class CartSchema extends Schema
     {
         return [
             ...parent::includePaths(),
-            'lines',
-            'lines.purchasable',
-            'lines.purchasable.prices',
-            'lines.purchasable.product',
-            'order',
-            'order.lines',
-            'order.lines.purchasable',
         ];
     }
 
@@ -59,9 +50,6 @@ class CartSchema extends Schema
             ...parent::fields(),
 
             ID::make(),
-
-            BelongsTo::make('order'),
-            HasMany::make('lines')->type('cart-lines'),
         ];
     }
 
@@ -72,6 +60,6 @@ class CartSchema extends Schema
      */
     public static function type(): string
     {
-        return 'carts';
+        return 'countries';
     }
 }

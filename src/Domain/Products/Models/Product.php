@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Models;
 
+use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
@@ -11,6 +12,11 @@ use Lunar\Models\ProductVariant;
 
 class Product extends LunarProduct
 {
+    protected static function newFactory(): ProductFactory
+    {
+        return ProductFactory::new();
+    }
+
     /**
      * Get prices through variants.
      *

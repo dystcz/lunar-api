@@ -2,13 +2,14 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Factories;
 
+use Dystcz\LunarApi\Domain\Carts\Models\CartLine;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Lunar\Models\Cart;
 use Lunar\Models\ProductVariant;
 
 class CartLineFactory extends Factory
 {
-    protected $model = \Dystcz\LunarApi\Domain\Carts\Models\CartLine::class;
+    protected $model = CartLine::class;
 
     public function definition(): array
     {

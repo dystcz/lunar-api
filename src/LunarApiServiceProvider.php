@@ -3,11 +3,15 @@
 namespace Dystcz\LunarApi;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Carts\Models\CartLine;
+use Dystcz\LunarApi\Domain\Carts\Policies\CartAddressPolicy;
 use Dystcz\LunarApi\Domain\Carts\Policies\CartLinePolicy;
 use Dystcz\LunarApi\Domain\Carts\Policies\CartPolicy;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
+use Dystcz\LunarApi\Domain\Orders\Models\Order;
+use Dystcz\LunarApi\Domain\Orders\Policies\OrderPolicy;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy;
 use Illuminate\Support\Collection;
@@ -22,6 +26,8 @@ class LunarApiServiceProvider extends ServiceProvider
         Product::class => ProductPolicy::class,
         Cart::class => CartPolicy::class,
         CartLine::class => CartLinePolicy::class,
+        CartAddress::class => CartAddressPolicy::class,
+        Order::class => OrderPolicy::class,
     ];
 
     /**
@@ -89,6 +95,7 @@ class LunarApiServiceProvider extends ServiceProvider
             \Lunar\Models\Brand::class => \Dystcz\LunarApi\Domain\Brands\Models\Brand::class,
             \Lunar\Models\Cart::class => \Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
             \Lunar\Models\CartLine::class => \Dystcz\LunarApi\Domain\Carts\Models\CartLine::class,
+            \Lunar\Models\CartAddress::class => \Dystcz\LunarApi\Domain\Carts\Models\CartAddress::class,
             \Lunar\Models\Collection::class => \Dystcz\LunarApi\Domain\Collections\Models\Collection::class,
             \Lunar\Models\Customer::class => \Dystcz\LunarApi\Domain\Customers\Models\Customer::class,
             \Lunar\Models\Order::class => \Dystcz\LunarApi\Domain\Orders\Models\Order::class,

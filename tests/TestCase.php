@@ -12,8 +12,13 @@ use LaravelJsonApi\Spec\ServiceProvider;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
 use Lunar\Database\Factories\LanguageFactory;
+use Lunar\DataTypes\Price;
+use Lunar\DataTypes\ShippingOption;
+use Lunar\Facades\ShippingManifest;
 use Lunar\Hub\Tests\Stubs\User;
 use Lunar\LunarServiceProvider;
+use Lunar\Models\Currency;
+use Lunar\Models\TaxClass;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 use Spatie\LaravelBlink\BlinkServiceProvider;
@@ -36,13 +41,27 @@ abstract class TestCase extends Orchestra
 
         activity()->disableLogging();
 
+        $currency = Currency::factory()->create();
+
+        $taxClass = TaxClass::factory()->create();
+
+        ShippingManifest::addOption(
+            new ShippingOption(
+                name: 'Basic Delivery',
+                description: 'A basic delivery option',
+                identifier: 'Friendly Freight Co.',
+                price: new Price(500, $currency, 1),
+                taxClass: $taxClass
+            )
+        );
+
         $this->beforeApplicationDestroyed(function () {
             Redis::flushall();
         });
     }
 
     /**
-     * @param  Application  $app
+     * @param Application $app
      * @return array
      */
     protected function getPackageProviders($app)
@@ -66,7 +85,7 @@ abstract class TestCase extends Orchestra
     }
 
     /**
-     * @param  Application  $app
+     * @param Application $app
      */
     public function getEnvironmentSetUp($app)
     {

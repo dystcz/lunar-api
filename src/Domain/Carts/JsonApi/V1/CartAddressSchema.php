@@ -2,20 +2,20 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
+use LaravelJsonApi\Eloquent\Fields\Str;
 
-class CartSchema extends Schema
+class CartAddressSchema extends Schema
 {
     /**
      * The model the schema corresponds to.
      *
      * @var string
      */
-    public static string $model = Cart::class;
+    public static string $model = CartAddress::class;
 
     /**
      * The relationships that should always be eager loaded.
@@ -38,13 +38,7 @@ class CartSchema extends Schema
     {
         return [
             ...parent::includePaths(),
-            'lines',
-            'lines.purchasable',
-            'lines.purchasable.prices',
-            'lines.purchasable.product',
-            'order',
-            'order.lines',
-            'order.lines.purchasable',
+            'cart',
         ];
     }
 
@@ -60,8 +54,25 @@ class CartSchema extends Schema
 
             ID::make(),
 
-            BelongsTo::make('order'),
-            HasMany::make('lines')->type('cart-lines'),
+            Str::make('title'),
+            Str::make('first_name'),
+            Str::make('last_name'),
+            Str::make('company_name'),
+            Str::make('line_one'),
+            Str::make('line_two'),
+            Str::make('line_three'),
+            Str::make('city'),
+            Str::make('state'),
+            Str::make('postcode'),
+            Str::make('delivery_instructions'),
+            Str::make('contact_email'),
+            Str::make('contact_phone'),
+            Str::make('address_type', 'type'),
+
+            // ArrayHash::make('meta'), // doesn't work for null values
+
+            BelongsTo::make('country'),
+            BelongsTo::make('cart'),
         ];
     }
 
@@ -72,6 +83,6 @@ class CartSchema extends Schema
      */
     public static function type(): string
     {
-        return 'carts';
+        return 'cart-addresses';
     }
 }

@@ -3,27 +3,15 @@
 use Dystcz\LunarApi\Domain\Carts\Actions\AddToCart;
 use Dystcz\LunarApi\Domain\Carts\Data\CartLineData;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
-use Dystcz\LunarApi\Domain\Prices\Models\Price;
-use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Database\Factories\CartLineFactory;
-use Lunar\Models\Currency;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can add purchsable to the cart', function () {
-    $currency = Currency::factory()->create();
+    $cart = Cart::factory()->withLines()->create();
 
-    $cart = Cart::factory()->create(['currency_id' => $currency->id]);
-
-    $cartLine = CartLineFactory::new()
-        ->for($cart)
-        ->for(
-            ProductVariantFactory::new()->has(Price::factory()),
-            'purchasable'
-        )
-        ->make();
+    $cartLine = $cart->lines->first();
 
     $data = [
         'type' => 'cart-lines',
@@ -54,17 +42,9 @@ it('can add purchsable to the cart', function () {
 });
 
 test('cart line quantity will be incremented if already presented inside the user\'s cart', function () {
-    $currency = Currency::factory()->create();
+    $cart = Cart::factory()->withLines()->create();
 
-    $cart = Cart::factory()->create(['currency_id' => $currency->id]);
-
-    $cartLine = CartLineFactory::new()
-        ->for($cart)
-        ->for(
-            ProductVariantFactory::new()->has(Price::factory()),
-            'purchasable'
-        )
-        ->make();
+    $cartLine = $cart->lines->first();
 
     App::make(AddToCart::class)(
         new CartLineData(
