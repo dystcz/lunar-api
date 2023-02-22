@@ -120,6 +120,15 @@ return [
             'pagination' => 12,
         ],
 
+        'countries' => [
+            'route_groups' => [
+                'countries' => \Dystcz\LunarApi\Domain\Countries\Http\Routing\CountryRouteGroup::class,
+            ],
+
+            // Default pagination
+            'pagination' => 12,
+        ],
+
         'orders' => [
             'model' => \Dystcz\LunarApi\Domain\Orders\Models\Order::class,
 

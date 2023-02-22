@@ -53,6 +53,11 @@ class CountrySchema extends Schema
         ];
     }
 
+    public function authorizable(): bool
+    {
+        return false;
+    }
+
     /**
      * Get the JSON:API resource type.
      *
