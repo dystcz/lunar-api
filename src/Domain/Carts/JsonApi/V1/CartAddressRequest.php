@@ -31,6 +31,7 @@ class CartAddressRequest extends ResourceRequest
             'delivery_instructions' => ['nullable', 'string'],
             'contact_email' => ['nullable', 'string'],
             'contact_phone' => ['nullable', 'string'],
+            'shipping_option' => ['nullable', 'string'],
             'address_type' => ['required', 'string', Rule::in(['shipping', 'billing'])],
 
             'cart' => [\LaravelJsonApi\Validation\Rule::toOne(), 'required'],

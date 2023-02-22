@@ -67,6 +67,7 @@ class CartAddressSchema extends Schema
             Str::make('delivery_instructions'),
             Str::make('contact_email'),
             Str::make('contact_phone'),
+            Str::make('shipping_option'),
             Str::make('address_type', 'type'),
 
             // ArrayHash::make('meta'), // doesn't work for null values
