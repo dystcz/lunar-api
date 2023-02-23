@@ -8,7 +8,7 @@ use Lunar\Facades\CartSession;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can read the cart', function () {
-    $cart = Cart::factory()->withLines()->create();
+    $cart = Cart::factory()->withLines()->withAddresses()->create();
 
     CartSession::use($cart);
 
@@ -18,9 +18,14 @@ it('can read the cart', function () {
         ->includePaths(
             'lines.purchasable.prices',
             'lines.purchasable.product',
-            'order'
+            'order',
+            'addresses',
+            'shippingAddress',
+            'billingAddress',
         )
         ->get('/api/v1/carts/-actions/my-cart');
 
-    $response->assertFetchedOne($cart);
+    $response->assertFetchedOne($cart)
+            ->assertIsIncluded('cart-addresses', $cart->shippingAddress)
+            ->assertIsIncluded('cart-addresses', $cart->billingAddress);
 });

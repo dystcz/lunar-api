@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 
 class CartSchema extends Schema
 {
@@ -45,6 +46,9 @@ class CartSchema extends Schema
             'order',
             'order.lines',
             'order.lines.purchasable',
+            'addresses',
+            'shippingAddress',
+            'billingAddress',
         ];
     }
 
@@ -62,6 +66,9 @@ class CartSchema extends Schema
 
             BelongsTo::make('order'),
             HasMany::make('lines')->type('cart-lines'),
+            HasMany::make('addresses')->type('cart-addresses'),
+            HasOne::make('shippingAddress')->type('cart-addresses'),
+            HasOne::make('billingAddress')->type('cart-addresses'),
         ];
     }
 

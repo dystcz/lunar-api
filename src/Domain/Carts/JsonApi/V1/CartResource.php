@@ -50,6 +50,9 @@ class CartResource extends JsonApiResource
         return [
             $this->relation('lines'),
             $this->relation('order'),
+            $this->relation('shippingAddress'),
+            $this->relation('billingAddress'),
+            $this->relation('addresses'),
 
             ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
         ];
