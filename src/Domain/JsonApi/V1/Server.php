@@ -20,6 +20,7 @@ use Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceSchema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductAssociationSchema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
+use Dystcz\LunarApi\Domain\Shipping\JsonApi\V1\ShippingOptionSchema;
 use Dystcz\LunarApi\Domain\Urls\JsonApi\V1\DefaultUrlSchema;
 use Dystcz\LunarApi\Domain\Urls\JsonApi\V1\UrlSchema;
 use Illuminate\Support\Facades\Config;
@@ -76,6 +77,7 @@ class Server extends BaseServer
             UrlSchema::class,
             OrderSchema::class,
             OrderLineSchema::class,
+            ShippingOptionSchema::class,
             ...$this->getAdditionalServerSchemas(),
         ];
     }

@@ -3,6 +3,20 @@
 /*
  * Lunar API configuration
  */
+
+use Dystcz\LunarApi\Domain\Carts\Http\Routing\CartAddressRouteGroup;
+use Dystcz\LunarApi\Domain\Carts\Http\Routing\CartLineRouteGroup;
+use Dystcz\LunarApi\Domain\Carts\Http\Routing\CartRouteGroup;
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Models\CartLine;
+use Dystcz\LunarApi\Domain\Countries\Http\Routing\CountryRouteGroup;
+use Dystcz\LunarApi\Domain\Customers\Http\Routing\CustomerRouteGroup;
+use Dystcz\LunarApi\Domain\Customers\Models\Customer;
+use Dystcz\LunarApi\Domain\Orders\Http\Routing\OrderRouteGroup;
+use Dystcz\LunarApi\Domain\Orders\Models\Order;
+use Dystcz\LunarApi\Domain\Orders\Models\OrderLine;
+use Dystcz\LunarApi\Domain\Shipping\Http\Routing\ShippingOptionRouteGroup;
+
 return [
 
     // Prefix for all the API routes
@@ -70,13 +84,13 @@ return [
         ],
 
         'carts' => [
-            'model' => \Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
+            'model' => Cart::class,
 
             // Route groups which get registered
             // If you want to change the behaviour or add some data,
             // simply extend the package product groups and add your logic
             'route_groups' => [
-                'carts' => \Dystcz\LunarApi\Domain\Carts\Http\Routing\CartRouteGroup::class,
+                'carts' => CartRouteGroup::class,
             ],
 
             // Default pagination
@@ -84,13 +98,13 @@ return [
         ],
 
         'cart_lines' => [
-            'model' => \Dystcz\LunarApi\Domain\Carts\Models\CartLine::class,
+            'model' => CartLine::class,
 
             // Route groups which get registered
             // If you want to change the behaviour or add some data,
             // simply extend the package product groups and add your logic
             'route_groups' => [
-                'cart_lines' => \Dystcz\LunarApi\Domain\Carts\Http\Routing\CartLineRouteGroup::class,
+                'cart_lines' => CartLineRouteGroup::class,
             ],
 
             // Default pagination
@@ -99,7 +113,7 @@ return [
 
         'cart_addresses' => [
             'route_groups' => [
-                'cart_addresses' => \Dystcz\LunarApi\Domain\Carts\Http\Routing\CartAddressRouteGroup::class,
+                'cart_addresses' => CartAddressRouteGroup::class,
             ],
 
             // Default pagination
@@ -107,13 +121,13 @@ return [
         ],
 
         'customers' => [
-            'model' => \Dystcz\LunarApi\Domain\Customers\Models\Customer::class,
+            'model' => Customer::class,
 
             // Route groups which get registered
             // If you want to change the behaviour or add some data,
             // simply extend the package product groups and add your logic
             'route_groups' => [
-                'customers' => \Dystcz\LunarApi\Domain\Customers\Http\Routing\CustomerRouteGroup::class,
+                'customers' => CustomerRouteGroup::class,
             ],
 
             // Default pagination
@@ -122,7 +136,7 @@ return [
 
         'countries' => [
             'route_groups' => [
-                'countries' => \Dystcz\LunarApi\Domain\Countries\Http\Routing\CountryRouteGroup::class,
+                'countries' => CountryRouteGroup::class,
             ],
 
             // Default pagination
@@ -130,13 +144,13 @@ return [
         ],
 
         'orders' => [
-            'model' => \Dystcz\LunarApi\Domain\Orders\Models\Order::class,
+            'model' => Order::class,
 
             // Route groups which get registered
             // If you want to change the behaviour or add some data,
             // simply extend the package product groups and add your logic
             'route_groups' => [
-                'orders' => \Dystcz\LunarApi\Domain\Orders\Http\Routing\OrderRouteGroup::class,
+                'orders' => OrderRouteGroup::class,
             ],
 
             // Default pagination
@@ -144,7 +158,16 @@ return [
         ],
 
         'order_lines' => [
-            'model' => \Dystcz\LunarApi\Domain\Orders\Models\OrderLine::class,
+            'model' => OrderLine::class,
+
+            // Default pagination
+            'pagination' => 12,
+        ],
+
+        'shipping_options' => [
+            'route_groups' => [
+                'shipping_options' => ShippingOptionRouteGroup::class,
+            ],
 
             // Default pagination
             'pagination' => 12,

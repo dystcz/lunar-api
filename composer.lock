@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fef6279c5deae8594bc891c399e73f97",
+    "content-hash": "7e03e4903ebab02560f1aac2d0b9d17c",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -2152,6 +2152,67 @@
             "time": "2022-06-25T09:53:48+00:00"
         },
         {
+            "name": "laravel-json-api/non-eloquent",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-json-api/non-eloquent.git",
+                "reference": "90ba33550e077e1390f9db79632950ec1be4056d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-json-api/non-eloquent/zipball/90ba33550e077e1390f9db79632950ec1be4056d",
+                "reference": "90ba33550e077e1390f9db79632950ec1be4056d",
+                "shasum": ""
+            },
+            "require": {
+                "laravel-json-api/core": "^2.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.23|^7.0",
+                "phpunit/phpunit": "^9.5.10"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelJsonApi\\NonEloquent\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Cloud Creativity Ltd",
+                    "email": "info@cloudcreativity.co.uk"
+                },
+                {
+                    "name": "Christopher Gammie",
+                    "email": "contact@gammie.co.uk"
+                }
+            ],
+            "description": "Construct JSON:API resources for non-Eloquent classes.",
+            "homepage": "https://github.com/laravel-json-api/non-eloquent",
+            "keywords": [
+                "JSON-API",
+                "jsonapi",
+                "jsonapi.org",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel-json-api/non-eloquent/issues",
+                "source": "https://github.com/laravel-json-api/non-eloquent/tree/v2.0.0"
+            },
+            "time": "2022-02-09T20:17:27+00:00"
+        },
+        {
             "name": "laravel-json-api/spec",
             "version": "v1.2.0",
             "source": {
@@ -2292,16 +2353,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.52.2",
+            "version": "v9.52.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "cf021e5e9edf854f832b191ad5168e9f2327cdf7"
+                "reference": "9239128cfb4d22afefb64060dfecf53e82987267"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/cf021e5e9edf854f832b191ad5168e9f2327cdf7",
-                "reference": "cf021e5e9edf854f832b191ad5168e9f2327cdf7",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/9239128cfb4d22afefb64060dfecf53e82987267",
+                "reference": "9239128cfb4d22afefb64060dfecf53e82987267",
                 "shasum": ""
             },
             "require": {
@@ -2486,7 +2547,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-02-21T18:19:59+00:00"
+            "time": "2023-02-22T14:38:06+00:00"
         },
         {
             "name": "laravel/scout",
@@ -3023,16 +3084,16 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v2.12.0",
+            "version": "v2.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "9da51085a7b02a8512a9d4c525d5ea96e8f52aa0"
+                "reference": "c0bd6619358b333f5e47428a4413cc5d24bd60dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/9da51085a7b02a8512a9d4c525d5ea96e8f52aa0",
-                "reference": "9da51085a7b02a8512a9d4c525d5ea96e8f52aa0",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/c0bd6619358b333f5e47428a4413cc5d24bd60dd",
+                "reference": "c0bd6619358b333f5e47428a4413cc5d24bd60dd",
                 "shasum": ""
             },
             "require": {
@@ -3084,7 +3145,7 @@
             "description": "A front-end framework for Laravel.",
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v2.12.0"
+                "source": "https://github.com/livewire/livewire/tree/v2.12.1"
             },
             "funding": [
                 {
@@ -3092,7 +3153,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-20T13:30:53+00:00"
+            "time": "2023-02-22T21:13:21+00:00"
         },
         {
             "name": "lukascivil/treewalker",
@@ -9390,23 +9451,23 @@
         },
         {
             "name": "orchestra/testbench",
-            "version": "v7.22.0",
+            "version": "v7.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench.git",
-                "reference": "4e16b1adde9d13aff6e4221c841bb82dcd4416f0"
+                "reference": "987f5383f597a54f8d9868f98411899398348c02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench/zipball/4e16b1adde9d13aff6e4221c841bb82dcd4416f0",
-                "reference": "4e16b1adde9d13aff6e4221c841bb82dcd4416f0",
+                "url": "https://api.github.com/repos/orchestral/testbench/zipball/987f5383f597a54f8d9868f98411899398348c02",
+                "reference": "987f5383f597a54f8d9868f98411899398348c02",
                 "shasum": ""
             },
             "require": {
                 "fakerphp/faker": "^1.21",
-                "laravel/framework": "^9.50.2",
+                "laravel/framework": "^9.52.4",
                 "mockery/mockery": "^1.5.1",
-                "orchestra/testbench-core": "^7.22",
+                "orchestra/testbench-core": "^7.22.1",
                 "php": "^8.0",
                 "phpunit/phpunit": "^9.5.10",
                 "spatie/laravel-ray": "^1.28",
@@ -9443,22 +9504,22 @@
             ],
             "support": {
                 "issues": "https://github.com/orchestral/testbench/issues",
-                "source": "https://github.com/orchestral/testbench/tree/v7.22.0"
+                "source": "https://github.com/orchestral/testbench/tree/v7.22.1"
             },
-            "time": "2023-02-08T02:31:25+00:00"
+            "time": "2023-02-24T01:07:22+00:00"
         },
         {
             "name": "orchestra/testbench-core",
-            "version": "v7.22.0",
+            "version": "v7.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench-core.git",
-                "reference": "a6e4240149ffc1bb3068a68fe4261a5b59753079"
+                "reference": "75b42f9130e7903ffa0ef8dbb466962ca6635261"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/a6e4240149ffc1bb3068a68fe4261a5b59753079",
-                "reference": "a6e4240149ffc1bb3068a68fe4261a5b59753079",
+                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/75b42f9130e7903ffa0ef8dbb466962ca6635261",
+                "reference": "75b42f9130e7903ffa0ef8dbb466962ca6635261",
                 "shasum": ""
             },
             "require": {
@@ -9466,7 +9527,7 @@
             },
             "require-dev": {
                 "fakerphp/faker": "^1.21",
-                "laravel/framework": "^9.50.2",
+                "laravel/framework": "^9.52.4",
                 "laravel/pint": "^1.4",
                 "mockery/mockery": "^1.5.1",
                 "orchestra/canvas": "^7.0",
@@ -9480,7 +9541,7 @@
             "suggest": {
                 "brianium/paratest": "Allow using parallel tresting (^6.4).",
                 "fakerphp/faker": "Allow using Faker for testing (^1.21).",
-                "laravel/framework": "Required for testing (^9.50.2).",
+                "laravel/framework": "Required for testing (^9.52.4).",
                 "mockery/mockery": "Allow using Mockery for testing (^1.5.1).",
                 "nunomaduro/collision": "Allow using Laravel style tests output and parallel testing (^6.2).",
                 "orchestra/testbench-browser-kit": "Allow using legacy Laravel BrowserKit for testing (^7.0).",
@@ -9531,7 +9592,7 @@
                 "issues": "https://github.com/orchestral/testbench/issues",
                 "source": "https://github.com/orchestral/testbench-core"
             },
-            "time": "2023-02-08T02:19:30+00:00"
+            "time": "2023-02-23T12:15:23+00:00"
         },
         {
             "name": "pestphp/pest",
@@ -9914,16 +9975,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.1",
+            "version": "1.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "1cd5fc530a8b68702f3733ad64294b2a39564198"
+                "reference": "a2ffec7db373d8da4973d1d62add872db5cd22dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1cd5fc530a8b68702f3733ad64294b2a39564198",
-                "reference": "1cd5fc530a8b68702f3733ad64294b2a39564198",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a2ffec7db373d8da4973d1d62add872db5cd22dd",
+                "reference": "a2ffec7db373d8da4973d1d62add872db5cd22dd",
                 "shasum": ""
             },
             "require": {
@@ -9953,7 +10014,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.10.1"
+                "source": "https://github.com/phpstan/phpstan/tree/1.10.2"
             },
             "funding": [
                 {
@@ -9969,7 +10030,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-21T21:57:23+00:00"
+            "time": "2023-02-23T14:36:46+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
