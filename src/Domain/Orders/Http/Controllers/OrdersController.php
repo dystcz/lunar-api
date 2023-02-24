@@ -11,7 +11,7 @@ class OrdersController extends Controller
     use Actions\FetchOne;
 
     // use Actions\Store;
-    // use Actions\Update;
+    use Actions\Update;
     // use Actions\Destroy;
     // use Actions\FetchRelated;
     // use Actions\FetchRelationship;

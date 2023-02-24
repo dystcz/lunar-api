@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
+use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
@@ -82,6 +83,9 @@ class OrderSchema extends Schema
             Number::make('tax_total'),
             Number::make('total'),
             Number::make('exchange_rate'),
+            DateTime::make('placed_at'),
+            DateTime::make('created_at'),
+            DateTime::make('updated_at'),
             // ArrayHash::make('meta'),
 
             HasMany::make('lines')->type('order-lines'),

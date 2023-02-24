@@ -25,15 +25,7 @@ class OrderPolicy
      */
     public function view(?Authenticatable $user, Order $order): bool
     {
-        if ($user && $user->id === $order->user_id) {
-            return true;
-        }
-
-        if (CartSession::manager()->order_id === $order->id) {
-            return true;
-        }
-
-        return false;
+        return $this->update($user, $order);
     }
 
     /**
@@ -49,7 +41,15 @@ class OrderPolicy
      */
     public function update(?Authenticatable $user, Order $order): bool
     {
-        return true;
+        if ($user && $user->id === $order->user_id) {
+            return true;
+        }
+
+        if (CartSession::manager()->order_id === $order->id) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

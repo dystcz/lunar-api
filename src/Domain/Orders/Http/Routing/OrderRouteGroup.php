@@ -30,7 +30,7 @@ class OrderRouteGroup extends RouteGroup
                     ->relationships(function ($relationships) {
                         $relationships->hasMany('lines')->readOnly();
                     })
-                    ->only('show');
+                    ->only('show', 'update');
             });
     }
 }
