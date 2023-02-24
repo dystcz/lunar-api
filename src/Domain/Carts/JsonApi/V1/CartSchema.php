@@ -48,7 +48,9 @@ class CartSchema extends Schema
             'order.lines.purchasable',
             'addresses',
             'shippingAddress',
+            'shippingAddress.country',
             'billingAddress',
+            'billingAddress.country',
         ];
     }
 
