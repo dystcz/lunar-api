@@ -28,7 +28,7 @@ it('works', function () {
     $response = $this
         ->jsonApi()
         ->expects('orders')
-        ->includePaths('lines.purchasable.product', 'lines.purchasable.prices')
+        ->includePaths('productLines.purchasable.product', 'productLines.purchasable.prices')
         ->get("/api/v1/customers/{$customer->getRouteKey()}/orders");
 
     $orderLine = $customer->orders->first()->lines->first();

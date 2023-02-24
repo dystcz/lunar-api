@@ -20,7 +20,10 @@ it('can read order details', function () {
 
     $response = $this
         ->jsonApi()
-        ->includePaths('lines')
+        ->includePaths(
+            'productLines.purchasable.product',
+            'productLines.purchasable.prices'
+        )
         ->expects('orders')
         ->get('http://localhost/api/v1/orders/' . $order->getRouteKey());
 
@@ -39,7 +42,7 @@ it('returns unauthorized if the user doesn\'t own the order', function () {
 
     $response = $this
         ->jsonApi()
-        ->includePaths('lines')
+        ->includePaths('productLines')
         ->expects('orders')
         ->get('http://localhost/api/v1/orders/' . $order->getRouteKey());
 

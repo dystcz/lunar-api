@@ -54,9 +54,9 @@ class OrderSchema extends Schema
         return [
             ...parent::includePaths(),
             'lines',
-            'lines.purchasable',
-            'lines.purchasable.prices',
-            'lines.purchasable.product',
+            'productLines.purchasable',
+            'productLines.purchasable.prices',
+            'productLines.purchasable.product',
         ];
     }
 
@@ -89,6 +89,7 @@ class OrderSchema extends Schema
             // ArrayHash::make('meta'),
 
             HasMany::make('lines')->type('order-lines'),
+            HasMany::make('productLines')->type('order-lines'),
             BelongsTo::make('customer'),
         ];
     }
@@ -125,16 +126,6 @@ class OrderSchema extends Schema
             ->withDefaultPerPage(
                 Config::get('lunar-api.domains.orders.pagination', 12)
             );
-    }
-
-    /**
-     * Determine if the resource is authorizable.
-     *
-     * @return bool
-     */
-    public function authorizable(): bool
-    {
-        return true;
     }
 
     /**

@@ -19,6 +19,7 @@ it('can be read', function () {
     $response = $this
         ->jsonApi()
         ->expects('addresses')
+        ->includePaths('country', 'customer')
         ->get('/api/v1/addresses/' . $this->address->getRouteKey());
 
     $response->assertFetchedOne($this->address);
