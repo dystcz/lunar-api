@@ -10,6 +10,8 @@ use Dystcz\LunarApi\Domain\Carts\Models\CartLine;
 use Dystcz\LunarApi\Domain\Carts\Policies\CartAddressPolicy;
 use Dystcz\LunarApi\Domain\Carts\Policies\CartLinePolicy;
 use Dystcz\LunarApi\Domain\Carts\Policies\CartPolicy;
+use Dystcz\LunarApi\Domain\Customers\Models\Customer;
+use Dystcz\LunarApi\Domain\Customers\Policies\CustomerPolicy;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
@@ -31,6 +33,7 @@ class LunarApiServiceProvider extends ServiceProvider
         CartAddress::class => CartAddressPolicy::class,
         Order::class => OrderPolicy::class,
         Address::class => AddressPolicy::class,
+        Customer::class => CustomerPolicy::class,
     ];
 
     /**

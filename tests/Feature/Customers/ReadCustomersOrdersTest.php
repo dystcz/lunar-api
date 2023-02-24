@@ -2,6 +2,7 @@
 
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
+use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -10,7 +11,10 @@ uses(TestCase::class, RefreshDatabase::class);
 it('works', function () {
     $customer = Customer::factory()
         ->withOrder()
+        ->has(User::factory())
         ->create();
+
+    $this->actingAs($customer->users->first());
 
     $expected = $customer->orders()->get()
         ->map(fn (Order $order) => [
