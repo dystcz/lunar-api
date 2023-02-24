@@ -2,6 +2,8 @@
 
 namespace Dystcz\LunarApi;
 
+use Dystcz\LunarApi\Domain\Addresses\Models\Address;
+use Dystcz\LunarApi\Domain\Addresses\Policies\AddressPolicy;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Carts\Models\CartLine;
@@ -28,6 +30,7 @@ class LunarApiServiceProvider extends ServiceProvider
         CartLine::class => CartLinePolicy::class,
         CartAddress::class => CartAddressPolicy::class,
         Order::class => OrderPolicy::class,
+        Address::class => AddressPolicy::class,
     ];
 
     /**
@@ -92,6 +95,7 @@ class LunarApiServiceProvider extends ServiceProvider
     protected function registerModels(): void
     {
         $models = new Collection([
+            \Lunar\Models\Address::class => \Dystcz\LunarApi\Domain\Addresses\Models\Address::class,
             \Lunar\Models\Brand::class => \Dystcz\LunarApi\Domain\Brands\Models\Brand::class,
             \Lunar\Models\Cart::class => \Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
             \Lunar\Models\CartLine::class => \Dystcz\LunarApi\Domain\Carts\Models\CartLine::class,

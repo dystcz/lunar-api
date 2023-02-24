@@ -4,6 +4,7 @@
  * Lunar API configuration
  */
 
+use Dystcz\LunarApi\Domain\Addresses\Http\Routing\AddressRouteGroup;
 use Dystcz\LunarApi\Domain\Carts\Http\Routing\CartAddressRouteGroup;
 use Dystcz\LunarApi\Domain\Carts\Http\Routing\CartLineRouteGroup;
 use Dystcz\LunarApi\Domain\Carts\Http\Routing\CartRouteGroup;
@@ -128,6 +129,15 @@ return [
             // simply extend the package product groups and add your logic
             'route_groups' => [
                 'customers' => CustomerRouteGroup::class,
+            ],
+
+            // Default pagination
+            'pagination' => 12,
+        ],
+
+        'addresses' => [
+            'route_groups' => [
+                'addresses' => AddressRouteGroup::class,
             ],
 
             // Default pagination

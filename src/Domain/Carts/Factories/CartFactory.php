@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Factories;
 
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Lunar\Models\CartAddress;
@@ -10,6 +11,8 @@ use Lunar\Models\Currency;
 
 class CartFactory extends \Lunar\Database\Factories\CartFactory
 {
+    protected $model = Cart::class;
+
     public function withAddresses(): static
     {
         return $this

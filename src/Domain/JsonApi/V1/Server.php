@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressSchema;
 use Dystcz\LunarApi\Domain\Brands\JsonApi\V1\BrandSchema;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartAddressSchema;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartLineSchema;
@@ -65,6 +66,7 @@ class Server extends BaseServer
             CartLineSchema::class,
             CartAddressSchema::class,
             CustomerSchema::class,
+            AddressSchema::class,
             CountrySchema::class,
             DefaultUrlSchema::class,
             ImageSchema::class,

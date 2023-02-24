@@ -37,7 +37,10 @@ abstract class TestCase extends Orchestra
             'name' => 'English',
         ]);
 
-        config()->set('providers.users.model', User::class);
+        config()->set('auth.providers.users', [
+            'driver' => 'eloquent',
+            'model' => \Dystcz\LunarApi\Tests\Stubs\Users\User::class,
+        ]);
 
         activity()->disableLogging();
 

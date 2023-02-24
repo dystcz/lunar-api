@@ -1,19 +1,22 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Customers\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\Addresses\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Customers\Models\Customer;
+use Dystcz\LunarApi\Domain\Addresses\Models\Address;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
+use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\ID;
-use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 
-class CustomerSchema extends Schema
+class AddressSchema extends Schema
 {
     /**
      * The default paging parameters to use if the client supplies none.
@@ -22,12 +25,17 @@ class CustomerSchema extends Schema
      */
     protected ?array $defaultPagination = ['number' => 1];
 
+    public function indexQuery(?Request $request, Builder $query): Builder
+    {
+        return $query->whereIn('customer_id', Auth::user()->customers->pluck('id'));
+    }
+
     /**
      * The model the schema corresponds to.
      *
      * @var string
      */
-    public static string $model = Customer::class;
+    public static string $model = Address::class;
 
     /**
      * The relationships that should always be eager loaded.
@@ -50,11 +58,8 @@ class CustomerSchema extends Schema
     {
         return [
             ...parent::includePaths(),
-            'orders',
-            'orders.lines',
-            'orders.lines.purchasable',
-            'addresses',
-            'addresses.country',
+            'country',
+            'customer',
         ];
     }
 
@@ -73,11 +78,20 @@ class CustomerSchema extends Schema
             Str::make('first_name'),
             Str::make('last_name'),
             Str::make('company_name'),
-            Str::make('vat_no'),
+            Str::make('line_one'),
+            Str::make('line_two'),
+            Str::make('line_three'),
+            Str::make('city'),
+            Str::make('state'),
+            Str::make('postcode'),
+            Str::make('delivery_instructions'),
+            Str::make('contact_email'),
+            Str::make('contact_phone'),
+            Boolean::make('shipping_default'),
+            Boolean::make('billing_default'),
 
-            HasMany::make('orders'),
-            HasMany::make('addresses'),
-            BelongsToMany::make('users'),
+            BelongsTo::make('customer'),
+            BelongsTo::make('country'),
         ];
     }
 
@@ -111,18 +125,8 @@ class CustomerSchema extends Schema
     {
         return PagePagination::make()
             ->withDefaultPerPage(
-                Config::get('lunar-api.domains.customers.pagination', 12)
+                Config::get('lunar-api.domains.addresses.pagination', 12)
             );
-    }
-
-    /**
-     * Determine if the resource is authorizable.
-     *
-     * @return bool
-     */
-    public function authorizable(): bool
-    {
-        return false; // TODO create policies
     }
 
     /**
@@ -132,6 +136,6 @@ class CustomerSchema extends Schema
      */
     public static function type(): string
     {
-        return 'customers';
+        return 'addresses';
     }
 }

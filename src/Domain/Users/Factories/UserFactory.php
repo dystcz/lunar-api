@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User;
 
 class UserFactory extends Factory
 {
-    protected $model = User::class;
+    protected $model = \Dystcz\LunarApi\Tests\Stubs\Users\User::class;
 
     public function definition(): array
     {

@@ -29,8 +29,9 @@ class CustomerRouteGroup extends RouteGroup
                 $server->resource($this->getPrefix(), CustomersController::class)
                     ->relationships(function ($relationships) {
                         $relationships->hasMany('orders')->readOnly();
+                        $relationships->hasMany('addresses')->readOnly();
                     })
-                    ->only('');
+                    ->only('show', 'update');
             });
     }
 }
