@@ -1,5 +1,6 @@
 <?php
 
+use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -8,6 +9,8 @@ use Lunar\Facades\CartSession;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can read order details', function () {
+    Event::fake(CartCreated::class);
+
     /** @var Cart $cart */
     $cart = Cart::factory()
         ->withAddresses()
@@ -32,6 +35,8 @@ it('can read order details', function () {
 });
 
 it('returns unauthorized if the user doesn\'t own the order', function () {
+    Event::fake(CartCreated::class);
+
     /** @var Cart $cart */
     $cart = Cart::factory()
         ->withAddresses()

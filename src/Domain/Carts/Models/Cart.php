@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Models;
 
+use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Lunar\Models\Cart as LunarCart;
 
@@ -11,4 +12,13 @@ class Cart extends LunarCart
     {
         return CartFactory::new();
     }
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => CartCreated::class,
+    ];
 }

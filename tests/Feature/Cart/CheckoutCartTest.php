@@ -9,6 +9,8 @@ use Lunar\Facades\CartSession;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('works', function () {
+    Event::fake(CartCreated::class);
+
     /** @var Cart $cart */
     $cart = Cart::factory()
         ->withAddresses()

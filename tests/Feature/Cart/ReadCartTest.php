@@ -8,7 +8,7 @@ use Lunar\Facades\CartSession;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can read the cart', function () {
-    $cart = Cart::factory()->withLines()->withAddresses()->create();
+    $cart = Cart::factory()->withLines()->create();
 
     CartSession::use($cart);
 
