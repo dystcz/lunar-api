@@ -13,6 +13,9 @@ it('can read order details', function () {
 
     $response->assertSuccessful();
 
+
+    $shippingOption = \Lunar\Facades\ShippingManifest::getOptions(new \Lunar\Models\Cart)->first();
+
     expect($response->json('data')[0])->toBe([
         'type' => 'shipping-options',
         'id' => 'friendly-freight-co',
@@ -20,7 +23,11 @@ it('can read order details', function () {
             "name" => "Basic Delivery",
             "description" => "A basic delivery option",
             "identifier" => "Friendly Freight Co.",
-            "price" => 5
+            "price" => [
+                'decimal' => (int) $shippingOption->price->decimal,
+                'formatted' => $shippingOption->price->formatted,
+            ],
+            'currency' => $shippingOption->price->currency->toArray(),
         ],
         "links" => [
             "self" => "http://localhost/api/v1/shipping-options/friendly-freight-co"

@@ -4,15 +4,18 @@ namespace Dystcz\LunarApi\Domain\Shipping\Entities;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
+use Lunar\DataTypes\Price;
+use Lunar\Models\Currency;
 
 class ShippingOption implements Arrayable
 {
     public function __construct(
-        public string $id,
-        public string $identifier,
-        public string $name,
-        public string $description,
-        public float  $price,
+        public string   $id,
+        public string   $identifier,
+        public string   $name,
+        public string   $description,
+        public Price    $price,
+        public Currency $currency,
     )
     {
     }
@@ -56,7 +59,8 @@ class ShippingOption implements Arrayable
             identifier: $shippingOption->identifier,
             name: $shippingOption->name,
             description: $shippingOption->description,
-            price: $shippingOption->price->decimal,
+            price: $shippingOption->price,
+            currency: $shippingOption->price->currency,
         );
     }
 
@@ -70,7 +74,11 @@ class ShippingOption implements Arrayable
             'identifier' => $this->identifier,
             'name' => $this->name,
             'description' => $this->description,
-            'price' => $this->price,
+            'price' => [
+                'decimal' => $this->price->decimal,
+                'formatted' => $this->price->formatted,
+            ],
+            'currency' => $this->currency->toArray(),
         ];
     }
 }

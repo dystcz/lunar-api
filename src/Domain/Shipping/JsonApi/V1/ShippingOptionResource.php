@@ -13,11 +13,14 @@ class ShippingOptionResource extends JsonApiResource
 
     public function attributes($request): iterable
     {
+        $data = $this->resource->toArray();
+
         return [
             'name' => $this->resource->getName(),
             'description' => $this->resource->getDescription(),
             'identifier' => $this->resource->getIdentifier(),
-            'price' => $this->resource->getPrice(),
+            'price' => $data['price'],
+            'currency' => $data['currency'],
         ];
     }
 }
