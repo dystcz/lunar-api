@@ -13,7 +13,6 @@ it('can read order details', function () {
 
     $response->assertSuccessful();
 
-
     $shippingOption = \Lunar\Facades\ShippingManifest::getOptions(new \Lunar\Models\Cart)->first();
 
     expect($response->json('data')[0])->toBe([
