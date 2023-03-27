@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi;
 
 use Dystcz\LunarApi\Domain\Addresses\Models\Address;
 use Dystcz\LunarApi\Domain\Addresses\Policies\AddressPolicy;
+use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Listeners\CreateCartAddresses;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
@@ -20,6 +21,7 @@ use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Domain\Orders\Policies\OrderPolicy;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy;
+use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
@@ -52,6 +54,9 @@ class LunarApiServiceProvider extends ServiceProvider
         $this->registerModels();
 
         Event::listen(CartCreated::class, CreateCartAddresses::class);
+
+        LunarApi::createUserFromCartUsing(CreateUserFromCart::class);
+        LunarApi::registerUserUsing(RegisterUser::class);
 
         // $this->registerPolicies();
 

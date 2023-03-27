@@ -13,6 +13,8 @@ class CartRequest extends ResourceRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'create_user' => 'boolean',
+        ];
     }
 }

@@ -19,7 +19,10 @@ class CartFactory extends \Lunar\Database\Factories\CartFactory
         return $this
             ->has(CartAddress::factory()->state(['type' => 'billing']), 'addresses')
             ->has(
-                CartAddress::factory()->state(['type' => 'shipping', 'shipping_option' => 'Friendly Freight Co.']),
+                CartAddress::factory()->state([
+                    'type' => 'shipping',
+                    'shipping_option' => 'Friendly Freight Co.'
+                ]),
                 'addresses'
             );
     }

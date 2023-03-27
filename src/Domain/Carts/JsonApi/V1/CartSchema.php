@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
@@ -71,6 +72,9 @@ class CartSchema extends Schema
             HasMany::make('addresses')->type('cart-addresses'),
             HasOne::make('shippingAddress')->type('cart-addresses'),
             HasOne::make('billingAddress')->type('cart-addresses'),
+
+            // Custom fields (not in the database)
+            Boolean::make('create_user')->hidden(),
         ];
     }
 
