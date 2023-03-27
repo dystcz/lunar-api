@@ -39,10 +39,12 @@ class CreateUserFromCart implements CreatesUserFromCart
         ]);
 
         /** @var Customer $customer */
-        $customer = $user->customers()->create([
+        $customer = $user->customers()->firstOrNew([], [
             'first_name' => $shippingAddress->first_name,
             'last_name' => $shippingAddress->last_name,
         ]);
+
+        $customer->save();
 
         $customer->addresses()->createMany($this->getAddresses($cart));
 
