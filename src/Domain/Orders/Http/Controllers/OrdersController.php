@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\Orders\Http\Controllers;
 
 use Dystcz\LunarApi\Controller;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions;
+use LaravelJsonApi\Laravel\Http\Requests\ResourceQuery;
 
 class OrdersController extends Controller
 {
@@ -19,4 +20,11 @@ class OrdersController extends Controller
     // use Actions\UpdateRelationship;
     // use Actions\AttachRelationship;
     // use Actions\DetachRelationship;
+
+    public function reading(ResourceQuery $request)
+    {
+        if (! $request->hasValidSignature()) {
+            abort(401);
+        }
+    }
 }

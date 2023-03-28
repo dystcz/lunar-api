@@ -79,3 +79,33 @@ it('a user can be registered when checking out', function () {
 
     expect($cart->user_id)->not()->toBeNull();
 });
+
+it('returns signed url for reading order\'s detail', function () {
+    Event::fake(CartCreated::class);
+
+    /** @var Cart $cart */
+    $cart = Cart::factory()
+        ->withAddresses()
+        ->withLines()
+        ->create();
+
+    CartSession::use($cart);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->withData([
+            'type' => 'carts',
+            'attributes' => [
+                'create_user' => false,
+            ],
+        ])
+        ->post('/api/v1/carts/-actions/checkout');
+
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->get($response->json()['links']['self.signed']);
+
+    $response->assertFetchedOne($cart->order);
+});
