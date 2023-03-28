@@ -29,18 +29,14 @@ php artisan vendor:publish --provider="Dystcz\LunarApi\LunarApiServiceProvider" 
 ### Todo list
 
 - [x] Products
-    - [ ] Filters
-    - [ ] Associations
 - [x] Product variants
-- [ ] Collections
+- [x] Collections
 - [x] Brands
 - [x] Prices
-    - [x] Prices with tax
 - [x] Media
-    - [ ] Thumbnails
-- [ ] Cart
+- [x] Cart
 - [ ] Orders
-- [ ] Shippings
+- [x] Shippings
 - [ ] Payments
 - [ ] Create documentation
 - [ ] Create and register policies for each resource and each resource method ideally
