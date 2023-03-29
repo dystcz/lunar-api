@@ -12,6 +12,7 @@ class CustomersController extends Controller
 
     // use Actions\Store;
     use Actions\Update;
+
     // use Actions\Destroy;
     use Actions\FetchRelated;
     use Actions\FetchRelationship;

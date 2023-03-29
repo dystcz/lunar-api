@@ -20,7 +20,7 @@ beforeEach(function () {
         'type' => 'cart-addresses',
         'attributes' => [
             'shipping_option' => $shippingOption->identifier,
-        ]
+        ],
     ];
 });
 
@@ -31,7 +31,7 @@ test('can select a shipping option', function () {
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->patch('/api/v1/cart-addresses/' . $this->cartAddress->getRouteKey() . '/-actions/select-shipping-option');
+        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/select-shipping-option');
 
     $response->assertFetchedOne($this->cartAddress);
 
@@ -43,7 +43,7 @@ test('only the user who owns the cart address can select shipping option for it'
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->patch('/api/v1/cart-addresses/' . $this->cartAddress->getRouteKey() . '/-actions/select-shipping-option');
+        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/select-shipping-option');
 
     $response->assertErrorStatus([
         'detail' => 'This action is unauthorized.',

@@ -30,9 +30,6 @@ class Server extends BaseServer
 {
     /**
      * Set base server URI.
-     *
-     * @param  string  $path
-     * @return void
      */
     protected function setBaseUri(string $path = 'v1'): void
     {
@@ -43,8 +40,6 @@ class Server extends BaseServer
 
     /**
      * Bootstrap the server when it is handling an HTTP request.
-     *
-     * @return void
      */
     public function serving(): void
     {
@@ -53,8 +48,6 @@ class Server extends BaseServer
 
     /**
      * Get the server's list of schemas.
-     *
-     * @return array
      */
     protected function allSchemas(): array
     {
@@ -86,8 +79,6 @@ class Server extends BaseServer
 
     /**
      * Determine if the server is authorizable.
-     *
-     * @return bool
      */
     public function authorizable(): bool
     {

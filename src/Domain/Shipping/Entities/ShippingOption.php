@@ -10,14 +10,13 @@ use Lunar\Models\Currency;
 class ShippingOption implements Arrayable
 {
     public function __construct(
-        public string   $id,
-        public string   $identifier,
-        public string   $name,
-        public string   $description,
-        public Price    $price,
+        public string $id,
+        public string $identifier,
+        public string $name,
+        public string $description,
+        public Price $price,
         public Currency $currency,
-    )
-    {
+    ) {
     }
 
     public function getName(): string
@@ -50,8 +49,7 @@ class ShippingOption implements Arrayable
      */
     public static function fromArray(
         \Lunar\DataTypes\ShippingOption $shippingOption
-    ): ShippingOption
-    {
+    ): ShippingOption {
         $identifier = Str::slug($shippingOption->identifier);
 
         return new self(
@@ -65,7 +63,7 @@ class ShippingOption implements Arrayable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function toArray()
     {

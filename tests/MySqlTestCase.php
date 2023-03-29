@@ -7,7 +7,7 @@ use Illuminate\Foundation\Application;
 abstract class MySqlTestCase extends TestCase
 {
     /**
-     * @param Application $app
+     * @param  Application  $app
      */
     public function getEnvironmentSetUp($app)
     {
@@ -37,7 +37,7 @@ abstract class MySqlTestCase extends TestCase
     // }
 
     /**
-     * @param Application $app
+     * @param  Application  $app
      */
     protected function defineDatabaseMigrations()
     {

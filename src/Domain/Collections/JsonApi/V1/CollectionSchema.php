@@ -20,24 +20,16 @@ class CollectionSchema extends Schema
 {
     /**
      * The default paging parameters to use if the client supplies none.
-     *
-     * @var array|null
      */
     protected ?array $defaultPagination = ['number' => 1];
 
     /**
      * The model the schema corresponds to.
-     *
-     * @var string
      */
     public static string $model = Collection::class;
 
     /**
      * Build an index query for this resource.
-     *
-     * @param  Request|null  $request
-     * @param  Builder  $query
-     * @return Builder
      */
     public function indexQuery(?Request $request, Builder $query): Builder
     {
@@ -46,10 +38,6 @@ class CollectionSchema extends Schema
 
     /**
      * Build a "relatable" query for this resource.
-     *
-     * @param  Request|null  $request
-     * @param  Relation  $query
-     * @return Relation
      */
     public function relatableQuery(?Request $request, Relation $query): Relation
     {
@@ -58,8 +46,6 @@ class CollectionSchema extends Schema
 
     /**
      * The relationships that should always be eager loaded.
-     *
-     * @return array
      */
     public function with(): array
     {
@@ -89,8 +75,6 @@ class CollectionSchema extends Schema
 
     /**
      * Get the resource fields.
-     *
-     * @return array
      */
     public function fields(): array
     {
@@ -112,8 +96,6 @@ class CollectionSchema extends Schema
 
     /**
      * Get the resource filters.
-     *
-     * @return array
      */
     public function filters(): array
     {
@@ -134,9 +116,6 @@ class CollectionSchema extends Schema
      * (zero-to-one resource instead of zero-to-many). Developers can use this
      * hook to add complex logic for working out if a set of filters should
      * return a singular resource.
-     *
-     * @param  array  $filters
-     * @return bool
      */
     public function isSingular(array $filters): bool
     {
@@ -147,8 +126,6 @@ class CollectionSchema extends Schema
 
     /**
      * Get the resource paginator.
-     *
-     * @return Paginator|null
      */
     public function pagination(): ?Paginator
     {
@@ -158,8 +135,6 @@ class CollectionSchema extends Schema
 
     /**
      * Determine if the resource is authorizable.
-     *
-     * @return bool
      */
     public function authorizable(): bool
     {
@@ -168,8 +143,6 @@ class CollectionSchema extends Schema
 
     /**
      * Get the JSON:API resource type.
-     *
-     * @return string
      */
     public static function type(): string
     {

@@ -17,7 +17,7 @@ class QueryShippingOptions extends QueryAll
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function get(): iterable
     {

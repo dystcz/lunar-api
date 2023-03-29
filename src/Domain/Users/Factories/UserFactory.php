@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Users\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Foundation\Auth\User;
 
 class UserFactory extends Factory
 {

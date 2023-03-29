@@ -6,7 +6,6 @@ use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Users\Contracts\CreatesUserFromCart;
 use Dystcz\LunarApi\Domain\Users\Contracts\RegistersUser;
-use Dystcz\LunarApi\Domain\Users\Models\User;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\App;
 use Lunar\Models\CartAddress;
@@ -16,8 +15,7 @@ class CreateUserFromCart implements CreatesUserFromCart
 {
     public function __invoke(
         Cart $cart,
-    ): ?Authenticatable
-    {
+    ): ?Authenticatable {
         if ($cart->user_id) {
             return $cart->user;
         }
@@ -34,7 +32,7 @@ class CreateUserFromCart implements CreatesUserFromCart
 
         /** @var Authenticatable $user */
         $user = App::make(RegistersUser::class)([
-            'name' => $shippingAddress->first_name . ' ' . $shippingAddress->last_name,
+            'name' => $shippingAddress->first_name.' '.$shippingAddress->last_name,
             'email' => $shippingAddress->contact_email,
         ]);
 

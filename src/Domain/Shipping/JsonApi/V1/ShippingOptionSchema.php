@@ -11,13 +11,11 @@ class ShippingOptionSchema extends Schema
 {
     /**
      * The model the schema corresponds to.
-     *
-     * @var string
      */
     public static string $model = ShippingOption::class;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function fields(): iterable
     {

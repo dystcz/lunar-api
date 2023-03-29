@@ -1,6 +1,5 @@
 <?php
 
-
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
@@ -37,7 +36,7 @@ beforeEach(function () {
             'country' => [
                 'data' => [
                     'type' => 'countries',
-                    'id' => (string) Country::factory()->create()->getRouteKey()
+                    'id' => (string) Country::factory()->create()->getRouteKey(),
                 ],
             ],
         ],

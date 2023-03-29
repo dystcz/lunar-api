@@ -10,9 +10,6 @@ abstract class Server extends BaseServer
 {
     /**
      * Server constructor.
-     *
-     * @param  AppResolver  $app
-     * @param  string  $name
      */
     public function __construct(AppResolver $app, string $name)
     {
@@ -23,9 +20,6 @@ abstract class Server extends BaseServer
 
     /**
      * Set base server URI.
-     *
-     * @param  string  $path
-     * @return void
      */
     protected function setBaseUri(string $path = 'v1'): void
     {
@@ -36,8 +30,6 @@ abstract class Server extends BaseServer
 
     /**
      * Get all additional server schemas.
-     *
-     * @return array
      */
     protected function getAdditionalServerSchemas(): array
     {
@@ -61,8 +53,6 @@ abstract class Server extends BaseServer
 
     /**
      * Get all registered schemas.
-     *
-     * @return array
      */
     public function getSchemas(): array
     {

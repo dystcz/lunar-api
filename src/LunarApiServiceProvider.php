@@ -102,8 +102,6 @@ class LunarApiServiceProvider extends ServiceProvider
 
     /**
      * Swap models.
-     *
-     * @return void
      */
     protected function registerModels(): void
     {

@@ -11,8 +11,6 @@ class AddressRequest extends ResourceRequest
 {
     /**
      * Get the validation rules for the resource.
-     *
-     * @return array
      */
     public function rules(): array
     {
@@ -34,15 +32,12 @@ class AddressRequest extends ResourceRequest
             'billing_default' => ['nullable', 'boolean'],
 
             'customer' => [Rule::toOne(), 'required'],
-            'country' => [Rule::toOne(), 'required']
+            'country' => [Rule::toOne(), 'required'],
         ];
     }
 
     /**
      * Configure the validator instance.
-     *
-     * @param Validator $validator
-     * @return void
      */
     public function withValidator(Validator $validator): void
     {

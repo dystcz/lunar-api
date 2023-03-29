@@ -23,7 +23,7 @@ it('can read order details', function () {
     CartSession::use($cart);
 
     $order = $cart->createOrder();
-    
+
     $response = $this
         ->jsonApi()
         ->includePaths(
@@ -32,7 +32,7 @@ it('can read order details', function () {
             'productLines.purchasable.images'
         )
         ->expects('orders')
-        ->get('http://localhost/api/v1/orders/' . $order->getRouteKey());
+        ->get('http://localhost/api/v1/orders/'.$order->getRouteKey());
 
     $response->assertFetchedOne($order)
         ->assertIsIncluded('order-lines', $order->lines->first());
@@ -53,7 +53,7 @@ it('returns unauthorized if the user doesn\'t own the order', function () {
         ->jsonApi()
         ->includePaths('productLines')
         ->expects('orders')
-        ->get('http://localhost/api/v1/orders/' . $order->getRouteKey());
+        ->get('http://localhost/api/v1/orders/'.$order->getRouteKey());
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',

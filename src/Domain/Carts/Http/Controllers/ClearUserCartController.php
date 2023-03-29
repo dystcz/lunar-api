@@ -10,8 +10,6 @@ class ClearUserCartController extends Controller
 {
     /**
      * Clear all items from user's cart.
-     *
-     * @return Response
      */
     public function clear(): Response
     {

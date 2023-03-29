@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Products\Factories;
 
 use Dystcz\LunarApi\Domain\Products\Models\Product;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Lunar\Database\Factories\ProductFactory as LunarProductFactory;
 use Lunar\FieldTypes\Text;
 use Lunar\Models\Brand;

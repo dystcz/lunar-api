@@ -44,7 +44,7 @@ class ProductViews
      */
     public function record(int $productId): void
     {
-        Redis::zAdd("product:views:$productId", time(), Str::uuid()->toString());
+        Redis::zAdd("product:views:{$productId}", time(), Str::uuid()->toString());
 
         $this->removeOldEntries();
     }

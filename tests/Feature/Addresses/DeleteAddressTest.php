@@ -1,6 +1,5 @@
 <?php
 
-
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
@@ -19,7 +18,7 @@ it('can be deleted', function () {
     $response = $this
         ->jsonApi()
         ->expects('addresses')
-        ->delete('/api/v1/addresses/' . $this->address->getRouteKey());
+        ->delete('/api/v1/addresses/'.$this->address->getRouteKey());
 
     $response->assertNoContent();
 

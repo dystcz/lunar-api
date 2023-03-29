@@ -4,7 +4,6 @@ namespace Dystcz\LunarApi\Domain\Orders\Http\Controllers;
 
 use Dystcz\LunarApi\Controller;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions;
-use LaravelJsonApi\Laravel\Http\Requests\ResourceQuery;
 
 class OrdersController extends Controller
 {

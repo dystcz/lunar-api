@@ -10,7 +10,7 @@ uses(TestCase::class, RefreshDatabase::class);
 it('records a view each time the product is shown', function () {
     $product = ProductFactory::new()->create();
 
-    $self = 'http://localhost/api/v1/products/' . $product->getRouteKey();
+    $self = 'http://localhost/api/v1/products/'.$product->getRouteKey();
 
     $this
         ->jsonApi()

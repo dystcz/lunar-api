@@ -14,21 +14,13 @@ class MinPriceFilter implements Filter
     use IsSingular;
     use HasColumn;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var string
-     */
     private string $column;
 
     /**
      * Create a new filter.
      *
-     * @param string $name
-     * @param string|null $column
      * @return static
      */
     public static function make(string $name, string $column = null): self
@@ -38,9 +30,6 @@ class MinPriceFilter implements Filter
 
     /**
      * CustomFilter constructor.
-     *
-     * @param string $name
-     * @param string|null $column
      */
     public function __construct(string $name, string $column = null)
     {
@@ -49,7 +38,7 @@ class MinPriceFilter implements Filter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function key(): string
     {
@@ -57,7 +46,7 @@ class MinPriceFilter implements Filter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function apply($query, $value)
     {

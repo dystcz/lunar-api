@@ -5,7 +5,6 @@ namespace Dystcz\LunarApi\Domain\Carts\Factories;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
-use Lunar\Facades\ShippingManifest;
 use Lunar\Models\CartAddress;
 use Lunar\Models\Channel;
 use Lunar\Models\Currency;
@@ -21,7 +20,7 @@ class CartFactory extends \Lunar\Database\Factories\CartFactory
             ->has(
                 CartAddress::factory()->state([
                     'type' => 'shipping',
-                    'shipping_option' => 'Friendly Freight Co.'
+                    'shipping_option' => 'Friendly Freight Co.',
                 ]),
                 'addresses'
             );

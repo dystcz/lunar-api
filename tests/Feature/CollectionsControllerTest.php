@@ -24,9 +24,9 @@ it('can list all collections', function () {
         ->create();
 
     $response = $this->get(
-        Config::get('lunar-api.route_prefix') .
-        '/collections' .
-        '?include=products.variants.basePrices,products.defaultUrl' .
+        Config::get('lunar-api.route_prefix').
+        '/collections'.
+        '?include=products.variants.basePrices,products.defaultUrl'.
         '&fields[lunar_collections]=id,attribute_data'
     );
 
@@ -38,7 +38,7 @@ it('can list all collections', function () {
 it('can read collection detail', function () {
     $collection = CollectionFactory::new()->create();
 
-    $response = $this->get(Config::get('lunar-api.route_prefix') . '/collections/' . $collection->defaultUrl->slug);
+    $response = $this->get(Config::get('lunar-api.route_prefix').'/collections/'.$collection->defaultUrl->slug);
 
     $response->assertStatus(200);
 
@@ -62,7 +62,7 @@ it('can read products in a collection', function () {
         ->create();
 
     $response = $this->get(
-        Config::get('lunar-api.route_prefix') . '/collections/' . $collection->defaultUrl->slug . '?include=products'
+        Config::get('lunar-api.route_prefix').'/collections/'.$collection->defaultUrl->slug.'?include=products'
     );
 
     $response->assertStatus(200);

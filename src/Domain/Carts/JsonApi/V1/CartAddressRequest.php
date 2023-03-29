@@ -12,8 +12,6 @@ class CartAddressRequest extends ResourceRequest
 {
     /**
      * Get the validation rules for the resource.
-     *
-     * @return array
      */
     public function rules(): array
     {
@@ -35,15 +33,12 @@ class CartAddressRequest extends ResourceRequest
             'address_type' => ['required', 'string', Rule::in(['shipping', 'billing'])],
 
             'cart' => [\LaravelJsonApi\Validation\Rule::toOne(), 'required'],
-            'country' => [\LaravelJsonApi\Validation\Rule::toOne(), 'required']
+            'country' => [\LaravelJsonApi\Validation\Rule::toOne(), 'required'],
         ];
     }
 
     /**
      * Configure the validator instance.
-     *
-     * @param Validator $validator
-     * @return void
      */
     public function withValidator(Validator $validator): void
     {
@@ -57,11 +52,11 @@ class CartAddressRequest extends ResourceRequest
 
             $newCartId = (int) $this->input('data.relationships.cart.data.id');
 
-            if (!$newCartId) {
+            if (! $newCartId) {
                 return;
             }
 
-            if (!in_array($newCartId, [$cartAddress->cart_id, CartSession::manager()->id])) {
+            if (! in_array($newCartId, [$cartAddress->cart_id, CartSession::manager()->id])) {
                 $validator->errors()->add(
                     'cart',
                     'Cannot change the cart of a cart address.'

@@ -1,10 +1,7 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Facades\CartSession;
-use Lunar\Models\CartAddress;
 use Lunar\Models\Country;
 
 uses(TestCase::class, RefreshDatabase::class);

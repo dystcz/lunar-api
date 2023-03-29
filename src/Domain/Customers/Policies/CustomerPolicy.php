@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Customers\Policies;
 
-use Dystcz\LunarApi\Domain\Addresses\Models\Address;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;

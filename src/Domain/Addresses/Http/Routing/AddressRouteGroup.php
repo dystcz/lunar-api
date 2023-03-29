@@ -8,18 +8,12 @@ use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 
 class AddressRouteGroup extends RouteGroup
 {
-    /** @var string */
     public string $prefix = 'addresses';
 
-    /** @var array */
     public array $middleware = [];
 
     /**
      * Register routes.
-     *
-     * @param null|string  $prefix
-     * @param array|string $middleware
-     * @return void
      */
     public function routes(?string $prefix = null, array|string $middleware = []): void
     {

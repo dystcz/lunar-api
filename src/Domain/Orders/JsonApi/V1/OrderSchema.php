@@ -21,22 +21,16 @@ class OrderSchema extends Schema
 {
     /**
      * The default paging parameters to use if the client supplies none.
-     *
-     * @var array|null
      */
     protected ?array $defaultPagination = ['number' => 1];
 
     /**
      * The model the schema corresponds to.
-     *
-     * @var string
      */
     public static string $model = Order::class;
 
     /**
      * The relationships that should always be eager loaded.
-     *
-     * @return array
      */
     public function with(): array
     {
@@ -80,8 +74,6 @@ class OrderSchema extends Schema
 
     /**
      * Get the resource fields.
-     *
-     * @return array
      */
     public function fields(): array
     {
@@ -123,8 +115,6 @@ class OrderSchema extends Schema
 
     /**
      * Get the resource filters.
-     *
-     * @return array
      */
     public function filters(): array
     {
@@ -132,14 +122,12 @@ class OrderSchema extends Schema
             ...parent::filters(),
 
             WhereIdIn::make($this),
-            Where::make('user_id')
+            Where::make('user_id'),
         ];
     }
 
     /**
      * Get the resource paginator.
-     *
-     * @return Paginator|null
      */
     public function pagination(): ?Paginator
     {
@@ -151,8 +139,6 @@ class OrderSchema extends Schema
 
     /**
      * Get the JSON:API resource type.
-     *
-     * @return string
      */
     public static function type(): string
     {

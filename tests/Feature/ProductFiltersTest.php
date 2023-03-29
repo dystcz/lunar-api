@@ -12,18 +12,18 @@ it('filter products by recently viewed', function () {
     $this
         ->jsonApi()
         ->expects('products')
-        ->get('http://localhost/api/v1/products/' . $leastViewedProduct->getRouteKey());
+        ->get('http://localhost/api/v1/products/'.$leastViewedProduct->getRouteKey());
 
     // two hits for most viewed product
     $this
         ->jsonApi()
         ->expects('products')
-        ->get('http://localhost/api/v1/products/' . $mostViewedProduct->getRouteKey());
+        ->get('http://localhost/api/v1/products/'.$mostViewedProduct->getRouteKey());
 
     $this
         ->jsonApi()
         ->expects('products')
-        ->get('http://localhost/api/v1/products/' . $mostViewedProduct->getRouteKey());
+        ->get('http://localhost/api/v1/products/'.$mostViewedProduct->getRouteKey());
 
     $response = $this
         ->jsonApi()

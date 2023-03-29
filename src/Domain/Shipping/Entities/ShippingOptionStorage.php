@@ -28,9 +28,6 @@ class ShippingOptionStorage
         return null;
     }
 
-    /**
-     * @return Generator
-     */
     public function cursor(): Generator
     {
         foreach ($this->shippingOptions as $shippingOption) {
@@ -40,8 +37,6 @@ class ShippingOptionStorage
 
     /**
      * Get all shippingOptions.
-     *
-     * @return array
      */
     public function all(): array
     {

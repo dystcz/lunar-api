@@ -1,6 +1,5 @@
 <?php
 
-
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
@@ -26,7 +25,7 @@ beforeEach(function () {
             'line_two' => $this->address->line_two,
             'line_three' => $this->address->line_three,
             'postcode' => $this->address->postcode,
-        ]
+        ],
     ];
 });
 
@@ -35,7 +34,7 @@ it('can be updated', function () {
         ->jsonApi()
         ->expects('addresses')
         ->withData($this->data)
-        ->patch('/api/v1/addresses/' . $this->address->getRouteKey());
+        ->patch('/api/v1/addresses/'.$this->address->getRouteKey());
 
     $response->assertFetchedOne($this->address);
 

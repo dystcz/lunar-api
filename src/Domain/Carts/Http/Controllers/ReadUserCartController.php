@@ -17,8 +17,6 @@ class ReadUserCartController extends Controller
     /**
      * Read user's cart.
      *
-     * @param  Route  $route
-     * @param  StoreContract  $store
      * @return Responsable|Response
      */
     public function myCart(Route $route, StoreContract $store)

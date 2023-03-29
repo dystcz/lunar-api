@@ -10,18 +10,12 @@ use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 
 class CartAddressRouteGroup extends RouteGroup
 {
-    /** @var string */
     public string $prefix = 'cart-addresses';
 
-    /** @var array */
     public array $middleware = [];
 
     /**
      * Register routes.
-     *
-     * @param null|string  $prefix
-     * @param array|string $middleware
-     * @return void
      */
     public function routes(?string $prefix = null, array|string $middleware = []): void
     {

@@ -20,8 +20,6 @@ class AddressSchema extends Schema
 {
     /**
      * The default paging parameters to use if the client supplies none.
-     *
-     * @var array|null
      */
     protected ?array $defaultPagination = ['number' => 1];
 
@@ -32,15 +30,11 @@ class AddressSchema extends Schema
 
     /**
      * The model the schema corresponds to.
-     *
-     * @var string
      */
     public static string $model = Address::class;
 
     /**
      * The relationships that should always be eager loaded.
-     *
-     * @return array
      */
     public function with(): array
     {
@@ -65,8 +59,6 @@ class AddressSchema extends Schema
 
     /**
      * Get the resource fields.
-     *
-     * @return array
      */
     public function fields(): array
     {
@@ -104,8 +96,6 @@ class AddressSchema extends Schema
 
     /**
      * Get the resource filters.
-     *
-     * @return array
      */
     public function filters(): array
     {
@@ -118,8 +108,6 @@ class AddressSchema extends Schema
 
     /**
      * Get the resource paginator.
-     *
-     * @return Paginator|null
      */
     public function pagination(): ?Paginator
     {
@@ -131,8 +119,6 @@ class AddressSchema extends Schema
 
     /**
      * Get the JSON:API resource type.
-     *
-     * @return string
      */
     public static function type(): string
     {

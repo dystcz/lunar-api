@@ -13,16 +13,14 @@ use Lunar\Facades\CartSession;
 
 class CheckoutCartController extends Controller
 {
-
     /**
      * Checkout user's cart.
      */
     public function checkout(
-        StoreContract      $store,
-        CartRequest        $request,
+        StoreContract $store,
+        CartRequest $request,
         CreateUserFromCart $createUserFromCartAction
-    ): DataResponse
-    {
+    ): DataResponse {
         // $this->authorize('viewAny', Cart::class);
 
         /** @var Cart $cart */

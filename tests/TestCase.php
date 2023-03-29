@@ -15,7 +15,6 @@ use Lunar\Database\Factories\LanguageFactory;
 use Lunar\DataTypes\Price;
 use Lunar\DataTypes\ShippingOption;
 use Lunar\Facades\ShippingManifest;
-use Lunar\Hub\Tests\Stubs\User;
 use Lunar\LunarServiceProvider;
 use Lunar\Models\Currency;
 use Lunar\Models\TaxClass;
@@ -64,7 +63,7 @@ abstract class TestCase extends Orchestra
     }
 
     /**
-     * @param Application $app
+     * @param  Application  $app
      * @return array
      */
     protected function getPackageProviders($app)
@@ -88,7 +87,7 @@ abstract class TestCase extends Orchestra
     }
 
     /**
-     * @param Application $app
+     * @param  Application  $app
      */
     public function getEnvironmentSetUp($app)
     {

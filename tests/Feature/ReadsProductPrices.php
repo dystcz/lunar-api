@@ -18,7 +18,7 @@ it('can read product prices', function () {
         )
         ->create();
 
-    $self = 'http://localhost/api/v1/products/' . $product->getRouteKey();
+    $self = 'http://localhost/api/v1/products/'.$product->getRouteKey();
 
     $response = $this
         ->jsonApi()
@@ -41,7 +41,7 @@ it('can read product lowest price', function () {
         )
         ->create();
 
-    $self = 'http://localhost/api/v1/products/' . $product->getRouteKey();
+    $self = 'http://localhost/api/v1/products/'.$product->getRouteKey();
 
     $response = $this
         ->jsonApi()

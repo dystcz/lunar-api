@@ -12,15 +12,11 @@ class CartAddressSchema extends Schema
 {
     /**
      * The model the schema corresponds to.
-     *
-     * @var string
      */
     public static string $model = CartAddress::class;
 
     /**
      * The relationships that should always be eager loaded.
-     *
-     * @return array
      */
     public function with(): array
     {
@@ -39,14 +35,12 @@ class CartAddressSchema extends Schema
         return [
             ...parent::includePaths(),
             'cart',
-            'country'
+            'country',
         ];
     }
 
     /**
      * Get the resource fields.
-     *
-     * @return array
      */
     public function fields(): array
     {
@@ -80,8 +74,6 @@ class CartAddressSchema extends Schema
 
     /**
      * Get the JSON:API resource type.
-     *
-     * @return string
      */
     public static function type(): string
     {

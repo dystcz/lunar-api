@@ -10,9 +10,6 @@ class ResourceExtensionCollection extends Collection implements ExtensionCollect
 {
     /**
      * Map data for use in a resource.
-     *
-     * @param  JsonApiResource  $resource
-     * @return array
      */
     public function toResourceArray(JsonApiResource $resource): array
     {

@@ -16,7 +16,7 @@ class ShippingOptionRepository extends AbstractRepository implements QueriesAll
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function find(string $resourceId): ?object
     {
@@ -24,7 +24,7 @@ class ShippingOptionRepository extends AbstractRepository implements QueriesAll
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function queryAll(): Capabilities\QueryShippingOptions
     {

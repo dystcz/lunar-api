@@ -11,10 +11,6 @@ class JsonApiResource extends \LaravelJsonApi\Core\Resources\JsonApiResource
 {
     /**
      * Create a new resource relation.
-     *
-     * @param  string  $fieldName
-     * @param  string|null  $keyName
-     * @return Relation
      */
     public function relation(string $fieldName, string $keyName = null): Relation
     {

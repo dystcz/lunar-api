@@ -19,8 +19,6 @@ class Product extends LunarProduct
 
     /**
      * Get prices through variants.
-     *
-     * @return HasManyThrough
      */
     public function prices(): HasManyThrough
     {
@@ -39,8 +37,6 @@ class Product extends LunarProduct
 
     /**
      * Lowest price relation.
-     *
-     * @return HasOneThrough
      */
     public function lowestPrice(): HasOneThrough
     {
@@ -70,8 +66,6 @@ class Product extends LunarProduct
 
     /**
      * Cheapest variant relation.
-     *
-     * @return HasOne
      */
     public function cheapestVariant(): HasOne
     {
@@ -96,8 +90,6 @@ class Product extends LunarProduct
 
     /**
      * Get base prices through variants.
-     *
-     * @return HasManyThrough
      */
     public function basePrices(): HasManyThrough
     {

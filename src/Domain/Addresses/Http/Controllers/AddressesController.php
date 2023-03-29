@@ -9,7 +9,6 @@ class AddressesController extends Controller
 {
     use Actions\FetchMany;
     use Actions\FetchOne;
-
     use Actions\Store;
     use Actions\Update;
     use Actions\Destroy;

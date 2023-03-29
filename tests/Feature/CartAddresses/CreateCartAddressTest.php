@@ -35,7 +35,7 @@ beforeEach(function () {
             'country' => [
                 'data' => [
                     'type' => 'countries',
-                    'id' => (string) Country::factory()->create()->getRouteKey()
+                    'id' => (string) Country::factory()->create()->getRouteKey(),
                 ],
             ],
         ],

@@ -1,11 +1,9 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Facades\CartSession;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -29,7 +27,7 @@ it('can be updated', function () {
         ->jsonApi()
         ->expects('orders')
         ->withData($data)
-        ->patch('http://localhost/api/v1/orders/' . $order->getRouteKey());
+        ->patch('http://localhost/api/v1/orders/'.$order->getRouteKey());
 
     $response->assertFetchedOne($order);
 });

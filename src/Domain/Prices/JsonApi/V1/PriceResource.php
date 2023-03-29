@@ -14,7 +14,6 @@ class PriceResource extends JsonApiResource
      * Get the resource's attributes.
      *
      * @param  \Illuminate\Http\Request|null  $request
-     * @return iterable
      */
     public function attributes($request): iterable
     {
@@ -57,7 +56,6 @@ class PriceResource extends JsonApiResource
      * Get the resource's relationships.
      *
      * @param  \Illuminate\Http\Request|null  $request
-     * @return iterable
      */
     public function relationships($request): iterable
     {

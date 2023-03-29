@@ -12,8 +12,6 @@ abstract class JsonApiResource extends \TiMacDonald\JsonApi\JsonApiResource
      * Helper method to create a single resource.
      *
      * @param  class-string<JsonApiResource>  $resourceClass
-     * @param  string  $key
-     * @return Closure
      */
     public function optionalResource(string $resourceClass, string $key): Closure
     {
@@ -24,8 +22,6 @@ abstract class JsonApiResource extends \TiMacDonald\JsonApi\JsonApiResource
      * Helper method to create a resoruce collection.
      *
      * @param  class-string<JsonApiResource>  $resourceClass
-     * @param  string  $key
-     * @return Closure
      */
     public function optionalCollection(string $resourceClass, string $key): Closure
     {

@@ -1,6 +1,5 @@
 <?php
 
-
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
@@ -20,7 +19,7 @@ it('can be read', function () {
         ->jsonApi()
         ->expects('addresses')
         ->includePaths('country', 'customer')
-        ->get('/api/v1/addresses/' . $this->address->getRouteKey());
+        ->get('/api/v1/addresses/'.$this->address->getRouteKey());
 
     $response->assertFetchedOne($this->address);
 });

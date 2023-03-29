@@ -11,8 +11,6 @@ class ProductFilterCollection implements FilterCollection
 {
     /**
      * Get filters to be registered.
-     *
-     * @return array
      */
     public function toArray(): array
     {
@@ -38,10 +36,6 @@ class ProductFilterCollection implements FilterCollection
 
     /**
      * Check if Attribute has certain config key.
-     *
-     * @param Attribute $attribute
-     * @param string $key
-     * @return bool
      */
     protected function hasConfigKey(Attribute $attribute, string $key): bool
     {

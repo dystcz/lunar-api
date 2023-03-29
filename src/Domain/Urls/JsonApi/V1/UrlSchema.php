@@ -16,24 +16,16 @@ class UrlSchema extends Schema
 {
     /**
      * The default paging parameters to use if the client supplies none.
-     *
-     * @var array|null
      */
     protected ?array $defaultPagination = ['number' => 1];
 
     /**
      * The model the schema corresponds to.
-     *
-     * @var string
      */
     public static string $model = Url::class;
 
     /**
      * Build an index query for this resource.
-     *
-     * @param  Request|null  $request
-     * @param  Builder  $query
-     * @return Builder
      */
     public function indexQuery(?Request $request, Builder $query): Builder
     {
@@ -42,10 +34,6 @@ class UrlSchema extends Schema
 
     /**
      * Build a "relatable" query for this resource.
-     *
-     * @param  Request|null  $request
-     * @param  Relation  $query
-     * @return Relation
      */
     public function relatableQuery(?Request $request, Relation $query): Relation
     {
@@ -54,8 +42,6 @@ class UrlSchema extends Schema
 
     /**
      * The relationships that should always be eager loaded.
-     *
-     * @return array
      */
     public function with(): array
     {
@@ -78,8 +64,6 @@ class UrlSchema extends Schema
 
     /**
      * Get the resource fields.
-     *
-     * @return array
      */
     public function fields(): array
     {
@@ -91,8 +75,6 @@ class UrlSchema extends Schema
 
     /**
      * Get the resource filters.
-     *
-     * @return array
      */
     public function filters(): array
     {
@@ -104,8 +86,6 @@ class UrlSchema extends Schema
 
     /**
      * Get the resource paginator.
-     *
-     * @return Paginator|null
      */
     public function pagination(): ?Paginator
     {
@@ -115,8 +95,6 @@ class UrlSchema extends Schema
 
     /**
      * Determine if the resource is authorizable.
-     *
-     * @return bool
      */
     public function authorizable(): bool
     {
@@ -125,8 +103,6 @@ class UrlSchema extends Schema
 
     /**
      * Get the JSON:API resource type.
-     *
-     * @return string
      */
     public static function type(): string
     {

@@ -24,7 +24,7 @@ beforeEach(function () {
             'city' => $this->cartAddress->city,
             'line_one' => $this->cartAddress->line_one,
             'postcode' => $this->cartAddress->postcode,
-        ]
+        ],
     ];
 });
 
@@ -35,7 +35,7 @@ test('a cart address can be update', function () {
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->patch('/api/v1/cart-addresses/' . $this->cartAddress->getRouteKey());
+        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey());
 
     $response->assertFetchedOne($this->cartAddress);
 });
@@ -45,7 +45,7 @@ test('only the user who owns the cart can assign address to it', function () {
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->patch('/api/v1/cart-addresses/' . $this->cartAddress->getRouteKey());
+        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey());
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',

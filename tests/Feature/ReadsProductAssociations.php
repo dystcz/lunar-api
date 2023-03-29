@@ -29,7 +29,7 @@ it('can read products associations', function () {
         ProductAssociation::CROSS_SELL
     );
 
-    $self = 'http://localhost/api/v1/products/' . $productA->getRouteKey();
+    $self = 'http://localhost/api/v1/products/'.$productA->getRouteKey();
 
     $response = $this
         ->jsonApi()

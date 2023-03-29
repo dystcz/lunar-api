@@ -14,21 +14,13 @@ class AttributeWhereInFilter implements Filter
     use HasDelimiter;
     use DeserializesValue;
 
-    /**
-     * @var string
-     */
     private string $attribute;
 
-    /**
-     * @var string
-     */
     private string $name;
 
     /**
      * Create a new filter.
      *
-     * @param string $name
-     * @param string|null $attribute
      * @return static
      */
     public static function make(string $name, ?string $attribute = null): self
@@ -38,9 +30,6 @@ class AttributeWhereInFilter implements Filter
 
     /**
      * CustomFilter constructor.
-     *
-     * @param string $name
-     * @param string|null $attribute
      */
     public function __construct(string $name, ?string $attribute = null)
     {
@@ -50,7 +39,7 @@ class AttributeWhereInFilter implements Filter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function key(): string
     {
@@ -58,7 +47,7 @@ class AttributeWhereInFilter implements Filter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function isSingular(): bool
     {
@@ -66,7 +55,7 @@ class AttributeWhereInFilter implements Filter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function apply($query, $value)
     {
@@ -92,8 +81,7 @@ class AttributeWhereInFilter implements Filter
     /**
      * Deserialize the fitler value.
      *
-     * @param string|array $value
-     * @return array
+     * @param  string|array  $value
      */
     protected function deserialize($value): array
     {

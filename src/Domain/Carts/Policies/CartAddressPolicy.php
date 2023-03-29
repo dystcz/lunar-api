@@ -34,8 +34,8 @@ class CartAddressPolicy
     public function create(?Authenticatable $user): bool
     {
         $cartId = (int) Arr::get(request()->all(), 'data.relationships.cart.data.id', 0);
-        
-        if (!$cartId) {
+
+        if (! $cartId) {
             return false;
         }
 

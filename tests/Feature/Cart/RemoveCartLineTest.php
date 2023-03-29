@@ -24,7 +24,7 @@ it('can remove a cart line', function () {
 
     $response = $this
         ->jsonApi()
-        ->delete('/api/v1/cart-lines/' . $cartLine->getRouteKey());
+        ->delete('/api/v1/cart-lines/'.$cartLine->getRouteKey());
 
     $response->assertNoContent();
 
@@ -40,7 +40,7 @@ test('only the owner of the cart can delete cart lines', function () {
 
     $response = $this
         ->jsonApi()
-        ->delete('/api/v1/cart-lines/' . $cartLine->getRouteKey());
+        ->delete('/api/v1/cart-lines/'.$cartLine->getRouteKey());
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',

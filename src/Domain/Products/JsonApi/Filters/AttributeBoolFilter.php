@@ -12,21 +12,13 @@ class AttributeBoolFilter implements Filter
     use HasColumn;
     use DeserializesValue;
 
-    /**
-     * @var string
-     */
     private string $attribute;
 
-    /**
-     * @var string
-     */
     private string $name;
 
     /**
      * Create a new filter.
      *
-     * @param string $name
-     * @param string|null $attribute
      * @return static
      */
     public static function make(string $name, ?string $attribute = null): self
@@ -36,9 +28,6 @@ class AttributeBoolFilter implements Filter
 
     /**
      * CustomFilter constructor.
-     *
-     * @param string $name
-     * @param string|null $attribute
      */
     public function __construct(string $name, ?string $attribute = null)
     {
@@ -48,7 +37,7 @@ class AttributeBoolFilter implements Filter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function key(): string
     {
@@ -56,7 +45,7 @@ class AttributeBoolFilter implements Filter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function isSingular(): bool
     {
@@ -64,7 +53,7 @@ class AttributeBoolFilter implements Filter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function apply($query, $value)
     {
@@ -80,8 +69,7 @@ class AttributeBoolFilter implements Filter
     /**
      * Deserialize the fitler value.
      *
-     * @param string|array $value
-     * @return bool
+     * @param  string|array  $value
      */
     protected function deserialize($value): bool
     {

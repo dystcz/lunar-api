@@ -1,11 +1,9 @@
 <?php
 
-
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Models\Address;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -20,7 +18,7 @@ beforeEach(function () {
         'attributes' => [
             'first_name' => 'Jane',
             'last_name' => $this->customer->last_name,
-        ]
+        ],
     ];
 });
 
@@ -29,7 +27,7 @@ it('can be updated', function () {
         ->jsonApi()
         ->expects('customers')
         ->withData($this->data)
-        ->patch('/api/v1/customers/' . $this->customer->getRouteKey());
+        ->patch('/api/v1/customers/'.$this->customer->getRouteKey());
 
     $response->assertFetchedOne($this->customer);
 

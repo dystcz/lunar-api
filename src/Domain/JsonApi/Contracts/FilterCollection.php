@@ -6,8 +6,6 @@ interface FilterCollection
 {
     /**
      * Get filters to be registered.
-     *
-     * @return array
      */
     public function toArray(): array;
 }

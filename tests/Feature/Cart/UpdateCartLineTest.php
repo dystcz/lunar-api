@@ -34,7 +34,7 @@ it('can update a cart line', function () {
         ->jsonApi()
         ->expects('cart-lines')
         ->withData($data)
-        ->patch('/api/v1/cart-lines/' . $cartLine->getRouteKey());
+        ->patch('/api/v1/cart-lines/'.$cartLine->getRouteKey());
 
     $response->assertFetchedOne($cartLine);
 
@@ -61,7 +61,7 @@ test('only the owner of the cart can update cart lines', function () {
         ->jsonApi()
         ->expects('cart-lines')
         ->withData($data)
-        ->patch('/api/v1/cart-lines/' . $cartLine->getRouteKey());
+        ->patch('/api/v1/cart-lines/'.$cartLine->getRouteKey());
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',

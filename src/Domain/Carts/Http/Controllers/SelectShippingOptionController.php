@@ -12,10 +12,9 @@ class SelectShippingOptionController extends Controller
 {
     public function selectShippingOption(
         CartAddressSchema $schema,
-        Request           $request,
-        CartAddress       $cartAddress,
-    ): DataResponse
-    {
+        Request $request,
+        CartAddress $cartAddress,
+    ): DataResponse {
         $this->authorize('update', $cartAddress);
 
         $cartAddress->update(['shipping_option' => $request->data['attributes']['shipping_option']]);

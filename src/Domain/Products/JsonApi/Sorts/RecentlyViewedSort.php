@@ -7,15 +7,11 @@ use LaravelJsonApi\Eloquent\Contracts\SortField;
 
 class RecentlyViewedSort implements SortField
 {
-    /**
-     * @var string
-     */
     private string $name;
 
     /**
      * Create a new sort field.
      *
-     * @param  string  $name
      * @param  string|null  $column
      * @return CustomSort
      */
@@ -26,8 +22,6 @@ class RecentlyViewedSort implements SortField
 
     /**
      * CustomSort constructor.
-     *
-     * @param  string  $name
      */
     public function __construct(string $name)
     {
@@ -36,8 +30,6 @@ class RecentlyViewedSort implements SortField
 
     /**
      * Get the name of the sort field.
-     *
-     * @return string
      */
     public function sortField(): string
     {
@@ -48,15 +40,14 @@ class RecentlyViewedSort implements SortField
      * Apply the sort order to the query.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  $direction
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function sort($query, string $direction = 'asc')
     {
         $list = app(ProductViews::class)->sorted();
 
-        if (!empty($list)) {
-            $query->orderByRaw('FIELD(id, ' . implode(',', $list) . ')');
+        if (! empty($list)) {
+            $query->orderByRaw('FIELD(id, '.implode(',', $list).')');
         }
     }
 }
