@@ -56,6 +56,7 @@ class OrderSchema extends Schema
             'lines',
             'productLines.purchasable',
             'productLines.purchasable.prices',
+            'productLines.purchasable.images',
             'productLines.purchasable.product',
         ];
     }
