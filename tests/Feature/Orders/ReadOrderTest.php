@@ -11,16 +11,19 @@ uses(TestCase::class, RefreshDatabase::class);
 it('can read order details', function () {
     Event::fake(CartCreated::class);
 
+    $this->actingAs($user = \Dystcz\LunarApi\Tests\Stubs\Users\User::factory()->create());
+
     /** @var Cart $cart */
     $cart = Cart::factory()
         ->withAddresses()
         ->withLines()
+        ->for($user)
         ->create();
 
     CartSession::use($cart);
 
     $order = $cart->createOrder();
-
+    
     $response = $this
         ->jsonApi()
         ->includePaths(
