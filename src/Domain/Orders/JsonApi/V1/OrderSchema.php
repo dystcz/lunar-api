@@ -13,6 +13,7 @@ use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 
@@ -53,6 +54,10 @@ class OrderSchema extends Schema
     {
         return [
             ...parent::includePaths(),
+
+            'customer',
+            'user',
+
             'lines',
             'lines.purchasable',
             'lines.purchasable.prices',
@@ -105,6 +110,7 @@ class OrderSchema extends Schema
             HasMany::make('shippingLines')->type('order-lines'),
             HasMany::make('productLines')->type('order-lines'),
             BelongsTo::make('customer'),
+            BelongsTo::make('user'),
         ];
     }
 
@@ -126,6 +132,7 @@ class OrderSchema extends Schema
             ...parent::filters(),
 
             WhereIdIn::make($this),
+            Where::make('user_id')
         ];
     }
 
