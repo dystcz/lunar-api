@@ -20,11 +20,4 @@ class OrdersController extends Controller
     // use Actions\UpdateRelationship;
     // use Actions\AttachRelationship;
     // use Actions\DetachRelationship;
-
-    public function reading(ResourceQuery $request)
-    {
-        if (! $request->hasValidSignature()) {
-            abort(401);
-        }
-    }
 }

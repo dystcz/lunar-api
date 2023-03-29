@@ -49,6 +49,10 @@ class OrderPolicy
             return true;
         }
 
+        if (request()->hasValidSignature()) {
+            return true;
+        }
+
         return false;
     }
 
