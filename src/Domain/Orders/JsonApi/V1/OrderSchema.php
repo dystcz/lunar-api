@@ -54,10 +54,22 @@ class OrderSchema extends Schema
         return [
             ...parent::includePaths(),
             'lines',
+            'lines.purchasable',
+            'lines.purchasable.prices',
+            'lines.purchasable.images',
+            'lines.purchasable.product',
+
+            'productLines',
             'productLines.purchasable',
             'productLines.purchasable.prices',
             'productLines.purchasable.images',
             'productLines.purchasable.product',
+
+            'shippingLines',
+            'shippingLines.purchasable',
+            'shippingLines.purchasable.prices',
+            'shippingLines.purchasable.images',
+            'shippingLines.purchasable.product',
         ];
     }
 
