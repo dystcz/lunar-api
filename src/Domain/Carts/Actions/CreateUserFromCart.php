@@ -32,25 +32,39 @@ class CreateUserFromCart implements CreatesUserFromCart
             throw new RuntimeException('Cart has no shipping address email');
         }
 
-        /** @var User $user */
+        /** @var Authenticatable $user */
         $user = App::make(RegistersUser::class)([
             'name' => $shippingAddress->first_name . ' ' . $shippingAddress->last_name,
             'email' => $shippingAddress->contact_email,
         ]);
 
-        /** @var Customer $customer */
-        $customer = $user->customers()->firstOrCreate();
-
-        $customer->update([
-            'first_name' => $shippingAddress->first_name,
-            'last_name' => $shippingAddress->last_name,
-        ]);
+        $customer = $this->getCustomer($user, $shippingAddress);
 
         $customer->addresses()->createMany($this->getAddresses($cart));
 
         $cart->update(['user_id' => $user->id]);
 
         return $user;
+    }
+
+    protected function getCustomer(Authenticatable $user, CartAddress $shippingAddress): Customer
+    {
+        /** @var Customer $customer */
+        $customer = $user->customers()->first();
+
+        if (! $customer) {
+            return $user->customers()->create([
+                'first_name' => $shippingAddress->first_name,
+                'last_name' => $shippingAddress->last_name,
+            ]);
+        }
+
+        $customer->first_name = $customer->first_name ?: $shippingAddress->first_name;
+        $customer->last_name = $customer->last_name ?: $shippingAddress->last_name;
+
+        $customer->save();
+
+        return $customer;
     }
 
     protected function getAddresses(Cart $cart): array
