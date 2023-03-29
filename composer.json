@@ -19,12 +19,12 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "ext-redis": "*",
-        "illuminate/support": "^8.0|^9.0",
+        "illuminate/support": "^9.0",
         "laravel-json-api/laravel": "^2.4",
         "laravel-json-api/non-eloquent": "^2.0",
-        "lunarphp/lunar": "0.2-rc2",
+        "lunarphp/lunar": "^0.2",
         "spatie/laravel-query-builder": "^5.0",
         "symfony/yaml": "^6.0",
         "vyuldashev/laravel-openapi": "^1.5"
@@ -33,11 +33,9 @@
         "barryvdh/laravel-ide-helper": "^2.12",
         "laravel-json-api/testing": "^1.1",
         "laravel/pint": "^1.2",
-        "nunomaduro/collision": "^5.0|^6.0",
         "nunomaduro/larastan": "^2.0",
-        "orchestra/testbench": "^6.0|^7.0",
-        "pestphp/pest": "^1.21",
-        "phpunit/phpunit": "^9.0"
+        "orchestra/testbench": "^7.0|^8.0",
+        "pestphp/pest": "^1.21"
     },
     "autoload": {
         "psr-4": {

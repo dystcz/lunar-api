@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7107fa5d42c2c9dcab3fa566ffd9bbfb",
+    "content-hash": "7189201af172dda948224d84af56a2df",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -2353,16 +2353,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "9239128cfb4d22afefb64060dfecf53e82987267"
+                "reference": "e14d28c0f9403630d13f308bb43f3d3cb73d6d67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/9239128cfb4d22afefb64060dfecf53e82987267",
-                "reference": "9239128cfb4d22afefb64060dfecf53e82987267",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/e14d28c0f9403630d13f308bb43f3d3cb73d6d67",
+                "reference": "e14d28c0f9403630d13f308bb43f3d3cb73d6d67",
                 "shasum": ""
             },
             "require": {
@@ -2547,7 +2547,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-02-22T14:38:06+00:00"
+            "time": "2023-03-28T18:03:54+00:00"
         },
         {
             "name": "laravel/scout",
@@ -3254,16 +3254,16 @@
         },
         {
             "name": "lunarphp/lunar",
-            "version": "0.2-rc2",
+            "version": "0.2-rc3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lunarphp/lunar.git",
-                "reference": "a87ca3941b9446c9aa893b14ac06f2f887eaf3eb"
+                "reference": "7c9c9c273783d9edda68787682bed7f5d5dc5b15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lunarphp/lunar/zipball/a87ca3941b9446c9aa893b14ac06f2f887eaf3eb",
-                "reference": "a87ca3941b9446c9aa893b14ac06f2f887eaf3eb",
+                "url": "https://api.github.com/repos/lunarphp/lunar/zipball/7c9c9c273783d9edda68787682bed7f5d5dc5b15",
+                "reference": "7c9c9c273783d9edda68787682bed7f5d5dc5b15",
                 "shasum": ""
             },
             "require": {
@@ -3340,7 +3340,7 @@
             "description": "Lunar Monorepo",
             "support": {
                 "issues": "https://github.com/lunarphp/lunar/issues",
-                "source": "https://github.com/lunarphp/lunar/tree/0.2-rc2"
+                "source": "https://github.com/lunarphp/lunar/tree/0.2-rc3"
             },
             "funding": [
                 {
@@ -3348,7 +3348,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-21T13:47:17+00:00"
+            "time": "2023-03-24T14:18:08+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -4929,12 +4929,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "bf2bee216a4379eaf62162307d62bb7850405fec"
+                "reference": "8e955307d32dc9b6992440ff81321d3cb09db75a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/bf2bee216a4379eaf62162307d62bb7850405fec",
-                "reference": "bf2bee216a4379eaf62162307d62bb7850405fec",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/8e955307d32dc9b6992440ff81321d3cb09db75a",
+                "reference": "8e955307d32dc9b6992440ff81321d3cb09db75a",
                 "shasum": ""
             },
             "require": {
@@ -5014,7 +5014,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-07T16:14:23+00:00"
+            "time": "2023-03-27T22:05:11+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -5424,27 +5424,28 @@
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "10.7.12",
+            "version": "10.7.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "79b7295cf9ed810c777b3ab7f501319146ac8629"
+                "reference": "fbdcba9d7ff34d4d781d28bfddb51b4c73bddffc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/79b7295cf9ed810c777b3ab7f501319146ac8629",
-                "reference": "79b7295cf9ed810c777b3ab7f501319146ac8629",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/fbdcba9d7ff34d4d781d28bfddb51b4c73bddffc",
+                "reference": "fbdcba9d7ff34d4d781d28bfddb51b4c73bddffc",
                 "shasum": ""
             },
             "require": {
                 "ext-exif": "*",
                 "ext-fileinfo": "*",
                 "ext-json": "*",
-                "illuminate/bus": "^9.18|^10.0",
-                "illuminate/console": "^9.18|^10.0",
-                "illuminate/database": "^9.18|^10.0",
-                "illuminate/pipeline": "^9.18|^10.0",
-                "illuminate/support": "^9.18|^10.0",
+                "illuminate/bus": "^9.52|^10.0",
+                "illuminate/conditionable": "^9.52|^10.0",
+                "illuminate/console": "^9.52|^10.0",
+                "illuminate/database": "^9.52|^10.0",
+                "illuminate/pipeline": "^9.52|^10.0",
+                "illuminate/support": "^9.52|^10.0",
                 "intervention/image": "^2.7",
                 "maennchen/zipstream-php": "^2.0",
                 "php": "^8.0",
@@ -5516,7 +5517,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-medialibrary/issues",
-                "source": "https://github.com/spatie/laravel-medialibrary/tree/10.7.12"
+                "source": "https://github.com/spatie/laravel-medialibrary/tree/10.7.14"
             },
             "funding": [
                 {
@@ -5528,7 +5529,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-03-06T08:33:25+00:00"
+            "time": "2023-03-29T07:06:33+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
@@ -12204,7 +12205,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0",
+        "php": "^8.1",
         "ext-redis": "*"
     },
     "platform-dev": [],
