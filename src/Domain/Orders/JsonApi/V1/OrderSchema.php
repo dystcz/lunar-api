@@ -102,6 +102,7 @@ class OrderSchema extends Schema
             // ArrayHash::make('meta'),
 
             HasMany::make('lines')->type('order-lines'),
+            HasMany::make('shippingLines')->type('order-lines'),
             HasMany::make('productLines')->type('order-lines'),
             BelongsTo::make('customer'),
         ];
