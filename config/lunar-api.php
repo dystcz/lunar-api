@@ -11,6 +11,7 @@ use Dystcz\LunarApi\Domain\Carts\Http\Routing\CartRouteGroup;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Carts\Models\CartLine;
 use Dystcz\LunarApi\Domain\Countries\Http\Routing\CountryRouteGroup;
+use Dystcz\LunarApi\Domain\Currencies\Http\Routing\CurrencyRouteGroup;
 use Dystcz\LunarApi\Domain\Customers\Http\Routing\CustomerRouteGroup;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Orders\Http\Routing\OrderRouteGroup;
@@ -65,6 +66,25 @@ return [
                 //
             ],
 
+            'pagination' => 12,
+        ],
+
+
+        'countries' => [
+            'route_groups' => [
+                'countries' => CountryRouteGroup::class,
+            ],
+
+            // Default pagination
+            'pagination' => 12,
+        ],
+
+        'currencies' => [
+            'route_groups' => [
+                'countries' => CurrencyRouteGroup::class,
+            ],
+
+            // Default pagination
             'pagination' => 12,
         ],
 
@@ -138,15 +158,6 @@ return [
         'addresses' => [
             'route_groups' => [
                 'addresses' => AddressRouteGroup::class,
-            ],
-
-            // Default pagination
-            'pagination' => 12,
-        ],
-
-        'countries' => [
-            'route_groups' => [
-                'countries' => CountryRouteGroup::class,
             ],
 
             // Default pagination

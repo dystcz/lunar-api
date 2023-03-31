@@ -10,6 +10,7 @@ use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartSchema;
 use Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1\CollectionGroupSchema;
 use Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionSchema;
 use Dystcz\LunarApi\Domain\Countries\JsonApi\V1\CountrySchema;
+use Dystcz\LunarApi\Domain\Currencies\JsonApi\V1\CurrencySchema;
 use Dystcz\LunarApi\Domain\Customers\JsonApi\V1\CustomerSchema;
 use Dystcz\LunarApi\Domain\JsonApi\Servers\Server as BaseServer;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ImageSchema;
@@ -59,8 +60,9 @@ class Server extends BaseServer
             CartLineSchema::class,
             CartAddressSchema::class,
             CustomerSchema::class,
-            AddressSchema::class,
             CountrySchema::class,
+            CurrencySchema::class,
+            AddressSchema::class,
             DefaultUrlSchema::class,
             ImageSchema::class,
             MediaSchema::class,
