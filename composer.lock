@@ -3254,16 +3254,16 @@
         },
         {
             "name": "lunarphp/lunar",
-            "version": "0.2-rc3",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lunarphp/lunar.git",
-                "reference": "7c9c9c273783d9edda68787682bed7f5d5dc5b15"
+                "reference": "cc1e099138073a65d2163edd4e0f012bfaaf5bda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lunarphp/lunar/zipball/7c9c9c273783d9edda68787682bed7f5d5dc5b15",
-                "reference": "7c9c9c273783d9edda68787682bed7f5d5dc5b15",
+                "url": "https://api.github.com/repos/lunarphp/lunar/zipball/cc1e099138073a65d2163edd4e0f012bfaaf5bda",
+                "reference": "cc1e099138073a65d2163edd4e0f012bfaaf5bda",
                 "shasum": ""
             },
             "require": {
@@ -3340,7 +3340,7 @@
             "description": "Lunar Monorepo",
             "support": {
                 "issues": "https://github.com/lunarphp/lunar/issues",
-                "source": "https://github.com/lunarphp/lunar/tree/0.2-rc3"
+                "source": "https://github.com/lunarphp/lunar/tree/0.2.1"
             },
             "funding": [
                 {
@@ -3348,7 +3348,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-03-24T14:18:08+00:00"
+            "time": "2023-03-29T11:19:37+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -5424,28 +5424,28 @@
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "10.7.14",
+            "version": "10.7.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "fbdcba9d7ff34d4d781d28bfddb51b4c73bddffc"
+                "reference": "4fabfc58e08ee53586a613b18b8879049132e526"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/fbdcba9d7ff34d4d781d28bfddb51b4c73bddffc",
-                "reference": "fbdcba9d7ff34d4d781d28bfddb51b4c73bddffc",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/4fabfc58e08ee53586a613b18b8879049132e526",
+                "reference": "4fabfc58e08ee53586a613b18b8879049132e526",
                 "shasum": ""
             },
             "require": {
                 "ext-exif": "*",
                 "ext-fileinfo": "*",
                 "ext-json": "*",
-                "illuminate/bus": "^9.52|^10.0",
-                "illuminate/conditionable": "^9.52|^10.0",
-                "illuminate/console": "^9.52|^10.0",
-                "illuminate/database": "^9.52|^10.0",
-                "illuminate/pipeline": "^9.52|^10.0",
-                "illuminate/support": "^9.52|^10.0",
+                "illuminate/bus": "^9.18|^10.0",
+                "illuminate/conditionable": "^9.18|^10.0",
+                "illuminate/console": "^9.18|^10.0",
+                "illuminate/database": "^9.18|^10.0",
+                "illuminate/pipeline": "^9.18|^10.0",
+                "illuminate/support": "^9.18|^10.0",
                 "intervention/image": "^2.7",
                 "maennchen/zipstream-php": "^2.0",
                 "php": "^8.0",
@@ -5517,7 +5517,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-medialibrary/issues",
-                "source": "https://github.com/spatie/laravel-medialibrary/tree/10.7.14"
+                "source": "https://github.com/spatie/laravel-medialibrary/tree/10.7.16"
             },
             "funding": [
                 {
@@ -5529,7 +5529,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-03-29T07:06:33+00:00"
+            "time": "2023-03-30T07:51:35+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
@@ -10025,16 +10025,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.8",
+            "version": "1.10.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "0166aef76e066f0dd2adc2799bdadfa1635711e9"
+                "reference": "9b13dafe3d66693d20fe5729c3dde1d31bb64703"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0166aef76e066f0dd2adc2799bdadfa1635711e9",
-                "reference": "0166aef76e066f0dd2adc2799bdadfa1635711e9",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9b13dafe3d66693d20fe5729c3dde1d31bb64703",
+                "reference": "9b13dafe3d66693d20fe5729c3dde1d31bb64703",
                 "shasum": ""
             },
             "require": {
@@ -10083,7 +10083,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-24T10:28:16+00:00"
+            "time": "2023-03-30T08:58:01+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
