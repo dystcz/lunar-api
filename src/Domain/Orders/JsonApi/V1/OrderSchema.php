@@ -12,6 +12,7 @@ use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
@@ -51,6 +52,12 @@ class OrderSchema extends Schema
 
             'customer',
             'user',
+
+            'currency',
+
+            'addresses',
+            'shippingAddress',
+            'billingAddress',
 
             'lines',
             'lines.currency',
@@ -104,8 +111,14 @@ class OrderSchema extends Schema
             HasMany::make('lines')->type('order-lines'),
             HasMany::make('shippingLines')->type('order-lines'),
             HasMany::make('productLines')->type('order-lines'),
+
             BelongsTo::make('customer'),
             BelongsTo::make('user'),
+            BelongsTo::make('currency'),
+
+            HasMany::make('addresses'),
+            HasOne::make('shippingAddress'),
+            HasOne::make('billingAddress'),
         ];
     }
 

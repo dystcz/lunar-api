@@ -16,6 +16,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Servers\Server as BaseServer;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ImageSchema;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaSchema;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ThumbnailSchema;
+use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderAddressSchema;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderLineSchema;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderSchema;
 use Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceSchema;
@@ -73,6 +74,7 @@ class Server extends BaseServer
             ThumbnailSchema::class,
             UrlSchema::class,
             OrderSchema::class,
+            OrderAddressSchema::class,
             OrderLineSchema::class,
             ShippingOptionSchema::class,
             ...$this->getAdditionalServerSchemas(),

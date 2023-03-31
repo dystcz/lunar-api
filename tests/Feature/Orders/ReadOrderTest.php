@@ -31,6 +31,8 @@ it('can read order details', function () {
             'productLines.purchasable.prices',
             'productLines.purchasable.images',
             'productLines.currency',
+            'customer',
+            'addresses',
         )
         ->expects('orders')
         ->get('http://localhost/api/v1/orders/'.$order->getRouteKey());
