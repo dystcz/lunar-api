@@ -24,6 +24,7 @@ class CustomerResource extends JsonApiResource
             'first_name' => $model->first_name,
             'last_name' => $model->last_name,
             'company_name' => $model->company_name,
+            'account_ref' => $model->account_ref,
             'vat_no' => $model->vat_no,
             ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];

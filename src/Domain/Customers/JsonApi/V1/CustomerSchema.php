@@ -65,6 +65,7 @@ class CustomerSchema extends Schema
             Str::make('first_name'),
             Str::make('last_name'),
             Str::make('company_name'),
+            Str::make('account_ref'),
             Str::make('vat_no'),
 
             HasMany::make('orders'),

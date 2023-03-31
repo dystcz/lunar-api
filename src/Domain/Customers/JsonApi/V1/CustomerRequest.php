@@ -16,6 +16,7 @@ class CustomerRequest extends ResourceRequest
             'first_name' => ['nullable', 'string'],
             'last_name' => ['nullable', 'string'],
             'company_name' => ['nullable', 'string'],
+            'account_ref' => ['nullable', 'string'],
             'vat_no' => ['nullable', 'string'],
         ];
     }

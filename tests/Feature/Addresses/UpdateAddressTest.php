@@ -25,6 +25,10 @@ beforeEach(function () {
             'line_two' => $this->address->line_two,
             'line_three' => $this->address->line_three,
             'postcode' => $this->address->postcode,
+            'meta' => [
+                'vat_no' => '123456789',
+                'account_no' => '987654321'
+            ],
         ],
     ];
 });
@@ -41,5 +45,9 @@ it('can be updated', function () {
     $this->assertDatabaseHas($this->address->getTable(), [
         'id' => $this->address->getRouteKey(),
         'first_name' => 'John',
+        'meta' => json_encode([
+            'vat_no' => '123456789',
+            'account_no' => '987654321'
+        ]),
     ]);
 });

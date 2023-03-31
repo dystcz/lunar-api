@@ -30,6 +30,7 @@ class AddressRequest extends ResourceRequest
             'contact_phone' => ['nullable', 'string'],
             'shipping_default' => ['nullable', 'boolean'],
             'billing_default' => ['nullable', 'boolean'],
+            'meta' => ['nullable', 'array'],
 
             'customer' => [Rule::toOne(), 'required'],
             'country' => [Rule::toOne(), 'required'],

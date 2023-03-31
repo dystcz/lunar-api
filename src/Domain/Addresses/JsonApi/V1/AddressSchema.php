@@ -9,8 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
+use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
@@ -66,6 +68,7 @@ class AddressSchema extends Schema
             ...parent::fields(),
 
             ID::make(),
+
             Str::make('title'),
             Str::make('first_name'),
             Str::make('last_name'),
@@ -79,8 +82,12 @@ class AddressSchema extends Schema
             Str::make('delivery_instructions'),
             Str::make('contact_email'),
             Str::make('contact_phone'),
+
             Boolean::make('shipping_default'),
             Boolean::make('billing_default'),
+
+            ArrayHash::make('meta')
+                ->serializeUsing(fn ($value) => !$value ? null : ((array) $value)),
 
             BelongsTo::make('customer'),
             BelongsTo::make('country'),
