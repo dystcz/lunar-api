@@ -6,9 +6,12 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\Orders\Models\OrderLine;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
+use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
+use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 
@@ -44,6 +47,7 @@ class OrderLineSchema extends Schema
         return [
             ...parent::includePaths(),
             'order',
+            'currency',
             'purchasable',
             'purchasable.product',
         ];
@@ -58,7 +62,26 @@ class OrderLineSchema extends Schema
             ...parent::fields(),
 
             ID::make(),
+
+            Str::make('type'),
+            Str::make('description'),
+            Str::make('option'),
+            Str::make('identifier'),
+            Str::make('notes'),
+
+            Number::make('unit_quantity'),
+            Number::make('quantity'),
+
+            Number::make('unit_price'),
+            Number::make('sub_total'),
+            Number::make('discount_total'),
+            Number::make('tax_total'),
+            Number::make('total'),
+
+            ArrayHash::make('tax_breakdown'),
+
             BelongsTo::make('order'),
+            BelongsTo::make('currency'),
             MorphTo::make('purchasable', 'purchasable')->types('products', 'variants'),
         ];
     }

@@ -69,7 +69,6 @@ return [
             'pagination' => 12,
         ],
 
-
         'countries' => [
             'route_groups' => [
                 'countries' => CountryRouteGroup::class,

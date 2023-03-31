@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Tests;
 
 use Cartalyst\Converter\Laravel\ConverterServiceProvider;
 use Dystcz\LunarApi\LunarApiServiceProvider;
+use Dystcz\LunarApi\Tests\Stubs\JsonApi\V1\Server;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Redis;
@@ -91,6 +92,10 @@ abstract class TestCase extends Orchestra
      */
     public function getEnvironmentSetUp($app)
     {
+        config()->set('lunar-api.additional_servers', [
+            Server::class,
+        ]);
+
         config()->set('database.default', 'sqlite');
 
         config()->set('database.migrations', 'migrations');

@@ -14,15 +14,11 @@ class CurrencySchema extends Schema
 {
     /**
      * The model the schema corresponds to.
-     *
-     * @var string
      */
     public static string $model = Currency::class;
 
     /**
      * The relationships that should always be eager loaded.
-     *
-     * @return array
      */
     public function with(): array
     {
@@ -45,8 +41,6 @@ class CurrencySchema extends Schema
 
     /**
      * Get the resource fields.
-     *
-     * @return array
      */
     public function fields(): array
     {
@@ -64,7 +58,7 @@ class CurrencySchema extends Schema
             Boolean::make('enabled'),
             Boolean::make('default'),
 
-            HasMany::make('prices')
+            HasMany::make('prices'),
         ];
     }
 
@@ -75,8 +69,6 @@ class CurrencySchema extends Schema
 
     /**
      * Get the JSON:API resource type.
-     *
-     * @return string
      */
     public static function type(): string
     {

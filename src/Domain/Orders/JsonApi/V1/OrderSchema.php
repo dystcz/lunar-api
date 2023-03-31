@@ -53,18 +53,21 @@ class OrderSchema extends Schema
             'user',
 
             'lines',
+            'lines.currency',
             'lines.purchasable',
             'lines.purchasable.prices',
             'lines.purchasable.images',
             'lines.purchasable.product',
 
             'productLines',
+            'productLines.currency',
             'productLines.purchasable',
             'productLines.purchasable.prices',
             'productLines.purchasable.images',
             'productLines.purchasable.product',
 
             'shippingLines',
+            'shippingLines.currency',
             'shippingLines.purchasable',
             'shippingLines.purchasable.prices',
             'shippingLines.purchasable.images',
@@ -123,6 +126,7 @@ class OrderSchema extends Schema
 
             WhereIdIn::make($this),
             Where::make('user_id'),
+            Where::make('reference')->singular(),
         ];
     }
 

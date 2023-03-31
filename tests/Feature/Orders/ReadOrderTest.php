@@ -29,7 +29,8 @@ it('can read order details', function () {
         ->includePaths(
             'productLines.purchasable.product',
             'productLines.purchasable.prices',
-            'productLines.purchasable.images'
+            'productLines.purchasable.images',
+            'productLines.currency',
         )
         ->expects('orders')
         ->get('http://localhost/api/v1/orders/'.$order->getRouteKey());
