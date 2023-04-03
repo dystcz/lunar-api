@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redis;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('records a view each time the product is shown', function () {
-    $product = ProductFactory::new()->create();
+    $product = ProductFactory::new()->create(['id' => 5]);
 
     $self = 'http://localhost/api/v1/products/'.$product->getRouteKey();
 
@@ -29,4 +29,4 @@ it('records a view each time the product is shown', function () {
     $hits = Redis::zCount("product:views:{$product->id}", -INF, +INF);
 
     expect($hits)->toBe(2);
-});
+})->group('product-views');
