@@ -106,7 +106,7 @@ abstract class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
-        // TODO move to testbench.yaml
+        // TODO: move to testbench.yaml
         config()->set('database.connections.mysql', [
             'driver' => 'mysql',
             'host' => 'mysql',
@@ -116,7 +116,7 @@ abstract class TestCase extends Orchestra
             'password' => 'secret',
         ]);
 
-        // TODO move to testbench.yaml
+        // TODO: move to testbench.yaml
         config()->set('database.redis.default', [
             'host' => 'redis',
             'password' => 'secret_redis',
