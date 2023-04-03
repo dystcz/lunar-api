@@ -24,10 +24,9 @@ class AddToCart
             meta: $data->meta ?? []
         );
 
-        $cartLine = $cart->lines()
-            ->where('purchasable_id', $data->purchasable_id)
-            ->where('purchasable_type', $data->purchasable_type)
-            ->first();
+        $cartLine = $cart->lines->firstWhere(
+            fn (CartLine $cartLine) => $cartLine->purchasable->is($purchasable)
+        );
 
         return [$cart, $cartLine];
     }
