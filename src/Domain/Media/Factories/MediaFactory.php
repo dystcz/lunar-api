@@ -2,9 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\Media\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class MediaFactory extends \Illuminate\Database\Eloquent\Factories\Factory
+class MediaFactory extends Factory
 {
     protected $model = Media::class;
 

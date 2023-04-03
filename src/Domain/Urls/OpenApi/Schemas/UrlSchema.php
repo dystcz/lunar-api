@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Urls\OpenApi\Schemas;
 
+use Illuminate\Support\Facades\App;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\UrlJsonApiBuilder;
 use GoldSpecDigital\ObjectOrientedOAS\Contracts\SchemaContract;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\AllOf;
@@ -19,6 +20,6 @@ class UrlSchema extends SchemaFactory implements Reusable
      */
     public function build(): SchemaContract
     {
-        return app(UrlJsonApiBuilder::class)->schema();
+        return App::get(UrlJsonApiBuilder::class)->schema();
     }
 }

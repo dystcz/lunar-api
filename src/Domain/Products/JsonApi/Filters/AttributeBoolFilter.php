@@ -12,9 +12,9 @@ class AttributeBoolFilter implements Filter
     use HasColumn;
     use DeserializesValue;
 
-    private string $attribute;
+    private readonly string $attribute;
 
-    private string $name;
+    private readonly string $name;
 
     /**
      * Create a new filter.

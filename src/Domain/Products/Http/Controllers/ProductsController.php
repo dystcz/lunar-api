@@ -2,6 +2,11 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Http\Controllers;
 
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
+use Illuminate\Support\Facades\App;
 use Dystcz\LunarApi\Controller;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductCollectionQuery;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductQuery;
@@ -15,14 +20,14 @@ use Lunar\Models\Product;
 
 class ProductsController extends Controller
 {
-    use Actions\FetchMany;
-    use Actions\FetchOne;
+    use FetchMany;
+    use FetchOne;
 
     // use Actions\Store;
     // use Actions\Update;
     // use Actions\Destroy;
-    use Actions\FetchRelated;
-    use Actions\FetchRelationship;
+    use FetchRelated;
+    use FetchRelationship;
 
     // use Actions\UpdateRelationship;
     // use Actions\AttachRelationship;
@@ -73,7 +78,7 @@ class ProductsController extends Controller
 
         if ($productId) {
             dispatch(function () use ($productId) {
-                app(ProductViews::class)->record($productId);
+                App::get(ProductViews::class)->record($productId);
             });
         }
     }

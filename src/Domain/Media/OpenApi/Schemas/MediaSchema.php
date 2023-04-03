@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Media\OpenApi\Schemas;
 
+use Illuminate\Support\Facades\App;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\MediaJsonApiBuilder;
 use GoldSpecDigital\ObjectOrientedOAS\Contracts\SchemaContract;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\AllOf;
@@ -19,6 +20,6 @@ class MediaSchema extends SchemaFactory implements Reusable
      */
     public function build(): SchemaContract
     {
-        return app(MediaJsonApiBuilder::class)->schema();
+        return App::get(MediaJsonApiBuilder::class)->schema();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Http\Resources;
 
+use Illuminate\Support\Facades\App;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\ProductVariantJsonApiBuilder;
 use Dystcz\LunarApi\Domain\JsonApi\Http\Resources\JsonApiResource;
 use Illuminate\Http\Request;
@@ -28,6 +29,6 @@ class ProductVariantResource extends JsonApiResource
 
     protected function toRelationships(Request $request): array
     {
-        return app(ProductVariantJsonApiBuilder::class)->toRelationships($this->resource);
+        return App::get(ProductVariantJsonApiBuilder::class)->toRelationships($this->resource);
     }
 }

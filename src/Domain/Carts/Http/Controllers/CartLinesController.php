@@ -2,6 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\Destroy;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;
 use Dystcz\LunarApi\Controller;
 use Dystcz\LunarApi\Domain\Carts\Actions\AddToCart;
 use Dystcz\LunarApi\Domain\Carts\Data\CartLineData;
@@ -12,9 +15,9 @@ use LaravelJsonApi\Laravel\Http\Controllers\Actions;
 
 class CartLinesController extends Controller
 {
-    use Actions\Update;
-    use Actions\Destroy;
-    use Actions\Store;
+    use Update;
+    use Destroy;
+    use Store;
 
     public function creating(CartLineRequest $request, $query)
     {

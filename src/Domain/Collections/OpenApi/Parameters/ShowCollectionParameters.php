@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Collections\OpenApi\Parameters;
 
+use Illuminate\Support\Facades\App;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\CollectionJsonApiBuilder;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Parameter;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
@@ -22,7 +23,7 @@ class ShowCollectionParameters extends ParametersFactory
                 ->required()
                 ->schema(Schema::string()),
 
-            ...app(CollectionJsonApiBuilder::class)->parametersSchema(),
+            ...App::get(CollectionJsonApiBuilder::class)->parametersSchema(),
         ];
     }
 }

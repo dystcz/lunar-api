@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Prices\JsonApi\V1;
 
+use Illuminate\Http\Request;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Prices\Actions\GetPriceWithDefaultTax;
@@ -13,7 +14,7 @@ class PriceResource extends JsonApiResource
     /**
      * Get the resource's attributes.
      *
-     * @param  \Illuminate\Http\Request|null  $request
+     * @param Request|null $request
      */
     public function attributes($request): iterable
     {
@@ -55,7 +56,7 @@ class PriceResource extends JsonApiResource
     /**
      * Get the resource's relationships.
      *
-     * @param  \Illuminate\Http\Request|null  $request
+     * @param Request|null $request
      */
     public function relationships($request): iterable
     {

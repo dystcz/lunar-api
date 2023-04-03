@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Prices\Http\Resources;
 
+use Illuminate\Support\Facades\App;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\PriceJsonApiBuilder;
 use Dystcz\LunarApi\Domain\JsonApi\Http\Resources\JsonApiResource;
 use Illuminate\Http\Request;
@@ -17,6 +18,6 @@ class PriceResource extends JsonApiResource
 
     protected function toRelationships(Request $request): array
     {
-        return app(PriceJsonApiBuilder::class)->toRelationships($this->resource);
+        return App::get(PriceJsonApiBuilder::class)->toRelationships($this->resource);
     }
 }

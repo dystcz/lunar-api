@@ -14,9 +14,9 @@ class MaxPriceFilter implements Filter
     use IsSingular;
     use HasColumn;
 
-    private string $name;
+    private readonly string $name;
 
-    private string $column;
+    private readonly string $column;
 
     /**
      * Create a new filter.

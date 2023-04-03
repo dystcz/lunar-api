@@ -2,11 +2,12 @@
 
 namespace Dystcz\LunarApi\Domain\Users\Factories;
 
+use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
 {
-    protected $model = \Dystcz\LunarApi\Tests\Stubs\Users\User::class;
+    protected $model = User::class;
 
     public function definition(): array
     {

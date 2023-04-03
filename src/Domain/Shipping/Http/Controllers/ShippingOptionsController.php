@@ -2,12 +2,13 @@
 
 namespace Dystcz\LunarApi\Domain\Shipping\Http\Controllers;
 
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
 use Dystcz\LunarApi\Controller;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions;
 
 class ShippingOptionsController extends Controller
 {
-    use Actions\FetchMany;
+    use FetchMany;
 
     // use Actions\FetchOne;
 

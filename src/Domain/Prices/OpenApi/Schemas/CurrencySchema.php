@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Prices\OpenApi\Schemas;
 
+use Illuminate\Support\Facades\App;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\PriceJsonApiBuilder;
 use GoldSpecDigital\ObjectOrientedOAS\Contracts\SchemaContract;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\AllOf;
@@ -19,6 +20,6 @@ class CurrencySchema extends SchemaFactory implements Reusable
      */
     public function build(): SchemaContract
     {
-        return app(PriceJsonApiBuilder::class)->schema();
+        return App::get(PriceJsonApiBuilder::class)->schema();
     }
 }

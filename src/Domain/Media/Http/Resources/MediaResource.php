@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Media\Http\Resources;
 
+use Illuminate\Support\Facades\App;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\MediaJsonApiBuilder;
 use Dystcz\LunarApi\Domain\JsonApi\Http\Resources\JsonApiResource;
 use Illuminate\Http\Request;
@@ -27,6 +28,6 @@ class MediaResource extends JsonApiResource
 
     protected function toRelationships(Request $request): array
     {
-        return app(MediaJsonApiBuilder::class)->toRelationships($this->resource);
+        return App::get(MediaJsonApiBuilder::class)->toRelationships($this->resource);
     }
 }

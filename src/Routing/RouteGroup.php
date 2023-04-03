@@ -23,7 +23,7 @@ abstract class RouteGroup implements RouteGroupContract
      */
     public function __construct()
     {
-        /** @var Illuminate\Routing\Router */
+        /** @var Router */
         $this->router = App::make('router');
     }
 

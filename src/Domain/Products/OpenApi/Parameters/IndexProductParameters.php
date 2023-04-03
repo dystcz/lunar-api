@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Products\OpenApi\Parameters;
 
+use Illuminate\Support\Facades\App;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\ProductJsonApiBuilder;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Parameter;
 use Vyuldashev\LaravelOpenApi\Factories\ParametersFactory;
@@ -14,7 +15,7 @@ class IndexProductParameters extends ParametersFactory
     public function build(): array
     {
         return [
-            ...app(ProductJsonApiBuilder::class)->parametersSchema(),
+            ...App::get(ProductJsonApiBuilder::class)->parametersSchema(),
         ];
     }
 }

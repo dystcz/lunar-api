@@ -2,12 +2,14 @@
 
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\Sorts;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\App;
 use Dystcz\LunarApi\Domain\Products\ProductViews;
 use LaravelJsonApi\Eloquent\Contracts\SortField;
 
 class RecentlyViewedSort implements SortField
 {
-    private string $name;
+    private readonly string $name;
 
     /**
      * Create a new sort field.
@@ -39,12 +41,12 @@ class RecentlyViewedSort implements SortField
     /**
      * Apply the sort order to the query.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
     public function sort($query, string $direction = 'asc')
     {
-        $list = app(ProductViews::class)->sorted();
+        $list = App::get(ProductViews::class)->sorted();
 
         if (! empty($list)) {
             $query->orderByRaw('FIELD(id, '.implode(',', $list).')');

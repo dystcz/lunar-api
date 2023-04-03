@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Products\OpenApi\Schemas;
 
+use Illuminate\Support\Facades\App;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\ProductJsonApiBuilder;
 use GoldSpecDigital\ObjectOrientedOAS\Contracts\SchemaContract;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\AllOf;
@@ -19,6 +20,6 @@ class ProductSchema extends SchemaFactory implements Reusable
      */
     public function build(): SchemaContract
     {
-        return app(ProductJsonApiBuilder::class)->schema();
+        return App::get(ProductJsonApiBuilder::class)->schema();
     }
 }

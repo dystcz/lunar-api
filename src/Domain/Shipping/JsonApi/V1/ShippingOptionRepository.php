@@ -2,13 +2,14 @@
 
 namespace Dystcz\LunarApi\Domain\Shipping\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\Shipping\JsonApi\V1\Capabilities\QueryShippingOptions;
 use Dystcz\LunarApi\Domain\Shipping\Entities\ShippingOptionStorage;
 use LaravelJsonApi\Contracts\Store\QueriesAll;
 use LaravelJsonApi\NonEloquent\AbstractRepository;
 
 class ShippingOptionRepository extends AbstractRepository implements QueriesAll
 {
-    private ShippingOptionStorage $storage;
+    private readonly ShippingOptionStorage $storage;
 
     public function __construct(ShippingOptionStorage $storage)
     {
@@ -26,9 +27,9 @@ class ShippingOptionRepository extends AbstractRepository implements QueriesAll
     /**
      * {@inheritDoc}
      */
-    public function queryAll(): Capabilities\QueryShippingOptions
+    public function queryAll(): QueryShippingOptions
     {
-        return Capabilities\QueryShippingOptions::make()
+        return QueryShippingOptions::make()
             ->withServer($this->server)
             ->withSchema($this->schema);
     }

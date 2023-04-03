@@ -7,7 +7,7 @@ use LaravelJsonApi\NonEloquent\Capabilities\QueryAll;
 
 class QueryShippingOptions extends QueryAll
 {
-    private ShippingOptionStorage $sites;
+    private readonly ShippingOptionStorage $sites;
 
     public function __construct(ShippingOptionStorage $sites)
     {
