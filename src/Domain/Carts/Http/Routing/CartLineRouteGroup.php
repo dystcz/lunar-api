@@ -20,7 +20,8 @@ class CartLineRouteGroup extends RouteGroup
         JsonApiRoute::server('v1')
             ->prefix('v1')
             ->resources(function ($server) {
-                $server->resource($this->getPrefix(), CartLinesController::class)
+                $server
+                    ->resource($this->getPrefix(), CartLinesController::class)
                     ->only('update', 'destroy', 'store');
             });
     }
