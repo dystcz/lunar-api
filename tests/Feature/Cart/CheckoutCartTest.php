@@ -41,7 +41,7 @@ test('a user can checkout a cart', function () {
     ]);
 
     expect($cart->user_id)->toBeNull();
-});
+})->group('checkout');
 
 it('a user can be registered when checking out', function () {
     Event::fake([CartCreated::class, Registered::class]);
@@ -78,7 +78,7 @@ it('a user can be registered when checking out', function () {
     });
 
     expect($cart->user_id)->not()->toBeNull();
-});
+})->group('checkout');
 
 it('returns signed url for reading order\'s detail', function () {
     Event::fake(CartCreated::class);
@@ -108,4 +108,4 @@ it('returns signed url for reading order\'s detail', function () {
         ->get($response->json()['links']['self.signed']);
 
     $response->assertFetchedOne($cart->order);
-});
+})->group('checkout');
