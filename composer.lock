@@ -1806,16 +1806,16 @@
         },
         {
             "name": "laravel-json-api/eloquent",
-            "version": "v3.0.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-json-api/eloquent.git",
-                "reference": "f19fab4eded5269657df08fece12f4920fefdcbd"
+                "reference": "3a69d1312f2171737944641c444064bd12db03ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-json-api/eloquent/zipball/f19fab4eded5269657df08fece12f4920fefdcbd",
-                "reference": "f19fab4eded5269657df08fece12f4920fefdcbd",
+                "url": "https://api.github.com/repos/laravel-json-api/eloquent/zipball/3a69d1312f2171737944641c444064bd12db03ef",
+                "reference": "3a69d1312f2171737944641c444064bd12db03ef",
                 "shasum": ""
             },
             "require": {
@@ -1864,9 +1864,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel-json-api/eloquent/issues",
-                "source": "https://github.com/laravel-json-api/eloquent/tree/v3.0.0"
+                "source": "https://github.com/laravel-json-api/eloquent/tree/v3.0.1"
             },
-            "time": "2023-02-14T19:43:20+00:00"
+            "time": "2023-04-03T20:12:18+00:00"
         },
         {
             "name": "laravel-json-api/encoder-neomerx",
