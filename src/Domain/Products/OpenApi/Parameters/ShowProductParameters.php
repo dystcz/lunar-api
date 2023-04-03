@@ -2,10 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\Products\OpenApi\Parameters;
 
-use Illuminate\Support\Facades\App;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\ProductJsonApiBuilder;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Parameter;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
+use Illuminate\Support\Facades\App;
 use Vyuldashev\LaravelOpenApi\Factories\ParametersFactory;
 
 class ShowProductParameters extends ParametersFactory

@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Media\JsonApi\V1;
 
-use Illuminate\Http\Request;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ThumbnailResource extends MediaResource
@@ -11,7 +11,7 @@ class ThumbnailResource extends MediaResource
     /**
      * Get the resource's attributes.
      *
-     * @param Request|null $request
+     * @param  Request|null  $request
      */
     public function attributes($request): iterable
     {
@@ -26,7 +26,7 @@ class ThumbnailResource extends MediaResource
     /**
      * Get the resource's relationships.
      *
-     * @param Request|null $request
+     * @param  Request|null  $request
      */
     public function relationships($request): iterable
     {

@@ -2,18 +2,18 @@
 
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
-use Illuminate\Http\Request;
 use Dystcz\LunarApi\Domain\Attributes\Collections\AttributeCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductResource extends JsonApiResource
 {
     /**
      * Get the resource's attributes.
      *
-     * @param Request|null $request
+     * @param  Request|null  $request
      */
     public function attributes($request): iterable
     {
@@ -44,7 +44,7 @@ class ProductResource extends JsonApiResource
     /**
      * Get the resource's relationships.
      *
-     * @param Request|null $request
+     * @param  Request|null  $request
      */
     public function relationships($request): iterable
     {

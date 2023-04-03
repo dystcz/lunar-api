@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Urls\JsonApi\V1;
 
-use Illuminate\Http\Request;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
+use Illuminate\Http\Request;
 use Lunar\Models\Url;
 
 class DefaultUrlResource extends JsonApiResource
@@ -12,7 +12,7 @@ class DefaultUrlResource extends JsonApiResource
     /**
      * Get the resource's attributes.
      *
-     * @param Request|null $request
+     * @param  Request|null  $request
      */
     public function attributes($request): iterable
     {
@@ -28,7 +28,7 @@ class DefaultUrlResource extends JsonApiResource
     /**
      * Get the resource's relationships.
      *
-     * @param Request|null $request
+     * @param  Request|null  $request
      */
     public function relationships($request): iterable
     {

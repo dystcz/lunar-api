@@ -3,14 +3,6 @@
 namespace Dystcz\LunarApi;
 
 use Dystcz\LunarApi\Console\GenerateOpenApiSpec;
-use Lunar\Models\Brand;
-use Lunar\Models\OrderLine;
-use Lunar\Models\Price;
-use Lunar\Models\ProductType;
-use Lunar\Models\ProductOption;
-use Lunar\Models\ProductOptionValue;
-use Lunar\Models\ProductVariant;
-use Lunar\Models\CollectionGroup;
 use Dystcz\LunarApi\Domain\Addresses\Models\Address;
 use Dystcz\LunarApi\Domain\Addresses\Policies\AddressPolicy;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
@@ -37,6 +29,14 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Facades\ModelManifest;
+use Lunar\Models\Brand;
+use Lunar\Models\CollectionGroup;
+use Lunar\Models\OrderLine;
+use Lunar\Models\Price;
+use Lunar\Models\ProductOption;
+use Lunar\Models\ProductOptionValue;
+use Lunar\Models\ProductType;
+use Lunar\Models\ProductVariant;
 
 class LunarApiServiceProvider extends ServiceProvider
 {

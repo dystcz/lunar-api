@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;

@@ -2,11 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Http\Controllers;
 
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
-use Illuminate\Support\Facades\App;
 use Dystcz\LunarApi\Controller;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductCollectionQuery;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductQuery;
@@ -14,8 +9,13 @@ use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystcz\LunarApi\Domain\Products\ProductViews;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
 use Lunar\Models\Product;
 
 class ProductsController extends Controller

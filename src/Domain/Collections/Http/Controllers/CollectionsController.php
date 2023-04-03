@@ -2,10 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Collections\Http\Controllers;
 
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
 use Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionCollectionQuery;
 use Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionQuery;
 use Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionSchema;
@@ -14,6 +10,10 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
 use Lunar\Models\Collection;
 
 class CollectionsController extends Controller

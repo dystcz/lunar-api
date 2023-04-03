@@ -2,13 +2,13 @@
 
 namespace Dystcz\LunarApi\Domain\Addresses\Http\Controllers;
 
+use Dystcz\LunarApi\Controller;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\Destroy;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\Destroy;
-use Dystcz\LunarApi\Controller;
-use LaravelJsonApi\Laravel\Http\Controllers\Actions;
 
 class AddressesController extends Controller
 {

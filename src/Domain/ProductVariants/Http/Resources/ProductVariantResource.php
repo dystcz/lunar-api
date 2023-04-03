@@ -2,10 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Http\Resources;
 
-use Illuminate\Support\Facades\App;
 use Dystcz\LunarApi\Domain\JsonApi\Builders\ProductVariantJsonApiBuilder;
 use Dystcz\LunarApi\Domain\JsonApi\Http\Resources\JsonApiResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Lunar\Models\ProductVariant;
 
 class ProductVariantResource extends JsonApiResource

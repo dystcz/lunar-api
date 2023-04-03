@@ -12,7 +12,6 @@ use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\ID;
-use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
@@ -87,7 +86,7 @@ class AddressSchema extends Schema
             Boolean::make('billing_default'),
 
             ArrayHash::make('meta')
-                ->serializeUsing(fn ($value) => !$value ? null : ((array) $value)),
+                ->serializeUsing(fn ($value) => ! $value ? null : ((array) $value)),
 
             BelongsTo::make('customer'),
             BelongsTo::make('country'),

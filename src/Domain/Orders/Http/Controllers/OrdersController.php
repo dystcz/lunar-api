@@ -2,10 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\Http\Controllers;
 
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
 use Dystcz\LunarApi\Controller;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
 
 class OrdersController extends Controller
 {

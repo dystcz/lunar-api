@@ -2,12 +2,12 @@
 
 namespace Dystcz\LunarApi\Domain\Customers\Http\Controllers;
 
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
-use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
 use Dystcz\LunarApi\Controller;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
 
 class CustomersController extends Controller
 {
