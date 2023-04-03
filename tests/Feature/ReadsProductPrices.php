@@ -1,6 +1,5 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
@@ -13,7 +12,7 @@ it('can read product prices', function () {
     /** @var Product $product */
     $product = ProductFactory::new()
         ->has(
-            ProductVariantFactory::new()->has(PriceFactory::new()),
+            ProductVariantFactory::new()->withPrice(),
             'variants'
         )
         ->create();
@@ -36,7 +35,7 @@ it('can read product lowest price', function () {
     /** @var Product $product */
     $product = ProductFactory::new()
         ->has(
-            ProductVariantFactory::new()->has(PriceFactory::new()),
+            ProductVariantFactory::new()->withPrice(),
             'variants'
         )
         ->create();
@@ -47,7 +46,7 @@ it('can read product lowest price', function () {
         ->jsonApi()
         ->expects('products')
         ->includePaths(
-            'lowestPrice',
+            'lowest_price',
         )
         ->get($self);
 
