@@ -5,18 +5,19 @@ use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Database\Factories\CartLineFactory;
+use Lunar\Database\Factories\ProductFactory;
 use Lunar\Facades\CartSession;
-use Lunar\Models\Currency;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can update a cart line', function () {
-    $currency = Currency::factory()->create();
-
-    $cart = Cart::factory()->create(['currency_id' => $currency->id]);
+    $cart = Cart::factory()->create();
 
     $cartLine = CartLineFactory::new()
-        ->for(ProductVariantFactory::new(), 'purchasable')
+        ->for(
+            ProductVariantFactory::new()->for(ProductFactory::new())->withPrice(),
+            'purchasable'
+        )
         ->for($cart)
         ->create();
 
