@@ -21,21 +21,22 @@
     "require": {
         "php": "^8.1",
         "ext-redis": "*",
-        "illuminate/support": "^9.0",
-        "laravel-json-api/laravel": "^2.4",
-        "laravel-json-api/non-eloquent": "^2.0",
-        "lunarphp/lunar": "^0.2",
-        "spatie/laravel-query-builder": "^5.0",
-        "symfony/yaml": "^6.0",
-        "vyuldashev/laravel-openapi": "^1.5"
+        "illuminate/support": "^10.0",
+        "laravel-json-api/laravel": "^3.0",
+        "laravel-json-api/non-eloquent": "^3.0",
+        "lunarphp/lunar": "0.3.0-alpha",
+        "spatie/laravel-query-builder": "^5.2",
+        "symfony/yaml": "^6.2",
+        "vyuldashev/laravel-openapi": "^1.10.1"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^2.12",
-        "laravel-json-api/testing": "^1.1",
-        "laravel/pint": "^1.2",
-        "nunomaduro/larastan": "^2.0",
-        "orchestra/testbench": "^7.0|^8.0",
-        "pestphp/pest": "^1.21"
+        "barryvdh/laravel-ide-helper": "^2.13",
+        "laravel-json-api/testing": "^2.1",
+        "laravel/pint": "^1.7",
+        "nunomaduro/larastan": "^2.5.1",
+        "orchestra/testbench": "^8.0",
+        "pestphp/pest": "^2.0",
+        "spatie/laravel-ray": "^1.32"
     },
     "autoload": {
         "psr-4": {
