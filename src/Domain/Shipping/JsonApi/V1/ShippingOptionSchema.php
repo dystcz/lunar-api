@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\Shipping\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Shipping\Entities\ShippingOption;
 use LaravelJsonApi\Core\Schema\Schema;
+use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\NonEloquent\Fields\Attribute;
 use LaravelJsonApi\NonEloquent\Fields\ID;
 
@@ -25,6 +26,7 @@ class ShippingOptionSchema extends Schema
             Attribute::make('description'),
             Attribute::make('identifier'),
             Attribute::make('price'),
+            ArrayHash::make('meta'),
         ];
     }
 
