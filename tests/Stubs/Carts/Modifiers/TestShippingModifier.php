@@ -33,7 +33,7 @@ class TestShippingModifier extends ShippingModifier
             )
         );
 
-        if ($cart->shippingAddress->country?->iso2 === 'CZ') {
+        if ($cart->shippingAddress?->country?->iso2 === 'CZ') {
             ShippingManifest::addOption(
                 new ShippingOption(
                     name: 'Czech delivery',
