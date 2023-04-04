@@ -4,6 +4,8 @@ namespace Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers;
 
 use Dystcz\LunarApi\Domain\Carts\Modifiers\ShippingModifier;
 use Lunar\DataTypes\Price;
+use Lunar\DataTypes\ShippingOption;
+use Lunar\Facades\ShippingManifest;
 use Lunar\Models\Cart;
 use Lunar\Models\Currency;
 use Lunar\Models\TaxClass;
@@ -18,15 +20,31 @@ class TestShippingModifier extends ShippingModifier
 
     public function handle(Cart $cart)
     {
-        parent::handle($cart);
-    }
+        $cart->load(['shippingAddress', 'shippingAddress.country']);
 
-    /**
-     * Get the price for the shipping option.
-     */
-    public function getPrice(Cart $cart): Price
-    {
-        return new Price(500, $this->getCurrency($cart), 1);
+        ShippingManifest::addOption(
+            new ShippingOption(
+                name: 'Basic Delivery',
+                description: 'A basic delivery option',
+                identifier: 'FFCDEL',
+                price: new Price(500, $this->getCurrency($cart), 1),
+                taxClass: $this->getTaxClass(),
+                meta: [],
+            )
+        );
+
+        if ($cart->shippingAddress->country?->iso2 === 'CZ') {
+            ShippingManifest::addOption(
+                new ShippingOption(
+                    name: 'Czech delivery',
+                    description: 'Czech delivery option',
+                    identifier: 'CZEDEL',
+                    price: new Price(600, $this->getCurrency($cart), 1),
+                    taxClass: $this->getTaxClass(),
+                    meta: [],
+                )
+            );
+        }
     }
 
     /**

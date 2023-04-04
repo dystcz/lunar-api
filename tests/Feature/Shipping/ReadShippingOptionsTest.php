@@ -1,12 +1,9 @@
 <?php
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
-use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\CzechOnlyTestShippingModifier;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
-use Lunar\Base\ShippingModifiers;
 use Lunar\Facades\CartSession;
 use Lunar\Facades\ShippingManifest;
 use Lunar\Models\Country;
@@ -46,8 +43,6 @@ it('can fetch shipping options for cart', function () {
 });
 
 it('can fetch shipping options for a cart based on country', function () {
-    App::get(ShippingModifiers::class)->add(CzechOnlyTestShippingModifier::class);
-
     // WARNING: Cannot add multiple shipping options
     // See: \Lunar\Base\ShippingManifest @getOptions
     // The pipeline is not working correctly it seems
@@ -95,6 +90,4 @@ it('can fetch shipping options for a cart based on country', function () {
             ],
         ],
     ]);
-
-    App::get(ShippingModifiers::class)->remove(CzechOnlyTestShippingModifier::class);
 });
