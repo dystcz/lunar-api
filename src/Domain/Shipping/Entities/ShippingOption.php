@@ -16,6 +16,7 @@ class ShippingOption implements Arrayable
         public string $description,
         public Price $price,
         public Currency $currency,
+        public array $meta,
     ) {
     }
 
@@ -39,7 +40,7 @@ class ShippingOption implements Arrayable
         return $this->identifier;
     }
 
-    public function getPrice(): float
+    public function getPrice(): Price
     {
         return $this->price;
     }
@@ -59,6 +60,7 @@ class ShippingOption implements Arrayable
             description: $shippingOption->description,
             price: $shippingOption->price,
             currency: $shippingOption->price->currency,
+            meta: $shippingOption->meta,
         );
     }
 
@@ -77,6 +79,7 @@ class ShippingOption implements Arrayable
                 'formatted' => $this->price->formatted,
             ],
             'currency' => $this->currency->toArray(),
+            'meta' => $this->meta,
         ];
     }
 }
