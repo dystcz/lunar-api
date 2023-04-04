@@ -4,18 +4,18 @@ namespace Dystcz\LunarApi\Tests;
 
 use Cartalyst\Converter\Laravel\ConverterServiceProvider;
 use Dystcz\LunarApi\LunarApiServiceProvider;
+use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
 use Dystcz\LunarApi\Tests\Stubs\JsonApi\V1\Server;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Redis;
 use Kalnoy\Nestedset\NestedSetServiceProvider;
 use LaravelJsonApi\Spec\ServiceProvider;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
+use Lunar\Base\ShippingModifiers;
 use Lunar\Database\Factories\LanguageFactory;
-use Lunar\DataTypes\Price;
-use Lunar\DataTypes\ShippingOption;
-use Lunar\Facades\ShippingManifest;
 use Lunar\LunarServiceProvider;
 use Lunar\Models\Currency;
 use Lunar\Models\TaxClass;
@@ -44,19 +44,10 @@ abstract class TestCase extends Orchestra
 
         activity()->disableLogging();
 
-        $currency = Currency::factory()->create();
+        Currency::factory()->create();
+        TaxClass::factory()->create();
 
-        $taxClass = TaxClass::factory()->create();
-
-        ShippingManifest::addOption(
-            new ShippingOption(
-                name: 'Basic Delivery',
-                description: 'A basic delivery option',
-                identifier: 'Friendly Freight Co.',
-                price: new Price(500, $currency, 1),
-                taxClass: $taxClass
-            )
-        );
+        App::get(ShippingModifiers::class)->add(TestShippingModifier::class);
 
         $this->beforeApplicationDestroyed(function () {
             Redis::flushall();
@@ -118,8 +109,8 @@ abstract class TestCase extends Orchestra
 
         // TODO: move to testbench.yaml
         config()->set('database.redis.default', [
-            'host' => 'redis',
-            'password' => 'secret_redis',
+            'host' => 'localhost',
+            'password' => '',
             'port' => '6379',
         ]);
     }
