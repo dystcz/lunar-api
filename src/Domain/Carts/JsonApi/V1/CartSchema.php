@@ -44,6 +44,7 @@ class CartSchema extends Schema
             'order.productLines',
             'order.productLines.purchasable',
             'addresses',
+            'addresses.country',
             'shippingAddress',
             'shippingAddress.country',
             'billingAddress',

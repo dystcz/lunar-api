@@ -56,8 +56,11 @@ class OrderSchema extends Schema
             'currency',
 
             'addresses',
+            'addresses.country',
             'shippingAddress',
+            'shippingAddress.country',
             'billingAddress',
+            'billingAddress.country',
 
             'lines',
             'lines.currency',
