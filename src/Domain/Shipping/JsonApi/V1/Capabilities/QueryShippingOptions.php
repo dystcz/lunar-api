@@ -7,13 +7,13 @@ use LaravelJsonApi\NonEloquent\Capabilities\QueryAll;
 
 class QueryShippingOptions extends QueryAll
 {
-    private readonly ShippingOptionStorage $sites;
+    private readonly ShippingOptionStorage $shippingOptions;
 
-    public function __construct(ShippingOptionStorage $sites)
+    public function __construct(ShippingOptionStorage $shippingOptions)
     {
         parent::__construct();
 
-        $this->sites = $sites;
+        $this->shippingOptions = $shippingOptions;
     }
 
     /**
@@ -21,6 +21,6 @@ class QueryShippingOptions extends QueryAll
      */
     public function get(): iterable
     {
-        return $this->sites->all();
+        return $this->shippingOptions->all();
     }
 }
