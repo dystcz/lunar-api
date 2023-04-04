@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers;
 
-use Dystcz\LunarApi\Domain\Carts\Modifiers\ShippingModifier;
+use Lunar\Base\ShippingModifier;
 use Lunar\DataTypes\Price;
 use Lunar\DataTypes\ShippingOption;
 use Lunar\Facades\ShippingManifest;
