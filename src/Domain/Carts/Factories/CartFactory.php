@@ -13,15 +13,20 @@ class CartFactory extends \Lunar\Database\Factories\CartFactory
 {
     protected $model = Cart::class;
 
-    public function withAddresses(): static
+    public function withAddresses(array $shippingParams = [], array $billingParams = []): static
     {
         return $this
-            ->has(CartAddress::factory()->state(['type' => 'billing']), 'addresses')
             ->has(
-                CartAddress::factory()->state([
+                CartAddress::factory()->state(array_merge([
                     'type' => 'shipping',
-                    'shipping_option' => 'Friendly Freight Co.',
-                ]),
+                    'shipping_option' => 'FFCDEL',
+                ], $shippingParams)),
+                'addresses'
+            )
+            ->has(
+                CartAddress::factory()->state(array_merge([
+                    'type' => 'billing',
+                ], $billingParams)),
                 'addresses'
             );
     }
