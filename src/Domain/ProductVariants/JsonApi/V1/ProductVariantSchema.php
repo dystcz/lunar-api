@@ -67,6 +67,7 @@ class ProductVariantSchema extends Schema
             'images',
             'prices',
             'product',
+            'product.thumbnail',
         ];
     }
 

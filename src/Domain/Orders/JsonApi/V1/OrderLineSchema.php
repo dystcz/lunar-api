@@ -50,6 +50,7 @@ class OrderLineSchema extends Schema
             'currency',
             'purchasable',
             'purchasable.product',
+            'purchasable.product.thumbnail',
         ];
     }
 

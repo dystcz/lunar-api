@@ -68,6 +68,7 @@ class OrderSchema extends Schema
             'lines.purchasable.prices',
             'lines.purchasable.images',
             'lines.purchasable.product',
+            'lines.purchasable.product.thumbnail',
 
             'productLines',
             'productLines.currency',
@@ -75,6 +76,7 @@ class OrderSchema extends Schema
             'productLines.purchasable.prices',
             'productLines.purchasable.images',
             'productLines.purchasable.product',
+            'productLines.purchasable.product.thumbnail',
 
             'shippingLines',
             'shippingLines.currency',
@@ -82,6 +84,7 @@ class OrderSchema extends Schema
             'shippingLines.purchasable.prices',
             'shippingLines.purchasable.images',
             'shippingLines.purchasable.product',
+            'shippingLines.purchasable.product.thumbnail',
         ];
     }
 
