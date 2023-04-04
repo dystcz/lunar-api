@@ -29,14 +29,6 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Facades\ModelManifest;
-use Lunar\Models\Brand;
-use Lunar\Models\CollectionGroup;
-use Lunar\Models\OrderLine;
-use Lunar\Models\Price;
-use Lunar\Models\ProductOption;
-use Lunar\Models\ProductOptionValue;
-use Lunar\Models\ProductType;
-use Lunar\Models\ProductVariant;
 
 class LunarApiServiceProvider extends ServiceProvider
 {
@@ -115,22 +107,22 @@ class LunarApiServiceProvider extends ServiceProvider
     protected function registerModels(): void
     {
         $models = new Collection([
-            \Lunar\Models\Address::class => Address::class,
-            Brand::class => \Dystcz\LunarApi\Domain\Brands\Models\Brand::class,
-            \Lunar\Models\Cart::class => Cart::class,
-            \Lunar\Models\CartLine::class => CartLine::class,
-            \Lunar\Models\CartAddress::class => CartAddress::class,
+            \Lunar\Models\Address::class => \Dystcz\LunarApi\Domain\Addresses\Models\Address::class,
+            \Lunar\Models\Brand::class => \Dystcz\LunarApi\Domain\Brands\Models\Brand::class,
+            \Lunar\Models\Cart::class => \Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
+            \Lunar\Models\CartLine::class => \Dystcz\LunarApi\Domain\Carts\Models\CartLine::class,
+            \Lunar\Models\CartAddress::class => \Dystcz\LunarApi\Domain\Carts\Models\CartAddress::class,
             \Lunar\Models\Collection::class => \Dystcz\LunarApi\Domain\Collections\Models\Collection::class,
-            \Lunar\Models\Customer::class => Customer::class,
-            \Lunar\Models\Order::class => Order::class,
-            OrderLine::class => \Dystcz\LunarApi\Domain\Orders\Models\OrderLine::class,
-            Price::class => \Dystcz\LunarApi\Domain\Prices\Models\Price::class,
-            \Lunar\Models\Product::class => Product::class,
-            ProductType::class => \Dystcz\LunarApi\Domain\Products\Models\ProductType::class,
-            ProductOption::class => \Dystcz\LunarApi\Domain\Products\Models\ProductOption::class,
-            ProductOptionValue::class => \Dystcz\LunarApi\Domain\Products\Models\ProductOptionValue::class,
-            ProductVariant::class => \Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class,
-            CollectionGroup::class => \Dystcz\LunarApi\Domain\CollectionGroups\Models\CollectionGroup::class,
+            \Lunar\Models\Customer::class => \Dystcz\LunarApi\Domain\Customers\Models\Customer::class,
+            \Lunar\Models\Order::class => \Dystcz\LunarApi\Domain\Orders\Models\Order::class,
+            \Lunar\Models\OrderLine::class => \Dystcz\LunarApi\Domain\Orders\Models\OrderLine::class,
+            \Lunar\Models\Price::class => \Dystcz\LunarApi\Domain\Prices\Models\Price::class,
+            \Lunar\Models\Product::class => \Dystcz\LunarApi\Domain\Products\Models\Product::class,
+            \Lunar\Models\ProductType::class => \Dystcz\LunarApi\Domain\Products\Models\ProductType::class,
+            \Lunar\Models\ProductOption::class => \Dystcz\LunarApi\Domain\Products\Models\ProductOption::class,
+            \Lunar\Models\ProductOptionValue::class => \Dystcz\LunarApi\Domain\Products\Models\ProductOptionValue::class,
+            \Lunar\Models\ProductVariant::class => \Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class,
+            \Lunar\Models\CollectionGroup::class => \Dystcz\LunarApi\Domain\CollectionGroups\Models\CollectionGroup::class,
         ]);
 
         ModelManifest::register($models);
