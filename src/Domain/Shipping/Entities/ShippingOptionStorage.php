@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Shipping\Entities;
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Generator;
 use Illuminate\Support\Collection;
+use Lunar\Facades\CartSession;
 use Lunar\Facades\ShippingManifest;
 
 class ShippingOptionStorage
@@ -13,11 +13,14 @@ class ShippingOptionStorage
 
     public function __construct()
     {
-        $this->shippingOptions = ShippingManifest::getOptions((new Cart)->newInstance());
+        /** @var Cart $cart */
+        $cart = CartSession::manager();
+
+        $this->shippingOptions = ShippingManifest::getOptions($cart);
     }
 
     /**
-     * Find a site by its slug.
+     * Find a shipping option.
      */
     public function find(string $i): ?ShippingOption
     {
