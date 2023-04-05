@@ -73,25 +73,30 @@ class ProductSchema extends Schema
         return [
             ...parent::includePaths(),
 
-            'associations',
-            'associations.target.thumbnail',
-            'associations.target.variants.prices',
-            'brand',
-            'brand.default_url',
-            'brand.thumbnail',
-            'cheapest_variant',
-            'cheapest_variant.images',
-            'cheapest_variant.prices',
-            'collections',
-            'collections.default_url',
-            'collections.group',
-            'collections.urls',
             'default_url',
             'images',
             'lowest_price',
             'prices',
             'thumbnail',
             'urls',
+
+            'associations',
+            'associations.target.thumbnail',
+            'associations.target.variants.prices',
+
+            'brand',
+            'brand.default_url',
+            'brand.thumbnail',
+
+            'cheapest_variant',
+            'cheapest_variant.images',
+            'cheapest_variant.prices',
+
+            'collections',
+            'collections.default_url',
+            'collections.group',
+            'collections.urls',
+
             'variants',
             'variants.images',
             'variants.prices',
