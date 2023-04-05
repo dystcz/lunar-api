@@ -32,7 +32,7 @@ class CreateUserFromCart implements CreatesUserFromCart
 
         /** @var Authenticatable $user */
         $user = App::make(RegistersUser::class)([
-            'name' => $shippingAddress->first_name.' '.$shippingAddress->last_name,
+            'name' => implode(' ', [$shippingAddress->first_name, $shippingAddress->last_name]),
             'email' => $shippingAddress->contact_email,
         ]);
 

@@ -43,14 +43,16 @@ test('a user can checkout a cart', function () {
     expect($cart->user_id)->toBeNull();
 })->group('checkout');
 
-it('a user can be registered when checking out', function () {
+test('a user can be registered when checking out', function () {
     Event::fake([CartCreated::class, Registered::class]);
 
     /** @var Cart $cart */
-    $cart = Cart::factory()
-        ->withAddresses()
-        ->withLines()
-        ->create();
+    $cart = Cart::withoutEvents(function () {
+        return Cart::factory()
+            ->withAddresses()
+            ->withLines()
+            ->create();
+    });
 
     CartSession::use($cart);
 
