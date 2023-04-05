@@ -12,6 +12,9 @@ use Lunar\Models\ProductVariant;
 
 class Product extends LunarProduct
 {
+    /**
+     * Create a new factory instance for the model.
+     */
     protected static function newFactory(): ProductFactory
     {
         return ProductFactory::new();

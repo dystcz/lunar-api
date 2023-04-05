@@ -14,6 +14,9 @@ class User extends Authenticatable
 
     protected $guarded = [];
 
+    /**
+     * Create a new factory instance for the model.
+     */
     protected static function newFactory(): UserFactory
     {
         return UserFactory::new();

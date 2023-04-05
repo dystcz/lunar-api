@@ -8,6 +8,9 @@ use Lunar\Models\Cart as LunarCart;
 
 class Cart extends LunarCart
 {
+    /**
+     * Create a new factory instance for the model.
+     */
     protected static function newFactory(): CartFactory
     {
         return CartFactory::new();
