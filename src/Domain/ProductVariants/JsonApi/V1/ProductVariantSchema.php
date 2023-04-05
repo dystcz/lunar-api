@@ -65,6 +65,9 @@ class ProductVariantSchema extends Schema
             ...parent::includePaths(),
 
             'images',
+            // TODO: Fix
+            // 'thumbnail',
+
             'prices',
             'product',
             'product.thumbnail',
