@@ -100,6 +100,7 @@ class ProductSchema extends Schema
             'variants',
             'variants.images',
             'variants.prices',
+            'variants.thumbnail',
         ];
     }
 
