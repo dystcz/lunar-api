@@ -33,6 +33,18 @@ return [
         //
     ],
 
+    'auth' => [
+        'actions' => [
+            'create_user_from_cart_using' => Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart::class,
+            'register_user_using' => Dystcz\LunarApi\Domain\Users\Actions\RegisterUser::class,
+        ],
+
+        'notifications' => [
+            'reset_password' => Illuminate\Auth\Notifications\ResetPassword::class,
+            'verify_email' => Illuminate\Auth\Notifications\VerifyEmail::class,
+        ],
+    ],
+
     // Configuration for specific domains
     'domains' => [
         'associations' => [
