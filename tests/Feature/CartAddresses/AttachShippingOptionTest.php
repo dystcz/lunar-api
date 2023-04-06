@@ -47,8 +47,8 @@ test('only the user who owns the cart address can attach shipping option for it'
         ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/attach-shipping-option');
 
     $response->assertErrorStatus([
-        'detail' => 'This action is unauthorized.',
-        'status' => '403',
-        'title' => 'Forbidden',
+        'detail' => 'Unauthenticated.',
+        'status' => '401',
+        'title' => 'Unauthorized',
     ]);
 });
