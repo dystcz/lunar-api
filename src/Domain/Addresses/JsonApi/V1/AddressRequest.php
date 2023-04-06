@@ -15,22 +15,70 @@ class AddressRequest extends ResourceRequest
     public function rules(): array
     {
         return [
-            'title' => ['nullable', 'string'],
-            'first_name' => ['nullable', 'string'],
-            'last_name' => ['nullable', 'string'],
-            'company_name' => ['nullable', 'string'],
-            'line_one' => ['nullable', 'string'],
-            'line_two' => ['nullable', 'string'],
-            'line_three' => ['nullable', 'string'],
-            'city' => ['nullable', 'string'],
-            'state' => ['nullable', 'string'],
-            'postcode' => ['nullable', 'string'],
-            'delivery_instructions' => ['nullable', 'string'],
-            'contact_email' => ['nullable', 'string'],
-            'contact_phone' => ['nullable', 'string'],
-            'shipping_default' => ['nullable', 'boolean'],
-            'billing_default' => ['nullable', 'boolean'],
-            'meta' => ['nullable', 'array'],
+            'title' => [
+                'nullable',
+                'string',
+            ],
+            'first_name' => [
+                'nullable',
+                'string',
+            ],
+            'last_name' => [
+                'nullable',
+                'string',
+            ],
+            'company_name' => [
+                'nullable',
+                'string',
+            ],
+            'line_one' => [
+                'nullable',
+                'string',
+            ],
+            'line_two' => [
+                'nullable',
+                'string',
+            ],
+            'line_three' => [
+                'nullable',
+                'string',
+            ],
+            'city' => [
+                'nullable',
+                'string',
+            ],
+            'state' => [
+                'nullable',
+                'string',
+            ],
+            'postcode' => [
+                'nullable',
+                'string',
+            ],
+            'delivery_instructions' => [
+                'nullable',
+                'string',
+            ],
+            'contact_email' => [
+                'nullable',
+                'string',
+            ],
+            'contact_phone' => [
+                'nullable',
+                'string',
+            ],
+            'shipping_default' => [
+                'nullable',
+                'boolean',
+            ],
+            'billing_default' => [
+                'nullable',
+                'boolean',
+            ],
+            'meta' => [
+                'nullable',
+                'array',
+            ],
 
             'customer' => [Rule::toOne(), 'required'],
             'country' => [Rule::toOne(), 'required'],
@@ -52,7 +100,7 @@ class AddressRequest extends ResourceRequest
             if (! Auth::user()->customers->pluck('id')->contains($newCustomerId)) {
                 $validator->errors()->add(
                     'customer',
-                    'The customer does not belong to the authenticated user.'
+                    'This customer does not belong to the authenticated user.'
                 );
             }
         });
