@@ -1,4 +1,4 @@
-name: Tests
+name: Run tests
 
 on:
     push:
@@ -7,33 +7,38 @@ on:
         branches: [main]
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
-        strategy:
-            fail-fast: true
-            matrix:
-                php: [8.1]
+  build:
 
-        name: PHP${{ matrix.php }}
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [8.1, 8.2]
+        laravel: [10]
 
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ matrix.php }}
-                  extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
-                  coverage: none
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-            - name: Setup problem matchers
-              run: |
-                  echo "::add-matcher::${{ runner.tool_cache }}/php.json"
-                  echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd
+          tools: composer:v2
+          coverage: none
+          ini-values: error_reporting=E_ALL
 
-            - name: Install dependencies
-              run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+      - name: Set Laravel Version
+        run: composer require "laravel/framework:^${{ matrix.laravel }}" --no-update
 
-            - name: Execute tests
-              run: vendor/bin/pest
+      - name: Install dependencies
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer update --prefer-dist --no-interaction --no-progress
+
+      - name: Execute tests
+        run: vendor/bin/pest
