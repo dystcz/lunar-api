@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
+use Closure;
 use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
@@ -16,25 +17,81 @@ class CartAddressRequest extends ResourceRequest
     public function rules(): array
     {
         return [
-            'title' => ['nullable', 'string'],
-            'first_name' => ['required', 'string'],
-            'last_name' => ['nullable', 'string'],
-            'company_name' => ['nullable', 'string'],
-            'line_one' => ['required', 'string'],
-            'line_two' => ['nullable', 'string'],
-            'line_three' => ['nullable', 'string'],
-            'city' => ['required', 'string'],
-            'state' => ['nullable', 'string'],
-            'postcode' => ['required', 'string'],
-            'delivery_instructions' => ['nullable', 'string'],
-            'contact_email' => ['nullable', 'string'],
-            'contact_phone' => ['nullable', 'string'],
-            'shipping_option' => ['nullable', 'string'],
-            'address_type' => ['required', 'string', Rule::in(['shipping', 'billing'])],
+            'title' => [
+                'nullable',
+                'string',
+            ],
+            'first_name' => [
+                Rule::requiredIf($this->isShippingAddress()),
+                'string',
+            ],
+            'last_name' => [
+                Rule::requiredIf($this->isShippingAddress()),
+                'string',
+            ],
+            'company_name' => [
+                'nullable',
+                'string',
+            ],
+            'line_one' => [
+                Rule::requiredIf($this->isShippingAddress()),
+                'string',
+            ],
+            'line_two' => [
+                'nullable',
+                'string',
+            ],
+            'line_three' => [
+                'nullable',
+                'string',
+            ],
+            'city' => [
+                Rule::requiredIf($this->isShippingAddress()),
+                'string',
+            ],
+            'state' => [
+                'nullable',
+                'string',
+            ],
+            'postcode' => [
+                Rule::requiredIf($this->isShippingAddress()),
+                'string',
+            ],
+            'delivery_instructions' => [
+                'nullable',
+                'string',
+            ],
+            'contact_email' => [
+                Rule::requiredIf($this->isShippingAddress()),
+                'string',
+            ],
+            'contact_phone' => [
+                Rule::requiredIf($this->isShippingAddress()),
+                'string',
+            ],
+            'shipping_option' => [
+                'nullable',
+                'string',
+            ],
+            'address_type' => [
+                'required',
+                'string',
+                Rule::in(['shipping', 'billing']),
+            ],
 
             'cart' => [\LaravelJsonApi\Validation\Rule::toOne(), 'required'],
             'country' => [\LaravelJsonApi\Validation\Rule::toOne(), 'required'],
         ];
+    }
+
+    /**
+     * Determine if address type is shipping.
+     */
+    protected function isShippingAddress(): Closure
+    {
+        return function () {
+            $this->input('data.attributes.address_type') === 'shipping';
+        };
     }
 
     /**
