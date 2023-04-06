@@ -35,8 +35,8 @@ return [
 
     'auth' => [
         'actions' => [
-            'create_user_from_cart_using' => Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart::class,
-            'register_user_using' => Dystcz\LunarApi\Domain\Users\Actions\RegisterUser::class,
+            'create_user_from_cart' => Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart::class,
+            'register_user' => Dystcz\LunarApi\Domain\Users\Actions\RegisterUser::class,
         ],
 
         'notifications' => [

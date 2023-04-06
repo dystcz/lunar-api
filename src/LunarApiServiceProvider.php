@@ -23,6 +23,7 @@ use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -52,8 +53,8 @@ class LunarApiServiceProvider extends ServiceProvider
 
         Event::listen(CartCreated::class, CreateCartAddresses::class);
 
-        LunarApi::createUserFromCartUsing(CreateUserFromCart::class);
-        LunarApi::registerUserUsing(RegisterUser::class);
+        LunarApi::createUserFromCartUsing(Config::get('auth.actions.create_user_from_cart', CreateUserFromCart::class));
+        LunarApi::registerUserUsing(Config::get('auth.actions.register_user', RegisterUser::class));
 
         // $this->registerPolicies();
 
