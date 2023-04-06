@@ -4,6 +4,7 @@ use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Facades\CartSession;
+use Lunar\Facades\ShippingManifest;
 use Lunar\Models\CartAddress;
 
 uses(TestCase::class, RefreshDatabase::class);
@@ -13,7 +14,7 @@ beforeEach(function () {
 
     $this->cartAddress = CartAddress::factory()->for($this->cart)->create();
 
-    $shippingOption = \Lunar\Facades\ShippingManifest::getOptions(new \Lunar\Models\Cart)->first();
+    $shippingOption = ShippingManifest::getOptions($this->cart)->first();
 
     $this->data = [
         'id' => (string) $this->cartAddress->getRouteKey(),
@@ -24,26 +25,26 @@ beforeEach(function () {
     ];
 });
 
-test('can select a shipping option', function () {
+test('can attach a shipping option', function () {
     CartSession::use($this->cart);
 
     $response = $this
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/select-shipping-option');
+        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/attach-shipping-option');
 
     $response->assertFetchedOne($this->cartAddress);
 
     expect($this->cartAddress->fresh()->shipping_option)->toBe($this->data['attributes']['shipping_option']);
 });
 
-test('only the user who owns the cart address can select shipping option for it', function () {
+test('only the user who owns the cart address can attach shipping option for it', function () {
     $response = $this
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/select-shipping-option');
+        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/attach-shipping-option');
 
     $response->assertErrorStatus([
         'detail' => 'This action is unauthorized.',

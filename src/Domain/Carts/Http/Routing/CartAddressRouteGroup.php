@@ -2,8 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Http\Routing;
 
+use Dystcz\LunarApi\Domain\Carts\Http\Controllers\AttachShippingOptionController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartAddressesController;
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\SelectShippingOptionController;
+use Dystcz\LunarApi\Domain\Carts\Http\Controllers\DetachShippingOptionController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
@@ -25,10 +26,16 @@ class CartAddressRouteGroup extends RouteGroup
                 $server->resource($this->getPrefix(), CartAddressesController::class)
                     ->only('store', 'update');
 
-                $server->resource($this->getPrefix(), SelectShippingOptionController::class)
+                $server->resource($this->getPrefix(), AttachShippingOptionController::class)
                     ->only('')
                     ->actions('-actions', function ($actions) {
-                        $actions->withId()->patch('select-shipping-option');
+                        $actions->withId()->patch('attach-shipping-option');
+                    });
+
+                $server->resource($this->getPrefix(), DetachShippingOptionController::class)
+                    ->only('')
+                    ->actions('-actions', function ($actions) {
+                        $actions->withId()->patch('detach-shipping-option');
                     });
             });
     }

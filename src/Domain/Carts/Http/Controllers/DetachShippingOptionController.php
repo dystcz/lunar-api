@@ -8,16 +8,17 @@ use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
 use Illuminate\Http\Request;
 use LaravelJsonApi\Core\Responses\DataResponse;
 
-class SelectShippingOptionController extends Controller
+class DetachShippingOptionController extends Controller
 {
-    public function selectShippingOption(
+    public function detachShippingOption(
         CartAddressSchema $schema,
         Request $request,
         CartAddress $cartAddress,
     ): DataResponse {
         $this->authorize('update', $cartAddress);
 
-        $cartAddress->update(['shipping_option' => $request->data['attributes']['shipping_option']]);
+        // Detach shipping option
+        $cartAddress->update(['shipping_option' => null]);
 
         $model = $schema
             ->repository()
@@ -25,6 +26,7 @@ class SelectShippingOptionController extends Controller
             ->withRequest($request)
             ->first();
 
-        return new DataResponse($model);
+        return DataResponse::make($model)
+                ->didntCreate();
     }
 }
