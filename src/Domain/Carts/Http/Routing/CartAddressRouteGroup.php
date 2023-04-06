@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi\Domain\Carts\Http\Routing;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\AttachShippingOptionController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartAddressesController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\DetachShippingOptionController;
+use Dystcz\LunarApi\Domain\Carts\Http\Controllers\UpdateCartAddressCountryController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
@@ -36,6 +37,12 @@ class CartAddressRouteGroup extends RouteGroup
                     ->only('')
                     ->actions('-actions', function ($actions) {
                         $actions->withId()->delete('detach-shipping-option');
+                    });
+
+                $server->resource($this->getPrefix(), UpdateCartAddressCountryController::class)
+                    ->only('')
+                    ->actions('-actions', function ($actions) {
+                        $actions->withId()->patch('update-country');
                     });
             });
     }
