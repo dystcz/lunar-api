@@ -33,6 +33,10 @@ test('user can detach a shipping option', function () {
 
     $response->assertFetchedOne($this->cartAddress);
 
+    $this->assertDatabaseHas($this->cartAddress->getTable(), [
+        'shipping_option' => null,
+    ]);
+
     expect($this->cartAddress->fresh()->shipping_option)->toBeNull();
 });
 
@@ -44,8 +48,8 @@ test('only the user who owns the cart address can detach shipping option for it'
         ->delete('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/detach-shipping-option');
 
     $response->assertErrorStatus([
-        'detail' => 'This action is unauthorized.',
-        'status' => '403',
-        'title' => 'Forbidden',
+        'detail' => 'Unauthenticated.',
+        'status' => '401',
+        'title' => 'Unauthorized',
     ]);
 });

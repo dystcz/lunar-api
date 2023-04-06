@@ -14,13 +14,13 @@ beforeEach(function () {
 
     $this->cartAddress = CartAddress::factory()->for($this->cart)->create();
 
-    $shippingOption = ShippingManifest::getOptions($this->cart)->first();
+    $this->shippingOption = ShippingManifest::getOptions($this->cart)->first();
 
     $this->data = [
         'id' => (string) $this->cartAddress->getRouteKey(),
         'type' => 'cart-addresses',
         'attributes' => [
-            'shipping_option' => $shippingOption->identifier,
+            'shipping_option' => $this->shippingOption->identifier,
         ],
     ];
 });
@@ -35,6 +35,10 @@ test('can attach a shipping option', function () {
         ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/attach-shipping-option');
 
     $response->assertFetchedOne($this->cartAddress);
+
+    $this->assertDatabaseHas($this->cartAddress->getTable(), [
+        'shipping_option' => $this->shippingOption,
+    ]);
 
     expect($this->cartAddress->fresh()->shipping_option)->toBe($this->data['attributes']['shipping_option']);
 });
