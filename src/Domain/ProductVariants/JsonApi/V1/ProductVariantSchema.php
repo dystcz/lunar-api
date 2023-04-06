@@ -65,7 +65,7 @@ class ProductVariantSchema extends Schema
             ...parent::includePaths(),
 
             'images',
-            'thumbnail',
+            // 'thumbnail',
 
             'prices',
             'product',
@@ -85,7 +85,7 @@ class ProductVariantSchema extends Schema
 
             BelongsTo::make('product'),
 
-            HasOne::make('lowestPrice')->type('prices'),
+            HasOne::make('lowest_price', 'lowestPrice')->type('prices'),
 
             HasMany::make('images'),
 

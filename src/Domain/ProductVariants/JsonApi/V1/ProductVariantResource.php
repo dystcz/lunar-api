@@ -51,7 +51,7 @@ class ProductVariantResource extends JsonApiResource
     {
         return [
             $this->relation('product'),
-            $this->relation('lowestPrice'),
+            $this->relation('lowest_price'),
             $this->relation('images'),
             $this->relation('prices'),
             ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
