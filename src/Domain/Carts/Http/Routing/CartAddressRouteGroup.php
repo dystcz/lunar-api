@@ -35,7 +35,7 @@ class CartAddressRouteGroup extends RouteGroup
                 $server->resource($this->getPrefix(), DetachShippingOptionController::class)
                     ->only('')
                     ->actions('-actions', function ($actions) {
-                        $actions->withId()->patch('detach-shipping-option');
+                        $actions->withId()->delete('detach-shipping-option');
                     });
             });
     }
