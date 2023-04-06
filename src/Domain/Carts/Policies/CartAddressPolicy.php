@@ -25,7 +25,7 @@ class CartAddressPolicy
      */
     public function view(?Authenticatable $user, CartAddress $cartAddress): bool
     {
-        return $cartAddress->cart_id === CartSession::current()->id;
+        return CartSession::current()->id === $cartAddress->cart_id;
     }
 
     /**
@@ -47,7 +47,7 @@ class CartAddressPolicy
      */
     public function update(?Authenticatable $user, CartAddress $cartAddress): bool
     {
-        return $cartAddress->cart_id === CartSession::current()->id;
+        return CartSession::current()->id === $cartAddress->cart_id;
     }
 
     /**
