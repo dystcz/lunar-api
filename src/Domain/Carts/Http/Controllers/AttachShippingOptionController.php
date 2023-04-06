@@ -5,19 +5,21 @@ namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 use Dystcz\LunarApi\Controller;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartAddressSchema;
 use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
-use Illuminate\Http\Request;
+use Dystcz\LunarApi\Domain\Shipping\JsonApi\V1\AttachShippingOptionRequest;
 use LaravelJsonApi\Core\Responses\DataResponse;
 
 class AttachShippingOptionController extends Controller
 {
     public function attachShippingOption(
         CartAddressSchema $schema,
-        Request $request,
+        AttachShippingOptionRequest $request,
         CartAddress $cartAddress,
     ): DataResponse {
         $this->authorize('update', $cartAddress);
 
-        $cartAddress->update(['shipping_option' => $request->data['attributes']['shipping_option']]);
+        $cartAddress->update([
+            'shipping_option' => $request->input('data.attributes.shipping_option'),
+        ]);
 
         $model = $schema
             ->repository()
