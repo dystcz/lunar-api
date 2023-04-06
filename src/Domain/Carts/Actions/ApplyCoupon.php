@@ -13,9 +13,9 @@ class ApplyCoupon
     {
         $cart->coupon_code = $couponCode;
 
-        $cart->calculate();
+        $cart->refresh()->calculate();
 
-        $cart->saveQuietly();
+        $cart->save();
 
         return $cart;
     }
