@@ -29,7 +29,7 @@ test('user can detach a shipping option', function () {
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/detach-shipping-option');
+        ->delete('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/detach-shipping-option');
 
     $response->assertFetchedOne($this->cartAddress);
 
@@ -41,7 +41,7 @@ test('only the user who owns the cart address can detach shipping option for it'
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/detach-shipping-option');
+        ->delete('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/detach-shipping-option');
 
     $response->assertErrorStatus([
         'detail' => 'This action is unauthorized.',
