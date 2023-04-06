@@ -9,3 +9,4 @@ composer.phar
 Session.vim
 phpstan.neon
 ray.php
+_ide_helper.php
