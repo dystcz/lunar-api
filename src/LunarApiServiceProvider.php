@@ -23,7 +23,6 @@ use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -62,10 +61,6 @@ class LunarApiServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../config/lunar-api.php' => config_path('lunar-api.php'),
             ], 'config');
-
-            // $this->publishes([
-            //     __DIR__ . '/../config/jsonapi.php' => config_path('jsonapi.php'),
-            // ], 'config');
 
             // Register commands.
             $this->commands([
