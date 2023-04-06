@@ -16,13 +16,10 @@ beforeEach(function () {
     $this->data = [
         'id' => (string) $this->cartAddress->getRouteKey(),
         'type' => 'cart-addresses',
-        'attributes' => [
-            //
-        ],
     ];
 });
 
-test('user can detach a shipping option', function () {
+test('users can detach a shipping option from cart address', function () {
     CartSession::use($this->cart);
 
     $response = $this

@@ -216,13 +216,4 @@ return [
         'prices_with_default_tax' => true,
     ],
 
-    // OpenAPI config
-    'openapi' => [
-        'yaml_generate' => true, // Generate YAML file for OpenAPI spec?
-        'yaml_file_name' => 'openapi.yaml', // Name of the YAML OpenAPI spec file
-        'json_generate' => true, // Generate JSON file for OpenAPI spec?
-        'json_file_name' => 'openapi.json', // Name of the JSON OpenAPI spec file
-        'folder_path' => 'openapi', // This is where the generated files will be stored
-    ],
-
 ];

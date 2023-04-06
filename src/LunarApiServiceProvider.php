@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi;
 
-use Dystcz\LunarApi\Console\GenerateOpenApiSpec;
 use Dystcz\LunarApi\Domain\Addresses\Models\Address;
 use Dystcz\LunarApi\Domain\Addresses\Policies\AddressPolicy;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
@@ -50,8 +49,6 @@ class LunarApiServiceProvider extends ServiceProvider
         // Register routes
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
-        Config::set('openapi', require __DIR__.'/../config/openapi.php');
-
         $this->registerModels();
 
         Event::listen(CartCreated::class, CreateCartAddresses::class);
@@ -72,7 +69,7 @@ class LunarApiServiceProvider extends ServiceProvider
 
             // Register commands.
             $this->commands([
-                GenerateOpenApiSpec::class,
+                //
             ]);
 
             // $this->registerPolicies();

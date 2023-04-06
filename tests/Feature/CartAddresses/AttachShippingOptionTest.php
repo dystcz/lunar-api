@@ -25,7 +25,7 @@ beforeEach(function () {
     ];
 });
 
-test('can attach a shipping option', function () {
+test('users can attach a shipping option to cart address', function () {
     CartSession::use($this->cart);
 
     $response = $this
@@ -37,7 +37,7 @@ test('can attach a shipping option', function () {
     $response->assertFetchedOne($this->cartAddress);
 
     $this->assertDatabaseHas($this->cartAddress->getTable(), [
-        'shipping_option' => $this->shippingOption,
+        'shipping_option' => $this->shippingOption->identifier,
     ]);
 
     expect($this->cartAddress->fresh()->shipping_option)->toBe($this->data['attributes']['shipping_option']);
