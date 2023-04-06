@@ -9,6 +9,7 @@ use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
+use LaravelJsonApi\Eloquent\Fields\Str;
 
 class CartSchema extends Schema
 {
@@ -69,6 +70,8 @@ class CartSchema extends Schema
             HasMany::make('addresses')->type('cart-addresses'),
             HasOne::make('shippingAddress')->type('cart-addresses'),
             HasOne::make('billingAddress')->type('cart-addresses'),
+
+            Str::make('coupon_code'),
 
             // Custom fields (not in the database)
             Boolean::make('create_user')->hidden(),

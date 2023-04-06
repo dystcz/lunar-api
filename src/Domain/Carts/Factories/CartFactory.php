@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\Carts\Factories;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
-use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
+use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Lunar\Models\Channel;
 use Lunar\Models\Currency;
 
@@ -36,7 +36,7 @@ class CartFactory extends \Lunar\Database\Factories\CartFactory
         return $this->has(
             CartLineFactory::new()
                 ->for(
-                    ProductVariant::factory()->for(ProductFactory::new())->withPrice(),
+                    ProductVariantFactory::new()->for(ProductFactory::new())->withPrice(),
                     'purchasable'
                 )
                 ->count($count),
@@ -51,7 +51,7 @@ class CartFactory extends \Lunar\Database\Factories\CartFactory
             'merged_id' => null,
             'currency_id' => Currency::first() ?? Currency::factory(),
             'channel_id' => Channel::factory(),
-            'coupon_code' => $this->faker->boolean ? $this->faker->word : null,
+            'coupon_code' => null,
             'completed_at' => null,
             'meta' => [],
         ];

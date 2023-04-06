@@ -2,14 +2,15 @@
 
 use Dystcz\LunarApi\Domain\Carts\Actions\AddToCart;
 use Dystcz\LunarApi\Domain\Carts\Data\CartLineData;
+use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-it('can add purchsable to the cart', function () {
-    $cart = Cart::factory()->withLines()->create();
+it('can add purchasable to the cart', function () {
+    $cart = CartFactory::new()->withLines()->create();
 
     $cartLine = $cart->lines->first();
 

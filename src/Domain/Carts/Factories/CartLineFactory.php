@@ -15,7 +15,7 @@ class CartLineFactory extends Factory
     {
         return [
             'cart_id' => Cart::factory(),
-            'quantity' => $this->faker->numberBetween(0, 1000),
+            'quantity' => $this->faker->numberBetween(0, 100),
             'purchasable_type' => ProductVariant::class,
             'purchasable_id' => 1,
             'meta' => null,

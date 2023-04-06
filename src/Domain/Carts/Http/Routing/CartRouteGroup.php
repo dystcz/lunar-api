@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Http\Routing;
 
+use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ApplyCouponController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CheckoutCartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ClearUserCartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ReadUserCartController;
@@ -39,6 +40,12 @@ class CartRouteGroup extends RouteGroup
                     ->only('')
                     ->actions('-actions', function ($actions) {
                         $actions->post('checkout');
+                    });
+
+                $server->resource($this->getPrefix(), ApplyCouponController::class)
+                    ->only('')
+                    ->actions('-actions', function ($actions) {
+                        $actions->post('apply-coupon');
                     });
             });
     }

@@ -12,10 +12,22 @@ class CartLineRequest extends ResourceRequest
     public function rules(): array
     {
         return [
-            'quantity' => ['nullable', 'integer'],
-            'meta' => ['nullable', 'array'],
-            'purchasable_id' => ['required', 'integer'],
-            'purchasable_type' => ['required', 'string'],
+            'quantity' => [
+                'nullable',
+                'integer',
+            ],
+            'purchasable_id' => [
+                'required',
+                'integer',
+            ],
+            'purchasable_type' => [
+                'required',
+                'string',
+            ],
+            'meta' => [
+                'nullable',
+                'array',
+            ],
         ];
     }
 }

@@ -2,27 +2,25 @@
 
 namespace Dystcz\LunarApi\Tests;
 
-use Cartalyst\Converter\Laravel\ConverterServiceProvider;
 use Dystcz\LunarApi\LunarApiServiceProvider;
 use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
 use Dystcz\LunarApi\Tests\Stubs\JsonApi\V1\Server;
+use Dystcz\LunarApi\Tests\Stubs\Lunar\TestTaxDriver;
+use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redis;
-use Kalnoy\Nestedset\NestedSetServiceProvider;
-use LaravelJsonApi\Spec\ServiceProvider;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
 use Lunar\Base\ShippingModifiers;
-use Lunar\Database\Factories\LanguageFactory;
-use Lunar\LunarServiceProvider;
+use Lunar\Facades\Taxes;
+use Lunar\Models\Channel;
 use Lunar\Models\Currency;
+use Lunar\Models\CustomerGroup;
 use Lunar\Models\TaxClass;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\Activitylog\ActivitylogServiceProvider;
-use Spatie\LaravelBlink\BlinkServiceProvider;
-use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -32,22 +30,35 @@ abstract class TestCase extends Orchestra
     {
         parent::setUp();
 
-        LanguageFactory::new()->create([
-            'code' => 'en',
-            'name' => 'English',
-        ]);
-
-        config()->set('auth.providers.users', [
+        Config::set('auth.providers.users', [
             'driver' => 'eloquent',
             'model' => \Dystcz\LunarApi\Tests\Stubs\Users\User::class,
         ]);
+        Config::set('lunar.urls.generator', TestUrlGenerator::class);
+        Config::set('lunar.taxes.driver', 'test');
 
-        activity()->disableLogging();
+        Taxes::extend('test', function ($app) {
+            return $app->make(TestTaxDriver::class);
+        });
 
-        Currency::factory()->create();
+        Currency::factory()->create([
+            'code' => 'EUR',
+            'decimal_places' => 2,
+        ]);
+
+        Channel::factory()->create([
+            'default' => true,
+        ]);
+
+        CustomerGroup::factory()->create([
+            'default' => true,
+        ]);
+
         TaxClass::factory()->create();
 
         App::get(ShippingModifiers::class)->add(TestShippingModifier::class);
+
+        activity()->disableLogging();
 
         $this->beforeApplicationDestroyed(function () {
             Redis::flushall();
@@ -66,15 +77,15 @@ abstract class TestCase extends Orchestra
             // Laravel JsonApi
             \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
             \LaravelJsonApi\Laravel\ServiceProvider::class,
-            ServiceProvider::class,
+            \LaravelJsonApi\Spec\ServiceProvider::class,
 
             // Lunar core
-            LunarServiceProvider::class,
-            MediaLibraryServiceProvider::class,
-            ActivitylogServiceProvider::class,
-            ConverterServiceProvider::class,
-            NestedSetServiceProvider::class,
-            BlinkServiceProvider::class,
+            \Lunar\LunarServiceProvider::class,
+            \Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
+            \Spatie\Activitylog\ActivitylogServiceProvider::class,
+            \Cartalyst\Converter\Laravel\ConverterServiceProvider::class,
+            \Kalnoy\Nestedset\NestedSetServiceProvider::class,
+            \Spatie\LaravelBlink\BlinkServiceProvider::class,
         ];
     }
 
