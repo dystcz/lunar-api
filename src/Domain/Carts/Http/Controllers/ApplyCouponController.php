@@ -21,7 +21,7 @@ class ApplyCouponController extends Controller
         // $this->authorize('viewAny', Cart::class);
 
         /** @var Cart $cart */
-        $cart = CartSession::manager();
+        $cart = CartSession::current();
 
         $cart = $applyCoupon($cart, $request->validated('coupon_code'));
 

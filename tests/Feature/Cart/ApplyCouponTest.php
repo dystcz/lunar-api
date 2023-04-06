@@ -108,11 +108,14 @@ test('a user can apply a valid coupon', function () {
         'coupon_code' => 'ahoj',
     ]);
 
+    $cart = CartSession::current();
+
     $this->assertEquals(1000, $cart->discountTotal->value);
     $this->assertEquals(10000, $cart->subTotal->value);
     $this->assertEquals(9000, $cart->subTotalDiscounted->value);
     $this->assertEquals(10800, $cart->total->value);
     $this->assertEquals(1800, $cart->taxTotal->value);
+    // WARNING: Lunar bug?
     // $this->assertCount(1, $cart->discounts);
 
 })->group('coupons');

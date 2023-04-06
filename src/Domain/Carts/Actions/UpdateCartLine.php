@@ -14,7 +14,7 @@ class UpdateCartLine
     public function __invoke(CartLineData $data, CartLine $cartLine): array
     {
         /** @var Cart $cart */
-        $cart = CartSession::manager();
+        $cart = CartSession::current();
 
         $cart = $cart->updateLine(
             cartLineId: $cartLine->id,

@@ -71,6 +71,8 @@ test('a user can be registered when checking out', function () {
         ->assertCreatedWithServerId('http://localhost/api/v1/orders', [])
         ->id();
 
+    $cart = CartSession::current();
+
     $this->assertDatabaseHas((new Order())->getTable(), [
         'id' => $id,
     ]);
@@ -108,6 +110,8 @@ it('returns signed url for reading order\'s detail', function () {
         ->jsonApi()
         ->expects('orders')
         ->get($response->json()['links']['self.signed']);
+
+    $cart = CartSession::current();
 
     $response->assertFetchedOne($cart->order);
 })->group('checkout');

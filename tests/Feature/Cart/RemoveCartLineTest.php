@@ -2,7 +2,9 @@
 
 use Dystcz\LunarApi\Domain\Carts\Factories\CartLineFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
+use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Facades\CartSession;
@@ -11,14 +13,27 @@ use Lunar\Models\Currency;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can remove a cart line', function () {
-    $currency = Currency::factory()->create();
+    $currency = Currency::getDefault();
 
-    $cart = Cart::factory()->create(['currency_id' => $currency->id]);
+    $cart = Cart::factory()->create([
+        'currency_id' => $currency->id,
+    ]);
 
-    $cartLine = CartLineFactory::new()
-        ->for(ProductVariantFactory::new(), 'purchasable')
-        ->for($cart)
-        ->create();
+    $purchasable = ProductVariant::factory()->create();
+
+    Price::factory()->create([
+        'price' => 100,
+        'tier' => 1,
+        'currency_id' => $currency->id,
+        'priceable_type' => $purchasable->getMorphClass(),
+        'priceable_id' => $purchasable->id,
+    ]);
+
+    $cart->add($purchasable, 1);
+
+    $this->assertCount(1, $cart->refresh()->lines);
+
+    $cartLine = $cart->lines->first();
 
     CartSession::use($cart);
 

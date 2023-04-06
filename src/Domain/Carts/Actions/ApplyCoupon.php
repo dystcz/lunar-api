@@ -13,10 +13,8 @@ class ApplyCoupon
     {
         $cart->coupon_code = $couponCode;
 
-        $cart->refresh()->calculate();
-
         $cart->save();
 
-        return $cart;
+        return $cart->calculate();
     }
 }

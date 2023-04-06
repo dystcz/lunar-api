@@ -42,7 +42,7 @@ class CartLinePolicy
     public function update(?Authenticatable $user, CartLine $cartLine): bool
     {
         /** @var Cart $cart */
-        $cart = CartSession::manager();
+        $cart = CartSession::current();
 
         return $cart->lines->contains($cartLine->id);
     }

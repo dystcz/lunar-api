@@ -14,7 +14,7 @@ class ShippingOptionStorage
     public function __construct()
     {
         /** @var Cart $cart */
-        $cart = CartSession::manager();
+        $cart = CartSession::current();
 
         $this->shippingOptions = ShippingManifest::getOptions($cart);
     }

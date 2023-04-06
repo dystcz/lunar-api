@@ -26,12 +26,13 @@ class CartResource extends JsonApiResource
         return [
             'prices' => [
                 'sub_total' => $model->subTotal?->decimal,
+                'sub_total_discounted' => $model->subTotalDiscounted?->decimal,
                 'total' => $model->total?->decimal,
                 'shipping_total' => $model->shippingTotal?->decimal,
                 'tax_total' => $model->taxTotal?->decimal,
-                'cart_discount_amount' => $model->cartDiscountAmount?->decimal,
                 'discount_total' => $model->discountTotal?->decimal,
                 'tax_breakdown' => $model->taxBreakdown,
+                'discount_breakdown' => $model->discountBreakdown,
             ],
 
             ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),

@@ -56,7 +56,7 @@ class CartAddressRequest extends ResourceRequest
                 return;
             }
 
-            if (! in_array($newCartId, [$cartAddress->cart_id, CartSession::manager()->id])) {
+            if (! in_array($newCartId, [$cartAddress->cart_id, CartSession::current()->id])) {
                 $validator->errors()->add(
                     'cart',
                     'Cannot change the cart of a cart address.'

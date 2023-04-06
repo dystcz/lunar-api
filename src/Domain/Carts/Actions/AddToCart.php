@@ -14,7 +14,7 @@ class AddToCart
     public function __invoke(CartLineData $data): array
     {
         /** @var Cart $cart */
-        $cart = CartSession::manager();
+        $cart = CartSession::current();
 
         $purchasable = $data->purchasable_type::find($data->purchasable_id);
 

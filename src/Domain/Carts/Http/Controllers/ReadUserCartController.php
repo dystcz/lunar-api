@@ -24,7 +24,7 @@ class ReadUserCartController extends Controller
         // $this->authorize('viewAny', Cart::class);
 
         /** @var Cart $cart */
-        $cart = CartSession::manager();
+        $cart = CartSession::current();
 
         $request = ResourceQuery::queryOne(
             $resourceType = $route->resourceType()

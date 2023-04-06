@@ -94,22 +94,25 @@ abstract class TestCase extends Orchestra
      */
     public function getEnvironmentSetUp($app)
     {
-        config()->set('lunar-api.additional_servers', [
+        Config::set('lunar-api.additional_servers', [
             Server::class,
         ]);
 
-        config()->set('database.default', 'sqlite');
+        // Set cart auto creation to true
+        Config::set('lunar.cart.auto_create', true);
 
-        config()->set('database.migrations', 'migrations');
+        Config::set('database.default', 'sqlite');
 
-        config()->set('database.connections.sqlite', [
+        Config::set('database.migrations', 'migrations');
+
+        Config::set('database.connections.sqlite', [
             'driver' => 'sqlite',
             'database' => ':memory:',
             'prefix' => '',
         ]);
 
         // TODO: move to testbench.yaml
-        config()->set('database.connections.mysql', [
+        Config::set('database.connections.mysql', [
             'driver' => 'mysql',
             'host' => 'mysql',
             'port' => '3306',
@@ -119,7 +122,7 @@ abstract class TestCase extends Orchestra
         ]);
 
         // TODO: move to testbench.yaml
-        config()->set('database.redis.default', [
+        Config::set('database.redis.default', [
             'host' => 'localhost',
             'password' => '',
             'port' => '6379',

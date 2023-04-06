@@ -49,7 +49,7 @@ class CartFactory extends \Lunar\Database\Factories\CartFactory
         return [
             'user_id' => null,
             'merged_id' => null,
-            'currency_id' => Currency::first() ?? Currency::factory(),
+            'currency_id' => Currency::getDefault() ?? Currency::factory(),
             'channel_id' => Channel::factory(),
             'coupon_code' => null,
             'completed_at' => null,
