@@ -4,13 +4,19 @@ namespace Dystcz\LunarApi\Domain\Prices\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
-use Dystcz\LunarApi\Domain\Prices\Actions\GetPriceWithDefaultTax;
-use Dystcz\LunarApi\Domain\Prices\Models\Price;
+use Dystcz\LunarApi\Domain\Prices\Actions\GetPrice;
+use Dystcz\LunarApi\Domain\Prices\Models\Price as PriceModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 
 class PriceResource extends JsonApiResource
 {
+    private GetPrice $getPrice;
+
+    public function __construct()
+    {
+        $this->getPrice = new GetPrice;
+    }
+
     /**
      * Get the resource's attributes.
      *
@@ -18,36 +24,25 @@ class PriceResource extends JsonApiResource
      */
     public function attributes($request): iterable
     {
-        /** @var bool $showPricesWithTax */
-        $showPricesWithTax = Config::get('lunar-api.taxation.prices_with_default_tax');
-
-        /** @var Price $model */
+        /** @var PriceModel $model */
         $model = $this->resource;
 
         /** @var PriceDataType $basePrice */
-        $basePrice = $model->price;
+        $price = ($this->getPrice)($model->price);
 
-        if ($showPricesWithTax) {
-            $basePrice = (new GetPriceWithDefaultTax())($model->priceable, $basePrice);
-        }
-
-        /** @var PriceDataType|null $comparePrice */
-        $comparePrice = $model->compare_price->value > $model->price->value ? $model->compare_price : null;
-
-        if ($showPricesWithTax && $comparePrice) {
-            $comparePrice = (new GetPriceWithDefaultTax())($model->priceable, $comparePrice);
-        }
+        /** @var PriceDataType $comparePrice */
+        $comparePrice = ($this->getPrice)($model->compare_price);
 
         return [
             'base_price' => [
-                'formatted' => $basePrice->formatted(),
-                'decimal' => $basePrice->decimal,
-                'value' => $basePrice->value,
+                'formatted' => $price->formatted(),
+                'decimal' => $price->decimal,
+                'value' => $price->value,
             ],
             'compare_price' => [
-                'formatted' => $comparePrice?->formatted(),
-                'decimal' => $comparePrice?->decimal,
-                'value' => $comparePrice?->value,
+                'formatted' => $comparePrice->formatted(),
+                'decimal' => $comparePrice->decimal,
+                'value' => $comparePrice->value,
             ],
             ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];
