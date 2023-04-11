@@ -12,7 +12,7 @@ class GetPriceWithDefaultTax
     /**
      * Get Price with default tax.
      */
-    public function __invoke(Purchasable $purchasable, Price $price): Price
+    public function __invoke(Price $price, Purchasable $purchasable): Price
     {
         $price = $price ?? Pricing::for($purchasable)->get()->base->price;
         $currency = $price->currency;

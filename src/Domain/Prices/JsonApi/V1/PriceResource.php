@@ -21,10 +21,10 @@ class PriceResource extends JsonApiResource
         $model = $this->resource;
 
         /** @var PriceDataType $basePrice */
-        $price = (new GetPrice)($model->price);
+        $price = (new GetPrice)($model->price, $model->priceable);
 
         /** @var PriceDataType $comparePrice */
-        $comparePrice = (new GetPrice)($model->compare_price);
+        $comparePrice = (new GetPrice)($model->compare_price, $model->priceable);
 
         return [
             'base_price' => [

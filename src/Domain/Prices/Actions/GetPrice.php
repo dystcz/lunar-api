@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Prices\Actions;
 
 use Illuminate\Support\Facades\Config;
+use Lunar\Base\Purchasable;
 use Lunar\DataTypes\Price;
 
 class GetPrice
@@ -21,10 +22,10 @@ class GetPrice
     /**
      * Get price with or withour tax based on config.
      */
-    public function __invoke(Price $price): Price
+    public function __invoke(Price $price, Purchasable $purchasable): Price
     {
         if ($this->withTax) {
-            return ($this->getPriceWithDefaultTax)($price->priceable, $price);
+            return ($this->getPriceWithDefaultTax)($price, $purchasable);
         }
 
         return $price;

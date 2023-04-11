@@ -21,7 +21,7 @@ class ProductResource extends JsonApiResource
         $model = $this->resource;
 
         if ($model->relationLoaded('variants')) {
-            $model->variants->each(fn ($variant) => $variant->setRelation('product', $model));
+            $model->variants->each(fn ($variant) => $variant->setRelation('priceable', $model));
         }
 
         // dd($model->productType->mappedAttributes);
