@@ -10,13 +10,6 @@ use Illuminate\Http\Request;
 
 class PriceResource extends JsonApiResource
 {
-    private GetPrice $getPrice;
-
-    public function __construct()
-    {
-        $this->getPrice = new GetPrice;
-    }
-
     /**
      * Get the resource's attributes.
      *
@@ -28,10 +21,10 @@ class PriceResource extends JsonApiResource
         $model = $this->resource;
 
         /** @var PriceDataType $basePrice */
-        $price = ($this->getPrice)($model->price);
+        $price = (new GetPrice)($model->price);
 
         /** @var PriceDataType $comparePrice */
-        $comparePrice = ($this->getPrice)($model->compare_price);
+        $comparePrice = (new GetPrice)($model->compare_price);
 
         return [
             'base_price' => [
