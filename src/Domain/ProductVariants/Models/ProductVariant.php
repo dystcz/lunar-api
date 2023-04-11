@@ -23,15 +23,16 @@ class ProductVariant extends LunarPoductVariant
      */
     public function thumbnail(): MorphOne
     {
+        // TODO: Not working, finish
         return $this->product->morphOne(config('media-library.media_model'), 'model')
             ->where(function ($query) {
                 $query->where('id', function ($q) {
-                        return $q->from('dystore_media_product_variant')
-                            ->select('media_id')
-                            ->where('product_variant_id', $this->getKey())
-                            ->where('primary', true)
-                            ->take(1);
-                    });
+                    return $q->from('dystore_media_product_variant')
+                        ->select('media_id')
+                        ->where('product_variant_id', $this->getKey())
+                        ->where('primary', true)
+                        ->take(1);
+                });
             });
     }
 
