@@ -32,4 +32,15 @@ enum PurchaseStatus
             self::OUT_OF_STOCK => __('Out of stock'),
         };
     }
+
+    /**
+     * Get labeled data.
+     */
+    public function data(): array
+    {
+        return [
+            'name' => __('Purchase status'),
+            'value' => $this->label(),
+        ];
+    }
 }
