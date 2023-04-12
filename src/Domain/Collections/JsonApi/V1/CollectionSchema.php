@@ -11,6 +11,7 @@ use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
+use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
@@ -82,6 +83,8 @@ class CollectionSchema extends Schema
             ...parent::fields(),
 
             ID::make(),
+
+            Str::make('name'),
 
             HasOne::make('default_url', 'defaultUrl')
                 ->retainFieldName(),

@@ -50,9 +50,11 @@ class CollectionResource extends JsonApiResource
                 ->withMeta(array_filter([
                     'count' => $model->products_count,
                 ], fn ($value) => null !== $value)),
+
             $this
                 ->relation('urls')
                 ->withoutLinks(),
+
             ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
         ];
     }
