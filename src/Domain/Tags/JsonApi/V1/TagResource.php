@@ -36,6 +36,9 @@ class TagResource extends JsonApiResource
         $model = $this->resource;
 
         return [
+
+            // $this->relation('taggables'),
+
             ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
         ];
     }

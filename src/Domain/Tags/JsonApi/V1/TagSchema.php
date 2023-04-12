@@ -64,7 +64,7 @@ class TagSchema extends Schema
     {
         return [
             ...parent::includePaths(),
-            'taggables',
+            // 'taggables',
         ];
     }
 
@@ -80,8 +80,8 @@ class TagSchema extends Schema
 
             Str::make('value'),
 
-            MorphTo::make('taggables', 'taggables')
-                ->type('products'),
+            // MorphTo::make('taggables', 'taggables')
+            //     ->type('products'),
         ];
     }
 
