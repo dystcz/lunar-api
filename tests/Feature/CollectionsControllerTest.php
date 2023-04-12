@@ -1,17 +1,19 @@
 <?php
 
+namespace Dystcz\LunarApi\Tests\Feature;
+
 use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Config;
 use Lunar\Database\Factories\CollectionFactory;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can list all collections', function () {
-    CollectionFactory::new()
+    /** @var TestCase $this */
+    $collections = CollectionFactory::new()
         ->has(
             ProductFactory::new()
                 ->has(
@@ -23,27 +25,29 @@ it('can list all collections', function () {
         ->count(3)
         ->create();
 
-    $response = $this->get(
-        Config::get('lunar-api.route_prefix').
-        '/collections'.
-        '?include=products.variants.basePrices,products.defaultUrl'.
-        '&fields[lunar_collections]=id,attribute_data'
-    );
+    $response = $this
+        ->jsonApi()
+        ->expects('collections')
+        ->get('/api/v1/collections');
 
-    $response->assertStatus(200);
+    $response->assertSuccessful()
+        ->assertFetchedMany($collections);
 
     expect($response->json('data'))->toHaveCount(3);
-})->skip();
+});
 
 it('can read collection detail', function () {
+    /** @var TestCase $this */
     $collection = CollectionFactory::new()->create();
 
-    $response = $this->get(Config::get('lunar-api.route_prefix').'/collections/'.$collection->defaultUrl->slug);
+    $response = $this
+        ->jsonApi()
+        ->expects('collections')
+        ->get('/api/v1/collections/'.$collection->getRouteKey());
 
-    $response->assertStatus(200);
-
-    expect($response->json('data.id'))->toBe((string) $collection->id);
-})->skip();
+    $response->assertSuccessful()
+        ->assertFetchedOne($collection);
+});
 
 it('can read products in a collection', function () {
     $collection = CollectionFactory::new()
@@ -61,9 +65,13 @@ it('can read products in a collection', function () {
         )
         ->create();
 
-    $response = $this->get(
-        Config::get('lunar-api.route_prefix').'/collections/'.$collection->defaultUrl->slug.'?include=products'
-    );
+    $response = $this
+        ->jsonApi()
+        ->expects('collections')
+        ->includePaths('products')
+        ->get('/api/v1/collections/'.$collection->getRouteKey());
 
-    $response->assertStatus(200);
-})->skip();
+    $response->assertSuccessful()
+        ->assertFetchedOne($collection)
+        ->assertIsIncluded('products', $collection->products->first());
+});
