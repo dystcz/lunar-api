@@ -2,7 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Models;
 
+use Dystcz\LunarApi\Domain\ProductVariants\Enums\PurchaseStatus;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use InvalidArgumentException;
 use Lunar\Models\Price as LunarPrice;
@@ -16,6 +18,16 @@ class ProductVariant extends LunarPoductVariant
     protected static function newFactory(): ProductVariantFactory
     {
         return ProductVariantFactory::new();
+    }
+
+    /**
+     * Get product variant purchase status.
+     */
+    protected function purchaseStatus(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => PurchaseStatus::fromProductVariant($this)->label(),
+        );
     }
 
     /**

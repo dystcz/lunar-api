@@ -24,20 +24,16 @@ class ProductVariantResource extends JsonApiResource
             $model->prices->each(fn ($price) => $price->setRelation('purchasable', $model));
         }
 
-        if ($model->relationLoaded('product')) {
-            $model->product->each(fn ($variant) => $variant->setRelation('variants', $model));
-        }
-
         return [
-            'sku' => $model->sku,
-            'stock' => $model->stock,
-            'purchasable' => $model->purchasable,
+            'purchase_status' => $model->purchaseStatus,
+
             $this->mergeWhen(
                 $model->relationLoaded('product'),
                 fn () => AttributeCollection::make($model->product->productType->variantAttributes)
                     ->mapToAttributeGroups($model)
                     ->toArray()
             ),
+
             ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];
     }

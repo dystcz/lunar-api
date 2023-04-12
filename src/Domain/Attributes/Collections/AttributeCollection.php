@@ -15,18 +15,12 @@ class AttributeCollection extends EloquentCollection
     {
         return $this
             // ->filter(fn ($attribute) => $model->attr($attribute->handle))
-            ->groupBy(
-                fn ($attribute) => $attribute->attributeGroup->handle
-            )
-            ->map(
-                fn ($attributes) => $attributes->mapWithKeys(
-                    fn ($attribute) => [
-                        $attribute->handle => [
-                            'name' => $attribute->translate('name'),
-                            'value' => $model->attr($attribute->handle),
-                        ],
-                    ]
-                )
-            );
+            ->groupBy(fn ($attribute) => $attribute->attributeGroup->handle)
+            ->map(fn ($attributes) => $attributes->mapWithKeys(fn ($attribute) => [
+                $attribute->handle => [
+                    'name' => $attribute->translate('name'),
+                    'value' => $model->attr($attribute->handle),
+                ],
+            ]));
     }
 }

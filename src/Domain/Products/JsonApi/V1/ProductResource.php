@@ -21,7 +21,7 @@ class ProductResource extends JsonApiResource
         $model = $this->resource;
 
         if ($model->relationLoaded('variants')) {
-            $model->variants->each(fn ($variant) => $variant->setRelation('priceable', $model));
+            $model->variants->each(fn ($variant) => $variant->setRelation('product', $model));
         }
 
         // dd($model->productType->mappedAttributes);
@@ -31,12 +31,14 @@ class ProductResource extends JsonApiResource
 
         return [
             'product_type' => $this->productType->name,
+
             $this->mergeWhen(
                 $model->relationLoaded('productType'),
                 fn () => AttributeCollection::make($model->productType->productAttributes)
                     ->mapToAttributeGroups($model)
                     ->toArray()
             ),
+
             ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];
     }
