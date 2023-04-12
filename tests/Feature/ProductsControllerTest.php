@@ -74,6 +74,25 @@ it('can list product\'s images', function () {
         ->assertIsIncluded('media', $product->images->first());
 });
 
+it('can read product\'s variants', function () {
+    /** @var TestCase $this */
+    $product = ProductFactory::new()
+        ->has(
+            ProductVariantFactory::new()->has(PriceFactory::new())->count(3),
+            'variants'
+        )
+        ->create();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->includePaths('variants')
+        ->get('/api/v1/products/'.$product->getRouteKey());
+
+    $response->assertSuccessful()
+        ->assertIsIncluded('variants', $product->variants->first());
+});
+
 it('can read product\'s variants count', function () {
     /** @var TestCase $this */
     $product = ProductFactory::new()
@@ -86,7 +105,7 @@ it('can read product\'s variants count', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->get('/api/v1/products/'.$product->id.'?withCount=variants');
+        ->get('/api/v1/products/'.$product->getRouteKey().'?withCount=variants');
 
     $response->assertSuccessful();
 
