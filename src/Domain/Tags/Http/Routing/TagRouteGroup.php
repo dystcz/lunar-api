@@ -22,9 +22,9 @@ class TagRouteGroup extends RouteGroup implements RouteGroupContract
             ->prefix('v1')
             ->resources(function ($server) {
                 $server->resource($this->getPrefix(), JsonApiController::class)
-                    ->relationships(function ($relationships) {
-                        $relationships->hasMany('taggables')->readOnly();
-                    })
+                    // ->relationships(function ($relationships) {
+                    //     $relationships->hasMany('taggables')->readOnly();
+                    // })
                     ->only('index', 'show')
                     ->readOnly();
             });
