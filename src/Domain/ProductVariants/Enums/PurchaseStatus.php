@@ -35,6 +35,14 @@ enum PurchaseStatus implements Arrayable
     }
 
     /**
+     * Determine if purchasable.
+     */
+    public function purchasable(): bool
+    {
+        return in_array($this, [self::AVAILABLE]);
+    }
+
+    /**
      * Cast to array.
      */
     public function toArray(): array
@@ -42,6 +50,7 @@ enum PurchaseStatus implements Arrayable
         return [
             'name' => __('Purchase status'),
             'value' => $this->label(),
+            'purchasable' => $this->purchasable(),
         ];
     }
 }
