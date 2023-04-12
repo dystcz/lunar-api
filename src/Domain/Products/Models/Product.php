@@ -6,6 +6,8 @@ use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Lunar\Models\Attribute;
 use Lunar\Models\Price;
 use Lunar\Models\Product as LunarProduct;
 use Lunar\Models\ProductVariant;
@@ -18,6 +20,33 @@ class Product extends LunarProduct
     protected static function newFactory(): ProductFactory
     {
         return ProductFactory::new();
+    }
+
+    /**
+     * Get the mapped attributes relation.
+     */
+    public function attributes(): MorphToMany
+    {
+        $prefix = config('lunar.database.table_prefix');
+
+        if ($this->relationLoaded('productType')) {
+            return $this->productType->mappedAttributes();
+        }
+
+        $relation = new MorphToMany(
+            Attribute::query(),
+            $this,
+            'attributable',
+            "{$prefix}attributables",
+            'attributable_id',
+            'attribute_id',
+            'product_type_id',
+            'id',
+            'attributes',
+            false,
+        );
+
+        return $relation->withTimestamps();
     }
 
     /**
