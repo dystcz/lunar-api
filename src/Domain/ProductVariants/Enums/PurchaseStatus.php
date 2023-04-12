@@ -2,9 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Enums;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Lunar\Models\ProductVariant;
 
-enum PurchaseStatus
+enum PurchaseStatus implements Arrayable
 {
     case AVAILABLE;
 
@@ -34,9 +35,9 @@ enum PurchaseStatus
     }
 
     /**
-     * Get labeled data.
+     * Cast to array.
      */
-    public function data(): array
+    public function toArray(): array
     {
         return [
             'name' => __('Purchase status'),

@@ -25,14 +25,16 @@ class ProductVariantResource extends JsonApiResource
         }
 
         return [
-            'purchase_status' => $model->purchaseStatus,
-
             $this->mergeWhen(
                 $model->relationLoaded('product'),
                 fn () => AttributeCollection::make($model->product->productType->variantAttributes)
                     ->mapToAttributeGroups($model)
                     ->toArray()
             ),
+
+            'purchasability' => [
+                'purchase_status' => $model->purchaseStatus->toArray(),
+            ],
 
             ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];

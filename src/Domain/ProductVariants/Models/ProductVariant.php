@@ -26,7 +26,7 @@ class ProductVariant extends LunarPoductVariant
     protected function purchaseStatus(): Attribute
     {
         return Attribute::make(
-            get: fn () => PurchaseStatus::fromProductVariant($this)->label(),
+            get: fn () => PurchaseStatus::fromProductVariant($this),
         );
     }
 
