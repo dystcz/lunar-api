@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -82,6 +83,9 @@ class ProductVariantSchema extends Schema
             ...parent::fields(),
 
             ID::make(),
+
+            AttributeData::make('attribute_data')
+                ->groupAttributes(),
 
             BelongsTo::make('product'),
 

@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\FilterCollection;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Sorts\RecentlyViewedSort;
 use Illuminate\Database\Eloquent\Builder;
@@ -57,9 +58,8 @@ class ProductSchema extends Schema
         return [
             ...parent::with(),
 
-            'productType',
-            'productType.mappedAttributes',
-            'productType.mappedAttributes.attributeGroup',
+            'attributes',
+            'attributes.attributeGroup',
         ];
     }
 
@@ -115,6 +115,9 @@ class ProductSchema extends Schema
             ...parent::fields(),
 
             ID::make(),
+
+            AttributeData::make('attribute_data')
+                ->groupAttributes(),
 
             HasMany::make('associations')->canCount(),
 

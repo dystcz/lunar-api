@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Attributes\Collections\AttributeCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Illuminate\Http\Request;
@@ -24,19 +23,15 @@ class ProductVariantResource extends JsonApiResource
             $model->prices->each(fn ($price) => $price->setRelation('purchasable', $model));
         }
 
-        return [
-            $this->mergeWhen(
-                $model->relationLoaded('product'),
-                fn () => AttributeCollection::make($model->product->productType->variantAttributes)
-                    ->mapToAttributeGroups($model)
-                    ->toArray()
-            ),
+        if ($model->relationLoaded('product')) {
+            $model->setRelation('attributes', $model->product->attributes);
+        }
 
+        return [
+            ...parent::attributes($request),
             'purchasability' => [
                 'purchase_status' => $model->purchaseStatus->toArray(),
             ],
-
-            ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];
     }
 
