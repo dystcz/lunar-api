@@ -2293,16 +2293,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.6.2",
+            "version": "v10.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "13dc93889617427352f72b6aa8b195b252af1197"
+                "reference": "ddbbb2b50388721fe63312bb4469cae13163fd36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/13dc93889617427352f72b6aa8b195b252af1197",
-                "reference": "13dc93889617427352f72b6aa8b195b252af1197",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/ddbbb2b50388721fe63312bb4469cae13163fd36",
+                "reference": "ddbbb2b50388721fe63312bb4469cae13163fd36",
                 "shasum": ""
             },
             "require": {
@@ -2489,20 +2489,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-04-05T15:28:17+00:00"
+            "time": "2023-04-11T14:11:49+00:00"
         },
         {
             "name": "laravel/scout",
-            "version": "v10.0.2",
+            "version": "v10.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/scout.git",
-                "reference": "ba97628e0ff54a6f31be51a4fb58ece4587e0d31"
+                "reference": "ee57968e7ec6943316f6cc66190baf4de8fb3cef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/scout/zipball/ba97628e0ff54a6f31be51a4fb58ece4587e0d31",
-                "reference": "ba97628e0ff54a6f31be51a4fb58ece4587e0d31",
+                "url": "https://api.github.com/repos/laravel/scout/zipball/ee57968e7ec6943316f6cc66190baf4de8fb3cef",
+                "reference": "ee57968e7ec6943316f6cc66190baf4de8fb3cef",
                 "shasum": ""
             },
             "require": {
@@ -2564,7 +2564,7 @@
                 "issues": "https://github.com/laravel/scout/issues",
                 "source": "https://github.com/laravel/scout"
             },
-            "time": "2023-03-07T17:54:37+00:00"
+            "time": "2023-04-11T16:38:05+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -2816,16 +2816,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.12.3",
+            "version": "3.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "81e87e74dd5213795c7846d65089712d2dda90ce"
+                "reference": "e2a279d7f47d9098e479e8b21f7fb8b8de230158"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/81e87e74dd5213795c7846d65089712d2dda90ce",
-                "reference": "81e87e74dd5213795c7846d65089712d2dda90ce",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/e2a279d7f47d9098e479e8b21f7fb8b8de230158",
+                "reference": "e2a279d7f47d9098e479e8b21f7fb8b8de230158",
                 "shasum": ""
             },
             "require": {
@@ -2887,7 +2887,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.12.3"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.14.0"
             },
             "funding": [
                 {
@@ -2897,13 +2897,9 @@
                 {
                     "url": "https://github.com/frankdejonge",
                     "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/league/flysystem",
-                    "type": "tidelift"
                 }
             ],
-            "time": "2023-02-18T15:32:41+00:00"
+            "time": "2023-04-11T18:11:47+00:00"
         },
         {
             "name": "league/glide",
@@ -4219,21 +4215,21 @@
         },
         {
             "name": "psr/http-client",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-client.git",
-                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621"
+                "reference": "0955afe48220520692d2d09f7ab7e0f93ffd6a31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-client/zipball/2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
-                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/0955afe48220520692d2d09f7ab7e0f93ffd6a31",
+                "reference": "0955afe48220520692d2d09f7ab7e0f93ffd6a31",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0 || ^8.0",
-                "psr/http-message": "^1.0"
+                "psr/http-message": "^1.0 || ^2.0"
             },
             "type": "library",
             "extra": {
@@ -4253,7 +4249,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interface for HTTP clients",
@@ -4265,27 +4261,27 @@
                 "psr-18"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-client/tree/master"
+                "source": "https://github.com/php-fig/http-client/tree/1.0.2"
             },
-            "time": "2020-06-29T06:28:15+00:00"
+            "time": "2023-04-10T20:12:12+00:00"
         },
         {
             "name": "psr/http-factory",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be"
+                "reference": "e616d01114759c4c489f93b099585439f795fe35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
-                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/e616d01114759c4c489f93b099585439f795fe35",
+                "reference": "e616d01114759c4c489f93b099585439f795fe35",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0.0",
-                "psr/http-message": "^1.0"
+                "psr/http-message": "^1.0 || ^2.0"
             },
             "type": "library",
             "extra": {
@@ -4305,7 +4301,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interfaces for PSR-7 HTTP message factories",
@@ -4320,9 +4316,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/master"
+                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
             },
-            "time": "2019-04-30T12:38:16+00:00"
+            "time": "2023-04-10T20:10:41+00:00"
         },
         {
             "name": "psr/http-message",
@@ -9177,22 +9173,22 @@
         },
         {
             "name": "orchestra/testbench",
-            "version": "v8.3.0",
+            "version": "v8.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench.git",
-                "reference": "8caa43318a0a4a0f525eb3edec08627565a3410c"
+                "reference": "55ef93b15aa67d25deb9066537d0c274ac50d837"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench/zipball/8caa43318a0a4a0f525eb3edec08627565a3410c",
-                "reference": "8caa43318a0a4a0f525eb3edec08627565a3410c",
+                "url": "https://api.github.com/repos/orchestral/testbench/zipball/55ef93b15aa67d25deb9066537d0c274ac50d837",
+                "reference": "55ef93b15aa67d25deb9066537d0c274ac50d837",
                 "shasum": ""
             },
             "require": {
                 "composer-runtime-api": "^2.2",
                 "fakerphp/faker": "^1.21",
-                "laravel/framework": ">=10.6.1 <10.7.0",
+                "laravel/framework": ">=10.6.1 <10.8.0",
                 "mockery/mockery": "^1.5.1",
                 "orchestra/testbench-core": ">=8.4.0 <8.5.0",
                 "php": "^8.1",
@@ -9226,22 +9222,22 @@
             ],
             "support": {
                 "issues": "https://github.com/orchestral/testbench/issues",
-                "source": "https://github.com/orchestral/testbench/tree/v8.3.0"
+                "source": "https://github.com/orchestral/testbench/tree/v8.3.1"
             },
-            "time": "2023-04-05T00:11:08+00:00"
+            "time": "2023-04-11T13:50:15+00:00"
         },
         {
             "name": "orchestra/testbench-core",
-            "version": "v8.4.0",
+            "version": "v8.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench-core.git",
-                "reference": "545d10a6d5e59c4831ff7301c470dc12f58723aa"
+                "reference": "2a184f5a4e30f3b1e6aad180e6978c38c30fdcfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/545d10a6d5e59c4831ff7301c470dc12f58723aa",
-                "reference": "545d10a6d5e59c4831ff7301c470dc12f58723aa",
+                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/2a184f5a4e30f3b1e6aad180e6978c38c30fdcfe",
+                "reference": "2a184f5a4e30f3b1e6aad180e6978c38c30fdcfe",
                 "shasum": ""
             },
             "require": {
@@ -9255,7 +9251,7 @@
                 "mockery/mockery": "^1.5.1",
                 "orchestra/canvas": "^8.1",
                 "phpstan/phpstan": "^1.10.7",
-                "phpunit/phpunit": "~10.0.7",
+                "phpunit/phpunit": "^10.0.7",
                 "spatie/laravel-ray": "^1.32.4",
                 "symfony/process": "^6.2",
                 "symfony/yaml": "^6.2",
@@ -9266,7 +9262,7 @@
                 "fakerphp/faker": "Allow using Faker for testing (^1.21).",
                 "laravel/framework": "Required for testing (^10.6.1).",
                 "mockery/mockery": "Allow using Mockery for testing (^1.5.1).",
-                "nunomaduro/collision": "Allow using Laravel style tests output and parallel testing (^6.4 || ^7.0).",
+                "nunomaduro/collision": "Allow using Laravel style tests output and parallel testing (^6.4 || ^7.4).",
                 "orchestra/testbench-browser-kit": "Allow using legacy Laravel BrowserKit for testing (^8.0).",
                 "orchestra/testbench-dusk": "Allow using Laravel Dusk for testing (^8.0).",
                 "phpunit/phpunit": "Allow using PHPUnit for testing (^9.6 || ^10.0.7).",
@@ -9315,7 +9311,7 @@
                 "issues": "https://github.com/orchestral/testbench/issues",
                 "source": "https://github.com/orchestral/testbench-core"
             },
-            "time": "2023-04-04T23:51:20+00:00"
+            "time": "2023-04-11T23:28:32+00:00"
         },
         {
             "name": "pestphp/pest",
@@ -9986,16 +9982,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.18.0",
+            "version": "1.18.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "882eabc9b6a12e25c27091a261397f9c8792e722"
+                "reference": "22dcdfd725ddf99583bfe398fc624ad6c5004a0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/882eabc9b6a12e25c27091a261397f9c8792e722",
-                "reference": "882eabc9b6a12e25c27091a261397f9c8792e722",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/22dcdfd725ddf99583bfe398fc624ad6c5004a0f",
+                "reference": "22dcdfd725ddf99583bfe398fc624ad6c5004a0f",
                 "shasum": ""
             },
             "require": {
@@ -10025,9 +10021,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.18.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.18.1"
             },
-            "time": "2023-04-06T07:26:43+00:00"
+            "time": "2023-04-07T11:51:11+00:00"
         },
         {
             "name": "phpstan/phpstan",
@@ -10993,16 +10989,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "6.0.0",
+            "version": "6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "b6f3694c6386c7959915a0037652e0c40f6f69cc"
+                "reference": "43c751b41d74f96cbbd4e07b7aec9675651e2951"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/b6f3694c6386c7959915a0037652e0c40f6f69cc",
-                "reference": "b6f3694c6386c7959915a0037652e0c40f6f69cc",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/43c751b41d74f96cbbd4e07b7aec9675651e2951",
+                "reference": "43c751b41d74f96cbbd4e07b7aec9675651e2951",
                 "shasum": ""
             },
             "require": {
@@ -11044,7 +11040,8 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/environment/issues",
-                "source": "https://github.com/sebastianbergmann/environment/tree/6.0.0"
+                "security": "https://github.com/sebastianbergmann/environment/security/policy",
+                "source": "https://github.com/sebastianbergmann/environment/tree/6.0.1"
             },
             "funding": [
                 {
@@ -11052,7 +11049,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-03T07:03:04+00:00"
+            "time": "2023-04-11T05:39:26+00:00"
         },
         {
             "name": "sebastian/exporter",
