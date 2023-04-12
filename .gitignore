@@ -10,3 +10,4 @@ Session.vim
 phpstan.neon
 ray.php
 _ide_helper.php
+.phpactor.json
