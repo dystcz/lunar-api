@@ -81,7 +81,8 @@ class BrandSchema extends Schema
             HasOne::make('default_url', 'defaultUrl')
                 ->retainFieldName(),
 
-            HasOne::make('thumbnail'),
+            HasOne::make('thumbnail')
+                ->type('media'),
 
         ];
     }

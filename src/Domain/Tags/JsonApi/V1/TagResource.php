@@ -1,12 +1,13 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Media\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\Tags\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Illuminate\Http\Request;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Lunar\Models\Tag;
 
-class ImageResource extends MediaResource
+class TagResource extends JsonApiResource
 {
     /**
      * Get the resource's attributes.
@@ -15,12 +16,13 @@ class ImageResource extends MediaResource
      */
     public function attributes($request): iterable
     {
-        /** @var Media $model */
+        /** @var Tag $model */
         $model = $this->resource;
 
-        return array_merge(parent::attributes($request), [
+        return [
+            'value' => $model->value,
             ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
-        ]);
+        ];
     }
 
     /**
@@ -30,6 +32,9 @@ class ImageResource extends MediaResource
      */
     public function relationships($request): iterable
     {
+        /** @var Tag $model */
+        $model = $this->resource;
+
         return [
             ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
         ];

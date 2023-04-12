@@ -43,7 +43,7 @@ it('can read products associations', function () {
     $response->assertFetchedOne($productA)
         ->assertIsIncluded('associations', $productA->associations->first())
         ->assertIsIncluded('products', $productB)
-        ->assertIsIncluded('thumbnails', $productB->thumbnail)
+        ->assertIsIncluded('media', $productB->thumbnail)
         ->assertIsIncluded('variants', $productB->variants->first())
         ->assertIsIncluded('prices', $productB->variants->first()->prices->first());
 });

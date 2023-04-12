@@ -18,6 +18,7 @@ use Dystcz\LunarApi\Domain\Orders\Http\Routing\OrderRouteGroup;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Domain\Orders\Models\OrderLine;
 use Dystcz\LunarApi\Domain\Shipping\Http\Routing\ShippingOptionRouteGroup;
+use Dystcz\LunarApi\Domain\Tags\Http\Routing\TagRouteGroup;
 
 return [
 
@@ -112,6 +113,16 @@ return [
             'filters' => Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilterCollection::class,
 
             // Default pagination
+            'pagination' => 12,
+        ],
+
+        'variants' => [
+            'model' => Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class,
+
+            'route_groups' => [
+                //
+            ],
+
             'pagination' => 12,
         ],
 
@@ -213,13 +224,12 @@ return [
             'pagination' => 12,
         ],
 
-        'variants' => [
-            'model' => Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class,
-
+        'tags' => [
             'route_groups' => [
-                //
+                'tags' => TagRouteGroup::class,
             ],
 
+            // Default pagination
             'pagination' => 12,
         ],
     ],

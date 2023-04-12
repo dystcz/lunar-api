@@ -101,6 +101,8 @@ class ProductSchema extends Schema
             'variants.images',
             'variants.prices',
             // 'variants.thumbnail',
+
+            'tags',
         ];
     }
 
@@ -128,7 +130,8 @@ class ProductSchema extends Schema
             HasOne::make('default_url', 'defaultUrl')
                 ->retainFieldName(),
 
-            HasMany::make('images')
+            HasMany::make('images', 'images')
+                ->type('media')
                 ->canCount(),
 
             HasOneThrough::make('lowest_price', 'lowestPrice')
@@ -137,7 +140,11 @@ class ProductSchema extends Schema
 
             HasManyThrough::make('prices'),
 
-            HasOne::make('thumbnail'),
+            HasMany::make('tags')
+                ->canCount(),
+
+            HasOne::make('thumbnail', 'thumbnail')
+                ->type('media'),
 
             HasMany::make('urls'),
 

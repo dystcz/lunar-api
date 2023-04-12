@@ -8,7 +8,7 @@ use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Config;
+use Lunar\Database\Factories\TagFactory;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -44,17 +44,20 @@ it('can read product detail', function () {
 });
 
 it('return error response when product doesnt exists', function () {
-    $self = 'http://localhost/api/v1/products/1';
-
+    /** @var TestCase $this */
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->get($self);
+        ->get('/api/v1/products/1');
 
-    ray($response->json());
-})->skip();
+    $response->assertErrorStatus([
+        'status' => '404',
+        'title' => 'Not Found',
+    ]);
+});
 
 it('can list product\'s images', function () {
+    /** @var TestCase $this */
     $product = ProductFactory::new()
         ->has(MediaFactory::new(), 'images')
         ->create();
@@ -67,10 +70,12 @@ it('can list product\'s images', function () {
         ->includePaths('images')
         ->get($self);
 
-    $response->assertFetchedOne($product);
+    $response->assertFetchedOne($product)
+        ->assertIsIncluded('media', $product->images->first());
 });
 
 it('can read product\'s variants count', function () {
+    /** @var TestCase $this */
     $product = ProductFactory::new()
         ->has(
             ProductVariantFactory::new()->has(PriceFactory::new())->count(5),
@@ -78,11 +83,33 @@ it('can read product\'s variants count', function () {
         )
         ->create();
 
-    $response = $this->get(
-        Config::get('lunar-api.route_prefix').'/products/'.$product->defaultUrl->slug.'?include=variantsCount'
-    );
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->get('/api/v1/products/'.$product->id.'?withCount=variants');
 
-    $response->assertStatus(200);
+    $response->assertSuccessful();
 
-    expect($response->json('data.attributes.variants_count'))->toBe(5);
-})->skip();
+    expect($response->json('data.relationships.variants.meta.count'))->toBe(5);
+});
+
+it('can list product\'s tags', function () {
+    /** @var TestCase $this */
+    $product = ProductFactory::new()
+        ->has(TagFactory::new()->count(2))
+        ->create();
+
+    $self = 'http://localhost/api/v1/products/'.$product->getRouteKey();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->includePaths('tags')
+        ->get($self);
+
+    $response->assertFetchedOne($product)
+        ->assertIncluded([
+            ['type' => 'tags', 'id' => $product->tags[0]->getRouteKey()],
+            ['type' => 'tags', 'id' => $product->tags[1]->getRouteKey()],
+        ]);
+});

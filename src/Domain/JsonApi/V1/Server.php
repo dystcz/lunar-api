@@ -13,9 +13,7 @@ use Dystcz\LunarApi\Domain\Countries\JsonApi\V1\CountrySchema;
 use Dystcz\LunarApi\Domain\Currencies\JsonApi\V1\CurrencySchema;
 use Dystcz\LunarApi\Domain\Customers\JsonApi\V1\CustomerSchema;
 use Dystcz\LunarApi\Domain\JsonApi\Servers\Server as BaseServer;
-use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ImageSchema;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaSchema;
-use Dystcz\LunarApi\Domain\Media\JsonApi\V1\ThumbnailSchema;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderAddressSchema;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderLineSchema;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderSchema;
@@ -24,6 +22,7 @@ use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductAssociationSchema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystcz\LunarApi\Domain\Shipping\JsonApi\V1\ShippingOptionSchema;
+use Dystcz\LunarApi\Domain\Tags\JsonApi\V1\TagSchema;
 use Dystcz\LunarApi\Domain\Urls\JsonApi\V1\DefaultUrlSchema;
 use Dystcz\LunarApi\Domain\Urls\JsonApi\V1\UrlSchema;
 use Illuminate\Support\Facades\Config;
@@ -65,18 +64,17 @@ class Server extends BaseServer
             CurrencySchema::class,
             AddressSchema::class,
             DefaultUrlSchema::class,
-            ImageSchema::class,
             MediaSchema::class,
             PriceSchema::class,
             ProductAssociationSchema::class,
             ProductSchema::class,
             ProductVariantSchema::class,
-            ThumbnailSchema::class,
             UrlSchema::class,
             OrderSchema::class,
             OrderAddressSchema::class,
             OrderLineSchema::class,
             ShippingOptionSchema::class,
+            TagSchema::class,
             ...$this->getAdditionalServerSchemas(),
         ];
     }

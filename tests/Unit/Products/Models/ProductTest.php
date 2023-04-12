@@ -7,10 +7,11 @@ use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
+use Lunar\Database\Factories\TagFactory;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-it('has prices relation', function () {
+test('product has prices relation', function () {
     /** @var Product $product */
     $product = ProductFactory::new()
         ->has(
@@ -22,7 +23,7 @@ it('has prices relation', function () {
     expect($product->prices)->toHaveCount(1);
 });
 
-it('has lowest price relation', function () {
+test('product has lowest price relation', function () {
     /** @var Collection<Product> $products */
     $products = ProductFactory::new()
         ->has(
@@ -38,7 +39,7 @@ it('has lowest price relation', function () {
     }
 });
 
-it('has cheapest variant relation', function () {
+test('product has cheapest variant relation', function () {
     /** @var Collection<Product> $products */
     $products = ProductFactory::new()
         ->has(
@@ -52,4 +53,13 @@ it('has cheapest variant relation', function () {
         expect($product->cheapestVariant->id)
             ->toBe($product->variants->sortBy('lowestPrice.price')->first()->id);
     }
+});
+
+test('product has tags relation', function () {
+    /** @var Product $product */
+    $product = ProductFactory::new()
+        ->has(TagFactory::new()->count(2))
+        ->create();
+
+    expect($product->tags)->toHaveCount(2);
 });

@@ -1,18 +1,23 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Media\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\Tags\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
+use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Filters\WhereIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Lunar\Models\Tag;
 
-class ImageSchema extends Schema
+class TagSchema extends Schema
 {
     /**
      * The default paging parameters to use if the client supplies none.
@@ -22,7 +27,7 @@ class ImageSchema extends Schema
     /**
      * The model the schema corresponds to.
      */
-    public static string $model = Media::class;
+    public static string $model = Tag::class;
 
     /**
      * Build an index query for this resource.
@@ -51,13 +56,32 @@ class ImageSchema extends Schema
     }
 
     /**
+     * Get the include paths supported by this resource.
+     *
+     * @return string[]|iterable
+     */
+    public function includePaths(): iterable
+    {
+        return [
+            ...parent::includePaths(),
+            'taggables',
+        ];
+    }
+
+    /**
      * Get the resource fields.
      */
     public function fields(): array
     {
         return [
             ...parent::fields(),
+
             ID::make(),
+
+            Str::make('value'),
+
+            MorphTo::make('taggables', 'taggables')
+                ->type('products'),
         ];
     }
 
@@ -68,7 +92,12 @@ class ImageSchema extends Schema
     {
         return [
             ...parent::filters(),
-            WhereIdIn::make($this),
+
+            WhereIdIn::make($this)->delimiter(','),
+
+            Where::make('value'),
+
+            WhereIn::make('values', 'value')->delimiter(','),
         ];
     }
 
@@ -77,7 +106,10 @@ class ImageSchema extends Schema
      */
     public function pagination(): ?Paginator
     {
-        return PagePagination::make();
+        return PagePagination::make()
+            ->withDefaultPerPage(
+                Config::get('lunar-api.domains.tags.pagination', 12)
+            );
     }
 
     /**
@@ -93,6 +125,6 @@ class ImageSchema extends Schema
      */
     public static function type(): string
     {
-        return 'images';
+        return 'tags';
     }
 }

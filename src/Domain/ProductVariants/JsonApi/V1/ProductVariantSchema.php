@@ -87,11 +87,13 @@ class ProductVariantSchema extends Schema
 
             HasOne::make('lowest_price', 'lowestPrice')->type('prices'),
 
-            HasMany::make('images'),
+            HasMany::make('images')
+                ->canCount()
+                ->type('media'),
 
             HasMany::make('prices'),
 
-            HasOne::make('thumbnail'),
+            // HasOne::make('thumbnail'),
         ];
     }
 
