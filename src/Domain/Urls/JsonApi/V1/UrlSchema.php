@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use Lunar\Models\Url;
@@ -69,7 +70,10 @@ class UrlSchema extends Schema
     {
         return [
             ...parent::fields(),
+
             ID::make(),
+
+            Str::make('slug'),
         ];
     }
 
@@ -80,6 +84,7 @@ class UrlSchema extends Schema
     {
         return [
             ...parent::filters(),
+
             WhereIdIn::make($this),
         ];
     }

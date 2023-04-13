@@ -6,39 +6,15 @@ use Closure;
 use Illuminate\Support\Collection;
 use LaravelJsonApi\Core\Json\Hash;
 use LaravelJsonApi\Core\Support\Arr;
-use LaravelJsonApi\Eloquent\Fields\ArrayHash;
-use Lunar\Models\Attribute;
+use LaravelJsonApi\Eloquent\Fields\Attribute;
+use Lunar\Models\Attribute as AttributeModel;
 
-class AttributeData extends ArrayHash
+class AttributeData extends Attribute
 {
     /**
      * @var Closure|null
      */
     private ?Closure $keys = null;
-
-    /**
-     * @var int|null
-     */
-    private ?int $sortValues = null;
-
-    /**
-     * @var int|null
-     */
-    private ?int $sortKeys = null;
-
-    /**
-     * The JSON:API field case.
-     *
-     * @var string|null
-     */
-    private ?string $fieldCase = null;
-
-    /**
-     * The database key-case.
-     *
-     * @var string|null
-     */
-    private ?string $keyCase = null;
 
     /**
      * Group attributes.
@@ -88,23 +64,22 @@ class AttributeData extends ArrayHash
     {
         $value = parent::serialize($model);
 
-        if ($this->groupAttributes && $model->attributes instanceof Collection) {
-            $value = $model->attributes
-                ->where('attribute_type', $model->getMorphClass())
-                ->whereIn('handle', array_keys($value->all()))
-                ->groupBy(fn (Attribute $attribute) => $attribute->attributeGroup->handle)
-                ->map(fn ($attributes) => $attributes->mapWithKeys(fn (Attribute $attribute) => [
-                    $attribute->handle => [
-                        'name' => $attribute->translate('name'),
-                        'value' => $model->attr($attribute->handle),
-                    ],
-                ]));
+        if (! $value || ! $model->attributes instanceof Collection || ! $this->groupAttributes) {
+            return Hash::cast($value);
         }
 
-        return Hash::cast($value)
-            ->maybeSorted($this->sortValues)
-            ->maybeSortKeys($this->sortKeys)
-            ->useCase($this->fieldCase);
+        $value = $model->attributes
+            ->where('attribute_type', $model->getMorphClass())
+            ->whereIn('handle', array_keys($value->all()))
+            ->groupBy(fn (AttributeModel $attribute) => $attribute->attributeGroup->handle)
+            ->map(fn ($attributes) => $attributes->mapWithKeys(fn (AttributeModel $attribute) => [
+                $attribute->handle => [
+                    'name' => $attribute->translate('name'),
+                    'value' => $model->attr($attribute->handle),
+                ],
+            ]));
+
+        return Hash::cast($value);
     }
 
     /**
@@ -126,11 +101,7 @@ class AttributeData extends ArrayHash
             return null;
         }
 
-        return Hash::cast($value)
-            ->maybeSorted($this->sortValues)
-            ->maybeSortKeys($this->sortKeys)
-            ->useCase($this->keyCase)
-            ->all();
+        return Hash::cast($value)->all();
     }
 
     /**

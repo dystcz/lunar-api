@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Media\Http\Resources;
 
 use Dystcz\LunarApi\Domain\JsonApi\Builders\MediaJsonApiBuilder;
-use Dystcz\LunarApi\Domain\JsonApi\Http\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
