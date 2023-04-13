@@ -22,7 +22,6 @@ class ResourceManifest implements Manifest
     {
         $self = App::make(self::class);
 
-        return $self->extensions[$class]
-            ??= App::make(ResourceExtension::class, ['resourceClass' => $class]);
+        return $self->extensions[$class] ??= App::make(ResourceExtension::class, ['resourceClass' => $class]);
     }
 }

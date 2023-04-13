@@ -22,6 +22,7 @@ use Dystcz\LunarApi\Domain\Orders\Policies\OrderPolicy;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
@@ -82,16 +83,10 @@ class LunarApiServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/jsonapi.php', 'jsonapi');
 
         // Register the main class to use with the facade
-        $this->app->singleton('lunar-api', function () {
-            return new LunarApi();
-        });
+        $this->app->singleton('lunar-api', fn () => new LunarApi());
 
-        $this->app->singleton(SchemaManifest::class, function () {
-            return new SchemaManifest();
-        });
-        $this->app->singleton(ResourceManifest::class, function () {
-            return new ResourceManifest();
-        });
+        $this->app->singleton(SchemaManifest::class, fn () => new SchemaManifest());
+        $this->app->singleton(ResourceManifest::class, fn () => new ResourceManifest());
     }
 
     /**

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use Lunar\Models\Price;
@@ -73,6 +74,9 @@ class PriceSchema extends Schema
             ...parent::fields(),
 
             ID::make(),
+
+            Number::make('price')
+                ->serializeUsing(static fn ($value) => $value->decimal),
         ];
     }
 

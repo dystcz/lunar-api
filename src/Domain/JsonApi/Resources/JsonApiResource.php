@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\JsonApi\Resources;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Illuminate\Database\Eloquent\Model;
 use LaravelJsonApi\Contracts\Resources\Serializer\Attribute;
 use LaravelJsonApi\Contracts\Schema\Schema;
 use LaravelJsonApi\Core\Resources\JsonApiResource as BaseApiResource;
@@ -17,7 +18,7 @@ class JsonApiResource extends BaseApiResource
      * @param  Schema  $schema
      * @param  object  $resource
      */
-    public function __construct(Schema $schema, object $resource)
+    public function __construct(protected Schema $schema, public object $resource)
     {
         parent::__construct($schema, $resource);
     }
@@ -29,7 +30,7 @@ class JsonApiResource extends BaseApiResource
      */
     public function attributes($request): iterable
     {
-        /** @var Product $model */
+        /** @var Model $model */
         $model = $this->resource;
 
         if ($model->relationLoaded('variants')) {
