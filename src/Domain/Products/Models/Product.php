@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Lunar\Models\Attribute;
 use Lunar\Models\Price;
 use Lunar\Models\Product as LunarProduct;
+use Lunar\Models\ProductType;
 use Lunar\Models\ProductVariant;
 
 class Product extends LunarProduct
@@ -35,12 +36,12 @@ class Product extends LunarProduct
 
         $relation = new MorphToMany(
             Attribute::query(),
-            $this,
+            new ProductType(['id' => $this->product_type_id]),
             'attributable',
             "{$prefix}attributables",
             'attributable_id',
             'attribute_id',
-            'product_type_id',
+            'id',
             'id',
             'attributes',
             false,
