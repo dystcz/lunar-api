@@ -1,5 +1,7 @@
 <?php
 
+namespace Dystcz\LunarApi\Tests\Feature\Cart;
+
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Facades\CartSession;

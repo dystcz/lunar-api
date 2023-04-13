@@ -1,5 +1,7 @@
 <?php
 
+namespace Dystcz\LunarApi\Tests\Feature;
+
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 
 // uses(\Dystcz\LunarApi\Tests\MySqlTestCase::class, RefreshDatabase::class);

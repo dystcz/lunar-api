@@ -1,5 +1,7 @@
 <?php
 
+namespace Dystcz\LunarApi\Tests\Feature\Cart;
+
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Discounts\Factories\DiscountFactory;
 use Dystcz\LunarApi\Tests\TestCase;
@@ -117,5 +119,4 @@ test('a user can apply a valid coupon', function () {
     $this->assertEquals(1800, $cart->taxTotal->value);
     // WARNING: Lunar bug?
     // $this->assertCount(1, $cart->discounts);
-
 })->group('coupons');

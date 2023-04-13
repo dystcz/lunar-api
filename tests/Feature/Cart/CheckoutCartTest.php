@@ -1,11 +1,14 @@
 <?php
 
+namespace Dystcz\LunarApi\Tests\Feature\Cart;
+
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use Lunar\Facades\CartSession;
 
 uses(TestCase::class, RefreshDatabase::class);

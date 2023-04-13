@@ -1,9 +1,12 @@
 <?php
 
+namespace Dystcz\LunarApi\Tests\Feature\Addresses;
+
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Lunar\Models\Address;
 
 uses(TestCase::class, RefreshDatabase::class);
@@ -27,7 +30,7 @@ beforeEach(function () {
             'postcode' => $this->address->postcode,
             'meta' => [
                 'vat_no' => '123456789',
-                'account_no' => '987654321'
+                'account_no' => '987654321',
             ],
         ],
     ];
@@ -47,7 +50,7 @@ it('can be updated', function () {
         'first_name' => 'John',
         'meta' => json_encode([
             'vat_no' => '123456789',
-            'account_no' => '987654321'
+            'account_no' => '987654321',
         ]),
     ]);
 });

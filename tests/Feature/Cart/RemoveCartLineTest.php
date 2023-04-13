@@ -1,5 +1,7 @@
 <?php
 
+namespace Dystcz\LunarApi\Tests\Feature\Cart;
+
 use Dystcz\LunarApi\Domain\Carts\Factories\CartLineFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Prices\Models\Price;

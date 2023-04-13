@@ -1,5 +1,7 @@
 <?php
 
+namespace Dystcz\LunarApi\Tests\Feature\Shipping;
+
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -43,10 +45,6 @@ it('can fetch shipping options for cart', function () {
 });
 
 it('can fetch shipping options for a cart based on country', function () {
-    // WARNING: Cannot add multiple shipping options
-    // See: \Lunar\Base\ShippingManifest @getOptions
-    // The pipeline is not working correctly it seems
-
     $country = Country::factory()->create([
         'name' => 'Czech Republic',
         'iso3' => 'CZE',

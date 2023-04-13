@@ -1,5 +1,8 @@
 <?php
 
+namespace Dystcz\LunarApi\Tests\Feature\JsonApi\Extenstions;
+
+use Closure;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\JsonApi\V1\Server;
@@ -7,6 +10,8 @@ use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductResource;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\App;
+use LaravelJsonApi\Core\Resources\Relation;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -51,24 +56,5 @@ test('a resource relationships can be extended', function () {
     );
 
     expect($productResourceInstance->relationships(null)[0])
-        ->toBeInstanceOf(LaravelJsonApi\Core\Resources\Relation::class);
+        ->toBeInstanceOf(Relation::class);
 });
-
-class ProductResourceMock extends ProductResource
-{
-    public function attributes($request): iterable
-    {
-        return [
-            ...ResourceManifest::for(ProductResource::class)
-                ->attributes()->toResourceArray($this),
-        ];
-    }
-
-    public function relationships($request): iterable
-    {
-        return [
-            ...ResourceManifest::for(ProductResource::class)
-                ->relationships()->toResourceArray($this),
-        ];
-    }
-}
