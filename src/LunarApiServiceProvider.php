@@ -17,6 +17,7 @@ use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Customers\Policies\CustomerPolicy;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Domain\Orders\Policies\OrderPolicy;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
@@ -28,6 +29,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use LaravelJsonApi\Laravel\LaravelJsonApi;
 use Lunar\Facades\ModelManifest;
 
 class LunarApiServiceProvider extends ServiceProvider
@@ -56,6 +58,8 @@ class LunarApiServiceProvider extends ServiceProvider
 
         LunarApi::createUserFromCartUsing(Config::get('auth.actions.create_user_from_cart', CreateUserFromCart::class));
         LunarApi::registerUserUsing(Config::get('auth.actions.register_user', RegisterUser::class));
+
+        LaravelJsonApi::defaultResource(JsonApiResource::class);
 
         // $this->registerPolicies();
 
