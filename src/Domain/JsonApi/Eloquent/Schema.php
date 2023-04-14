@@ -22,6 +22,7 @@ abstract class Schema extends BaseSchema implements Extendable
      */
     public function __construct(Server $server)
     {
+        // dd(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
         $this->extension = SchemaManifest::for(static::class);
 
         $this->server = $server;
@@ -40,6 +41,8 @@ abstract class Schema extends BaseSchema implements Extendable
      */
     public function includePaths(): iterable
     {
+        return [];
+
         foreach ($this->extension->includePaths() as $path) {
             yield $path;
         }
@@ -51,6 +54,7 @@ abstract class Schema extends BaseSchema implements Extendable
     public function fields(): iterable
     {
         return [];
+
         foreach ($this->extension->fields() as $field) {
             yield $field;
         }
@@ -62,6 +66,7 @@ abstract class Schema extends BaseSchema implements Extendable
     public function filters(): iterable
     {
         return [];
+
         // yield from $this->extension->filters();
     }
 
@@ -71,6 +76,7 @@ abstract class Schema extends BaseSchema implements Extendable
     public function sortables(): iterable
     {
         return [];
+
         // yield from $this->extension->sortables();
     }
 }
