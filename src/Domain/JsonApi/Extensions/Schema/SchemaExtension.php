@@ -2,34 +2,28 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema;
 
+use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\ExtensionCollection;
 
 /**
- * @method SchemaExtensionCollection fields(array $fields = [])
- * @method SchemaExtensionCollection filters(array $filters = [])
- * @method SchemaExtensionCollection sortables(array $sortables = [])
- * @method SchemaExtensionCollection with(array $with = [])
- * @method SchemaExtensionCollection includePaths(array $includePaths = [])
+ * @property  class-string<Extendable>  $class
+ * @property SchemaExtensionStore $store
+ *
+ * @method iterale|void with(mixed $value)
+ * @method iterale|void includePaths(mixed $value)
+ * @method iterale|void fields(mixed $value)
+ * @method iterale|void filters(mixed $value)
+ * @method iterale|void sortables(mixed $value)
  */
 class SchemaExtension extends Extension
 {
-    protected ExtensionCollection $fields;
-
-    protected ExtensionCollection $filters;
-
-    protected ExtensionCollection $sortables;
-
-    protected ExtensionCollection $with;
-
-    protected ExtensionCollection $includePaths;
-
-    public function __construct()
+    /**
+     * @param  class-string<Extendable>  $class
+     */
+    public function __construct(string $class)
     {
-        $this->fields = new SchemaExtensionCollection();
-        $this->filters = new SchemaExtensionCollection();
-        $this->sortables = new SchemaExtensionCollection();
-        $this->with = new SchemaExtensionCollection();
-        $this->includePaths = new SchemaExtensionCollection();
+        $this->store = new SchemaExtensionStore();
+
+        parent::__construct($class);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Illuminate\Http\Request;
@@ -87,7 +86,7 @@ class ProductResource extends JsonApiResource
                     ], fn ($value) => null !== $value)
                 ),
 
-            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
+            ...parent::relationships($request),
         ];
     }
 }

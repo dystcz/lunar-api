@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Customers\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Illuminate\Http\Request;
 
@@ -26,7 +25,8 @@ class CustomerResource extends JsonApiResource
             'company_name' => $model->company_name,
             'account_ref' => $model->account_ref,
             'vat_no' => $model->vat_no,
-            ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
+
+            ...parent::attributes($request),
         ];
     }
 
@@ -47,7 +47,7 @@ class CustomerResource extends JsonApiResource
 
             $this->relation('users'),
 
-            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
+            ...parent::relationships($request),
         ];
     }
 }

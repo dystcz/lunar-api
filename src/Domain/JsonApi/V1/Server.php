@@ -75,6 +75,7 @@ class Server extends BaseServer
             OrderLineSchema::class,
             ShippingOptionSchema::class,
             TagSchema::class,
+
             ...$this->getAdditionalServerSchemas(),
         ];
     }

@@ -56,7 +56,7 @@ class ProductSchema extends Schema
     public function with(): array
     {
         return [
-            ...parent::with(),
+            
 
             'attributes',
             'attributes.attributeGroup',
@@ -71,7 +71,7 @@ class ProductSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            ...parent::includePaths(),
+            
 
             'default_url',
             'images',
@@ -112,7 +112,7 @@ class ProductSchema extends Schema
     public function fields(): array
     {
         return [
-            ...parent::fields(),
+            
 
             ID::make(),
 
@@ -159,7 +159,7 @@ class ProductSchema extends Schema
     public function sortables(): iterable
     {
         return [
-            ...parent::sortables(),
+            
 
             RecentlyViewedSort::make('recently_viewed'),
         ];
@@ -174,7 +174,7 @@ class ProductSchema extends Schema
         // $filterCollection = Config::get('lunar-api.domains.products.filters');
 
         return [
-            ...parent::filters(),
+            
 
             WhereIdIn::make($this),
 

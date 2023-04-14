@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Orders\Models\OrderLine;
 use Illuminate\Http\Request;
@@ -37,8 +36,6 @@ class OrderLineResource extends JsonApiResource
                 'discount_total' => $model->discount_total?->decimal,
                 'tax_breakdown' => $model->taxBreakdown,
             ],
-
-            ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
         ];
     }
 
@@ -53,8 +50,6 @@ class OrderLineResource extends JsonApiResource
             $this->relation('purchasable'),
             $this->relation('order'),
             $this->relation('currency'),
-
-            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
         ];
     }
 }

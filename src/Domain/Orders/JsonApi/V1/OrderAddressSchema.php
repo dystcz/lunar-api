@@ -21,7 +21,7 @@ class OrderAddressSchema extends Schema
     public function with(): array
     {
         return [
-            ...parent::with(),
+            
         ];
     }
 
@@ -33,7 +33,7 @@ class OrderAddressSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            ...parent::includePaths(),
+            
             'order',
             'country',
         ];
@@ -45,7 +45,7 @@ class OrderAddressSchema extends Schema
     public function fields(): array
     {
         return [
-            ...parent::fields(),
+            
 
             ID::make(),
 

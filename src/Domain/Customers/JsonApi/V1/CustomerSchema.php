@@ -31,7 +31,7 @@ class CustomerSchema extends Schema
     public function with(): array
     {
         return [
-            ...parent::with(),
+            
         ];
     }
 
@@ -43,7 +43,7 @@ class CustomerSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            ...parent::includePaths(),
+            
             'orders',
             'orders.lines',
             'orders.lines.purchasable',
@@ -58,7 +58,7 @@ class CustomerSchema extends Schema
     public function fields(): array
     {
         return [
-            ...parent::fields(),
+            
 
             ID::make(),
             Str::make('title'),
@@ -77,7 +77,7 @@ class CustomerSchema extends Schema
     public function sortables(): iterable
     {
         return [
-            ...parent::sortables(),
+            
         ];
     }
 
@@ -87,7 +87,7 @@ class CustomerSchema extends Schema
     public function filters(): array
     {
         return [
-            ...parent::filters(),
+            
 
             WhereIdIn::make($this),
         ];

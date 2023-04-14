@@ -50,7 +50,7 @@ class ProductAssociationSchema extends Schema
     public function with(): array
     {
         return [
-            ...parent::with(),
+            
         ];
     }
 
@@ -62,7 +62,7 @@ class ProductAssociationSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            ...parent::includePaths(),
+            
 
             'target',
             'target.thumbnail',
@@ -77,7 +77,7 @@ class ProductAssociationSchema extends Schema
     public function fields(): array
     {
         return [
-            ...parent::fields(),
+            
 
             ID::make(),
 
@@ -93,7 +93,7 @@ class ProductAssociationSchema extends Schema
     public function filters(): array
     {
         return [
-            ...parent::filters(),
+            
 
             WhereIdIn::make($this),
 

@@ -3,22 +3,25 @@
 namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource;
 
 use Closure;
+use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\ExtensionCollection;
 
 /**
- * @method ResourceExtensionCollection attributes(Closure $callback = null)
- * @method ResourceExtensionCollection relationships(Closure $callback = null)
+ * @property  class-string<Extendable>  $class
+ * @property ResourceExtensionStore $store
+ *
+ * @method void|iterable attributes(iterable|null $callback)
+ * @method void|iterable relationships(Closure|null $callback)
  */
 class ResourceExtension extends Extension
 {
-    protected ExtensionCollection $attributes;
-
-    protected ExtensionCollection $relationships;
-
-    public function __construct()
+    /**
+     * @param  class-string<Extendable>  $class
+     */
+    public function __construct(string $class)
     {
-        $this->attributes = new ResourceExtensionCollection();
-        $this->relationships = new ResourceExtensionCollection();
+        $this->store = new ResourceExtensionStore();
+
+        parent::__construct($class);
     }
 }

@@ -51,7 +51,7 @@ class BrandSchema extends Schema
     public function with(): array
     {
         return [
-            ...parent::with(),
+            
         ];
     }
 
@@ -63,7 +63,7 @@ class BrandSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            ...parent::includePaths(),
+            
             'default_url',
             'thumbnail',
         ];
@@ -75,7 +75,7 @@ class BrandSchema extends Schema
     public function fields(): array
     {
         return [
-            ...parent::fields(),
+            
 
             ID::make(),
 
@@ -96,7 +96,7 @@ class BrandSchema extends Schema
     public function filters(): array
     {
         return [
-            ...parent::filters(),
+            
 
             WhereIdIn::make($this)->delimiter(','),
 

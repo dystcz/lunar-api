@@ -47,7 +47,7 @@ class UrlSchema extends Schema
     public function with(): array
     {
         return [
-            ...parent::with(),
+            
         ];
     }
 
@@ -59,7 +59,7 @@ class UrlSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            ...parent::includePaths(),
+            
         ];
     }
 
@@ -69,7 +69,7 @@ class UrlSchema extends Schema
     public function fields(): array
     {
         return [
-            ...parent::fields(),
+            
 
             ID::make(),
 
@@ -83,7 +83,7 @@ class UrlSchema extends Schema
     public function filters(): array
     {
         return [
-            ...parent::filters(),
+            
 
             WhereIdIn::make($this),
         ];

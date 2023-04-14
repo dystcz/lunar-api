@@ -24,7 +24,7 @@ class CartLineSchema extends Schema
     public function with(): array
     {
         return [
-            ...parent::with(),
+            
         ];
     }
 
@@ -36,7 +36,7 @@ class CartLineSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            ...parent::includePaths(),
+            
         ];
     }
 
@@ -46,7 +46,7 @@ class CartLineSchema extends Schema
     public function fields(): array
     {
         return [
-            ...parent::fields(),
+            
 
             ID::make(),
             Number::make('quantity'),

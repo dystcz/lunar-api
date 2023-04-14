@@ -33,7 +33,7 @@ class OrderLineSchema extends Schema
     public function with(): array
     {
         return [
-            ...parent::with(),
+            
         ];
     }
 
@@ -45,7 +45,7 @@ class OrderLineSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            ...parent::includePaths(),
+            
             'order',
             'currency',
             'purchasable',
@@ -60,7 +60,7 @@ class OrderLineSchema extends Schema
     public function fields(): array
     {
         return [
-            ...parent::fields(),
+            
 
             ID::make(),
 
@@ -90,7 +90,7 @@ class OrderLineSchema extends Schema
     public function sortables(): iterable
     {
         return [
-            ...parent::sortables(),
+            
         ];
     }
 
@@ -100,7 +100,7 @@ class OrderLineSchema extends Schema
     public function filters(): array
     {
         return [
-            ...parent::filters(),
+            
 
             WhereIdIn::make($this),
         ];

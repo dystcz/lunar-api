@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Prices\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Prices\Actions\GetPrice;
 use Dystcz\LunarApi\Domain\Prices\Models\Price as PriceModel;
@@ -37,19 +36,8 @@ class PriceResource extends JsonApiResource
                 'decimal' => $comparePrice->decimal,
                 'value' => $comparePrice->value,
             ],
-            ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
-        ];
-    }
 
-    /**
-     * Get the resource's relationships.
-     *
-     * @param  Request|null  $request
-     */
-    public function relationships($request): iterable
-    {
-        return [
-            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
+            ...parent::attributes($request),
         ];
     }
 }

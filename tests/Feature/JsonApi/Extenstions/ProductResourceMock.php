@@ -10,16 +10,14 @@ class ProductResourceMock extends ProductResource
     public function attributes($request): iterable
     {
         return [
-            ...ResourceManifest::for(ProductResource::class)
-                ->attributes()->toResourceArray($this),
+            ...ResourceManifest::for(ProductResource::class)->attributes(),
         ];
     }
 
     public function relationships($request): iterable
     {
         return [
-            ...ResourceManifest::for(ProductResource::class)
-                ->relationships()->toResourceArray($this),
+            ...ResourceManifest::for(ProductResource::class)->relationships(),
         ];
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Illuminate\Http\Request;
 use Lunar\Models\Collection;
@@ -24,7 +23,8 @@ class CollectionResource extends JsonApiResource
                 $field => $model->translateAttribute($field),
             ])->toArray(),
             [],
-            ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
+
+            ...parent::attributes($request),
         );
     }
 
@@ -55,7 +55,7 @@ class CollectionResource extends JsonApiResource
                 ->relation('urls')
                 ->withoutLinks(),
 
-            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
+            ...parent::relationships($request),
         ];
     }
 }

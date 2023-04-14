@@ -2,29 +2,100 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Extensions;
 
+use BadMethodCallException;
+use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable;
+use Dystcz\LunarApi\Domain\JsonApi\Contracts\ExtensionStore;
+use Illuminate\Support\Traits\ForwardsCalls;
+use InvalidArgumentException;
 use RuntimeException;
 
 abstract class Extension
 {
-    protected function push(string $property, mixed $values): ExtensionCollection
+    use ForwardsCalls;
+
+    /**
+     * Extended class.
+     *
+     * @var class-string
+     */
+    protected string $class;
+
+    /**
+     * Extension store.
+     */
+    protected ExtensionStore $store;
+
+    /**
+     * @param  class-string<Extendable>  $class
+     */
+    public function __construct(string $class)
     {
-        if (is_iterable($values)) {
-            $this->{$property}->push(...$values);
-        }
-
-        if (is_callable($values)) {
-            $this->{$property}->push($values);
-        }
-
-        return $this->{$property};
+        $this->setExtendable($class);
     }
 
-    public function __call(string $name, array $arguments): ExtensionCollection
+    /**
+     * Set extendable class.
+     *
+     * @param  class-string<Extendable>  $class
+     */
+    protected function setExtendable(string $class): void
     {
-        if (! property_exists($this, $name)) {
-            throw new RuntimeException("{$name} can not be extended.");
+        if (is_subclass_of($class, Extendable::class)) {
+            $this->class = $class;
+
+            return;
         }
 
-        return $this->push($name, $arguments[0] ?? null);
+        throw new RuntimeException("{$class} cannot be extended.");
+    }
+
+    /**
+     * Set extension value.
+     */
+    protected function set(string $property, mixed $value): void
+    {
+        if (is_iterable($value)) {
+            foreach ($value as $item) {
+                throw_if(is_iterable($item), new InvalidArgumentException('Extension can not be nested.'));
+
+                array_push($this->store->{$property}, $item);
+            }
+        }
+
+        array_push($this->store->{$property}, $value);
+    }
+
+    /**
+     * Get extension value.
+     */
+    protected function get(string $property): mixed
+    {
+        if (is_null($this->store->{$property})) {
+            return [];
+        }
+
+        return $this->store->{$property};
+    }
+
+    /**
+     * Dynamically call setter or getter.
+     */
+    public function __call(string $method, array $arguments): mixed
+    {
+        if (! property_exists($this->store, $method)) {
+            throw new BadMethodCallException("{$method} is not extendable.");
+        }
+
+        $action = count($arguments) > 0 ? 'set' : 'get';
+
+        return $this->{$action}($method, ...$arguments);
+    }
+
+    /**
+     * Get manifest caller.
+     */
+    public static function caller(): string
+    {
+        return debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3)[2]['class'];
     }
 }

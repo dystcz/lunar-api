@@ -2,16 +2,25 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Eloquent;
 
+use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaExtension;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
 use LaravelJsonApi\Eloquent\Schema as BaseSchema;
 
-abstract class Schema extends BaseSchema
+abstract class Schema extends BaseSchema implements Extendable
 {
+    /**
+     * Schema extension.
+     */
+    protected SchemaExtension $extension;
+
     /**
      * {@inheritDoc}
      */
     public function with(): array
     {
+        return [];
+
         return [
             ...SchemaManifest::for(static::class)->with()->all(),
         ];
@@ -22,6 +31,8 @@ abstract class Schema extends BaseSchema
      */
     public function includePaths(): iterable
     {
+        return [];
+
         return [
             ...SchemaManifest::for(static::class)->includePaths()->all(),
         ];
@@ -32,6 +43,8 @@ abstract class Schema extends BaseSchema
      */
     public function fields(): array
     {
+        return [];
+
         return [
             ...SchemaManifest::for(static::class)->fields()->all(),
         ];
@@ -42,6 +55,8 @@ abstract class Schema extends BaseSchema
      */
     public function filters(): array
     {
+        return [];
+
         return [
             ...SchemaManifest::for(static::class)->filters()->all(),
         ];
@@ -52,6 +67,8 @@ abstract class Schema extends BaseSchema
      */
     public function sortables(): iterable
     {
+        return [];
+
         return [
             ...SchemaManifest::for(static::class)->sortables()->all(),
         ];

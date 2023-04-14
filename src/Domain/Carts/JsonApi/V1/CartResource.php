@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Illuminate\Http\Request;
 
@@ -35,7 +34,7 @@ class CartResource extends JsonApiResource
                 'discount_breakdown' => $model->discountBreakdown,
             ],
 
-            ...ResourceManifest::for(static::class)->attributes()->toResourceArray($this),
+            ...parent::attributes($request),
         ];
     }
 
@@ -53,7 +52,7 @@ class CartResource extends JsonApiResource
             $this->relation('billingAddress'),
             $this->relation('addresses'),
 
-            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
+            ...parent::relationships($request),
         ];
     }
 }

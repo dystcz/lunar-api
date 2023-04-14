@@ -63,7 +63,7 @@ class ProductVariantResource extends JsonApiResource
             $this->relation('prices')
                 ->withoutLinks(),
 
-            ...ResourceManifest::for(static::class)->relationships()->toResourceArray($this),
+            
         ];
     }
 }

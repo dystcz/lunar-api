@@ -24,7 +24,7 @@ class CartSchema extends Schema
     public function with(): array
     {
         return [
-            ...parent::with(),
+            
         ];
     }
 
@@ -36,7 +36,7 @@ class CartSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            ...parent::includePaths(),
+            
             'lines',
             'lines.purchasable',
             'lines.purchasable.prices',
@@ -61,7 +61,7 @@ class CartSchema extends Schema
     public function fields(): array
     {
         return [
-            ...parent::fields(),
+            
 
             ID::make(),
 

@@ -36,7 +36,7 @@ class OrderSchema extends Schema
     public function with(): array
     {
         return [
-            ...parent::with(),
+
         ];
     }
 
@@ -48,7 +48,6 @@ class OrderSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            ...parent::includePaths(),
 
             'customer',
             'user',
@@ -94,7 +93,6 @@ class OrderSchema extends Schema
     public function fields(): array
     {
         return [
-            ...parent::fields(),
 
             ID::make(),
             Boolean::make('new_customer'),
@@ -131,7 +129,7 @@ class OrderSchema extends Schema
     public function sortables(): iterable
     {
         return [
-            ...parent::sortables(),
+
         ];
     }
 
@@ -141,9 +139,8 @@ class OrderSchema extends Schema
     public function filters(): array
     {
         return [
-            ...parent::filters(),
-
             WhereIdIn::make($this),
+
             Where::make('user_id'),
             Where::make('reference')->singular(),
         ];

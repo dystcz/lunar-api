@@ -2,7 +2,12 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Extensions;
 
-interface Manifest
+use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable;
+
+abstract class Manifest
 {
-    public static function for(string $class): Extension;
+    /**
+     * @var array<class-string<Extendable>, Extension>
+     */
+    protected array $extensions = [];
 }
