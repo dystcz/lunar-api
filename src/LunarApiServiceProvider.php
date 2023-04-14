@@ -72,8 +72,6 @@ class LunarApiServiceProvider extends ServiceProvider
             $this->commands([
                 //
             ]);
-
-            // $this->registerPolicies();
         }
     }
 
