@@ -36,6 +36,8 @@ class OrderLineResource extends JsonApiResource
                 'discount_total' => $model->discount_total?->decimal,
                 'tax_breakdown' => $model->taxBreakdown,
             ],
+
+            ...parent::attributes($request),
         ];
     }
 
@@ -50,6 +52,8 @@ class OrderLineResource extends JsonApiResource
             $this->relation('purchasable'),
             $this->relation('order'),
             $this->relation('currency'),
+
+            ...parent::relationships($request),
         ];
     }
 }

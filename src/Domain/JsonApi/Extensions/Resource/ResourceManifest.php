@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\App;
 class ResourceManifest extends Manifest implements ManifestContract
 {
     /**
+     * Get resource extension for a given schema class.
+     *
      * @param  class-string<JsonApiResource>  $class
      * @return ResourceExtension
      */

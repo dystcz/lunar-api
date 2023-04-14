@@ -33,11 +33,6 @@ class JsonApiResource extends BaseApiResource implements Extendable
         parent::__construct($schema, $resource);
     }
 
-    protected function hasExtension(): bool
-    {
-        return $this->extension->hasExtension();
-    }
-
     /**
      * Get the resource's attributes.
      *

@@ -26,6 +26,8 @@ class MediaResource extends JsonApiResource
             'size' => $model->size,
             'collection_name' => $model->collection_name,
             'order_column' => $model->order_column,
+
+            ...parent::attributes($request),
         ];
     }
 }

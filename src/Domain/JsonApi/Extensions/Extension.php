@@ -54,13 +54,13 @@ abstract class Extension
      */
     protected function set(string $property, mixed $value): void
     {
-        if (is_iterable($value)) {
-            foreach ($value as $item) {
-                throw_if(is_iterable($item), new InvalidArgumentException('Extension can not be nested.'));
-
-                array_push($this->store->{$property}, $item);
-            }
-        }
+        // if (is_iterable($value)) {
+        //     foreach ($value as $item) {
+        //         throw_if(is_iterable($item), new InvalidArgumentException('Extension cannot be nested.'));
+        //
+        //         array_push($this->store->{$property}, $item);
+        //     }
+        // }
 
         array_push($this->store->{$property}, $value);
     }

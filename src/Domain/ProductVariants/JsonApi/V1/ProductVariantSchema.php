@@ -51,7 +51,7 @@ class ProductVariantSchema extends Schema
     public function with(): array
     {
         return [
-            
+
         ];
     }
 
@@ -63,7 +63,6 @@ class ProductVariantSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            
 
             'images',
             // 'thumbnail',
@@ -80,7 +79,6 @@ class ProductVariantSchema extends Schema
     public function fields(): array
     {
         return [
-            
 
             ID::make(),
 
@@ -107,8 +105,6 @@ class ProductVariantSchema extends Schema
     public function filters(): array
     {
         return [
-            
-
             WhereIdIn::make($this),
         ];
     }

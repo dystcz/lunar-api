@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Illuminate\Http\Request;
 use Lunar\Models\ProductVariant;
@@ -28,10 +27,10 @@ class ProductVariantResource extends JsonApiResource
         }
 
         return [
-            ...parent::attributes($request),
             'purchasability' => [
                 'purchase_status' => $model->purchaseStatus->toArray(),
             ],
+            ...parent::attributes($request),
         ];
     }
 
@@ -63,7 +62,7 @@ class ProductVariantResource extends JsonApiResource
             $this->relation('prices')
                 ->withoutLinks(),
 
-            
+            ...parent::relationships($request),
         ];
     }
 }

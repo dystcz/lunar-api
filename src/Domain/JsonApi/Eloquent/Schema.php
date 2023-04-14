@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi\Domain\JsonApi\Eloquent;
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaExtension;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
+use LaravelJsonApi\Core\Server\Server;
 use LaravelJsonApi\Eloquent\Schema as BaseSchema;
 
 abstract class Schema extends BaseSchema implements Extendable
@@ -15,15 +16,23 @@ abstract class Schema extends BaseSchema implements Extendable
     protected SchemaExtension $extension;
 
     /**
+     * Schema constructor.
+     *
+     * @param  Server  $server
+     */
+    public function __construct(Server $server)
+    {
+        $this->extension = SchemaManifest::for(static::class);
+
+        $this->server = $server;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function with(): array
     {
         return [];
-
-        return [
-            ...SchemaManifest::for(static::class)->with()->all(),
-        ];
     }
 
     /**
@@ -31,35 +40,29 @@ abstract class Schema extends BaseSchema implements Extendable
      */
     public function includePaths(): iterable
     {
-        return [];
-
-        return [
-            ...SchemaManifest::for(static::class)->includePaths()->all(),
-        ];
+        foreach ($this->extension->includePaths() as $path) {
+            yield $path;
+        }
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public function fields(): iterable
     {
         return [];
-
-        return [
-            ...SchemaManifest::for(static::class)->fields()->all(),
-        ];
+        foreach ($this->extension->fields() as $field) {
+            yield $field;
+        }
     }
 
     /**
      * {@inheritDoc}
      */
-    public function filters(): array
+    public function filters(): iterable
     {
         return [];
-
-        return [
-            ...SchemaManifest::for(static::class)->filters()->all(),
-        ];
+        // yield from $this->extension->filters();
     }
 
     /**
@@ -68,9 +71,6 @@ abstract class Schema extends BaseSchema implements Extendable
     public function sortables(): iterable
     {
         return [];
-
-        return [
-            ...SchemaManifest::for(static::class)->sortables()->all(),
-        ];
+        // yield from $this->extension->sortables();
     }
 }

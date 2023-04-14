@@ -56,8 +56,6 @@ class ProductSchema extends Schema
     public function with(): array
     {
         return [
-            
-
             'attributes',
             'attributes.attributeGroup',
         ];
@@ -71,8 +69,6 @@ class ProductSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            
-
             'default_url',
             'images',
             'lowest_price',
@@ -109,11 +105,9 @@ class ProductSchema extends Schema
     /**
      * Get the resource fields.
      */
-    public function fields(): array
+    public function fields(): iterable
     {
         return [
-            
-
             ID::make(),
 
             AttributeData::make('attribute_data')
@@ -153,14 +147,13 @@ class ProductSchema extends Schema
 
             HasMany::make('variants')
                 ->canCount(),
+
         ];
     }
 
     public function sortables(): iterable
     {
         return [
-            
-
             RecentlyViewedSort::make('recently_viewed'),
         ];
     }
@@ -174,8 +167,6 @@ class ProductSchema extends Schema
         // $filterCollection = Config::get('lunar-api.domains.products.filters');
 
         return [
-            
-
             WhereIdIn::make($this),
 
             WhereHas::make($this, 'prices'),

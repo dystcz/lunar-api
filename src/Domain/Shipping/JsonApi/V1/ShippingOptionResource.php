@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Shipping\JsonApi\V1;
 
-use LaravelJsonApi\Core\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 
 class ShippingOptionResource extends JsonApiResource
 {
@@ -21,6 +21,8 @@ class ShippingOptionResource extends JsonApiResource
             'identifier' => $this->resource->getIdentifier(),
             'price' => $data['price'],
             'currency' => $data['currency'],
+
+            ...parent::attributes($request),
         ];
     }
 }
