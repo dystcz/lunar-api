@@ -3,18 +3,19 @@
 namespace Dystcz\LunarApi\Domain\JsonApi\Eloquent;
 
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable;
+use Dystcz\LunarApi\Domain\JsonApi\Contracts\Schema as SchemaContract;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaExtension;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
+use LaravelJsonApi\Contracts\Server\Server;
 use LaravelJsonApi\Core\Schema\IncludePathIterator;
-use LaravelJsonApi\Core\Server\Server;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema as BaseSchema;
 
-abstract class Schema extends BaseSchema implements Extendable
+abstract class Schema extends BaseSchema implements Extendable, SchemaContract
 {
     /**
      * The maximum depth of include paths.
@@ -27,11 +28,33 @@ abstract class Schema extends BaseSchema implements Extendable
     protected ?array $defaultPagination = ['number' => 1];
 
     /**
+     * Allow viewing of related resources.
+     *
+     * @property string[] $showRelated
+     */
+    protected array $showRelated = [];
+
+    /**
+     * Allow viewing of relationships.
+     *
+     * @property string[] $showRelationships
+     */
+    protected array $showRelationships = [];
+
+    /**
      * {@inheritDoc}
      */
     public static function resource(): string
     {
         return Config::get('lunar-api.domains.'.static::type().'resource', parent::resource());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function authorizer(): string
+    {
+        return Config::get('lunar-api.domains.'.static::type().'authorizer', parent::authorizer());
     }
 
     /**
@@ -54,7 +77,11 @@ abstract class Schema extends BaseSchema implements Extendable
      */
     public function with(): array
     {
-        $paths = array_merge(parent::with(), Arr::wrap($this->with));
+        $paths = array_merge(
+            parent::with(),
+            Arr::wrap($this->with),
+            Arr::wrap($this->extension->with()),
+        );
 
         return array_values(array_unique($paths));
     }
@@ -116,5 +143,35 @@ abstract class Schema extends BaseSchema implements Extendable
             ->withDefaultPerPage(
                 Config::get('lunar-api.default_pagination', 12)
             );
+    }
+
+    /**
+     * Allow specific related resources to be accessed.
+     */
+    public function showRelated(): array
+    {
+        $relations = array_merge(
+            Arr::wrap($this->showRelated),
+            Arr::wrap($this->extension->showRelated()),
+        );
+
+        return array_values(array_unique($relations));
+    }
+
+    /**
+     * Allow specific relationships to be accessed.
+     */
+    public function showRelationships(): array
+    {
+        if (empty($this->showRelationships)) {
+            return $this->showRelated();
+        }
+
+        $paths = array_merge(
+            Arr::wrap($this->showRelationships),
+            Arr::wrap($this->extension->showRelationships()),
+        );
+
+        return array_values(array_unique($paths));
     }
 }
