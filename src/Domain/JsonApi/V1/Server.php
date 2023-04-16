@@ -76,16 +76,7 @@ class Server extends BaseServer
             ShippingOptionSchema::class,
             TagSchema::class,
 
-            ...$this->getAdditionalServerSchemas(),
+            ...parent::allSchemas(),
         ];
-    }
-
-    /**
-     * Determine if the server is authorizable.
-     */
-    public function authorizable(): bool
-    {
-        // TODO: Write policies
-        return true;
     }
 }

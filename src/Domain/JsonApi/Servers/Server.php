@@ -52,6 +52,16 @@ abstract class Server extends BaseServer
     }
 
     /**
+     * Get the server's list of schemas.
+     */
+    protected function allSchemas(): array
+    {
+        return [
+            ...$this->getAdditionalServerSchemas(),
+        ];
+    }
+
+    /**
      * Get all registered schemas.
      */
     public function getSchemas(): array
