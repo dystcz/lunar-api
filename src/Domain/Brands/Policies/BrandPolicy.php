@@ -1,12 +1,12 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\ProductVariants\Policies;
+namespace Dystcz\LunarApi\Domain\Brands\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Lunar\Models\ProductVariant;
+use Lunar\Models\Brand;
 
-class ProductVariantPolicy
+class BrandPolicy
 {
     use HandlesAuthorization;
 
@@ -21,7 +21,7 @@ class ProductVariantPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, ProductVariant $variant): bool
+    public function view(?Authenticatable $user, Brand $brand): bool
     {
         return true;
     }
@@ -37,7 +37,7 @@ class ProductVariantPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, ProductVariant $variant): bool
+    public function update(?Authenticatable $user, Brand $brand): bool
     {
         return false;
     }
@@ -45,7 +45,7 @@ class ProductVariantPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, ProductVariant $variant): bool
+    public function delete(?Authenticatable $user, Brand $brand): bool
     {
         return false;
     }

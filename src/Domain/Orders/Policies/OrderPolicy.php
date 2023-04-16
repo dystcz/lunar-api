@@ -48,6 +48,7 @@ class OrderPolicy
             return true;
         }
 
+        // TODO: User authorizer
         if (request()->hasValidSignature()) {
             return true;
         }
