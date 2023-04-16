@@ -26,6 +26,8 @@ beforeEach(function () {
             'city' => $this->cartAddress->city,
             'line_one' => $this->cartAddress->line_one,
             'postcode' => $this->cartAddress->postcode,
+            'contact_email' => $this->cartAddress->contact_email,
+            'contact_phone' => $this->cartAddress->contact_phone,
         ],
     ];
 });

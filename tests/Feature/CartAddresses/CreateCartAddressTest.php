@@ -2,11 +2,11 @@
 
 namespace Dystcz\LunarApi\Tests\Feature\CartAddresses;
 
+use Dystcz\LunarApi\Domain\Carts\Factories\CartAddressFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Facades\CartSession;
-use Lunar\Models\CartAddress;
 use Lunar\Models\Country;
 
 uses(TestCase::class, RefreshDatabase::class);
@@ -14,7 +14,7 @@ uses(TestCase::class, RefreshDatabase::class);
 beforeEach(function () {
     $this->cart = Cart::factory()->create();
 
-    $this->cartAddress = CartAddress::factory()->make();
+    $this->cartAddress = CartAddressFactory::new()->make();
 
     $this->data = [
         'type' => 'cart-addresses',
@@ -26,6 +26,8 @@ beforeEach(function () {
             'city' => $this->cartAddress->city,
             'line_one' => $this->cartAddress->line_one,
             'postcode' => $this->cartAddress->postcode,
+            'contact_phone' => $this->cartAddress->contact_phone,
+            'contact_email' => $this->cartAddress->contact_email,
         ],
         'relationships' => [
             'cart' => [
@@ -44,7 +46,7 @@ beforeEach(function () {
     ];
 });
 
-it('can be created', function () {
+test('cart can be created', function () {
     CartSession::use($this->cart);
 
     $response = $this

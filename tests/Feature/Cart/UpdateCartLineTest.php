@@ -2,12 +2,12 @@
 
 namespace Dystcz\LunarApi\Tests\Feature\Cart;
 
+use Dystcz\LunarApi\Domain\Carts\Factories\CartLineFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Database\Factories\CartLineFactory;
-use Lunar\Database\Factories\ProductFactory;
 use Lunar\Facades\CartSession;
 
 uses(TestCase::class, RefreshDatabase::class);
@@ -29,6 +29,8 @@ it('can update a cart line', function () {
         'type' => 'cart-lines',
         'id' => (string) $cartLine->getRouteKey(),
         'attributes' => [
+            'purchasable_id' => $cartLine->purchasable_id,
+            'purchasable_type' => $cartLine->purchasable_type,
             'quantity' => 1,
         ],
     ];
@@ -56,6 +58,8 @@ test('only the owner of the cart can update cart lines', function () {
         'type' => 'cart-lines',
         'id' => (string) $cartLine->getRouteKey(),
         'attributes' => [
+            'purchasable_id' => $cartLine->purchasable_id,
+            'purchasable_type' => $cartLine->purchasable_type,
             'quantity' => 1,
         ],
     ];

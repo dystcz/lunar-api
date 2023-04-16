@@ -6,7 +6,6 @@ use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Facades\CartSession;
-use Lunar\Models\CartAddress;
 use Lunar\Models\Country;
 
 uses(TestCase::class, RefreshDatabase::class);
@@ -14,9 +13,9 @@ uses(TestCase::class, RefreshDatabase::class);
 beforeEach(function () {
     $this->cart = Cart::factory()->create();
 
-    $this->cartAddress = CartAddress::factory()->for($this->cart)->create();
-
     $this->country = Country::factory()->create();
+
+    $this->cartAddress = $this->cart->addresses->first();
 
     $this->data = [
         'id' => (string) $this->cartAddress->getRouteKey(),

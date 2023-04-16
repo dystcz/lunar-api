@@ -20,7 +20,7 @@ it('can fetch shipping options for cart', function () {
     $response = $this
         ->jsonApi()
         ->expects('shipping-options')
-        ->get('http://localhost/api/v1/shipping-options');
+        ->get('/api/v1/shipping-options');
 
     $response->assertSuccessful();
 

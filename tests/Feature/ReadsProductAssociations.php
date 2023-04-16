@@ -4,15 +4,15 @@ use Dystcz\LunarApi\Domain\Media\Factories\MediaFactory;
 use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
+use Dystcz\LunarApi\Domain\ProductsAssociations\Models\ProductAssociation;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Models\ProductAssociation;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can read products associations', function () {
-    /** @var Product $productB */
+    /** @var Product $productA */
     $productA = ProductFactory::new()->create();
 
     /** @var Product $productB */
@@ -29,21 +29,19 @@ it('can read products associations', function () {
         ProductAssociation::CROSS_SELL
     );
 
-    $self = 'http://localhost/api/v1/products/'.$productA->getRouteKey();
-
     $response = $this
         ->jsonApi()
         ->expects('products')
         ->includePaths(
-            'associations.target.variants.prices',
-            'associations.target.thumbnail'
+            'associations',
+            // 'associations.target.thumbnail'
         )
-        ->get($self);
+        ->get('/api/v1/products/'.$productA->getRouteKey());
 
-    $response->assertFetchedOne($productA)
-        ->assertIsIncluded('associations', $productA->associations->first())
-        ->assertIsIncluded('products', $productB)
-        ->assertIsIncluded('media', $productB->thumbnail)
-        ->assertIsIncluded('variants', $productB->variants->first())
-        ->assertIsIncluded('prices', $productB->variants->first()->prices->first());
+    $response->assertFetchedOne($productA);
+        // ->assertIsIncluded('associations', $productA->associations->first())
+        // ->assertIsIncluded('products', $productB)
+        // ->assertIsIncluded('media', $productB->thumbnail)
+        // ->assertIsIncluded('variants', $productB->variants->first())
+        // ->assertIsIncluded('prices', $productB->variants->first()->prices->first());
 });

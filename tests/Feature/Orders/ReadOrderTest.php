@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Tests\Feature\Orders;
 
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
@@ -14,7 +15,7 @@ uses(TestCase::class, RefreshDatabase::class);
 it('can read order details', function () {
     Event::fake(CartCreated::class);
 
-    $this->actingAs($user = \Dystcz\LunarApi\Tests\Stubs\Users\User::factory()->create());
+    $this->actingAs($user = User::factory()->create());
 
     /** @var Cart $cart */
     $cart = Cart::factory()
@@ -38,7 +39,7 @@ it('can read order details', function () {
             'addresses',
         )
         ->expects('orders')
-        ->get('http://localhost/api/v1/orders/'.$order->getRouteKey());
+        ->get('/api/v1/orders/'.$order->getRouteKey());
 
     $response->assertFetchedOne($order)
         ->assertIsIncluded('order-lines', $order->lines->first());

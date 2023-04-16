@@ -2,18 +2,18 @@
 
 namespace Dystcz\LunarApi\Tests\Feature\CartAddresses;
 
+use Dystcz\LunarApi\Domain\Carts\Factories\CartAddressFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Facades\CartSession;
-use Lunar\Models\CartAddress;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
     $this->cart = Cart::factory()->create();
 
-    $this->cartAddress = CartAddress::factory()->for($this->cart)->create();
+    $this->cartAddress = CartAddressFactory::new()->for($this->cart)->create();
 
     $this->data = [
         'id' => (string) $this->cartAddress->getRouteKey(),
