@@ -53,7 +53,6 @@ return [
                 //
             ],
 
-            'pagination' => 12,
         ],
 
         'brands' => [
@@ -61,7 +60,6 @@ return [
                 'brands' => Dystcz\LunarApi\Domain\Brands\Http\Routing\BrandRouteGroup::class,
             ],
 
-            'pagination' => 12,
         ],
 
         'collections' => [
@@ -69,7 +67,6 @@ return [
                 'collections' => Dystcz\LunarApi\Domain\Collections\Http\Routing\CollectionRouteGroup::class,
             ],
 
-            'pagination' => 12,
         ],
 
         'prices' => [
@@ -79,7 +76,6 @@ return [
                 //
             ],
 
-            'pagination' => 12,
         ],
 
         'countries' => [
@@ -87,8 +83,6 @@ return [
                 'countries' => CountryRouteGroup::class,
             ],
 
-            // Default pagination
-            'pagination' => 12,
         ],
 
         'currencies' => [
@@ -96,8 +90,6 @@ return [
                 'countries' => CurrencyRouteGroup::class,
             ],
 
-            // Default pagination
-            'pagination' => 12,
         ],
 
         'products' => [
@@ -112,8 +104,6 @@ return [
 
             'filters' => Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilterCollection::class,
 
-            // Default pagination
-            'pagination' => 12,
         ],
 
         'variants' => [
@@ -123,7 +113,6 @@ return [
                 //
             ],
 
-            'pagination' => 12,
         ],
 
         'carts' => [
@@ -136,8 +125,6 @@ return [
                 'carts' => CartRouteGroup::class,
             ],
 
-            // Default pagination
-            'pagination' => 12,
         ],
 
         'cart_lines' => [
@@ -150,8 +137,6 @@ return [
                 'cart_lines' => CartLineRouteGroup::class,
             ],
 
-            // Default pagination
-            'pagination' => 12,
         ],
 
         'cart_addresses' => [
@@ -159,8 +144,6 @@ return [
                 'cart_addresses' => CartAddressRouteGroup::class,
             ],
 
-            // Default pagination
-            'pagination' => 12,
         ],
 
         'customers' => [
@@ -173,8 +156,6 @@ return [
                 'customers' => CustomerRouteGroup::class,
             ],
 
-            // Default pagination
-            'pagination' => 12,
         ],
 
         'addresses' => [
@@ -182,8 +163,6 @@ return [
                 'addresses' => AddressRouteGroup::class,
             ],
 
-            // Default pagination
-            'pagination' => 12,
         ],
 
         'orders' => [
@@ -196,15 +175,11 @@ return [
                 'orders' => OrderRouteGroup::class,
             ],
 
-            // Default pagination
-            'pagination' => 12,
         ],
 
         'order_lines' => [
             'model' => OrderLine::class,
 
-            // Default pagination
-            'pagination' => 12,
         ],
 
         'shipping_options' => [
@@ -212,8 +187,6 @@ return [
                 'shipping_options' => ShippingOptionRouteGroup::class,
             ],
 
-            // Default pagination
-            'pagination' => 12,
         ],
 
         'urls' => [
@@ -221,18 +194,16 @@ return [
                 'urls' => Dystcz\LunarApi\Domain\Urls\Http\Routing\UrlRouteGroup::class,
             ],
 
-            'pagination' => 12,
         ],
 
         'tags' => [
             'route_groups' => [
                 'tags' => TagRouteGroup::class,
             ],
-
-            // Default pagination
-            'pagination' => 12,
         ],
     ],
+
+    'default_pagination' => 12,
 
     'taxation' => [
         'prices_with_default_tax' => true,
