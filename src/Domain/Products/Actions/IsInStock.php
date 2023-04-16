@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Actions;
 
-use Lunar\Models\Product;
-use Lunar\Models\ProductVariant;
+use Dystcz\LunarApi\Domain\Products\Models\Product;
+use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 
 class IsInStock
 {

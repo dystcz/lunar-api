@@ -3,12 +3,12 @@
 namespace Dystcz\LunarApi\Domain\Carts\Actions;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Users\Contracts\CreatesUserFromCart;
 use Dystcz\LunarApi\Domain\Users\Contracts\RegistersUser;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\App;
-use Lunar\Models\CartAddress;
 use RuntimeException;
 
 class CreateUserFromCart implements CreatesUserFromCart

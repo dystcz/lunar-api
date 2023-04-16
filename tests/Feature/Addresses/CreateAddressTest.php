@@ -2,18 +2,17 @@
 
 namespace Dystcz\LunarApi\Tests\Feature\Addresses;
 
+use Dystcz\LunarApi\Domain\Addresses\Models\Address;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Auth;
-use Lunar\Models\Address;
 use Lunar\Models\Country;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
-    $this->actingAs(User::factory()->has(Customer::factory())->create());
+    $this->user = User::factory()->has(Customer::factory())->create();
 
     $this->address = Address::factory()->make();
 
@@ -33,7 +32,7 @@ beforeEach(function () {
             'customer' => [
                 'data' => [
                     'type' => 'customers',
-                    'id' => (string) Auth::user()->customers->first()->getRouteKey(),
+                    'id' => (string) $this->user->customers->first()->getRouteKey(),
                 ],
             ],
             'country' => [
@@ -46,8 +45,9 @@ beforeEach(function () {
     ];
 });
 
-it('can be created', function () {
+test('address can be created', function () {
     $response = $this
+        ->actingAs($this->user)
         ->jsonApi()
         ->expects('addresses')
         ->withData($this->data)
@@ -60,5 +60,13 @@ it('can be created', function () {
 
     $this->assertDatabaseHas($this->address->getTable(), [
         'id' => $id,
+        'first_name' => $this->address->first_name,
+        'last_name' => $this->address->last_name,
+        'company_name' => $this->address->company_name,
+        'city' => $this->address->city,
+        'line_one' => $this->address->line_one,
+        'line_two' => $this->address->line_two,
+        'line_three' => $this->address->line_three,
+        'postcode' => $this->address->postcode,
     ]);
 });

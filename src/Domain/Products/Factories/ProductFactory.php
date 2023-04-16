@@ -2,10 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Factories;
 
+use Dystcz\LunarApi\Domain\Brands\Models\Brand;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Lunar\Database\Factories\ProductFactory as LunarProductFactory;
 use Lunar\FieldTypes\Text;
-use Lunar\Models\Brand;
 use Lunar\Models\ProductType;
 
 class ProductFactory extends LunarProductFactory

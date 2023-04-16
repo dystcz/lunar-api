@@ -7,12 +7,12 @@ use Dystcz\LunarApi\Domain\Carts\Actions\AddToCart;
 use Dystcz\LunarApi\Domain\Carts\Actions\UpdateCartLine;
 use Dystcz\LunarApi\Domain\Carts\Data\CartLineData;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartLineRequest;
+use Dystcz\LunarApi\Domain\Carts\Models\CartLine;
 use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Destroy;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
-use Lunar\Models\CartLine;
 
 class CartLinesController extends Controller
 {

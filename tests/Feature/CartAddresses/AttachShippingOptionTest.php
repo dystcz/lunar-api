@@ -2,19 +2,19 @@
 
 namespace Dystcz\LunarApi\Tests\Feature\CartAddresses;
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Factories\CartAddressFactory;
+use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Facades\CartSession;
 use Lunar\Facades\ShippingManifest;
-use Lunar\Models\CartAddress;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
-    $this->cart = Cart::factory()->create();
+    $this->cart = CartFactory::new()->create();
 
-    $this->cartAddress = CartAddress::factory()->for($this->cart)->create();
+    $this->cartAddress = CartAddressFactory::new()->for($this->cart)->create();
 
     $this->shippingOption = ShippingManifest::getOptions($this->cart)->first();
 

@@ -2,12 +2,12 @@
 
 namespace Dystcz\LunarApi\Tests\Feature\Addresses;
 
+use Dystcz\LunarApi\Domain\Addresses\Models\Address;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
-use Lunar\Models\Address;
 
 uses(TestCase::class, RefreshDatabase::class);
 

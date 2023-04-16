@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Enums;
 
+use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Illuminate\Contracts\Support\Arrayable;
-use Lunar\Models\ProductVariant;
 
 enum PurchaseStatus implements Arrayable
 {

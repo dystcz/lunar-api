@@ -4,6 +4,8 @@ namespace Dystcz\LunarApi\Tests\Feature\Cart;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Discounts\Factories\DiscountFactory;
+use Dystcz\LunarApi\Domain\Prices\Models\Price;
+use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\DiscountTypes\AmountOff;
@@ -11,8 +13,6 @@ use Lunar\Facades\CartSession;
 use Lunar\Models\Channel;
 use Lunar\Models\Currency;
 use Lunar\Models\CustomerGroup;
-use Lunar\Models\Price;
-use Lunar\Models\ProductVariant;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -38,13 +38,13 @@ test('a user can apply a valid coupon', function () {
 
     $channel = Channel::getDefault();
 
-    $purchasableA = ProductVariant::factory()->create();
+    $purchasableA = ProductVariantFactory::new()->create();
 
     Price::factory()->create([
         'price' => 1000, // 10 EUR
         'tier' => 1,
         'currency_id' => $currency->id,
-        'priceable_type' => get_class($purchasableA),
+        'priceable_type' => $purchasableA->getMorphClass(),
         'priceable_id' => $purchasableA->id,
     ]);
 
@@ -56,7 +56,7 @@ test('a user can apply a valid coupon', function () {
     });
 
     $cart->lines()->create([
-        'purchasable_type' => get_class($purchasableA),
+        'purchasable_type' => $purchasableA->getMorphClass(),
         'purchasable_id' => $purchasableA->id,
         'quantity' => 10,
     ]);

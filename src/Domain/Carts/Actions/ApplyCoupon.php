@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Actions;
 
-use Lunar\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 
 class ApplyCoupon
 {

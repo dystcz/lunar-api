@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Brands\Policies;
 
+use Dystcz\LunarApi\Domain\Brands\Models\Brand;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Lunar\Models\Brand;
 
 class BrandPolicy
 {

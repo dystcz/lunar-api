@@ -18,8 +18,8 @@ use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderAddressSchema;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderLineSchema;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderSchema;
 use Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceSchema;
-use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductAssociationSchema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
+use Dystcz\LunarApi\Domain\ProductsAssociations\JsonApi\V1\ProductAssociationSchema;
 use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystcz\LunarApi\Domain\Shipping\JsonApi\V1\ShippingOptionSchema;
 use Dystcz\LunarApi\Domain\Tags\JsonApi\V1\TagSchema;
@@ -53,28 +53,28 @@ class Server extends BaseServer
     protected function allSchemas(): array
     {
         return [
+            AddressSchema::class,
             BrandSchema::class,
-            CollectionSchema::class,
-            CollectionGroupSchema::class,
-            CartSchema::class,
-            CartLineSchema::class,
             CartAddressSchema::class,
-            CustomerSchema::class,
+            CartLineSchema::class,
+            CartSchema::class,
+            CollectionGroupSchema::class,
+            CollectionSchema::class,
             CountrySchema::class,
             CurrencySchema::class,
-            AddressSchema::class,
+            CustomerSchema::class,
             DefaultUrlSchema::class,
             MediaSchema::class,
+            OrderAddressSchema::class,
+            OrderLineSchema::class,
+            OrderSchema::class,
             PriceSchema::class,
             ProductAssociationSchema::class,
             ProductSchema::class,
             ProductVariantSchema::class,
-            UrlSchema::class,
-            OrderSchema::class,
-            OrderAddressSchema::class,
-            OrderLineSchema::class,
             ShippingOptionSchema::class,
             TagSchema::class,
+            UrlSchema::class,
 
             ...parent::allSchemas(),
         ];

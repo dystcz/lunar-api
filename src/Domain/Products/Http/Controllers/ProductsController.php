@@ -6,6 +6,7 @@ use Dystcz\LunarApi\Controller;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductCollectionQuery;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductQuery;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
+use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\Products\ProductViews;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Response;
@@ -16,7 +17,6 @@ use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
-use Lunar\Models\Product;
 
 class ProductsController extends Controller
 {
@@ -72,7 +72,7 @@ class ProductsController extends Controller
     //     return new DataResponse($model);
     // }
 
-    public function read(?\Dystcz\LunarApi\Domain\Products\Models\Product $product, ProductQuery $query): void
+    public function read(?Product $product, ProductQuery $query): void
     {
         $productId = $product?->id;
 
