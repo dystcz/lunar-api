@@ -37,9 +37,9 @@ abstract class Schema extends BaseSchema implements Extendable, SchemaContract
     /**
      * Allow viewing of relationships.
      *
-     * @property string[] $showRelationships
+     * @property string[] $showRelationship
      */
-    protected array $showRelationships = [];
+    protected array $showRelationship = [];
 
     /**
      * {@inheritDoc}
@@ -161,15 +161,15 @@ abstract class Schema extends BaseSchema implements Extendable, SchemaContract
     /**
      * Allow specific relationships to be accessed.
      */
-    public function showRelationships(): array
+    public function showRelationship(): array
     {
-        if (empty($this->showRelationships)) {
+        if (empty($this->showRelationship)) {
             return $this->showRelated();
         }
 
         $paths = array_merge(
-            Arr::wrap($this->showRelationships),
-            Arr::wrap($this->extension->showRelationships()),
+            Arr::wrap($this->showRelationship),
+            Arr::wrap($this->extension->showRelationship()),
         );
 
         return array_values(array_unique($paths));

@@ -16,7 +16,7 @@ class ExtendableSchemasMock extends ProductSchema
         'one',
     ];
 
-    protected array $showRelationships = [
+    protected array $showRelationship = [
         'apple',
     ];
 

@@ -164,23 +164,23 @@ test('schema relationships gate ability can be extended', function () {
     $relationships = ['pear', 'peach'];
 
     expect($productSchemaInstance)
-        ->showRelationships()
+        ->showRelationship()
         ->not
         ->toContain('pear', 'peach')
         ->toHaveCount(1);
 
     SchemaManifest::for(ExtendableSchemasMock::class)
-        ->showRelationships(
+        ->showRelationship(
             $relationships,
         );
 
     expect(SchemaManifest::for(ExtendableSchemasMock::class))
-        ->showRelationships()
+        ->showRelationship()
         ->toContain('pear', 'peach')
         ->toHaveCount(2);
 
     expect($productSchemaInstance)
-        ->showRelationships()
+        ->showRelationship()
         ->toContain('apple', 'pear', 'peach')
         ->toHaveCount(3);
 });

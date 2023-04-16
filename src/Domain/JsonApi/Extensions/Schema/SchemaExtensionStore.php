@@ -14,7 +14,7 @@ class SchemaExtensionStore extends ExtensionStore implements ExtensionStoreContr
         public iterable $filters = [],
         public iterable $sortables = [],
         public iterable $showRelated = [],
-        public iterable $showRelationships = [],
+        public iterable $showRelationship = [],
     ) {
     }
 }

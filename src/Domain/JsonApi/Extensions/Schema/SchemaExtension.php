@@ -15,7 +15,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;
  * @method array|self filters(mixed $value)
  * @method array|self sortables(mixed $value)
  * @method array|self showRelated(mixed $value)
- * @method array|self showRelationships(mixed $value)
+ * @method array|self showRelationship(mixed $value)
  */
 class SchemaExtension extends Extension
 {

@@ -14,5 +14,5 @@ interface Schema extends BaseSchemaContract
     /**
      * Allow specific relationships to be accessed.
      */
-    public function showRelationships(): array;
+    public function showRelationship(): array;
 }
