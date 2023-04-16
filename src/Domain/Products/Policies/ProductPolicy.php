@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Policies;
 
+use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Lunar\Models\Product;
 
 class ProductPolicy
 {
@@ -48,5 +48,37 @@ class ProductPolicy
     public function delete(?Authenticatable $user, Product $product): bool
     {
         return false;
+    }
+
+    /**
+     * Authorize a user to view product's associations.
+     */
+    public function viewAssociations(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view product's brand.
+     */
+    public function viewBrand(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view product's cheapest variant.
+     */
+    public function viewCheapestVariant(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view product's default url.
+     */
+    public function viewDefaultUrl(?Authenticatable $user, Product $product): bool
+    {
+        return true;
     }
 }
