@@ -9,11 +9,11 @@ use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;
  * @property  class-string<Extendable>  $class
  * @property SchemaExtensionStore $store
  *
- * @method iterale|void with(mixed $value)
- * @method iterale|void includePaths(mixed $value)
- * @method iterale|void fields(mixed $value)
- * @method iterale|void filters(mixed $value)
- * @method iterale|void sortables(mixed $value)
+ * @method iterable|void with(mixed $value)
+ * @method iterable|void includePaths(mixed $value)
+ * @method iterable|void fields(mixed $value)
+ * @method iterable|void filters(mixed $value)
+ * @method iterable|void sortables(mixed $value)
  */
 class SchemaExtension extends Extension
 {
