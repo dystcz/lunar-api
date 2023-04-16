@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Policies;
 
+use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Lunar\Models\ProductVariant;
 
 class ProductVariantPolicy
 {
@@ -46,6 +46,14 @@ class ProductVariantPolicy
      * Determine whether the user can delete the model.
      */
     public function delete(?Authenticatable $user, ProductVariant $variant): bool
+    {
+        return false;
+    }
+
+    /**
+     * Authorize a user to view variant's product.
+     */
+    public function viewProduct(?Authenticatable $user, ProductVariant $variant): bool
     {
         return false;
     }
