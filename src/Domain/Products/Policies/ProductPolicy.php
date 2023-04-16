@@ -81,4 +81,12 @@ class ProductPolicy
     {
         return true;
     }
+
+    /**
+     * Authorize a user to view product's variants.
+     */
+    public function viewVariants(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
 }
