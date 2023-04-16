@@ -53,6 +53,7 @@ class LunarApiServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
         $this->registerModels();
+        $this->registerPolicies();
 
         Event::listen(CartCreated::class, CreateCartAddresses::class);
 
@@ -60,8 +61,6 @@ class LunarApiServiceProvider extends ServiceProvider
         LunarApi::registerUserUsing(Config::get('auth.actions.register_user', RegisterUser::class));
 
         LaravelJsonApi::defaultResource(JsonApiResource::class);
-
-        // $this->registerPolicies();
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
