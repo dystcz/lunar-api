@@ -14,40 +14,16 @@ use LaravelJsonApi\Eloquent\Fields\Str;
 class CartLineSchema extends Schema
 {
     /**
-     * The model the schema corresponds to.
+     * {@inheritDoc}
      */
     public static string $model = CartLine::class;
 
     /**
-     * The relationships that should always be eager loaded.
-     */
-    public function with(): array
-    {
-        return [
-            
-        ];
-    }
-
-    /**
-     * Get the include paths supported by this resource.
-     *
-     * @return string[]|iterable
-     */
-    public function includePaths(): iterable
-    {
-        return [
-            
-        ];
-    }
-
-    /**
-     * Get the resource fields.
+     * {@inheritDoc}
      */
     public function fields(): array
     {
         return [
-            
-
             ID::make(),
             Number::make('quantity'),
             ArrayList::make('meta'),
@@ -56,11 +32,13 @@ class CartLineSchema extends Schema
 
             BelongsTo::make('cart'),
             MorphTo::make('purchasable', 'purchasable')->types('products', 'variants'),
+
+            ...parent::fields(),
         ];
     }
 
     /**
-     * Get the JSON:API resource type.
+     * {@inheritDoc}
      */
     public static function type(): string
     {

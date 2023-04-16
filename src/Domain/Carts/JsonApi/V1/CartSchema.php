@@ -14,29 +14,16 @@ use LaravelJsonApi\Eloquent\Fields\Str;
 class CartSchema extends Schema
 {
     /**
-     * The model the schema corresponds to.
+     * {@inheritDoc}
      */
     public static string $model = Cart::class;
 
     /**
-     * The relationships that should always be eager loaded.
-     */
-    public function with(): array
-    {
-        return [
-            
-        ];
-    }
-
-    /**
-     * Get the include paths supported by this resource.
-     *
-     * @return string[]|iterable
+     * {@inheritDoc}
      */
     public function includePaths(): iterable
     {
         return [
-            
             'lines',
             'lines.purchasable',
             'lines.purchasable.prices',
@@ -52,17 +39,17 @@ class CartSchema extends Schema
             'shippingAddress.country',
             'billingAddress',
             'billingAddress.country',
+
+            ...parent::includePaths(),
         ];
     }
 
     /**
-     * Get the resource fields.
+     * {@inheritDoc}
      */
     public function fields(): array
     {
         return [
-            
-
             ID::make(),
 
             BelongsTo::make('order'),
@@ -75,11 +62,13 @@ class CartSchema extends Schema
 
             // Custom fields (not in the database)
             Boolean::make('create_user')->hidden(),
+
+            ...parent::fields(),
         ];
     }
 
     /**
-     * Get the JSON:API resource type.
+     * {@inheritDoc}
      */
     public static function type(): string
     {

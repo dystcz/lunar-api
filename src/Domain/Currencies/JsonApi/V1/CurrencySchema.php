@@ -13,40 +13,16 @@ use Lunar\Models\Currency;
 class CurrencySchema extends Schema
 {
     /**
-     * The model the schema corresponds to.
+     * {@inheritDoc}
      */
     public static string $model = Currency::class;
 
     /**
-     * The relationships that should always be eager loaded.
-     */
-    public function with(): array
-    {
-        return [
-            
-        ];
-    }
-
-    /**
-     * Get the include paths supported by this resource.
-     *
-     * @return string[]|iterable
-     */
-    public function includePaths(): iterable
-    {
-        return [
-            
-        ];
-    }
-
-    /**
-     * Get the resource fields.
+     * {@inheritDoc}
      */
     public function fields(): array
     {
         return [
-            
-
             ID::make(),
 
             Str::make('code'),
@@ -64,11 +40,11 @@ class CurrencySchema extends Schema
 
     public function authorizable(): bool
     {
-        return false;
+        return false; // TODO: create policies
     }
 
     /**
-     * Get the JSON:API resource type.
+     * {@inheritDoc}
      */
     public static function type(): string
     {

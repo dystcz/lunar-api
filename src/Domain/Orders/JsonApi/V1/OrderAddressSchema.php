@@ -11,42 +11,29 @@ use Lunar\Models\OrderAddress;
 class OrderAddressSchema extends Schema
 {
     /**
-     * The model the schema corresponds to.
+     * {@inheritDoc}
      */
     public static string $model = OrderAddress::class;
 
     /**
-     * The relationships that should always be eager loaded.
-     */
-    public function with(): array
-    {
-        return [
-            
-        ];
-    }
-
-    /**
-     * Get the include paths supported by this resource.
-     *
-     * @return string[]|iterable
+     * {@inheritDoc}
      */
     public function includePaths(): iterable
     {
         return [
-            
             'order',
             'country',
+
+            ...parent::includePaths(),
         ];
     }
 
     /**
-     * Get the resource fields.
+     * {@inheritDoc}
      */
     public function fields(): array
     {
         return [
-            
-
             ID::make(),
 
             Str::make('title'),
@@ -67,11 +54,13 @@ class OrderAddressSchema extends Schema
 
             BelongsTo::make('order'),
             BelongsTo::make('country'),
+
+            ...parent::fields(),
         ];
     }
 
     /**
-     * Get the JSON:API resource type.
+     * {@inheritDoc}
      */
     public static function type(): string
     {

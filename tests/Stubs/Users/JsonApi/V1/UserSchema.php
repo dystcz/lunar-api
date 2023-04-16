@@ -9,24 +9,12 @@ use LaravelJsonApi\Eloquent\Fields\ID;
 class UserSchema extends Schema
 {
     /**
-     * The model the schema corresponds to.
+     * {@inheritDoc}
      */
     public static string $model = User::class;
 
     /**
-     * Get the include paths supported by this resource.
-     *
-     * @return string[]|iterable
-     */
-    public function includePaths(): iterable
-    {
-        return [
-            //
-        ];
-    }
-
-    /**
-     * Get the resource fields.
+     * {@inheritDoc}
      */
     public function fields(): array
     {
@@ -36,7 +24,7 @@ class UserSchema extends Schema
     }
 
     /**
-     * Determine if the resource is authorizable.
+     * {@inheritDoc}
      */
     public function authorizable(): bool
     {
@@ -44,7 +32,7 @@ class UserSchema extends Schema
     }
 
     /**
-     * Get the JSON:API resource type.
+     * {@inheritDoc}
      */
     public static function type(): string
     {

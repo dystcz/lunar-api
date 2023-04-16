@@ -11,7 +11,7 @@ use LaravelJsonApi\NonEloquent\Fields\ID;
 class ShippingOptionSchema extends Schema
 {
     /**
-     * The model the schema corresponds to.
+     * {@inheritDoc}
      */
     public static string $model = ShippingOption::class;
 
@@ -27,14 +27,22 @@ class ShippingOptionSchema extends Schema
             Attribute::make('identifier'),
             Attribute::make('price'),
             ArrayHash::make('meta'),
+
+            ...parent::fields(),
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function authorizable(): bool
     {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function repository(): ShippingOptionRepository
     {
         return ShippingOptionRepository::make()

@@ -5,11 +5,35 @@ namespace Dystcz\LunarApi\Domain\JsonApi\Eloquent;
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaExtension;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Config;
+use LaravelJsonApi\Core\Schema\IncludePathIterator;
 use LaravelJsonApi\Core\Server\Server;
+use LaravelJsonApi\Eloquent\Contracts\Paginator;
+use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema as BaseSchema;
 
 abstract class Schema extends BaseSchema implements Extendable
 {
+    /**
+     * The maximum depth of include paths.
+     */
+    protected int $maxDepth = 0;
+
+    /**
+     * The default paging parameters to use if the client supplies none.
+     */
+    protected ?array $defaultPagination = ['number' => 1];
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function resource(): string
+    {
+        return Config::get('lunar-api.domains.'.static::type().'resource', parent::resource());
+    }
+
     /**
      * Schema extension.
      */
@@ -17,12 +41,9 @@ abstract class Schema extends BaseSchema implements Extendable
 
     /**
      * Schema constructor.
-     *
-     * @param  Server  $server
      */
     public function __construct(Server $server)
     {
-        // dd(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
         $this->extension = SchemaManifest::for(static::class);
 
         $this->server = $server;
@@ -33,7 +54,9 @@ abstract class Schema extends BaseSchema implements Extendable
      */
     public function with(): array
     {
-        return [];
+        $paths = array_merge(parent::with(), Arr::wrap($this->with));
+
+        return array_values(array_unique($paths));
     }
 
     /**
@@ -41,11 +64,19 @@ abstract class Schema extends BaseSchema implements Extendable
      */
     public function includePaths(): iterable
     {
-        return [];
-
-        foreach ($this->extension->includePaths() as $path) {
-            yield $path;
+        if (0 < $this->maxDepth) {
+            return new IncludePathIterator(
+                $this->server->schemas(),
+                $this,
+                $this->maxDepth
+            );
         }
+
+        return [
+            ...$this->extension->includePaths(),
+
+            ...parent::includePaths(),
+        ];
     }
 
     /**
@@ -53,11 +84,7 @@ abstract class Schema extends BaseSchema implements Extendable
      */
     public function fields(): iterable
     {
-        return [];
-
-        foreach ($this->extension->fields() as $field) {
-            yield $field;
-        }
+        return $this->extension->fields();
     }
 
     /**
@@ -65,9 +92,11 @@ abstract class Schema extends BaseSchema implements Extendable
      */
     public function filters(): iterable
     {
-        return [];
+        return [
+            WhereIdIn::make($this),
 
-        // yield from $this->extension->filters();
+            ...$this->extension->filters(),
+        ];
     }
 
     /**
@@ -75,8 +104,17 @@ abstract class Schema extends BaseSchema implements Extendable
      */
     public function sortables(): iterable
     {
-        return [];
+        return $this->extension->sortables();
+    }
 
-        // yield from $this->extension->sortables();
+    /**
+     * {@inheritDoc}
+     */
+    public function pagination(): ?Paginator
+    {
+        return PagePagination::make()
+            ->withDefaultPerPage(
+                Config::get('lunar-api.default_pagination', 12)
+            );
     }
 }

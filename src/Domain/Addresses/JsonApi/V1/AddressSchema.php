@@ -7,65 +7,46 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
-use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 
 class AddressSchema extends Schema
 {
     /**
-     * The default paging parameters to use if the client supplies none.
+     * {@inheritDoc}
      */
-    protected ?array $defaultPagination = ['number' => 1];
-
     public function indexQuery(?Request $request, Builder $query): Builder
     {
         return $query->whereIn('customer_id', Auth::user()->customers->pluck('id'));
     }
 
     /**
-     * The model the schema corresponds to.
+     * {@inheritDoc}
      */
     public static string $model = Address::class;
 
     /**
-     * The relationships that should always be eager loaded.
-     */
-    public function with(): array
-    {
-        return [
-            
-        ];
-    }
-
-    /**
-     * Get the include paths supported by this resource.
-     *
-     * @return string[]|iterable
+     * {@inheritDoc}
      */
     public function includePaths(): iterable
     {
         return [
-            
             'country',
             'customer',
+
+            ...parent::includePaths(),
         ];
     }
 
     /**
-     * Get the resource fields.
+     * {@inheritDoc}
      */
     public function fields(): array
     {
         return [
-            
-
             ID::make(),
 
             Str::make('title'),
@@ -90,41 +71,13 @@ class AddressSchema extends Schema
 
             BelongsTo::make('customer'),
             BelongsTo::make('country'),
-        ];
-    }
 
-    public function sortables(): iterable
-    {
-        return [
-            
+            ...parent::fields(),
         ];
     }
 
     /**
-     * Get the resource filters.
-     */
-    public function filters(): array
-    {
-        return [
-            
-
-            WhereIdIn::make($this),
-        ];
-    }
-
-    /**
-     * Get the resource paginator.
-     */
-    public function pagination(): ?Paginator
-    {
-        return PagePagination::make()
-            ->withDefaultPerPage(
-                Config::get('lunar-api.domains.addresses.pagination', 12)
-            );
-    }
-
-    /**
-     * Get the JSON:API resource type.
+     * {@inheritDoc}
      */
     public static function type(): string
     {

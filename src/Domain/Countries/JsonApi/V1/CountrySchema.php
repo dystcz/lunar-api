@@ -10,40 +10,16 @@ use Lunar\Models\Country;
 class CountrySchema extends Schema
 {
     /**
-     * The model the schema corresponds to.
+     * {@inheritDoc}
      */
     public static string $model = Country::class;
 
     /**
-     * The relationships that should always be eager loaded.
-     */
-    public function with(): array
-    {
-        return [
-            
-        ];
-    }
-
-    /**
-     * Get the include paths supported by this resource.
-     *
-     * @return string[]|iterable
-     */
-    public function includePaths(): iterable
-    {
-        return [
-            
-        ];
-    }
-
-    /**
-     * Get the resource fields.
+     * {@inheritDoc}
      */
     public function fields(): array
     {
         return [
-            
-
             ID::make(),
             Str::make('name'),
             Str::make('iso2'),
@@ -54,16 +30,21 @@ class CountrySchema extends Schema
             Str::make('native'),
             Str::make('emoji'),
             Str::make('emoji_u'),
+
+            ...parent::fields(),
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function authorizable(): bool
     {
-        return false;
+        return false; // TODO: create policies
     }
 
     /**
-     * Get the JSON:API resource type.
+     * {@inheritDoc}
      */
     public static function type(): string
     {

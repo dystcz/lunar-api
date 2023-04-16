@@ -4,8 +4,6 @@ namespace Dystcz\LunarApi\Domain\Orders\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
-use Illuminate\Support\Facades\Config;
-use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
@@ -16,29 +14,13 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 
 class OrderSchema extends Schema
 {
     /**
-     * The default paging parameters to use if the client supplies none.
-     */
-    protected ?array $defaultPagination = ['number' => 1];
-
-    /**
-     * The model the schema corresponds to.
+     * {@inheritDoc}
      */
     public static string $model = Order::class;
-
-    /**
-     * The relationships that should always be eager loaded.
-     */
-    public function with(): array
-    {
-        return [
-
-        ];
-    }
 
     /**
      * Get the include paths supported by this resource.
@@ -48,7 +30,6 @@ class OrderSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-
             'customer',
             'user',
 
@@ -84,16 +65,17 @@ class OrderSchema extends Schema
             'shippingLines.purchasable.images',
             'shippingLines.purchasable.product',
             'shippingLines.purchasable.product.thumbnail',
+
+            ...parent::includePaths(),
         ];
     }
 
     /**
-     * Get the resource fields.
+     * {@inheritDoc}
      */
     public function fields(): array
     {
         return [
-
             ID::make(),
             Boolean::make('new_customer'),
             Str::make('status'),
@@ -123,18 +105,13 @@ class OrderSchema extends Schema
             HasMany::make('addresses'),
             HasOne::make('shippingAddress'),
             HasOne::make('billingAddress'),
-        ];
-    }
 
-    public function sortables(): iterable
-    {
-        return [
-
+            ...parent::fields(),
         ];
     }
 
     /**
-     * Get the resource filters.
+     * {@inheritDoc}
      */
     public function filters(): array
     {
@@ -143,22 +120,13 @@ class OrderSchema extends Schema
 
             Where::make('user_id'),
             Where::make('reference')->singular(),
+
+            ...parent::filters(),
         ];
     }
 
     /**
-     * Get the resource paginator.
-     */
-    public function pagination(): ?Paginator
-    {
-        return PagePagination::make()
-            ->withDefaultPerPage(
-                Config::get('lunar-api.domains.orders.pagination', 12)
-            );
-    }
-
-    /**
-     * Get the JSON:API resource type.
+     * {@inheritDoc}
      */
     public static function type(): string
     {
