@@ -72,7 +72,7 @@ abstract class Extension
     /**
      * Get extension value.
      */
-    protected function get(string $property): mixed
+    protected function get(string $property): array
     {
         if (is_null($this->store->{$property})) {
             return [];

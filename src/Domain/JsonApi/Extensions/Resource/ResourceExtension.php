@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource;
 
-use Closure;
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;
 
@@ -10,8 +9,8 @@ use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;
  * @property  class-string<Extendable>  $class
  * @property ResourceExtensionStore $store
  *
- * @method void|iterable attributes(iterable|null $callback)
- * @method void|iterable relationships(Closure|null $callback)
+ * @method array|self attributes(mixed $value)
+ * @method array|self relationships(mixed $value)
  */
 class ResourceExtension extends Extension
 {
