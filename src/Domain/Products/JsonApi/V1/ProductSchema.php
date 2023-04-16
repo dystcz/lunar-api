@@ -6,7 +6,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Contracts\FilterCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Sorts\RecentlyViewedSort;
-use Illuminate\Support\Facades\Config;
+use Dystcz\LunarApi\Domain\Products\Models\Product;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
@@ -15,7 +15,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use Lunar\Models\Product;
 
 class ProductSchema extends Schema
 {
@@ -84,7 +83,11 @@ class ProductSchema extends Schema
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
 
-            HasMany::make('associations')->canCount(),
+            HasMany::make('associations')
+                ->canCount()
+                ->serializeUsing(
+                    static fn ($relation) => $relation,
+                ),
 
             BelongsTo::make('brand'),
 
@@ -93,31 +96,55 @@ class ProductSchema extends Schema
                 ->withUriFieldName('cheapest_variant'),
 
             HasMany::make('collections')
-                ->canCount(),
+                ->canCount()
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks()
+                ),
 
             HasOne::make('default_url', 'defaultUrl')
                 ->retainFieldName(),
 
             HasMany::make('images', 'images')
                 ->type('media')
-                ->canCount(),
+                ->canCount()
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
             HasOneThrough::make('lowest_price', 'lowestPrice')
                 ->type('prices')
-                ->retainFieldName(),
+                ->retainFieldName()
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
-            HasManyThrough::make('prices'),
+            HasManyThrough::make('prices')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
             HasMany::make('tags')
-                ->canCount(),
+                ->canCount()
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
             HasOne::make('thumbnail', 'thumbnail')
-                ->type('media'),
+                ->type('media')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
-            HasMany::make('urls'),
+            HasMany::make('urls')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
             HasMany::make('variants')
-                ->canCount(),
+                ->canCount()
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
             ...parent::fields(),
         ];

@@ -12,6 +12,9 @@ use LaravelJsonApi\Contracts\Resources\Serializer\Attribute as SerializableAttri
 use LaravelJsonApi\Contracts\Resources\Serializer\Relation as SerializableRelation;
 use LaravelJsonApi\Contracts\Schema\Schema;
 use LaravelJsonApi\Core\Resources\JsonApiResource as BaseApiResource;
+use LaravelJsonApi\Core\Resources\Relation;
+use RecursiveArrayIterator;
+use RecursiveIteratorIterator;
 
 class JsonApiResource extends BaseApiResource implements Extendable
 {
@@ -22,9 +25,6 @@ class JsonApiResource extends BaseApiResource implements Extendable
 
     /**
      * JsonApiResource constructor.
-     *
-     * @param  Schema  $schema
-     * @param  object  $resource
      */
     public function __construct(protected Schema $schema, public object $resource)
     {
@@ -43,12 +43,8 @@ class JsonApiResource extends BaseApiResource implements Extendable
         /** @var Model $model */
         $model = $this->resource;
 
-        if ($model->relationLoaded('variants')) {
-            $model->variants->each(fn ($variant) => $variant->setRelation('product', $model));
-        }
-
-        foreach ($this->allAttributes() as $attr) {
-            if ($attr instanceof AttributeData && $request->has('attribute_data')) {
+        foreach ($this->allAttributes() as $key => $attr) {
+            if ($attr instanceof AttributeData && $request?->has('attribute_data')) {
                 $attr = $attr->serializeUsing(
                     static fn ($value) => $value->only(explode(',', $request->get('attribute_data')))
                 );
@@ -63,51 +59,72 @@ class JsonApiResource extends BaseApiResource implements Extendable
             if ($attr instanceof SerializableAttribute && $attr->isNotHidden($request)) {
                 yield $attr->serializedFieldName() => $attr->serialize($this->resource);
             }
+
+            if (is_scalar($attr) && is_scalar($key)) {
+                yield $key => $attr;
+            }
         }
     }
 
     /**
-     * Get extended resource's attributes.
-     *
-     * @return iterable
+     * Get all resource's attributes.
      */
     protected function allAttributes(): iterable
     {
-        yield from $this->schema->attributes();
-
-        yield from $this->extension->attributes();
+        return [
+            ...$this->schema->attributes(),
+            ...$this->extendedFields($this->extension->attributes()),
+        ];
     }
 
     /**
      * Get the resource's relationships.
      *
      * @param  Request|null  $request
-     * @return iterable
      */
     public function relationships($request): iterable
     {
         foreach ($this->allRelationships() as $relation) {
+            if ($relation instanceof Relation && ! $relation instanceof SerializableRelation) {
+                yield $relation->fieldName() => $relation;
+            }
+
             if ($relation instanceof SerializableRelation && $relation->isNotHidden($request)) {
                 yield $relation->serializedFieldName() => $this->serializeRelation($relation);
             }
 
-            if ($relation instanceof Closure) {
-                $relation = Closure::bind($relation, $this, self::class);
-
-                yield from $relation($this);
-            }
         }
     }
 
     /**
-     * Get extended resource's attributes.
-     *
-     * @return iterable
+     * Get all resource's relationships.
      */
     protected function allRelationships(): iterable
     {
-        yield from $this->schema->relationships();
+        return [
+            ...$this->schema->relationships(),
+            ...$this->extendedFields($this->extension->relationships()),
+        ];
+    }
 
-        yield from $this->extension->relationships();
+    /**
+     * Get extended resource's relationships.
+     */
+    protected function extendedFields(array $fields): array
+    {
+        $fields = array_map(function ($field) {
+            if ($field instanceof Closure) {
+                $field = Closure::bind($field, $this, self::class);
+
+                return $field($this);
+            }
+
+            return $field;
+        }, $fields);
+
+        $recursiveArrayIterator = new RecursiveArrayIterator($fields, RecursiveArrayIterator::CHILD_ARRAYS_ONLY);
+        $iterator = new RecursiveIteratorIterator($recursiveArrayIterator);
+
+        return iterator_to_array($iterator);
     }
 }

@@ -46,9 +46,18 @@ class CustomerSchema extends Schema
             Str::make('account_ref'),
             Str::make('vat_no'),
 
-            HasMany::make('orders'),
-            HasMany::make('addresses'),
-            BelongsToMany::make('users'),
+            HasMany::make('orders')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+            HasMany::make('addresses')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+            BelongsToMany::make('users')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
             ...parent::fields(),
         ];

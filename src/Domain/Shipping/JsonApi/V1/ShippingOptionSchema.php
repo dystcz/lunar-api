@@ -27,8 +27,6 @@ class ShippingOptionSchema extends Schema
             Attribute::make('identifier'),
             Attribute::make('price'),
             ArrayHash::make('meta'),
-
-            ...parent::fields(),
         ];
     }
 

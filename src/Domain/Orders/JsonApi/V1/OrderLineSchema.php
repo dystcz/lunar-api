@@ -6,6 +6,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\Orders\Models\OrderLine;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
@@ -32,6 +33,8 @@ class OrderLineSchema extends Schema
             'order',
             'currency',
             'purchasable',
+            'purchasable.prices',
+            'purchasable.images',
             'purchasable.product',
             'purchasable.product.thumbnail',
 
@@ -53,20 +56,50 @@ class OrderLineSchema extends Schema
             Str::make('identifier'),
             Str::make('notes'),
 
-            Number::make('unit_quantity'),
-            Number::make('quantity'),
+            Map::make('prices', [
+                Number::make('unit_price')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('sub_total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('sub_total_discounted')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('total', 'total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('tax_total', 'taxTotal')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('discount_total', 'discount_total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                ArrayHash::make('tax_breakdown'),
+                ArrayHash::make('discount_breakdown'),
+            ]),
 
-            Number::make('unit_price'),
-            Number::make('sub_total'),
-            Number::make('discount_total'),
-            Number::make('tax_total'),
-            Number::make('total'),
+            BelongsTo::make('order')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
-            ArrayHash::make('tax_breakdown'),
+            BelongsTo::make('currency')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
-            BelongsTo::make('order'),
-            BelongsTo::make('currency'),
-            MorphTo::make('purchasable', 'purchasable')->types('products', 'variants'),
+            MorphTo::make('purchasable', 'purchasable')
+                ->types('products', 'variants')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
             ...parent::fields(),
         ];

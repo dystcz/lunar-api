@@ -3,8 +3,8 @@
 namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Illuminate\Http\Request;
-use Lunar\Models\ProductVariant;
 
 class ProductVariantResource extends JsonApiResource
 {
@@ -26,43 +26,6 @@ class ProductVariantResource extends JsonApiResource
             $model->setRelation('attributes', $model->product->attributes);
         }
 
-        return [
-            'purchasability' => [
-                'purchase_status' => $model->purchaseStatus->toArray(),
-            ],
-            ...parent::attributes($request),
-        ];
-    }
-
-    /**
-     * Get the resource's relationships.
-     *
-     * @param  Request|null  $request
-     */
-    public function relationships($request): iterable
-    {
-        /** @var ProductVariant $model */
-        $model = $this->resource;
-
-        return [
-            $this->relation('product'),
-
-            $this
-                ->relation('images')
-                ->withoutLinks()
-                ->withMeta(
-                    array_filter([
-                        'count' => $model->images_count,
-                    ], fn ($value) => null !== $value)
-                ),
-
-            $this->relation('lowest_price')
-                ->withoutLinks(),
-
-            $this->relation('prices')
-                ->withoutLinks(),
-
-            ...parent::relationships($request),
-        ];
+        return parent::attributes($request);
     }
 }

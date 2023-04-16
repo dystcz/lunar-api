@@ -21,8 +21,6 @@ class ShippingOptionResource extends JsonApiResource
             'identifier' => $this->resource->getIdentifier(),
             'price' => $data['price'],
             'currency' => $data['currency'],
-
-            ...parent::attributes($request),
         ];
     }
 }

@@ -102,9 +102,9 @@ class OrderSchema extends Schema
             BelongsTo::make('user'),
             BelongsTo::make('currency'),
 
-            HasMany::make('addresses'),
-            HasOne::make('shippingAddress'),
-            HasOne::make('billingAddress'),
+            HasMany::make('addresses')->type('order-addresses'),
+            HasOne::make('shippingAddress')->type('order-addresses'),
+            HasOne::make('billingAddress')->type('order-addresses'),
 
             ...parent::fields(),
         ];

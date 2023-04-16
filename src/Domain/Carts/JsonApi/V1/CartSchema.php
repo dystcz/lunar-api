@@ -4,8 +4,11 @@ namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Map;
+use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
@@ -17,6 +20,11 @@ class CartSchema extends Schema
      * {@inheritDoc}
      */
     public static string $model = Cart::class;
+
+    /**
+     * {@inheritDoc}
+     */
+    protected bool $selfLink = false;
 
     /**
      * {@inheritDoc}
@@ -52,16 +60,64 @@ class CartSchema extends Schema
         return [
             ID::make(),
 
-            BelongsTo::make('order'),
-            HasMany::make('lines')->type('cart-lines'),
-            HasMany::make('addresses')->type('cart-addresses'),
-            HasOne::make('shippingAddress')->type('cart-addresses'),
-            HasOne::make('billingAddress')->type('cart-addresses'),
+            Map::make('prices', [
+                Number::make('sub_total', 'subTotal')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('sub_total_discounted', 'subTotalDiscounted')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('total', 'total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('shipping_total', 'shippingTotal')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('tax_total', 'taxTotal')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('discount_total', 'discountTotal')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                ArrayHash::make('tax_breakdown', 'taxBreakdown'),
+                ArrayHash::make('discount_breakdown', 'discountBreakdown'),
+            ]),
 
             Str::make('coupon_code'),
 
             // Custom fields (not in the database)
             Boolean::make('create_user')->hidden(),
+
+            BelongsTo::make('order')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
+            HasMany::make('lines')->type('cart-lines')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
+            HasMany::make('addresses')->type('cart-addresses')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
+            HasOne::make('shippingAddress')->type('cart-addresses')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
+            HasOne::make('billingAddress')->type('cart-addresses')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
             ...parent::fields(),
         ];

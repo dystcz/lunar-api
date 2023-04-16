@@ -22,37 +22,6 @@ class CartResource extends JsonApiResource
             $model->calculate();
         }
 
-        return [
-            'prices' => [
-                'sub_total' => $model->subTotal?->decimal,
-                'sub_total_discounted' => $model->subTotalDiscounted?->decimal,
-                'total' => $model->total?->decimal,
-                'shipping_total' => $model->shippingTotal?->decimal,
-                'tax_total' => $model->taxTotal?->decimal,
-                'discount_total' => $model->discountTotal?->decimal,
-                'tax_breakdown' => $model->taxBreakdown,
-                'discount_breakdown' => $model->discountBreakdown,
-            ],
-
-            ...parent::attributes($request),
-        ];
-    }
-
-    /**
-     * Get the resource's relationships.
-     *
-     * @param  Request|null  $request
-     */
-    public function relationships($request): iterable
-    {
-        return [
-            $this->relation('lines'),
-            $this->relation('order'),
-            $this->relation('shippingAddress'),
-            $this->relation('billingAddress'),
-            $this->relation('addresses'),
-
-            ...parent::relationships($request),
-        ];
+        return parent::attributes($request);
     }
 }

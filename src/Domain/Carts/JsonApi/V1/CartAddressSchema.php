@@ -24,7 +24,7 @@ class CartAddressSchema extends Schema
             'cart',
             'country',
 
-            ...parent::includePaths(),
+            // ...parent::includePaths(),
         ];
     }
 
@@ -57,7 +57,7 @@ class CartAddressSchema extends Schema
             BelongsTo::make('country'),
             BelongsTo::make('cart'),
 
-            ...parent::fields(),
+            // ...parent::fields(),
         ];
     }
 

@@ -1,14 +1,14 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\ProductsAssociations\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Domain\ProductsAssociations\Models\ProductAssociation;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use Lunar\Models\ProductAssociation;
 
 class ProductAssociationSchema extends Schema
 {

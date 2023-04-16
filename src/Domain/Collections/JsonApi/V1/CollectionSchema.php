@@ -2,6 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\Collections\Models\Collection;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
@@ -9,7 +11,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use Lunar\Models\Collection;
 
 class CollectionSchema extends Schema
 {
@@ -31,6 +32,7 @@ class CollectionSchema extends Schema
     public function includePaths(): iterable
     {
         return [
+            'products',
             'products.urls',
             'products.default_url',
             'products.images',
@@ -51,14 +53,24 @@ class CollectionSchema extends Schema
 
             Str::make('name'),
 
+            AttributeData::make('attribute_data')
+                ->groupAttributes(),
+
             HasOne::make('default_url', 'defaultUrl')
                 ->retainFieldName(),
 
-            HasOne::make('group'),
+            HasOne::make('group')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks()
+                ),
 
-            HasMany::make('products'),
+            HasMany::make('products')
+                ->canCount(),
 
-            HasMany::make('urls'),
+            HasMany::make('urls')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks()
+                ),
 
             ...parent::fields(),
         ];
