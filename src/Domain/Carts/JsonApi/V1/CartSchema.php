@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
@@ -13,6 +12,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use Lunar\Models\Cart;
 
 class CartSchema extends Schema
 {
@@ -121,6 +121,14 @@ class CartSchema extends Schema
 
             ...parent::fields(),
         ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function authorizable(): bool
+    {
+        return false; // TODO: create policies
     }
 
     /**

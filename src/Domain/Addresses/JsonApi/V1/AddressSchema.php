@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Addresses\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Addresses\Models\Address;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -12,9 +11,15 @@ use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use Lunar\Models\Address;
 
 class AddressSchema extends Schema
 {
+    /**
+     * {@inheritDoc}
+     */
+    public static string $model = Address::class;
+
     /**
      * {@inheritDoc}
      */
@@ -22,11 +27,6 @@ class AddressSchema extends Schema
     {
         return $query->whereIn('customer_id', Auth::user()->customers->pluck('id'));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static string $model = Address::class;
 
     /**
      * {@inheritDoc}

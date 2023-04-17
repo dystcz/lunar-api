@@ -56,7 +56,7 @@ class AttributeData extends Attribute
         }
 
         $value = $model->attributes
-            ->where('attribute_type', $model->baseModelClass())
+            ->where('attribute_type', $model->getMorphClass())
             ->whereIn('handle', array_keys($value->all()))
             ->groupBy(fn (AttributeModel $attribute) => $attribute->attributeGroup->handle)
             ->map(fn ($attributes) => $attributes->mapWithKeys(fn (AttributeModel $attribute) => [

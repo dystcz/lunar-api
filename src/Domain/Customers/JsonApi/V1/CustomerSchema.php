@@ -2,12 +2,12 @@
 
 namespace Dystcz\LunarApi\Domain\Customers\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use Lunar\Models\Customer;
 
 class CustomerSchema extends Schema
 {

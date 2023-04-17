@@ -21,21 +21,21 @@ use Lunar\Facades\ModelManifest;
 class LunarApiServiceProvider extends ServiceProvider
 {
     protected $policies = [
-        \Dystcz\LunarApi\Domain\Addresses\Models\Address::class => \Dystcz\LunarApi\Domain\Addresses\Policies\AddressPolicy::class,
-        \Dystcz\LunarApi\Domain\Brands\Models\Brand::class => \Dystcz\LunarApi\Domain\Brands\Policies\BrandPolicy::class,
-        \Dystcz\LunarApi\Domain\Carts\Models\Cart::class => \Dystcz\LunarApi\Domain\Carts\Policies\CartPolicy::class,
-        \Dystcz\LunarApi\Domain\Carts\Models\CartAddress::class => \Dystcz\LunarApi\Domain\Carts\Policies\CartAddressPolicy::class,
-        \Dystcz\LunarApi\Domain\Carts\Models\CartLine::class => \Dystcz\LunarApi\Domain\Carts\Policies\CartLinePolicy::class,
-        \Dystcz\LunarApi\Domain\CollectionGroups\Models\CollectionGroup::class => \Dystcz\LunarApi\Domain\CollectionGroups\Policies\CollectionGroupPolicy::class,
-        \Dystcz\LunarApi\Domain\Collections\Models\Collection::class => \Dystcz\LunarApi\Domain\Collections\Policies\CollectionPolicy::class,
-        \Dystcz\LunarApi\Domain\Customers\Models\Customer::class => \Dystcz\LunarApi\Domain\Customers\Policies\CustomerPolicy::class,
-        \Dystcz\LunarApi\Domain\Orders\Models\Order::class => \Dystcz\LunarApi\Domain\Orders\Policies\OrderPolicy::class,
-        \Dystcz\LunarApi\Domain\Orders\Models\OrderAddress::class => \Dystcz\LunarApi\Domain\Orders\Policies\OrderAddressPolicy::class,
-        \Dystcz\LunarApi\Domain\Orders\Models\OrderLine::class => \Dystcz\LunarApi\Domain\Orders\Policies\OrderLinePolicy::class,
-        \Dystcz\LunarApi\Domain\Prices\Models\Price::class => \Dystcz\LunarApi\Domain\Prices\Policies\PricePolicy::class,
-        \Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class => \Dystcz\LunarApi\Domain\ProductVariants\Policies\ProductVariantPolicy::class,
-        \Dystcz\LunarApi\Domain\ProductsAssociations\Models\ProductAssociation::class => \Dystcz\LunarApi\Domain\ProductsAssociations\Policies\ProductAssociationPolicy::class,
-        \Dystcz\LunarApi\Domain\Products\Models\Product::class => \Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy::class,
+        \Lunar\Models\Address::class => \Dystcz\LunarApi\Domain\Addresses\Policies\AddressPolicy::class,
+        \Luanr\Models\Brand::class => \Dystcz\LunarApi\Domain\Brands\Policies\BrandPolicy::class,
+        \Luanr\Models\Cart::class => \Dystcz\LunarApi\Domain\Carts\Policies\CartPolicy::class,
+        \Lunar\Models\CartAddress::class => \Dystcz\LunarApi\Domain\Carts\Policies\CartAddressPolicy::class,
+        \Lunar\Models\CartLine::class => \Dystcz\LunarApi\Domain\Carts\Policies\CartLinePolicy::class,
+        \Lunar\Models\CollectionGroup::class => \Dystcz\LunarApi\Domain\CollectionGroups\Policies\CollectionGroupPolicy::class,
+        \Lunar\Models\Collection::class => \Dystcz\LunarApi\Domain\Collections\Policies\CollectionPolicy::class,
+        \Lunar\Models\Customer::class => \Dystcz\LunarApi\Domain\Customers\Policies\CustomerPolicy::class,
+        \Lunar\Models\Order::class => \Dystcz\LunarApi\Domain\Orders\Policies\OrderPolicy::class,
+        \Lunar\Models\OrderAddress::class => \Dystcz\LunarApi\Domain\Orders\Policies\OrderAddressPolicy::class,
+        \Lunar\Models\OrderLine::class => \Dystcz\LunarApi\Domain\Orders\Policies\OrderLinePolicy::class,
+        \Lunar\Models\Price::class => \Dystcz\LunarApi\Domain\Prices\Policies\PricePolicy::class,
+        \Lunar\Models\ProductVariant::class => \Dystcz\LunarApi\Domain\ProductVariants\Policies\ProductVariantPolicy::class,
+        \Lunar\Models\ProductAssociation::class => \Dystcz\LunarApi\Domain\ProductsAssociations\Policies\ProductAssociationPolicy::class,
+        \Lunar\Models\Product::class => \Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy::class,
     ];
 
     /**

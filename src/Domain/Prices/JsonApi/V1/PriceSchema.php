@@ -6,12 +6,12 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\Prices\Actions\GetPrice;
 use Dystcz\LunarApi\Domain\Prices\JsonApi\Filters\MaxPriceFilter;
 use Dystcz\LunarApi\Domain\Prices\JsonApi\Filters\MinPriceFilter;
-use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use Lunar\Models\Price;
 
 class PriceSchema extends Schema
 {

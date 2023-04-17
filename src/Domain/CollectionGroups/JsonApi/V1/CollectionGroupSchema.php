@@ -2,10 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\CollectionGroups\Models\CollectionGroup;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use Lunar\Models\CollectionGroup;
 
 class CollectionGroupSchema extends Schema
 {

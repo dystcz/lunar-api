@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Collections\Models\Collection;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
@@ -11,6 +10,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use Lunar\Models\Collection;
 
 class CollectionSchema extends Schema
 {
