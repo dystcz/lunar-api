@@ -27,8 +27,9 @@ class ProductSchema extends Schema
      * {@inheritDoc}
      */
     protected array $with = [
-        'attributes',
-        'attributes.attributeGroup',
+        'productType',
+        'productType.mappedAttributes',
+        'productType.mappedAttributes.attributeGroup',
     ];
 
     /**
@@ -145,6 +146,19 @@ class ProductSchema extends Schema
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
+
+            // HasMany::make('attributes')
+            //     ->hidden()
+            //     ->serializeUsing(
+            //         static fn ($relation) => $relation->withoutLinks(),
+            //     ),
+
+            // BelongsTo::make('product_type', 'productType')
+            //     ->hidden()
+            //     ->retainFieldName()
+            //     ->serializeUsing(
+            //         static fn ($relation) => $relation->withoutLinks(),
+            //     ),
 
             ...parent::fields(),
         ];

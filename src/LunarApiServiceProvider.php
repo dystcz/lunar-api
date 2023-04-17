@@ -95,6 +95,8 @@ class LunarApiServiceProvider extends ServiceProvider
     {
         $models = SupportCollection::make([
             \Lunar\Models\Address::class => \Dystcz\LunarApi\Domain\Addresses\Models\Address::class,
+            \Lunar\Models\Attribute::class => \Dystcz\LunarApi\Domain\Attributes\Models\Attribute::class,
+            \Lunar\Models\AttributeGroup::class => \Dystcz\LunarApi\Domain\AttributeGroups\Models\AttributeGroup::class,
             \Lunar\Models\Brand::class => \Dystcz\LunarApi\Domain\Brands\Models\Brand::class,
             \Lunar\Models\Cart::class => \Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
             \Lunar\Models\CartAddress::class => \Dystcz\LunarApi\Domain\Carts\Models\CartAddress::class,

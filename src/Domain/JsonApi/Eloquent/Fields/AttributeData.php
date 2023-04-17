@@ -11,24 +11,15 @@ use Lunar\Models\Attribute as AttributeModel;
 
 class AttributeData extends Attribute
 {
-    /**
-     * @var Closure|null
-     */
     private ?Closure $keys = null;
 
     /**
      * Group attributes.
-     *
-     * @var bool
      */
     private bool $groupAttributes = false;
 
     /**
      * Create an array attribute.
-     *
-     * @param  string  $fieldName
-     * @param  string|null  $column
-     * @return AttributeData
      */
     public static function make(string $fieldName, string $column = null): self
     {
@@ -37,8 +28,6 @@ class AttributeData extends Attribute
 
     /**
      * Group attributes.
-     *
-     * @return self
      */
     public function groupAttributes(): self
     {
@@ -49,8 +38,6 @@ class AttributeData extends Attribute
 
     /**
      * Determine if attributes should be flattened.
-     *
-     * @return bool
      */
     public function flatten(): bool
     {
@@ -69,7 +56,7 @@ class AttributeData extends Attribute
         }
 
         $value = $model->attributes
-            ->where('attribute_type', $model->getMorphClass())
+            ->where('attribute_type', $model->baseModelClass())
             ->whereIn('handle', array_keys($value->all()))
             ->groupBy(fn (AttributeModel $attribute) => $attribute->attributeGroup->handle)
             ->map(fn ($attributes) => $attributes->mapWithKeys(fn (AttributeModel $attribute) => [

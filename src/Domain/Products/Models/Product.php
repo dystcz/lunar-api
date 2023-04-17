@@ -24,6 +24,14 @@ class Product extends LunarProduct
     }
 
     /**
+     * Get the product base class.
+     */
+    public function baseModelClass(): string
+    {
+        return LunarProduct::class;
+    }
+
+    /**
      * Get the mapped attributes relation.
      */
     public function attributes(): MorphToMany

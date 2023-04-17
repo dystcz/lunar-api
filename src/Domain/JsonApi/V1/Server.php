@@ -3,6 +3,8 @@
 namespace Dystcz\LunarApi\Domain\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressSchema;
+use Dystcz\LunarApi\Domain\AttributeGroups\JsonApi\V1\AttributeGroupSchema;
+use Dystcz\LunarApi\Domain\Attributes\JsonApi\V1\AttributeSchema;
 use Dystcz\LunarApi\Domain\Brands\JsonApi\V1\BrandSchema;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartAddressSchema;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartLineSchema;
@@ -20,6 +22,7 @@ use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderSchema;
 use Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceSchema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystcz\LunarApi\Domain\ProductsAssociations\JsonApi\V1\ProductAssociationSchema;
+use Dystcz\LunarApi\Domain\ProductTypes\JsonApi\V1\ProductTypeSchema;
 use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystcz\LunarApi\Domain\Shipping\JsonApi\V1\ShippingOptionSchema;
 use Dystcz\LunarApi\Domain\Tags\JsonApi\V1\TagSchema;
@@ -54,6 +57,8 @@ class Server extends BaseServer
     {
         return [
             AddressSchema::class,
+            AttributeGroupSchema::class,
+            AttributeSchema::class,
             BrandSchema::class,
             CartAddressSchema::class,
             CartLineSchema::class,
@@ -71,6 +76,7 @@ class Server extends BaseServer
             PriceSchema::class,
             ProductAssociationSchema::class,
             ProductSchema::class,
+            ProductTypeSchema::class,
             ProductVariantSchema::class,
             ShippingOptionSchema::class,
             TagSchema::class,
