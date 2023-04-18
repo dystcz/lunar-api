@@ -17,7 +17,6 @@ class AttachShippingOptionController extends Controller
     ): DataResponse {
         $this->authorize('update', $cartAddress);
 
-        ray($request->input('data.attributes.shipping_option'));
         $cartAddress->update([
             'shipping_option' => $request->input('data.attributes.shipping_option'),
         ]);
