@@ -26,7 +26,6 @@ class DetachShippingOptionController extends Controller
             ->withRequest($request)
             ->first();
 
-        return DataResponse::make($model)
-                ->didntCreate();
+        return DataResponse::make($model)->didntCreate();
     }
 }
