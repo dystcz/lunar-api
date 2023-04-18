@@ -31,7 +31,7 @@ it('can add purchasable to the cart', function () {
         ->jsonApi()
         ->expects('cart-lines')
         ->withData($data)
-        ->post('/api/v1/cart-lines');
+        ->post(serverUrl('/cart-lines'));
 
     $id = $response
         ->assertCreatedWithServerId('http://localhost/api/v1/cart-lines', $data)
@@ -73,7 +73,7 @@ test('cart line quantity will be incremented if already presented inside the use
         ->jsonApi()
         ->expects('cart-lines')
         ->withData($data)
-        ->post('/api/v1/cart-lines');
+        ->post(serverUrl('/cart-lines'));
 
     $data['attributes']['quantity'] = $cartLine->quantity * 2;
 

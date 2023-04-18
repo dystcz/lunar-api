@@ -51,20 +51,22 @@ class AttributeData extends Attribute
     {
         $value = parent::serialize($model);
 
-        if (! $value || ! $model->attributes instanceof Collection || ! $this->groupAttributes) {
+        if (! $this->groupAttributes) {
             return Hash::cast($value);
         }
 
-        $value = $model->attributes
-            ->where('attribute_type', $model->getMorphClass())
-            ->whereIn('handle', array_keys($value->all()))
-            ->groupBy(fn (AttributeModel $attribute) => $attribute->attributeGroup->handle)
-            ->map(fn ($attributes) => $attributes->mapWithKeys(fn (AttributeModel $attribute) => [
-                $attribute->handle => [
-                    'name' => $attribute->translate('name'),
-                    'value' => $model->attr($attribute->handle),
-                ],
-            ]));
+        if ($model->attributes instanceof Collection && $model->attributes->isNotEmpty()) {
+            $value = $model->attributes
+                ->where('attribute_type', $model->getMorphClass())
+                ->whereIn('handle', array_keys($value->all()))
+                ->groupBy(fn (AttributeModel $attribute) => $attribute->attributeGroup->handle)
+                ->map(fn ($attributes) => $attributes->mapWithKeys(fn (AttributeModel $attribute) => [
+                    $attribute->handle => [
+                        'name' => $attribute->translate('name'),
+                        'value' => $model->attr($attribute->handle),
+                    ],
+                ]));
+        }
 
         return Hash::cast($value);
     }

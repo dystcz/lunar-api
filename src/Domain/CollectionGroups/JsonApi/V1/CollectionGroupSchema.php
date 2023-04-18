@@ -21,6 +21,7 @@ class CollectionGroupSchema extends Schema
     {
         return [
             ID::make(),
+
             Str::make('value'),
 
             ...parent::fields(),
@@ -40,6 +41,6 @@ class CollectionGroupSchema extends Schema
      */
     public static function type(): string
     {
-        return 'groups';
+        return 'collection-groups';
     }
 }

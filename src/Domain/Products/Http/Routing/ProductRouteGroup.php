@@ -23,13 +23,45 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
             ->resources(function ($server) {
                 $server->resource($this->getPrefix(), ProductsController::class)
                     ->relationships(function ($relationships) {
-                        $relationships->hasMany('associations')->readOnly();
-                        $relationships->hasOne('brand')->readOnly();
-                        $relationships->hasOne('cheapest_variant')->readOnly();
-                        $relationships->hasOne('default_url')->readOnly();
-                        $relationships->hasOne('lowest_price')->readOnly();
-                        $relationships->hasMany('prices')->readOnly();
-                        $relationships->hasMany('variants')->readOnly();
+                        $relationships
+                            ->hasMany('associations')
+                            // ->only('related', 'show')
+                            ->readOnly();
+
+                        $relationships
+                            ->hasMany('inverse_associations')
+                            // ->only('related', 'show')
+                            ->readOnly();
+
+                        $relationships
+                            ->hasOne('brand')
+                            // ->only('related', 'show')
+                            ->readOnly();
+
+                        $relationships
+                            ->hasOne('cheapest_variant')
+                            // ->only('related', 'show')
+                            ->readOnly();
+
+                        $relationships
+                            ->hasOne('default_url')
+                            // ->only('related', 'show')
+                            ->readOnly();
+
+                        $relationships
+                            ->hasOne('lowest_price')
+                            // ->only('related', 'show')
+                            ->readOnly();
+
+                        $relationships
+                            ->hasMany('prices')
+                            // ->only('related', 'show')
+                            ->readOnly();
+
+                        $relationships
+                            ->hasMany('variants')
+                            // ->only('related', 'show')
+                            ->readOnly();
                     })
                     ->only('index', 'show')
                     ->readOnly();

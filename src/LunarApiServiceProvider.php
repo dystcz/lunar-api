@@ -34,7 +34,7 @@ class LunarApiServiceProvider extends ServiceProvider
         \Lunar\Models\OrderLine::class => \Dystcz\LunarApi\Domain\Orders\Policies\OrderLinePolicy::class,
         \Lunar\Models\Price::class => \Dystcz\LunarApi\Domain\Prices\Policies\PricePolicy::class,
         \Lunar\Models\ProductVariant::class => \Dystcz\LunarApi\Domain\ProductVariants\Policies\ProductVariantPolicy::class,
-        \Lunar\Models\ProductAssociation::class => \Dystcz\LunarApi\Domain\ProductsAssociations\Policies\ProductAssociationPolicy::class,
+        \Lunar\Models\ProductAssociation::class => \Dystcz\LunarApi\Domain\ProductAssociations\Policies\ProductAssociationPolicy::class,
         \Lunar\Models\Product::class => \Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy::class,
     ];
 
@@ -109,7 +109,7 @@ class LunarApiServiceProvider extends ServiceProvider
             \Lunar\Models\OrderLine::class => \Dystcz\LunarApi\Domain\Orders\Models\OrderLine::class,
             \Lunar\Models\Price::class => \Dystcz\LunarApi\Domain\Prices\Models\Price::class,
             \Lunar\Models\Product::class => \Dystcz\LunarApi\Domain\Products\Models\Product::class,
-            \Lunar\Models\ProductAssociation::class => \Dystcz\LunarApi\Domain\ProductsAssociations\Models\ProductAssociation::class,
+            \Lunar\Models\ProductAssociation::class => \Dystcz\LunarApi\Domain\ProductAssociations\Models\ProductAssociation::class,
             \Lunar\Models\ProductOption::class => \Dystcz\LunarApi\Domain\Products\Models\ProductOption::class,
             \Lunar\Models\ProductOptionValue::class => \Dystcz\LunarApi\Domain\Products\Models\ProductOptionValue::class,
             \Lunar\Models\ProductType::class => \Dystcz\LunarApi\Domain\Products\Models\ProductType::class,

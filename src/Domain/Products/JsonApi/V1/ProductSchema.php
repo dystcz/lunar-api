@@ -43,11 +43,18 @@ class ProductSchema extends Schema
             'lowest_price',
             'prices',
             'thumbnail',
-            'urls',
 
             'associations',
+            'associations.target.default_url',
             'associations.target.thumbnail',
+            'associations.target.lowest_price',
             'associations.target.variants.prices',
+
+            'inverse_associations',
+            'inverse_associations.parent.default_url',
+            'inverse_associations.parent.thumbnail',
+            'inverse_associations.parent.lowest_price',
+            'inverse_associations.target.variants.prices',
 
             'brand',
             'brand.default_url',
@@ -60,7 +67,6 @@ class ProductSchema extends Schema
             'collections',
             'collections.default_url',
             'collections.group',
-            'collections.urls',
 
             'variants',
             'variants.images',
@@ -85,6 +91,14 @@ class ProductSchema extends Schema
                 ->groupAttributes(),
 
             HasMany::make('associations')
+                ->type('associations')
+                ->canCount()
+                ->serializeUsing(
+                    static fn ($relation) => $relation,
+                ),
+
+            HasMany::make('inverse_associations', 'inverseAssociations')
+                ->type('associations')
                 ->canCount()
                 ->serializeUsing(
                     static fn ($relation) => $relation,

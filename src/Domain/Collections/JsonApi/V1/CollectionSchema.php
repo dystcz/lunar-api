@@ -22,22 +22,18 @@ class CollectionSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    protected array $with = [
-        'defaultUrl',
-    ];
-
-    /**
-     * {@inheritDoc}
-     */
     public function includePaths(): iterable
     {
         return [
+            'default_url',
+            'urls',
+
+            'group',
+
             'products',
             'products.urls',
             'products.default_url',
             'products.images',
-            'urls',
-            'default_url',
 
             ...parent::includePaths(),
         ];
@@ -60,6 +56,7 @@ class CollectionSchema extends Schema
                 ->retainFieldName(),
 
             HasOne::make('group')
+                ->type('collection-groups')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks()
                 ),

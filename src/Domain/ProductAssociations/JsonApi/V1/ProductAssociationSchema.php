@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\ProductsAssociations\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
@@ -23,10 +23,17 @@ class ProductAssociationSchema extends Schema
     public function includePaths(): iterable
     {
         return [
+            // Association
             'target',
             'target.thumbnail',
             'target.variants',
             'target.variants.prices',
+
+            // Inverse association
+            'parent',
+            'parent.thumbnail',
+            'parent.variants',
+            'parent.variants.prices',
 
             ...parent::includePaths(),
         ];
@@ -42,7 +49,11 @@ class ProductAssociationSchema extends Schema
 
             Str::make('type'),
 
-            HasOne::make('target')->type('products'),
+            HasOne::make('target')
+                ->type('products'),
+
+            HasOne::make('parent')
+                ->type('products'),
 
             ...parent::fields(),
         ];
