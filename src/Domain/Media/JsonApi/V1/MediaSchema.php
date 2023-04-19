@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi\Domain\Media\JsonApi\V1;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MediaSchema extends Schema
@@ -34,6 +35,8 @@ class MediaSchema extends Schema
             Str::make('mime_type'),
             Str::make('size'),
             Str::make('order_column'),
+
+            ArrayHash::make('custom_properties'),
 
             ...parent::fields(),
         ];
