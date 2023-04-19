@@ -35,6 +35,6 @@ it('can read the cart', function () {
         ->get('/api/v1/carts/-actions/my-cart');
 
     $response->assertFetchedOne($cart)
-            ->assertIsIncluded('cart-addresses', $cart->shippingAddress)
-            ->assertIsIncluded('cart-addresses', $cart->billingAddress);
+        ->assertIsIncluded('cart-addresses', $cart->shippingAddress)
+        ->assertIsIncluded('cart-addresses', $cart->billingAddress);
 });

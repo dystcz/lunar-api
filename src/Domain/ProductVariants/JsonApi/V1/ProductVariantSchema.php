@@ -49,9 +49,9 @@ class ProductVariantSchema extends Schema
 
             Map::make('purchasability', [
                 ArrayHash::make('purchase_status')
-                ->extractUsing(
-                    static fn (ProductVariant $model) => $model->purchaseStatus->toArray()
-                ),
+                    ->extractUsing(
+                        static fn (ProductVariant $model) => $model->purchaseStatus->toArray()
+                    ),
             ]),
 
             BelongsTo::make('product')

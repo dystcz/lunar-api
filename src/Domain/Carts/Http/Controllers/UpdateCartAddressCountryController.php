@@ -28,6 +28,6 @@ class UpdateCartAddressCountryController extends Controller
             ->first();
 
         return DataResponse::make($model)
-                ->didntCreate();
+            ->didntCreate();
     }
 }
