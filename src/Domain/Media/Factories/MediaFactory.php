@@ -26,10 +26,10 @@ class MediaFactory extends Factory
             'collection_name' => 'images',
             'disk' => 'public',
             'size' => '69',
-            'manipulations' => '[]',
-            'custom_properties' => '[]',
-            'generated_conversions' => '[]',
-            'responsive_images' => '[]',
+            'manipulations' => [],
+            'custom_properties' => [],
+            'generated_conversions' => [],
+            'responsive_images' => [],
         ];
     }
 }
