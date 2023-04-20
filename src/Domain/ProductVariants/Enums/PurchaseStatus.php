@@ -11,14 +11,17 @@ enum PurchaseStatus implements Arrayable
 
     case OUT_OF_STOCK;
 
+    case PREORDER;
+
     /**
      * Get purchase status from product variant.
      */
     public static function fromProductVariant(ProductVariant $productVariant): self
     {
-        return match ($productVariant) {
+        return match (true) {
             $productVariant->stock <= 0 && $productVariant->purchasable === 'in-stock' => self::OUT_OF_STOCK,
             $productVariant->backorder <= 0 && $productVariant->purchasable === 'backorder' => self::OUT_OF_STOCK,
+            $productVariant->attr('eta') !== null => self::PREORDER,
             default => self::AVAILABLE,
         };
     }
@@ -31,6 +34,19 @@ enum PurchaseStatus implements Arrayable
         return match ($this) {
             self::AVAILABLE => __('Available'),
             self::OUT_OF_STOCK => __('Out of stock'),
+            self::PREORDER => __('Preorder'),
+        };
+    }
+
+    /**
+     * Get enum color.
+     */
+    public function color(): string
+    {
+        return match ($this) {
+            self::AVAILABLE => 'green',
+            self::OUT_OF_STOCK => 'grey',
+            self::PREORDER => 'blue',
         };
     }
 
@@ -39,7 +55,7 @@ enum PurchaseStatus implements Arrayable
      */
     public function purchasable(): bool
     {
-        return in_array($this, [self::AVAILABLE]);
+        return in_array($this, [self::AVAILABLE, self::PREORDER]);
     }
 
     /**
@@ -50,6 +66,7 @@ enum PurchaseStatus implements Arrayable
         return [
             'name' => __('Purchase status'),
             'value' => $this->label(),
+            'color' => $this->color(),
             'purchasable' => $this->purchasable(),
         ];
     }
