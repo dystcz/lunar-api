@@ -74,11 +74,11 @@ test('product is in stock when any variant has stock', function () {
     /** @var Product $product */
     $product = ProductFactory::new()
         ->has(
-            ProductVariantFactory::new()->state(['purchasable' => 'in-stock'])->has(PriceFactory::new())->count(5),
+            ProductVariantFactory::new()->state(['purchasable' => 'in_stock'])->has(PriceFactory::new())->count(5),
             'variants'
         )
         ->has(
-            ProductVariantFactory::new()->state(['purchasable' => 'in-stock', 'stock' => 44])->has(PriceFactory::new()),
+            ProductVariantFactory::new()->state(['purchasable' => 'in_stock', 'stock' => 44])->has(PriceFactory::new()),
             'variants'
         )
         ->create();
@@ -90,11 +90,11 @@ test('product is in stock when any variant can be preordered', function () {
     /** @var Product $product */
     $product = ProductFactory::new()
         ->has(
-            ProductVariantFactory::new()->state(['purchasable' => 'in-stock'])->has(PriceFactory::new())->count(5),
+            ProductVariantFactory::new()->state(['purchasable' => 'in_stock'])->has(PriceFactory::new())->count(5),
             'variants'
         )
         ->has(
-            ProductVariantFactory::new()->state(['purchasable' => 'in-stock', 'attribute_data' => [
+            ProductVariantFactory::new()->state(['purchasable' => 'in_stock', 'attribute_data' => [
                 'eta' => new TranslatedText(collect([
                     'en' => new Text('FooBar'),
                 ])),
@@ -123,7 +123,7 @@ test('product is out of stock when any variant cannot be purchased', function ()
     /** @var Product $product */
     $product = ProductFactory::new()
         ->has(
-            ProductVariantFactory::new()->state(['purchasable' => 'in-stock'])->has(PriceFactory::new()),
+            ProductVariantFactory::new()->state(['purchasable' => 'in_stock'])->has(PriceFactory::new()),
             'variants'
         )
         ->create();
