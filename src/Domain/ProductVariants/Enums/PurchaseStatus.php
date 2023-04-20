@@ -7,11 +7,11 @@ use Illuminate\Contracts\Support\Arrayable;
 
 enum PurchaseStatus implements Arrayable
 {
-    case AVAILABLE;
+    case PREORDER;
 
     case OUT_OF_STOCK;
 
-    case PREORDER;
+    case AVAILABLE;
 
     /**
      * Get purchase status from product variant.
@@ -19,9 +19,9 @@ enum PurchaseStatus implements Arrayable
     public static function fromProductVariant(ProductVariant $productVariant): self
     {
         return match (true) {
+            $productVariant->attr('eta') !== null => self::PREORDER,
             $productVariant->stock <= 0 && $productVariant->purchasable === 'in-stock' => self::OUT_OF_STOCK,
             $productVariant->backorder <= 0 && $productVariant->purchasable === 'backorder' => self::OUT_OF_STOCK,
-            $productVariant->attr('eta') !== null => self::PREORDER,
             default => self::AVAILABLE,
         };
     }
@@ -32,9 +32,9 @@ enum PurchaseStatus implements Arrayable
     public function label(): string
     {
         return match ($this) {
-            self::AVAILABLE => __('Available'),
-            self::OUT_OF_STOCK => __('Out of stock'),
             self::PREORDER => __('Preorder'),
+            self::OUT_OF_STOCK => __('Out of stock'),
+            self::AVAILABLE => __('Available'),
         };
     }
 
@@ -44,9 +44,9 @@ enum PurchaseStatus implements Arrayable
     public function color(): string
     {
         return match ($this) {
-            self::AVAILABLE => 'green',
-            self::OUT_OF_STOCK => 'grey',
             self::PREORDER => 'blue',
+            self::OUT_OF_STOCK => 'grey',
+            self::AVAILABLE => 'green',
         };
     }
 
