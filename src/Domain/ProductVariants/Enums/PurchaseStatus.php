@@ -2,16 +2,16 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Enums;
 
-use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Illuminate\Contracts\Support\Arrayable;
+use Lunar\Models\ProductVariant;
 
 enum PurchaseStatus implements Arrayable
 {
-    case PREORDER;
+    case AVAILABLE;
 
     case OUT_OF_STOCK;
 
-    case AVAILABLE;
+    case BACKORDER;
 
     /**
      * Get purchase status from product variant.
@@ -19,9 +19,8 @@ enum PurchaseStatus implements Arrayable
     public static function fromProductVariant(ProductVariant $productVariant): self
     {
         return match (true) {
-            $productVariant->attr('eta') !== null => self::PREORDER,
             $productVariant->stock <= 0 && $productVariant->purchasable === 'in_stock' => self::OUT_OF_STOCK,
-            $productVariant->backorder <= 0 && $productVariant->purchasable === 'backorder' => self::OUT_OF_STOCK,
+            $productVariant->backorder <= 0 && $productVariant->purchasable === 'backorder' => self::BACKORDER,
             default => self::AVAILABLE,
         };
     }
@@ -32,9 +31,9 @@ enum PurchaseStatus implements Arrayable
     public function label(): string
     {
         return match ($this) {
-            self::PREORDER => __('Preorder'),
-            self::OUT_OF_STOCK => __('Out of stock'),
             self::AVAILABLE => __('Available'),
+            self::OUT_OF_STOCK => __('Out of stock'),
+            self::BACKORDER => __('Preorder'),
         };
     }
 
@@ -44,9 +43,9 @@ enum PurchaseStatus implements Arrayable
     public function color(): string
     {
         return match ($this) {
-            self::PREORDER => 'blue',
-            self::OUT_OF_STOCK => 'grey',
             self::AVAILABLE => 'green',
+            self::OUT_OF_STOCK => 'grey',
+            self::BACKORDER => 'blue',
         };
     }
 
@@ -55,7 +54,7 @@ enum PurchaseStatus implements Arrayable
      */
     public function purchasable(): bool
     {
-        return in_array($this, [self::AVAILABLE, self::PREORDER]);
+        return in_array($this, [self::AVAILABLE, self::BACKORDER]);
     }
 
     /**

@@ -86,7 +86,7 @@ test('product is in stock when any variant has stock', function () {
     expect((new IsInStock())($product))->toBeTrue();
 });
 
-test('product is in stock when any variant can be preordered', function () {
+test('product is in stock when any variant has purchasable to always', function () {
     /** @var Product $product */
     $product = ProductFactory::new()
         ->has(
@@ -94,11 +94,7 @@ test('product is in stock when any variant can be preordered', function () {
             'variants'
         )
         ->has(
-            ProductVariantFactory::new()->state(['purchasable' => 'in_stock', 'attribute_data' => [
-                'eta' => new TranslatedText(collect([
-                    'en' => new Text('FooBar'),
-                ])),
-            ]])->has(PriceFactory::new()),
+            ProductVariantFactory::new()->state(['purchasable' => 'always'])->has(PriceFactory::new()),
             'variants'
         )
         ->create();

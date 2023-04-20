@@ -14,7 +14,7 @@ class IsInStock
     public function __invoke(Product $product): bool
     {
         return $product->variants->reduce(function (bool $carry, ProductVariant $variant) {
-            return $carry || in_array(PurchaseStatus::fromProductVariant($variant), [PurchaseStatus::AVAILABLE, PurchaseStatus::PREORDER]);
+            return $carry || in_array(PurchaseStatus::fromProductVariant($variant), [PurchaseStatus::AVAILABLE, PurchaseStatus::BACKORDER]);
         }, false);
     }
 }
