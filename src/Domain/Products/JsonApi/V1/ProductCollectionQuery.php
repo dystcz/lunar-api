@@ -2,10 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
-use LaravelJsonApi\Laravel\Http\Requests\ResourceQuery;
+use Dystcz\LunarApi\Domain\JsonApi\Queries\CollectionQuery;
 use LaravelJsonApi\Validation\Rule as JsonApiRule;
 
-class ProductCollectionQuery extends ResourceQuery
+class ProductCollectionQuery extends CollectionQuery
 {
     /**
      * The default include paths to use if the client provides none.
@@ -48,6 +48,8 @@ class ProductCollectionQuery extends ResourceQuery
                 'string',
                 JsonApiRule::countable(),
             ],
+
+            ...parent::rules(),
         ];
     }
 }

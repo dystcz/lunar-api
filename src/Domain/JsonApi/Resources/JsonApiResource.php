@@ -3,11 +3,12 @@
 namespace Dystcz\LunarApi\Domain\JsonApi\Resources;
 
 use Closure;
-use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceExtension;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extendable as ExtendableContract;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceExtension as ResourceExtensionContract;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceManifest as ResourceManifestContract;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Contracts\Resources\Serializer\Attribute as SerializableAttribute;
 use LaravelJsonApi\Contracts\Resources\Serializer\Relation as SerializableRelation;
 use LaravelJsonApi\Contracts\Schema\Schema;
@@ -16,19 +17,21 @@ use LaravelJsonApi\Core\Resources\Relation;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 
-class JsonApiResource extends BaseApiResource implements Extendable
+class JsonApiResource extends BaseApiResource implements ExtendableContract
 {
     /**
      * Resource extension.
      */
-    protected ResourceExtension $extension;
+    protected ResourceExtensionContract $extension;
 
     /**
      * JsonApiResource constructor.
      */
-    public function __construct(protected Schema $schema, public object $resource)
-    {
-        $this->extension = ResourceManifest::for(static::class);
+    public function __construct(
+        protected Schema $schema,
+        public object $resource,
+    ) {
+        $this->extension = App::make(ResourceManifestContract::class)::for(static::class);
 
         parent::__construct($schema, $resource);
     }
@@ -73,7 +76,7 @@ class JsonApiResource extends BaseApiResource implements Extendable
     {
         return [
             ...$this->schema->attributes(),
-            ...$this->extendedFields($this->extension->attributes()),
+            ...$this->extendedFields($this->extension->attributes()->all()),
         ];
     }
 
@@ -103,7 +106,7 @@ class JsonApiResource extends BaseApiResource implements Extendable
     {
         return [
             ...$this->schema->relationships(),
-            ...$this->extendedFields($this->extension->relationships()),
+            ...$this->extendedFields($this->extension->relationships()->all()),
         ];
     }
 
@@ -114,7 +117,7 @@ class JsonApiResource extends BaseApiResource implements Extendable
     {
         $fields = array_map(function ($field) {
             if ($field instanceof Closure) {
-                $field = Closure::bind($field, $this, self::class);
+                $field = Closure::bind($field, $this, parent::class);
 
                 return $field($this);
             }

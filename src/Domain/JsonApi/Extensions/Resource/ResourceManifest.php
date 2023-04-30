@@ -2,26 +2,26 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource;
 
-use Dystcz\LunarApi\Domain\JsonApi\Contracts\Manifest as ManifestContract;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extension;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceExtension as ResourceExtensionContract;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceManifest as ResourceManifestContract;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Manifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Illuminate\Support\Facades\App;
 
 /**
- * @property array $extensions
+ * @property array<ResourceExtensionContract> $extensions
  */
-class ResourceManifest extends Manifest implements ManifestContract
+class ResourceManifest extends Manifest implements ResourceManifestContract
 {
     /**
      * Get resource extension for a given schema class.
      *
      * @param  class-string<JsonApiResource>  $class
-     * @return ResourceExtension
      */
     public static function for(string $class): Extension
     {
-        $self = App::make(self::class);
+        $self = App::make(ResourceManifestContract::class);
 
         $extension = $self->extensions[$class] ??= App::make(ResourceExtension::class, ['class' => $class]);
 

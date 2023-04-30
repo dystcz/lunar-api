@@ -9,5 +9,5 @@ abstract class Manifest
     /**
      * @var array<class-string<Extendable>, Extension>
      */
-    protected array $extensions = [];
+    public array $extensions = [];
 }

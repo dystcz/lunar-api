@@ -63,7 +63,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Dystcz\\LunarApi\\LunarApiServiceProvider"
+                "Dystcz\\LunarApi\\LunarApiServiceProvider",
+                "Dystcz\\LunarApi\\JsonApiServiceProvider"
             ],
             "aliases": {
                 "LunarApi": "Dystcz\\LunarApi\\Facade\\LunarApi"

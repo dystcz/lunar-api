@@ -2,25 +2,34 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource;
 
-use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable;
+use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable as ExtendableContract;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceExtension as ResourceExtensionContract;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Data\ExtensionValueCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;
 
 /**
- * @property  class-string<Extendable>  $class
- * @property ResourceExtensionStore $store
+ * @property  class-string<ExtendableContract>  $class
  *
- * @method array|self attributes(mixed $value)
- * @method array|self relationships(mixed $value)
+ * @method ExtensionValueCollection attributes()
+ * @method self setAttributes(iterable|callable $value)
+ * @method ExtensionValueCollection relationships()
+ * @method iterable setRelationships(iterable|callable $value)
  */
-class ResourceExtension extends Extension
+class ResourceExtension extends Extension implements ResourceExtensionContract
 {
-    /**
-     * @param  class-string<Extendable>  $class
-     */
-    public function __construct(string $class)
-    {
-        $this->store = new ResourceExtensionStore();
+    public function __construct(
+        protected string $class,
 
+        /**
+         * Attributes method extensions.
+         */
+        protected ExtensionValueCollection $attributes = new ExtensionValueCollection,
+
+        /**
+         * Relationships method extensions.
+         */
+        protected ExtensionValueCollection $relationships = new ExtensionValueCollection,
+    ) {
         parent::__construct($class);
     }
 }

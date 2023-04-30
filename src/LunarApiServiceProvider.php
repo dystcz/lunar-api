@@ -5,17 +5,12 @@ namespace Dystcz\LunarApi;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Listeners\CreateCartAddresses;
-use Dystcz\LunarApi\Domain\JsonApi\Authorizers\Authorizer;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
-use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use LaravelJsonApi\Laravel\LaravelJsonApi;
 use Lunar\Facades\ModelManifest;
 
 class LunarApiServiceProvider extends ServiceProvider
@@ -53,9 +48,6 @@ class LunarApiServiceProvider extends ServiceProvider
         LunarApi::createUserFromCartUsing(Config::get('auth.actions.create_user_from_cart', CreateUserFromCart::class));
         LunarApi::registerUserUsing(Config::get('auth.actions.register_user', RegisterUser::class));
 
-        LaravelJsonApi::defaultResource(JsonApiResource::class);
-        LaravelJsonApi::defaultAuthorizer(Authorizer::class);
-
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/lunar-api.php' => config_path('lunar-api.php'),
@@ -83,9 +75,6 @@ class LunarApiServiceProvider extends ServiceProvider
 
         // Register the main class to use with the facade
         $this->app->singleton('lunar-api', fn () => new LunarApi());
-
-        $this->app->singleton(SchemaManifest::class, fn () => new SchemaManifest());
-        $this->app->singleton(ResourceManifest::class, fn () => new ResourceManifest());
     }
 
     /**

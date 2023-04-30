@@ -3,13 +3,16 @@
 namespace Dystcz\LunarApi\Domain\JsonApi\Extensions;
 
 use BadMethodCallException;
-use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable;
-use Dystcz\LunarApi\Domain\JsonApi\Contracts\ExtensionStore;
+use Closure;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extendable as ExtendableContract;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extension as ExtensionContract;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Data\ExtensionValue;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Data\ExtensionValueCollection;
+use Illuminate\Support\Str;
 use Illuminate\Support\Traits\ForwardsCalls;
 use InvalidArgumentException;
-use RuntimeException;
 
-abstract class Extension
+abstract class Extension implements ExtensionContract
 {
     use ForwardsCalls;
 
@@ -21,12 +24,7 @@ abstract class Extension
     protected string $class;
 
     /**
-     * Extension store.
-     */
-    protected ExtensionStore $store;
-
-    /**
-     * @param  class-string<Extendable>  $class
+     * @param  class-string<ExtendableContract>  $class
      */
     public function __construct(string $class)
     {
@@ -36,63 +34,77 @@ abstract class Extension
     /**
      * Set extendable class.
      *
-     * @param  class-string<Extendable>  $class
+     * @param  class-string<ExtendableContract>  $class
      */
     protected function setExtendable(string $class): void
     {
-        if (is_subclass_of($class, Extendable::class)) {
+        if (is_subclass_of($class, ExtendableContract::class)) {
             $this->class = $class;
 
             return;
         }
 
-        throw new RuntimeException("{$class} cannot be extended.");
+        throw new InvalidArgumentException("{$class} cannot be extended.");
     }
 
     /**
      * Set extension value.
+     *
+     * Closure will be called with Extendable
+     * instance as argument and Closure will be bound to its scope,
+     * so you can use $this to refference the Extendable instance.
+     *
+     * @param iterable|Closure(ExtendableContract):((array)) $value
      */
-    protected function set(string $property, mixed $value): self
+    public function set(string $property, iterable|Closure $extension): self
     {
-        if (is_iterable($value)) {
-            foreach ($value as $item) {
-                throw_if(is_iterable($item), new InvalidArgumentException('Extension cannot be nested.'));
+        /** @var ExtensionValueCollection $collection */
+        $collection = $this->{$property};
 
-                array_push($this->store->{$property}, $item);
+        if (is_iterable($extension)) {
+            foreach ($extension as $value) {
+                throw_if(is_iterable($value), new InvalidArgumentException('Extension value cannot be nested.'));
+
+                $collection->push(ExtensionValue::from($value));
             }
 
             return $this;
         }
 
-        array_push($this->store->{$property}, $value);
+        $collection->push(ExtensionValue::from($extension));
 
         return $this;
     }
 
     /**
-     * Get extension value.
+     * Get property extension values.
      */
-    protected function get(string $property): array
+    public function get(string $property): ExtensionValueCollection
     {
-        if (is_null($this->store->{$property})) {
-            return [];
-        }
+        /** @var ExtensionValueCollection $collection */
+        $collection = $this->{$property};
 
-        return $this->store->{$property};
+        return $collection;
     }
 
     /**
      * Dynamically call setter or getter.
      */
-    public function __call(string $method, array $arguments): mixed
+    public function __call(string $method, $arguments): mixed
     {
-        if (! property_exists($this->store, $method)) {
-            throw new BadMethodCallException("{$method} is not extendable.");
+
+        $property = Str::of($method)->after('set')->camel()->toString();
+        $action = $property === $method ? $action = 'get' : 'set';
+
+        if (! property_exists($this, $property)) {
+            throw new BadMethodCallException("{$property} is not extendable.");
         }
 
-        $action = count($arguments) > 0 ? 'set' : 'get';
+        if ($action === 'set' && empty($arguments)) {
+            throw new BadMethodCallException("You are trying to set property {$property} without a value.");
+        }
 
-        return $this->{$action}($method, ...$arguments);
+        return $this->forwardCallTo($this, $action, [$property, ...$arguments]);
     }
 
     /**

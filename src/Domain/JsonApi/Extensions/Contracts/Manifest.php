@@ -1,8 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\JsonApi\Contracts;
-
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;
+namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts;
 
 interface Manifest
 {

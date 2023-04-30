@@ -2,11 +2,12 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Eloquent;
 
-use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable;
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\Schema as SchemaContract;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaExtension;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extendable as ExtendableContract;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaExtension as SchemaExtensionContract;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaManifest as SchemaManifestContract;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Contracts\Server\Server;
 use LaravelJsonApi\Core\Schema\IncludePathIterator;
@@ -15,7 +16,7 @@ use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema as BaseSchema;
 
-abstract class Schema extends BaseSchema implements Extendable, SchemaContract
+abstract class Schema extends BaseSchema implements ExtendableContract, SchemaContract
 {
     /**
      * The maximum depth of include paths.
@@ -60,14 +61,17 @@ abstract class Schema extends BaseSchema implements Extendable, SchemaContract
     /**
      * Schema extension.
      */
-    protected SchemaExtension $extension;
+    protected SchemaExtensionContract $extension;
 
     /**
      * Schema constructor.
      */
-    public function __construct(Server $server)
-    {
-        $this->extension = SchemaManifest::for(static::class);
+    public function __construct(
+        Server $server,
+    ) {
+        $this->extension = App::make(SchemaManifestContract::class)::for(static::class);
+
+        // dd($this->extension->includePaths()->resolve($this));
 
         $this->server = $server;
     }
@@ -80,7 +84,7 @@ abstract class Schema extends BaseSchema implements Extendable, SchemaContract
         $paths = array_merge(
             parent::with(),
             Arr::wrap($this->with),
-            Arr::wrap($this->extension->with()),
+            Arr::wrap($this->extension->with()->resolve($this)),
         );
 
         return array_values(array_unique($paths));
@@ -100,7 +104,7 @@ abstract class Schema extends BaseSchema implements Extendable, SchemaContract
         }
 
         return [
-            ...$this->extension->includePaths(),
+            ...$this->extension->includePaths()->resolve($this),
 
             ...parent::includePaths(),
         ];
@@ -111,7 +115,8 @@ abstract class Schema extends BaseSchema implements Extendable, SchemaContract
      */
     public function fields(): iterable
     {
-        return $this->extension->fields();
+        return $this->extension->fields()->resolve($this);
+
     }
 
     /**
@@ -122,7 +127,7 @@ abstract class Schema extends BaseSchema implements Extendable, SchemaContract
         return [
             WhereIdIn::make($this),
 
-            ...$this->extension->filters(),
+            ...$this->extension->filters()->resolve($this),
         ];
     }
 
@@ -131,7 +136,7 @@ abstract class Schema extends BaseSchema implements Extendable, SchemaContract
      */
     public function sortables(): iterable
     {
-        return $this->extension->sortables();
+        return $this->extension->sortables()->resolve($this);
     }
 
     /**
@@ -141,7 +146,7 @@ abstract class Schema extends BaseSchema implements Extendable, SchemaContract
     {
         return PagePagination::make()
             ->withDefaultPerPage(
-                Config::get('lunar-api.default_pagination', 12)
+                Config::get('lunar-api.pagination.per_page', 12)
             );
     }
 
@@ -152,7 +157,7 @@ abstract class Schema extends BaseSchema implements Extendable, SchemaContract
     {
         $relations = array_merge(
             Arr::wrap($this->showRelated),
-            Arr::wrap($this->extension->showRelated()),
+            Arr::wrap($this->extension->showRelated()->resolve($this)),
         );
 
         return array_values(array_unique($relations));
@@ -169,7 +174,7 @@ abstract class Schema extends BaseSchema implements Extendable, SchemaContract
 
         $paths = array_merge(
             Arr::wrap($this->showRelationship),
-            Arr::wrap($this->extension->showRelationship()),
+            Arr::wrap($this->extension->showRelationship()->resolve($this)),
         );
 
         return array_values(array_unique($paths));

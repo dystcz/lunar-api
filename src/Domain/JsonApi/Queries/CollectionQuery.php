@@ -1,17 +1,13 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\JsonApi\Queries;
 
-use Dystcz\LunarApi\Domain\JsonApi\Queries\CollectionQuery;
+use Illuminate\Support\Facades\Config;
+use LaravelJsonApi\Laravel\Http\Requests\ResourceQuery;
 use LaravelJsonApi\Validation\Rule as JsonApiRule;
 
-class CollectionCollectionQuery extends CollectionQuery
+class CollectionQuery extends ResourceQuery
 {
-    /**
-     * The default include paths to use if the client provides none.
-     */
-    protected ?array $defaultIncludePaths = [];
-
     /**
      * Get the validation rules that apply to the request query parameters.
      */
@@ -38,6 +34,15 @@ class CollectionCollectionQuery extends CollectionQuery
                 'array',
                 JsonApiRule::page(),
             ],
+            'page.number' => [
+                'nullable',
+                'integer',
+            ],
+            'page.size' => [
+                'nullable',
+                'integer',
+                'between:1,'.Config::get('lunar-api.pagination.max_size', 25),
+            ],
             'sort' => [
                 'nullable',
                 'string',
@@ -49,7 +54,6 @@ class CollectionCollectionQuery extends CollectionQuery
                 JsonApiRule::countable(),
             ],
 
-            ...parent::rules(),
         ];
     }
 }

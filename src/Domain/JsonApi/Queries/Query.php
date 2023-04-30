@@ -1,17 +1,12 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\JsonApi\Queries;
 
-use Dystcz\LunarApi\Domain\JsonApi\Queries\Query;
+use LaravelJsonApi\Laravel\Http\Requests\ResourceQuery;
 use LaravelJsonApi\Validation\Rule as JsonApiRule;
 
-class CollectionQuery extends Query
+class Query extends ResourceQuery
 {
-    /**
-     * The default include paths to use if the client provides none.
-     */
-    protected ?array $defaultIncludePaths = [];
-
     /**
      * Get the validation rules that apply to the request query parameters.
      */
@@ -26,22 +21,29 @@ class CollectionQuery extends Query
             'filter' => [
                 'nullable',
                 'array',
-                JsonApiRule::filter()->forget('id'),
+                JsonApiRule::filter(),
             ],
             'include' => [
                 'nullable',
                 'string',
                 JsonApiRule::includePaths(),
             ],
-            'page' => JsonApiRule::notSupported(),
-            'sort' => JsonApiRule::notSupported(),
+            'page' => [
+                'nullable',
+                'array',
+                JsonApiRule::page(),
+            ],
+            'sort' => [
+                'nullable',
+                'string',
+                JsonApiRule::sort(),
+            ],
             'withCount' => [
                 'nullable',
                 'string',
                 JsonApiRule::countable(),
             ],
 
-            ...parent::rules(),
         ];
     }
 }
