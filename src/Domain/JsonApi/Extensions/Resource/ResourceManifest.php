@@ -23,7 +23,7 @@ class ResourceManifest extends Manifest implements ResourceManifestContract
     {
         $self = App::make(ResourceManifestContract::class);
 
-        $extension = $self->extensions[$class] ??= App::make(ResourceExtension::class, ['class' => $class]);
+        $extension = $self->extensions[$class] ??= App::make(ResourceExtensionContract::class, ['class' => $class]);
 
         return $extension;
     }
