@@ -6,7 +6,7 @@ use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Listeners\CreateCartAddresses;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
-use Illuminate\Support\Collection as SupportCollection;
+use Illuminate\Support\Collection as LaravelCollection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
@@ -17,8 +17,8 @@ class LunarApiServiceProvider extends ServiceProvider
 {
     protected $policies = [
         \Lunar\Models\Address::class => \Dystcz\LunarApi\Domain\Addresses\Policies\AddressPolicy::class,
-        \Luanr\Models\Brand::class => \Dystcz\LunarApi\Domain\Brands\Policies\BrandPolicy::class,
-        \Luanr\Models\Cart::class => \Dystcz\LunarApi\Domain\Carts\Policies\CartPolicy::class,
+        \Lunar\Models\Brand::class => \Dystcz\LunarApi\Domain\Brands\Policies\BrandPolicy::class,
+        \Lunar\Models\Cart::class => \Dystcz\LunarApi\Domain\Carts\Policies\CartPolicy::class,
         \Lunar\Models\CartAddress::class => \Dystcz\LunarApi\Domain\Carts\Policies\CartAddressPolicy::class,
         \Lunar\Models\CartLine::class => \Dystcz\LunarApi\Domain\Carts\Policies\CartLinePolicy::class,
         \Lunar\Models\CollectionGroup::class => \Dystcz\LunarApi\Domain\CollectionGroups\Policies\CollectionGroupPolicy::class,
@@ -82,7 +82,7 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     protected function registerModels(): void
     {
-        $models = SupportCollection::make([
+        $models = LaravelCollection::make([
             \Lunar\Models\Address::class => \Dystcz\LunarApi\Domain\Addresses\Models\Address::class,
             \Lunar\Models\Attribute::class => \Dystcz\LunarApi\Domain\Attributes\Models\Attribute::class,
             \Lunar\Models\AttributeGroup::class => \Dystcz\LunarApi\Domain\AttributeGroups\Models\AttributeGroup::class,
