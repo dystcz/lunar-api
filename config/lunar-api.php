@@ -203,7 +203,11 @@ return [
         ],
     ],
 
-    'default_pagination' => 12,
+    // Pagination defaults
+    'pagination' => [
+        'per_page' => 12,
+        'max_size' => 25,
+    ],
 
     'taxation' => [
         'prices_with_default_tax' => true,
