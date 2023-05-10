@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Tests;
 
+use Dystcz\LunarApi\JsonApiServiceProvider;
 use Dystcz\LunarApi\LunarApiServiceProvider;
 use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
 use Dystcz\LunarApi\Tests\Stubs\JsonApi\V1\Server;
@@ -73,6 +74,7 @@ abstract class TestCase extends Orchestra
     {
         return [
             LunarApiServiceProvider::class,
+            JsonApiServiceProvider::class,
 
             // Laravel JsonApi
             \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
