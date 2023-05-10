@@ -59,6 +59,18 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function repository(): Repository
+    {
+        return new Repository(
+            $this,
+            $this->driver(),
+            $this->parser(),
+        );
+    }
+
+    /**
      * Schema extension.
      */
     protected SchemaExtensionContract $extension;

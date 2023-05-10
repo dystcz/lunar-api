@@ -2,8 +2,6 @@
 
 namespace Dystcz\LunarApi;
 
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
 use Illuminate\Support\ServiceProvider;
 use LaravelJsonApi\Laravel\LaravelJsonApi;
 
@@ -25,12 +23,9 @@ class JsonApiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // $this->app->singleton(SchemaManifest::class, fn () => new SchemaManifest());
-        // $this->app->singleton(ResourceManifest::class, fn () => new ResourceManifest());
-
         // Register custom repository
         $this->app->bind(
-            \LaravelJsonApi\Contracts\Store\Repository::class,
+            \LaravelJsonApi\Eloquent\Repository::class,
             fn () => \Dystcz\LunarApi\Domain\JsonApi\Eloquent\Repositories\Repository::class,
         );
 

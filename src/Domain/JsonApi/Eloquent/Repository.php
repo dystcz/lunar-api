@@ -1,11 +1,21 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\JsonApi\Eloquent\Repositories;
+namespace Dystcz\LunarApi\Domain\JsonApi\Eloquent;
 
+use LaravelJsonApi\Eloquent\Contracts\Driver;
+use LaravelJsonApi\Eloquent\Contracts\Parser;
 use LaravelJsonApi\Eloquent\Repository as BaseRepository;
 
 class Repository extends BaseRepository
 {
+    /**
+     * Repository constructor.
+     */
+    public function __construct(Schema $schema, Driver $driver, Parser $parser)
+    {
+        parent::__construct($schema, $driver, $parser);
+    }
+
     /**
      * Get the model for the supplied resource id.
      */
@@ -21,8 +31,6 @@ class Repository extends BaseRepository
      */
     public function findMany(array $resourceIds): iterable
     {
-        ray('ahoj');
-
         return parent::findMany($resourceIds);
     }
 
