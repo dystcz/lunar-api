@@ -32,25 +32,25 @@ class JsonApiServiceProvider extends ServiceProvider
         // Register schema extension implementation
         $this->app->bind(
             \Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaExtension::class,
-            fn ($app, $args) => new \Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaExtension(...$args),
+            fn ($app, $params) => new \Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaExtension(...$params),
         );
 
         // Register schema manifest implementation
         $this->app->singleton(
             \Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaManifest::class,
-            fn ($app, $args) => new \Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest($args),
+            fn ($app, $params) => new \Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest($params),
         );
 
         // Register resource extension implementation
         $this->app->bind(
             \Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceExtension::class,
-            fn ($app, $args) => new \Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceExtension(...$args),
+            fn ($app, $params) => new \Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceExtension(...$params),
         );
 
         // Register resource manifest implementation
         $this->app->singleton(
             \Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceManifest::class,
-            fn ($app, $args) => new \Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest($args),
+            fn ($app, $params) => new \Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest($params),
         );
     }
 }

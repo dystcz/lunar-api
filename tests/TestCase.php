@@ -125,7 +125,7 @@ abstract class TestCase extends Orchestra
 
         // TODO: move to testbench.yaml
         Config::set('database.redis.default', [
-            'host' => 'localhost',
+            'host' => 'redis',
             'password' => '',
             'port' => '6379',
         ]);
