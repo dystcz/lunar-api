@@ -95,7 +95,6 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
             if ($relation instanceof SerializableRelation && $relation->isNotHidden($request)) {
                 yield $relation->serializedFieldName() => $this->serializeRelation($relation);
             }
-
         }
     }
 
@@ -104,6 +103,7 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
      */
     protected function allRelationships(): iterable
     {
+
         return [
             ...$this->schema->relationships(),
             ...$this->extendedFields($this->extension->relationships()->all()),
@@ -116,6 +116,8 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
     protected function extendedFields(array $fields): array
     {
         $fields = array_map(function ($field) {
+            $field = $field->value();
+
             if ($field instanceof Closure) {
                 $field = Closure::bind($field, $this, parent::class);
 

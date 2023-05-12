@@ -1,13 +1,23 @@
 <?php
 
-namespace Dystcz\LunarApi\Tests\Feature\JsonApi\Extenstions;
-
-use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
+use Lunar\Models\Product;
 
-class ExtendableSchemasMock extends ProductSchema
+class ExtendableSchemasMock extends Schema
 {
+    /**
+     * {@inheritDoc}
+     */
+    public static string $model = Product::class;
+
+    public static function resource(): string
+    {
+        return ProductResourceMock::class;
+    }
+
     protected array $with = [
         'something',
     ];
@@ -25,15 +35,19 @@ class ExtendableSchemasMock extends ProductSchema
         return [
             'include_one',
             'include_two',
-            ...$this->extension->includePaths(),
+
+            ...parent::includePaths(),
         ];
     }
 
     public function fields(): array
     {
         return [
+            ID::make(),
+
             Str::make('ahoj'),
-            ...$this->extension->fields(),
+
+            ...parent::fields(),
         ];
     }
 
@@ -41,7 +55,8 @@ class ExtendableSchemasMock extends ProductSchema
     {
         return [
             Where::make('ahoj'),
-            ...$this->extension->filters(),
+
+            ...parent::filters(),
         ];
     }
 
@@ -49,7 +64,13 @@ class ExtendableSchemasMock extends ProductSchema
     {
         return [
             'ahoj',
-            ...$this->extension->sortables(),
+
+            ...parent::sortables(),
         ];
+    }
+
+    public static function type(): string
+    {
+        return 'products';
     }
 }

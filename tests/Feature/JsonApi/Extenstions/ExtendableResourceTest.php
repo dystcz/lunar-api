@@ -1,7 +1,5 @@
 <?php
 
-namespace Dystcz\LunarApi\Tests\Feature\JsonApi\Extenstions;
-
 use Closure;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
@@ -16,13 +14,14 @@ uses(TestCase::class, RefreshDatabase::class);
 
 test('a resource attributes can be extended', function () {
     ResourceManifest::for(ProductResourceMock::class)
-        ->attributes(fn (JsonApiResource $resource) => [
+        ->setAttributes(fn (JsonApiResource $resource) => [
             'secret_id' => $resource->resource->id,
             'nazdar' => 'cau',
             'ahoj' => 'zdar',
         ]);
 
-    expect(ResourceManifest::for(ProductResourceMock::class)->attributes()[0])
+    expect(ResourceManifest::for(ProductResourceMock::class)->attributes()->all()[0])
+        ->value()
         ->toBeInstanceOf(Closure::class);
 
     $server = App::make(Server::class, ['name' => 'v1']);
@@ -35,7 +34,7 @@ test('a resource attributes can be extended', function () {
     );
 
     expect(iterator_to_array($productResourceInstance->attributes(null)))
-        ->toBe([
+        ->toMatchArray([
             'secret_id' => $product->id,
             'nazdar' => 'cau',
             'ahoj' => 'zdar',
@@ -44,11 +43,12 @@ test('a resource attributes can be extended', function () {
 
 test('a resource relationships can be extended', function () {
     ResourceManifest::for(ProductResourceMock::class)
-        ->relationships(fn (JsonApiResource $resource) => [
+        ->setRelationships(fn (JsonApiResource $resource) => [
             $resource->relation('golden_chocolate'),
         ]);
 
-    expect(ResourceManifest::for(ProductResourceMock::class)->relationships()[0])
+    expect(ResourceManifest::for(ProductResourceMock::class)->relationships()->all()[0])
+        ->value()
         ->toBeInstanceOf(Closure::class);
 
     $server = App::make(Server::class, ['name' => 'v1']);

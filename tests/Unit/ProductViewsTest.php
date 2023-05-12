@@ -1,7 +1,5 @@
 <?php
 
-namespace Dystcz\LunarApi\Tests\Unit;
-
 use Dystcz\LunarApi\Domain\Products\ProductViews;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;

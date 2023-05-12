@@ -1,7 +1,5 @@
 <?php
 
-namespace Dystcz\LunarApi\Tests\Feature\Cart;
-
 use Dystcz\LunarApi\Domain\Carts\Actions\AddToCart;
 use Dystcz\LunarApi\Domain\Carts\Data\CartLineData;
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;

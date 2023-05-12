@@ -1,19 +1,14 @@
 <?php
 
-namespace Dystcz\LunarApi\Tests\Unit\Products\Models;
-
 use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
 use Dystcz\LunarApi\Domain\Products\Actions\IsInStock;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
-use Dystcz\LunarApi\Domain\ProductVariants\Enums\PurchaseStatus;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
 use Lunar\Database\Factories\TagFactory;
-use Lunar\FieldTypes\TranslatedText;
-use Lunar\FieldTypes\Text;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -113,7 +108,6 @@ test('product is in stock when any variant can be purchased always', function ()
 
     expect((new IsInStock())($product))->toBeTrue();
 });
-
 
 test('product is out of stock when any variant cannot be purchased', function () {
     /** @var Product $product */

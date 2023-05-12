@@ -1,7 +1,5 @@
 <?php
 
-namespace Dystcz\LunarApi\Tests\Feature\JsonApi\Extenstions;
-
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,31 +10,29 @@ use LaravelJsonApi\Eloquent\Filters\Where;
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
-    /** @var TestCase $this */
     $this->server = App::make(ServerMock::class, ['name' => 'v1']);
 });
 
 test('schema eager loading can be extended', function () {
-    /** @var TestCase $this */
-    $productSchemaInstance = $this->server->schemas()->schemaFor('products');
+    $mockSchemaInstance = $this->server->schemas()->schemaFor('products');
 
-    expect($productSchemaInstance)
+    expect($mockSchemaInstance)
         ->with()
         ->not
         ->toContain('else')
         ->toHaveCount(1);
 
-    SchemaManifest::for(ExtendableSchemasMock::class)->with([
+    SchemaManifest::for(ExtendableSchemasMock::class)->setWith([
         'something',
         'else',
         'else',
     ]);
 
     expect(SchemaManifest::for(ExtendableSchemasMock::class))
-        ->with()
-        ->toContain(...['something', 'else']);
+        ->with()->resolve()
+        ->toContain('something', 'else');
 
-    expect($productSchemaInstance)
+    expect($mockSchemaInstance)
         ->with()
         ->toBe([
             'something',
@@ -45,96 +41,92 @@ test('schema eager loading can be extended', function () {
 });
 
 test('schema fields can be extended', function () {
-    /** @var TestCase $this */
-    $productSchemaInstance = $this->server->schemas()->schemaFor('products');
+    $mockSchemaInstance = $this->server->schemas()->schemaFor('products');
 
     $field = Str::make('my_product_name');
 
-    expect($productSchemaInstance)
-        ->filters()
+    expect($mockSchemaInstance)
+        ->fields()
         ->not
         ->toContain($field)
-        ->toHaveCount(1);
+        ->toHaveCount(2);
 
     SchemaManifest::for(ExtendableSchemasMock::class)
-        ->fields([
+        ->setFields([
             $field,
         ]);
 
     expect(SchemaManifest::for(ExtendableSchemasMock::class))
-        ->fields()
+        ->fields()->resolve()
         ->toContain($field)
         ->toHaveCount(1);
 
-    expect($productSchemaInstance)
+    expect($mockSchemaInstance)
         ->fields()
         ->toContain($field)
-        ->toHaveCount(2);
+        ->toHaveCount(3);
 });
 
 test('schema filters can be extended', function () {
-    /** @var TestCase $this */
-    $productSchemaInstance = $this->server->schemas()->schemaFor('products');
+    $mockSchemaInstance = $this->server->schemas()->schemaFor('products');
 
     $filter = Where::make('price');
 
-    expect($productSchemaInstance)
+    expect($mockSchemaInstance)
         ->filters()
         ->not
         ->toContain($filter)
-        ->toHaveCount(1);
+        ->toHaveCount(2);
 
     SchemaManifest::for(ExtendableSchemasMock::class)
-        ->filters([
+        ->setFilters([
             $filter,
         ]);
 
     expect(SchemaManifest::for(ExtendableSchemasMock::class))
-        ->filters()
+        ->filters()->resolve()
         ->toContain($filter)
         ->toHaveCount(1);
 
-    expect($productSchemaInstance)
+    expect($mockSchemaInstance)
         ->filters()
         ->toContain($filter)
-        ->toHaveCount(2);
+        ->toHaveCount(3);
 });
 
 test('schema sortables can be extended', function () {
-    /** @var TestCase $this */
-    $productSchemaInstance = $this->server->schemas()->schemaFor('products');
+    $mockSchemaInstance = $this->server->schemas()->schemaFor('products');
 
     $sortables = ['nazdar', 'cau'];
 
-    expect($productSchemaInstance)
+    expect($mockSchemaInstance)
         ->sortables()
         ->not
         ->toContain('nazdar', 'cau')
         ->toHaveCount(1);
 
     SchemaManifest::for(ExtendableSchemasMock::class)
-        ->sortables(
+        ->setSortables(
             $sortables,
         );
 
     expect(SchemaManifest::for(ExtendableSchemasMock::class))
-        ->sortables()
+        ->sortables()->resolve()
         ->toContain('nazdar', 'cau')
         ->toHaveCount(2);
 
-    expect($productSchemaInstance)
+    expect($mockSchemaInstance)
         ->sortables()
         ->toContain('ahoj', 'nazdar', 'cau')
         ->toHaveCount(3);
 });
 
 test('schema related gate ability can be extended', function () {
-    /** @var TestCase $this */
-    $productSchemaInstance = $this->server->schemas()->schemaFor('products');
+    $mockSchemaInstance = $this->server->schemas()->schemaFor('products');
 
     $related = ['two', 'three', 'four', 'one'];
 
-    expect($productSchemaInstance)
+    expect($mockSchemaInstance)
         ->showRelated()
         ->not
         ->toContain('two', 'three', 'four')
@@ -142,44 +134,43 @@ test('schema related gate ability can be extended', function () {
         ->toContain('one');
 
     SchemaManifest::for(ExtendableSchemasMock::class)
-        ->showRelated(
+        ->setShowRelated(
             $related,
         );
 
     expect(SchemaManifest::for(ExtendableSchemasMock::class))
-        ->showRelated()
+        ->showRelated()->resolve()
         ->toContain('two', 'three', 'four', 'one')
         ->toHaveCount(4);
 
-    expect($productSchemaInstance)
+    expect($mockSchemaInstance)
         ->showRelated()
         ->toContain('two', 'three', 'four', 'one')
         ->toHaveCount(4);
 });
 
 test('schema relationships gate ability can be extended', function () {
-    /** @var TestCase $this */
-    $productSchemaInstance = $this->server->schemas()->schemaFor('products');
+    $mockSchemaInstance = $this->server->schemas()->schemaFor('products');
 
     $relationships = ['pear', 'peach'];
 
-    expect($productSchemaInstance)
+    expect($mockSchemaInstance)
         ->showRelationship()
         ->not
         ->toContain('pear', 'peach')
         ->toHaveCount(1);
 
     SchemaManifest::for(ExtendableSchemasMock::class)
-        ->showRelationship(
+        ->setShowRelationship(
             $relationships,
         );
 
     expect(SchemaManifest::for(ExtendableSchemasMock::class))
-        ->showRelationship()
+        ->showRelationship()->resolve()
         ->toContain('pear', 'peach')
         ->toHaveCount(2);
 
-    expect($productSchemaInstance)
+    expect($mockSchemaInstance)
         ->showRelationship()
         ->toContain('apple', 'pear', 'peach')
         ->toHaveCount(3);

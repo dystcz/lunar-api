@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource;
 
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extension;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceExtension as ResourceExtensionContract;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceManifest as ResourceManifestContract;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Manifest;
@@ -19,7 +18,7 @@ class ResourceManifest extends Manifest implements ResourceManifestContract
      *
      * @param  class-string<JsonApiResource>  $class
      */
-    public static function for(string $class): Extension
+    public static function for(string $class): ResourceExtensionContract
     {
         $self = App::make(ResourceManifestContract::class);
 

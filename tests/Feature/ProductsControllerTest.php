@@ -1,7 +1,5 @@
 <?php
 
-namespace Dystcz\LunarApi\Tests\Feature\Domain\Products\Http\Controllers;
-
 use Dystcz\LunarApi\Domain\Brands\Factories\BrandFactory;
 use Dystcz\LunarApi\Domain\CollectionGroups\Factories\CollectionGroupFactory;
 use Dystcz\LunarApi\Domain\Collections\Factories\CollectionFactory;
@@ -345,5 +343,5 @@ it('can list products with all includes', function () {
                 'description' => $model->attr('description'),
             ],
         ]));
-        // ->assertIncluded($included->toArray());
+    // ->assertIncluded($included->toArray());
 });
