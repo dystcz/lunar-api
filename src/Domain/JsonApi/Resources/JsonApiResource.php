@@ -8,6 +8,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extendable as Extendable
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceExtension as ResourceExtensionContract;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceManifest as ResourceManifestContract;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Contracts\Resources\Serializer\Attribute as SerializableAttribute;
 use LaravelJsonApi\Contracts\Resources\Serializer\Relation as SerializableRelation;
@@ -46,7 +47,7 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
         /** @var Model $model */
         $model = $this->resource;
 
-        foreach ($this->allAttributes() as $key => $attr) {
+        foreach ($this->allAttributes($request) as $key => $attr) {
             if ($attr instanceof AttributeData && $request?->has('attribute_data')) {
                 $attr = $attr->serializeUsing(
                     static fn ($value) => $value->only(explode(',', $request->get('attribute_data')))
@@ -71,8 +72,10 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
 
     /**
      * Get all resource's attributes.
+     *
+     * @param  Request|null  $request
      */
-    protected function allAttributes(): iterable
+    protected function allAttributes($request): iterable
     {
         return [
             ...$this->schema->attributes(),
@@ -87,7 +90,7 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
      */
     public function relationships($request): iterable
     {
-        foreach ($this->allRelationships() as $relation) {
+        foreach ($this->allRelationships($request) as $relation) {
             if ($relation instanceof Relation && ! $relation instanceof SerializableRelation) {
                 yield $relation->fieldName() => $relation;
             }
@@ -100,8 +103,10 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
 
     /**
      * Get all resource's relationships.
+     *
+     * @param  Request|null  $request
      */
-    protected function allRelationships(): iterable
+    protected function allRelationships($request): iterable
     {
 
         return [

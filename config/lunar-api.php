@@ -3,6 +3,7 @@
 /*
  * Lunar API configuration
  */
+
 return [
 
     // Prefix for all the API routes
@@ -32,163 +33,134 @@ return [
     // Configuration for specific domains
     'domains' => [
         'associations' => [
-            'route_groups' => [
-                //
-            ],
+            'schema' => Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1\ProductAssociationSchema::class,
 
+            // Route groups which get registered
+            // If you want to change the behaviour or add some data,
+            // simply extend the package product groups and add your logic
+            'route_groups' => [],
         ],
 
         'brands' => [
+            'schema' => Dystcz\LunarApi\Domain\Brands\JsonApi\V1\BrandSchema::class,
             'route_groups' => [
-                'brands' => Dystcz\LunarApi\Domain\Brands\Http\Routing\BrandRouteGroup::class,
+                Dystcz\LunarApi\Domain\Brands\Http\Routing\BrandRouteGroup::class,
             ],
-
         ],
 
         'collections' => [
+            'schema' => Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionSchema::class,
             'route_groups' => [
-                'collections' => Dystcz\LunarApi\Domain\Collections\Http\Routing\CollectionRouteGroup::class,
+                Dystcz\LunarApi\Domain\Collections\Http\Routing\CollectionRouteGroup::class,
             ],
-
         ],
 
         'prices' => [
-            'model' => Dystcz\LunarApi\Domain\Prices\Models\Price::class,
-
-            'route_groups' => [
-                //
-            ],
-
+            'schema' => Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceSchema::class,
+            'route_groups' => [],
         ],
 
         'countries' => [
+            'schema' => Dystcz\LunarApi\Domain\Countries\JsonApi\V1\CountrySchema::class,
             'route_groups' => [
-                'countries' => Dystcz\LunarApi\Domain\Countries\Http\Routing\CountryRouteGroup::class,
+                Dystcz\LunarApi\Domain\Countries\Http\Routing\CountryRouteGroup::class,
             ],
-
         ],
 
         'currencies' => [
+            'schema' => Dystcz\LunarApi\Domain\Currencies\JsonApi\V1\CurrencySchema::class,
             'route_groups' => [
-                'countries' => Dystcz\LunarApi\Domain\Currencies\Http\Routing\CurrencyRouteGroup::class,
+                Dystcz\LunarApi\Domain\Currencies\Http\Routing\CurrencyRouteGroup::class,
             ],
-
         ],
 
         'products' => [
-            'model' => Dystcz\LunarApi\Domain\Products\Models\Product::class,
-
-            // Route groups which get registered
-            // If you want to change the behaviour or add some data,
-            // simply extend the package product groups and add your logic
+            'schema' => Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema::class,
             'route_groups' => [
-                'products' => Dystcz\LunarApi\Domain\Products\Http\Routing\ProductRouteGroup::class,
+                Dystcz\LunarApi\Domain\Products\Http\Routing\ProductRouteGroup::class,
             ],
-
             'filters' => Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilterCollection::class,
-
         ],
 
         'variants' => [
-            'model' => Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class,
-
-            'route_groups' => [
-                //
-            ],
-
+            'schema' => Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema::class,
+            'route_groups' => [],
         ],
 
         'carts' => [
-            'model' => Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
-
-            // Route groups which get registered
-            // If you want to change the behaviour or add some data,
-            // simply extend the package product groups and add your logic
+            'schema' => Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartSchema::class,
             'route_groups' => [
-                'carts' => Dystcz\LunarApi\Domain\Carts\Http\Routing\CartRouteGroup::class,
+                Dystcz\LunarApi\Domain\Carts\Http\Routing\CartRouteGroup::class,
             ],
-
         ],
 
         'cart_lines' => [
-            'model' => Dystcz\LunarApi\Domain\Carts\Models\CartLine::class,
-
-            // Route groups which get registered
-            // If you want to change the behaviour or add some data,
-            // simply extend the package product groups and add your logic
+            'schema' => Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartLineSchema::class,
             'route_groups' => [
-                'cart_lines' => Dystcz\LunarApi\Domain\Carts\Http\Routing\CartLineRouteGroup::class,
+                Dystcz\LunarApi\Domain\Carts\Http\Routing\CartLineRouteGroup::class,
             ],
-
         ],
 
         'cart_addresses' => [
+            'schema' => Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartAddressSchema::class,
             'route_groups' => [
-                'cart_addresses' => Dystcz\LunarApi\Domain\Carts\Http\Routing\CartAddressRouteGroup::class,
+                Dystcz\LunarApi\Domain\Carts\Http\Routing\CartAddressRouteGroup::class,
             ],
-
         ],
 
         'customers' => [
-            'model' => Dystcz\LunarApi\Domain\Customers\Models\Customer::class,
-
-            // Route groups which get registered
-            // If you want to change the behaviour or add some data,
-            // simply extend the package product groups and add your logic
+            'schema' => Dystcz\LunarApi\Domain\Customers\JsonApi\V1\CustomerSchema::class,
             'route_groups' => [
-                'customers' => Dystcz\LunarApi\Domain\Customers\Http\Routing\CustomerRouteGroup::class,
+                Dystcz\LunarApi\Domain\Customers\Http\Routing\CustomerRouteGroup::class,
             ],
-
         ],
 
         'addresses' => [
+            'schema' => Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressSchema::class,
             'route_groups' => [
-                'addresses' => Dystcz\LunarApi\Domain\Addresses\Http\Routing\AddressRouteGroup::class,
+                Dystcz\LunarApi\Domain\Addresses\Http\Routing\AddressRouteGroup::class,
             ],
-
         ],
 
         'orders' => [
-            'model' => Dystcz\LunarApi\Domain\Orders\Models\Order::class,
-
-            // Route groups which get registered
-            // If you want to change the behaviour or add some data,
-            // simply extend the package product groups and add your logic
+            'schema' => Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderSchema::class,
             'route_groups' => [
-                'orders' => Dystcz\LunarApi\Domain\Orders\Http\Routing\OrderRouteGroup::class,
+                Dystcz\LunarApi\Domain\Orders\Http\Routing\OrderRouteGroup::class,
             ],
-
         ],
 
         'order_lines' => [
-            'model' => Dystcz\LunarApi\Domain\Orders\Models\OrderLine::class,
-
+            'schema' => Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderLineSchema::class,
+            'route_groups' => [],
         ],
 
         'shipping_options' => [
+            'schema' => Dystcz\LunarApi\Domain\Shipping\JsonApi\V1\ShippingOptionSchema::class,
             'route_groups' => [
-                'shipping_options' => Dystcz\LunarApi\Domain\Shipping\Http\Routing\ShippingOptionRouteGroup::class,
+                Dystcz\LunarApi\Domain\Shipping\Http\Routing\ShippingOptionRouteGroup::class,
             ],
-
         ],
 
         'urls' => [
+            'schema' => Dystcz\LunarApi\Domain\Urls\JsonApi\V1\UrlSchema::class,
             'route_groups' => [
-                'urls' => Dystcz\LunarApi\Domain\Urls\Http\Routing\UrlRouteGroup::class,
+                Dystcz\LunarApi\Domain\Urls\Http\Routing\UrlRouteGroup::class,
             ],
-
         ],
 
         'tags' => [
+            'schema' => Dystcz\LunarApi\Domain\Tags\JsonApi\V1\TagSchema::class,
             'route_groups' => [
-                'tags' => Dystcz\LunarApi\Domain\Tags\Http\Routing\TagRouteGroup::class,
+                Dystcz\LunarApi\Domain\Tags\Http\Routing\TagRouteGroup::class,
             ],
         ],
 
         'media' => [
+            'schema' => Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaSchema::class,
             'route_groups' => [
-                'media' => Dystcz\LunarApi\Domain\Media\Http\Routing\MediaRouteGroup::class,
+                Dystcz\LunarApi\Domain\Media\Http\Routing\MediaRouteGroup::class,
             ],
+            'conversions' => null,
         ],
     ],
 

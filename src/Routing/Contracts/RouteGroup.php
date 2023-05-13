@@ -7,5 +7,10 @@ interface RouteGroup
     /**
      * Register routes.
      */
-    public function routes(?string $prefix = null, array|string $middleware = []): void;
+    public static function make(string $prefix = '', array|string $middleware = []): self;
+
+    /**
+     * Register routes.
+     */
+    public function routes(): void;
 }

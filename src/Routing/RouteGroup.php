@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Routing;
 
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 
 abstract class RouteGroup implements RouteGroupContract
@@ -21,28 +22,32 @@ abstract class RouteGroup implements RouteGroupContract
      *
      * @throws BindingResolutionException
      */
-    public function __construct()
+    public function __construct(string $prefix = '', array|string $middleware = [])
     {
+        $this->prefix = $prefix;
+
+        $this->middleware = Arr::wrap($middleware);
+
         /** @var Router */
         $this->router = App::make('router');
     }
 
     /**
-     * Register routes by invoking.
+     * Register routes.
      */
-    public function __invoke(?string $prefix = null, array|string $middleware = []): void
+    public static function make(string $prefix = '', array|string $middleware = []): self
     {
-        $this->routes($prefix, $middleware);
+        return new static($prefix, $middleware);
     }
 
     /**
      * Register routes.
      */
-    public function routes(?string $prefix = null, array|string $middleware = []): void
+    public function routes(): void
     {
         $this->router->group([
-            'prefix' => $this->getPrefix($prefix),
-            'middleware' => $this->getMiddleware($middleware),
+            'prefix' => $this->getPrefix($this->getPrefix()),
+            'middleware' => $this->getMiddleware($this->getMiddleware()),
         ], function () {
             // Add routes here in the class that extends this class
         });
@@ -53,28 +58,16 @@ abstract class RouteGroup implements RouteGroupContract
      *
      * @return ?string
      */
-    protected function getPrefix(?string $prefix = null): ?string
+    protected function getPrefix(): ?string
     {
-        if (! $prefix) {
-            return $this->prefix;
-        }
-
-        return $prefix;
+        return $this->prefix;
     }
 
     /**
      * Get middleware for route group.
      */
-    protected function getMiddleware(array|string $middleware = []): array
+    protected function getMiddleware(): array
     {
-        if (is_array($middleware) && empty($middleware)) {
-            return $this->middleware;
-        }
-
-        if (is_string($middleware)) {
-            $middleware = [$middleware];
-        }
-
-        return $middleware;
+        return $this->middleware;
     }
 }
