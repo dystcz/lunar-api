@@ -43,6 +43,22 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     protected array $showRelationship = [];
 
     /**
+     * Schema extension.
+     */
+    protected SchemaExtensionContract $extension;
+
+    /**
+     * Schema constructor.
+     */
+    public function __construct(
+        Server $server,
+    ) {
+        $this->extension = App::make(SchemaManifestContract::class)::for(static::class);
+
+        $this->server = $server;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public static function resource(): string
@@ -68,24 +84,6 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
             $this->driver(),
             $this->parser(),
         );
-    }
-
-    /**
-     * Schema extension.
-     */
-    protected SchemaExtensionContract $extension;
-
-    /**
-     * Schema constructor.
-     */
-    public function __construct(
-        Server $server,
-    ) {
-        $this->extension = App::make(SchemaManifestContract::class)::for(static::class);
-
-        // dd($this->extension->includePaths()->resolve($this));
-
-        $this->server = $server;
     }
 
     /**
