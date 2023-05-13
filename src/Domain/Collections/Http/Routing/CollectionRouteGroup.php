@@ -9,8 +9,6 @@ use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 
 class CollectionRouteGroup extends RouteGroup implements RouteGroupContract
 {
-    public string $prefix = 'collections';
-
     public array $middleware = [];
 
     /**

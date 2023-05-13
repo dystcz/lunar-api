@@ -9,8 +9,6 @@ use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
 class TagRouteGroup extends RouteGroup implements RouteGroupContract
 {
-    public string $prefix = 'tags';
-
     public array $middleware = [];
 
     /**

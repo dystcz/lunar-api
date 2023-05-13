@@ -9,8 +9,6 @@ use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 
 class CurrencyRouteGroup extends RouteGroup
 {
-    public string $prefix = 'currencies';
-
     public array $middleware = [];
 
     /**

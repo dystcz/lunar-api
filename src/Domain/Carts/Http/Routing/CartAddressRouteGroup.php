@@ -12,8 +12,6 @@ use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 
 class CartAddressRouteGroup extends RouteGroup
 {
-    public string $prefix = 'cart-addresses';
-
     public array $middleware = [];
 
     /**

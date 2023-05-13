@@ -9,8 +9,6 @@ use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 
 class CountryRouteGroup extends RouteGroup
 {
-    public string $prefix = 'countries';
-
     public array $middleware = [];
 
     /**

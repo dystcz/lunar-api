@@ -9,8 +9,6 @@ use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
 class BrandRouteGroup extends RouteGroup implements RouteGroupContract
 {
-    public string $prefix = 'brands';
-
     public array $middleware = [];
 
     /**

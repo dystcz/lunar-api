@@ -12,7 +12,7 @@ Route::group([
         ->filter()
         ->flatten();
 
-    foreach ($routeGroups as $group) {
-        (new $group())();
+    foreach ($routeGroups as $prefix => $group) {
+        (new $group())($prefix);
     }
 });

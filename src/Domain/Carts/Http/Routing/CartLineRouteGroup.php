@@ -8,8 +8,6 @@ use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 
 class CartLineRouteGroup extends RouteGroup
 {
-    public string $prefix = 'cart-lines';
-
     public array $middleware = [];
 
     /**

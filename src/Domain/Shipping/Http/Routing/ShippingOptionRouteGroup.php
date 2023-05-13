@@ -8,8 +8,6 @@ use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 
 class ShippingOptionRouteGroup extends RouteGroup
 {
-    public string $prefix = 'shipping-options';
-
     public array $middleware = [];
 
     /**

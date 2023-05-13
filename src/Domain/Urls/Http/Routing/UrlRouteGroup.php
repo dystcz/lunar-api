@@ -9,8 +9,6 @@ use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
 class UrlRouteGroup extends RouteGroup implements RouteGroupContract
 {
-    public string $prefix = 'urls';
-
     public array $middleware = [];
 
     /**

@@ -8,8 +8,6 @@ use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 
 class CustomerRouteGroup extends RouteGroup
 {
-    public string $prefix = 'customers';
-
     public array $middleware = [];
 
     /**
