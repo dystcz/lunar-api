@@ -2,14 +2,14 @@
 
 namespace Dystcz\LunarApi\Domain\Media\Contracts;
 
-use Lunar\Base\BaseModel;
+use Spatie\MediaLibrary\HasMedia;
 
 interface MediaConversion
 {
     /**
      * Apply conversions to a model.
      */
-    public function apply(BaseModel $model): void;
+    public function apply(HasMedia $model): void;
 
     /**
      * Get conversions.
