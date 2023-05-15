@@ -25,6 +25,7 @@ it('can fetch payment options', function () {
             'attributes' => [
                 'driver' => $paymentOption['driver'],
                 'name' => 'card',
+                'default' => true,
             ],
         ],
     ]);

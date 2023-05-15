@@ -16,6 +16,7 @@ class PaymentOptionResource extends JsonApiResource
         return [
             'name' => $this->resource->getName(),
             'driver' => $this->resource->getDriver(),
+            'default' => $this->resource->getDefault(),
         ];
     }
 }

@@ -23,6 +23,7 @@ class PaymentOptionSchema extends Schema
             ID::make(),
             Attribute::make('name'),
             Attribute::make('driver'),
+            Attribute::make('default'),
         ];
     }
 

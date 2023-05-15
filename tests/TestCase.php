@@ -103,6 +103,9 @@ abstract class TestCase extends Orchestra
         // Set cart auto creation to true
         Config::set('lunar.cart.auto_create', true);
 
+        // Default payment driver
+        Config::set('lunar.payments.default', 'stripe');
+
         Config::set('database.default', 'sqlite');
 
         Config::set('database.migrations', 'migrations');

@@ -6,11 +6,14 @@ use Illuminate\Contracts\Support\Arrayable;
 
 class PaymentOption implements Arrayable
 {
+    public bool $default;
+
     public function __construct(
         public string $id,
         public string $driver,
         public string $name,
     ) {
+        $this->default = $this->driver === config('lunar.payments.default');
     }
 
     public function getName(): string
@@ -26,6 +29,11 @@ class PaymentOption implements Arrayable
     public function getId(): string
     {
         return $this->id;
+    }
+
+    public function getDefault(): bool
+    {
+        return $this->default;
     }
 
     /**
