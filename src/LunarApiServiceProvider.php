@@ -43,6 +43,8 @@ class LunarApiServiceProvider extends ServiceProvider
 
         $this->registerModels();
 
+        $this->registerPaymentOptions();
+
         Event::listen(CartCreated::class, CreateCartAddresses::class);
 
         LunarApi::createUserFromCartUsing(Config::get('auth.actions.create_user_from_cart', CreateUserFromCart::class));
@@ -111,10 +113,8 @@ class LunarApiServiceProvider extends ServiceProvider
 
     /**
      * Register the application's policies.
-     *
-     * @return void
      */
-    public function registerPolicies()
+    public function registerPolicies(): void
     {
         foreach ($this->policies() as $model => $policy) {
             Gate::policy($model, $policy);
@@ -122,11 +122,24 @@ class LunarApiServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register payment options.
+     */
+    public function registerPaymentOptions(): void
+    {
+        Config::set('lunar.payments.types', [
+            'card' => [
+                'driver' => 'stripe',
+                'released' => 'payment-received',
+            ],
+        ]);
+    }
+
+    /**
      * Get the policies defined on the provider.
      *
      * @return array<class-string, class-string>
      */
-    public function policies()
+    public function policies(): array
     {
         return $this->policies;
     }

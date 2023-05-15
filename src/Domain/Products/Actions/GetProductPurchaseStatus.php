@@ -21,8 +21,13 @@ class GetProductPurchaseStatus
             return PurchaseStatus::fromProductVariant($variant);
         });
 
-        if ($variantsStatuses->contains(PurchaseStatus::AVAILABLE)) return (PurchaseStatus::AVAILABLE)->toArray();
-        if ($variantsStatuses->contains(PurchaseStatus::BACKORDER)) return (PurchaseStatus::BACKORDER)->toArray();
-        return (PurchaseStatus::OUT_OF_STOCK)->toArray();
+        if ($variantsStatuses->contains(PurchaseStatus::AVAILABLE)) {
+            return PurchaseStatus::AVAILABLE->toArray();
+        }
+        if ($variantsStatuses->contains(PurchaseStatus::BACKORDER)) {
+            return PurchaseStatus::BACKORDER->toArray();
+        }
+
+        return PurchaseStatus::OUT_OF_STOCK->toArray();
     }
 }

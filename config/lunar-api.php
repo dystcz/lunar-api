@@ -141,6 +141,13 @@ return [
             ],
         ],
 
+        'payment_options' => [
+            'schema' => \Dystcz\LunarApi\Domain\PaymentOptions\JsonApi\V1\PaymentOptionSchema::class,
+            'route_groups' => [
+                'payment_options' => \Dystcz\LunarApi\Domain\PaymentOptions\Http\Routing\PaymentOptionRouteGroup::class,
+            ],
+        ],
+
         'urls' => [
             'schema' => Dystcz\LunarApi\Domain\Urls\JsonApi\V1\UrlSchema::class,
             'route_groups' => [

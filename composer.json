@@ -25,6 +25,7 @@
         "laravel-json-api/laravel": "^3.0",
         "laravel-json-api/non-eloquent": "^3.0",
         "lunarphp/lunar": "^0.3.0-beta",
+        "lunarphp/stripe": "0.3.x-dev",
         "spatie/laravel-query-builder": "^5.2"
     },
     "require-dev": {

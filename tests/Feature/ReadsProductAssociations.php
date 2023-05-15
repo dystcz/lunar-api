@@ -39,9 +39,9 @@ it('can read products associations', function () {
         ->get('/api/v1/products/'.$productA->getRouteKey());
 
     $response->assertFetchedOne($productA);
-        // ->assertIsIncluded('associations', $productA->associations->first())
-        // ->assertIsIncluded('products', $productB)
-        // ->assertIsIncluded('media', $productB->thumbnail)
-        // ->assertIsIncluded('variants', $productB->variants->first())
-        // ->assertIsIncluded('prices', $productB->variants->first()->prices->first());
+    // ->assertIsIncluded('associations', $productA->associations->first())
+    // ->assertIsIncluded('products', $productB)
+    // ->assertIsIncluded('media', $productB->thumbnail)
+    // ->assertIsIncluded('variants', $productB->variants->first())
+    // ->assertIsIncluded('prices', $productB->variants->first()->prices->first());
 });

@@ -2,10 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Actions;
 
-use Illuminate\Support\Collection;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Enums\PurchaseStatus;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
+use Illuminate\Support\Collection;
 
 class GetVariantsInStock
 {
