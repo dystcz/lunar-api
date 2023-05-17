@@ -41,6 +41,9 @@ class CheckoutCartController extends Controller
                 'self.signed' => URL::temporarySignedRoute(
                     'v1.orders.show', now()->addDays(28), ['order' => $order->id]
                 ),
+                'create-payment-intent.signed' => URL::temporarySignedRoute(
+                    'v1.orders.createPaymentIntent', now()->addDays(28), ['order' => $order->id]
+                ),
             ])
             ->didCreate();
     }

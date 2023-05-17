@@ -20,3 +20,5 @@ Route::group([
         }
     }
 });
+
+Route::post('stripe/webhook', \Dystcz\LunarApi\Domain\Payments\Http\Controllers\HandleStripeWebhookController::class);

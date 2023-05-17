@@ -10,6 +10,7 @@ use Dystcz\LunarApi\Tests\Stubs\Lunar\TestTaxDriver;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redis;
@@ -21,6 +22,7 @@ use Lunar\Models\Channel;
 use Lunar\Models\Currency;
 use Lunar\Models\CustomerGroup;
 use Lunar\Models\TaxClass;
+use Lunar\Stripe\StripePaymentsServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
@@ -88,6 +90,10 @@ abstract class TestCase extends Orchestra
             \Cartalyst\Converter\Laravel\ConverterServiceProvider::class,
             \Kalnoy\Nestedset\NestedSetServiceProvider::class,
             \Spatie\LaravelBlink\BlinkServiceProvider::class,
+            StripePaymentsServiceProvider::class,
+
+            // Livewire
+            \Livewire\LivewireServiceProvider::class,
         ];
     }
 
@@ -96,18 +102,24 @@ abstract class TestCase extends Orchestra
      */
     public function getEnvironmentSetUp($app)
     {
+        $app->useEnvironmentPath(__DIR__.'/..');
+        $app->bootstrapWith([LoadEnvironmentVariables::class]);
+
+        /**
+         * Lunar configuration
+         */
         Config::set('lunar-api.additional_servers', [
             Server::class,
         ]);
-
         // Set cart auto creation to true
         Config::set('lunar.cart.auto_create', true);
-
         // Default payment driver
-        Config::set('lunar.payments.default', 'stripe');
+        Config::set('lunar.payments.default', env('PAYMENT_DRIVER', 'stripe'));
 
+        /**
+         * App configuration
+         */
         Config::set('database.default', 'sqlite');
-
         Config::set('database.migrations', 'migrations');
 
         Config::set('database.connections.sqlite', [
@@ -116,7 +128,6 @@ abstract class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
-        // TODO: move to testbench.yaml
         Config::set('database.connections.mysql', [
             'driver' => 'mysql',
             'host' => 'mysql',
@@ -126,11 +137,16 @@ abstract class TestCase extends Orchestra
             'password' => 'secret',
         ]);
 
-        // TODO: move to testbench.yaml
         Config::set('database.redis.default', [
-            'host' => 'redis',
-            'password' => '',
-            'port' => '6379',
+            'host' => env('REDIS_HOST', 'redis'),
+            'password' => env('REDIS_PASSWORD', ''),
+            'port' => env('REDIS_PORT', '6379'),
+        ]);
+
+        Config::set('services.stripe', [
+            'public_key' => env('STRIPE_PUBLIC_KEY'),
+            'key' => env('STRIPE_SECRET_KEY'),
+            'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
         ]);
     }
 
@@ -143,6 +159,7 @@ abstract class TestCase extends Orchestra
     {
         $this->loadLaravelMigrations();
 
+        // NOTE MySQL migrations do not play nice with Lunar testing for some reason
         // // artisan($this, 'lunar:install');
         // // artisan($this, 'vendor:publish', ['--tag' => 'lunar']);
         // // artisan($this, 'vendor:publish', ['--tag' => 'lunar.migrations']);

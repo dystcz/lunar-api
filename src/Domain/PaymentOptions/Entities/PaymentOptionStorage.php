@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Config;
 class PaymentOptionStorage
 {
     /**
-     * @var Collection<PaymentOption> $paymentOptions
+     * @var Collection<PaymentOption>
      */
     private Collection $paymentOptions;
 

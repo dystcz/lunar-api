@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\Http\Routing;
 
+use Dystcz\LunarApi\Domain\Orders\Http\Controllers\CreatePaymentIntentController;
 use Dystcz\LunarApi\Domain\Orders\Http\Controllers\OrdersController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
@@ -23,6 +24,12 @@ class OrderRouteGroup extends RouteGroup
                         $relationships->hasMany('lines')->readOnly();
                     })
                     ->only('show', 'update');
+
+                $server->resource($this->getPrefix(), CreatePaymentIntentController::class)
+                    ->only('')
+                    ->actions('-actions', function ($actions) {
+                        $actions->withId()->post('create-payment-intent');
+                    });
             });
     }
 }
