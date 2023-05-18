@@ -23,8 +23,6 @@ beforeEach(function () {
         ->withLines()
         ->create();
 
-    CartSession::use($cart);
-
     $this->intent = App::make(CreateStripePaymentIntent::class)($cart);
 
     $this->cart = $cart;

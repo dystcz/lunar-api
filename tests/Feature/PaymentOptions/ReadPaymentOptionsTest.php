@@ -16,17 +16,19 @@ it('can fetch payment options', function () {
 
     $response->assertSuccessful();
 
-    $paymentOption = Config::get('lunar.payments.types')['card'];
+    $paymentOption = Config::get('lunar.payments.types');
 
-    $response->assertFetchedMany([
-        [
-            'type' => 'payment-options',
-            'id' => $paymentOption['driver'],
-            'attributes' => [
-                'driver' => $paymentOption['driver'],
-                'name' => 'card',
-                'default' => true,
-            ],
-        ],
-    ]);
+    $response->assertFetchedMany(
+        array_map(function ($paymentOption, $paymentOptionName) {
+            return [
+                'type' => 'payment-options',
+                'id' => $paymentOption['driver'],
+                'attributes' => [
+                    'driver' => $paymentOption['driver'],
+                    'name' => $paymentOptionName,
+                    'default' => $paymentOption['driver'] === Config::get('lunar.payments.default'),
+                ],
+            ];
+        }, $paymentOption, array_keys($paymentOption))
+    );
 });

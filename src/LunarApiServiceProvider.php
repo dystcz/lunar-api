@@ -43,7 +43,7 @@ class LunarApiServiceProvider extends ServiceProvider
 
         $this->registerModels();
 
-        $this->registerPaymentOptions();
+        $this->addPaymentOptions();
 
         Event::listen(CartCreated::class, CreateCartAddresses::class);
 
@@ -124,14 +124,19 @@ class LunarApiServiceProvider extends ServiceProvider
     /**
      * Register payment options.
      */
-    public function registerPaymentOptions(): void
+    public function addPaymentOptions(): void
     {
-        Config::set('lunar.payments.types', [
-            'card' => [
-                'driver' => 'stripe',
-                'released' => 'payment-received',
-            ],
-        ]);
+        $paymentTypes = Config::get('lunar.payments.types', []);
+
+        Config::set(
+            'lunar.payments.types',
+            array_merge($paymentTypes, [
+                'card' => [
+                    'driver' => 'stripe',
+                    'released' => 'payment-received',
+                ]
+            ])
+        );
     }
 
     /**
