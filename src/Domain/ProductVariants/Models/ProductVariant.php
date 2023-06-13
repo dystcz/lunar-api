@@ -45,9 +45,11 @@ class ProductVariant extends LunarPoductVariant
     {
         // TODO: Not working, finish
         return $this->product->morphOne(config('media-library.media_model'), 'model')
-            ->where(function ($query) {
-                $query->where('id', function ($q) {
-                    return $q->from('dystore_media_product_variant')
+        ->where(function ($query) {
+            $query->where('id', function ($q) {
+                    $prefix = config('lunar.database.table_prefix');
+
+                    return $q->from("{$prefix}media_product_variant")
                         ->select('media_id')
                         ->where('product_variant_id', $this->getKey())
                         ->where('primary', true)
