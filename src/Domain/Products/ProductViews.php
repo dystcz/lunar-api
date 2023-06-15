@@ -8,6 +8,16 @@ use Illuminate\Support\Str;
 class ProductViews
 {
     /**
+     * Check if tracking product-view is enabled.
+     */
+    public function enabled(): bool
+    {
+        $enabled = config('lunar-api.track_product_views');
+
+        return $enabled === true;
+    }
+
+    /**
      * Lists of list of products views.
      */
     public function getLists(): array
@@ -23,6 +33,10 @@ class ProductViews
      */
     public function sorted(): array
     {
+        if (! $this->enabled()) {
+            return;
+        }
+
         $lists = $this->getLists();
 
         $sorted = collect();
@@ -44,6 +58,10 @@ class ProductViews
      */
     public function record(int $productId): void
     {
+        if (! $this->enabled()) {
+            return;
+        }
+
         Redis::zAdd("product:views:{$productId}", time(), Str::uuid()->toString());
 
         $this->removeOldEntries();
