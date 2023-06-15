@@ -33,10 +33,6 @@ class ProductViews
      */
     public function sorted(): array
     {
-        if (! $this->enabled()) {
-            return;
-        }
-
         $lists = $this->getLists();
 
         $sorted = collect();
