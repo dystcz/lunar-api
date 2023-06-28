@@ -22,7 +22,21 @@ beforeEach(function () {
         ->withLines()
         ->create();
 
+    $cart->createOrder();
+
     $this->intent = App::make(CreateStripePaymentIntent::class)($cart);
+
+    $cart->update([
+        'meta' => [
+            'payment_intent' => $this->intent->id,
+        ],
+    ]);
+
+    $cart->order->update([
+        'meta' => [
+            'payment_intent' => $this->intent->id,
+        ],
+    ]);
 
     $this->cart = $cart;
     $this->order = $cart->order;
