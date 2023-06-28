@@ -9,7 +9,6 @@ use Dystcz\LunarApi\Domain\Payments\Actions\CreateStripePaymentIntent;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
-use Lunar\Facades\CartSession;
 use Stripe\PaymentIntent;
 
 uses(TestCase::class, RefreshDatabase::class);

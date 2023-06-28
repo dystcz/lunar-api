@@ -8,6 +8,7 @@ use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
 use Dystcz\LunarApi\Tests\Stubs\JsonApi\V1\Server;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestTaxDriver;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
+use Dystcz\LunarPaypal\LunarPaypalServiceProvider;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
@@ -19,11 +20,13 @@ use LaravelJsonApi\Testing\TestExceptionHandler;
 use Lunar\Base\ShippingModifiers;
 use Lunar\Facades\Taxes;
 use Lunar\Models\Channel;
+use Lunar\Models\Country;
 use Lunar\Models\Currency;
 use Lunar\Models\CustomerGroup;
 use Lunar\Models\TaxClass;
 use Lunar\Stripe\StripePaymentsServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Spatie\LaravelData\LaravelDataServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -47,6 +50,16 @@ abstract class TestCase extends Orchestra
         Currency::factory()->create([
             'code' => 'EUR',
             'decimal_places' => 2,
+        ]);
+
+        Country::factory()->create([
+            'name' => 'United Kingdom',
+            'iso3' => 'GBR',
+            'iso2' => 'GB',
+            'phonecode' => '+44',
+            'capital' => 'London',
+            'currency' => 'GBP',
+            'native' => 'English',
         ]);
 
         Channel::factory()->create([
@@ -91,6 +104,10 @@ abstract class TestCase extends Orchestra
             \Kalnoy\Nestedset\NestedSetServiceProvider::class,
             \Spatie\LaravelBlink\BlinkServiceProvider::class,
             StripePaymentsServiceProvider::class,
+
+            // Lunar PayPal payments
+            LunarPaypalServiceProvider::class,
+            LaravelDataServiceProvider::class,
 
             // Livewire
             \Livewire\LivewireServiceProvider::class,
@@ -148,6 +165,8 @@ abstract class TestCase extends Orchestra
             'key' => env('STRIPE_SECRET_KEY'),
             'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
         ]);
+
+        Config::set('lunar.paypal', require __DIR__.'/../config/paypal.php');
     }
 
     /**

@@ -22,7 +22,7 @@ beforeEach(function () {
     $this->cart = $cart;
 });
 
-test('a payment intent can be created', function () {
+test('a payment intent can be created', function (string $paymentMethod) {
     $url = URL::temporarySignedRoute(
         'v1.orders.createPaymentIntent', now()->addDays(28), ['order' => $this->order->id]
     );
@@ -34,7 +34,7 @@ test('a payment intent can be created', function () {
             'type' => 'orders',
             'id' => (string) $this->order->getRouteKey(),
             'attributes' => [
-                'payment_method' => 'stripe',
+                'payment_method' => $paymentMethod,
             ],
         ])
         ->post($url);
@@ -43,4 +43,5 @@ test('a payment intent can be created', function () {
 
     expect($response->json('meta.payment_intent.id'))
         ->toBe($this->cart->fresh()->meta->payment_intent);
-});
+})
+    ->with(['card', 'paypal']);
