@@ -928,12 +928,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dystcz/lunar-paypal.git",
-                "reference": "ff2b051206fd3a8970fc89339c49301430811e91"
+                "reference": "5c59d438f297a8260a47724671aa6a8858015059"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dystcz/lunar-paypal/zipball/ff2b051206fd3a8970fc89339c49301430811e91",
-                "reference": "ff2b051206fd3a8970fc89339c49301430811e91",
+                "url": "https://api.github.com/repos/dystcz/lunar-paypal/zipball/5c59d438f297a8260a47724671aa6a8858015059",
+                "reference": "5c59d438f297a8260a47724671aa6a8858015059",
                 "shasum": ""
             },
             "require": {
@@ -1011,7 +1011,7 @@
                 "source": "https://github.com/dystcz/lunar-paypal/tree/main",
                 "issues": "https://github.com/dystcz/lunar-paypal/issues"
             },
-            "time": "2023-06-28T01:53:30+00:00"
+            "time": "2023-06-28T02:39:57+00:00"
         },
         {
             "name": "egulias/email-validator",
