@@ -14,7 +14,6 @@ class ProductFilterCollection implements FilterCollection
      */
     public function toArray(): array
     {
-        // TODO: Cache
         $attributes = Attribute::query()
             ->where('attribute_type', Product::class)
             ->where('filterable', true)
