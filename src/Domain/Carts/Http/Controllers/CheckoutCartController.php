@@ -9,7 +9,6 @@ use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Illuminate\Support\Facades\URL;
 use LaravelJsonApi\Contracts\Store\Store as StoreContract;
 use LaravelJsonApi\Core\Responses\DataResponse;
-use Lunar\Facades\CartSession;
 
 class CheckoutCartController extends Controller
 {
@@ -19,12 +18,10 @@ class CheckoutCartController extends Controller
     public function checkout(
         StoreContract $store,
         CartRequest $request,
-        CreateUserFromCart $createUserFromCartAction
+        CreateUserFromCart $createUserFromCartAction,
+        Cart $cart
     ): DataResponse {
-        // $this->authorize('viewAny', Cart::class);
-
-        /** @var Cart $cart */
-        $cart = CartSession::current();
+        $this->authorize('view', $cart);
 
         if ($request->validated('create_user') ?? false) {
             $createUserFromCartAction($cart);

@@ -23,21 +23,7 @@ class CartPolicy
      */
     public function view(?Authenticatable $user, Cart $cart): bool
     {
-        /**
-         * Authorize user to view cart only if the user's IP address matches the cart's auth_user_ip.
-         */
-        $cartAuthUserIp = $cart->meta->auth_user_ip ?? null;
-        $userIp = request()->ip();
-
-        if (! $userIp || ! $cartAuthUserIp) {
-            return false;
-        }
-
-        if ($userIp === $cartAuthUserIp) {
-            return true;
-        }
-
-        return false;
+        return $this->authenticateByIp($cart);
     }
 
     /**
@@ -59,8 +45,27 @@ class CartPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, Cart $cart): bool
+    public function delete(Cart $cart): bool
     {
+        return false;
+    }
+
+    /**
+     * Authorize user to view cart only if the user's IP address matches the cart's auth_user_ip.
+     */
+    public function authenticateByIp(Cart $cart): bool
+    {
+        $cartAuthUserIp = $cart->meta->auth_user_ip ?? null;
+        $userIp = request()->ip();
+
+        if (! $userIp || ! $cartAuthUserIp) {
+            return false;
+        }
+
+        if ($userIp === $cartAuthUserIp) {
+            return true;
+        }
+
         return false;
     }
 }

@@ -35,13 +35,13 @@ class CartRouteGroup extends RouteGroup
                 $server->resource($this->getPrefix(), CheckoutCartController::class)
                     ->only('')
                     ->actions('-actions', function ($actions) {
-                        $actions->post('checkout');
+                        $actions->withId()->post('checkout');
                     });
 
                 $server->resource($this->getPrefix(), ApplyCouponController::class)
                     ->only('')
                     ->actions('-actions', function ($actions) {
-                        $actions->post('apply-coupon');
+                        $actions->withId()->post('apply-coupon');
                     });
             });
     }
