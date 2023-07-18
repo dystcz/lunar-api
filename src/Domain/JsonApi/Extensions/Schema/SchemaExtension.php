@@ -81,7 +81,7 @@ class SchemaExtension extends Extension implements SchemaExtensionContract
      * instance as argument and Closure will be bound to its scope,
      * so you can use $this to refference the Extendable instance.
      *
-     * @param iterable|Relation|Closure(ExtendableContract):((array)) $value
+     * @param  iterable|Relation|Closure(ExtendableContract):((array))  $value
      */
     public function set(string $property, iterable|Relation|Closure $extension): self
     {

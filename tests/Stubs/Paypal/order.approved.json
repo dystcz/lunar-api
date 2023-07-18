@@ -1,0 +1,101 @@
+{
+  "headers": {
+    "connection": "close",
+    "content-length": "1631",
+    "x-b3-spanid": "d176e79f4313452c",
+    "correlation-id": "f7834754e58d6",
+    "user-agent": "PayPal/AUHD-214.0-58098699",
+    "content-type": "application/json",
+    "paypal-auth-algo": "SHA256withRSA",
+    "paypal-cert-url": "https://api.sandbox.paypal.com/v1/notifications/certs/CERT-360caa42-fca2a594-2d7ab011",
+    "paypal-auth-version": "v2",
+    "paypal-transmission-sig": "OL9++A6ntiO0xuEyVAeHqsT3oQwPiVEw1tl6uCSL9SAkdKcEWmmS75oWYKKGwDSeCmK4WbM4zb24cxPKikKorVSazvx9ttrTuCujHxSeBsGWkjSFt7WpcniGNod3CCP12JZy6JzvyOUTRJQ3oBApRWK5gpE73LsouHRt9RToCyIP6kKsrCdCiEHhwVYNNgQQHRaPfNrgR9j7zBsrgASMy5dq/tkHw5e0w7WrPWoX5EMEcva/m+uw4UBQJAP6H45brRu4QjmxcQ8hn9WR7OV2gqcM7WuQ25WIm00duMHtEm9nJ+EUDqr80rsN3K7cFsOuP2SHusmLE7aZs4yqJ6r0cg==",
+    "paypal-transmission-time": "2023-06-27T18:33:13Z",
+    "paypal-transmission-id": "12f9a3a0-1519-11ee-b3bf-b9dfe22c566e",
+    "accept": "*/*",
+    "host": "webhook.site"
+  },
+  "body": {
+    "id": "WH-63892041C5828021W-3ME64006BB486364N",
+    "event_version": "1.0",
+    "create_time": "2023-06-27T18:33:02.414Z",
+    "resource_type": "checkout-order",
+    "resource_version": "2.0",
+    "event_type": "CHECKOUT.ORDER.APPROVED",
+    "summary": "An order has been approved by buyer",
+    "resource": {
+      "create_time": "2023-06-27T18:32:01Z",
+      "purchase_units": [
+        {
+          "reference_id": "default",
+          "amount": {
+            "currency_code": "USD",
+            "value": "125273.00"
+          },
+          "payee": {
+            "email_address": "sb-9ci7g693844@business.example.com",
+            "merchant_id": "D4AGHS98GMBUC"
+          },
+          "shipping": {
+            "name": {
+              "full_name": "John Doe"
+            },
+            "address": {
+              "address_line_1": "N\\u00E1ro\\u017En\\u00ED 11",
+              "admin_area_2": "Praha 13",
+              "admin_area_1": "\\u010Cesk\\u00E1 Republika",
+              "postal_code": "158 00",
+              "country_code": "CZ"
+            }
+          }
+        }
+      ],
+      "links": [
+        {
+          "href": "https://api.sandbox.paypal.com/v2/checkout/orders/05F82700LP1581632",
+          "rel": "self",
+          "method": "GET"
+        },
+        {
+          "href": "https://api.sandbox.paypal.com/v2/checkout/orders/05F82700LP1581632",
+          "rel": "update",
+          "method": "PATCH"
+        },
+        {
+          "href": "https://api.sandbox.paypal.com/v2/checkout/orders/05F82700LP1581632/capture",
+          "rel": "capture",
+          "method": "POST"
+        }
+      ],
+      "id": "05F82700LP1581632",
+      "payment_source": {
+        "paypal": {}
+      },
+      "intent": "CAPTURE",
+      "payer": {
+        "name": {
+          "given_name": "John",
+          "surname": "Doe"
+        },
+        "email_address": "sb-xbjfd693010@personal.example.com",
+        "payer_id": "MTQT5GNLBVMPN",
+        "address": {
+          "country_code": "CZ"
+        }
+      },
+      "status": "APPROVED"
+    },
+    "links": [
+      {
+        "href": "https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-63892041C5828021W-3ME64006BB486364N",
+        "rel": "self",
+        "method": "GET"
+      },
+      {
+        "href": "https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-63892041C5828021W-3ME64006BB486364N/resend",
+        "rel": "resend",
+        "method": "POST"
+      }
+    ]
+  }
+}

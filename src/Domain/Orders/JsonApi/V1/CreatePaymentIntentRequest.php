@@ -25,7 +25,7 @@ class CreatePaymentIntentRequest extends ResourceRequest
             'payment_method' => [
                 'required',
                 'string',
-                Rule::in(array_map(fn (array $type) => $type['driver'], config('lunar.payments.types'))),
+                Rule::in(array_keys(config('lunar.payments.types'))),
             ],
         ];
     }

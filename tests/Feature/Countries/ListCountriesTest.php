@@ -7,12 +7,10 @@ use Lunar\Models\Country;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('works', function () {
-    $country = Country::factory()->create();
-
     $response = $this
         ->jsonApi()
         ->expects('countries')
         ->get('/api/v1/countries');
 
-    $response->assertFetchedMany([$country]);
+    $response->assertFetchedMany(Country::all());
 });

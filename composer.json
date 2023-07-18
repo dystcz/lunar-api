@@ -21,6 +21,7 @@
     "require": {
         "php": "^8.1",
         "ext-redis": "*",
+        "dystcz/lunar-paypal": "dev-main",
         "illuminate/support": "^10.0",
         "laravel-json-api/laravel": "^3.0",
         "laravel-json-api/non-eloquent": "^3.0",
@@ -61,6 +62,12 @@
             "pestphp/pest-plugin": true
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/dystcz/lunar-paypal.git"
+        }
+    ],
     "extra": {
         "laravel": {
             "providers": [

@@ -11,8 +11,6 @@ class PaymentOptionSchema extends Schema
 {
     /**
      * Whether resources of this type have a self link.
-     *
-     * @var bool
      */
     protected bool $selfLink = false;
 

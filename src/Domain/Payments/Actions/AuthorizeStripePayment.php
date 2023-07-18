@@ -9,7 +9,7 @@ use Lunar\Base\DataTransferObjects\PaymentAuthorize;
 use Lunar\Facades\Payments;
 use Stripe\PaymentIntent;
 
-class AuthorizePayment
+class AuthorizeStripePayment
 {
     public function __invoke(PaymentIntent $intent): void
     {

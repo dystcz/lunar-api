@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\Payments\Http\Controllers;
 use Dystcz\LunarApi\Domain\Orders\Actions\FindOrderByIntent;
 use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentCanceled;
 use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentFailed;
-use Dystcz\LunarApi\Domain\Payments\Actions\AuthorizePayment;
+use Dystcz\LunarApi\Domain\Payments\Actions\AuthorizeStripePayment;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -19,7 +19,7 @@ class HandleStripeWebhookController
 {
     public function __invoke(
         Request $request,
-        AuthorizePayment $authorizePayment
+        AuthorizeStripePayment $authorizePayment
     ): JsonResponse {
         if (config('app.env') !== 'testing') {
             $event = $this->constructEventForNonTestingEnv($request);

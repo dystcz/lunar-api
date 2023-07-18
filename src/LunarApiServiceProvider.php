@@ -134,7 +134,11 @@ class LunarApiServiceProvider extends ServiceProvider
                 'card' => [
                     'driver' => 'stripe',
                     'released' => 'payment-received',
-                ]
+                ],
+                'paypal' => [
+                    'driver' => 'paypal',
+                    'released' => 'payment-received',
+                ],
             ])
         );
     }

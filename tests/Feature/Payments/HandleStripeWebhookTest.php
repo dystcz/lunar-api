@@ -9,7 +9,6 @@ use Dystcz\LunarApi\Domain\Payments\Actions\CreateStripePaymentIntent;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
-use Lunar\Facades\CartSession;
 use Stripe\PaymentIntent;
 
 uses(TestCase::class, RefreshDatabase::class);
@@ -23,7 +22,21 @@ beforeEach(function () {
         ->withLines()
         ->create();
 
+    $cart->createOrder();
+
     $this->intent = App::make(CreateStripePaymentIntent::class)($cart);
+
+    $cart->update([
+        'meta' => [
+            'payment_intent' => $this->intent->id,
+        ],
+    ]);
+
+    $cart->order->update([
+        'meta' => [
+            'payment_intent' => $this->intent->id,
+        ],
+    ]);
 
     $this->cart = $cart;
     $this->order = $cart->order;
