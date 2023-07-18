@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Carts\Http\Routing;
 
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ApplyCouponController;
+use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CheckoutCartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ClearUserCartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ReadUserCartController;
@@ -22,6 +23,10 @@ class CartRouteGroup extends RouteGroup
         JsonApiRoute::server('v1')
             ->prefix('v1')
             ->resources(function (ResourceRegistrar $server) {
+                $server
+                    ->resource($this->getPrefix(), CartController::class)
+                    ->only('show', 'store');
+
                 $server->resource($this->getPrefix(), ClearUserCartController::class)
                     ->only('')
                     ->actions('-actions', function ($actions) {

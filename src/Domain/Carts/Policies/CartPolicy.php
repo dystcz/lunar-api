@@ -15,7 +15,7 @@ class CartPolicy
      */
     public function viewAny(?Authenticatable $user): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -23,7 +23,21 @@ class CartPolicy
      */
     public function view(?Authenticatable $user, Cart $cart): bool
     {
-        return true;
+        /**
+         * Authorize user to view cart only if the user's IP address matches the cart's auth_user_ip.
+         */
+        $cartAuthUserIp = $cart->meta->auth_user_ip ?? null;
+        $userIp = request()->ip();
+
+        if (! $userIp || ! $cartAuthUserIp) {
+            return false;
+        }
+
+        if ($userIp === $cartAuthUserIp) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -39,7 +53,7 @@ class CartPolicy
      */
     public function update(?Authenticatable $user, Cart $cart): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -47,6 +61,6 @@ class CartPolicy
      */
     public function delete(?Authenticatable $user, Cart $cart): bool
     {
-        return $this->update($user, $cart);
+        return false;
     }
 }
