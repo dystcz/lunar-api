@@ -1,84 +1,83 @@
 {
-    "name": "dystcz/lunar-api",
-    "description": "Lunar API",
-    "keywords": [
-        "dystcz",
-        "lunar",
-        "lunar-api",
-        "laravel",
-        "php"
-    ],
-    "homepage": "https://github.com/dystcz/lunar-api",
-    "license": "MIT",
-    "type": "library",
-    "authors": [
-        {
-            "name": "Jakub Theimer",
-            "email": "jakub@dy.st",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": "^8.1",
-        "ext-redis": "*",
-        "dystcz/lunar-paypal": "dev-main",
-        "illuminate/support": "^10.0",
-        "laravel-json-api/laravel": "^3.0",
-        "laravel-json-api/non-eloquent": "^3.0",
-        "lunarphp/lunar": "^0.3.0-beta",
-        "lunarphp/stripe": "0.3.x-dev",
-        "spatie/laravel-query-builder": "^5.2"
-    },
-    "require-dev": {
-        "barryvdh/laravel-ide-helper": "^2.13",
-        "driftingly/rector-laravel": "^0.17.0",
-        "laravel-json-api/testing": "^2.1",
-        "laravel/pint": "^1.7",
-        "nunomaduro/larastan": "^2.5.1",
-        "orchestra/testbench": "^8.0",
-        "pestphp/pest": "^2.0",
-        "pestphp/pest-plugin-laravel": "^2.0",
-        "rector/rector": "^0.15.23",
-        "spatie/laravel-ray": "^1.32"
-    },
-    "autoload": {
-        "psr-4": {
-            "Dystcz\\LunarApi\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Dystcz\\LunarApi\\Tests\\": "tests"
-        }
-    },
-    "scripts": {
-        "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage-html coverage",
-        "analyse": "vendor/bin/phpstan analyse"
-    },
-    "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
-        }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/dystcz/lunar-paypal.git"
-        }
-    ],
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Dystcz\\LunarApi\\LunarApiServiceProvider",
-                "Dystcz\\LunarApi\\JsonApiServiceProvider"
-            ],
-            "aliases": {
-                "LunarApi": "Dystcz\\LunarApi\\Facade\\LunarApi"
-            }
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+  "name": "dystcz/lunar-api",
+  "description": "Lunar API",
+  "keywords": [
+    "dystcz",
+    "lunar",
+    "lunar-api",
+    "laravel",
+    "php"
+  ],
+  "homepage": "https://github.com/dystcz/lunar-api",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Jakub Theimer",
+      "email": "jakub@dy.st",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "ext-redis": "*",
+    "illuminate/support": "^10.0",
+    "laravel-json-api/laravel": "^3.0",
+    "laravel-json-api/non-eloquent": "^3.0",
+    "lunarphp/lunar": "^0.3.0-beta",
+    "lunarphp/stripe": "0.3.x-dev",
+    "spatie/laravel-query-builder": "^5.2"
+  },
+  "require-dev": {
+    "barryvdh/laravel-ide-helper": "^2.13",
+    "driftingly/rector-laravel": "^0.17.0",
+    "laravel-json-api/testing": "^2.1",
+    "laravel/pint": "^1.7",
+    "nunomaduro/larastan": "^2.5.1",
+    "orchestra/testbench": "^8.0",
+    "pestphp/pest": "^2.0",
+    "pestphp/pest-plugin-laravel": "^2.0",
+    "rector/rector": "^0.15.23",
+    "spatie/laravel-ray": "^1.32"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dystcz\\LunarApi\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Dystcz\\LunarApi\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/pest",
+    "test-coverage": "vendor/bin/pest --coverage-html coverage",
+    "analyse": "vendor/bin/phpstan analyse"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/dystcz/lunar-paypal.git"
+    }
+  ],
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Dystcz\\LunarApi\\LunarApiServiceProvider",
+        "Dystcz\\LunarApi\\JsonApiServiceProvider"
+      ],
+      "aliases": {
+        "LunarApi": "Dystcz\\LunarApi\\Facade\\LunarApi"
+      }
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

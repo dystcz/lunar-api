@@ -136,9 +136,9 @@ class TokenBasedCartSessionMiddleware
 
         $token = $this->generateToken();
 
-        $meta = $cart->meta ?? [];
+        $meta = (object) $cart->meta;
 
-        $meta['token'] = $token;
+        $meta->token = $token;
 
         $cart->meta = $meta;
 
