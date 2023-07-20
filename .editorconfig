@@ -1,12 +1,33 @@
-# EditorConfig is awesome: https://EditorConfig.org
-
-# top-most EditorConfig file
 root = true
 
 [*]
 indent_style = space
 indent_size = 4
-end_of_line = lf
 charset = utf-8
+end_of_line = lf
 trim_trailing_whitespace = true
-insert_final_newline = false
+insert_final_newline = true
+
+[*.json]
+indent_style = space
+indent_size = 2
+
+[*.sh]
+indent_style = tab
+indent_size = 4
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{yml,yaml,js,ts,vue,blade.php,lua}]
+indent_style = space
+indent_size = 2
+
+[docker-compose{,.*}.{yaml,yml}]
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = false
+
+[Dockerfile,Makefile]
+indent_style = tab
+indent_size = 4
