@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Products;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 
@@ -12,7 +13,7 @@ class ProductViews
      */
     public function enabled(): bool
     {
-        $enabled = config('lunar-api.track_product_views');
+        $enabled = Config::get('lunar-api.track_product_views');
 
         return $enabled === true;
     }
