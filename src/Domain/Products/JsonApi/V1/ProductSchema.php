@@ -6,6 +6,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Contracts\FilterCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Sorts\RecentlyViewedSort;
+use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
@@ -196,7 +197,7 @@ class ProductSchema extends Schema
     public function filters(): array
     {
         /** @var FilterCollection $filterCollection */
-        // $filterCollection = Config::get('lunar-api.domains.products.filters');
+        $filterCollection = Config::get('lunar-api.domains.products.filters');
 
         return [
             WhereIdIn::make($this),
@@ -205,9 +206,9 @@ class ProductSchema extends Schema
 
             WhereHas::make($this, 'brand'),
 
-            WhereHas::make($this, 'default_url', 'url')->singular(),
+            WhereHas::make($this, 'urls'),
 
-            // ...(new $filterCollection)->toArray(),
+            ...(new $filterCollection)->toArray(),
 
             ...parent::filters(),
         ];

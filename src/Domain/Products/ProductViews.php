@@ -2,11 +2,22 @@
 
 namespace Dystcz\LunarApi\Domain\Products;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 
 class ProductViews
 {
+    /**
+     * Check if tracking product-view is enabled.
+     */
+    public function enabled(): bool
+    {
+        $enabled = Config::get('lunar-api.track_product_views');
+
+        return $enabled === true;
+    }
+
     /**
      * Lists of list of products views.
      */
@@ -44,6 +55,10 @@ class ProductViews
      */
     public function record(int $productId): void
     {
+        if (! $this->enabled()) {
+            return;
+        }
+
         Redis::zAdd("product:views:{$productId}", time(), Str::uuid()->toString());
 
         $this->removeOldEntries();

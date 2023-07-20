@@ -18,6 +18,9 @@ return [
         //
     ],
 
+    // Enable product views tracking
+    'track_product_views' => true,
+
     'auth' => [
         'actions' => [
             'create_user_from_cart' => Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart::class,

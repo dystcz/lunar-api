@@ -6,6 +6,7 @@ use Dystcz\LunarApi\Domain\ProductVariants\Enums\PurchaseStatus;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
 use Lunar\Models\Price as LunarPrice;
 use Lunar\Models\ProductVariant as LunarPoductVariant;
@@ -45,9 +46,11 @@ class ProductVariant extends LunarPoductVariant
     {
         // TODO: Not working, finish
         return $this->product->morphOne(config('media-library.media_model'), 'model')
-            ->where(function ($query) {
-                $query->where('id', function ($q) {
-                    return $q->from('dystore_media_product_variant')
+        ->where(function ($query) {
+            $query->where('id', function ($q) {
+                    $prefix = Config::get('lunar.database.table_prefix');
+
+                    return $q->from("{$prefix}media_product_variant")
                         ->select('media_id')
                         ->where('product_variant_id', $this->getKey())
                         ->where('primary', true)
