@@ -4,27 +4,21 @@ namespace Dystcz\LunarApi\Domain\Payments\Actions;
 
 use Dystcz\LunarPaypal\Data\Order as PaypalOrder;
 use Dystcz\LunarPaypal\Facades\PaypalFacade;
-use Lunar\Models\Cart;
-use Lunar\Models\Transaction;
 
-class CreatePaypalPaymentIntent
+class CreatePaypalPaymentIntent extends CreatePaymentIntent
 {
-    public function __invoke(Cart $cart): PaypalOrder
+    public function createIntent()
     {
         /** @var PaypalOrder $intent */
-        $intent = PaypalFacade::createIntent($cart->calculate());
+        $intent = PaypalFacade::createIntent($this->getCart()->calculate());
 
-        Transaction::create([
-            'type' => 'intent',
-            'order_id' => $cart->order->id,
-            'driver' => 'paypal',
-            'amount' => $intent->totalAmount(),
-            'success' => true,
-            'reference' => $intent->id,
-            'status' => 'intent',
-            'card_type' => 'paypal',
-        ]);
+        $this->setAmount($intent->totalAmount());
+        $this->setDriver('paypal');
+        $this->setCardType('paypal');
+        $this->setOrderId($this->getCart()->order->id);
+        $this->setSuccess(true);
+        $this->setReference($intent->id);
 
-        return $intent;
+        parent::createIntent();
     }
 }

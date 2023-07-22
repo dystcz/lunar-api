@@ -2,28 +2,21 @@
 
 namespace Dystcz\LunarApi\Domain\Payments\Actions;
 
-use Lunar\Models\Cart;
-use Lunar\Models\Transaction;
 use Lunar\Stripe\Facades\StripeFacade;
-use Stripe\PaymentIntent;
 
-class CreateStripePaymentIntent
+class CreateStripePaymentIntent extends CreatePaymentIntent
 {
-    public function __invoke(Cart $cart): PaymentIntent
+    public function createIntent()
     {
-        $intent = StripeFacade::createIntent($cart->calculate());
+        $intent = StripeFacade::createIntent($this->getCart()->calculate());
 
-        Transaction::create([
-            'type' => 'intent',
-            'order_id' => $cart->order->id,
-            'driver' => 'stripe',
-            'amount' => $intent->amount,
-            'success' => true,
-            'reference' => $intent->id,
-            'status' => 'intent',
-            'card_type' => 'unknown',
-        ]);
+        $this->setAmount($intent->amount);
+        $this->setDriver('stripe');
+        $this->setCardType('unknown');
+        $this->setOrderId($this->getCart()->order->id);
+        $this->setSuccess(true);
+        $this->setReference($intent->id);
 
-        return $intent;
+        parent::createIntent();
     }
 }

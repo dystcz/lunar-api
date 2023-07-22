@@ -18,6 +18,13 @@ return [
         //
     ],
 
+    // Mapping for the Lunar API compatible payment providers
+    'payment_intent_providers' => [
+        'stripe' => Dystcz\LunarApi\Domain\Payments\Actions\CreateStripePaymentIntent::class,
+        'paypal' => Dystcz\LunarApi\Domain\Payments\Actions\CreatePaypalPaymentIntent::class,
+        'mollie' => Dystcz\LunarApi\Domain\Payments\Actions\CreateMolliePaymentIntent::class,
+    ],
+
     // Enable product views tracking
     'track_product_views' => true,
 

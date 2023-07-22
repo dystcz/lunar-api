@@ -94,6 +94,8 @@ class CartSchema extends Schema
             // Custom fields (not in the database)
             Boolean::make('create_user')->hidden(),
 
+            ArrayHash::make('meta'),
+
             BelongsTo::make('order')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
