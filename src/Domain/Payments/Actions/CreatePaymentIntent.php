@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\Payments\Actions;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Lunar\Models\Transaction;
 
-class CreatePaymentIntent
+abstract class CreatePaymentIntent
 {
     /**
      * @var Cart
@@ -75,12 +75,7 @@ class CreatePaymentIntent
         ]);
     }
 
-    /**
-     * Execute the action.
-     *
-     * @return array return the payment intent as an array
-     */
-    abstract public function execute(): array
+    abstract public function execute(): void;
 
     /**
      * Create the payment intent.
@@ -96,9 +91,8 @@ class CreatePaymentIntent
             'reference' => $this->getReference(),
             'status' => 'intent',
             'card_type' => $this->getCardType(),
+            'meta' => $this->getMeta(),
         ]);
-
-        return $this->response();
     }
 
     /**
@@ -120,13 +114,12 @@ class CreatePaymentIntent
     /**
      * Get the response.
      */
-    protected function response(): array
+    public function response(): array
     {
         return [
             'success' => $this->getSuccess(),
             'orderId' => $this->getOrderId(),
         ];
-
     }
 
     /**

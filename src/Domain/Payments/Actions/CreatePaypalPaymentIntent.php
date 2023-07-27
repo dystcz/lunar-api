@@ -7,18 +7,30 @@ use Dystcz\LunarPaypal\Facades\PaypalFacade;
 
 class CreatePaypalPaymentIntent extends CreatePaymentIntent
 {
-    public function createIntent()
+    /**
+     * Paypal payment.
+     *
+     * @var PaypalOrder
+     */
+    protected $paypalPayment;
+
+    public function execute(): void
     {
         /** @var PaypalOrder $intent */
-        $intent = PaypalFacade::createIntent($this->getCart()->calculate());
+        $this->paypalPayment = PaypalFacade::createIntent($this->getCart()->calculate());
 
-        $this->setAmount($intent->totalAmount());
+        $this->setAmount($this->paypalPayment->totalAmount());
         $this->setDriver('paypal');
         $this->setCardType('paypal');
         $this->setOrderId($this->getCart()->order->id);
         $this->setSuccess(true);
-        $this->setReference($intent->id);
+        $this->setReference($this->paypalPayment->id);
 
         parent::createIntent();
+    }
+
+    public function response(): array
+    {
+        return $this->paypalPayment->toArray();
     }
 }

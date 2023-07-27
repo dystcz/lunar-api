@@ -46,9 +46,9 @@ class CreatePaymentIntentController extends Controller
          */
         $createPaymentIntent = new $createPaymentIntentClass($order->cart, $meta);
 
-        $intent = $createPaymentIntent->execute();
+        $createPaymentIntent->execute();
 
         return DataResponse::make($order)
-            ->withMeta(['payment_intent' => $intent]);
+            ->withMeta(['payment_intent' => $createPaymentIntent->response()]);
     }
 }

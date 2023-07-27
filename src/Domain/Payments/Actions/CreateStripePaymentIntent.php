@@ -6,17 +6,29 @@ use Lunar\Stripe\Facades\StripeFacade;
 
 class CreateStripePaymentIntent extends CreatePaymentIntent
 {
-    public function createIntent()
-    {
-        $intent = StripeFacade::createIntent($this->getCart()->calculate());
+    /**
+     * Stripe payment.
+     *
+     * @var \Stripe\PaymentIntent
+     */
+    protected $intent;
 
-        $this->setAmount($intent->amount);
+    public function execute(): void
+    {
+        $this->intent = StripeFacade::createIntent($this->getCart()->calculate());
+
+        $this->setAmount($this->intent->amount);
         $this->setDriver('stripe');
         $this->setCardType('unknown');
         $this->setOrderId($this->getCart()->order->id);
         $this->setSuccess(true);
-        $this->setReference($intent->id);
+        $this->setReference($this->intent->id);
 
         parent::createIntent();
+    }
+
+    public function response(): array
+    {
+        return $this->intent->toArray();
     }
 }
