@@ -9,17 +9,17 @@ use Pixelpillow\LunarMollie\Facades\MollieFacade;
 
 class CreateMolliePaymentIntent extends CreatePaymentIntent
 {
-
     /**
      * Mollie payment.
+     *
      * @var Mollie\Api\Resources\Payment
      */
     protected $molliePayment;
 
     public function execute(): void
     {
+        App::make(SetPaymentMethodOnCart::class)($this->getCart(), $this->getMeta()->payment_method);
         App::make(SetPaymentIssuerOnCart::class)($this->getCart(), $this->getMeta()->payment_issuer ?? null);
-        App::make(SetPaymentMethodOnCart::class)($this->getCart(), $this->getMeta()->payment_method ?? null);
 
         $normalizedAmount = MollieFacade::normalizeAmountToString($this->getCart()->calculate()->total->value);
 
@@ -27,8 +27,8 @@ class CreateMolliePaymentIntent extends CreatePaymentIntent
         $this->molliePayment = MollieFacade::createMolliePayment(
             $this->getCart()->calculate(), $this->getTransaction(),
             $normalizedAmount,
-            $this->getMeta()->payment_method ?? '',
-            $this->getMeta()->payment_issuer ?? ''
+            $this->getMeta()->payment_method,
+            $this->getMeta()->payment_issuer
         );
 
         $this->setAmount($normalizedAmount);
