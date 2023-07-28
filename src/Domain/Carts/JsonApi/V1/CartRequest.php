@@ -13,6 +13,7 @@ class CartRequest extends ResourceRequest
     {
         return [
             'create_user' => 'boolean',
+            'meta' => 'array',
         ];
     }
 }
