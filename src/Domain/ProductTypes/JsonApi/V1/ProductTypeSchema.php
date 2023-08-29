@@ -48,6 +48,16 @@ class ProductTypeSchema extends Schema
     /**
      * {@inheritDoc}
      */
+    public function filters(): array
+    {
+        return [
+            ...parent::filters(),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public static function type(): string
     {
         return 'product-types';
