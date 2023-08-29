@@ -65,6 +65,13 @@ return [
             ],
         ],
 
+        'channels' => [
+            'schema' => Dystcz\LunarApi\Domain\Channels\JsonApi\V1\ChannelSchema::class,
+            'route_groups' => [
+                Dystcz\LunarApi\Domain\Channels\Http\Routing\ChannelRouteGroup::class,
+            ],
+        ],
+
         'prices' => [
             'schema' => Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceSchema::class,
             'route_groups' => [],
