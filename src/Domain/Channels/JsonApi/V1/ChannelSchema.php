@@ -2,19 +2,19 @@
 
 namespace Dystcz\LunarApi\Domain\Channels\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\Channels\Models\Channel;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use Lunar\Models\Brand;
 
 class ChannelSchema extends Schema
 {
     /**
      * {@inheritDoc}
      */
-    public static string $model = Brand::class;
+    public static string $model = Channel::class;
 
     /**
      * {@inheritDoc}

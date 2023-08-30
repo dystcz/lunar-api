@@ -168,12 +168,6 @@ class ProductSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            // HasMany::make('attributes')
-            //     ->hidden()
-            //     ->serializeUsing(
-            //         static fn ($relation) => $relation->withoutLinks(),
-            //     ),
-
             BelongsTo::make('productType')
                 ->hidden()
                 ->retainFieldName()
