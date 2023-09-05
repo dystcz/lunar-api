@@ -1,18 +1,20 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\ProductTypes\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\Channels\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\Channels\Models\Channel;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
-use Lunar\Models\ProductType;
+use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Filters\Where;
+use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 
-class ProductTypeSchema extends Schema
+class ChannelSchema extends Schema
 {
     /**
      * {@inheritDoc}
      */
-    public static string $model = ProductType::class;
+    public static string $model = Channel::class;
 
     /**
      * {@inheritDoc}
@@ -20,9 +22,6 @@ class ProductTypeSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            // 'mapped_attributes',
-            // 'mapped_attributes.attribute_group',
-
             ...parent::includePaths(),
         ];
     }
@@ -30,16 +29,16 @@ class ProductTypeSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function fields(): iterable
+    public function fields(): array
     {
         return [
             ID::make(),
 
-            // HasMany::make('mapped_attributes', 'mappedAttributes')
-            //     ->type('attributes')
-            //     ->serializeUsing(
-            //         static fn ($relation) => $relation->withoutLinks()
-            //     ),
+            Str::make('name'),
+
+            Str::make('handle'),
+
+            Str::make('url'),
 
             ...parent::fields(),
         ];
@@ -51,6 +50,10 @@ class ProductTypeSchema extends Schema
     public function filters(): array
     {
         return [
+            WhereIdIn::make($this)->delimiter(','),
+
+            Where::make('handle'),
+
             ...parent::filters(),
         ];
     }
@@ -60,6 +63,6 @@ class ProductTypeSchema extends Schema
      */
     public static function type(): string
     {
-        return 'product-types';
+        return 'channels';
     }
 }

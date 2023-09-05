@@ -162,18 +162,18 @@ class ProductSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            // HasMany::make('attributes')
-            //     ->hidden()
-            //     ->serializeUsing(
-            //         static fn ($relation) => $relation->withoutLinks(),
-            //     ),
+            HasMany::make('channels')
+                ->canCount()
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
-            // BelongsTo::make('product_type', 'productType')
-            //     ->hidden()
-            //     ->retainFieldName()
-            //     ->serializeUsing(
-            //         static fn ($relation) => $relation->withoutLinks(),
-            //     ),
+            BelongsTo::make('productType')
+                ->hidden()
+                ->retainFieldName()
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
             ...parent::fields(),
         ];
@@ -207,6 +207,10 @@ class ProductSchema extends Schema
             WhereHas::make($this, 'brand'),
 
             WhereHas::make($this, 'urls'),
+
+            WhereHas::make($this, 'productType', 'product_type'),
+
+            WhereHas::make($this, 'channels'),
 
             ...(new $filterCollection)->toArray(),
 

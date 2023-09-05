@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use LaravelJsonApi\Eloquent\Fields\ArrayList;
+use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
@@ -26,7 +26,7 @@ class CartLineSchema extends Schema
         return [
             ID::make(),
             Number::make('quantity'),
-            ArrayList::make('meta'),
+            ArrayHash::make('meta'),
             Number::make('purchasable_id'),
             Str::make('purchasable_type'),
 
