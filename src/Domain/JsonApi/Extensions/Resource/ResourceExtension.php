@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource;
 
-use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable as ExtendableContract;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extendable as ExtendableContract;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceExtension as ResourceExtensionContract;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Data\ExtensionValueCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;

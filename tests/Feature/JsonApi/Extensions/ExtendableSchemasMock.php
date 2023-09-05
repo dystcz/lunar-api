@@ -1,5 +1,7 @@
 <?php
 
+namespace Dystcz\LunarApi\Tests\Feature\JsonApi\Extensions;
+
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
