@@ -8,7 +8,6 @@ use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
 use Dystcz\LunarApi\Tests\Stubs\JsonApi\V1\Server;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestTaxDriver;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
-use Dystcz\LunarPaypal\LunarPaypalServiceProvider;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
@@ -24,9 +23,7 @@ use Lunar\Models\Country;
 use Lunar\Models\Currency;
 use Lunar\Models\CustomerGroup;
 use Lunar\Models\TaxClass;
-use Lunar\Stripe\StripePaymentsServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\LaravelData\LaravelDataServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -103,11 +100,6 @@ abstract class TestCase extends Orchestra
             \Cartalyst\Converter\Laravel\ConverterServiceProvider::class,
             \Kalnoy\Nestedset\NestedSetServiceProvider::class,
             \Spatie\LaravelBlink\BlinkServiceProvider::class,
-            StripePaymentsServiceProvider::class,
-
-            // Lunar PayPal payments
-            LunarPaypalServiceProvider::class,
-            LaravelDataServiceProvider::class,
 
             // Livewire
             \Livewire\LivewireServiceProvider::class,
@@ -131,7 +123,7 @@ abstract class TestCase extends Orchestra
         // Set cart auto creation to true
         Config::set('lunar.cart.auto_create', true);
         // Default payment driver
-        Config::set('lunar.payments.default', env('PAYMENT_DRIVER', 'stripe'));
+        Config::set('lunar.payments.default', 'cash-in-hand');
 
         /**
          * App configuration
@@ -165,8 +157,6 @@ abstract class TestCase extends Orchestra
             'key' => env('STRIPE_SECRET_KEY'),
             'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
         ]);
-
-        Config::set('lunar.paypal', require __DIR__.'/../config/paypal.php');
     }
 
     /**

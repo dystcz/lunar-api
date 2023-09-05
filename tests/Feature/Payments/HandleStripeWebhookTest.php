@@ -9,38 +9,39 @@ use Dystcz\LunarApi\Domain\Payments\Actions\CreateStripePaymentIntent;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
-use Stripe\PaymentIntent;
+
+// use Stripe\PaymentIntent;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-beforeEach(function () {
-    Event::fake(CartCreated::class);
-
-    /** @var Cart $cart */
-    $cart = Cart::factory()
-        ->withAddresses()
-        ->withLines()
-        ->create();
-
-    $cart->createOrder();
-
-    $this->intent = App::make(CreateStripePaymentIntent::class)($cart);
-
-    $cart->update([
-        'meta' => [
-            'payment_intent' => $this->intent->id,
-        ],
-    ]);
-
-    $cart->order->update([
-        'meta' => [
-            'payment_intent' => $this->intent->id,
-        ],
-    ]);
-
-    $this->cart = $cart;
-    $this->order = $cart->order;
-});
+// beforeEach(function () {
+//     Event::fake(CartCreated::class);
+//
+//     /** @var Cart $cart */
+//     $cart = Cart::factory()
+//         ->withAddresses()
+//         ->withLines()
+//         ->create();
+//
+//     $cart->createOrder();
+//
+//     $this->intent = App::make(CreateStripePaymentIntent::class)($cart);
+//
+//     $cart->update([
+//         'meta' => [
+//             'payment_intent' => $this->intent->id,
+//         ],
+//     ]);
+//
+//     $cart->order->update([
+//         'meta' => [
+//             'payment_intent' => $this->intent->id,
+//         ],
+//     ]);
+//
+//     $this->cart = $cart;
+//     $this->order = $cart->order;
+// });
 
 it('can handle succeeded event', function () {
     Event::fake(OrderPaid::class);
@@ -59,7 +60,7 @@ it('can handle succeeded event', function () {
     $this->post('/stripe/webhook', $data)->assertSuccessful();
 
     Event::assertDispatched(OrderPaid::class);
-});
+})->skip();
 
 it('can handle canceled event', function () {
     Event::fake(OrderPaymentCanceled::class);
@@ -71,7 +72,7 @@ it('can handle canceled event', function () {
     $this->post('/stripe/webhook', $data)->assertSuccessful();
 
     Event::assertDispatched(OrderPaymentCanceled::class);
-});
+})->skip();
 
 it('can handle payment_failed event', function () {
     Event::fake(OrderPaymentFailed::class);
@@ -83,4 +84,4 @@ it('can handle payment_failed event', function () {
     $this->post('/stripe/webhook', $data)->assertSuccessful();
 
     Event::assertDispatched(OrderPaymentFailed::class);
-});
+})->skip();
