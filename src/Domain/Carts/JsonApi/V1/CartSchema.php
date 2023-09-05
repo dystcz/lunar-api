@@ -73,6 +73,10 @@ class CartSchema extends Schema
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
+                Number::make('shipping_sub_total', 'shippingSubTotal')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
                 Number::make('shipping_total', 'shippingTotal')
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
