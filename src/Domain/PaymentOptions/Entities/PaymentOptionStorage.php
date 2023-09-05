@@ -26,7 +26,7 @@ class PaymentOptionStorage
     }
 
     /**
-     * Find a shipping option.
+     * Find a payment option.
      */
     public function find(string $id): ?PaymentOption
     {
@@ -41,7 +41,7 @@ class PaymentOptionStorage
     }
 
     /**
-     * Get all paymentOptions.
+     * Get all payment options.
      */
     public function all(): array
     {
