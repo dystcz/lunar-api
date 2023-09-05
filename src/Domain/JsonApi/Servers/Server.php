@@ -41,7 +41,7 @@ abstract class Server extends BaseServer
                 $this->name()
             ));
 
-            foreach ($server->getSchemas() as $schema) {
+            foreach ($server->allSchemas() as $schema) {
                 $schemas[] = $schema;
             }
 
