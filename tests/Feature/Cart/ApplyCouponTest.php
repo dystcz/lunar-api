@@ -1,11 +1,14 @@
 <?php
 
+use Carbon\Carbon;
+use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Discounts\Factories\DiscountFactory;
 use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use Lunar\DiscountTypes\AmountOff;
 use Lunar\Facades\CartSession;
 use Lunar\Models\Channel;
@@ -29,6 +32,8 @@ uses(TestCase::class, RefreshDatabase::class);
 // }
 
 test('a user can apply a valid coupon', function () {
+    Event::fake(CartCreated::class);
+
     /** @var TestCase $this */
     $currency = Currency::getDefault();
 
@@ -46,12 +51,10 @@ test('a user can apply a valid coupon', function () {
         'priceable_id' => $purchasableA->id,
     ]);
 
-    $cart = Cart::withoutEvents(function () use ($currency, $channel) {
-        return Cart::factory()->create([
-            'currency_id' => $currency->id,
-            'channel_id' => $channel->id,
-        ]);
-    });
+    $cart = Cart::factory()->create([
+        'currency_id' => $currency->id,
+        'channel_id' => $channel->id,
+    ]);
 
     $cart->lines()->create([
         'purchasable_type' => $purchasableA->getMorphClass(),
@@ -60,8 +63,8 @@ test('a user can apply a valid coupon', function () {
     ]);
 
     $discount = DiscountFactory::new()->create([
-        'name' => 'Test Coupon',
         'type' => AmountOff::class,
+        'name' => 'Test Coupon',
         'coupon' => 'AHOJ',
         'data' => [
             'fixed_value' => true,
@@ -74,14 +77,14 @@ test('a user can apply a valid coupon', function () {
     $discount->customerGroups()->sync([
         $customerGroup->id => [
             'enabled' => true,
-            'starts_at' => now()->subHour(),
+            'starts_at' => Carbon::now(),
         ],
     ]);
 
     $discount->channels()->sync([
         $channel->id => [
             'enabled' => true,
-            'starts_at' => now()->subHour(),
+            'starts_at' => Carbon::now()->subHour(),
         ],
     ]);
 
@@ -105,19 +108,22 @@ test('a user can apply a valid coupon', function () {
     $response->assertSuccessful();
 
     $this->assertDatabaseHas($cart->getTable(), [
+        'id' => $cart->id,
         'coupon_code' => 'AHOJ',
     ]);
 
     $cart = CartSession::current();
 
-    // TODO: Discount not added, because Cart is null in DiscountManager when trying to check coupon_code
-    // Why?
-
+    // FIX: Discounts are not applied
+    // DiscountManager first checks cart, because when calling CartSession::use(), cart is calculated with calculate() method
+    // this sets $discounts property to empty collection
+    // so when calling CartSession::current(), discounts are not applied
+    // because then it checks only if $discounts are null
+    /** @see Lunar\Managers\DiscountManager */
     $this->assertEquals(1000, $cart->discountTotal->value);
     $this->assertEquals(10000, $cart->subTotal->value);
     $this->assertEquals(9000, $cart->subTotalDiscounted->value);
     $this->assertEquals(10800, $cart->total->value);
     $this->assertEquals(1800, $cart->taxTotal->value);
-    // WARNING: Lunar bug?
-    // $this->assertCount(1, $cart->discounts);
-})->group('coupons')->todo();
+    $this->assertCount(1, $cart->discounts);
+})->group('coupons')->skip();
