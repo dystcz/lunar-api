@@ -27,7 +27,7 @@ beforeEach(function () {
 
     $cart->createOrder();
 
-    $cart->order->update([
+    $cart->draftOrder->update([
         'meta' => [
             'payment_intent' => $this->payment_intent_id,
         ],
