@@ -21,7 +21,7 @@ it('can add purchasable to the cart', function () {
             'quantity' => $cartLine->quantity,
             'purchasable_id' => $cartLine->purchasable_id,
             'purchasable_type' => $cartLine->purchasable_type,
-            'meta' => [],
+            'meta' => null,
         ],
     ];
 
@@ -63,7 +63,7 @@ test('cart line quantity will be incremented if already presented inside the use
             'quantity' => $cartLine->quantity,
             'purchasable_id' => $cartLine->purchasable_id,
             'purchasable_type' => $cartLine->purchasable_type,
-            'meta' => [],
+            'meta' => null,
         ],
     ];
 

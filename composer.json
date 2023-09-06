@@ -24,15 +24,13 @@
     "illuminate/support": "^10.0",
     "laravel-json-api/laravel": "^3.0",
     "laravel-json-api/non-eloquent": "^3.0",
-    "lunarphp/lunar": "^0.3.0-beta",
-    "spatie/laravel-query-builder": "^5.2"
+    "lunarphp/lunar": "^0.3.0-beta"
   },
   "require-dev": {
     "barryvdh/laravel-ide-helper": "^2.13",
     "driftingly/rector-laravel": "^0.17.0",
     "laravel-json-api/testing": "^2.1",
     "laravel/pint": "^1.7",
-    "nunomaduro/larastan": "^2.5.1",
     "orchestra/testbench": "^8.0",
     "pestphp/pest": "^2.0",
     "pestphp/pest-plugin-laravel": "^2.0",
