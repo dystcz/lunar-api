@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Listeners\CreateCartAddresses;
+use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
 use Illuminate\Support\Collection as LaravelCollection;
 use Illuminate\Support\Facades\Config;
@@ -77,6 +78,8 @@ class LunarApiServiceProvider extends ServiceProvider
 
         // Register the main class to use with the facade
         $this->app->singleton('lunar-api', fn () => new LunarApi());
+
+        $this->app->singleton(PaymentAdaptersRegister::class, fn () => new PaymentAdaptersRegister());
     }
 
     /**
