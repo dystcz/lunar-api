@@ -151,12 +151,6 @@ abstract class TestCase extends Orchestra
             'password' => env('REDIS_PASSWORD', ''),
             'port' => env('REDIS_PORT', '6379'),
         ]);
-
-        Config::set('services.stripe', [
-            'public_key' => env('STRIPE_PUBLIC_KEY'),
-            'key' => env('STRIPE_SECRET_KEY'),
-            'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
-        ]);
     }
 
     /**
