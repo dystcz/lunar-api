@@ -44,7 +44,7 @@ class OrderPolicy
             return true;
         }
 
-        if (CartSession::current()->order_id === $order->id) {
+        if (CartSession::current()->id === $order->cart_id) {
             return true;
         }
 

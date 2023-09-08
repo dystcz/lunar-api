@@ -114,5 +114,5 @@ it('returns signed url for reading order\'s detail', function () {
 
     $cart = CartSession::current();
 
-    $response->assertFetchedOne($cart->order);
+    $response->assertFetchedOne($cart->draftOrder);
 })->group('checkout');

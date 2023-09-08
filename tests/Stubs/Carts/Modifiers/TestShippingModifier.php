@@ -20,8 +20,6 @@ class TestShippingModifier extends ShippingModifier
 
     public function handle(Cart $cart)
     {
-        $cart->load(['shippingAddress', 'shippingAddress.country']);
-
         ShippingManifest::addOption(
             new ShippingOption(
                 name: 'Basic Delivery',
