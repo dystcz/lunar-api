@@ -7,18 +7,19 @@ use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extendable;
 use LaravelJsonApi\Contracts\Schema\Field;
 use LaravelJsonApi\Contracts\Schema\Filter;
 use LaravelJsonApi\Contracts\Schema\Relation;
+use LaravelJsonApi\Eloquent\Contracts\SortField;
 
 class ExtensionValue
 {
     public function __construct(
-        private string|Closure|Relation|Field|Filter $value,
+        private string|Closure|Relation|Field|Filter|SortField $value,
     ) {
     }
 
     /**
      * Create new instance from value.
      */
-    public static function from(string|Closure|Relation|Field|Filter $value): self
+    public static function from(string|Closure|Relation|Field|Filter|SortField $value): self
     {
         return new self($value);
     }
@@ -26,7 +27,7 @@ class ExtensionValue
     /**
      * Resolve value.
      */
-    public function resolve(?Extendable $extendable = null): string|array|Relation|Field|Filter
+    public function resolve(Extendable $extendable = null): string|array|Relation|Field|Filter
     {
         return $this->value instanceof Closure
             ? ($this->value)($extendable)
