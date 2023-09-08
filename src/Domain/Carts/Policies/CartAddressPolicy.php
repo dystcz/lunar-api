@@ -47,7 +47,10 @@ class CartAddressPolicy
      */
     public function update(?Authenticatable $user, CartAddress $cartAddress): bool
     {
-        return CartSession::current()->id === $cartAddress->cart_id;
+        $cartId = (string) CartSession::current()->id;
+        $cartAddressCartId = (string) $cartAddress->cart_id;
+
+        return $cartId === $cartAddressCartId;
     }
 
     /**
