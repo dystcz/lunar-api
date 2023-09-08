@@ -126,4 +126,4 @@ test('a user can apply a valid coupon', function () {
     $this->assertEquals(10800, $cart->total->value);
     $this->assertEquals(1800, $cart->taxTotal->value);
     $this->assertCount(1, $cart->discounts);
-})->group('coupons')->skip();
+})->group('coupons');
