@@ -3,7 +3,6 @@
 /*
  * Lunar API configuration
  */
-
 return [
 
     // Prefix for all the API routes
@@ -24,9 +23,6 @@ return [
         'paypal' => Dystcz\LunarApi\Domain\Payments\Actions\CreatePaypalPaymentIntent::class,
         'mollie' => Dystcz\LunarApi\Domain\Payments\Actions\CreateMolliePaymentIntent::class,
     ],
-
-    // Enable product views tracking
-    'track_product_views' => true,
 
     'auth' => [
         'actions' => [
