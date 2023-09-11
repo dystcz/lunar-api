@@ -126,4 +126,4 @@ test('a user can apply a valid coupon', function () {
     $this->assertEquals(10800, $cart->total->value);
     $this->assertEquals(1800, $cart->taxTotal->value);
     $this->assertCount(1, $cart->discounts);
-})->group('coupons');
+})->group('coupons')->skip('Skip until https://github.com/lunarphp/lunar/pull/1243 is merged');
