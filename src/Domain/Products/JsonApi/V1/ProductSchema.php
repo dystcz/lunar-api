@@ -203,6 +203,8 @@ class ProductSchema extends Schema
 
             WhereHas::make($this, 'brand'),
 
+            WhereHas::make($this, 'default_url', 'url')->singular(),
+
             WhereHas::make($this, 'urls'),
 
             WhereHas::make($this, 'productType', 'product_type'),
