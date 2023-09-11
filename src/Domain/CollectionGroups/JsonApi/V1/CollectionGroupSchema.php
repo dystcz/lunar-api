@@ -22,6 +22,10 @@ class CollectionGroupSchema extends Schema
         return [
             ID::make(),
 
+            Str::make('name'),
+
+            Str::make('handle'),
+
             Str::make('value'),
 
             ...parent::fields(),
