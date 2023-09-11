@@ -18,6 +18,13 @@ return [
         //
     ],
 
+    // Mapping for the Lunar API compatible payment providers
+    'payment_intent_providers' => [
+        'stripe' => Dystcz\LunarApi\Domain\Payments\Actions\CreateStripePaymentIntent::class,
+        'paypal' => Dystcz\LunarApi\Domain\Payments\Actions\CreatePaypalPaymentIntent::class,
+        'mollie' => Dystcz\LunarApi\Domain\Payments\Actions\CreateMolliePaymentIntent::class,
+    ],
+
     // Enable product views tracking
     'track_product_views' => true,
 
@@ -55,6 +62,13 @@ return [
             'schema' => Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionSchema::class,
             'route_groups' => [
                 Dystcz\LunarApi\Domain\Collections\Http\Routing\CollectionRouteGroup::class,
+            ],
+        ],
+
+        'channels' => [
+            'schema' => Dystcz\LunarApi\Domain\Channels\JsonApi\V1\ChannelSchema::class,
+            'route_groups' => [
+                Dystcz\LunarApi\Domain\Channels\Http\Routing\ChannelRouteGroup::class,
             ],
         ],
 
