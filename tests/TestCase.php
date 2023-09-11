@@ -13,7 +13,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Redis;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
 use Lunar\Base\ShippingModifiers;
@@ -72,10 +71,6 @@ abstract class TestCase extends Orchestra
         App::get(ShippingModifiers::class)->add(TestShippingModifier::class);
 
         activity()->disableLogging();
-
-        $this->beforeApplicationDestroyed(function () {
-            Redis::flushall();
-        });
     }
 
     /**
@@ -144,12 +139,6 @@ abstract class TestCase extends Orchestra
             'database' => 'lunar-api-testing',
             'username' => 'homestead',
             'password' => 'secret',
-        ]);
-
-        Config::set('database.redis.default', [
-            'host' => env('REDIS_HOST', 'redis'),
-            'password' => env('REDIS_PASSWORD', ''),
-            'port' => env('REDIS_PORT', '6379'),
         ]);
 
         Config::set('services.stripe', [
