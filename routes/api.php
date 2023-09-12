@@ -1,7 +1,6 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Payments\Http\Controllers\HandlePaypalWebhookController;
-use Dystcz\LunarApi\Domain\Payments\Http\Controllers\HandleStripeWebhookController;
+use Dystcz\LunarApi\Domain\Payments\Http\Controllers\HandlePaymentWebhookController;
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
@@ -23,5 +22,4 @@ Route::group([
     }
 });
 
-Route::post('stripe/webhook', HandleStripeWebhookController::class);
-Route::post('paypal/webhook', HandlePaypalWebhookController::class);
+Route::post('{paymentDriver}/webhook', HandlePaymentWebhookController::class);
