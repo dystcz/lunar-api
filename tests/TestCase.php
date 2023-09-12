@@ -2,8 +2,6 @@
 
 namespace Dystcz\LunarApi\Tests;
 
-use Dystcz\LunarApi\JsonApiServiceProvider;
-use Dystcz\LunarApi\LunarApiServiceProvider;
 use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
 use Dystcz\LunarApi\Tests\Stubs\JsonApi\V1\Server;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestTaxDriver;
@@ -75,14 +73,10 @@ abstract class TestCase extends Orchestra
 
     /**
      * @param  Application  $app
-     * @return array
      */
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
-            LunarApiServiceProvider::class,
-            JsonApiServiceProvider::class,
-
             // Laravel JsonApi
             \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
             \LaravelJsonApi\Laravel\ServiceProvider::class,
@@ -98,13 +92,17 @@ abstract class TestCase extends Orchestra
 
             // Livewire
             \Livewire\LivewireServiceProvider::class,
+
+            // Lunar Api
+            \Dystcz\LunarApi\LunarApiServiceProvider::class,
+            \Dystcz\LunarApi\JsonApiServiceProvider::class,
         ];
     }
 
     /**
      * @param  Application  $app
      */
-    public function getEnvironmentSetUp($app)
+    public function getEnvironmentSetUp($app): void
     {
         $app->useEnvironmentPath(__DIR__.'/..');
         $app->bootstrapWith([LoadEnvironmentVariables::class]);
@@ -150,10 +148,8 @@ abstract class TestCase extends Orchestra
 
     /**
      * Define database migrations.
-     *
-     * @return void
      */
-    protected function defineDatabaseMigrations()
+    protected function defineDatabaseMigrations(): void
     {
         $this->loadLaravelMigrations();
 
