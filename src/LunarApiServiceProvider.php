@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Listeners\CreateCartAddresses;
+use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
 use Illuminate\Support\Collection as LaravelCollection;
 use Illuminate\Support\Facades\Config;
@@ -43,8 +44,6 @@ class LunarApiServiceProvider extends ServiceProvider
 
         $this->registerModels();
 
-        $this->addPaymentOptions();
-
         Event::listen(CartCreated::class, CreateCartAddresses::class);
 
         LunarApi::createUserFromCartUsing(Config::get('auth.actions.create_user_from_cart', CreateUserFromCart::class));
@@ -77,6 +76,8 @@ class LunarApiServiceProvider extends ServiceProvider
 
         // Register the main class to use with the facade
         $this->app->singleton('lunar-api', fn () => new LunarApi());
+
+        $this->app->singleton(PaymentAdaptersRegister::class, fn () => new PaymentAdaptersRegister());
     }
 
     /**
@@ -119,28 +120,6 @@ class LunarApiServiceProvider extends ServiceProvider
         foreach ($this->policies() as $model => $policy) {
             Gate::policy($model, $policy);
         }
-    }
-
-    /**
-     * Register payment options.
-     */
-    public function addPaymentOptions(): void
-    {
-        $paymentTypes = Config::get('lunar.payments.types', []);
-
-        Config::set(
-            'lunar.payments.types',
-            array_merge($paymentTypes, [
-                'card' => [
-                    'driver' => 'stripe',
-                    'released' => 'payment-received',
-                ],
-                'paypal' => [
-                    'driver' => 'paypal',
-                    'released' => 'payment-received',
-                ],
-            ])
-        );
     }
 
     /**
