@@ -7,7 +7,6 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
-use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use Lunar\Models\Collection;
@@ -47,8 +46,6 @@ class CollectionSchema extends Schema
         return [
             ID::make(),
 
-            Str::make('name'),
-
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
 
@@ -81,7 +78,7 @@ class CollectionSchema extends Schema
         return [
             WhereIdIn::make($this),
 
-            WhereHas::make($this, 'default_urls', 'url')->singular(),
+            WhereHas::make($this, 'default_url', 'url')->singular(),
 
             ...parent::filters(),
         ];
