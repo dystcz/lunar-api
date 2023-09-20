@@ -12,6 +12,10 @@ class TestPaymentAdapter extends PaymentAdapter
 {
     public function createIntent(Cart $cart): PaymentIntent
     {
+        $this->cart = $cart;
+
+        $this->createTransaction(1, 500);
+
         return new PaymentIntent(1);
     }
 

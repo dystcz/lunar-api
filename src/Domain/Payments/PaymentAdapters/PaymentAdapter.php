@@ -32,7 +32,7 @@ abstract class PaymentAdapter
     {
         Transaction::create([
             'type' => 'intent',
-            'order_id' => $this->cart->order->id,
+            'order_id' => $this->cart->orders->first()->id,
             'driver' => $this->getDriver(),
             'amount' => $amount,
             'success' => true,
