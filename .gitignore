@@ -12,4 +12,5 @@ ray.php
 _ide_helper.php
 .phpactor.json
 .env.testing
+.lando.yml
 /.vscode/launch.json
