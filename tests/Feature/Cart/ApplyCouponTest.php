@@ -114,16 +114,10 @@ test('a user can apply a valid coupon', function () {
 
     $cart = CartSession::current();
 
-    // FIX: Discounts are not applied
-    // DiscountManager first checks cart, because when calling CartSession::use(), cart is calculated with calculate() method
-    // this sets $discounts property to empty collection
-    // so when calling CartSession::current(), discounts are not applied
-    // because then it checks only if $discounts are null
-    /** @see Lunar\Managers\DiscountManager */
     $this->assertEquals(1000, $cart->discountTotal->value);
     $this->assertEquals(10000, $cart->subTotal->value);
     $this->assertEquals(9000, $cart->subTotalDiscounted->value);
     $this->assertEquals(10800, $cart->total->value);
     $this->assertEquals(1800, $cart->taxTotal->value);
     $this->assertCount(1, $cart->discounts);
-})->group('coupons')->skip('Skip until https://github.com/lunarphp/lunar/pull/1243 is merged');
+})->group('coupons');
