@@ -30,10 +30,12 @@ class OrderSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'customer',
-            'user',
+            'addresses',
+            'addresses.country',
 
             'currency',
+
+            'customer',
 
             'addresses',
             'addresses.country',
@@ -65,6 +67,8 @@ class OrderSchema extends Schema
             'shippingLines.purchasable.images',
             'shippingLines.purchasable.product',
             'shippingLines.purchasable.product.thumbnail',
+
+            'user',
 
             ...parent::includePaths(),
         ];

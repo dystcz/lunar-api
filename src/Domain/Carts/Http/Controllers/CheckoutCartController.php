@@ -36,6 +36,8 @@ class CheckoutCartController extends Controller
             ->queryOne('orders', $order)
             ->first();
 
+        CartSession::forget();
+
         return DataResponse::make($model)
             ->withLinks([
                 'self.signed' => URL::temporarySignedRoute(
