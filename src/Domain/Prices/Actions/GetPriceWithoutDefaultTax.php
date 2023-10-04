@@ -6,7 +6,6 @@ use Dystcz\LunarApi\Domain\TaxZones\Models\TaxZone;
 use Lunar\Base\Purchasable;
 use Lunar\DataTypes\Price;
 use Lunar\Facades\Pricing;
-use Lunar\Facades\Taxes;
 
 class GetPriceWithoutDefaultTax
 {
@@ -19,14 +18,8 @@ class GetPriceWithoutDefaultTax
     $currency = $price->currency;
     $subTotal = $price->value;
 
-    $taxBreakDown = Taxes::setCurrency($currency)
-      ->setPurchasable($purchasable)
-      ->getBreakdown($subTotal);
+    $priceWithoutVat = new Price(intVal($subTotal / (100 + TaxZone::getDefaultPercentage()) * 100), $currency);
 
-    $tax = $taxBreakDown->amounts->sum('price.value');
-
-    $priceWithVat = new Price(intVal($subTotal / (100 + TaxZone::getDefaultPercentage()) * 100), $currency);
-
-    return $priceWithVat;
+    return $priceWithoutVat;
   }
 }
