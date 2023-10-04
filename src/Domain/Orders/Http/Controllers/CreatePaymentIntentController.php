@@ -13,10 +13,9 @@ class CreatePaymentIntentController extends Controller
 {
     public function createPaymentIntent(
         CreatePaymentIntentRequest $request,
-        Order                      $order,
-        CreatePaymentIntent        $createPaymentIntent,
-    )
-    {
+        Order $order,
+        CreatePaymentIntent $createPaymentIntent,
+    ) {
         $this->authorize('update', $order);
 
         $paymentMethod = $request->validated()['payment_method'];
@@ -27,7 +26,11 @@ class CreatePaymentIntentController extends Controller
             return DataResponse::make($order)->withMeta(['payment_intent' => null]);
         }
 
+        ray($intent);
+
         return DataResponse::make($order)
-            ->withMeta(['payment_intent' => $intent->toArray()]);
+            ->withMeta([
+                'payment_intent' => $intent->toArray(),
+            ]);
     }
 }

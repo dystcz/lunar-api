@@ -133,6 +133,7 @@ return [
             'route_groups' => [
                 Dystcz\LunarApi\Domain\Orders\Http\Routing\OrderRouteGroup::class,
             ],
+            'sign_show_route' => false,
         ],
 
         'order_lines' => [
