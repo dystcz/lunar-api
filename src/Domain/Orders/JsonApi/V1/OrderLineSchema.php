@@ -30,11 +30,13 @@ class OrderLineSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'order',
             'currency',
+
+            'order',
+
             'purchasable',
-            'purchasable.prices',
             'purchasable.images',
+            'purchasable.prices',
             'purchasable.product',
             'purchasable.product.thumbnail',
 
