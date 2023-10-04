@@ -18,7 +18,7 @@ class GetPriceWithoutDefaultTax
     $currency = $price->currency;
     $subTotal = $price->value;
 
-    $priceWithoutVat = new Price(intVal($subTotal / (100 + TaxZone::getDefaultPercentage()) * 100), $currency);
+    $priceWithoutVat = new Price(intval($subTotal / (100 + TaxZone::getDefaultPercentage()) * 100), $currency);
 
     return $priceWithoutVat;
   }
