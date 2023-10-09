@@ -44,14 +44,12 @@ class OrderSchema extends Schema
             'billingAddress',
             'billingAddress.country',
 
+            // Order Lines
             'lines',
             'lines.currency',
             'lines.purchasable',
-            'lines.purchasable.prices',
-            'lines.purchasable.images',
-            'lines.purchasable.product',
-            'lines.purchasable.product.thumbnail',
 
+            // Product lines
             'productLines',
             'productLines.currency',
             'productLines.purchasable',
@@ -60,13 +58,28 @@ class OrderSchema extends Schema
             'productLines.purchasable.product',
             'productLines.purchasable.product.thumbnail',
 
+            // Physical product lines
+            'physicalLines',
+            'physicalLines.currency',
+            'physicalLines.purchasable',
+            'physicalLines.purchasable.prices',
+            'physicalLines.purchasable.images',
+            'physicalLines.purchasable.product',
+            'physicalLines.purchasable.product.thumbnail',
+
+            // Digital product lines
+            'digitalLines',
+            'digitalLines.currency',
+            'digitalLines.purchasable',
+            'digitalLines.purchasable.prices',
+            'digitalLines.purchasable.images',
+            'digitalLines.purchasable.product',
+            'digitalLines.purchasable.product.thumbnail',
+
+            // Shipping lines
             'shippingLines',
             'shippingLines.currency',
             'shippingLines.purchasable',
-            'shippingLines.purchasable.prices',
-            'shippingLines.purchasable.images',
-            'shippingLines.purchasable.product',
-            'shippingLines.purchasable.product.thumbnail',
 
             'user',
 
@@ -99,8 +112,10 @@ class OrderSchema extends Schema
             // ArrayHash::make('meta'),
 
             HasMany::make('lines')->type('order-lines'),
-            HasMany::make('shippingLines')->type('order-lines'),
             HasMany::make('productLines')->type('order-lines'),
+            HasMany::make('digitalLines')->type('order-lines'),
+            HasMany::make('physicalLines')->type('order-lines'),
+            HasMany::make('shippingLines')->type('order-lines'),
 
             BelongsTo::make('customer'),
             BelongsTo::make('user'),

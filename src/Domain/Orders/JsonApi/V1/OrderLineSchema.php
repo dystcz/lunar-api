@@ -98,7 +98,7 @@ class OrderLineSchema extends Schema
                 ),
 
             MorphTo::make('purchasable', 'purchasable')
-                ->types('products', 'variants')
+                ->types('products', 'variants', 'shipping-options')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
