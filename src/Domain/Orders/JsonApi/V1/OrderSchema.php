@@ -109,7 +109,7 @@ class OrderSchema extends Schema
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
-                Number::make('tax_total', 'taxTotal')
+                Number::make('tax_total', 'tax_total')
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
@@ -117,7 +117,7 @@ class OrderSchema extends Schema
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
-                Number::make('shipping_total', 'discount_total')
+                Number::make('shipping_total', 'shipping_total')
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
