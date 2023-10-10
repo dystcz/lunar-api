@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Illuminate\Database\Eloquent\Casts\ArrayObject;
+use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
@@ -62,6 +63,9 @@ class CartAddressSchema extends Schema
             Str::make('contact_phone'),
             Str::make('shipping_option'),
             Str::make('address_type', 'type'),
+
+            ArrayHash::make('meta')
+                ->hidden(),
 
             BelongsTo::make('country'),
             BelongsTo::make('cart'),

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\ArrayObject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
@@ -72,6 +73,9 @@ class AddressSchema extends Schema
             Str::make('delivery_instructions'),
             Str::make('contact_email'),
             Str::make('contact_phone'),
+
+            ArrayHash::make('meta')
+                ->hidden(),
 
             Boolean::make('shipping_default'),
             Boolean::make('billing_default'),
