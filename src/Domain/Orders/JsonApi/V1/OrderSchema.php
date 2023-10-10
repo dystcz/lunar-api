@@ -47,7 +47,6 @@ class OrderSchema extends Schema
             // Order Lines
             'lines',
             'lines.currency',
-            'lines.purchasable',
 
             // Product lines
             'productLines',
@@ -79,7 +78,6 @@ class OrderSchema extends Schema
             // Shipping lines
             'shippingLines',
             'shippingLines.currency',
-            'shippingLines.purchasable',
 
             'user',
 
