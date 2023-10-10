@@ -22,11 +22,11 @@ class AddressRequest extends ResourceRequest
                 'string',
             ],
             'first_name' => [
-                'nullable',
+                'required',
                 'string',
             ],
             'last_name' => [
-                'nullable',
+                'required',
                 'string',
             ],
             'company_name' => [
