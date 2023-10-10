@@ -106,6 +106,15 @@ class CartAddressRequest extends AddressRequest
     }
 
     /**
+     * Get custom messages for validator errors.
+     */
+    public function messages(): array
+    {
+        // TODO: Fill in messages
+        return [];
+    }
+
+    /**
      * Determine if address type is shipping.
      *
      * @return Closure(): bool

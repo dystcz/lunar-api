@@ -18,4 +18,13 @@ class AttachShippingOptionRequest extends ResourceRequest
             ],
         ];
     }
+
+    /**
+     * Get custom messages for validator errors.
+     */
+    public function messages(): array
+    {
+        // TODO: Fill in messages
+        return [];
+    }
 }

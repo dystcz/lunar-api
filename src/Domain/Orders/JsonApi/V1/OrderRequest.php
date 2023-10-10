@@ -12,7 +12,19 @@ class OrderRequest extends ResourceRequest
     public function rules(): array
     {
         return [
-            'notes' => 'string|nullable',
+            'notes' => [
+                'string',
+                'nullable',
+            ],
         ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     */
+    public function messages(): array
+    {
+        // TODO: Fill in messages
+        return [];
     }
 }
