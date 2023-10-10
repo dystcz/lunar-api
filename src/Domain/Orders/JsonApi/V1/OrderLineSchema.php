@@ -63,6 +63,10 @@ class OrderLineSchema extends Schema
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
+                Number::make('unit_quantity')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
                 Number::make('sub_total')
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
