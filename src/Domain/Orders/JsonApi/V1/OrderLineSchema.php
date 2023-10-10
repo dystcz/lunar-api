@@ -77,7 +77,7 @@ class OrderLineSchema extends Schema
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
-                Number::make('tax_total', 'taxTotal')
+                Number::make('tax_total', 'tax_total')
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
