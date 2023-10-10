@@ -2,6 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
+use Closure;
+use Dystcz\LunarApi\Domain\Addresses\Http\Enums\AddressType;
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
 use Illuminate\Validation\Rule;
@@ -101,6 +103,26 @@ class CartAddressRequest extends AddressRequest
                 'required',
             ],
         ];
+    }
+
+    /**
+     * Determine if address type is shipping.
+     *
+     * @return Closure(): bool
+     */
+    protected function isShippingAddress(): Closure
+    {
+        return fn () => $this->input('data.attributes.address_type') === AddressType::SHIPPING->value;
+    }
+
+    /**
+     * Determine if address type is billing.
+     *
+     * @return Closure(): bool
+     */
+    protected function isBillingAddress(): Closure
+    {
+        return fn () => $this->input('data.attributes.address_type') === AddressType::BILLING->value;
     }
 
     /**
