@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Orders\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Illuminate\Database\Eloquent\Casts\ArrayObject;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
@@ -40,6 +41,16 @@ class OrderAddressSchema extends Schema
             Str::make('first_name'),
             Str::make('last_name'),
             Str::make('company_name'),
+            Str::make('company_in', 'meta')
+                ->serializeUsing(
+                    /** @var ArrayObject $value */
+                    static fn ($value) => $value?->collect()->get('company_in') ?? null,
+                ),
+            Str::make('company_tin', 'meta')
+                ->serializeUsing(
+                    /** @var ArrayObject $value */
+                    static fn ($value) => $value?->collect()->get('company_tin') ?? null,
+                ),
             Str::make('line_one'),
             Str::make('line_two'),
             Str::make('line_three'),
