@@ -25,8 +25,8 @@ class CartAddressesController extends Controller
         CartAddressSchema $schema,
         CartAddressRequest $request,
         ResourceQuery $query,
-    ) {
-        $this->authorize('create');
+    ): DataResponse {
+        // $this->authorize('create');
 
         $meta = [
             'company_in' => $request->validated('company_in', null),
@@ -37,9 +37,7 @@ class CartAddressesController extends Controller
             ->repository()
             ->create()
             ->withRequest($query)
-            ->store(
-                array_merge($request->validated(), ['meta' => $meta]),
-            );
+            ->store(array_merge($request->validated(), ['meta' => $meta]));
 
         return DataResponse::make($model)
             ->didCreate();
@@ -67,9 +65,7 @@ class CartAddressesController extends Controller
             ->repository()
             ->update($cartAddress)
             ->withRequest($query)
-            ->store(
-                array_merge($request->validated(), ['meta' => $meta]),
-            );
+            ->store(array_merge($request->validated(), ['meta' => $meta]));
 
         return DataResponse::make($model)
             ->didntCreate();
