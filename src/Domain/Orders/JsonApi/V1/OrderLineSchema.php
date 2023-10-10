@@ -63,6 +63,10 @@ class OrderLineSchema extends Schema
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
+                Number::make('unit_quantity')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
                 Number::make('sub_total')
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
@@ -98,7 +102,7 @@ class OrderLineSchema extends Schema
                 ),
 
             MorphTo::make('purchasable', 'purchasable')
-                ->types('products', 'variants')
+                ->types('products', 'variants', 'shipping-options')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
