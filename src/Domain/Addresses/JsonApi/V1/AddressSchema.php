@@ -26,7 +26,10 @@ class AddressSchema extends Schema
      */
     public function indexQuery(?Request $request, Builder $query): Builder
     {
-        return $query->whereIn('customer_id', Auth::user()->customers->pluck('id'));
+        return $query->whereIn(
+            'customer_id',
+            Auth::user()->customers->pluck('id'),
+        );
     }
 
     /**
@@ -56,13 +59,11 @@ class AddressSchema extends Schema
             Str::make('company_name'),
             Str::make('company_in', 'meta')
                 ->serializeUsing(
-                    /** @var ArrayObject $value */
-                    static fn ($value) => $value?->collect()->get('company_in') ?? null,
+                    static fn (?ArrayObject $value) => $value?->collect()->get('company_in') ?? null,
                 ),
             Str::make('company_tin', 'meta')
                 ->serializeUsing(
-                    /** @var ArrayObject $value */
-                    static fn ($value) => $value?->collect()->get('company_tin') ?? null,
+                    static fn (?ArrayObject $value) => $value?->collect()->get('company_tin') ?? null,
                 ),
             Str::make('line_one'),
             Str::make('line_two'),

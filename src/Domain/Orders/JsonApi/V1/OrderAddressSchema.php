@@ -44,13 +44,11 @@ class OrderAddressSchema extends Schema
             Str::make('company_name'),
             Str::make('company_in', 'meta')
                 ->serializeUsing(
-                    /** @var ArrayObject $value */
-                    static fn ($value) => $value?->collect()->get('company_in') ?? null,
+                    static fn (?ArrayObject $value) => $value?->collect()->get('company_in') ?? null,
                 ),
             Str::make('company_tin', 'meta')
                 ->serializeUsing(
-                    /** @var ArrayObject $value */
-                    static fn ($value) => $value?->collect()->get('company_tin') ?? null,
+                    static fn (?ArrayObject $value) => $value?->collect()->get('company_tin') ?? null,
                 ),
             Str::make('line_one'),
             Str::make('line_two'),
