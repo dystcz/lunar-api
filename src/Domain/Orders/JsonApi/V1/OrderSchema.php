@@ -3,9 +3,11 @@
 namespace Dystcz\LunarApi\Domain\Orders\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
@@ -98,12 +100,31 @@ class OrderSchema extends Schema
             Str::make('notes'),
             Str::make('currency_code'),
             Str::make('compare_currency_code'),
-            Number::make('sub_total'),
-            Number::make('discount_total'),
-            Number::make('shipping_total'),
-            Number::make('tax_total'),
-            Number::make('total'),
-            Number::make('exchange_rate'),
+            Map::make('prices', [
+                Number::make('sub_total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('total', 'total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('tax_total', 'taxTotal')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('discount_total', 'discount_total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('shipping_total', 'discount_total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                ArrayHash::make('tax_breakdown'),
+                ArrayHash::make('discount_breakdown'),
+                Number::make('exchange_rate'),
+            ]),
             DateTime::make('placed_at'),
             DateTime::make('created_at'),
             DateTime::make('updated_at'),
