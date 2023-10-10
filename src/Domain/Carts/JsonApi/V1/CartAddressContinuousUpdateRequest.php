@@ -32,6 +32,14 @@ class CartAddressContinuousUpdateRequest extends CartAddressRequest
                 'nullable',
                 'string',
             ],
+            'company_in' => [
+                'nullable',
+                'string',
+            ],
+            'company_tin' => [
+                'nullable',
+                'string',
+            ],
             'line_one' => [
                 'nullable',
                 'string',
