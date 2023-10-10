@@ -2,32 +2,103 @@
 
 namespace Dystcz\LunarApi\Domain\Addresses\JsonApi\V1;
 
-use Closure;
-use Dystcz\LunarApi\Domain\Addresses\Http\Enums\AddressType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Validator;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
+use LaravelJsonApi\Validation\Rule as JsonApiRule;
 
 class AddressRequest extends ResourceRequest
 {
     /**
-     * Determine if address type is shipping.
+     * Get the validation rules for the resource.
      *
-     * @return Closure(): bool
+     * @return array<string,array>
      */
-    protected function isShippingAddress(): Closure
+    public function rules(): array
     {
-        return fn () => $this->input('data.attributes.address_type') === AddressType::SHIPPING->value;
-    }
+        return [
+            'title' => [
+                'nullable',
+                'string',
+            ],
+            'first_name' => [
+                'nullable',
+                'string',
+            ],
+            'last_name' => [
+                'nullable',
+                'string',
+            ],
+            'company_name' => [
+                'nullable',
+                'string',
+            ],
+            'company_in' => [
+                'nullable',
+                'string',
+            ],
+            'company_tin' => [
+                'nullable',
+                'string',
+            ],
+            'line_one' => [
+                'nullable',
+                'string',
+            ],
+            'line_two' => [
+                'nullable',
+                'string',
+            ],
+            'line_three' => [
+                'nullable',
+                'string',
+            ],
+            'city' => [
+                'nullable',
+                'string',
+            ],
+            'state' => [
+                'nullable',
+                'string',
+            ],
+            'postcode' => [
+                'nullable',
+                'string',
+            ],
+            'delivery_instructions' => [
+                'nullable',
+                'string',
+            ],
+            'contact_email' => [
+                'nullable',
+                'string',
+            ],
+            'contact_phone' => [
+                'nullable',
+                'string',
+            ],
+            'shipping_default' => [
+                'nullable',
+                'boolean',
+            ],
+            'billing_default' => [
+                'nullable',
+                'boolean',
+            ],
+            'meta' => [
+                'nullable',
+                'array',
+            ],
 
-    /**
-     * Determine if address type is billing.
-     *
-     * @return Closure(): bool
-     */
-    protected function isBillingAddress(): Closure
-    {
-        return fn () => $this->input('data.attributes.address_type') === AddressType::BILLING->value;
+            'customer' => [
+                JsonApiRule::toOne(),
+                'required',
+            ],
+            'country' => [
+                JsonApiRule::toOne(),
+                'required',
+            ],
+        ];
     }
 
     /**
