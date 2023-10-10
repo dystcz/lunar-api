@@ -28,7 +28,7 @@ class CheckoutCartController extends Controller
         /** @var Cart $cart */
         $cart = CartSession::current();
 
-        if ($request->validated('create_user') ?? false) {
+        if ($request->validated('create_user', false)) {
             $createUserFromCartAction($cart);
         }
 
