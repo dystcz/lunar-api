@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
+    /** @var TestCase $this */
     $this->actingAs(User::factory()->has(Customer::factory())->create());
 
     $this->customer = Auth::user()->customers->first();
@@ -19,11 +20,14 @@ beforeEach(function () {
         'attributes' => [
             'first_name' => 'Jane',
             'last_name' => $this->customer->last_name,
+            'vat_no' => 'CZ123456789',
+            'account_ref' => '123456789',
         ],
     ];
 });
 
 it('can be updated', function () {
+    /** @var TestCase $this */
     $response = $this
         ->jsonApi()
         ->expects('customers')
@@ -35,5 +39,8 @@ it('can be updated', function () {
     $this->assertDatabaseHas($this->customer->getTable(), [
         'id' => $this->customer->getRouteKey(),
         'first_name' => 'Jane',
+        'last_name' => $this->customer->last_name,
+        'vat_no' => 'CZ123456789',
+        'account_ref' => '123456789',
     ]);
 });
