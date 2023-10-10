@@ -28,11 +28,11 @@ class CustomerRequest extends ResourceRequest
                 'nullable',
                 'string',
             ],
-            'account_ref' => [
+            'company_in' => [
                 'nullable',
                 'string',
             ],
-            'vat_no' => [
+            'company_tin' => [
                 'nullable',
                 'string',
             ],
