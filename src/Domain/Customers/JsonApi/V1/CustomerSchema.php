@@ -45,8 +45,8 @@ class CustomerSchema extends Schema
             Str::make('first_name'),
             Str::make('last_name'),
             Str::make('company_name'),
-            Str::make('account_ref'),
-            Str::make('vat_no'),
+            Str::make('company_in', 'account_ref'),
+            Str::make('company_tin', 'vat_no'),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
