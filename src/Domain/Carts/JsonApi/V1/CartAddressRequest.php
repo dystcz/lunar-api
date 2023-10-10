@@ -2,17 +2,19 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
-use Closure;
+use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
-use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
+use LaravelJsonApi\Validation\Rule as JsonApiRule;
 use Lunar\Facades\CartSession;
 
-class CartAddressRequest extends ResourceRequest
+class CartAddressRequest extends AddressRequest
 {
     /**
      * Get the validation rules for the resource.
+     *
+     * @return array<string,array>
      */
     public function rules(): array
     {
@@ -22,19 +24,27 @@ class CartAddressRequest extends ResourceRequest
                 'string',
             ],
             'first_name' => [
-                Rule::requiredIf($this->isShippingAddress()),
+                'required',
                 'string',
             ],
             'last_name' => [
-                Rule::requiredIf($this->isShippingAddress()),
+                'required',
                 'string',
             ],
             'company_name' => [
                 'nullable',
                 'string',
             ],
+            'company_in' => [
+                'nullable',
+                'string',
+            ],
+            'company_tin' => [
+                'nullable',
+                'string',
+            ],
             'line_one' => [
-                Rule::requiredIf($this->isShippingAddress()),
+                'required',
                 'string',
             ],
             'line_two' => [
@@ -46,7 +56,7 @@ class CartAddressRequest extends ResourceRequest
                 'string',
             ],
             'city' => [
-                Rule::requiredIf($this->isShippingAddress()),
+                'required',
                 'string',
             ],
             'state' => [
@@ -54,7 +64,7 @@ class CartAddressRequest extends ResourceRequest
                 'string',
             ],
             'postcode' => [
-                Rule::requiredIf($this->isShippingAddress()),
+                'required',
                 'string',
             ],
             'delivery_instructions' => [
@@ -76,22 +86,21 @@ class CartAddressRequest extends ResourceRequest
             'address_type' => [
                 'required',
                 'string',
-                Rule::in(['shipping', 'billing']),
+                Rule::in([
+                    'shipping',
+                    'billing',
+                ]),
             ],
 
-            'cart' => [\LaravelJsonApi\Validation\Rule::toOne(), 'required'],
-            'country' => [\LaravelJsonApi\Validation\Rule::toOne(), 'required'],
+            'cart' => [
+                JsonApiRule::toOne(),
+                'required',
+            ],
+            'country' => [
+                JsonApiRule::toOne(),
+                'required',
+            ],
         ];
-    }
-
-    /**
-     * Determine if address type is shipping.
-     */
-    protected function isShippingAddress(): Closure
-    {
-        return function () {
-            $this->input('data.attributes.address_type') === 'shipping';
-        };
     }
 
     /**
