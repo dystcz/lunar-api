@@ -31,7 +31,8 @@ class CartLineSchema extends Schema
             Str::make('purchasable_type'),
 
             BelongsTo::make('cart'),
-            MorphTo::make('purchasable', 'purchasable')->types('products', 'variants'),
+            MorphTo::make('purchasable', 'purchasable')
+                ->types('products', 'variants'),
 
             ...parent::fields(),
         ];

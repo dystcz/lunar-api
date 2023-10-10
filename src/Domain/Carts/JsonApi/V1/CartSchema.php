@@ -36,14 +36,18 @@ class CartSchema extends Schema
             'lines.purchasable.prices',
             'lines.purchasable.product',
             'lines.purchasable.product.thumbnail',
+
             'order',
             'order.productLines',
             'order.productLines.purchasable',
             'order.productLines.purchasable.thumbnail',
+
             'addresses',
             'addresses.country',
+
             'shippingAddress',
             'shippingAddress.country',
+
             'billingAddress',
             'billingAddress.country',
 
@@ -95,7 +99,8 @@ class CartSchema extends Schema
             Str::make('coupon_code'),
 
             // Custom fields (not in the database)
-            Boolean::make('create_user')->hidden(),
+            Boolean::make('create_user')
+                ->hidden(),
 
             ArrayHash::make('meta'),
 
@@ -105,22 +110,26 @@ class CartSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasMany::make('lines')->type('cart-lines')
+            HasMany::make('lines')
+                ->type('cart-lines')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasMany::make('addresses')->type('cart-addresses')
+            HasMany::make('addresses')
+                ->type('cart-addresses')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasOne::make('shippingAddress')->type('cart-addresses')
+            HasOne::make('shippingAddress')
+                ->type('cart-addresses')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasOne::make('billingAddress')->type('cart-addresses')
+            HasOne::make('billingAddress')
+                ->type('cart-addresses')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
