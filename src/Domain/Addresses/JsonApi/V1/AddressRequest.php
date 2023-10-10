@@ -42,7 +42,7 @@ class AddressRequest extends ResourceRequest
                 'string',
             ],
             'line_one' => [
-                'nullable',
+                'required',
                 'string',
             ],
             'line_two' => [
@@ -54,7 +54,7 @@ class AddressRequest extends ResourceRequest
                 'string',
             ],
             'city' => [
-                'nullable',
+                'required',
                 'string',
             ],
             'state' => [
@@ -62,7 +62,7 @@ class AddressRequest extends ResourceRequest
                 'string',
             ],
             'postcode' => [
-                'nullable',
+                'required',
                 'string',
             ],
             'delivery_instructions' => [
@@ -99,6 +99,15 @@ class AddressRequest extends ResourceRequest
                 'required',
             ],
         ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     */
+    public function messages(): array
+    {
+        // TODO: Fill in messages
+        return [];
     }
 
     /**
