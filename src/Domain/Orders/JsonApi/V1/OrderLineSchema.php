@@ -86,8 +86,6 @@ class OrderLineSchema extends Schema
                         static fn ($value) => $value?->decimal,
                     ),
                 ArrayHash::make('tax_breakdown'),
-                ArrayHash::make('shipping_breakdown'),
-                ArrayHash::make('discount_breakdown'),
             ]),
 
             BelongsTo::make('order')

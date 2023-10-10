@@ -123,6 +123,10 @@ class OrderSchema extends Schema
                     ),
                 ArrayHash::make('tax_breakdown'),
                 ArrayHash::make('discount_breakdown'),
+                ArrayHash::make('shipping_breakdown')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->items,
+                    ),
                 Number::make('exchange_rate'),
             ]),
             DateTime::make('placed_at'),
