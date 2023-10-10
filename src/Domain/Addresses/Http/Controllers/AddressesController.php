@@ -3,25 +3,77 @@
 namespace Dystcz\LunarApi\Domain\Addresses\Http\Controllers;
 
 use Dystcz\LunarApi\Controller;
-use LaravelJsonApi\Laravel\Http\Controllers\Actions;
+use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressRequest;
+use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressSchema;
+use Dystcz\LunarApi\Domain\Addresses\Models\Address;
+use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Destroy;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
+use LaravelJsonApi\Laravel\Http\Requests\ResourceQuery;
 
 class AddressesController extends Controller
 {
+    use Destroy;
     use FetchMany;
     use FetchOne;
     use Store;
     use Update;
-    use Destroy;
 
-    // use Actions\FetchRelated;
-    // use Actions\FetchRelationship;
+    /**
+     * Create a new resource.
+     *
+     * @return \Illuminate\Contracts\Support\Responsable|\Illuminate\Http\Response
+     */
+    public function store(
+        AddressSchema $schema,
+        AddressRequest $request,
+        ResourceQuery $query,
+    ): DataResponse {
+        // $this->authorize('create');
 
-    // use Actions\UpdateRelationship;
-    // use Actions\AttachRelationship;
-    // use Actions\DetachRelationship;
+        $meta = [
+            'company_in' => $request->validated('company_in', null),
+            'company_tin' => $request->validated('company_tin', null),
+        ];
+
+        $model = $schema
+            ->repository()
+            ->create()
+            ->withRequest($query)
+            ->store(array_merge($request->validated(), ['meta' => $meta]));
+
+        return DataResponse::make($model)
+            ->didCreate();
+    }
+
+    /**
+     * Update an existing resource.
+     *
+     * @return \Illuminate\Contracts\Support\Responsable|\Illuminate\Http\Response
+     */
+    public function update(
+        AddressSchema $schema,
+        AddressRequest $request,
+        ResourceQuery $query,
+        Address $address,
+    ): DataResponse {
+        $this->authorize('update', $address);
+
+        $meta = array_merge($address->meta?->toArray() ?? [], [
+            'company_in' => $request->validated('company_in', null),
+            'company_tin' => $request->validated('company_tin', null),
+        ]);
+
+        $model = $schema
+            ->repository()
+            ->update($address)
+            ->withRequest($query)
+            ->store(array_merge($request->validated(), ['meta' => $meta]));
+
+        return DataResponse::make($model)
+            ->didntCreate();
+    }
 }
