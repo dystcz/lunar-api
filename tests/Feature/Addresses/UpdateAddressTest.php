@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
+    /** @var TestCase $this */
     $this->actingAs(User::factory()->has(Customer::factory())->create());
 
     $this->address = Address::factory()->create(['customer_id' => Auth::user()->customers->first()->id]);
@@ -26,15 +27,14 @@ beforeEach(function () {
             'line_two' => $this->address->line_two,
             'line_three' => $this->address->line_three,
             'postcode' => $this->address->postcode,
-            'meta' => [
-                'vat_no' => '123456789',
-                'account_no' => '987654321',
-            ],
+            'company_in' => '123456789',
+            'company_tin' => '987654321',
         ],
     ];
 });
 
 it('can be updated', function () {
+    /** @var TestCase $this */
     $response = $this
         ->jsonApi()
         ->expects('addresses')
@@ -46,9 +46,14 @@ it('can be updated', function () {
     $this->assertDatabaseHas($this->address->getTable(), [
         'id' => $this->address->getRouteKey(),
         'first_name' => 'John',
-        'meta' => json_encode([
-            'vat_no' => '123456789',
-            'account_no' => '987654321',
-        ]),
+        'meta' => json_encode(
+            array_merge(
+                $this->address->meta?->toArray() ?? [],
+                [
+                    'company_in' => '123456789',
+                    'company_tin' => '987654321',
+                ],
+            ),
+        ),
     ]);
 });

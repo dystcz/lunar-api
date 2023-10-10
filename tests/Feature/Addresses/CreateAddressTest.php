@@ -10,6 +10,7 @@ use Lunar\Models\Country;
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
+    /** @var TestCase $this */
     $this->user = User::factory()->has(Customer::factory())->create();
 
     $this->address = Address::factory()->make();
@@ -25,6 +26,8 @@ beforeEach(function () {
             'line_two' => $this->address->line_two,
             'line_three' => $this->address->line_three,
             'postcode' => $this->address->postcode,
+            'company_in' => '123456789',
+            'company_tin' => 'CZ123456789',
         ],
         'relationships' => [
             'customer' => [
@@ -44,6 +47,7 @@ beforeEach(function () {
 });
 
 test('address can be created', function () {
+    /** @var TestCase $this */
     $response = $this
         ->actingAs($this->user)
         ->jsonApi()
@@ -66,5 +70,9 @@ test('address can be created', function () {
         'line_two' => $this->address->line_two,
         'line_three' => $this->address->line_three,
         'postcode' => $this->address->postcode,
+        'meta' => json_encode([
+            'company_in' => '123456789',
+            'company_tin' => 'CZ123456789',
+        ]),
     ]);
 });

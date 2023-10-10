@@ -10,6 +10,7 @@ use Lunar\Models\Country;
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
+    /** @var TestCase $this */
     $this->cart = Cart::factory()->create();
 
     $this->cartAddress = CartAddressFactory::new()->make();
@@ -45,6 +46,7 @@ beforeEach(function () {
 });
 
 test('cart can be created', function () {
+    /** @var TestCase $this */
     CartSession::use($this->cart);
 
     $response = $this
@@ -64,6 +66,7 @@ test('cart can be created', function () {
 });
 
 test('only the user who owns the cart can assign an address to it', function () {
+    /** @var TestCase $this */
     $response = $this
         ->jsonApi()
         ->expects('cart-addresses')
