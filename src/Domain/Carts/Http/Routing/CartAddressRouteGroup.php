@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\Carts\Http\Routing;
 
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\AttachShippingOptionController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartAddressesController;
+use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ContinuousUpdateCartAddressController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\DetachShippingOptionController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\UpdateCartAddressCountryController;
 use Dystcz\LunarApi\Routing\RouteGroup;
@@ -17,7 +18,7 @@ class CartAddressRouteGroup extends RouteGroup
     /**
      * Register routes.
      */
-    public function routes(?string $prefix = null, array|string $middleware = []): void
+    public function routes(string $prefix = null, array|string $middleware = []): void
     {
         JsonApiRoute::server('v1')
             ->prefix('v1')
@@ -41,6 +42,12 @@ class CartAddressRouteGroup extends RouteGroup
                     ->only('')
                     ->actions('-actions', function ($actions) {
                         $actions->withId()->patch('update-country');
+                    });
+
+                $server->resource($this->getPrefix(), ContinuousUpdateCartAddressController::class)
+                    ->only('')
+                    ->actions('-actions', function ($actions) {
+                        $actions->withId()->patch('continuous-update');
                     });
             });
     }
