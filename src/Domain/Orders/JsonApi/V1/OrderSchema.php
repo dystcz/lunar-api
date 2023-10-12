@@ -32,41 +32,23 @@ class OrderSchema extends Schema
     public function includePaths(): iterable
     {
         return [
+            // Addresses
             'addresses',
             'addresses.country',
 
-            'currency',
-
-            'customer',
-
-            'addresses',
-            'addresses.country',
+            // Shipping address
             'shippingAddress',
             'shippingAddress.country',
+
+            // Billing address
             'billingAddress',
             'billingAddress.country',
 
-            // Order Lines
-            'lines',
-            'lines.currency',
+            // Currency
+            'currency',
 
-            // Product lines
-            'productLines',
-            'productLines.currency',
-            'productLines.purchasable',
-            'productLines.purchasable.prices',
-            'productLines.purchasable.images',
-            'productLines.purchasable.product',
-            'productLines.purchasable.product.thumbnail',
-
-            // Physical product lines
-            'physicalLines',
-            'physicalLines.currency',
-            'physicalLines.purchasable',
-            'physicalLines.purchasable.prices',
-            'physicalLines.purchasable.images',
-            'physicalLines.purchasable.product',
-            'physicalLines.purchasable.product.thumbnail',
+            // Customer
+            'customer',
 
             // Digital product lines
             'digitalLines',
@@ -77,10 +59,37 @@ class OrderSchema extends Schema
             'digitalLines.purchasable.product',
             'digitalLines.purchasable.product.thumbnail',
 
+            // Order Lines
+            'lines',
+            'lines.currency',
+
+            // Physical product lines
+            'physicalLines',
+            'physicalLines.currency',
+            'physicalLines.purchasable',
+            'physicalLines.purchasable.prices',
+            'physicalLines.purchasable.images',
+            'physicalLines.purchasable.product',
+            'physicalLines.purchasable.product.thumbnail',
+
+            // Product lines
+            'productLines',
+            'productLines.currency',
+            'productLines.purchasable',
+            'productLines.purchasable.prices',
+            'productLines.purchasable.images',
+            'productLines.purchasable.product',
+            'productLines.purchasable.product.thumbnail',
+
             // Shipping lines
             'shippingLines',
             'shippingLines.currency',
 
+            // Transactions
+            'transactions',
+            'transactions.currency',
+
+            // User
             'user',
 
             ...parent::includePaths(),
@@ -147,6 +156,8 @@ class OrderSchema extends Schema
             HasMany::make('addresses')->type('order-addresses'),
             HasOne::make('shippingAddress')->type('order-addresses'),
             HasOne::make('billingAddress')->type('order-addresses'),
+
+            HasMany::make('transactions')->type('transactions'),
 
             ...parent::fields(),
         ];
