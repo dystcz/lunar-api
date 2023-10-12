@@ -15,7 +15,7 @@ class CreatePaymentIntentController extends Controller
         CreatePaymentIntentRequest $request,
         Order $order,
         CreatePaymentIntent $createPaymentIntent,
-    ) {
+    ): DataResponse {
         $this->authorize('update', $order);
 
         $paymentMethod = $request->validated()['payment_method'];
