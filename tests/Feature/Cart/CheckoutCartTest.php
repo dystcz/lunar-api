@@ -12,6 +12,7 @@ use Lunar\Facades\CartSession;
 uses(TestCase::class, RefreshDatabase::class);
 
 test('a user can checkout a cart', function () {
+    /** @var TestCase $this */
     Event::fake(CartCreated::class);
 
     /** @var Cart $cart */
@@ -45,6 +46,7 @@ test('a user can checkout a cart', function () {
 })->group('checkout');
 
 test('a user can be registered when checking out', function () {
+    /** @var TestCase $this */
     Event::fake([CartCreated::class, Registered::class]);
 
     /** @var Cart $cart */
@@ -86,6 +88,7 @@ test('a user can be registered when checking out', function () {
 })->group('checkout');
 
 it('returns signed url for reading order\'s detail', function () {
+    /** @var TestCase $this */
     Event::fake(CartCreated::class);
 
     /** @var Cart $cart */
