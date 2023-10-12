@@ -141,7 +141,12 @@ class OrderSchema extends Schema
             DateTime::make('placed_at'),
             DateTime::make('created_at'),
             DateTime::make('updated_at'),
-            // ArrayHash::make('meta'),
+
+            Str::make('payment_method')
+                ->hidden(),
+
+            ArrayHash::make('meta')
+                ->hidden(),
 
             HasMany::make('lines')
                 ->type('order-lines'),
