@@ -50,8 +50,8 @@ class OrderPolicy
      */
     public function update(?Authenticatable $user, Order $order): bool
     {
-        if ($user && $user->id !== $order->user_id) {
-            return false;
+        if ($user && $user->id === $order->user_id) {
+            return true;
         }
 
         if (
