@@ -14,7 +14,7 @@ class OrderRouteGroup extends RouteGroup
     /**
      * Register routes.
      */
-    public function routes(?string $prefix = null, array|string $middleware = []): void
+    public function routes(string $prefix = null, array|string $middleware = []): void
     {
         JsonApiRoute::server('v1')
             ->prefix('v1')
@@ -22,6 +22,7 @@ class OrderRouteGroup extends RouteGroup
                 $server->resource($this->getPrefix(), OrdersController::class)
                     ->relationships(function ($relationships) {
                         $relationships->hasMany('lines')->readOnly();
+                        $relationships->hasMany('transactions')->readOnly();
                     })
                     ->only('show', 'update');
 
