@@ -107,6 +107,7 @@ class LunarApiServiceProvider extends ServiceProvider
             \Lunar\Models\ProductType::class => \Dystcz\LunarApi\Domain\Products\Models\ProductType::class,
             \Lunar\Models\ProductVariant::class => \Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class,
             \Lunar\Models\Tag::class => \Dystcz\LunarApi\Domain\Tags\Models\Tag::class,
+            \Lunar\Models\Transaction::class => \Dystcz\LunarApi\Domain\Transactions\Models\Transaction::class,
         ]);
 
         ModelManifest::register($models);
