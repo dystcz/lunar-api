@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
-use Carbon\Carbon;
 use Dystcz\LunarApi\Controller;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartRequest;
@@ -44,11 +43,17 @@ class CheckoutCartController extends Controller
 
         return DataResponse::make($model)
             ->withLinks([
-                'self.signed' => URL::temporarySignedRoute(
-                    'v1.orders.show', Carbon::now()->addDays(28), ['order' => $order->id]
+                'self.signed' => URL::signedRoute(
+                    'v1.orders.show',
+                    ['order' => $order->id],
                 ),
-                'create-payment-intent.signed' => URL::temporarySignedRoute(
-                    'v1.orders.createPaymentIntent', Carbon::now()->addDays(28), ['order' => $order->id]
+                'create-payment-intent.signed' => URL::signedRoute(
+                    'v1.orders.createPaymentIntent',
+                    ['order' => $order->id],
+                ),
+                'check-order-payment-status.signed' => URL::signedRoute(
+                    'v1.orders.checkOrderPaymentStatus',
+                    ['order' => $order->id],
                 ),
             ])
             ->didCreate();
