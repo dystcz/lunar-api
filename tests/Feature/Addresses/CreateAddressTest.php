@@ -5,15 +5,18 @@ use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Lunar\Models\Country;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class, WithFaker::class);
 
 beforeEach(function () {
     /** @var TestCase $this */
     $this->user = User::factory()->has(Customer::factory())->create();
 
-    $this->address = Address::factory()->make();
+    $this->address = Address::factory()->make([
+        'postcode' => $this->faker->postcode,
+    ]);
 
     $this->data = [
         'type' => 'addresses',
