@@ -32,6 +32,7 @@ class LunarApiServiceProvider extends ServiceProvider
         \Lunar\Models\ProductVariant::class => \Dystcz\LunarApi\Domain\ProductVariants\Policies\ProductVariantPolicy::class,
         \Lunar\Models\ProductAssociation::class => \Dystcz\LunarApi\Domain\ProductAssociations\Policies\ProductAssociationPolicy::class,
         \Lunar\Models\Product::class => \Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy::class,
+        \Lunar\Models\Transaction::class => \Dystcz\LunarApi\Domain\Transactions\Policies\TransactionPolicy::class,
     ];
 
     /**
