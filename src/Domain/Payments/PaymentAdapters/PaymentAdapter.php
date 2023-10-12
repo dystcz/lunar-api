@@ -20,19 +20,34 @@ abstract class PaymentAdapter
             ->add($adapter->getDriver(), static::class);
     }
 
+    /**
+     * Get payment driver.
+     */
     abstract public function getDriver(): string;
 
+    /**
+     * Get payment type.
+     */
     abstract public function getType(): string;
 
+    /**
+     * Create payment intent.
+     */
     abstract public function createIntent(Cart $cart): PaymentIntent;
 
+    /**
+     * Handle incoming webhook call.
+     */
     abstract public function handleWebhook(Request $request): JsonResponse;
 
+    /**
+     * Create transaction for payment intent.
+     */
     protected function createTransaction(string|int $intentId, float $amount, array $data = []): void
     {
         Transaction::create([
             'type' => 'intent',
-            'order_id' => $this->cart->orders->first()->id,
+            'order_id' => $this->cart->draftOrder->id,
             'driver' => $this->getDriver(),
             'amount' => $amount,
             'success' => true,
