@@ -143,21 +143,59 @@ class OrderSchema extends Schema
             DateTime::make('updated_at'),
             // ArrayHash::make('meta'),
 
-            HasMany::make('lines')->type('order-lines'),
-            HasMany::make('productLines')->type('order-lines'),
-            HasMany::make('digitalLines')->type('order-lines'),
-            HasMany::make('physicalLines')->type('order-lines'),
-            HasMany::make('shippingLines')->type('order-lines'),
+            HasMany::make('lines')
+                ->type('order-lines'),
 
-            BelongsTo::make('customer'),
-            BelongsTo::make('user'),
-            BelongsTo::make('currency'),
+            HasMany::make('productLines')
+                ->type('order-lines'),
 
-            HasMany::make('addresses')->type('order-addresses'),
-            HasOne::make('shippingAddress')->type('order-addresses'),
-            HasOne::make('billingAddress')->type('order-addresses'),
+            HasMany::make('digitalLines')
+                ->type('order-lines'),
 
-            HasMany::make('transactions')->type('transactions'),
+            HasMany::make('physicalLines')
+                ->type('order-lines'),
+
+            HasMany::make('shippingLines')
+                ->type('order-lines'),
+
+            BelongsTo::make('customer')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
+            BelongsTo::make('user')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
+            BelongsTo::make('currency')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
+            HasMany::make('addresses')
+                ->type('order-addresses')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
+            HasOne::make('shippingAddress')
+                ->type('order-addresses')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
+            HasOne::make('billingAddress')
+                ->type('order-addresses')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
+            HasMany::make('transactions')
+                ->type('transactions')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
             ...parent::fields(),
         ];
