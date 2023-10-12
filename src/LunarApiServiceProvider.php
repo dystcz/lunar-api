@@ -37,7 +37,7 @@ class LunarApiServiceProvider extends ServiceProvider
     /**
      * Bootstrap the application services.
      */
-    public function boot()
+    public function boot(): void
     {
         // Register routes
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
@@ -64,7 +64,7 @@ class LunarApiServiceProvider extends ServiceProvider
     /**
      * Register the application services.
      */
-    public function register()
+    public function register(): void
     {
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../config/lunar-api.php', 'lunar-api');
