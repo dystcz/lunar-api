@@ -98,6 +98,7 @@ return [
             'route_groups' => [
                 Dystcz\LunarApi\Domain\Carts\Http\Routing\CartRouteGroup::class,
             ],
+            'forget_cart_after_order_created' => true,
         ],
 
         'cart_lines' => [
@@ -133,7 +134,7 @@ return [
             'route_groups' => [
                 Dystcz\LunarApi\Domain\Orders\Http\Routing\OrderRouteGroup::class,
             ],
-            'sign_show_route' => false,
+            'sign_show_route' => true,
         ],
 
         'order_lines' => [
