@@ -2,18 +2,22 @@
 
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Lunar\Facades\CartSession;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-it('can read order details', function () {
+it('can read order details when user is logged in and owns the order', function () {
+    /** @var TestCase $this */
     Event::fake(CartCreated::class);
 
-    $this->actingAs($user = User::factory()->create());
+    /** @var User $user */
+    $user = User::factory()->create();
 
     /** @var Cart $cart */
     $cart = Cart::factory()
@@ -27,6 +31,7 @@ it('can read order details', function () {
     $order = $cart->createOrder();
 
     $response = $this
+        ->actingAs($user)
         ->jsonApi()
         ->includePaths(
             'productLines.purchasable.product',
@@ -39,11 +44,59 @@ it('can read order details', function () {
         ->expects('orders')
         ->get('/api/v1/orders/'.$order->getRouteKey());
 
-    $response->assertFetchedOne($order)
+    $response
+        ->assertFetchedOne($order)
         ->assertIsIncluded('order-lines', $order->lines->first());
-});
 
-it('returns unauthorized if the user doesn\'t own the order', function () {
+})->group('orders');
+
+it('can read order details when accessing order with valid signature', function () {
+    /** @var TestCase $this */
+    Event::fake(CartCreated::class);
+
+    Config::set('lunar-api.domains.orders.signed_show_route', true);
+
+    /** @var User $user */
+    $user = User::factory()->create();
+
+    /** @var Cart $cart */
+    $cart = Cart::factory()
+        ->withAddresses()
+        ->withLines()
+        ->for($user)
+        ->create();
+
+    CartSession::use($cart);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->withData([
+            'type' => 'carts',
+            'attributes' => [
+                'create_user' => false,
+            ],
+        ])
+        ->post('/api/v1/carts/-actions/checkout');
+
+    $signedUrl = $response->json()['links']['self.signed'];
+
+    $order = Order::query()
+        ->where('id', $response->getId())
+        ->first();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->get($signedUrl);
+
+    $response
+        ->assertFetchedOne($order);
+
+})->group('orders');
+
+it('returns unauthorized if the user does not own the order', function () {
+    /** @var TestCase $this */
     Event::fake(CartCreated::class);
 
     /** @var Cart $cart */
@@ -65,4 +118,4 @@ it('returns unauthorized if the user doesn\'t own the order', function () {
         'status' => '401',
         'title' => 'Unauthorized',
     ]);
-});
+})->group('orders');

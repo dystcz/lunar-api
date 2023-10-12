@@ -1,12 +1,15 @@
 <?php
 
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
+use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Session;
 use Lunar\Facades\CartSession;
 
 uses(TestCase::class, RefreshDatabase::class);
@@ -15,8 +18,11 @@ test('a user can checkout a cart', function () {
     /** @var TestCase $this */
     Event::fake(CartCreated::class);
 
+    /** @var CartFactory $factory */
+    $factory = Cart::factory();
+
     /** @var Cart $cart */
-    $cart = Cart::factory()
+    $cart = $factory
         ->withAddresses()
         ->withLines()
         ->create();
@@ -35,6 +41,7 @@ test('a user can checkout a cart', function () {
         ->post('/api/v1/carts/-actions/checkout');
 
     $id = $response
+        ->assertSuccessful()
         ->assertCreatedWithServerId('http://localhost/api/v1/orders', [])
         ->id();
 
@@ -51,7 +58,10 @@ test('a user can be registered when checking out', function () {
 
     /** @var Cart $cart */
     $cart = Cart::withoutEvents(function () {
-        return Cart::factory()
+        /** @var CartFactory $factory */
+        $factory = Cart::factory();
+
+        return $factory
             ->withAddresses()
             ->withLines()
             ->create();
@@ -71,6 +81,7 @@ test('a user can be registered when checking out', function () {
         ->post('/api/v1/carts/-actions/checkout');
 
     $id = $response
+        ->assertSuccessful()
         ->assertCreatedWithServerId('http://localhost/api/v1/orders', [])
         ->id();
 
@@ -87,7 +98,39 @@ test('a user can be registered when checking out', function () {
     expect($order->user_id)->not()->toBeNull();
 })->group('checkout');
 
-it('returns signed url for reading order\'s detail', function () {
+it('forgets cart after checkout if configured', function () {
+    /** @var TestCase $this */
+    Event::fake(CartCreated::class);
+
+    Config::set('lunar-api.domains.cart.forget_cart_after_order_created', true);
+
+    /** @var Cart $cart */
+    $cart = Cart::factory()
+        ->withAddresses()
+        ->withLines()
+        ->create();
+
+    CartSession::use($cart);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->withData([
+            'type' => 'carts',
+            'attributes' => [
+                'create_user' => false,
+            ],
+        ])
+        ->post('/api/v1/carts/-actions/checkout');
+
+    $response
+        ->assertSuccessful();
+
+    $this->assertFalse(Session::has(CartSession::getSessionKey()));
+
+})->group('checkout');
+
+it('returns signed urls', function () {
     /** @var TestCase $this */
     Event::fake(CartCreated::class);
 
@@ -110,11 +153,12 @@ it('returns signed url for reading order\'s detail', function () {
         ])
         ->post('/api/v1/carts/-actions/checkout');
 
-    $id = $response->json()['data']['id'];
-
-    $response = $this
-        ->jsonApi()
-        ->expects('orders')
-        ->get($response->json()['links']['self.signed']);
+    $response
+        ->assertSuccessful()
+        ->assertLinks([
+            'self.signed' => $response->json()['links']['self.signed'],
+            'create-payment-intent.signed' => $response->json()['links']['create-payment-intent.signed'],
+            'check-order-payment-status.signed' => $response->json()['links']['check-order-payment-status.signed'],
+        ]);
 
 })->group('checkout');
