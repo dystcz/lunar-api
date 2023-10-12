@@ -25,8 +25,6 @@ class TransactionSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            // 'taggables',
-
             ...parent::includePaths(),
         ];
     }
