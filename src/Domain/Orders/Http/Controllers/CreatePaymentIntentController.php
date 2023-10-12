@@ -26,8 +26,6 @@ class CreatePaymentIntentController extends Controller
             return DataResponse::make($order)->withMeta(['payment_intent' => null]);
         }
 
-        ray($intent);
-
         return DataResponse::make($order)
             ->withMeta([
                 'payment_intent' => $intent->toArray(),
