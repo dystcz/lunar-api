@@ -23,7 +23,9 @@ class CreatePaymentIntentController extends Controller
         try {
             $intent = $createPaymentIntent($paymentMethod, $order->cart);
         } catch (RuntimeException $e) {
-            return DataResponse::make($order)->withMeta(['payment_intent' => null]);
+            return DataResponse::make($order)->withMeta([
+                'payment_intent' => null,
+            ]);
         }
 
         return DataResponse::make($order)
