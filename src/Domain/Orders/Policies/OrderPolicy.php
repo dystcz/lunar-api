@@ -54,9 +54,11 @@ class OrderPolicy
             return true;
         }
 
-        if (CartSession::current()->id === $order->cart_id) {
-            return true;
-        }
+        // NOTE: Commented out because cart is forgotten after order is created
+
+        // if (CartSession::current()->id === $order->cart_id) {
+        //     return true;
+        // }
 
         if (
             Config::get('lunar-api.domains.orders.sign_show_route', false)
