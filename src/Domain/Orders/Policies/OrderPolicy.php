@@ -50,25 +50,27 @@ class OrderPolicy
      */
     public function update(?Authenticatable $user, Order $order): bool
     {
-        if ($user && $user->id === $order->user_id) {
-            return true;
+        if ($user && $user->id !== $order->user_id) {
+            return false;
         }
-
-        // NOTE: Commented out because cart is forgotten after order is created
-
-        // if (CartSession::current()->id === $order->cart_id) {
-        //     return true;
-        // }
 
         if (
-            Config::get('lunar-api.domains.orders.sign_show_route', false)
-            && $this->request->hasValidSignature()
-            || App::environment('local')
-        ) {
+            // If cart should not be forgotten after order is created, check if cart id matches
+            ! Config::get('lunar-api.domains.cart.forget_cart_after_order_created', true)
+                && CartSession::current()->id === $order->cart_id) {
             return true;
         }
 
-        return false;
+        if (
+            // If order show route should be signed and signature is invalid
+            (Config::get('lunar-api.domains.orders.sign_show_route', true) && ! $this->request->hasValidSignature())
+                // If env is not local
+                && ! App::environment('local')
+        ) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
