@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
 use LaravelJsonApi\Contracts\Store\Store as StoreContract;
 use LaravelJsonApi\Core\Responses\DataResponse;
@@ -39,7 +40,9 @@ class CheckoutCartController extends Controller
             ->queryOne('orders', $order)
             ->first();
 
-        CartSession::forget();
+        if(Config::get('lunar-api.domains.cart.forget_cart_after_order_created', true))) {
+            CartSession::forget();
+        }
 
         return DataResponse::make($model)
             ->withLinks([
