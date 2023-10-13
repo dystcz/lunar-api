@@ -45,7 +45,10 @@ class LunarApiServiceProvider extends ServiceProvider
 
         $this->registerModels();
 
-        Event::listen(CartCreated::class, CreateCartAddresses::class);
+        Event::listen(
+            CartCreated::class,
+            CreateCartAddresses::class,
+        );
 
         LunarApi::createUserFromCartUsing(Config::get('auth.actions.create_user_from_cart', CreateUserFromCart::class));
         LunarApi::registerUserUsing(Config::get('auth.actions.register_user', RegisterUser::class));
