@@ -86,10 +86,8 @@ class OrderPolicy
      */
     public function checkPaymentStatus(?Authenticatable $user, Order $order): bool
     {
-        if (
-            // If order check payment status signature is valid or env is local
-            $this->request->hasValidSignature() || App::environment('local')
-        ) {
+        // If order check payment status signature is valid or env is local
+        if ($this->request->hasValidSignature() || App::environment('local')) {
             return true;
         }
 
