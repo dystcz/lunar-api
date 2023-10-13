@@ -4,9 +4,12 @@ namespace Dystcz\LunarApi\Domain\Transactions\Data;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Traits\Conditionable;
 
 class TransactionData implements Arrayable
 {
+    use Conditionable;
+
     public function __construct(
         public int $order_id,
         public bool $success,
@@ -45,5 +48,45 @@ class TransactionData implements Arrayable
             'meta' => $this->meta,
             'captured_at' => $this->captured_at?->toDateTimeString(),
         ];
+    }
+
+    /**
+     * Merge transaction data.
+     */
+    public function mergeData(array $data): self
+    {
+        $data = array_merge($this->toArray(), $data);
+
+        return new static(...$data);
+    }
+
+    /**
+     * Set status.
+     */
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Set error.
+     */
+    public function setError(string $error): self
+    {
+        $this->meta = array_merge($this->meta, [
+            'error' => $error,
+        ]);
+
+        return $this;
+    }
+
+    /**
+     * Get error.
+     */
+    public function getError(): ?string
+    {
+        return $this->meta['error'] ?? null;
     }
 }
