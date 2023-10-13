@@ -6,6 +6,7 @@ use Dystcz\LunarApi\Domain\Orders\Enums\OrderStatus;
 use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentCanceled;
 use Dystcz\LunarApi\Domain\Payments\Listeners\HandleFailedPayment;
 use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
+use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentIntent;
 use Dystcz\LunarApi\Domain\Transactions\Models\Transaction;
 use Dystcz\LunarApi\Tests\Stubs\Payments\PaymentAdapters\TestPaymentAdapter;
 use Dystcz\LunarApi\Tests\TestCase;
@@ -37,7 +38,12 @@ it('can handle canceled payment', function () {
     /** @var TestPaymentAdapter $paymentAdapter */
     $paymentAdapter = App::make(PaymentAdaptersRegister::class)->get('test');
 
-    $paymentIntent = $paymentAdapter->createIntent($this->cart);
+    $paymentAdapter->createIntent($this->cart);
+    $paymentIntent = new PaymentIntent(
+        id: 1,
+        amount: 500,
+        status: 'failed',
+    );
 
     OrderPaymentCanceled::dispatch($this->order, $paymentAdapter, $paymentIntent);
 
