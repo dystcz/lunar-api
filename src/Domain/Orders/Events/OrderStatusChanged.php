@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\Events;
 
-use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Lunar\Models\Order;
 
 class OrderStatusChanged
 {
