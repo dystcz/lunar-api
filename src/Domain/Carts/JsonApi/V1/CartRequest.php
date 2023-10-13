@@ -44,7 +44,7 @@ class CartRequest extends ResourceRequest
      */
     public function withValidator(Validator $validator): void
     {
-        $validator->after(function ($validator) {
+        $validator->after(function (Validator $validator) {
             /** @var CartSessionManager $cartSession */
             $cartSession = App::make(CartSessionInterface::class);
 
