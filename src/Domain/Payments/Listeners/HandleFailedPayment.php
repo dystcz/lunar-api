@@ -28,6 +28,6 @@ class HandleFailedPayment
         (new ChangeOrderStatus)($order, OrderStatus::AWAITING_PAYMENT);
 
         // Create failed transaction
-        $paymentAdapter->createFailedTransaction($paymentIntent);
+        $paymentAdapter->createTransaction($paymentIntent);
     }
 }
