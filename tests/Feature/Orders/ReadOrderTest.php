@@ -34,10 +34,10 @@ it('can read order details when user is logged in and owns the order', function 
         ->actingAs($user)
         ->jsonApi()
         ->includePaths(
-            'productLines.purchasable.product',
-            'productLines.purchasable.prices',
-            'productLines.purchasable.images',
-            'productLines.currency',
+            'product_lines.purchasable.product',
+            'product_lines.purchasable.prices',
+            'product_lines.purchasable.images',
+            'product_lines.currency',
             'customer',
             'addresses',
         )
