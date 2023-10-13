@@ -13,6 +13,9 @@ class CreatePaymentIntent
     ) {
     }
 
+    /**
+     * Create payment intent.
+     */
     public function __invoke(string $paymentMethod, Cart $cart): PaymentIntent
     {
         $payment = $this->register->get($paymentMethod);
