@@ -14,11 +14,15 @@ class CartRequest extends ResourceRequest
 {
     /**
      * Get the validation rules for the resource.
+     *
+     * @return array<string,array>
      */
     public function rules(): array
     {
         return [
-            'create_user' => 'boolean',
+            'create_user' => [
+                'boolean',
+            ],
             'meta' => [
                 'nullable',
                 'array',
@@ -56,7 +60,7 @@ class CartRequest extends ResourceRequest
                 $validator->errors()->add(
                     'cart',
                     // TODO: Make translatable
-                    'No shipping option selected.'
+                    'Please select a shipping option.'
                 );
             }
         });
