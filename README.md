@@ -26,11 +26,6 @@ php artisan vendor:publish --provider="Dystcz\LunarApi\LunarApiServiceProvider" 
 // Usage description here
 ```
 
-### Todo list
-
-- [ ] Create documentation
-- [ ] Create and register policies for each resource and each resource method ideally
-
 ### Useful resource
 
 - `laravel-json-api` stubs [https://github.com/laravel-json-api/laravel/tree/develop/stubs](https://github.com/laravel-json-api/laravel/tree/develop/stubs)
@@ -40,6 +35,15 @@ php artisan vendor:publish --provider="Dystcz\LunarApi\LunarApiServiceProvider" 
 ```bash
 composer test
 ```
+
+### Lunar API compatible packages
+
+- [Lunar API Reviews](https://github.com/dystcz/lunar-api-reviews)
+- [Lunar API Product Views](https://github.com/dystcz/lunar-api-product-views)
+- [Lunar API Product Stock Notifications](https://github.com/dystcz/lunar-api-product-notifications)
+- [Lunar API Newsletter](https://github.com/dystcz/lunar-api-newsletter)
+- [Lunar API Stripe Adapter](https://github.com/dystcz/lunar-api-stripe-adapter)
+- [Lunar API PayPal Adapter](https://github.com/dystcz/lunar-api-paypal-adapter)
 
 ### Changelog
 
@@ -55,8 +59,9 @@ If you discover any security related issues, please email jakub@dy.st instead of
 
 ## Credits
 
--   [Jakub Theimer](https://github.com/dystcz)
--   [All Contributors](../../contributors)
+- [All Contributors](../../contributors)
+- [Lunar](https://github.com/lunarphp/lunar) for providing awesome e-commerce package
+- [Laravel JSON:API](https://github.com/laravel-json-api/laravel) which is a brilliant JSON:API layer for Laravel applications
 
 ## License
 
