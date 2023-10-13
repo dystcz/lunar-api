@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Payments\PaymentAdapters;
 
+use BadMethodCallException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -45,9 +46,15 @@ abstract class PaymentAdapter
 
     /**
      * Create transaction for payment intent.
+     *
+     * @throws BadMethodCallException
      */
     protected function createTransaction(string|int $intentId, float $amount, array $data = []): void
     {
+        if ($this->cart->hasCompletedOrders()) {
+            throw new BadMethodCallException('Cannot create transaction for completed order');
+        }
+
         Transaction::create([
             'type' => 'intent',
             'order_id' => $this->cart->draftOrder->id,
