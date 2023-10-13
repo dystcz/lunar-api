@@ -62,15 +62,15 @@ class OrderPolicy
         }
 
         if (
-            // If order show route should be signed and signature is invalid
-            (Config::get('lunar-api.domains.orders.sign_show_route', true) && ! $this->request->hasValidSignature())
-                // If env is not local
-                && ! App::environment('local')
+            // If order show route should be signed and signature is valid
+            (Config::get('lunar-api.domains.orders.sign_show_route', true) && $this->request->hasValidSignature())
+                // If env is  local
+                || App::environment('local')
         ) {
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -79,5 +79,20 @@ class OrderPolicy
     public function delete(?Authenticatable $user, Order $order): bool
     {
         return $this->update($user, $order);
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     */
+    public function checkPaymentStatus(?Authenticatable $user, Order $order): bool
+    {
+        if (
+            // If order check payment status signature is valid or env is local
+            $this->request->hasValidSignature() || App::environment('local')
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }
