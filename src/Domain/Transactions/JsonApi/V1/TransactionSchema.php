@@ -39,7 +39,10 @@ class TransactionSchema extends Schema
 
             Str::make('type'),
             Str::make('driver'),
-            Boolean::make('success'),
+            Boolean::make('success')
+                ->serializeUsing(
+                    static fn ($value) => (bool) $value,
+                ),
             Number::make('amount')
                 ->serializeUsing(
                     static fn ($value) => $value?->decimal,
