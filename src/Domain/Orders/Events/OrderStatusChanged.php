@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\Events;
 
-use Domain\Orders\Models\Order;
+use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 

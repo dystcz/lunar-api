@@ -3,6 +3,7 @@
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Enums\OrderStatus;
+use Dystcz\LunarApi\Domain\Orders\Events\OrderStatusChanged;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
@@ -25,6 +26,8 @@ beforeEach(function () {
 
 test('can change order status to pending payment', function () {
     /** @var TestCase $this */
+    Event::fake(OrderStatusChanged::class);
+
     $url = URL::signedRoute(
         'v1.orders.markPendingPayment', ['order' => $this->order->id]
     );
@@ -46,4 +49,9 @@ test('can change order status to pending payment', function () {
         'id' => $id,
         'status' => OrderStatus::PENDING_PAYMENT,
     ]);
+
+    Event::assertDispatched(
+        OrderStatusChanged::class,
+        fn (OrderStatusChanged $event) => $event->order->id === $this->order->id,
+    );
 });

@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\Payments\Actions;
 
 use Dystcz\LunarApi\Domain\Orders\Contracts\OrderStatusContract;
 use Dystcz\LunarApi\Domain\Orders\Events\OrderStatusChanged;
-use Lunar\Models\Order;
+use Dystcz\LunarApi\Domain\Orders\Models\Order;
 
 class ChangeOrderStatus
 {
