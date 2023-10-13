@@ -12,6 +12,9 @@ abstract class PaymentAdapter
 {
     protected Cart $cart;
 
+    /**
+     * Register payment adapter.
+     */
     public static function register(): void
     {
         $adapter = new static();
