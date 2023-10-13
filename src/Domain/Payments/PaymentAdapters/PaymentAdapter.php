@@ -70,6 +70,7 @@ abstract class PaymentAdapter
                 'status' => 'intent',
                 'card_type' => $this->getType(),
                 ...$data,
-            ]);
+            ]
+        );
     }
 }
