@@ -42,5 +42,5 @@ test('a payment intent can be created', function (string $paymentMethod) {
         ->post($url);
 
     $response->assertSuccessful();
-})
-    ->with(['cash-in-hand']);
+})->with(['cash-in-hand'])
+    ->group('payments');
