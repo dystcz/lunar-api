@@ -84,7 +84,7 @@ class OrderPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function checkPaymentStatus(?Authenticatable $user, Order $order): bool
+    public function viewSigned(?Authenticatable $user, Order $order): bool
     {
         // If order check payment status signature is valid or env is local
         if ($this->request->hasValidSignature() || App::environment('local')) {
