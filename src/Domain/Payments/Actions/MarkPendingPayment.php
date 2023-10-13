@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Payments\Actions;
 
+use Dystcz\LunarApi\Domain\Orders\Actions\ChangeOrderStatus;
 use Dystcz\LunarApi\Domain\Orders\Enums\OrderStatus;
 use Lunar\Models\Order;
 
