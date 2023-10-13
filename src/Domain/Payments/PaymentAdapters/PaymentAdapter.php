@@ -58,9 +58,9 @@ abstract class PaymentAdapter
             order_id: $this->cart->draftOrder->id,
             driver: $this->getDriver(),
             amount: $paymentIntent->amount,
-            success: true,
+            success: $paymentIntent->status === 'succeeded',
             reference: $paymentIntent->id,
-            status: 'intent',
+            status: $paymentIntent->status,
             card_type: $this->getType(),
         ))->when(
             ! empty($data),
@@ -80,24 +80,6 @@ abstract class PaymentAdapter
         $this->validateCart();
 
         $transactionData = $this->prepareTransactionData($paymentIntent, $data);
-
-        return (new CreateTransaction)($transactionData);
-    }
-
-    /**
-     * Create failed transaction for payment intent.
-     *
-     * @param  array<string,mixed>  $data
-     *
-     * @throws BadMethodCallException
-     */
-    public function createFailedTransaction(PaymentIntent $paymentIntent, array $data = []): Transaction
-    {
-        $this->validateCart();
-
-        $transactionData = $this
-            ->prepareTransactionData($paymentIntent, $data)
-            ->setStatus('failed');
 
         return (new CreateTransaction)($transactionData);
     }
