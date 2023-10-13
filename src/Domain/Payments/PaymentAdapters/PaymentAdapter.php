@@ -3,6 +3,8 @@
 namespace Dystcz\LunarApi\Domain\Payments\PaymentAdapters;
 
 use BadMethodCallException;
+use Dystcz\LunarApi\Domain\Transactions\Actions\CreateTransaction;
+use Dystcz\LunarApi\Domain\Transactions\Data\TransactionData;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -45,32 +47,74 @@ abstract class PaymentAdapter
     abstract public function handleWebhook(Request $request): JsonResponse;
 
     /**
+     * Prepare transaction data.
+     *
+     * @param  array<string,mixed>  $data
+     */
+    protected function prepareTransactionData(PaymentIntent $paymentIntent, array $data = []): TransactionData
+    {
+        return (new TransactionData(
+            type: 'intent',
+            order_id: $this->cart->draftOrder->id,
+            driver: $this->getDriver(),
+            amount: $paymentIntent->amount,
+            success: true,
+            reference: $paymentIntent->id,
+            status: 'intent',
+            card_type: $this->getType(),
+        ))->when(
+            ! empty($data),
+            fn ($data) => $data->mergeData($data),
+        );
+    }
+
+    /**
      * Create transaction for payment intent.
+     *
+     * @param  array<string,mixed>  $data
      *
      * @throws BadMethodCallException
      */
-    protected function createTransaction(string|int $intentId, float $amount, array $data = []): void
+    public function createTransaction(PaymentIntent $paymentIntent, array $data = []): Transaction
+    {
+        $this->validateCart();
+
+        $transactionData = $this->prepareTransactionData($paymentIntent, $data);
+
+        return (new CreateTransaction)($transactionData);
+    }
+
+    /**
+     * Create failed transaction for payment intent.
+     *
+     * @param  array<string,mixed>  $data
+     *
+     * @throws BadMethodCallException
+     */
+    public function createFailedTransaction(PaymentIntent $paymentIntent, array $data = []): Transaction
+    {
+        $this->validateCart();
+
+        $transactionData = $this
+            ->prepareTransactionData($paymentIntent, $data)
+            ->setStatus('failed');
+
+        return (new CreateTransaction)($transactionData);
+    }
+
+    /**
+     * Validate cart.
+     *
+     * @throws BadMethodCallException
+     */
+    protected function validateCart(): void
     {
         if ($this->cart->hasCompletedOrders()) {
             throw new BadMethodCallException('Cannot create transaction for completed order.');
         }
 
-        Transaction::updateOrCreate(
-            [
-                'reference' => $intentId,
-                'order_id' => $this->cart->draftOrder->id,
-            ],
-            [
-                'type' => 'intent',
-                'order_id' => $this->cart->draftOrder->id,
-                'driver' => $this->getDriver(),
-                'amount' => $amount,
-                'success' => true,
-                'reference' => $intentId,
-                'status' => 'intent',
-                'card_type' => $this->getType(),
-                ...$data,
-            ]
-        );
+        if (! $this->cart->draftOrder) {
+            throw new BadMethodCallException('Cart has no order.');
+        }
     }
 }
