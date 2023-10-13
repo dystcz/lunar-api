@@ -14,4 +14,12 @@ class CartAddress extends LunarCartAddress
     {
         return CartAddressFactory::new();
     }
+
+    /**
+     * Check if the cart address has a shipping option .
+     */
+    public function hasShippingOption(): bool
+    {
+        return (bool) $this->shipping_option;
+    }
 }
