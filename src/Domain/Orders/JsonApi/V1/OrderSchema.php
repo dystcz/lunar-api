@@ -37,12 +37,12 @@ class OrderSchema extends Schema
             'addresses.country',
 
             // Shipping address
-            'shippingAddress',
-            'shippingAddress.country',
+            'shipping_address',
+            'shipping_address.country',
 
             // Billing address
-            'billingAddress',
-            'billingAddress.country',
+            'billing_address',
+            'billing_address.country',
 
             // Currency
             'currency',
@@ -51,39 +51,39 @@ class OrderSchema extends Schema
             'customer',
 
             // Digital product lines
-            'digitalLines',
-            'digitalLines.currency',
-            'digitalLines.purchasable',
-            'digitalLines.purchasable.prices',
-            'digitalLines.purchasable.images',
-            'digitalLines.purchasable.product',
-            'digitalLines.purchasable.product.thumbnail',
+            'digital_lines',
+            'digital_lines.currency',
+            'digital_lines.purchasable',
+            'digital_lines.purchasable.prices',
+            'digital_lines.purchasable.images',
+            'digital_lines.purchasable.product',
+            'digital_lines.purchasable.product.thumbnail',
 
             // Order Lines
             'lines',
             'lines.currency',
 
             // Physical product lines
-            'physicalLines',
-            'physicalLines.currency',
-            'physicalLines.purchasable',
-            'physicalLines.purchasable.prices',
-            'physicalLines.purchasable.images',
-            'physicalLines.purchasable.product',
-            'physicalLines.purchasable.product.thumbnail',
+            'physical_lines',
+            'physical_lines.currency',
+            'physical_lines.purchasable',
+            'physical_lines.purchasable.prices',
+            'physical_lines.purchasable.images',
+            'physical_lines.purchasable.product',
+            'physical_lines.purchasable.product.thumbnail',
 
             // Product lines
-            'productLines',
-            'productLines.currency',
-            'productLines.purchasable',
-            'productLines.purchasable.prices',
-            'productLines.purchasable.images',
-            'productLines.purchasable.product',
-            'productLines.purchasable.product.thumbnail',
+            'product_lines',
+            'product_lines.currency',
+            'product_lines.purchasable',
+            'product_lines.purchasable.prices',
+            'product_lines.purchasable.images',
+            'product_lines.purchasable.product',
+            'product_lines.purchasable.product.thumbnail',
 
             // Shipping lines
-            'shippingLines',
-            'shippingLines.currency',
+            'shipping_lines',
+            'shipping_lines.currency',
 
             // Transactions
             'transactions',
@@ -151,16 +151,16 @@ class OrderSchema extends Schema
             HasMany::make('lines')
                 ->type('order-lines'),
 
-            HasMany::make('productLines')
+            HasMany::make('product_lines', 'productLines')
                 ->type('order-lines'),
 
-            HasMany::make('digitalLines')
+            HasMany::make('digital_lines', 'digitalLines')
                 ->type('order-lines'),
 
-            HasMany::make('physicalLines')
+            HasMany::make('physical_lines', 'physicalLines')
                 ->type('order-lines'),
 
-            HasMany::make('shippingLines')
+            HasMany::make('shipping_lines', 'shippingLines')
                 ->type('order-lines'),
 
             BelongsTo::make('customer')
@@ -184,14 +184,20 @@ class OrderSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasOne::make('shippingAddress')
+            HasOne::make('shipping_address', 'shippingAddress')
                 ->type('order-addresses')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasOne::make('billingAddress')
+            HasOne::make('billing_address', 'billingAddress')
                 ->type('order-addresses')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
+            HasOne::make('latest_transaction', 'latestTransaction')
+                ->type('transactions')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
