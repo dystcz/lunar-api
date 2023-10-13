@@ -70,6 +70,10 @@ class CheckoutCartController extends Controller
                     'v1.orders.checkOrderPaymentStatus',
                     ['order' => $order->id],
                 ),
+                'mark-order-pending-payment.signed' => URL::signedRoute(
+                    'v1.orders.markPendingPayment',
+                    ['order' => $order->id],
+                ),
             ])
             ->didCreate();
     }
