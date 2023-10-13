@@ -2,6 +2,8 @@
 
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Orders\Enums\OrderStatus;
+use Dystcz\LunarApi\Domain\Orders\Events\OrderStatusChanged;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
@@ -20,13 +22,14 @@ beforeEach(function () {
         ->create();
 
     $this->order = $cart->createOrder();
-    $this->cart = $cart;
 });
 
-test('a payment intent can be created', function (string $paymentMethod) {
+test('can change order status to pending payment', function () {
     /** @var TestCase $this */
+    Event::fake(OrderStatusChanged::class);
+
     $url = URL::signedRoute(
-        'v1.orders.createPaymentIntent', ['order' => $this->order->id]
+        'v1.orders.markPendingPayment', ['order' => $this->order->id]
     );
 
     $response = $this
@@ -35,12 +38,20 @@ test('a payment intent can be created', function (string $paymentMethod) {
         ->withData([
             'type' => 'orders',
             'id' => (string) $this->order->getRouteKey(),
-            'attributes' => [
-                'payment_method' => $paymentMethod,
-            ],
         ])
-        ->post($url);
+        ->patch($url);
 
     $response->assertSuccessful();
-})
-    ->with(['cash-in-hand']);
+
+    $id = $response->getId();
+
+    $this->assertDatabaseHas($this->order->getTable(), [
+        'id' => $id,
+        'status' => OrderStatus::PENDING_PAYMENT,
+    ]);
+
+    Event::assertDispatched(
+        OrderStatusChanged::class,
+        fn (OrderStatusChanged $event) => $event->order->id === $this->order->id,
+    );
+});

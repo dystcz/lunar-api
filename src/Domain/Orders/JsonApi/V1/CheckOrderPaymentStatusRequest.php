@@ -2,11 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\JsonApi\V1;
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Validation\Rule;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 
-class CreatePaymentIntentRequest extends ResourceRequest
+class CheckOrderPaymentStatusRequest extends ResourceRequest
 {
     /**
      * Get the validation rules for the resource.
@@ -15,17 +13,8 @@ class CreatePaymentIntentRequest extends ResourceRequest
      */
     public function rules(): array
     {
-        $paymentTypes = Config::get('lunar.payments.types');
-
         return [
-            'meta' => [
-                'array',
-            ],
-            'payment_method' => [
-                'required',
-                'string',
-                Rule::in(array_keys($paymentTypes)),
-            ],
+            //
         ];
     }
 

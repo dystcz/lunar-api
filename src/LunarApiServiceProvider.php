@@ -32,6 +32,7 @@ class LunarApiServiceProvider extends ServiceProvider
         \Lunar\Models\ProductVariant::class => \Dystcz\LunarApi\Domain\ProductVariants\Policies\ProductVariantPolicy::class,
         \Lunar\Models\ProductAssociation::class => \Dystcz\LunarApi\Domain\ProductAssociations\Policies\ProductAssociationPolicy::class,
         \Lunar\Models\Product::class => \Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy::class,
+        \Lunar\Models\Transaction::class => \Dystcz\LunarApi\Domain\Transactions\Policies\TransactionPolicy::class,
     ];
 
     /**
@@ -44,7 +45,10 @@ class LunarApiServiceProvider extends ServiceProvider
 
         $this->registerModels();
 
-        Event::listen(CartCreated::class, CreateCartAddresses::class);
+        Event::listen(
+            CartCreated::class,
+            CreateCartAddresses::class,
+        );
 
         LunarApi::createUserFromCartUsing(Config::get('auth.actions.create_user_from_cart', CreateUserFromCart::class));
         LunarApi::registerUserUsing(Config::get('auth.actions.register_user', RegisterUser::class));
@@ -107,6 +111,7 @@ class LunarApiServiceProvider extends ServiceProvider
             \Lunar\Models\ProductType::class => \Dystcz\LunarApi\Domain\Products\Models\ProductType::class,
             \Lunar\Models\ProductVariant::class => \Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class,
             \Lunar\Models\Tag::class => \Dystcz\LunarApi\Domain\Tags\Models\Tag::class,
+            \Lunar\Models\Transaction::class => \Dystcz\LunarApi\Domain\Transactions\Models\Transaction::class,
         ]);
 
         ModelManifest::register($models);
