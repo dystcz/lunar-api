@@ -52,19 +52,24 @@ abstract class PaymentAdapter
     protected function createTransaction(string|int $intentId, float $amount, array $data = []): void
     {
         if ($this->cart->hasCompletedOrders()) {
-            throw new BadMethodCallException('Cannot create transaction for completed order');
+            throw new BadMethodCallException('Cannot create transaction for completed order.');
         }
 
-        Transaction::create([
-            'type' => 'intent',
-            'order_id' => $this->cart->draftOrder->id,
-            'driver' => $this->getDriver(),
-            'amount' => $amount,
-            'success' => true,
-            'reference' => $intentId,
-            'status' => 'intent',
-            'card_type' => $this->getType(),
-            ...$data,
-        ]);
+        Transaction::updateOrCreate(
+            [
+                'reference' => $intentId,
+                'order_id' => $this->cart->draftOrder->id,
+            ],
+            [
+                'type' => 'intent',
+                'order_id' => $this->cart->draftOrder->id,
+                'driver' => $this->getDriver(),
+                'amount' => $amount,
+                'success' => true,
+                'reference' => $intentId,
+                'status' => 'intent',
+                'card_type' => $this->getType(),
+                ...$data,
+            ]);
     }
 }
