@@ -2,14 +2,44 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\Events;
 
+use Dystcz\LunarApi\Domain\Payments\Contracts\FailedPaymentEventContract;
+use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdapter;
+use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentIntent;
 use Illuminate\Foundation\Events\Dispatchable;
 use Lunar\Models\Order;
 
-class OrderPaymentFailed
+class OrderPaymentFailed implements FailedPaymentEventContract
 {
     use Dispatchable;
 
-    public function __construct(Order $order)
+    public function __construct(
+        public Order $order,
+        public PaymentAdapter $paymentAdapter,
+        public PaymentIntent $paymentIntent,
+    ) {
+    }
+
+    /**
+     * Get payment adapter.
+     */
+    public function getPaymentAdapter(): PaymentAdapter
     {
+        return $this->paymentAdapter;
+    }
+
+    /**
+     * Get order.
+     */
+    public function getOrder(): Order
+    {
+        return $this->order;
+    }
+
+    /**
+     * Get payment intent.
+     */
+    public function getPaymentIntent(): PaymentIntent
+    {
+        return $this->paymentIntent;
     }
 }
