@@ -5,6 +5,9 @@ namespace Dystcz\LunarApi;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Listeners\CreateCartAddresses;
+use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentCanceled;
+use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentFailed;
+use Dystcz\LunarApi\Domain\Payments\Listeners\HandleFailedPayment;
 use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
 use Illuminate\Support\Collection as LaravelCollection;
@@ -45,10 +48,9 @@ class LunarApiServiceProvider extends ServiceProvider
 
         $this->registerModels();
 
-        Event::listen(
-            CartCreated::class,
-            CreateCartAddresses::class,
-        );
+        Event::listen(CartCreated::class, CreateCartAddresses::class);
+        Event::listen(OrderPaymentFailed::class, HandleFailedPayment::class);
+        Event::listen(OrderPaymentCanceled::class, HandleFailedPayment::class);
 
         LunarApi::createUserFromCartUsing(Config::get('auth.actions.create_user_from_cart', CreateUserFromCart::class));
         LunarApi::registerUserUsing(Config::get('auth.actions.register_user', RegisterUser::class));
