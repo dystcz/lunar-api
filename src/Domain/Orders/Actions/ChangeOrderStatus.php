@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Payments\Actions;
+namespace Dystcz\LunarApi\Domain\Orders\Actions;
 
 use Dystcz\LunarApi\Domain\Orders\Contracts\OrderStatusContract;
 use Dystcz\LunarApi\Domain\Orders\Events\OrderStatusChanged;
