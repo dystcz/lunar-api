@@ -17,6 +17,10 @@ class CheckOrderPaymentStatusController extends Controller
     ): DataResponse {
         $this->authorize('viewSigned', $order);
 
+        $order->load([
+            'latestTransaction',
+        ]);
+
         return DataResponse::make($order)
             ->withIncludePaths([
                 'latest_transaction',
@@ -37,6 +41,8 @@ class CheckOrderPaymentStatusController extends Controller
             ])
             ->withMeta([
                 'is_placed' => $order->isPlaced(),
+                'cancelled' => in_array($order->latestTransaction?->status, ['cancelled']),
+                'failed' => in_array($order->latestTransaction?->status, ['failed']),
             ])
             ->didntCreate();
     }
