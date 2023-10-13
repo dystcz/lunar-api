@@ -14,9 +14,11 @@ class TestPaymentAdapter extends PaymentAdapter
     {
         $this->cart = $cart;
 
-        $this->createTransaction(1, 500);
+        $paymentIntent = new PaymentIntent(id: 1, amount: 500);
 
-        return new PaymentIntent(1);
+        $this->createTransaction($paymentIntent);
+
+        return $paymentIntent;
     }
 
     public function handleWebhook(Request $request): JsonResponse
