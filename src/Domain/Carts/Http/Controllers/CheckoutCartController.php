@@ -66,12 +66,16 @@ class CheckoutCartController extends Controller
                     'v1.orders.createPaymentIntent',
                     ['order' => $order->id],
                 ),
-                'check-order-payment-status.signed' => URL::signedRoute(
-                    'v1.orders.checkOrderPaymentStatus',
-                    ['order' => $order->id],
-                ),
                 'mark-order-pending-payment.signed' => URL::signedRoute(
                     'v1.orders.markPendingPayment',
+                    ['order' => $order->id],
+                ),
+                'mark-order-awaiting-payment.signed' => URL::signedRoute(
+                    'v1.orders.markAwaitingPayment',
+                    ['order' => $order->id],
+                ),
+                'check-order-payment-status.signed' => URL::signedRoute(
+                    'v1.orders.checkOrderPaymentStatus',
                     ['order' => $order->id],
                 ),
             ])
