@@ -91,7 +91,15 @@ it('can read order details when accessing order with valid signature', function 
         ->get($signedUrl);
 
     $response
-        ->assertFetchedOne($order);
+        ->assertFetchedOne($order)
+        ->assertSuccessful()
+        ->assertLinks([
+            'self.signed' => $response->json()['links']['self.signed'],
+            'create-payment-intent.signed' => $response->json()['links']['create-payment-intent.signed'],
+            'mark-order-pending-payment.signed' => $response->json()['links']['mark-order-pending-payment.signed'],
+            'mark-order-awaiting-payment.signed' => $response->json()['links']['mark-order-awaiting-payment.signed'],
+            'check-order-payment-status.signed' => $response->json()['links']['check-order-payment-status.signed'],
+        ]);
 
 })->group('orders');
 
