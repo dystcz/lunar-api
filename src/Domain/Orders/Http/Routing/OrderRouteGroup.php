@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\Orders\Http\Routing;
 
 use Dystcz\LunarApi\Domain\Orders\Http\Controllers\CheckOrderPaymentStatusController;
 use Dystcz\LunarApi\Domain\Orders\Http\Controllers\CreatePaymentIntentController;
+use Dystcz\LunarApi\Domain\Orders\Http\Controllers\MarkOrderAwaitingPaymentController;
 use Dystcz\LunarApi\Domain\Orders\Http\Controllers\MarkOrderPendingPaymentController;
 use Dystcz\LunarApi\Domain\Orders\Http\Controllers\OrdersController;
 use Dystcz\LunarApi\Routing\RouteGroup;
@@ -42,6 +43,12 @@ class OrderRouteGroup extends RouteGroup
                     ->only('')
                     ->actions('-actions', function ($actions) {
                         $actions->withId()->patch('mark-pending-payment');
+                    });
+
+                $server->resource($this->getPrefix(), MarkOrderAwaitingPaymentController::class)
+                    ->only('')
+                    ->actions('-actions', function ($actions) {
+                        $actions->withId()->patch('mark-awaiting-payment');
                     });
 
                 $server->resource($this->getPrefix(), CheckOrderPaymentStatusController::class)
