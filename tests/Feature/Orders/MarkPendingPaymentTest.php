@@ -47,7 +47,7 @@ test('can change order status to pending payment', function () {
 
     $this->assertDatabaseHas($this->order->getTable(), [
         'id' => $id,
-        'status' => OrderStatus::PENDING_PAYMENT,
+        'status' => OrderStatus::PENDING_PAYMENT->value,
     ]);
 
     Event::assertDispatched(
