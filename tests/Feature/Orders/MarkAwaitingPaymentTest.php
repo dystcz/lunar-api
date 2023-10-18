@@ -1,6 +1,7 @@
 <?php
 
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
+use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Enums\OrderStatus;
 use Dystcz\LunarApi\Domain\Orders\Events\OrderStatusChanged;
@@ -16,7 +17,7 @@ beforeEach(function () {
     Event::fake(CartCreated::class);
 
     /** @var Cart $cart */
-    $cart = Cart::factory()
+    $cart = CartFactory::new()
         ->withAddresses()
         ->withLines()
         ->create();
