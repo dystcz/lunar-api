@@ -15,13 +15,17 @@ class ChangeOrderStatus
     /**
      * Change order status to pending payment.
      */
-    public function __invoke(Order $order, OrderStatusContract $orderStatus): Order
+    public function __invoke(Order $order, OrderStatusContract|string $orderStatus): Order
     {
-        $order->update([
-            'status' => $orderStatus->value,
-        ]);
+        $newStatus = $orderStatus instanceof OrderStatusContract
+            ? $orderStatus->value
+            : $orderStatus;
 
-        OrderStatusChanged::dispatch($order);
+        $oldStatus = $order->status;
+
+        $order->update(['status' => $newStatus]);
+
+        OrderStatusChanged::dispatch($order, $newStatus, $oldStatus);
 
         return $order;
     }

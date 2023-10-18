@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\Events;
 
-use Dystcz\LunarApi\Domain\Orders\Contracts\OrderStatusContract;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Lunar\Models\Order;
@@ -19,8 +18,8 @@ class OrderStatusChanged
      */
     public function __construct(
         public Order $order,
-        // public OrderStatusContract $oldStatus,
-        // public OrderStatusContract $newStatus,
+        public string $newStatus,
+        public string $oldStatus,
     ) {
     }
 }
