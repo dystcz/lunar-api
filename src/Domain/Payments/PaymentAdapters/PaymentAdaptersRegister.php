@@ -12,6 +12,8 @@ class PaymentAdaptersRegister
     protected array $adapters = [];
 
     /**
+     * Register payment adapter.
+     *
      * @param  class-string<PaymentAdapter>  $adapter
      */
     public function add(string $driver, string $adapter): void
@@ -19,15 +21,21 @@ class PaymentAdaptersRegister
         $this->adapters[$driver] = $adapter;
     }
 
+    /**
+     * Check if payment adapter is registered.
+     */
     public function has(string $driver): bool
     {
         return array_key_exists($driver, $this->adapters);
     }
 
+    /**
+     * Get payment adapter.
+     */
     public function get(string $driver): PaymentAdapter
     {
         if (! $this->has($driver)) {
-            throw new \RuntimeException('Payment adapter for ['.$driver.'] is not registered');
+            throw new \RuntimeException("Payment adapter for ['{$driver}'] is not registered");
         }
 
         return App::make($this->adapters[$driver]);
