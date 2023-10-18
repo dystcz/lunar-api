@@ -5,15 +5,9 @@ namespace Dystcz\LunarApi\Domain\Payments\Listeners;
 use Dystcz\LunarApi\Domain\Orders\Actions\ChangeOrderStatus;
 use Dystcz\LunarApi\Domain\Orders\Enums\OrderStatus;
 use Dystcz\LunarApi\Domain\Payments\Contracts\FailedPaymentEventContract;
-use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
 
 class HandleFailedPayment
 {
-    public function __construct(
-        protected PaymentAdaptersRegister $register
-    ) {
-    }
-
     /**
      * Handle the event.
      * Create failed transaction.
