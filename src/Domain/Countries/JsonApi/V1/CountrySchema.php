@@ -3,10 +3,12 @@
 namespace Dystcz\LunarApi\Domain\Countries\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
+use LaravelJsonApi\HashIds\HashId;
 use Lunar\Models\Country;
 
 class CountrySchema extends Schema
@@ -22,7 +24,10 @@ class CountrySchema extends Schema
     public function fields(): array
     {
         return [
-            ID::make(),
+            Config::get('lunar-api.schemas.use_hashids', false)
+                ? HashId::make()
+                : ID::make(),
+
             Str::make('name'),
             Str::make('iso2'),
             Str::make('iso3'),

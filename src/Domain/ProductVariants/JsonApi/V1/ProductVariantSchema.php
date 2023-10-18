@@ -4,12 +4,14 @@ namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
+use LaravelJsonApi\HashIds\HashId;
 use Lunar\Models\ProductVariant;
 
 class ProductVariantSchema extends Schema
@@ -42,7 +44,9 @@ class ProductVariantSchema extends Schema
     public function fields(): array
     {
         return [
-            ID::make(),
+            Config::get('lunar-api.schemas.use_hashids', false)
+                ? HashId::make()
+                : ID::make(),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),

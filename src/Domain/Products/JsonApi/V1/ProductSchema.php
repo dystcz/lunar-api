@@ -14,6 +14,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\HashIds\HashId;
 use Lunar\Models\Product;
 
 class ProductSchema extends Schema
@@ -85,7 +86,9 @@ class ProductSchema extends Schema
     public function fields(): iterable
     {
         return [
-            ID::make(),
+            Config::get('lunar-api.schemas.use_hashids', false)
+                ? HashId::make()
+                : ID::make(),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),

@@ -7,11 +7,13 @@ use Dystcz\LunarApi\Domain\Prices\Actions\GetPrice;
 use Dystcz\LunarApi\Domain\Prices\Actions\GetPriceWithoutDefaultTax;
 use Dystcz\LunarApi\Domain\Prices\JsonApi\Filters\MaxPriceFilter;
 use Dystcz\LunarApi\Domain\Prices\JsonApi\Filters\MinPriceFilter;
+use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\HashIds\HashId;
 use Lunar\Models\Price;
 
 class PriceSchema extends Schema
@@ -27,7 +29,9 @@ class PriceSchema extends Schema
     public function fields(): array
     {
         return [
-            ID::make(),
+            Config::get('lunar-api.schemas.use_hashids', false)
+                ? HashId::make()
+                : ID::make(),
 
             Map::make('base_price', [
                 Str::make('formatted')

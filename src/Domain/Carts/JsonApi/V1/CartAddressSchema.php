@@ -4,10 +4,12 @@ namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Illuminate\Database\Eloquent\Casts\ArrayObject;
+use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\HashIds\HashId;
 use Lunar\Models\CartAddress;
 
 class CartAddressSchema extends Schema
@@ -36,7 +38,9 @@ class CartAddressSchema extends Schema
     public function fields(): array
     {
         return [
-            ID::make(),
+            Config::get('lunar-api.schemas.use_hashids', false)
+                ? HashId::make()
+                : ID::make(),
 
             Str::make('title'),
             Str::make('first_name'),
