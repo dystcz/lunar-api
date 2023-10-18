@@ -29,6 +29,11 @@ return [
         ],
     ],
 
+    // Configuration for schemas
+    'schemas' => [
+        'use_hashids' => false,
+    ],
+
     // Configuration for specific domains
     'domains' => [
         'associations' => [
