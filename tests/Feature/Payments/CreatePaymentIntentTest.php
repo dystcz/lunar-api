@@ -1,6 +1,7 @@
 <?php
 
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
+use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +15,7 @@ beforeEach(function () {
     Event::fake(CartCreated::class);
 
     /** @var Cart $cart */
-    $cart = Cart::factory()
+    $cart = CartFactory::new()
         ->withAddresses()
         ->withLines()
         ->create();
@@ -26,7 +27,8 @@ beforeEach(function () {
 test('a payment intent can be created', function (string $paymentMethod) {
     /** @var TestCase $this */
     $url = URL::signedRoute(
-        'v1.orders.createPaymentIntent', ['order' => $this->order->id]
+        'v1.orders.createPaymentIntent',
+        ['order' => $this->order->id],
     );
 
     $response = $this
@@ -42,5 +44,6 @@ test('a payment intent can be created', function (string $paymentMethod) {
         ->post($url);
 
     $response->assertSuccessful();
-})->with(['cash-in-hand'])
+})
+    ->with(['cash-in-hand'])
     ->group('payments');
