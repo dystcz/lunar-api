@@ -72,7 +72,7 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Automatically apply the package configuration
+        // Automatically apply the package configuration.
         $this->mergeConfigFrom(__DIR__.'/../config/lunar-api.php', 'lunar-api');
         $this->mergeConfigFrom(__DIR__.'/../config/jsonapi.php', 'jsonapi');
 
@@ -80,10 +80,17 @@ class LunarApiServiceProvider extends ServiceProvider
             $this->registerPolicies();
         });
 
-        // Register the main class to use with the facade
-        $this->app->singleton('lunar-api', fn () => new LunarApi());
+        // Register the main class to use with the facade.
+        $this->app->singleton(
+            'lunar-api',
+            fn () => new LunarApi,
+        );
 
-        $this->app->singleton(PaymentAdaptersRegister::class, fn () => new PaymentAdaptersRegister());
+        // Register payment adapters register.
+        $this->app->singleton(
+            PaymentAdaptersRegister::class,
+            fn () => new PaymentAdaptersRegister,
+        );
     }
 
     /**
