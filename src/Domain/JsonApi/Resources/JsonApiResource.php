@@ -108,7 +108,6 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
      */
     protected function allRelationships($request): iterable
     {
-
         return [
             ...$this->schema->relationships(),
             ...$this->extendedFields($this->extension->relationships()->all()),
