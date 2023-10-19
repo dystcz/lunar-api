@@ -32,8 +32,8 @@ class OrderSchema extends Schema
     {
         return [
             // Addresses
-            'addresses',
-            'addresses.country',
+            'order_addresses',
+            'order_addresses.country',
 
             // Shipping address
             'shipping_address',
@@ -59,8 +59,8 @@ class OrderSchema extends Schema
             'digital_lines.purchasable.product.thumbnail',
 
             // Order Lines
-            'lines',
-            'lines.currency',
+            'order_lines',
+            'order_lines.currency',
 
             // Physical product lines
             'physical_lines',
@@ -148,7 +148,7 @@ class OrderSchema extends Schema
             ArrayHash::make('meta')
                 ->hidden(),
 
-            HasMany::make('lines')
+            HasMany::make('order_lines', 'lines')
                 ->type('order-lines'),
 
             HasMany::make('product_lines', 'productLines')
@@ -178,7 +178,7 @@ class OrderSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasMany::make('addresses')
+            HasMany::make('order_addresses', 'addresses')
                 ->type('order-addresses')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
