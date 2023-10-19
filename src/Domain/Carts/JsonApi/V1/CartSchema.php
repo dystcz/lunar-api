@@ -30,19 +30,19 @@ class CartSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'lines',
-            'lines.purchasable',
-            'lines.purchasable.prices',
-            'lines.purchasable.product',
-            'lines.purchasable.product.thumbnail',
+            'cart_lines',
+            'cart_lines.purchasable',
+            'cart_lines.purchasable.prices',
+            'cart_lines.purchasable.product',
+            'cart_lines.purchasable.product.thumbnail',
 
             'order',
             'order.product_lines',
             'order.product_lines.purchasable',
             'order.product_lines.purchasable.thumbnail',
 
-            'addresses',
-            'addresses.country',
+            'cart_addresses',
+            'cart_addresses.country',
 
             'shipping_address',
             'shipping_address.country',
@@ -109,13 +109,13 @@ class CartSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasMany::make('lines')
+            HasMany::make('cart_lines', 'lines')
                 ->type('cart-lines')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasMany::make('addresses')
+            HasMany::make('cart_addresses', 'addresses')
                 ->type('cart-addresses')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
