@@ -24,10 +24,10 @@ it('can read the cart', function () {
         ->jsonApi()
         ->expects('carts')
         ->includePaths(
-            'lines.purchasable.prices',
-            'lines.purchasable.product',
+            'cart_lines.purchasable.prices',
+            'cart_lines.purchasable.product',
             'order',
-            'addresses',
+            'cart_addresses',
             'shipping_address',
             'billing_address',
         )

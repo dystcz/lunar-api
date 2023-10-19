@@ -39,7 +39,7 @@ it('can read order details when user is logged in and owns the order', function 
             'product_lines.purchasable.images',
             'product_lines.currency',
             'customer',
-            'addresses',
+            'order_addresses',
         )
         ->expects('orders')
         ->get('/api/v1/orders/'.$order->getRouteKey());
