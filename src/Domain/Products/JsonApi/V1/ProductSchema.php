@@ -6,7 +6,6 @@ use Dystcz\LunarApi\Domain\JsonApi\Contracts\FilterCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Illuminate\Support\Facades\Config;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasManyThrough;
@@ -14,7 +13,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use LaravelJsonApi\HashIds\HashId;
 use Lunar\Models\Product;
 
 class ProductSchema extends Schema
@@ -86,9 +84,7 @@ class ProductSchema extends Schema
     public function fields(): iterable
     {
         return [
-            Config::get('lunar-api.schemas.use_hashids', false)
-                ? HashId::make()
-                : ID::make(),
+            $this->idField(),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),

@@ -3,13 +3,10 @@
 namespace Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Illuminate\Support\Facades\Config;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use LaravelJsonApi\HashIds\HashId;
 use Lunar\Models\ProductAssociation;
 
 class ProductAssociationSchema extends Schema
@@ -47,9 +44,7 @@ class ProductAssociationSchema extends Schema
     public function fields(): array
     {
         return [
-            Config::get('lunar-api.schemas.use_hashids', false)
-                ? HashId::make()
-                : ID::make(),
+            $this->idField(),
 
             Str::make('type'),
 

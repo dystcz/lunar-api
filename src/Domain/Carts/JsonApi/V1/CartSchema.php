@@ -3,16 +3,13 @@
 namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
-use LaravelJsonApi\HashIds\HashId;
 use Lunar\Models\Cart;
 
 class CartSchema extends Schema
@@ -63,9 +60,7 @@ class CartSchema extends Schema
     public function fields(): array
     {
         return [
-            Config::get('lunar-api.schemas.use_hashids', false)
-                ? HashId::make()
-                : ID::make(),
+            $this->idField(),
 
             Map::make('prices', [
                 Number::make('sub_total', 'subTotal')

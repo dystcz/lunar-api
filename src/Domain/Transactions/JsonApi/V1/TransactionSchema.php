@@ -6,7 +6,6 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\Transactions\Models\Transaction;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
@@ -35,7 +34,7 @@ class TransactionSchema extends Schema
     public function fields(): array
     {
         return [
-            ID::make(),
+            $this->idField(),
 
             Str::make('type'),
             Str::make('driver'),

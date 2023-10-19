@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\AttributeGroups\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use Lunar\Models\AttributeGroup;
 
 class AttributeGroupSchema extends Schema
@@ -19,7 +18,7 @@ class AttributeGroupSchema extends Schema
     public function fields(): iterable
     {
         return [
-            ID::make(),
+            $this->idField(),
 
             ...parent::fields(),
         ];

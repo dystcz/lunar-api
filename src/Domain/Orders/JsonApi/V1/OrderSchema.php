@@ -3,11 +3,9 @@
 namespace Dystcz\LunarApi\Domain\Orders\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
@@ -16,7 +14,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use LaravelJsonApi\HashIds\HashId;
 use Lunar\Models\Order;
 
 class OrderSchema extends Schema
@@ -104,9 +101,7 @@ class OrderSchema extends Schema
     public function fields(): array
     {
         return [
-            Config::get('lunar-api.schemas.use_hashids', false)
-                ? HashId::make()
-                : ID::make(),
+            $this->idField(),
 
             Boolean::make('new_customer'),
             Str::make('status'),

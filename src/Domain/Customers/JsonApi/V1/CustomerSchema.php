@@ -4,12 +4,9 @@ namespace Dystcz\LunarApi\Domain\Customers\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Illuminate\Support\Facades\Config;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
-use LaravelJsonApi\HashIds\HashId;
 use Lunar\Models\Customer;
 
 class CustomerSchema extends Schema
@@ -41,9 +38,7 @@ class CustomerSchema extends Schema
     public function fields(): array
     {
         return [
-            Config::get('lunar-api.schemas.use_hashids', false)
-                ? HashId::make()
-                : ID::make(),
+            $this->idField(),
 
             Str::make('title'),
             Str::make('first_name'),
