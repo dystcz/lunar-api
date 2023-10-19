@@ -11,8 +11,8 @@ use LaravelJsonApi\Eloquent\Filters\Concerns\IsSingular;
 class MaxPriceFilter implements Filter
 {
     use DeserializesValue;
-    use IsSingular;
     use HasColumn;
+    use IsSingular;
 
     private string $name;
 

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Support\Facades\Config;
 use Lunar\Models\Attribute;
 use Lunar\Models\Price;
 use Lunar\Models\Product as LunarProduct;
@@ -28,7 +29,7 @@ class Product extends LunarProduct
      */
     public function attributes(): MorphToMany
     {
-        $prefix = config('lunar.database.table_prefix');
+        $prefix = Config::get('lunar.database.table_prefix');
 
         if ($this->relationLoaded('productType')) {
             return $this->productType->mappedAttributes();

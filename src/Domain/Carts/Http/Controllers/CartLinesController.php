@@ -16,9 +16,9 @@ use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
 
 class CartLinesController extends Controller
 {
-    use Update;
     use Destroy;
     use Store;
+    use Update;
 
     public function creating(CartLineRequest $request, $query): DataResponse
     {

@@ -14,7 +14,7 @@ class CollectionRouteGroup extends RouteGroup implements RouteGroupContract
     /**
      * Register routes.
      */
-    public function routes(?string $prefix = null, array|string $middleware = []): void
+    public function routes(string $prefix = null, array|string $middleware = []): void
     {
         $this->router->group([
             // 'prefix' => $this->getPrefix($prefix),

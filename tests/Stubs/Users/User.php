@@ -10,10 +10,10 @@ use Lunar\Base\Traits\LunarUser;
 
 class User extends Authenticatable
 {
-    use LunarUser;
     use HasFactory;
-    use Notifiable;
     use LunarUser;
+    use LunarUser;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
