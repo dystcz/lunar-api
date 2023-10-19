@@ -67,7 +67,8 @@
     "laravel": {
       "providers": [
         "Dystcz\\LunarApi\\LunarApiServiceProvider",
-        "Dystcz\\LunarApi\\JsonApiServiceProvider"
+        "Dystcz\\LunarApi\\JsonApiServiceProvider",
+        "Dystcz\\LunarApi\\LunarApiHashidsServiceProvider"
       ],
       "aliases": {
         "LunarApi": "Dystcz\\LunarApi\\Facade\\LunarApi"
