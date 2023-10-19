@@ -1,6 +1,6 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -9,9 +9,10 @@ use Lunar\Facades\CartSession;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can read the cart', function () {
+    /** @var TestCase $this */
     $user = User::factory()->create();
 
-    $cart = Cart::factory()
+    $cart = CartFactory::new()
         ->for($user)
         ->withLines()
         ->create();
@@ -27,8 +28,8 @@ it('can read the cart', function () {
             'lines.purchasable.product',
             'order',
             'addresses',
-            'shippingAddress',
-            'billingAddress',
+            'shipping_address',
+            'billing_address',
         )
         ->get('/api/v1/carts/-actions/my-cart');
 

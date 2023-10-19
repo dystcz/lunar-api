@@ -37,18 +37,18 @@ class CartSchema extends Schema
             'lines.purchasable.product.thumbnail',
 
             'order',
-            'order.productLines',
-            'order.productLines.purchasable',
-            'order.productLines.purchasable.thumbnail',
+            'order.product_lines',
+            'order.product_lines.purchasable',
+            'order.product_lines.purchasable.thumbnail',
 
             'addresses',
             'addresses.country',
 
-            'shippingAddress',
-            'shippingAddress.country',
+            'shipping_address',
+            'shipping_address.country',
 
-            'billingAddress',
-            'billingAddress.country',
+            'billing_address',
+            'billing_address.country',
 
             ...parent::includePaths(),
         ];
@@ -121,13 +121,13 @@ class CartSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasOne::make('shippingAddress')
+            HasOne::make('shipping_address', 'shippingAddress')
                 ->type('cart-addresses')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasOne::make('billingAddress')
+            HasOne::make('billing_address', 'billingAddress')
                 ->type('cart-addresses')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
