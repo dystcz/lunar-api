@@ -8,6 +8,8 @@ class AttachShippingOptionRequest extends ResourceRequest
 {
     /**
      * Get the validation rules for the resource.
+     *
+     * @return array<string,array<int,mixed>>
      */
     public function rules(): array
     {
@@ -21,10 +23,14 @@ class AttachShippingOptionRequest extends ResourceRequest
 
     /**
      * Get custom messages for validator errors.
+     *
+     * @return array<string,array<int,mixed>>
      */
     public function messages(): array
     {
-        // TODO: Fill in messages
-        return [];
+        return [
+            'shipping_option.required' => __('lunar-api::validations.shipping.attach_shipping_option.shipping_option.required'),
+            'shipping_option.string' => __('lunar-api::validations.shipping.attach_shipping_option.shipping_option.string'),
+        ];
     }
 }

@@ -2,13 +2,15 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\Carts\Rules\ValidCoupon;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
-use Lunar\Rules\ValidCoupon;
 
 class AddCouponToCartRequest extends ResourceRequest
 {
     /**
      * Get the validation rules for the resource.
+     *
+     * @return array<string,array<int,mixed>>
      */
     public function rules(): array
     {
@@ -23,10 +25,14 @@ class AddCouponToCartRequest extends ResourceRequest
 
     /**
      * Get custom messages for validator errors.
+     *
+     * @return array<string,array<int,mixed>>
      */
     public function messages(): array
     {
-        // TODO: Fill in messages
-        return [];
+        return [
+            'coupon_code.required' => __('lunar-api::validations.carts.coupon_code.required'),
+            'coupon_code.string' => __('lunar-api::validations.carts.coupon_code.string'),
+        ];
     }
 }

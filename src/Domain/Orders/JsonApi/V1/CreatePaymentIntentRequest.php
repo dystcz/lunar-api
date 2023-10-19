@@ -11,30 +11,39 @@ class CreatePaymentIntentRequest extends ResourceRequest
     /**
      * Get the validation rules for the resource.
      *
-     * @return array<string,array>
+     * @return array<string,array<int,mixed>>
      */
     public function rules(): array
     {
         $paymentTypes = Config::get('lunar.payments.types');
 
         return [
-            'meta' => [
-                'array',
-            ],
             'payment_method' => [
                 'required',
                 'string',
                 Rule::in(array_keys($paymentTypes)),
+            ],
+            'meta' => [
+                'array',
             ],
         ];
     }
 
     /**
      * Get custom messages for validator errors.
+     *
+     * @return array<string,array<int,mixed>>
      */
     public function messages(): array
     {
-        // TODO: Fill in messages
-        return [];
+        return [
+            'payment_method.required' => __('lunar-api::validations.payments.payment_method.required'),
+            'payment_method.string' => __('lunar-api::validations.payments.payment_method.string'),
+            'payment_method.in' => __(
+                'lunar-api::validations.payments.payment_method.in',
+                ['types' => implode(', ', array_keys(Config::get('lunar.payments.types')))],
+            ),
+            'meta.array' => __('lunar-api::validations.payments.meta.array'),
+        ];
     }
 }
