@@ -40,9 +40,7 @@ class ProductsController extends Controller
         $productId = $product?->id;
 
         if ($productId && App::has('lunar-api-product-views')) {
-            dispatch(function () use ($productId) {
-                App::get('lunar-api-product-views')->record($productId);
-            });
+            dispatch(fn () => App::get('lunar-api-product-views')->record($productId));
         }
     }
 }
