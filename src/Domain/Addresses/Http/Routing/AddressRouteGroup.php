@@ -13,7 +13,7 @@ class AddressRouteGroup extends RouteGroup
     /**
      * Register routes.
      */
-    public function routes(?string $prefix = null, array|string $middleware = []): void
+    public function routes(string $prefix = null, array|string $middleware = []): void
     {
         JsonApiRoute::server('v1')
             ->prefix('v1')
