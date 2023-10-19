@@ -15,7 +15,7 @@ class CartRequest extends ResourceRequest
     /**
      * Get the validation rules for the resource.
      *
-     * @return array<string,array>
+     * @return array<string,array<int,mixed>>
      */
     public function rules(): array
     {
@@ -32,11 +32,15 @@ class CartRequest extends ResourceRequest
 
     /**
      * Get custom messages for validator errors.
+     *
+     * @return array<string,array<int,mixed>>
      */
     public function messages(): array
     {
-        // TODO: Fill in messages
-        return [];
+        return [
+            'create_user.boolean' => __('lunar-api::validation.cart.create_user.boolean'),
+            'meta.array' => __('lunar-api::validation.cart.meta.array'),
+        ];
     }
 
     /**

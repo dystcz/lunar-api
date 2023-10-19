@@ -8,6 +8,8 @@ class CustomerRequest extends ResourceRequest
 {
     /**
      * Get the validation rules for the resource.
+     *
+     * @return array<string,array<int,mixed>>
      */
     public function rules(): array
     {
@@ -41,10 +43,18 @@ class CustomerRequest extends ResourceRequest
 
     /**
      * Get custom messages for validator errors.
+     *
+     * @return array<string,array<int,mixed>>
      */
     public function messages(): array
     {
-        // TODO: Fill in messages
-        return [];
+        return [
+            'title.string' => __('lunar-api::validations.customers.title.string'),
+            'first_name.string' => __('lunar-api::validations.customers.first_name.string'),
+            'last_name.string' => __('lunar-api::validations.customers.last_name.string'),
+            'company_name.string' => __('lunar-api::validations.customers.company_name.string'),
+            'vat_no.string' => __('lunar-api::validations.customers.vat_no.string'),
+            'account_ref.string' => __('lunar-api::validations.customers.account_ref.string'),
+        ];
     }
 }

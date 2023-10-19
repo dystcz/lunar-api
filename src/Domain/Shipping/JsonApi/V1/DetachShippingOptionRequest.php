@@ -8,6 +8,8 @@ class DetachShippingOptionRequest extends ResourceRequest
 {
     /**
      * Get the validation rules for the resource.
+     *
+     * @return array<string,array<int,mixed>>
      */
     public function rules(): array
     {
@@ -18,6 +20,8 @@ class DetachShippingOptionRequest extends ResourceRequest
 
     /**
      * Get custom messages for validator errors.
+     *
+     * @return array<string,array<int,mixed>>
      */
     public function messages(): array
     {
