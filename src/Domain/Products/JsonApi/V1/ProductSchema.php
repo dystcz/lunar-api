@@ -166,7 +166,7 @@ class ProductSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            BelongsTo::make('productType')
+            BelongsTo::make('product_type', 'productType')
                 ->hidden()
                 ->retainFieldName()
                 ->serializeUsing(
