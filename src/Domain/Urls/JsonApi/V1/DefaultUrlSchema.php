@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Urls\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
@@ -27,7 +26,7 @@ class DefaultUrlSchema extends Schema
     public function fields(): array
     {
         return [
-            ID::make(),
+            $this->idField(),
 
             Str::make('slug'),
 

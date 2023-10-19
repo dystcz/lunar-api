@@ -4,7 +4,6 @@ namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
@@ -44,7 +43,7 @@ class CollectionSchema extends Schema
     public function fields(): array
     {
         return [
-            ID::make(),
+            $this->idField(),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),

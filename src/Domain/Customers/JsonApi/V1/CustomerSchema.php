@@ -4,7 +4,6 @@ namespace Dystcz\LunarApi\Domain\Customers\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
@@ -39,7 +38,7 @@ class CustomerSchema extends Schema
     public function fields(): array
     {
         return [
-            ID::make(),
+            $this->idField(),
 
             Str::make('title'),
             Str::make('first_name'),

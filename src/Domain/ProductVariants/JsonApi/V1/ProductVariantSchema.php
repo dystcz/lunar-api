@@ -5,7 +5,6 @@ namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
@@ -42,7 +41,7 @@ class ProductVariantSchema extends Schema
     public function fields(): array
     {
         return [
-            ID::make(),
+            $this->idField(),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),

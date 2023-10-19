@@ -6,7 +6,6 @@ use Dystcz\LunarApi\Domain\JsonApi\Contracts\FilterCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Illuminate\Support\Facades\Config;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasManyThrough;
@@ -85,7 +84,7 @@ class ProductSchema extends Schema
     public function fields(): iterable
     {
         return [
-            ID::make(),
+            $this->idField(),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
@@ -167,7 +166,7 @@ class ProductSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            BelongsTo::make('productType')
+            BelongsTo::make('product_type', 'productType')
                 ->hidden()
                 ->retainFieldName()
                 ->serializeUsing(

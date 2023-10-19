@@ -2,35 +2,34 @@
 
 namespace Dystcz\LunarApi;
 
-use Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionQuery;
-use Dystcz\LunarApi\Domain\JsonApi\Authorizers\Authorizer;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Repository;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceExtension;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaExtension;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
-use Dystcz\LunarApi\Domain\JsonApi\Queries\Query;
-use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Illuminate\Support\ServiceProvider;
-use LaravelJsonApi\Laravel\LaravelJsonApi;
 
 class JsonApiServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
      */
-    public function boot()
+    public function boot(): void
     {
-        LaravelJsonApi::defaultResource(JsonApiResource::class);
-        LaravelJsonApi::defaultAuthorizer(Authorizer::class);
-        LaravelJsonApi::defaultQuery(Query::class);
-        LaravelJsonApi::defaultCollectionQuery(CollectionQuery::class);
+        \LaravelJsonApi\Laravel\LaravelJsonApi::defaultResource(
+            \Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource::class,
+        );
+        \LaravelJsonApi\Laravel\LaravelJsonApi::defaultAuthorizer(
+            \Dystcz\LunarApi\Domain\JsonApi\Authorizers\Authorizer::class,
+        );
+        \LaravelJsonApi\Laravel\LaravelJsonApi::defaultQuery(
+            \Dystcz\LunarApi\Domain\JsonApi\Queries\Query::class,
+        );
+        \LaravelJsonApi\Laravel\LaravelJsonApi::defaultCollectionQuery(
+            \Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionQuery::class,
+        );
     }
 
     /**
      * Register the application services.
      */
-    public function register()
+    public function register(): void
     {
         // Register custom repository
         $this->app->bind(
@@ -41,25 +40,25 @@ class JsonApiServiceProvider extends ServiceProvider
         // Register schema extension implementation
         $this->app->bind(
             \Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaExtension::class,
-            fn ($app, $params) => new SchemaExtension(...$params),
+            fn ($app, $params) => new \Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaExtension(...$params),
         );
 
         // Register schema manifest implementation
         $this->app->singleton(
             \Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaManifest::class,
-            fn ($app, $params) => new SchemaManifest($params),
+            fn ($app, $params) => new \Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest($params),
         );
 
         // Register resource extension implementation
         $this->app->bind(
             \Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceExtension::class,
-            fn ($app, $params) => new ResourceExtension(...$params),
+            fn ($app, $params) => new \Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceExtension(...$params),
         );
 
         // Register resource manifest implementation
         $this->app->singleton(
             \Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceManifest::class,
-            fn ($app, $params) => new ResourceManifest($params),
+            fn ($app, $params) => new \Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest($params),
         );
     }
 }

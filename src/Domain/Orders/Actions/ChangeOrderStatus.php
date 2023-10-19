@@ -23,6 +23,11 @@ class ChangeOrderStatus
 
         $oldStatus = $order->status;
 
+        // Return early if status is not changed
+        if ($oldStatus === $newStatus) {
+            return $order;
+        }
+
         $order->update(['status' => $newStatus]);
 
         OrderStatusChanged::dispatch($order, $newStatus, $oldStatus);

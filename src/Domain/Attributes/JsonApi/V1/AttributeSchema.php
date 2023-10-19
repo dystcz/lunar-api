@@ -4,7 +4,6 @@ namespace Dystcz\LunarApi\Domain\Attributes\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Attributes\Models\Attribute;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 
 class AttributeSchema extends Schema
@@ -32,7 +31,7 @@ class AttributeSchema extends Schema
     public function fields(): iterable
     {
         return [
-            ID::make(),
+            $this->idField(),
 
             BelongsTo::make('attribute_group', 'attributeGroup')
                 ->retainFieldName()

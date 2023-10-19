@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Tags\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
@@ -36,8 +35,7 @@ class TagSchema extends Schema
     public function fields(): array
     {
         return [
-
-            ID::make(),
+            $this->idField(),
 
             Str::make('value'),
 

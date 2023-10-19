@@ -24,7 +24,7 @@ class OrderRouteGroup extends RouteGroup
             ->resources(function ($server) {
                 $server->resource($this->getPrefix(), OrdersController::class)
                     ->relationships(function ($relationships) {
-                        $relationships->hasMany('lines')->readOnly();
+                        $relationships->hasMany('order_lines')->readOnly();
                         $relationships->hasMany('product_lines')->readOnly();
                         $relationships->hasMany('digital_lines')->readOnly();
                         $relationships->hasMany('physical_lines')->readOnly();

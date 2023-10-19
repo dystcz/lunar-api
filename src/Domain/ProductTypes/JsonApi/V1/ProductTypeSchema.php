@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\ProductTypes\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use Lunar\Models\ProductType;
 
@@ -33,7 +32,7 @@ class ProductTypeSchema extends Schema
     public function fields(): iterable
     {
         return [
-            ID::make(),
+            $this->idField(),
 
             // HasMany::make('mapped_attributes', 'mappedAttributes')
             //     ->type('attributes')

@@ -4,7 +4,6 @@ namespace Dystcz\LunarApi\Domain\Countries\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use Lunar\Models\Country;
@@ -22,7 +21,8 @@ class CountrySchema extends Schema
     public function fields(): array
     {
         return [
-            ID::make(),
+            $this->idField(),
+
             Str::make('name'),
             Str::make('iso2'),
             Str::make('iso3'),

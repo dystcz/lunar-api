@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Contracts\Server\Server;
 use LaravelJsonApi\Core\Schema\IncludePathIterator;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
+use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema as BaseSchema;
+use LaravelJsonApi\HashIds\HashId;
 
 abstract class Schema extends BaseSchema implements ExtendableContract, SchemaContract
 {
@@ -105,7 +107,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      */
     public function includePaths(): iterable
     {
-        if (0 < $this->maxDepth) {
+        if ($this->maxDepth > 0) {
             return new IncludePathIterator(
                 $this->server->schemas(),
                 $this,
@@ -188,5 +190,17 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
         );
 
         return array_values(array_unique($paths));
+    }
+
+    /**
+     * Get id or hashid field based on configuration.
+     */
+    protected function idField(string $column = null): ID|HashId
+    {
+        if (Config::get('lunar-api.schemas.use_hashids', false)) {
+            return HashId::make($column)->useConnection(self::model());
+        }
+
+        return ID::make($column);
     }
 }

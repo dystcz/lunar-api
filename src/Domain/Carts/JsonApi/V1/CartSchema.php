@@ -5,7 +5,6 @@ namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
-use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
@@ -31,25 +30,25 @@ class CartSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'lines',
-            'lines.purchasable',
-            'lines.purchasable.prices',
-            'lines.purchasable.product',
-            'lines.purchasable.product.thumbnail',
+            'cart_lines',
+            'cart_lines.purchasable',
+            'cart_lines.purchasable.prices',
+            'cart_lines.purchasable.product',
+            'cart_lines.purchasable.product.thumbnail',
 
             'order',
-            'order.productLines',
-            'order.productLines.purchasable',
-            'order.productLines.purchasable.thumbnail',
+            'order.product_lines',
+            'order.product_lines.purchasable',
+            'order.product_lines.purchasable.thumbnail',
 
-            'addresses',
-            'addresses.country',
+            'cart_addresses',
+            'cart_addresses.country',
 
-            'shippingAddress',
-            'shippingAddress.country',
+            'shipping_address',
+            'shipping_address.country',
 
-            'billingAddress',
-            'billingAddress.country',
+            'billing_address',
+            'billing_address.country',
 
             ...parent::includePaths(),
         ];
@@ -61,7 +60,7 @@ class CartSchema extends Schema
     public function fields(): array
     {
         return [
-            ID::make(),
+            $this->idField(),
 
             Map::make('prices', [
                 Number::make('sub_total', 'subTotal')
@@ -110,25 +109,25 @@ class CartSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasMany::make('lines')
+            HasMany::make('cart_lines', 'lines')
                 ->type('cart-lines')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasMany::make('addresses')
+            HasMany::make('cart_addresses', 'addresses')
                 ->type('cart-addresses')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasOne::make('shippingAddress')
+            HasOne::make('shipping_address', 'shippingAddress')
                 ->type('cart-addresses')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasOne::make('billingAddress')
+            HasOne::make('billing_address', 'billingAddress')
                 ->type('cart-addresses')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
