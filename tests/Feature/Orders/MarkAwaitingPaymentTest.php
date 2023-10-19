@@ -33,6 +33,8 @@ test('can change order status to pending payment', function () {
         'v1.orders.markAwaitingPayment', ['order' => $this->order->id]
     );
 
+    $this->order->update(['status' => OrderStatus::PENDING_PAYMENT->value]);
+
     $response = $this
         ->jsonApi()
         ->expects('orders')
