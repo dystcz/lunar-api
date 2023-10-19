@@ -195,12 +195,12 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     /**
      * Get id or hashid field based on configuration.
      */
-    protected function idField(): ID|HashId
+    protected function idField(string $column = null): ID|HashId
     {
         if (Config::get('lunar-api.schemas.use_hashids', false)) {
-            return HashId::make()->useConnection(self::model());
+            return HashId::make($column)->useConnection(self::model());
         }
 
-        return ID::make();
+        return ID::make($column);
     }
 }
