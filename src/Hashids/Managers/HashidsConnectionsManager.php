@@ -45,9 +45,9 @@ class HashidsConnectionsManager
      */
     protected function getConnectionsFromModels(): array
     {
-        $models = ModelManifest::getRegisteredModels();
+        $models = ModelManifest::getBaseModelClasses();
 
-        $connections = $models->mapWithKeys(function (string $targetModelClass, string $baseModelClass) {
+        $connections = $models->mapWithKeys(function (string $baseModelClass) {
             return [
                 $baseModelClass => [
                     'salt' => $baseModelClass.Config::get('app.key'),
