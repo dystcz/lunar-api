@@ -37,7 +37,9 @@ abstract class TestCase extends Orchestra
         Config::set('lunar.urls.generator', TestUrlGenerator::class);
         Config::set('lunar.taxes.driver', 'test');
 
-        Taxes::extend('test', function ($app) {
+        // Config::set('lunar-api.schemas.use_hashids', true);
+
+        Taxes::extend('test', function (Application $app) {
             return $app->make(TestTaxDriver::class);
         });
 
@@ -96,6 +98,10 @@ abstract class TestCase extends Orchestra
             // Lunar Api
             \Dystcz\LunarApi\LunarApiServiceProvider::class,
             \Dystcz\LunarApi\JsonApiServiceProvider::class,
+
+            // Hashids
+            \Vinkla\Hashids\HashidsServiceProvider::class,
+            \Dystcz\LunarApi\LunarApiHashidsServiceProvider::class,
         ];
     }
 
