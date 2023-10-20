@@ -45,7 +45,8 @@ test('users can update cart address country', function () {
     $this->assertDatabaseHas($this->cartAddress->getTable(), [
         'country_id' => $this->country->id,
     ]);
-});
+
+})->group('cart-addresses');
 
 test('only the user who owns the cart address can update its country', function () {
     /** @var TestCase $this */
@@ -60,4 +61,4 @@ test('only the user who owns the cart address can update its country', function 
         'status' => '401',
         'title' => 'Unauthorized',
     ]);
-});
+})->group('cart-addresses');
