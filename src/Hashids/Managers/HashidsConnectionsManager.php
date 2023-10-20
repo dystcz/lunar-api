@@ -27,6 +27,20 @@ class HashidsConnectionsManager
     }
 
     /**
+     * Get connection for model.
+     *
+     * @param  class-string  $model
+     */
+    public function getModelConnection(string $model): ?string
+    {
+        if (array_key_exists($model, $this->getConnections())) {
+            return $model;
+        }
+
+        return null;
+    }
+
+    /**
      * Get connections from models.
      */
     protected function getConnectionsFromModels(): array
