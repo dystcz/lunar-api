@@ -56,7 +56,10 @@ test('address can be created', function () {
         ->jsonApi()
         ->expects('addresses')
         ->withData($this->data)
-        ->includePaths('customer', 'country')
+        ->includePaths(
+            'customer',
+            'country',
+        )
         ->post('/api/v1/addresses');
 
     $id = $response
