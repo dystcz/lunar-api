@@ -44,12 +44,10 @@ class CheckoutCartController extends Controller
             $createUserFromCartAction($cart);
         }
 
-        /** @var Order $order */
         $order = $cart->createOrder();
 
-        /** @var Order $model */
-        $model = $store
-            ->queryOne('orders', $order)
+        $model = Order::query()
+            ->where('id', $order->id)
             ->first();
 
         if (Config::get('lunar-api.domains.cart.forget_cart_after_order_created', true)) {
@@ -60,23 +58,23 @@ class CheckoutCartController extends Controller
             ->withLinks([
                 'self.signed' => URL::signedRoute(
                     'v1.orders.show',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
                 'create-payment-intent.signed' => URL::signedRoute(
                     'v1.orders.createPaymentIntent',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
                 'mark-order-pending-payment.signed' => URL::signedRoute(
                     'v1.orders.markPendingPayment',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
                 'mark-order-awaiting-payment.signed' => URL::signedRoute(
                     'v1.orders.markAwaitingPayment',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
                 'check-order-payment-status.signed' => URL::signedRoute(
                     'v1.orders.checkOrderPaymentStatus',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
             ])
             ->didCreate();
