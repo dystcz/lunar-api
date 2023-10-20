@@ -1,14 +1,15 @@
 <?php
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Countries\Models\Country;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Facades\CartSession;
-use Lunar\Models\Country;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
+    /** @var TestCase $this */
     $this->cart = Cart::factory()->create();
 
     $this->country = Country::factory()->create();
@@ -30,6 +31,7 @@ beforeEach(function () {
 });
 
 test('users can update cart address country', function () {
+    /** @var TestCase $this */
     CartSession::use($this->cart);
 
     $response = $this
@@ -46,6 +48,7 @@ test('users can update cart address country', function () {
 });
 
 test('only the user who owns the cart address can update its country', function () {
+    /** @var TestCase $this */
     $response = $this
         ->jsonApi()
         ->expects('cart-addresses')
