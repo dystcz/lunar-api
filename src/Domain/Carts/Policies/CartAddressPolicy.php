@@ -44,17 +44,21 @@ class CartAddressPolicy
      */
     public function create(?Authenticatable $user): bool
     {
-        $cartId = Arr::get($this->request->all(), 'data.relationships.cart.data.id', 0);
 
-        if (! $cartId) {
+        $cartAddressCartId = Arr::get($this->request->all(), 'data.relationships.cart.data.id', 0);
+
+        if (! $cartAddressCartId) {
             return false;
         }
 
         if (LunarApi::usesHashids()) {
-            $cartId = (new Cart)->decodeHashedId($cartId);
+            $cartAddressCartId = (new Cart)->decodeHashedId($cartAddressCartId);
         }
 
-        return CartSession::current()->id === $cartId;
+        $cartId = (string) CartSession::current()->id;
+        $cartAddressCartId = (string) $cartAddressCartId;
+
+        return $cartId === $cartAddressCartId;
     }
 
     /**
