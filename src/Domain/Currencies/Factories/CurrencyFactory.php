@@ -1,11 +1,11 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Prices\Factories;
+namespace Dystcz\LunarApi\Domain\Currencies\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Lunar\Models\Currency;
+use Dystcz\LunarApi\Domain\Currencies\Models\Currency;
+use Lunar\Database\Factories\CurrencyFactory as LunarCurrencyFactory;
 
-class CurrencyFactory extends Factory
+class CurrencyFactory extends LunarCurrencyFactory
 {
     protected $model = Currency::class;
 
