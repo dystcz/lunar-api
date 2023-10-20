@@ -17,7 +17,7 @@ class CountriesController extends Controller
      * @param  PostCollectionQuery  $request
      * @return \Illuminate\Contracts\Support\Responsable|\Illuminate\Http\Response
      */
-    public function index(CountrySchema $schema, CountryCollectionQuery $request)
+    public function index(CountrySchema $schema, CountryCollectionQuery $request): DataResponse
     {
         $models = Cache::rememberForever(
             'lunar-api.countries',
