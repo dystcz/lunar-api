@@ -109,6 +109,7 @@ class LunarApiServiceProvider extends ServiceProvider
             \Lunar\Models\Collection::class => \Dystcz\LunarApi\Domain\Collections\Models\Collection::class,
             \Lunar\Models\CollectionGroup::class => \Dystcz\LunarApi\Domain\CollectionGroups\Models\CollectionGroup::class,
             \Lunar\Models\Country::class => \Dystcz\LunarApi\Domain\Countries\Models\Country::class,
+            \Lunar\Models\Currency::class => \Dystcz\LunarApi\Domain\Currencies\Models\Currency::class,
             \Lunar\Models\Customer::class => \Dystcz\LunarApi\Domain\Customers\Models\Customer::class,
             \Lunar\Models\Order::class => \Dystcz\LunarApi\Domain\Orders\Models\Order::class,
             \Lunar\Models\OrderAddress::class => \Dystcz\LunarApi\Domain\Orders\Models\OrderAddress::class,
