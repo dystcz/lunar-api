@@ -14,6 +14,7 @@ use LaravelJsonApi\Contracts\Store\Store as StoreContract;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
+use Lunar\Models\Order as LunarOrder;
 
 class CheckoutCartController extends Controller
 {
@@ -35,7 +36,7 @@ class CheckoutCartController extends Controller
         CartRequest $request,
         CreateUserFromCart $createUserFromCartAction
     ): DataResponse {
-        // $this->authorize('viewAny', Cart::class);
+        // $this->authorize('update', Cart::class);
 
         /** @var Cart $cart */
         $cart = $this->cartSession->current();
@@ -44,6 +45,7 @@ class CheckoutCartController extends Controller
             $createUserFromCartAction($cart);
         }
 
+        /** @var LunarOrder $order */
         $order = $cart->createOrder();
 
         $model = Order::query()
