@@ -4,6 +4,7 @@ use Dystcz\LunarApi\Domain\Carts\Actions\AddToCart;
 use Dystcz\LunarApi\Domain\Carts\Data\CartLineData;
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\LunarApi;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\App;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can add purchasable to the cart', function () {
+    /** @var TestCase $this */
     $cart = CartFactory::new()->withLines()->create();
 
     $cartLine = $cart->lines->first();
@@ -35,6 +37,10 @@ it('can add purchasable to the cart', function () {
         ->assertCreatedWithServerId('http://localhost/api/v1/cart-lines', $data)
         ->id();
 
+    if (LunarApi::usesHashids()) {
+        $id = decodeHashedId($cartLine, $id);
+    }
+
     $this->assertDatabaseHas($cartLine->getTable(), [
         'id' => $id,
         'purchasable_id' => $cartLine->purchasable_id,
@@ -44,6 +50,7 @@ it('can add purchasable to the cart', function () {
 });
 
 test('cart line quantity will be incremented if already presented inside the user\'s cart', function () {
+    /** @var TestCase $this */
     $cart = Cart::factory()->withLines()->create();
 
     $cartLine = $cart->lines->first();
@@ -78,6 +85,10 @@ test('cart line quantity will be incremented if already presented inside the use
     $id = $response
         ->assertCreatedWithServerId('http://localhost/api/v1/cart-lines', $data)
         ->id();
+
+    if (LunarApi::usesHashids()) {
+        $id = decodeHashedId($cartLine, $id);
+    }
 
     $this->assertDatabaseHas($cartLine->getTable(), [
         'id' => $id,
