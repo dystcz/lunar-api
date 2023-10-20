@@ -4,10 +4,10 @@ namespace Dystcz\LunarApi\Domain\Carts\Factories;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
+use Dystcz\LunarApi\Domain\Currencies\Models\Currency;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Lunar\Models\Channel;
-use Lunar\Models\Currency;
 
 class CartFactory extends \Lunar\Database\Factories\CartFactory
 {
