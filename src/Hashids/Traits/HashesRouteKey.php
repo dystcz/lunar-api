@@ -19,7 +19,7 @@ trait HashesRouteKey
             return parent::getRouteKey();
         }
 
-        /** @var \Illuminate\Database\Eloquent\Model|null $model */
+        /** @var \Lunar\Base\BaseModel $model */
         $model = $this;
 
         return $this->hashIds()->encode($model->getAttribute($model->getRouteKeyName()));
@@ -38,7 +38,7 @@ trait HashesRouteKey
             return parent::resolveRouteBinding($value, $field);
         }
 
-        /** @var \Illuminate\Database\Eloquent\Model|null $model */
+        /** @var \Lunar\Base\BaseModel $model */
         $model = $this;
 
         if (empty($field) || $field === $model->getRouteKeyName()) {
@@ -67,8 +67,11 @@ trait HashesRouteKey
      */
     protected function getHashidsConnection(): string
     {
+        /** @var \Lunar\Base\BaseModel $model */
+        $model = $this;
+
         return HashidsConnections::getModelConnection(
-            ModelManifest::getMorphClassBaseModel(get_called_class())
+            ModelManifest::getMorphClassBaseModel(get_called_class()) ?? get_called_class()
         );
     }
 }
