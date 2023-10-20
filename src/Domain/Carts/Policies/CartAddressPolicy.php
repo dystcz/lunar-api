@@ -8,7 +8,6 @@ use Dystcz\LunarApi\LunarApi;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Lunar\Facades\CartSession;
 
@@ -44,8 +43,7 @@ class CartAddressPolicy
      */
     public function create(?Authenticatable $user): bool
     {
-
-        $cartAddressCartId = Arr::get($this->request->all(), 'data.relationships.cart.data.id', 0);
+        $cartAddressCartId = $this->request->input('data.relationships.cart.data.id', 0);
 
         if (! $cartAddressCartId) {
             return false;
