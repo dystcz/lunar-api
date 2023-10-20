@@ -80,8 +80,15 @@ class AddressSchema extends Schema
             Boolean::make('shipping_default'),
             Boolean::make('billing_default'),
 
-            BelongsTo::make('customer'),
-            BelongsTo::make('country'),
+            BelongsTo::make('customer')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
+            BelongsTo::make('country')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
             ...parent::fields(),
         ];
