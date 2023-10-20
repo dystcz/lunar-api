@@ -6,6 +6,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Map;
+use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
@@ -42,6 +43,8 @@ class ProductVariantSchema extends Schema
     {
         return [
             $this->idField(),
+
+            Number::make('stock'),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
