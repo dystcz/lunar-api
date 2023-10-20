@@ -6,6 +6,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Contracts\Schema as SchemaContract;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extendable as ExtendableContract;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaExtension as SchemaExtensionContract;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaManifest as SchemaManifestContract;
+use Dystcz\LunarApi\LunarApi;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -197,8 +198,10 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      */
     protected function idField(string $column = null): ID|HashId
     {
-        if (Config::get('lunar-api.schemas.use_hashids', false)) {
-            return HashId::make($column)->useConnection(self::model());
+        if (LunarApi::usesHashids()) {
+            return HashId::make($column)
+                ->useConnection(self::model())
+                ->alreadyHashed();
         }
 
         return ID::make($column);
