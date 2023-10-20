@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi\Hashids\Traits;
 use Dystcz\LunarApi\Hashids\Facades\HashidsConnections;
 use Dystcz\LunarApi\LunarApi;
 use Hashids\Hashids;
+use Illuminate\Support\Arr;
 use Lunar\Facades\ModelManifest;
 use Vinkla\Hashids\Facades\Hashids as HashidsFacade;
 
@@ -52,6 +53,14 @@ trait HashesRouteKey
             ->newQuery()
             ->where($field, $value)
             ->firstOrFail();
+    }
+
+    /**
+     * Decode hashed id.
+     */
+    public function decodeHashedId(mixed $value): mixed
+    {
+        return Arr::first($this->hashIds()->decode($value));
     }
 
     /**
