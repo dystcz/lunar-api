@@ -6,6 +6,8 @@ use Dystcz\LunarApi\Controller;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartAddressSchema;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\UpdateCartAddressCountryRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
+use Dystcz\LunarApi\Domain\Countries\Models\Country;
+use Dystcz\LunarApi\LunarApi;
 use LaravelJsonApi\Core\Responses\DataResponse;
 
 class UpdateCartAddressCountryController extends Controller
@@ -17,8 +19,14 @@ class UpdateCartAddressCountryController extends Controller
     ): DataResponse {
         $this->authorize('update', $cartAddress);
 
+        $countryId = $request->input('data.relationships.country.data.id', 0);
+
+        if (LunarApi::usesHashids()) {
+            $countryId = (new Country)->decodeHashedId($countryId);
+        }
+
         $cartAddress->update([
-            'country_id' => $request->input('data.relationships.country.data.id'),
+            'country_id' => $countryId,
         ]);
 
         $model = $schema
