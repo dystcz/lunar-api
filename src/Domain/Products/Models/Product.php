@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Products\Models;
 
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
+use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
@@ -16,6 +17,8 @@ use Lunar\Models\ProductVariant;
 
 class Product extends LunarProduct
 {
+    use HashesRouteKey;
+
     /**
      * Create a new factory instance for the model.
      */

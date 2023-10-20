@@ -4,10 +4,13 @@ namespace Dystcz\LunarApi\Domain\Carts\Models;
 
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
+use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Lunar\Models\Cart as LunarCart;
 
 class Cart extends LunarCart
 {
+    use HashesRouteKey;
+
     /**
      * Create a new factory instance for the model.
      */
