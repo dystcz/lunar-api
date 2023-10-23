@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extendable as Extendable
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaExtension as SchemaExtensionContract;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaManifest as SchemaManifestContract;
 use Dystcz\LunarApi\LunarApi;
+use Dystcz\LunarApi\Support\Models\Actions\GetModelKey;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -200,7 +201,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     {
         if (LunarApi::usesHashids()) {
             return HashId::make($column)
-                ->useConnection(self::model())
+                ->useConnection((new GetModelKey)(self::model()))
                 ->alreadyHashed();
         }
 
