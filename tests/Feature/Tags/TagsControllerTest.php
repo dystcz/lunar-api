@@ -3,14 +3,15 @@
 use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
+use Dystcz\LunarApi\Domain\Tags\Models\Tag;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Database\Factories\TagFactory;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can list all tags', function () {
-    $products = TagFactory::new()
+    /** @var TestCase $this */
+    $models = Tag::factory()
         ->count(3)
         ->create();
 
@@ -20,13 +21,13 @@ it('can list all tags', function () {
         ->get('/api/v1/tags');
 
     $response
-        ->assertFetchedMany($products)
+        ->assertFetchedMany($models)
         ->assertDoesntHaveIncluded();
-});
+})->group('tags');
 
 it('can read tag detail', function () {
     /** @var TestCase $this */
-    $tag = TagFactory::new()->create();
+    $tag = Tag::factory()->create();
 
     $response = $this
         ->jsonApi()
@@ -36,11 +37,11 @@ it('can read tag detail', function () {
     $response
         ->assertFetchedOne($tag)
         ->assertDoesntHaveIncluded();
-});
+})->group('tags');
 
 it('can read tag detail with products included', function () {
     /** @var TestCase $this */
-    $tag = TagFactory::new()->create();
+    $tag = Tag::factory()->create();
 
     $products = ProductFactory::new()
         ->has(
@@ -62,7 +63,7 @@ it('can read tag detail with products included', function () {
             ['type' => 'taggables', 'id' => $tag->taggables[0]->getRouteKey()],
             ['type' => 'taggables', 'id' => $tag->taggables[1]->getRouteKey()],
         ]);
-})->skip();
+})->group('tags')->skip();
 
 it('returns error response when tag doesnt exists', function () {
     /** @var TestCase $this */
@@ -75,4 +76,4 @@ it('returns error response when tag doesnt exists', function () {
         'status' => '404',
         'title' => 'Not Found',
     ]);
-});
+})->group('tags');

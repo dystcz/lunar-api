@@ -37,7 +37,7 @@ it('can be updated', function () {
     $response->assertFetchedOne($this->customer);
 
     $this->assertDatabaseHas($this->customer->getTable(), [
-        'id' => $this->customer->getRouteKey(),
+        'id' => $this->customer->getKey(),
         'first_name' => 'Jane',
         'last_name' => $this->customer->last_name,
         'vat_no' => 'CZ123456789',

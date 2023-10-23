@@ -1,6 +1,7 @@
 <?php
 
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
+use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
@@ -19,8 +20,11 @@ it('can read order details when user is logged in and owns the order', function 
     /** @var User $user */
     $user = User::factory()->create();
 
+    /** @var CartFactory $factory */
+    $factory = Cart::factory();
+
     /** @var Cart $cart */
-    $cart = Cart::factory()
+    $cart = $factory
         ->withAddresses()
         ->withLines()
         ->for($user)
@@ -29,6 +33,10 @@ it('can read order details when user is logged in and owns the order', function 
     CartSession::use($cart);
 
     $order = $cart->createOrder();
+
+    $order = Order::query()
+        ->where($order->getKeyName(), $order->getKey())
+        ->first();
 
     $response = $this
         ->actingAs($user)
@@ -59,8 +67,11 @@ it('can read order details when accessing order with valid signature', function 
     /** @var User $user */
     $user = User::factory()->create();
 
+    /** @var CartFactory $factory */
+    $factory = Cart::factory();
+
     /** @var Cart $cart */
-    $cart = Cart::factory()
+    $cart = $factory
         ->withAddresses()
         ->withLines()
         ->for($user)
@@ -82,7 +93,7 @@ it('can read order details when accessing order with valid signature', function 
     $signedUrl = $response->json()['links']['self.signed'];
 
     $order = Order::query()
-        ->where('id', $response->getId())
+        ->where('cart_id', $cart->getKey())
         ->first();
 
     $response = $this
@@ -107,13 +118,19 @@ it('returns unauthorized if the user does not own the order', function () {
     /** @var TestCase $this */
     Event::fake(CartCreated::class);
 
+    /** @var CartFactory $factory */
+    $factory = Cart::factory();
+
     /** @var Cart $cart */
-    $cart = Cart::factory()
-        ->withAddresses()
+    $cart = $factory->withAddresses()
         ->withLines()
         ->create();
 
     $order = $cart->createOrder();
+
+    $order = Order::query()
+        ->where($order->getKeyName(), $order->getKey())
+        ->first();
 
     $response = $this
         ->jsonApi()
