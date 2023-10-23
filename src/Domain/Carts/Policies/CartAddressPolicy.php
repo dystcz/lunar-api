@@ -50,7 +50,7 @@ class CartAddressPolicy
         }
 
         if (LunarApi::usesHashids()) {
-            $cartAddressCartId = (new Cart)->decodeHashedId($cartAddressCartId);
+            $cartAddressCartId = (new Cart)->decodedRouteKey($cartAddressCartId);
         }
 
         $cartId = (string) CartSession::current()->id;

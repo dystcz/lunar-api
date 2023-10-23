@@ -4,9 +4,9 @@ namespace Dystcz\LunarApi\Hashids\Traits;
 
 use Dystcz\LunarApi\Hashids\Facades\HashidsConnections;
 use Dystcz\LunarApi\LunarApi;
+use Dystcz\LunarApi\Support\Models\Actions\GetModelKey;
 use Hashids\Hashids;
 use Illuminate\Support\Arr;
-use Lunar\Facades\ModelManifest;
 use Vinkla\Hashids\Facades\Hashids as HashidsFacade;
 
 trait HashesRouteKey
@@ -45,7 +45,7 @@ trait HashesRouteKey
         if (empty($field) || $field === $model->getRouteKeyName()) {
             return $model->newQuery()->where(
                 $field ?: $model->getRouteKeyName(),
-                $this->hashIds()->decode($value)
+                $this->decodedRouteKey($value)
             )->firstOrFail();
         }
 
@@ -56,9 +56,17 @@ trait HashesRouteKey
     }
 
     /**
-     * Decode hashed id.
+     * Encode routeKey.
      */
-    public function decodeHashedId(mixed $value): mixed
+    public function encodedRouteKey(mixed $value): string
+    {
+        return $this->hashIds()->encode($value);
+    }
+
+    /**
+     * Decode hashed routeKey.
+     */
+    public function decodedRouteKey(mixed $value): mixed
     {
         return Arr::first($this->hashIds()->decode($value));
     }
@@ -79,8 +87,6 @@ trait HashesRouteKey
         /** @var \Lunar\Base\BaseModel $model */
         $model = $this;
 
-        return HashidsConnections::getModelConnection(
-            ModelManifest::getMorphClassBaseModel(get_called_class()) ?? get_called_class()
-        );
+        return HashidsConnections::getModelConnection((new GetModelKey)($model));
     }
 }

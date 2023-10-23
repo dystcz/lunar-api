@@ -22,7 +22,7 @@ class UpdateCartAddressCountryController extends Controller
         $countryId = $request->input('data.relationships.country.data.id', 0);
 
         if (LunarApi::usesHashids()) {
-            $countryId = (new Country)->decodeHashedId($countryId);
+            $countryId = (new Country)->decodedRouteKey($countryId);
         }
 
         $cartAddress->update([
