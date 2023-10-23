@@ -21,35 +21,35 @@ class OrdersController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Responsable|\Illuminate\Http\Response
      */
-    public function show(OrderSchema $schema, ResourceQuery $request, Order $post): DataResponse
+    public function show(OrderSchema $schema, ResourceQuery $request, Order $order): DataResponse
     {
-        $order = $schema
+        $model = $schema
             ->repository()
-            ->queryOne($post)
+            ->queryOne($order)
             ->withRequest($request)
             ->first();
 
-        return DataResponse::make($order)
+        return DataResponse::make($model)
             ->withLinks([
                 'self.signed' => URL::signedRoute(
                     'v1.orders.show',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
                 'create-payment-intent.signed' => URL::signedRoute(
                     'v1.orders.createPaymentIntent',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
                 'mark-order-pending-payment.signed' => URL::signedRoute(
                     'v1.orders.markPendingPayment',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
                 'mark-order-awaiting-payment.signed' => URL::signedRoute(
                     'v1.orders.markAwaitingPayment',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
                 'check-order-payment-status.signed' => URL::signedRoute(
                     'v1.orders.checkOrderPaymentStatus',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
             ])
             ->didntCreate();
