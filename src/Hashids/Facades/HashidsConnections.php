@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Facade;
 /**
  * Class ModelManifest.
  *
- * @method static \Illuminate\Support\Collection registerConnections(Collection $models)
+ * @method static void registerConnections(Collection $models)
  * @method static \Illuminate\Support\Collection getConnections()
+ * @method static ?string getModelConnection(string $model)
  *
  * @see \Lunar\Base\ModelManifest
  */

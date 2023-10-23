@@ -5,6 +5,7 @@ use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Enums\OrderStatus;
 use Dystcz\LunarApi\Domain\Orders\Events\OrderStatusChanged;
+use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
@@ -22,7 +23,9 @@ beforeEach(function () {
         ->withLines()
         ->create();
 
-    $this->order = $cart->createOrder();
+    $order = $cart->createOrder();
+
+    $this->order = Order::query()->where($order->getKeyName(), $order->getKey())->firstOrFail();
 });
 
 test('can change order status to pending payment', function () {
@@ -30,7 +33,7 @@ test('can change order status to pending payment', function () {
     Event::fake(OrderStatusChanged::class);
 
     $url = URL::signedRoute(
-        'v1.orders.markPendingPayment', ['order' => $this->order->id]
+        'v1.orders.markPendingPayment', ['order' => $this->order->getRouteKey()]
     );
 
     $response = $this
@@ -47,12 +50,12 @@ test('can change order status to pending payment', function () {
     $id = $response->getId();
 
     $this->assertDatabaseHas($this->order->getTable(), [
-        'id' => $id,
+        'id' => $this->order->getKey(),
         'status' => OrderStatus::PENDING_PAYMENT->value,
     ]);
 
     Event::assertDispatched(
         OrderStatusChanged::class,
-        fn (OrderStatusChanged $event) => $event->order->id === $this->order->id,
+        fn (OrderStatusChanged $event) => $event->order->getKey() === $this->order->getKey(),
     );
 });

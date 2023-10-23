@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi\Domain\ProductVariants\Models;
 use Dystcz\LunarApi\Domain\Attributes\Traits\InteractsWithAttributes;
 use Dystcz\LunarApi\Domain\ProductVariants\Enums\PurchaseStatus;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
+use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Facades\Config;
@@ -14,6 +15,7 @@ use Lunar\Models\ProductVariant as LunarPoductVariant;
 
 class ProductVariant extends LunarPoductVariant
 {
+    use HashesRouteKey;
     use InteractsWithAttributes;
 
     /**

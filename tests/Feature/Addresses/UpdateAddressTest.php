@@ -2,6 +2,7 @@
 
 use Dystcz\LunarApi\Domain\Addresses\Models\Address;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
+use Dystcz\LunarApi\LunarApi;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -48,8 +49,14 @@ it('can be updated', function () {
 
     $response->assertFetchedOne($this->address);
 
+    $id = $this->address->getRouteKey();
+
+    if (LunarApi::usesHashids()) {
+        $id = decodeHashedId($this->address, $id);
+    }
+
     $this->assertDatabaseHas($this->address->getTable(), [
-        'id' => $this->address->getRouteKey(),
+        'id' => $id,
         'first_name' => 'John',
         'meta' => json_encode(
             array_merge(

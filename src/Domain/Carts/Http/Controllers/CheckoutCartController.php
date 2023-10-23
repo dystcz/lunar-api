@@ -14,6 +14,7 @@ use LaravelJsonApi\Contracts\Store\Store as StoreContract;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
+use Lunar\Models\Order as LunarOrder;
 
 class CheckoutCartController extends Controller
 {
@@ -35,7 +36,7 @@ class CheckoutCartController extends Controller
         CartRequest $request,
         CreateUserFromCart $createUserFromCartAction
     ): DataResponse {
-        // $this->authorize('viewAny', Cart::class);
+        // $this->authorize('update', Cart::class);
 
         /** @var Cart $cart */
         $cart = $this->cartSession->current();
@@ -44,13 +45,12 @@ class CheckoutCartController extends Controller
             $createUserFromCartAction($cart);
         }
 
-        /** @var Order $order */
+        /** @var LunarOrder $order */
         $order = $cart->createOrder();
 
-        /** @var Order $model */
-        $model = $store
-            ->queryOne('orders', $order)
-            ->first();
+        $model = Order::query()
+            ->where('id', $order->id)
+            ->firstOrFail();
 
         if (Config::get('lunar-api.domains.cart.forget_cart_after_order_created', true)) {
             $this->cartSession->forget();
@@ -60,23 +60,23 @@ class CheckoutCartController extends Controller
             ->withLinks([
                 'self.signed' => URL::signedRoute(
                     'v1.orders.show',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
                 'create-payment-intent.signed' => URL::signedRoute(
                     'v1.orders.createPaymentIntent',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
                 'mark-order-pending-payment.signed' => URL::signedRoute(
                     'v1.orders.markPendingPayment',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
                 'mark-order-awaiting-payment.signed' => URL::signedRoute(
                     'v1.orders.markAwaitingPayment',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
                 'check-order-payment-status.signed' => URL::signedRoute(
                     'v1.orders.checkOrderPaymentStatus',
-                    ['order' => $order->id],
+                    ['order' => $model->getRouteKey()],
                 ),
             ])
             ->didCreate();

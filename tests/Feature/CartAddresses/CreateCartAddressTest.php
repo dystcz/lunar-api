@@ -2,10 +2,11 @@
 
 use Dystcz\LunarApi\Domain\Carts\Factories\CartAddressFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Countries\Models\Country;
+use Dystcz\LunarApi\LunarApi;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Facades\CartSession;
-use Lunar\Models\Country;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -45,7 +46,7 @@ beforeEach(function () {
     ];
 });
 
-test('cart can be created', function () {
+test('cart address can be created', function () {
     /** @var TestCase $this */
     CartSession::use($this->cart);
 
@@ -60,10 +61,14 @@ test('cart can be created', function () {
         ->assertCreatedWithServerId('http://localhost/api/v1/cart-addresses', $this->data)
         ->id();
 
+    if (LunarApi::usesHashids()) {
+        $id = decodeHashedId($this->cartAddress, $id);
+    }
+
     $this->assertDatabaseHas($this->cartAddress->getTable(), [
         'id' => $id,
     ]);
-});
+})->group('cart-addresses');
 
 test('only the user who owns the cart can assign an address to it', function () {
     /** @var TestCase $this */
@@ -79,4 +84,4 @@ test('only the user who owns the cart can assign an address to it', function () 
         'status' => '401',
         'title' => 'Unauthorized',
     ]);
-});
+})->group('cart-addresses');

@@ -3,6 +3,7 @@
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
@@ -20,15 +21,20 @@ beforeEach(function () {
         ->withLines()
         ->create();
 
-    $this->order = $cart->createOrder();
     $this->cart = $cart;
+
+    $order = $cart->createOrder();
+
+    $this->order = Order::query()
+        ->where($order->getKeyName(), $order->getKey())
+        ->first();
 });
 
 test('a payment intent can be created', function (string $paymentMethod) {
     /** @var TestCase $this */
     $url = URL::signedRoute(
         'v1.orders.createPaymentIntent',
-        ['order' => $this->order->id],
+        ['order' => $this->order->getRouteKey()],
     );
 
     $response = $this

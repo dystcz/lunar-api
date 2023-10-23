@@ -1,19 +1,20 @@
 <?php
 
+use Dystcz\LunarApi\Domain\Collections\Models\Collection;
 use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
+use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Database\Factories\CollectionFactory;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can list all collections', function () {
     /** @var TestCase $this */
-    $collections = CollectionFactory::new()
+    $models = Collection::factory()
         ->has(
-            ProductFactory::new()
+            Product::factory()
                 ->has(
                     ProductVariantFactory::new()
                         ->has(PriceFactory::new(), 'basePrices'),
@@ -29,26 +30,27 @@ it('can list all collections', function () {
         ->get('/api/v1/collections');
 
     $response->assertSuccessful()
-        ->assertFetchedMany($collections);
+        ->assertFetchedMany($models);
 
     expect($response->json('data'))->toHaveCount(3);
-});
+})->group('collections');
 
 it('can read collection detail', function () {
     /** @var TestCase $this */
-    $collection = CollectionFactory::new()->create();
+    $model = Collection::factory()->create();
 
     $response = $this
         ->jsonApi()
         ->expects('collections')
-        ->get('/api/v1/collections/'.$collection->getRouteKey());
+        ->get('/api/v1/collections/'.$model->getRouteKey());
 
     $response->assertSuccessful()
-        ->assertFetchedOne($collection);
-});
+        ->assertFetchedOne($model);
+})->group('collections');
 
 it('can read products in a collection', function () {
-    $collection = CollectionFactory::new()
+    /** @var TestCase $this */
+    $model = Collection::factory()
         ->has(
             ProductFactory::new()
                 ->has(
@@ -67,9 +69,9 @@ it('can read products in a collection', function () {
         ->jsonApi()
         ->expects('collections')
         ->includePaths('products')
-        ->get('/api/v1/collections/'.$collection->getRouteKey());
+        ->get('/api/v1/collections/'.$model->getRouteKey());
 
     $response->assertSuccessful()
-        ->assertFetchedOne($collection)
-        ->assertIsIncluded('products', $collection->products->first());
-});
+        ->assertFetchedOne($model)
+        ->assertIsIncluded('products', $model->products->first());
+})->group('collections');

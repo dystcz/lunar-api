@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi;
 
 use Dystcz\LunarApi\Hashids\Facades\HashidsConnections;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 
 class LunarApiHashidsServiceProvider extends ServiceProvider
@@ -13,7 +12,7 @@ class LunarApiHashidsServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (Config::get('lunar-api.schemas.use_hashids', false)) {
+        if (LunarApi::usesHashids()) {
             HashidsConnections::registerConnections();
         }
     }

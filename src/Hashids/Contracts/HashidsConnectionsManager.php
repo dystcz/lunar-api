@@ -2,6 +2,8 @@
 
 namespace Dystcz\LunarApi\Hashids\Contracts;
 
+use Illuminate\Support\Collection;
+
 interface HashidsConnectionsManager
 {
     /**
@@ -12,5 +14,5 @@ interface HashidsConnectionsManager
     /**
      * Get all registered hashids connections.
      */
-    public function getConnections(): array;
+    public function getConnections(): Collection
 }

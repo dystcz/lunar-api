@@ -2,15 +2,25 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Policies;
 
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
+use Dystcz\LunarApi\LunarApi;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Lunar\Facades\CartSession;
 
 class CartAddressPolicy
 {
     use HandlesAuthorization;
+
+    private Request $request;
+
+    public function __construct()
+    {
+        $this->request = App::get('request');
+    }
 
     /**
      * Determine whether the user can view any models.
@@ -33,13 +43,20 @@ class CartAddressPolicy
      */
     public function create(?Authenticatable $user): bool
     {
-        $cartId = (int) Arr::get(request()->all(), 'data.relationships.cart.data.id', 0);
+        $cartAddressCartId = $this->request->input('data.relationships.cart.data.id', 0);
 
-        if (! $cartId) {
+        if (! $cartAddressCartId) {
             return false;
         }
 
-        return CartSession::current()->id === $cartId;
+        if (LunarApi::usesHashids()) {
+            $cartAddressCartId = (new Cart)->decodedRouteKey($cartAddressCartId);
+        }
+
+        $cartId = (string) CartSession::current()->id;
+        $cartAddressCartId = (string) $cartAddressCartId;
+
+        return $cartId === $cartAddressCartId;
     }
 
     /**

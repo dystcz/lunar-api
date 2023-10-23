@@ -1,12 +1,13 @@
 <?php
 
 use Dystcz\LunarApi\Domain\Addresses\Models\Address;
+use Dystcz\LunarApi\Domain\Countries\Models\Country;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
+use Dystcz\LunarApi\LunarApi;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Lunar\Models\Country;
 
 uses(TestCase::class, RefreshDatabase::class, WithFaker::class);
 
@@ -56,12 +57,19 @@ test('address can be created', function () {
         ->jsonApi()
         ->expects('addresses')
         ->withData($this->data)
-        ->includePaths('customer', 'country')
+        ->includePaths(
+            'customer',
+            'country',
+        )
         ->post('/api/v1/addresses');
 
     $id = $response
         ->assertCreatedWithServerId('http://localhost/api/v1/addresses', $this->data)
         ->id();
+
+    if (LunarApi::usesHashids()) {
+        $id = decodeHashedId($this->address, $id);
+    }
 
     $this->assertDatabaseHas($this->address->getTable(), [
         'id' => $id,

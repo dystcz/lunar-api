@@ -3,10 +3,13 @@
 namespace Dystcz\LunarApi\Domain\Carts\Models;
 
 use Dystcz\LunarApi\Domain\Carts\Factories\CartAddressFactory;
+use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Lunar\Models\CartAddress as LunarCartAddress;
 
 class CartAddress extends LunarCartAddress
 {
+    use HashesRouteKey;
+
     /**
      * Create a new factory instance for the model.
      */

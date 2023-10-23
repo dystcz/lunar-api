@@ -4,6 +4,7 @@ use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
+use Dystcz\LunarApi\LunarApi;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -45,6 +46,10 @@ test('a user can checkout a cart', function () {
         ->assertCreatedWithServerId('http://localhost/api/v1/orders', [])
         ->id();
 
+    if (LunarApi::usesHashids()) {
+        $id = decodeHashedId($cart->draftOrder, $id);
+    }
+
     $this->assertDatabaseHas((new Order())->getTable(), [
         'id' => $id,
     ]);
@@ -84,6 +89,10 @@ test('a user can be registered when checking out', function () {
         ->assertSuccessful()
         ->assertCreatedWithServerId('http://localhost/api/v1/orders', [])
         ->id();
+
+    if (LunarApi::usesHashids()) {
+        $id = decodeHashedId($cart->draftOrder, $id);
+    }
 
     $this->assertDatabaseHas((new Order())->getTable(), [
         'id' => $id,
