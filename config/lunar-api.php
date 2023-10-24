@@ -36,6 +36,13 @@ return [
 
     // Configuration for specific domains
     'domains' => [
+        'addresses' => [
+            'schema' => Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressSchema::class,
+            'route_groups' => [
+                Dystcz\LunarApi\Domain\Addresses\Http\Routing\AddressRouteGroup::class,
+            ],
+        ],
+
         'associations' => [
             'schema' => Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1\ProductAssociationSchema::class,
 
@@ -52,11 +59,26 @@ return [
             ],
         ],
 
-        'collections' => [
-            'schema' => Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionSchema::class,
+        'cart_addresses' => [
+            'schema' => Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema::class,
             'route_groups' => [
-                Dystcz\LunarApi\Domain\Collections\Http\Routing\CollectionRouteGroup::class,
+                Dystcz\LunarApi\Domain\CartAddresses\Http\Routing\CartAddressRouteGroup::class,
             ],
+        ],
+
+        'cart_lines' => [
+            'schema' => Dystcz\LunarApi\Domain\CartLines\JsonApi\V1\CartLineSchema::class,
+            'route_groups' => [
+                Dystcz\LunarApi\Domain\CartLines\Http\Routing\CartLineRouteGroup::class,
+            ],
+        ],
+
+        'carts' => [
+            'schema' => Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartSchema::class,
+            'route_groups' => [
+                Dystcz\LunarApi\Domain\Carts\Http\Routing\CartRouteGroup::class,
+            ],
+            'forget_cart_after_order_created' => true,
         ],
 
         'channels' => [
@@ -66,9 +88,11 @@ return [
             ],
         ],
 
-        'prices' => [
-            'schema' => Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceSchema::class,
-            'route_groups' => [],
+        'collections' => [
+            'schema' => Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionSchema::class,
+            'route_groups' => [
+                Dystcz\LunarApi\Domain\Collections\Http\Routing\CollectionRouteGroup::class,
+            ],
         ],
 
         'countries' => [
@@ -85,41 +109,6 @@ return [
             ],
         ],
 
-        'products' => [
-            'schema' => Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema::class,
-            'route_groups' => [
-                Dystcz\LunarApi\Domain\Products\Http\Routing\ProductRouteGroup::class,
-            ],
-            'filters' => Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilterCollection::class,
-        ],
-
-        'variants' => [
-            'schema' => Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema::class,
-            'route_groups' => [],
-        ],
-
-        'carts' => [
-            'schema' => Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartSchema::class,
-            'route_groups' => [
-                Dystcz\LunarApi\Domain\Carts\Http\Routing\CartRouteGroup::class,
-            ],
-            'forget_cart_after_order_created' => true,
-        ],
-
-        'cart_lines' => [
-            'schema' => Dystcz\LunarApi\Domain\CartLines\JsonApi\V1\CartLineSchema::class,
-            'route_groups' => [
-                Dystcz\LunarApi\Domain\CartLines\Http\Routing\CartLineRouteGroup::class,
-            ],
-        ],
-
-        'cart_addresses' => [
-            'schema' => Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema::class,
-            'route_groups' => [
-                Dystcz\LunarApi\Domain\CartAddresses\Http\Routing\CartAddressRouteGroup::class,
-            ],
-        ],
-
         'customers' => [
             'schema' => Dystcz\LunarApi\Domain\Customers\JsonApi\V1\CustomerSchema::class,
             'route_groups' => [
@@ -127,11 +116,12 @@ return [
             ],
         ],
 
-        'addresses' => [
-            'schema' => Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressSchema::class,
+        'media' => [
+            'schema' => Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaSchema::class,
             'route_groups' => [
-                Dystcz\LunarApi\Domain\Addresses\Http\Routing\AddressRouteGroup::class,
+                Dystcz\LunarApi\Domain\Media\Http\Routing\MediaRouteGroup::class,
             ],
+            'conversions' => null,
         ],
 
         'orders' => [
@@ -152,6 +142,31 @@ return [
             'route_groups' => [],
         ],
 
+        'payment_options' => [
+            'schema' => \Dystcz\LunarApi\Domain\PaymentOptions\JsonApi\V1\PaymentOptionSchema::class,
+            'route_groups' => [
+                'payment_options' => \Dystcz\LunarApi\Domain\PaymentOptions\Http\Routing\PaymentOptionRouteGroup::class,
+            ],
+        ],
+
+        'prices' => [
+            'schema' => Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceSchema::class,
+            'route_groups' => [],
+        ],
+
+        'products' => [
+            'schema' => Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema::class,
+            'route_groups' => [
+                Dystcz\LunarApi\Domain\Products\Http\Routing\ProductRouteGroup::class,
+            ],
+            'filters' => Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilterCollection::class,
+        ],
+
+        'product_types' => [
+            'schema' => Dystcz\LunarApi\Domain\ProductTypes\JsonApi\V1\ProductTypeSchema::class,
+            'route_groups' => [],
+        ],
+
         'shipping_options' => [
             'schema' => Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\ShippingOptionSchema::class,
             'route_groups' => [
@@ -159,10 +174,15 @@ return [
             ],
         ],
 
-        'payment_options' => [
-            'schema' => \Dystcz\LunarApi\Domain\PaymentOptions\JsonApi\V1\PaymentOptionSchema::class,
+        'variants' => [
+            'schema' => Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema::class,
+            'route_groups' => [],
+        ],
+
+        'tags' => [
+            'schema' => Dystcz\LunarApi\Domain\Tags\JsonApi\V1\TagSchema::class,
             'route_groups' => [
-                'payment_options' => \Dystcz\LunarApi\Domain\PaymentOptions\Http\Routing\PaymentOptionRouteGroup::class,
+                Dystcz\LunarApi\Domain\Tags\Http\Routing\TagRouteGroup::class,
             ],
         ],
 
@@ -173,20 +193,6 @@ return [
             ],
         ],
 
-        'tags' => [
-            'schema' => Dystcz\LunarApi\Domain\Tags\JsonApi\V1\TagSchema::class,
-            'route_groups' => [
-                Dystcz\LunarApi\Domain\Tags\Http\Routing\TagRouteGroup::class,
-            ],
-        ],
-
-        'media' => [
-            'schema' => Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaSchema::class,
-            'route_groups' => [
-                Dystcz\LunarApi\Domain\Media\Http\Routing\MediaRouteGroup::class,
-            ],
-            'conversions' => null,
-        ],
     ],
 
     // Pagination defaults

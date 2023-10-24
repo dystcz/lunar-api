@@ -37,11 +37,6 @@ class CurrencySchema extends Schema
         ];
     }
 
-    public function authorizable(): bool
-    {
-        return false; // TODO: create policies
-    }
-
     /**
      * {@inheritDoc}
      */
