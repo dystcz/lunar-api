@@ -8,10 +8,12 @@ use Dystcz\LunarApi\LunarApi;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Session;
-use Lunar\Facades\CartSession;
+use Lunar\Base\CartSessionInterface;
+use Lunar\Managers\CartSessionManager;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -28,7 +30,9 @@ test('a user can checkout a cart', function () {
         ->withLines()
         ->create();
 
-    CartSession::use($cart);
+    /** @var CartSessionManager $cartSession */
+    $cartSession = App::make(CartSessionInterface::class);
+    $cartSession->use($cart);
 
     $response = $this
         ->jsonApi()
@@ -72,7 +76,9 @@ test('a user can be registered when checking out', function () {
             ->create();
     });
 
-    CartSession::use($cart);
+    /** @var CartSessionManager $cartSession */
+    $cartSession = App::make(CartSessionInterface::class);
+    $cartSession->use($cart);
 
     $response = $this
         ->jsonApi()
@@ -113,13 +119,18 @@ it('forgets cart after checkout if configured', function () {
 
     Config::set('lunar-api.domains.cart.forget_cart_after_order_created', true);
 
+    /** @var CartFactory $factory */
+    $factory = Cart::factory();
+
     /** @var Cart $cart */
-    $cart = Cart::factory()
+    $cart = $factory
         ->withAddresses()
         ->withLines()
         ->create();
 
-    CartSession::use($cart);
+    /** @var CartSessionManager $cartSession */
+    $cartSession = App::make(CartSessionInterface::class);
+    $cartSession->use($cart);
 
     $response = $this
         ->jsonApi()
@@ -135,7 +146,7 @@ it('forgets cart after checkout if configured', function () {
     $response
         ->assertSuccessful();
 
-    $this->assertFalse(Session::has(CartSession::getSessionKey()));
+    $this->assertFalse(Session::has($cartSession->getSessionKey()));
 
 })->group('checkout');
 
@@ -143,13 +154,18 @@ it('returns signed urls', function () {
     /** @var TestCase $this */
     Event::fake(CartCreated::class);
 
+    /** @var CartFactory $factory */
+    $factory = Cart::factory();
+
     /** @var Cart $cart */
-    $cart = Cart::factory()
+    $cart = $factory
         ->withAddresses()
         ->withLines()
         ->create();
 
-    CartSession::use($cart);
+    /** @var CartSessionManager $cartSession */
+    $cartSession = App::make(CartSessionInterface::class);
+    $cartSession->use($cart);
 
     $response = $this
         ->jsonApi()
