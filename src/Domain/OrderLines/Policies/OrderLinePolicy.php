@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Orders\Policies;
+namespace Dystcz\LunarApi\Domain\OrderLines\Policies;
 
-use Dystcz\LunarApi\Domain\Orders\Models\OrderLine;
+use Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

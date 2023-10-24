@@ -142,8 +142,13 @@ return [
             'sign_show_route' => true,
         ],
 
+        'order_addresses' => [
+            'schema' => Dystcz\LunarApi\Domain\OrderAddresses\JsonApi\V1\OrderAddressSchema::class,
+            'route_groups' => [],
+        ],
+
         'order_lines' => [
-            'schema' => Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderLineSchema::class,
+            'schema' => Dystcz\LunarApi\Domain\OrderLines\JsonApi\V1\OrderLineSchema::class,
             'route_groups' => [],
         ],
 

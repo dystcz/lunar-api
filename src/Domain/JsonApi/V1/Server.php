@@ -17,8 +17,8 @@ use Dystcz\LunarApi\Domain\Currencies\JsonApi\V1\CurrencySchema;
 use Dystcz\LunarApi\Domain\Customers\JsonApi\V1\CustomerSchema;
 use Dystcz\LunarApi\Domain\JsonApi\Servers\Server as BaseServer;
 use Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaSchema;
-use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderAddressSchema;
-use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderLineSchema;
+use Dystcz\LunarApi\Domain\OrderAddresses\JsonApi\V1\OrderAddressSchema;
+use Dystcz\LunarApi\Domain\OrderLines\JsonApi\V1\OrderLineSchema;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderSchema;
 use Dystcz\LunarApi\Domain\PaymentOptions\JsonApi\V1\PaymentOptionSchema;
 use Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceSchema;
@@ -58,6 +58,7 @@ class Server extends BaseServer
      */
     protected function allSchemas(): array
     {
+        // TODO: Get base api schemas from config
         return [
             AddressSchema::class,
             AttributeGroupSchema::class,
