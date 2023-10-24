@@ -36,6 +36,10 @@ class MediaSchema extends Schema
             Str::make('size'),
             Str::make('order_column'),
 
+            Str::make('position')->extractUsing(
+                static fn (Media $model) => $model->getCustomProperty('position', 0)
+            ),
+
             ArrayHash::make('custom_properties'),
 
             ...parent::fields(),

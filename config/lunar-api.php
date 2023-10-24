@@ -31,7 +31,7 @@ return [
 
     // Configuration for schemas
     'schemas' => [
-        'use_hashids' => false,
+        'use_hashids' => env('LUNAR_API_USE_HASHIDS', false),
     ],
 
     // Configuration for specific domains

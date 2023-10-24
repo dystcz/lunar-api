@@ -43,8 +43,9 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Register routes
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'lunar-api');
 
         $this->registerModels();
 
@@ -59,6 +60,10 @@ class LunarApiServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../config/lunar-api.php' => config_path('lunar-api.php'),
             ], 'config');
+
+            $this->publishes([
+                __DIR__.'/../lang' => $this->app->langPath('vendor/lunar-api'),
+            ], 'translations');
 
             // Register commands.
             $this->commands([
