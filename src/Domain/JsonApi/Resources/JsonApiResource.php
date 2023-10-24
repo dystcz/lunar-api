@@ -74,6 +74,7 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
      * Get all resource's attributes.
      *
      * @param  Request|null  $request
+     * @return array<int,mixed>
      */
     protected function allAttributes($request): iterable
     {
@@ -105,6 +106,7 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
      * Get all resource's relationships.
      *
      * @param  Request|null  $request
+     * @return array<int,mixed>
      */
     protected function allRelationships($request): iterable
     {
@@ -116,6 +118,8 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
 
     /**
      * Get extended resource's relationships.
+     *
+     * @param  array<int,mixed>  $fields
      */
     protected function extendedFields(array $fields): array
     {
