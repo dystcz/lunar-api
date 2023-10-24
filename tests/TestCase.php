@@ -2,13 +2,15 @@
 
 namespace Dystcz\LunarApi\Tests;
 
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Facades\SchemaManifest;
 use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
-use Dystcz\LunarApi\Tests\Stubs\JsonApi\V1\Server;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestTaxDriver;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
+use Dystcz\LunarApi\Tests\Stubs\Users\JsonApi\V1\UserSchema;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
@@ -70,6 +72,12 @@ abstract class TestCase extends Orchestra
 
         App::get(ShippingModifiers::class)->add(TestShippingModifier::class);
 
+        SchemaManifest::register(
+            Collection::make([
+                'users' => UserSchema::class,
+            ]),
+        );
+
         activity()->disableLogging();
     }
 
@@ -119,9 +127,6 @@ abstract class TestCase extends Orchestra
         /**
          * Lunar configuration
          */
-        Config::set('lunar-api.additional_servers', [
-            Server::class,
-        ]);
         // Set cart auto creation to true
         Config::set('lunar.cart.auto_create', true);
         // Default payment driver

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can be updated', function () {
+    /** @var TestCase $this */
     $user = User::factory()->create();
 
     $this->actingAs($user);
