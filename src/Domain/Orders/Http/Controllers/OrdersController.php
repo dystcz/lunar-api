@@ -3,13 +3,13 @@
 namespace Dystcz\LunarApi\Domain\Orders\Http\Controllers;
 
 use Dystcz\LunarApi\Controller;
+use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderQuery;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderSchema;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Support\Facades\URL;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
-use LaravelJsonApi\Laravel\Http\Requests\ResourceQuery;
 
 class OrdersController extends Controller
 {
@@ -21,7 +21,7 @@ class OrdersController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Responsable|\Illuminate\Http\Response
      */
-    public function show(OrderSchema $schema, ResourceQuery $request, Order $order): DataResponse
+    public function show(OrderSchema $schema, OrderQuery $request, Order $order): DataResponse
     {
         $model = $schema
             ->repository()
