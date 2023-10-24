@@ -9,6 +9,8 @@ class Query extends ResourceQuery
 {
     /**
      * Get the validation rules that apply to the request query parameters.
+     *
+     * @return array<string,array<int,mixed>>
      */
     public function rules(): array
     {

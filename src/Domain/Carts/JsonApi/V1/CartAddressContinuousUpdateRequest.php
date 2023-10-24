@@ -103,7 +103,7 @@ class CartAddressContinuousUpdateRequest extends CartAddressRequest
     /**
      * Get custom messages for validator errors.
      *
-     * @return array<string,array<int,mixed>>
+     * @return array<string,string>
      */
     public function messages(): array
     {
