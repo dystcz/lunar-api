@@ -48,4 +48,7 @@ jobs:
           command: composer update --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
-        run: vendor/bin/pest
+        run: composer test
+
+      - name: Execute tests with hashids turned on
+        run: composer test-hashids
