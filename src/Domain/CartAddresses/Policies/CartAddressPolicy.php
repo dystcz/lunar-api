@@ -1,15 +1,16 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Carts\Policies;
+namespace Dystcz\LunarApi\Domain\CartAddresses\Policies;
 
+use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
-use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
 use Dystcz\LunarApi\LunarApi;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Lunar\Facades\CartSession;
+use Lunar\Base\CartSessionInterface;
+use Lunar\Managers\CartSessionManager;
 
 class CartAddressPolicy
 {
@@ -17,9 +18,16 @@ class CartAddressPolicy
 
     private Request $request;
 
+    /**
+     * @var CartSessionManager
+     */
+    private CartSessionInterface $cartSession;
+
     public function __construct()
     {
         $this->request = App::get('request');
+
+        $this->cartSession = App::make(CartSessionInterface::class);
     }
 
     /**
@@ -35,7 +43,7 @@ class CartAddressPolicy
      */
     public function view(?Authenticatable $user, CartAddress $cartAddress): bool
     {
-        return CartSession::current()->id === $cartAddress->cart_id;
+        return $this->cartSession->current()?->getKey() === $cartAddress->cart_id;
     }
 
     /**
@@ -53,7 +61,7 @@ class CartAddressPolicy
             $cartAddressCartId = (new Cart)->decodedRouteKey($cartAddressCartId);
         }
 
-        $cartId = (string) CartSession::current()->id;
+        $cartId = (string) $this->cartSession->current()->getKey();
         $cartAddressCartId = (string) $cartAddressCartId;
 
         return $cartId === $cartAddressCartId;
@@ -64,7 +72,7 @@ class CartAddressPolicy
      */
     public function update(?Authenticatable $user, CartAddress $cartAddress): bool
     {
-        $cartId = (string) CartSession::current()->id;
+        $cartId = (string) $this->cartSession->current()->getKey();
         $cartAddressCartId = (string) $cartAddress->cart_id;
 
         return $cartId === $cartAddressCartId;

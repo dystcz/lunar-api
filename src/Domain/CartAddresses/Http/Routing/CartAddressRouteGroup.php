@@ -1,12 +1,12 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Carts\Http\Routing;
+namespace Dystcz\LunarApi\Domain\CartAddresses\Http\Routing;
 
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\AttachShippingOptionController;
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartAddressesController;
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ContinuousUpdateCartAddressController;
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\DetachShippingOptionController;
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\UpdateCartAddressCountryController;
+use Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\AttachShippingOptionController;
+use Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\CartAddressesController;
+use Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\ContinuousUpdateCartAddressController;
+use Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\DetachShippingOptionController;
+use Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\UpdateCartAddressCountryController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;

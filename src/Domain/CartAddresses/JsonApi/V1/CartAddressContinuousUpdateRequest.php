@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Addresses\Http\Enums\AddressType;
 use Illuminate\Validation\Rule;

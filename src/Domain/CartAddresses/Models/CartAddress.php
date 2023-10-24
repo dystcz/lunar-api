@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Carts\Models;
+namespace Dystcz\LunarApi\Domain\CartAddresses\Models;
 
-use Dystcz\LunarApi\Domain\Carts\Factories\CartAddressFactory;
+use Dystcz\LunarApi\Domain\CartAddresses\Factories\CartAddressFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Lunar\Models\CartAddress as LunarCartAddress;
 

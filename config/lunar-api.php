@@ -114,9 +114,9 @@ return [
         ],
 
         'cart_addresses' => [
-            'schema' => Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartAddressSchema::class,
+            'schema' => Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema::class,
             'route_groups' => [
-                Dystcz\LunarApi\Domain\Carts\Http\Routing\CartAddressRouteGroup::class,
+                Dystcz\LunarApi\Domain\CartAddresses\Http\Routing\CartAddressRouteGroup::class,
             ],
         ],
 

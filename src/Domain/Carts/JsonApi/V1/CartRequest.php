@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
-use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
+use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Validator;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;

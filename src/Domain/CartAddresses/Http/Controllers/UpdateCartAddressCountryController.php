@@ -1,11 +1,11 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
+namespace Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers;
 
 use Dystcz\LunarApi\Controller;
-use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartAddressSchema;
-use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\UpdateCartAddressCountryRequest;
-use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
+use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema;
+use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\UpdateCartAddressCountryRequest;
+use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Countries\Models\Country;
 use Dystcz\LunarApi\LunarApi;
 use LaravelJsonApi\Core\Responses\DataResponse;

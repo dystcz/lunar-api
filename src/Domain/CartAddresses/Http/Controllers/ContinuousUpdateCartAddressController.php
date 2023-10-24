@@ -1,13 +1,13 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
+namespace Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers;
 
 use Dystcz\LunarApi\Controller;
-use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartAddressContinuousUpdateRequest;
-use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartAddressSchema;
-use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
+use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressContinuousUpdateRequest;
+use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressQuery;
+use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema;
+use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use LaravelJsonApi\Core\Responses\DataResponse;
-use LaravelJsonApi\Laravel\Http\Requests\ResourceQuery;
 
 class ContinuousUpdateCartAddressController extends Controller
 {
@@ -19,7 +19,7 @@ class ContinuousUpdateCartAddressController extends Controller
     public function continuousUpdate(
         CartAddressSchema $schema,
         CartAddressContinuousUpdateRequest $request,
-        ResourceQuery $query,
+        CartAddressQuery $query,
         CartAddress $cartAddress,
     ): DataResponse {
         $this->authorize('update', $cartAddress);

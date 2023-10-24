@@ -1,11 +1,11 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1;
 
 use Closure;
 use Dystcz\LunarApi\Domain\Addresses\Http\Enums\AddressType;
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressRequest;
-use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
+use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
 use LaravelJsonApi\Validation\Rule as JsonApiRule;

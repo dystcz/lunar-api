@@ -1,15 +1,15 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
+namespace Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers;
 
 use Dystcz\LunarApi\Controller;
-use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartAddressRequest;
-use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartAddressSchema;
-use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
+use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressQuery;
+use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressRequest;
+use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema;
+use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
-use LaravelJsonApi\Laravel\Http\Requests\ResourceQuery;
 
 class CartAddressesController extends Controller
 {
@@ -24,7 +24,7 @@ class CartAddressesController extends Controller
     public function store(
         CartAddressSchema $schema,
         CartAddressRequest $request,
-        ResourceQuery $query,
+        CartAddressQuery $query,
     ): DataResponse {
         // $this->authorize('create');
 
@@ -51,7 +51,7 @@ class CartAddressesController extends Controller
     public function update(
         CartAddressSchema $schema,
         CartAddressRequest $request,
-        ResourceQuery $query,
+        CartAddressQuery $query,
         CartAddress $cartAddress,
     ): DataResponse {
         $this->authorize('update', $cartAddress);
