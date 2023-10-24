@@ -75,14 +75,6 @@ class ProductAssociationSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function authorizable(): bool
-    {
-        return false; // TODO: create policies
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public static function type(): string
     {
         return 'associations';

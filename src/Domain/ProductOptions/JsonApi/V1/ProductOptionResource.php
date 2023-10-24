@@ -1,11 +1,11 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Attributes\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\ProductOptions\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Illuminate\Http\Request;
 
-class AttributeResource extends JsonApiResource
+class ProductOptionResource extends JsonApiResource
 {
     /**
      * Get the resource's attributes.

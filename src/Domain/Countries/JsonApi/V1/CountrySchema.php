@@ -40,14 +40,6 @@ class CountrySchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function authorizable(): bool
-    {
-        return false; // TODO: create policies
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function pagination(): ?Paginator
     {
         return PagePagination::make();

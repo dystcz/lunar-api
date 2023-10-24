@@ -1,12 +1,12 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Carts\Policies;
+namespace Dystcz\LunarApi\Domain\Tags\Policies;
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Tags\Models\Tag;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class CartPolicy
+class TagPolicy
 {
     use HandlesAuthorization;
 
@@ -21,7 +21,7 @@ class CartPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, Cart $cart): bool
+    public function view(?Authenticatable $user, Tag $tag): bool
     {
         return true;
     }
@@ -37,7 +37,7 @@ class CartPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, Cart $cart): bool
+    public function update(?Authenticatable $user, Tag $tag): bool
     {
         return true;
     }
@@ -45,7 +45,7 @@ class CartPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, Cart $cart): bool
+    public function delete(?Authenticatable $user, Tag $tag): bool
     {
         return true;
     }
