@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts;
 
 use Closure;
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Data\ExtensionValueCollection;
 
 /**
  * @property  class-string<ExtendableContract>  $class
