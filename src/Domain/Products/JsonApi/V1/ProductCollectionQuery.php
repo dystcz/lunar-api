@@ -8,16 +8,15 @@ use LaravelJsonApi\Validation\Rule as JsonApiRule;
 class ProductCollectionQuery extends CollectionQuery
 {
     /**
-     * The default include paths to use if the client provides none.
-     */
-    protected ?array $defaultIncludePaths = [];
-
-    /**
      * Get the validation rules that apply to the request query parameters.
+     *
+     * @return array<string,array<int,mixed>>
      */
     public function rules(): array
     {
         return [
+            ...parent::rules(),
+
             'fields' => [
                 'nullable',
                 'array',
@@ -48,8 +47,18 @@ class ProductCollectionQuery extends CollectionQuery
                 'string',
                 JsonApiRule::countable(),
             ],
+        ];
+    }
 
-            ...parent::rules(),
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string,string>
+     */
+    public function messages(): array
+    {
+        return [
+            ...parent::messages(),
         ];
     }
 }

@@ -8,12 +8,9 @@ use LaravelJsonApi\Validation\Rule as JsonApiRule;
 class ProductQuery extends Query
 {
     /**
-     * The default include paths to use if the client provides none.
-     */
-    protected ?array $defaultIncludePaths = [];
-
-    /**
      * Get the validation rules that apply to the request query parameters.
+     *
+     * @return array<string,array<int,mixed>>
      */
     public function rules(): array
     {
@@ -42,6 +39,18 @@ class ProductQuery extends Query
             ],
 
             ...parent::rules(),
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string,string>
+     */
+    public function messages(): array
+    {
+        return [
+            ...parent::messages(),
         ];
     }
 }
