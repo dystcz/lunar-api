@@ -26,7 +26,7 @@ use Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1\ProductAssociationSche
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystcz\LunarApi\Domain\ProductTypes\JsonApi\V1\ProductTypeSchema;
 use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
-use Dystcz\LunarApi\Domain\Shipping\JsonApi\V1\ShippingOptionSchema;
+use Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\ShippingOptionSchema;
 use Dystcz\LunarApi\Domain\Tags\JsonApi\V1\TagSchema;
 use Dystcz\LunarApi\Domain\Transactions\JsonApi\V1\TransactionSchema;
 use Dystcz\LunarApi\Domain\Urls\JsonApi\V1\DefaultUrlSchema;
