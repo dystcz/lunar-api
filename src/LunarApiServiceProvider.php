@@ -19,25 +19,6 @@ use Lunar\Facades\ModelManifest;
 
 class LunarApiServiceProvider extends ServiceProvider
 {
-    protected $policies = [
-        \Lunar\Models\Address::class => \Dystcz\LunarApi\Domain\Addresses\Policies\AddressPolicy::class,
-        \Lunar\Models\Brand::class => \Dystcz\LunarApi\Domain\Brands\Policies\BrandPolicy::class,
-        \Lunar\Models\Cart::class => \Dystcz\LunarApi\Domain\Carts\Policies\CartPolicy::class,
-        \Lunar\Models\CartAddress::class => \Dystcz\LunarApi\Domain\CartAddresses\Policies\CartAddressPolicy::class,
-        \Lunar\Models\CartLine::class => \Dystcz\LunarApi\Domain\CartLines\Policies\CartLinePolicy::class,
-        \Lunar\Models\CollectionGroup::class => \Dystcz\LunarApi\Domain\CollectionGroups\Policies\CollectionGroupPolicy::class,
-        \Lunar\Models\Collection::class => \Dystcz\LunarApi\Domain\Collections\Policies\CollectionPolicy::class,
-        \Lunar\Models\Customer::class => \Dystcz\LunarApi\Domain\Customers\Policies\CustomerPolicy::class,
-        \Lunar\Models\Order::class => \Dystcz\LunarApi\Domain\Orders\Policies\OrderPolicy::class,
-        \Lunar\Models\OrderAddress::class => \Dystcz\LunarApi\Domain\OrderAddresses\Policies\OrderAddressPolicy::class,
-        \Lunar\Models\OrderLine::class => \Dystcz\LunarApi\Domain\OrderLines\Policies\OrderLinePolicy::class,
-        \Lunar\Models\Price::class => \Dystcz\LunarApi\Domain\Prices\Policies\PricePolicy::class,
-        \Lunar\Models\ProductVariant::class => \Dystcz\LunarApi\Domain\ProductVariants\Policies\ProductVariantPolicy::class,
-        \Lunar\Models\ProductAssociation::class => \Dystcz\LunarApi\Domain\ProductAssociations\Policies\ProductAssociationPolicy::class,
-        \Lunar\Models\Product::class => \Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy::class,
-        \Lunar\Models\Transaction::class => \Dystcz\LunarApi\Domain\Transactions\Policies\TransactionPolicy::class,
-    ];
-
     /**
      * Bootstrap the application services.
      */
@@ -139,7 +120,38 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     public function registerPolicies(): void
     {
-        foreach ($this->policies() as $model => $policy) {
+        $policies = [
+            \Lunar\Models\Address::class => \Dystcz\LunarApi\Domain\Addresses\Policies\AddressPolicy::class,
+            \Lunar\Models\Attribute::class => \Dystcz\LunarApi\Domain\Attributes\Policies\AttributePolicy::class,
+            \Lunar\Models\AttributeGroup::class => \Dystcz\LunarApi\Domain\AttributeGroups\Policies\AttributeGroupPolicy::class,
+            \Lunar\Models\Brand::class => \Dystcz\LunarApi\Domain\Brands\Policies\BrandPolicy::class,
+            \Lunar\Models\Cart::class => \Dystcz\LunarApi\Domain\Carts\Policies\CartPolicy::class,
+            \Lunar\Models\CartAddress::class => \Dystcz\LunarApi\Domain\CartAddresses\Policies\CartAddressPolicy::class,
+            \Lunar\Models\CartLine::class => \Dystcz\LunarApi\Domain\CartLines\Policies\CartLinePolicy::class,
+            \Lunar\Models\Collection::class => \Dystcz\LunarApi\Domain\Collections\Policies\CollectionPolicy::class,
+            \Lunar\Models\CollectionGroup::class => \Dystcz\LunarApi\Domain\CollectionGroups\Policies\CollectionGroupPolicy::class,
+            \Lunar\Models\Country::class => \Dystcz\LunarApi\Domain\Countries\Policies\CountryPolicy::class,
+            \Lunar\Models\Currency::class => \Dystcz\LunarApi\Domain\Currencies\Policies\CurrencyPolicy::class,
+            \Lunar\Models\Customer::class => \Dystcz\LunarApi\Domain\Customers\Policies\CustomerPolicy::class,
+            \Lunar\Models\Order::class => \Dystcz\LunarApi\Domain\Orders\Policies\OrderPolicy::class,
+            \Lunar\Models\OrderAddress::class => \Dystcz\LunarApi\Domain\OrderAddresses\Policies\OrderAddressPolicy::class,
+            \Lunar\Models\OrderLine::class => \Dystcz\LunarApi\Domain\OrderLines\Policies\OrderLinePolicy::class,
+            \Lunar\Models\Price::class => \Dystcz\LunarApi\Domain\Prices\Policies\PricePolicy::class,
+            \Lunar\Models\Product::class => \Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy::class,
+            \Lunar\Models\ProductAssociation::class => \Dystcz\LunarApi\Domain\ProductAssociations\Policies\ProductAssociationPolicy::class,
+            \Lunar\Models\ProductOption::class => \Dystcz\LunarApi\Domain\ProductOptions\Policies\ProductOptionPolicy::class,
+            \Lunar\Models\ProductOptionValue::class => \Dystcz\LunarApi\Domain\ProductOptionValues\Policies\ProductOptionValuePolicy::class,
+            \Lunar\Models\ProductType::class => \Dystcz\LunarApi\Domain\ProductTypes\Policies\ProductTypePolicy::class,
+            \Lunar\Models\ProductVariant::class => \Dystcz\LunarApi\Domain\ProductVariants\Policies\ProductVariantPolicy::class,
+            \Lunar\Models\Tag::class => \Dystcz\LunarApi\Domain\Tags\Policies\TagPolicy::class,
+            \Lunar\Models\Transaction::class => \Dystcz\LunarApi\Domain\Transactions\Policies\TransactionPolicy::class,
+            \Lunar\Models\Url::class => \Dystcz\LunarApi\Domain\Urls\Policies\UrlPolicy::class,
+            \Spatie\MediaLibrary\MediaCollections\Models\Media::class => \Dystcz\LunarApi\Domain\Media\Policies\MediaPolicy::class,
+        ];
+
+        $policies = array_filter($policies);
+
+        foreach ($policies as $model => $policy) {
             Gate::policy($model, $policy);
         }
     }
