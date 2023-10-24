@@ -1,6 +1,6 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Carts\Factories\CartAddressFactory;
+use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Countries\Models\Country;
 use Dystcz\LunarApi\LunarApi;
@@ -14,7 +14,7 @@ beforeEach(function () {
     /** @var TestCase $this */
     $this->cart = Cart::factory()->create();
 
-    $this->cartAddress = CartAddressFactory::new()->make();
+    $this->cartAddress = CartAddress::factory()->make();
 
     $this->data = [
         'type' => 'cart-addresses',

@@ -107,16 +107,16 @@ return [
         ],
 
         'cart_lines' => [
-            'schema' => Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartLineSchema::class,
+            'schema' => Dystcz\LunarApi\Domain\CartLines\JsonApi\V1\CartLineSchema::class,
             'route_groups' => [
-                Dystcz\LunarApi\Domain\Carts\Http\Routing\CartLineRouteGroup::class,
+                Dystcz\LunarApi\Domain\CartLines\Http\Routing\CartLineRouteGroup::class,
             ],
         ],
 
         'cart_addresses' => [
-            'schema' => Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartAddressSchema::class,
+            'schema' => Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema::class,
             'route_groups' => [
-                Dystcz\LunarApi\Domain\Carts\Http\Routing\CartAddressRouteGroup::class,
+                Dystcz\LunarApi\Domain\CartAddresses\Http\Routing\CartAddressRouteGroup::class,
             ],
         ],
 
@@ -142,15 +142,20 @@ return [
             'sign_show_route' => true,
         ],
 
+        'order_addresses' => [
+            'schema' => Dystcz\LunarApi\Domain\OrderAddresses\JsonApi\V1\OrderAddressSchema::class,
+            'route_groups' => [],
+        ],
+
         'order_lines' => [
-            'schema' => Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderLineSchema::class,
+            'schema' => Dystcz\LunarApi\Domain\OrderLines\JsonApi\V1\OrderLineSchema::class,
             'route_groups' => [],
         ],
 
         'shipping_options' => [
-            'schema' => Dystcz\LunarApi\Domain\Shipping\JsonApi\V1\ShippingOptionSchema::class,
+            'schema' => Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\ShippingOptionSchema::class,
             'route_groups' => [
-                Dystcz\LunarApi\Domain\Shipping\Http\Routing\ShippingOptionRouteGroup::class,
+                Dystcz\LunarApi\Domain\ShippingOptions\Http\Routing\ShippingOptionRouteGroup::class,
             ],
         ],
 

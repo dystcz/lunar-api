@@ -18,6 +18,8 @@ class CollectionQuery extends Query
     public function rules(): array
     {
         return [
+            ...parent::rules(),
+
             'fields' => [
                 'nullable',
                 'array',
@@ -40,8 +42,6 @@ class CollectionQuery extends Query
                 'string',
                 JsonApiRule::countable(),
             ],
-
-            ...parent::rules(),
         ];
     }
 }

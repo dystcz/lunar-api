@@ -1,6 +1,6 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Carts\Factories\CartLineFactory;
+use Dystcz\LunarApi\Domain\CartLines\Models\CartLine;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
@@ -11,9 +11,10 @@ use Lunar\Facades\CartSession;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can update a cart line', function () {
+    /** @var TestCase $this */
     $cart = Cart::factory()->create();
 
-    $cartLine = CartLineFactory::new()
+    $cartLine = CartLine::factory()
         ->for(
             ProductVariantFactory::new()->for(ProductFactory::new())->withPrice(),
             'purchasable'
@@ -48,7 +49,8 @@ it('can update a cart line', function () {
 });
 
 test('only the owner of the cart can update cart lines', function () {
-    $cartLine = CartLineFactory::new()
+    /** @var TestCase $this */
+    $cartLine = CartLine::factory()
         ->for(ProductVariantFactory::new(), 'purchasable')
         ->create();
 

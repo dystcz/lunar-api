@@ -9,12 +9,9 @@ use LaravelJsonApi\Validation\Rule as JsonApiRule;
 class CountryCollectionQuery extends CollectionQuery
 {
     /**
-     * The default include paths to use if the client provides none.
-     */
-    protected ?array $defaultIncludePaths = [];
-
-    /**
      * Get the validation rules that apply to the request query parameters.
+     *
+     * @return array<string,array<int,mixed>>
      */
     public function rules(): array
     {
@@ -23,6 +20,8 @@ class CountryCollectionQuery extends CollectionQuery
         Config::set('lunar-api.pagination.max_size', 250);
 
         return [
+            ...parent::rules(),
+
             'fields' => [
                 'nullable',
                 'array',
@@ -53,8 +52,6 @@ class CountryCollectionQuery extends CollectionQuery
                 'string',
                 JsonApiRule::countable(),
             ],
-
-            ...parent::rules(),
         ];
     }
 }

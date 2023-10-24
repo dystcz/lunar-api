@@ -1,6 +1,6 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Carts\Factories\CartLineFactory;
+use Dystcz\LunarApi\Domain\CartLines\Models\CartLine;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
@@ -13,6 +13,7 @@ use Lunar\Models\Currency;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can remove a cart line', function () {
+    /** @var TestCase $this */
     $currency = Currency::getDefault();
 
     $cart = Cart::factory()->create([
@@ -49,7 +50,8 @@ it('can remove a cart line', function () {
 });
 
 test('only the owner of the cart can delete cart lines', function () {
-    $cartLine = CartLineFactory::new()
+    /** @var TestCase $this */
+    $cartLine = CartLine::factory()
         ->for(ProductVariantFactory::new(), 'purchasable')
         ->create();
 

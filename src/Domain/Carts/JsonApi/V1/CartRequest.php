@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
-use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
+use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Validator;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
@@ -33,7 +33,7 @@ class CartRequest extends ResourceRequest
     /**
      * Get custom messages for validator errors.
      *
-     * @return array<string,array<int,mixed>>
+     * @return array<string,string>
      */
     public function messages(): array
     {

@@ -1,7 +1,7 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Carts\Factories\CartAddressFactory;
-use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
+use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Facades\CartSession;
@@ -10,9 +10,10 @@ use Lunar\Facades\ShippingManifest;
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
-    $this->cart = CartFactory::new()->create();
+    /** @var TestCase $this */
+    $this->cart = Cart::factory()->create();
 
-    $this->cartAddress = CartAddressFactory::new()->for($this->cart)->create();
+    $this->cartAddress = CartAddress::factory()->for($this->cart)->create();
 
     $this->shippingOption = ShippingManifest::getOptions($this->cart)->first();
 
@@ -26,6 +27,7 @@ beforeEach(function () {
 });
 
 test('users can attach a shipping option to cart address', function () {
+    /** @var TestCase $this */
     CartSession::use($this->cart);
 
     $response = $this
@@ -44,6 +46,7 @@ test('users can attach a shipping option to cart address', function () {
 });
 
 test('only the user who owns the cart address can attach shipping option for it', function () {
+    /** @var TestCase $this */
     $response = $this
         ->jsonApi()
         ->expects('cart-addresses')

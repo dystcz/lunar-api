@@ -21,7 +21,10 @@ class CountriesController extends Controller
     {
         $models = Cache::rememberForever(
             'lunar-api.countries',
-            fn () => $schema->repository()->queryAll()->withRequest($request)->get(),
+            fn () => $schema->repository()
+                ->queryAll()
+                ->withRequest($request)
+                ->get(),
         );
 
         return DataResponse::make($models);

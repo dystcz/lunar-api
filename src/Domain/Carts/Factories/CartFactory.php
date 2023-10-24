@@ -2,11 +2,12 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Factories;
 
+use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
+use Dystcz\LunarApi\Domain\CartLines\Models\CartLine;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
-use Dystcz\LunarApi\Domain\Carts\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Currencies\Models\Currency;
-use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
-use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
+use Dystcz\LunarApi\Domain\Products\Models\Product;
+use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Lunar\Models\Channel;
 
 class CartFactory extends \Lunar\Database\Factories\CartFactory
@@ -34,9 +35,9 @@ class CartFactory extends \Lunar\Database\Factories\CartFactory
     public function withLines(int $count = 1): static
     {
         return $this->has(
-            CartLineFactory::new()
+            CartLine::factory()
                 ->for(
-                    ProductVariantFactory::new()->for(ProductFactory::new())->withPrice(),
+                    ProductVariant::factory()->for(Product::factory())->withPrice(),
                     'purchasable'
                 )
                 ->count($count),

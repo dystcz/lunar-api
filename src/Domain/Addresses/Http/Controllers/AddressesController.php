@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Addresses\Http\Controllers;
 
 use Dystcz\LunarApi\Controller;
+use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressQuery;
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressRequest;
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressSchema;
 use Dystcz\LunarApi\Domain\Addresses\Models\Address;
@@ -12,7 +13,6 @@ use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
-use LaravelJsonApi\Laravel\Http\Requests\ResourceQuery;
 
 class AddressesController extends Controller
 {
@@ -30,7 +30,7 @@ class AddressesController extends Controller
     public function store(
         AddressSchema $schema,
         AddressRequest $request,
-        ResourceQuery $query,
+        AddressQuery $query,
     ): DataResponse {
         // $this->authorize('create');
 
@@ -57,7 +57,7 @@ class AddressesController extends Controller
     public function update(
         AddressSchema $schema,
         AddressRequest $request,
-        ResourceQuery $query,
+        AddressQuery $query,
         Address $address,
     ): DataResponse {
         $this->authorize('update', $address);

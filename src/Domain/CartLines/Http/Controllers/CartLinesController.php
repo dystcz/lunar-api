@@ -1,0 +1,45 @@
+<?php
+
+namespace Dystcz\LunarApi\Domain\CartLines\Http\Controllers;
+
+use Dystcz\LunarApi\Controller;
+use Dystcz\LunarApi\Domain\CartLines\Actions\UpdateCartLine;
+use Dystcz\LunarApi\Domain\CartLines\Data\CartLineData;
+use Dystcz\LunarApi\Domain\CartLines\JsonApi\V1\CartLineQuery;
+use Dystcz\LunarApi\Domain\CartLines\JsonApi\V1\CartLineRequest;
+use Dystcz\LunarApi\Domain\CartLines\Models\CartLine;
+use Dystcz\LunarApi\Domain\Carts\Actions\AddToCart;
+use Illuminate\Support\Facades\App;
+use LaravelJsonApi\Core\Responses\DataResponse;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\Destroy;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
+
+class CartLinesController extends Controller
+{
+    use Destroy;
+    use Store;
+    use Update;
+
+    public function creating(CartLineRequest $request, CartLineQuery $query): DataResponse
+    {
+        $data = CartLineData::fromRequest($request);
+
+        [, $cartLine] = App::make(AddToCart::class)($data);
+
+        return DataResponse::make($cartLine)
+            ->withQueryParameters($query)
+            ->didCreate();
+    }
+
+    public function updating(CartLine $cartLine, CartLineRequest $request, CartLineQuery $query): DataResponse
+    {
+        $data = CartLineData::fromRequest($request);
+
+        [, $cartLine] = App::make(UpdateCartLine::class)($data, $cartLine);
+
+        return DataResponse::make($cartLine)
+            ->withQueryParameters($query)
+            ->didntCreate();
+    }
+}
