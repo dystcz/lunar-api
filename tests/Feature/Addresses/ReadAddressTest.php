@@ -10,12 +10,17 @@ use Illuminate\Support\Facades\Auth;
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
+    /** @var TestCase $this */
     $this->actingAs(User::factory()->has(Customer::factory())->create());
 
-    $this->address = Address::factory()->create(['customer_id' => Auth::user()->customers->first()->id]);
+    $this->address = Address::factory()
+        ->create([
+            'customer_id' => Auth::user()->customers->first()->getKey(),
+        ]);
 });
 
-it('can be read', function () {
+it('can show address', function () {
+    /** @var TestCase $this */
     $response = $this
         ->jsonApi()
         ->expects('addresses')
