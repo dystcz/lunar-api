@@ -40,6 +40,10 @@ class MediaSchema extends Schema
                 static fn (Media $model) => $model->getCustomProperty('position', 0)
             ),
 
+            Str::make('srcset')->extractUsing(
+                static fn (Media $model) => ($model->getSrcSet('webp') ? ($model->getSrcSet('webp') . ', ') : '') . $model->getSrcSet()
+            ),
+
             ArrayHash::make('custom_properties'),
 
             ...parent::fields(),
