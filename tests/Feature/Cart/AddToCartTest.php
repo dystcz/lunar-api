@@ -1,8 +1,7 @@
 <?php
 
+use Dystcz\LunarApi\Domain\CartLines\Data\CartLineData;
 use Dystcz\LunarApi\Domain\Carts\Actions\AddToCart;
-use Dystcz\LunarApi\Domain\Carts\Data\CartLineData;
-use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\LunarApi;
 use Dystcz\LunarApi\Tests\TestCase;
@@ -13,7 +12,7 @@ uses(TestCase::class, RefreshDatabase::class);
 
 it('can add purchasable to the cart', function () {
     /** @var TestCase $this */
-    $cart = CartFactory::new()->withLines()->create();
+    $cart = Cart::factory()->withLines()->create();
 
     $cartLine = $cart->lines->first();
 

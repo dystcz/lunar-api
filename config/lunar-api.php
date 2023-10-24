@@ -107,9 +107,9 @@ return [
         ],
 
         'cart_lines' => [
-            'schema' => Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartLineSchema::class,
+            'schema' => Dystcz\LunarApi\Domain\CartLines\JsonApi\V1\CartLineSchema::class,
             'route_groups' => [
-                Dystcz\LunarApi\Domain\Carts\Http\Routing\CartLineRouteGroup::class,
+                Dystcz\LunarApi\Domain\CartLines\Http\Routing\CartLineRouteGroup::class,
             ],
         ],
 

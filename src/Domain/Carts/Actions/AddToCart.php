@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Actions;
 
-use Dystcz\LunarApi\Domain\Carts\Data\CartLineData;
+use Dystcz\LunarApi\Domain\CartLines\Data\CartLineData;
+use Dystcz\LunarApi\Domain\CartLines\Models\CartLine;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
-use Dystcz\LunarApi\Domain\Carts\Models\CartLine;
 use JetBrains\PhpStorm\ArrayShape;
 use Lunar\Facades\CartSession;
 

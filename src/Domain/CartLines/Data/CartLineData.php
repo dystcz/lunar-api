@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Carts\Data;
+namespace Dystcz\LunarApi\Domain\CartLines\Data;
 
-use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartLineRequest;
+use Dystcz\LunarApi\Domain\CartLines\JsonApi\V1\CartLineRequest;
 use Illuminate\Support\Arr;
 
 class CartLineData

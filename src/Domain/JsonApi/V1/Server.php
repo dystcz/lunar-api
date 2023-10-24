@@ -7,7 +7,7 @@ use Dystcz\LunarApi\Domain\AttributeGroups\JsonApi\V1\AttributeGroupSchema;
 use Dystcz\LunarApi\Domain\Attributes\JsonApi\V1\AttributeSchema;
 use Dystcz\LunarApi\Domain\Brands\JsonApi\V1\BrandSchema;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema;
-use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartLineSchema;
+use Dystcz\LunarApi\Domain\CartLines\JsonApi\V1\CartLineSchema;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartSchema;
 use Dystcz\LunarApi\Domain\Channels\JsonApi\V1\ChannelSchema;
 use Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1\CollectionGroupSchema;
