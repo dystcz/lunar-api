@@ -58,7 +58,6 @@ class Server extends BaseServer
      */
     protected function allSchemas(): array
     {
-        // TODO: Get base api schemas from config
         return [
             AddressSchema::class,
             AttributeGroupSchema::class,
