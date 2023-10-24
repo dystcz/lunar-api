@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Shipping\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Shipping\Entities\ShippingOption;
+use Dystcz\LunarApi\Domain\ShippingOptions\Entities\ShippingOption;
 use LaravelJsonApi\Core\Schema\Schema;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\ID;

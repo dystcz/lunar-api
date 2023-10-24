@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Shipping\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Shipping\Entities\ShippingOptionStorage;
-use Dystcz\LunarApi\Domain\Shipping\JsonApi\V1\Capabilities\QueryShippingOptions;
+use Dystcz\LunarApi\Domain\ShippingOptions\Entities\ShippingOptionStorage;
+use Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\Capabilities\QueryShippingOptions;
 use LaravelJsonApi\Contracts\Store\QueriesAll;
 use LaravelJsonApi\NonEloquent\AbstractRepository;
 

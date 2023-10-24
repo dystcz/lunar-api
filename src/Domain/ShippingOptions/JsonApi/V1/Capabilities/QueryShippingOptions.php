@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Shipping\JsonApi\V1\Capabilities;
+namespace Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\Capabilities;
 
-use Dystcz\LunarApi\Domain\Shipping\Entities\ShippingOptionStorage;
+use Dystcz\LunarApi\Domain\ShippingOptions\Entities\ShippingOptionStorage;
 use LaravelJsonApi\NonEloquent\Capabilities\QueryAll;
 
 class QueryShippingOptions extends QueryAll

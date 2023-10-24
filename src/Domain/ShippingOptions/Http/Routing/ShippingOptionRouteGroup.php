@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Shipping\Http\Routing;
+namespace Dystcz\LunarApi\Domain\ShippingOptions\Http\Routing;
 
-use Dystcz\LunarApi\Domain\Shipping\Http\Controllers\ShippingOptionsController;
+use Dystcz\LunarApi\Domain\ShippingOptions\Http\Controllers\ShippingOptionsController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 

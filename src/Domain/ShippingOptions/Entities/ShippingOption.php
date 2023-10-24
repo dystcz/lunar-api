@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Shipping\Entities;
+namespace Dystcz\LunarApi\Domain\ShippingOptions\Entities;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;

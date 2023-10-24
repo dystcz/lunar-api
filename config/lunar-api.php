@@ -148,9 +148,9 @@ return [
         ],
 
         'shipping_options' => [
-            'schema' => Dystcz\LunarApi\Domain\Shipping\JsonApi\V1\ShippingOptionSchema::class,
+            'schema' => Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\ShippingOptionSchema::class,
             'route_groups' => [
-                Dystcz\LunarApi\Domain\Shipping\Http\Routing\ShippingOptionRouteGroup::class,
+                Dystcz\LunarApi\Domain\ShippingOptions\Http\Routing\ShippingOptionRouteGroup::class,
             ],
         ],
 

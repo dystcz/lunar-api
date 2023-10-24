@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Shipping\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1;
 
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 

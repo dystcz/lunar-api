@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Shipping\Entities;
+namespace Dystcz\LunarApi\Domain\ShippingOptions\Entities;
 
 use Generator;
 use Illuminate\Support\Collection;
