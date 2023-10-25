@@ -10,7 +10,6 @@ use Dystcz\LunarApi\Tests\Stubs\Users\JsonApi\V1\UserSchema;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
@@ -39,11 +38,10 @@ abstract class TestCase extends Orchestra
         Config::set('lunar.urls.generator', TestUrlGenerator::class);
         Config::set('lunar.taxes.driver', 'test');
 
-        // Config::set('lunar-api.schemas.use_hashids', true);
-
-        Taxes::extend('test', function (Application $app) {
-            return $app->make(TestTaxDriver::class);
-        });
+        Taxes::extend(
+            'test',
+            fn (Application $app) => $app->make(TestTaxDriver::class),
+        );
 
         Currency::factory()->create([
             'code' => 'EUR',
@@ -71,12 +69,6 @@ abstract class TestCase extends Orchestra
         TaxClass::factory()->create();
 
         App::get(ShippingModifiers::class)->add(TestShippingModifier::class);
-
-        SchemaManifest::register(
-            Collection::make([
-                'users' => UserSchema::class,
-            ]),
-        );
 
         activity()->disableLogging();
     }
@@ -125,7 +117,7 @@ abstract class TestCase extends Orchestra
         $app->bootstrapWith([LoadEnvironmentVariables::class]);
 
         /**
-         * Lunar configuration
+         * Lunar configuration.
          */
         // Set cart auto creation to true
         Config::set('lunar.cart.auto_create', true);
@@ -133,7 +125,7 @@ abstract class TestCase extends Orchestra
         Config::set('lunar.payments.default', 'cash-in-hand');
 
         /**
-         * App configuration
+         * App configuration.
          */
         Config::set('database.default', 'sqlite');
         Config::set('database.migrations', 'migrations');
@@ -152,6 +144,11 @@ abstract class TestCase extends Orchestra
             'username' => 'homestead',
             'password' => 'secret',
         ]);
+
+        /**
+         * Schema configuration.
+         */
+        SchemaManifest::registerSchema('users', UserSchema::class);
     }
 
     /**
@@ -173,6 +170,9 @@ abstract class TestCase extends Orchestra
         // );
     }
 
+    /**
+     * Resolve application HTTP exception handler implementation.
+     */
     protected function resolveApplicationExceptionHandler($app): void
     {
         $app->singleton(
