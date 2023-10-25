@@ -148,7 +148,7 @@ abstract class TestCase extends Orchestra
         /**
          * Schema configuration.
          */
-        SchemaManifest::registerSchema('users', UserSchema::class);
+        SchemaManifest::registerSchema(UserSchema::class);
     }
 
     /**

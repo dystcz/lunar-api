@@ -43,8 +43,8 @@ class SchemaManifest extends Manifest implements SchemaManifestContract
      */
     public function register(Collection $schemas): void
     {
-        foreach ($schemas as $schemaType => $schemaClass) {
-            $this->registerSchema($schemaType, $schemaClass);
+        foreach ($schemas as $schemaClass) {
+            $this->registerSchema($schemaClass);
         }
     }
 
@@ -53,11 +53,12 @@ class SchemaManifest extends Manifest implements SchemaManifestContract
      *
      * @param  class-string  $schemaClass
      */
-    public function registerSchema(string $schemaType, string $schemaClass): void
+    public function registerSchema(string $schemaClass): void
     {
+        /** @var Schema $schemaClass */
         $this->validateClassIsSchema($schemaClass);
 
-        $this->schemas->put($schemaType, $schemaClass);
+        $this->schemas->put($schemaClass::type(), $schemaClass);
     }
 
     /**

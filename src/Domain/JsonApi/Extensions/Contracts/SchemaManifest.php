@@ -10,7 +10,7 @@ interface SchemaManifest extends Manifest
     /**
      * Register schemas.
      *
-     * @param  Collection<class-string,class-string>  $schemas
+     * @param  Collection<string,class-string>  $schemas
      */
     public function register(Collection $schemas): void;
 
@@ -19,7 +19,7 @@ interface SchemaManifest extends Manifest
      *
      * @param  class-string  $schemaClass
      */
-    public function registerSchema(string $schemaType, string $schemaClass): void;
+    public function registerSchema(string $schemaClass): void;
 
     /**
      * Get the registered schema for a base schema class.
