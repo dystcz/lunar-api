@@ -38,7 +38,7 @@ it('can list bare products', function () {
         ->assertSuccessful()
         ->assertFetchedMany($products)
         ->assertDoesntHaveIncluded();
-});
+})->group('products');
 
 it('can show product detail', function () {
     /** @var TestCase $this */
@@ -53,7 +53,7 @@ it('can show product detail', function () {
         ->assertSuccessful()
         ->assertFetchedOne($product)
         ->assertDoesntHaveIncluded();
-});
+})->group('products');
 
 it('returns error response when product doesnt exists', function () {
     /** @var TestCase $this */
@@ -67,7 +67,7 @@ it('returns error response when product doesnt exists', function () {
             'status' => '404',
             'title' => 'Not Found',
         ]);
-});
+})->group('products');
 
 test('product can include images', function () {
     /** @var TestCase $this */
@@ -85,7 +85,7 @@ test('product can include images', function () {
         ->assertSuccessful()
         ->assertFetchedOne($product)
         ->assertIsIncluded('media', $product->images->first());
-});
+})->group('products');
 
 test('product can include thumbnail', function () {
     /** @var TestCase $this */
@@ -103,7 +103,7 @@ test('product can include thumbnail', function () {
         ->assertSuccessful()
         ->assertFetchedOne($product)
         ->assertIsIncluded('media', $product->thumbnail);
-});
+})->group('products');
 
 test('product can include variants', function () {
     /** @var TestCase $this */
@@ -124,7 +124,7 @@ test('product can include variants', function () {
         ->assertSuccessful()
         ->assertFetchedOne($product)
         ->assertIsIncluded('variants', $product->variants->first());
-});
+})->group('products');
 
 it('can show product with variants count', function () {
     /** @var TestCase $this */
@@ -145,7 +145,7 @@ it('can show product with variants count', function () {
         ->assertFetchedOne($product);
 
     expect($response->json('data.relationships.variants.meta.count'))->toBe(5);
-});
+})->group('products');
 
 test('product can include tags', function () {
     /** @var TestCase $this */
@@ -166,10 +166,9 @@ test('product can include tags', function () {
             ['type' => 'tags', 'id' => $product->tags[0]->getRouteKey()],
             ['type' => 'tags', 'id' => $product->tags[1]->getRouteKey()],
         ]);
-});
+})->group('products');
 
 it('can list products with all includes', function () {
-    // TODO: Finish this bullshit
     LanguageFactory::new()->create();
 
     Config::set('lunar.urls.generator', \Lunar\Generators\UrlGenerator::class);
@@ -344,4 +343,5 @@ it('can list products with all includes', function () {
             ],
         ]));
     // ->assertIncluded($included->toArray());
-});
+})->group('products')
+    ->todo();
