@@ -149,8 +149,6 @@ class LunarApiServiceProvider extends ServiceProvider
             \Spatie\MediaLibrary\MediaCollections\Models\Media::class => \Dystcz\LunarApi\Domain\Media\Policies\MediaPolicy::class,
         ];
 
-        $policies = array_filter($policies);
-
         foreach ($policies as $model => $policy) {
             Gate::policy($model, $policy);
         }
