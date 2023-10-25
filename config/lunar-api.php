@@ -12,11 +12,6 @@ return [
     // Middleware for all the API routes
     'route_middleware' => ['api'],
 
-    // Additional Lunar API compatible servers
-    'additional_servers' => [
-        //
-    ],
-
     'auth' => [
         'actions' => [
             'create_user_from_cart' => Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart::class,
