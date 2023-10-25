@@ -30,35 +30,10 @@ abstract class Server extends BaseServer
     }
 
     /**
-     * Get all additional server schemas.
-     */
-    protected function getAdditionalServerSchemas(): array
-    {
-        $additionalServers = Config::get('lunar-api.additional_servers');
-
-        $schemas = array_reduce($additionalServers, function ($schemas, $server) {
-            $server = (new $server(
-                new AppResolver(fn () => app()),
-                $this->name()
-            ));
-
-            foreach ($server->allSchemas() as $schema) {
-                $schemas[] = $schema;
-            }
-
-            return $schemas;
-        }, []);
-
-        return $schemas;
-    }
-
-    /**
      * Get the server's list of schemas.
      */
     protected function allSchemas(): array
     {
-        return SchemaManifest::getRegisteredSchemas()
-            ->values()
-            ->toArray();
+        return SchemaManifest::getRegisteredSchemas()->values()->toArray();
     }
 }
