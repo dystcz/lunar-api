@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static void register(Collection $schemas)
+ * @method static void registerSchema(string $schemaType, string $schemaClass)
+ * @method static Collection getRegisteredSchemas()
+ * @method static Collection getSchemaTypes()
  * @method static SchemaContract getRegisteredSchema(string $schemaType)
  * @method static void removeSchema(string $schemaType)
- * @method static Collection getSchemaTypes()
- * @method static Collection getRegisteredSchemas()
  * @method static Extension for(string $class)
  *
  * @see \Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest

@@ -44,10 +44,36 @@ class SchemaManifest extends Manifest implements SchemaManifestContract
     public function register(Collection $schemas): void
     {
         foreach ($schemas as $schemaType => $schemaClass) {
-            $this->validateClassIsSchema($schemaClass);
-
-            $this->schemas->put($schemaType, $schemaClass);
+            $this->registerSchema($schemaType, $schemaClass);
         }
+    }
+
+    /**
+     * Register single schema.
+     *
+     * @param  class-string  $schemaClass
+     */
+    public function registerSchema(string $schemaType, string $schemaClass): void
+    {
+        $this->validateClassIsSchema($schemaClass);
+
+        $this->schemas->put($schemaType, $schemaClass);
+    }
+
+    /**
+     * Get list of all registered models.
+     */
+    public function getRegisteredSchemas(): Collection
+    {
+        return $this->schemas;
+    }
+
+    /**
+     * Get list of registered schema types.
+     */
+    public function getSchemaTypes(): Collection
+    {
+        return $this->schemas->keys();
     }
 
     /**
@@ -64,22 +90,6 @@ class SchemaManifest extends Manifest implements SchemaManifestContract
     public function removeSchema(string $schemaType): void
     {
         $this->schemas = $this->schemas->flip()->forget($schemaType);
-    }
-
-    /**
-     * Get list of registered schema types.
-     */
-    public function getSchemaTypes(): Collection
-    {
-        return $this->schemas->keys();
-    }
-
-    /**
-     * Get list of all registered models.
-     */
-    public function getRegisteredSchemas(): Collection
-    {
-        return $this->schemas;
     }
 
     /**
@@ -103,7 +113,7 @@ class SchemaManifest extends Manifest implements SchemaManifestContract
     {
         $schemas = Collection::make(Config::get('lunar-api.domains'))
             ->mapWithKeys(function (array $domain) {
-                /** @var class-sring<Schema> $schema */
+                /** @var Schema $schema */
                 $schema = $domain['schema'];
 
                 return [$schema::type() => $schema];

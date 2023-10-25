@@ -15,19 +15,26 @@ interface SchemaManifest extends Manifest
     public function register(Collection $schemas): void;
 
     /**
+     * Register single schema.
+     *
+     * @param  class-string  $schemaClass
+     */
+    public function registerSchema(string $schemaType, string $schemaClass): void;
+
+    /**
      * Get the registered schema for a base schema class.
      */
     public function getRegisteredSchema(string $baseSchemaClass): SchemaContract;
 
     /**
-     * Removes schema from manifest.
-     */
-    public function removeSchema(string $baseSchemaClass): void;
-
-    /**
      * Get list of registered schema types.
      */
     public function getSchemaTypes(): Collection;
+
+    /**
+     * Removes schema from manifest.
+     */
+    public function removeSchema(string $baseSchemaClass): void;
 
     /**
      * Get list of all registered models.
