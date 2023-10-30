@@ -37,7 +37,12 @@ class CartAddressesController extends Controller
             ->repository()
             ->create()
             ->withRequest($query)
-            ->store(array_merge($request->validated(), ['meta' => $meta]));
+            ->store(
+                array_merge(
+                    $request->validated(),
+                    ['meta' => $meta],
+                ),
+            );
 
         return DataResponse::make($model)
             ->didCreate();
@@ -65,7 +70,12 @@ class CartAddressesController extends Controller
             ->repository()
             ->update($cartAddress)
             ->withRequest($query)
-            ->store(array_merge($request->validated(), ['meta' => $meta]));
+            ->store(
+                array_merge(
+                    $request->validated(),
+                    ['meta' => $meta],
+                ),
+            );
 
         return DataResponse::make($model)
             ->didntCreate();
