@@ -2,12 +2,14 @@
 
 namespace Dystcz\LunarApi\Domain\CartAddresses\Models;
 
+use Dystcz\LunarApi\Domain\Addresses\Traits\HasCompanyIdentifiersInMeta;
 use Dystcz\LunarApi\Domain\CartAddresses\Factories\CartAddressFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Lunar\Models\CartAddress as LunarCartAddress;
 
 class CartAddress extends LunarCartAddress
 {
+    use HasCompanyIdentifiersInMeta;
     use HashesRouteKey;
 
     /**

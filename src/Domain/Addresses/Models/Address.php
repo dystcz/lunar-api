@@ -3,11 +3,13 @@
 namespace Dystcz\LunarApi\Domain\Addresses\Models;
 
 use Dystcz\LunarApi\Domain\Addresses\Factories\AddressFactory;
+use Dystcz\LunarApi\Domain\Addresses\Traits\HasCompanyIdentifiersInMeta;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Lunar\Models\Address as LunarAddress;
 
 class Address extends LunarAddress
 {
+    use HasCompanyIdentifiersInMeta;
     use HashesRouteKey;
 
     /**

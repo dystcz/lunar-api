@@ -2,12 +2,14 @@
 
 namespace Dystcz\LunarApi\Domain\OrderAddresses\Models;
 
+use Dystcz\LunarApi\Domain\Addresses\Traits\HasCompanyIdentifiersInMeta;
 use Dystcz\LunarApi\Domain\OrderAddresses\Factories\OrderAddressFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Lunar\Models\OrderAddress as LunarOrderAddress;
 
 class OrderAddress extends LunarOrderAddress
 {
+    use HasCompanyIdentifiersInMeta;
     use HashesRouteKey;
 
     /**
