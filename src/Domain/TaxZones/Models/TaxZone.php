@@ -9,10 +9,8 @@ class TaxZone extends LunarTaxZone
 {
     /**
      * Get the default tax percentage.
-     *
-     * @return self
      */
-    public static function getDefaultPercentage()
+    public static function getDefaultPercentage(): float
     {
         $key = 'lunar_default_tax_zone_percentage';
 
