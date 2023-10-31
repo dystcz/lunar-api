@@ -157,6 +157,19 @@ return [
         'settings' => [],
     ],
 
+    'collection_groups' => [
+        'model' => Dystcz\LunarApi\Domain\CollectionGroups\Models\CollectionGroup::class,
+        'lunar_model' => Lunar\Models\CollectionGroup::class,
+        'policy' => Dystcz\LunarApi\Domain\CollectionGroups\Policies\CollectionGroupPolicy::class,
+        'schema' => Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1\CollectionGroupSchema::class,
+        'resource' => Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1\CollectionGroupResource::class,
+        'query' => Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1\CollectionGroupQuery::class,
+        'collection_query' => Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1\CollectionGroupCollectionQuery::class,
+        'routes' => null,
+        'route_actions' => [],
+        'settings' => [],
+    ],
+
     'countries' => [
         'model' => Dystcz\LunarApi\Domain\Countries\Models\Country::class,
         'lunar_model' => Lunar\Models\Country::class,
