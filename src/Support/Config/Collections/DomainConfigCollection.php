@@ -25,6 +25,20 @@ class DomainConfigCollection extends Collection
     }
 
     /**
+     * Get schemas from domain config.
+     */
+    public function getSchemas(): self
+    {
+        return $this->mapWithKeys(function (DomainConfig $domain) {
+            if (! $domain->hasSchema()) {
+                return [];
+            }
+
+            return [$domain->schema::type() => $domain->schema];
+        });
+    }
+
+    /**
      * Get routes from domain config.
      */
     public function getRoutes(): self
