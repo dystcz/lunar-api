@@ -116,6 +116,7 @@ class ProductSchema extends Schema
                 ),
 
             HasOne::make('default_url', 'defaultUrl')
+                ->type('urls')
                 ->retainFieldName(),
 
             HasMany::make('images', 'images')

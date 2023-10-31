@@ -49,6 +49,7 @@ class CollectionSchema extends Schema
                 ->groupAttributes(),
 
             HasOne::make('default_url', 'defaultUrl')
+                ->type('urls')
                 ->retainFieldName(),
 
             HasOne::make('group')

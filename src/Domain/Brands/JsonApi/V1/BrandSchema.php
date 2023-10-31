@@ -42,6 +42,7 @@ class BrandSchema extends Schema
             Str::make('name'),
 
             HasOne::make('default_url', 'defaultUrl')
+                ->type('urls')
                 ->retainFieldName(),
 
             HasOne::make('thumbnail')
