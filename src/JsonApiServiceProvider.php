@@ -22,7 +22,7 @@ class JsonApiServiceProvider extends ServiceProvider
             \Dystcz\LunarApi\Domain\JsonApi\Queries\Query::class,
         );
         \LaravelJsonApi\Laravel\LaravelJsonApi::defaultCollectionQuery(
-            \Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionQuery::class,
+            \Dystcz\LunarApi\Domain\JsonApi\Queries\CollectionQuery::class,
         );
     }
 

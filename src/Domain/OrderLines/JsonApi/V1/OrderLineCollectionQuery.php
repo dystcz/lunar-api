@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\OrderLines\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionQuery;
+use Dystcz\LunarApi\Domain\JsonApi\Queries\CollectionQuery;
 
 class OrderLineCollectionQuery extends CollectionQuery
 {

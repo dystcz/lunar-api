@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Currencies\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionQuery;
+use Dystcz\LunarApi\Domain\JsonApi\Queries\CollectionQuery;
 
 class CurrencyCollectionQuery extends CollectionQuery
 {
