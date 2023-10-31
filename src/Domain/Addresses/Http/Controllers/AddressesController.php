@@ -43,7 +43,12 @@ class AddressesController extends Controller
             ->repository()
             ->create()
             ->withRequest($query)
-            ->store(array_merge($request->validated(), ['meta' => $meta]));
+            ->store(
+                array_merge(
+                    $request->validated(),
+                    ['meta' => $meta],
+                ),
+            );
 
         return DataResponse::make($model)
             ->didCreate();
@@ -71,7 +76,12 @@ class AddressesController extends Controller
             ->repository()
             ->update($address)
             ->withRequest($query)
-            ->store(array_merge($request->validated(), ['meta' => $meta]));
+            ->store(
+                array_merge(
+                    $request->validated(),
+                    ['meta' => $meta],
+                ),
+            );
 
         return DataResponse::make($model)
             ->didntCreate();
