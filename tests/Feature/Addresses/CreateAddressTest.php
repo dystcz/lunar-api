@@ -65,7 +65,7 @@ it('can store addresses', function () {
         ->post(serverUrl('/addresses'));
 
     $id = $response
-        ->assertCreatedWithServerId('http://localhost/api/v1/addresses', $data)
+        ->assertCreatedWithServerId(serverUrl('/addresses', true), $data)
         ->id();
 
     if (LunarApi::usesHashids()) {
