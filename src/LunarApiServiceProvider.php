@@ -91,7 +91,7 @@ class LunarApiServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../lang' => $this->app->langPath('vendor/lunar-api'),
-        ], 'translations');
+        ], 'lunar-api.translations');
     }
 
     /**
