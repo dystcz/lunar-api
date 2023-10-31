@@ -119,10 +119,7 @@ abstract class TestCase extends Orchestra
         /**
          * Lunar configuration.
          */
-
-        // Set cart auto creation to true
         Config::set('lunar.cart.auto_create', true);
-        // Default payment driver
         Config::set('lunar.payments.default', 'cash-in-hand');
 
         /**
@@ -130,7 +127,6 @@ abstract class TestCase extends Orchestra
          */
         Config::set('database.default', 'sqlite');
         Config::set('database.migrations', 'migrations');
-
         Config::set('database.connections.sqlite', [
             'driver' => 'sqlite',
             'database' => ':memory:',
