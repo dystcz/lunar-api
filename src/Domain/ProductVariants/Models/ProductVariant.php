@@ -7,12 +7,16 @@ use Dystcz\LunarApi\Domain\ProductVariants\Enums\PurchaseStatus;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
 use Lunar\Models\Price as LunarPrice;
 use Lunar\Models\ProductVariant as LunarPoductVariant;
 
+/**
+ * @method MorphMany notifications() Get the notifications relation if `lunar-api-product-notifications` package is installed.
+ */
 class ProductVariant extends LunarPoductVariant
 {
     use HashesRouteKey;

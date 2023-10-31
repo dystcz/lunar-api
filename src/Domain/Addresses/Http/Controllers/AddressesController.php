@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Addresses\Http\Controllers;
 
-use Dystcz\LunarApi\Controller;
+use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressQuery;
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressRequest;
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressSchema;

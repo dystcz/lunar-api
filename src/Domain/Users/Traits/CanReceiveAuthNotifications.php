@@ -14,7 +14,7 @@ trait CanReceiveAuthNotifications
     public function sendPasswordResetNotification($token)
     {
         $notificationClass = Config::get(
-            'lunar-api.auth.notifications.reset_password',
+            'lunar-api.domains.auth.notifications.reset_password',
             ResetPassword::class,
         );
 
@@ -27,7 +27,7 @@ trait CanReceiveAuthNotifications
     public function sendEmailVerificationNotification()
     {
         $notificationClass = Config::get(
-            'lunar-api.auth.notifications.verify_email',
+            'lunar-api.domains.auth.notifications.verify_email',
             VerifyEmail::class,
         );
 

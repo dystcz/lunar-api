@@ -1,12 +1,15 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Data;
+namespace Dystcz\LunarApi\Base\Data;
 
 use ArrayIterator;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extendable;
+use Dystcz\LunarApi\Base\Contracts\Extendable;
 use IteratorAggregate;
 use Traversable;
 
+/**
+ * @implements IteratorAggregate<mixed,mixed>
+ */
 class ExtensionValueCollection implements IteratorAggregate
 {
     /**

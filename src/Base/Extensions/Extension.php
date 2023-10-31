@@ -1,13 +1,13 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\JsonApi\Extensions;
+namespace Dystcz\LunarApi\Base\Extensions;
 
 use BadMethodCallException;
 use Closure;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extendable as ExtendableContract;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extension as ExtensionContract;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Data\ExtensionValue;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Data\ExtensionValueCollection;
+use Dystcz\LunarApi\Base\Contracts\Extendable as ExtendableContract;
+use Dystcz\LunarApi\Base\Contracts\Extension as ExtensionContract;
+use Dystcz\LunarApi\Base\Data\ExtensionValue;
+use Dystcz\LunarApi\Base\Data\ExtensionValueCollection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\ForwardsCalls;
 use InvalidArgumentException;

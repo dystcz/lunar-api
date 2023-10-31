@@ -51,6 +51,7 @@ beforeEach(function () {
 });
 
 test('address can be created', function () {
+
     /** @var TestCase $this */
     $response = $this
         ->actingAs($this->user)
@@ -61,7 +62,7 @@ test('address can be created', function () {
             'customer',
             'country',
         )
-        ->post('/api/v1/addresses');
+        ->post(serverUrl('/addresses'));
 
     $id = $response
         ->assertCreatedWithServerId('http://localhost/api/v1/addresses', $this->data)

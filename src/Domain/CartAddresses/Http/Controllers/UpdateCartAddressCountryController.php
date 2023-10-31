@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers;
 
-use Dystcz\LunarApi\Controller;
+use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\UpdateCartAddressCountryRequest;
 use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;

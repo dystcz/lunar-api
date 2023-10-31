@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
-use Dystcz\LunarApi\Controller;
+use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Response;

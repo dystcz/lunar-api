@@ -193,7 +193,7 @@ class ProductSchema extends Schema
     public function filters(): array
     {
         /** @var FilterCollection $filterCollection */
-        $filterCollection = Config::get('lunar-api.domains.products.filters');
+        $filterCollection = Config::get('lunar-api.domains.products.settings.filters');
 
         return [
             WhereIdIn::make($this),

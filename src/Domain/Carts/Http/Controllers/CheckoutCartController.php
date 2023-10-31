@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
-use Dystcz\LunarApi\Controller;
+use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
@@ -52,7 +52,7 @@ class CheckoutCartController extends Controller
             ->where('id', $order->id)
             ->firstOrFail();
 
-        if (Config::get('lunar-api.domains.cart.forget_cart_after_order_created', true)) {
+        if (Config::get('lunar-api.domains.carts.settings.forget_cart_after_order_created', true)) {
             $this->cartSession->forget();
         }
 

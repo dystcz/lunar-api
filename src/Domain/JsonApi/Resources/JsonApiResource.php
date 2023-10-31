@@ -3,10 +3,10 @@
 namespace Dystcz\LunarApi\Domain\JsonApi\Resources;
 
 use Closure;
+use Dystcz\LunarApi\Base\Contracts\Extendable as ExtendableContract;
+use Dystcz\LunarApi\Base\Contracts\ResourceExtension as ResourceExtensionContract;
+use Dystcz\LunarApi\Base\Contracts\ResourceManifest as ResourceManifestContract;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extendable as ExtendableContract;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceExtension as ResourceExtensionContract;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\ResourceManifest as ResourceManifestContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;

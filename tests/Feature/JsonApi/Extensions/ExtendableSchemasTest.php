@@ -1,6 +1,6 @@
 <?php
 
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
+use Dystcz\LunarApi\Base\Manifests\SchemaManifest;
 use Dystcz\LunarApi\Tests\Feature\JsonApi\Extensions\ExtendableSchemasMock;
 use Dystcz\LunarApi\Tests\Feature\JsonApi\Extensions\ServerMock;
 use Dystcz\LunarApi\Tests\TestCase;
@@ -12,10 +12,12 @@ use LaravelJsonApi\Eloquent\Filters\Where;
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
+    /** @var TestCase $this */
     $this->server = App::make(ServerMock::class, ['name' => 'v1']);
 });
 
 test('schema eager loading can be extended', function () {
+    /** @var TestCase $this */
     $mockSchemaInstance = $this->server->schemas()->schemaFor('products');
 
     expect($mockSchemaInstance)
@@ -24,13 +26,13 @@ test('schema eager loading can be extended', function () {
         ->toContain('else')
         ->toHaveCount(1);
 
-    SchemaManifest::for(ExtendableSchemasMock::class)->setWith([
+    SchemaManifest::extend(ExtendableSchemasMock::class)->setWith([
         'something',
         'else',
         'else',
     ]);
 
-    expect(SchemaManifest::for(ExtendableSchemasMock::class))
+    expect(SchemaManifest::extend(ExtendableSchemasMock::class))
         ->with()->resolve()
         ->toContain('something', 'else');
 
@@ -43,6 +45,7 @@ test('schema eager loading can be extended', function () {
 });
 
 test('schema fields can be extended', function () {
+    /** @var TestCase $this */
     $mockSchemaInstance = $this->server->schemas()->schemaFor('products');
 
     $field = Str::make('my_product_name');
@@ -53,12 +56,12 @@ test('schema fields can be extended', function () {
         ->toContain($field)
         ->toHaveCount(2);
 
-    SchemaManifest::for(ExtendableSchemasMock::class)
+    SchemaManifest::extend(ExtendableSchemasMock::class)
         ->setFields([
             $field,
         ]);
 
-    expect(SchemaManifest::for(ExtendableSchemasMock::class))
+    expect(SchemaManifest::extend(ExtendableSchemasMock::class))
         ->fields()->resolve()
         ->toContain($field)
         ->toHaveCount(1);
@@ -70,6 +73,7 @@ test('schema fields can be extended', function () {
 });
 
 test('schema filters can be extended', function () {
+    /** @var TestCase $this */
     $mockSchemaInstance = $this->server->schemas()->schemaFor('products');
 
     $filter = Where::make('price');
@@ -80,12 +84,12 @@ test('schema filters can be extended', function () {
         ->toContain($filter)
         ->toHaveCount(2);
 
-    SchemaManifest::for(ExtendableSchemasMock::class)
+    SchemaManifest::extend(ExtendableSchemasMock::class)
         ->setFilters([
             $filter,
         ]);
 
-    expect(SchemaManifest::for(ExtendableSchemasMock::class))
+    expect(SchemaManifest::extend(ExtendableSchemasMock::class))
         ->filters()->resolve()
         ->toContain($filter)
         ->toHaveCount(1);
@@ -97,6 +101,7 @@ test('schema filters can be extended', function () {
 });
 
 test('schema sortables can be extended', function () {
+    /** @var TestCase $this */
     $mockSchemaInstance = $this->server->schemas()->schemaFor('products');
 
     $sortables = ['nazdar', 'cau'];
@@ -107,12 +112,12 @@ test('schema sortables can be extended', function () {
         ->toContain('nazdar', 'cau')
         ->toHaveCount(1);
 
-    SchemaManifest::for(ExtendableSchemasMock::class)
+    SchemaManifest::extend(ExtendableSchemasMock::class)
         ->setSortables(
             $sortables,
         );
 
-    expect(SchemaManifest::for(ExtendableSchemasMock::class))
+    expect(SchemaManifest::extend(ExtendableSchemasMock::class))
         ->sortables()->resolve()
         ->toContain('nazdar', 'cau')
         ->toHaveCount(2);
@@ -124,6 +129,7 @@ test('schema sortables can be extended', function () {
 });
 
 test('schema related gate ability can be extended', function () {
+    /** @var TestCase $this */
     $mockSchemaInstance = $this->server->schemas()->schemaFor('products');
 
     $related = ['two', 'three', 'four', 'one'];
@@ -135,12 +141,12 @@ test('schema related gate ability can be extended', function () {
         ->toHaveCount(1)
         ->toContain('one');
 
-    SchemaManifest::for(ExtendableSchemasMock::class)
+    SchemaManifest::extend(ExtendableSchemasMock::class)
         ->setShowRelated(
             $related,
         );
 
-    expect(SchemaManifest::for(ExtendableSchemasMock::class))
+    expect(SchemaManifest::extend(ExtendableSchemasMock::class))
         ->showRelated()->resolve()
         ->toContain('two', 'three', 'four', 'one')
         ->toHaveCount(4);
@@ -152,6 +158,7 @@ test('schema related gate ability can be extended', function () {
 });
 
 test('schema relationships gate ability can be extended', function () {
+    /** @var TestCase $this */
     $mockSchemaInstance = $this->server->schemas()->schemaFor('products');
 
     $relationships = ['pear', 'peach'];
@@ -162,12 +169,12 @@ test('schema relationships gate ability can be extended', function () {
         ->toContain('pear', 'peach')
         ->toHaveCount(1);
 
-    SchemaManifest::for(ExtendableSchemasMock::class)
+    SchemaManifest::extend(ExtendableSchemasMock::class)
         ->setShowRelationship(
             $relationships,
         );
 
-    expect(SchemaManifest::for(ExtendableSchemasMock::class))
+    expect(SchemaManifest::extend(ExtendableSchemasMock::class))
         ->showRelationship()->resolve()
         ->toContain('pear', 'peach')
         ->toHaveCount(2);

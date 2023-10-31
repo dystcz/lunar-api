@@ -1,5 +1,8 @@
 <?php
 
+/*
+ * Lunar API hashids configuration
+ */
 return [
 
     /*

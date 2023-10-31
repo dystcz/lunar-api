@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\Http\Controllers;
 
-use Dystcz\LunarApi\Controller;
+use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Domain\Payments\Actions\MarkAwaitingPayment;
 use LaravelJsonApi\Core\Responses\DataResponse;

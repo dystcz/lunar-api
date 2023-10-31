@@ -62,7 +62,7 @@ it('can read order details when accessing order with valid signature', function 
     /** @var TestCase $this */
     Event::fake(CartCreated::class);
 
-    Config::set('lunar-api.domains.orders.signed_show_route', true);
+    Config::set('lunar-api.domains.orders.settings.signed_show_route', true);
 
     /** @var User $user */
     $user = User::factory()->create();

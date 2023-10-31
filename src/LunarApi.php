@@ -30,6 +30,6 @@ class LunarApi
      */
     public static function usesHashids(): bool
     {
-        return Config::get('lunar-api.schemas.use_hashids', false);
+        return Config::get('lunar-api.general.use_hashids', false);
     }
 }

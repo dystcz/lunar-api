@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\Http\Controllers;
 
-use Dystcz\LunarApi\Controller;
+use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderQuery;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderSchema;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;

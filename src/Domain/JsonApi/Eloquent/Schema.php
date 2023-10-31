@@ -2,10 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Eloquent;
 
+use Dystcz\LunarApi\Base\Contracts\Extendable as ExtendableContract;
+use Dystcz\LunarApi\Base\Contracts\SchemaExtension as SchemaExtensionContract;
+use Dystcz\LunarApi\Base\Contracts\SchemaManifest as SchemaManifestContract;
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\Schema as SchemaContract;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extendable as ExtendableContract;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaExtension as SchemaExtensionContract;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaManifest as SchemaManifestContract;
 use Dystcz\LunarApi\LunarApi;
 use Dystcz\LunarApi\Support\Models\Actions\GetModelKey;
 use Illuminate\Support\Arr;
@@ -171,7 +171,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     {
         return PagePagination::make()
             ->withDefaultPerPage(
-                Config::get('lunar-api.pagination.per_page', 12)
+                Config::get('lunar-api.general.pagination.per_page', 12)
             );
     }
 

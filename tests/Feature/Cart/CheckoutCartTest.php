@@ -117,7 +117,7 @@ it('forgets cart after checkout if configured', function () {
     /** @var TestCase $this */
     Event::fake(CartCreated::class);
 
-    Config::set('lunar-api.domains.cart.forget_cart_after_order_created', true);
+    Config::set('lunar-api.domains.carts.settings.forget_cart_after_order_created', true);
 
     /** @var CartFactory $factory */
     $factory = Cart::factory();
