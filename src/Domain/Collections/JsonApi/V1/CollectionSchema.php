@@ -30,9 +30,12 @@ class CollectionSchema extends Schema
             'group',
 
             'products',
-            'products.urls',
             'products.default_url',
             'products.images',
+            'products.lowest_price',
+            'products.prices',
+            'products.thumbnail',
+            'products.urls',
 
             ...parent::includePaths(),
         ];
