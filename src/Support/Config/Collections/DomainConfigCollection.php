@@ -51,4 +51,18 @@ class DomainConfigCollection extends Collection
             return [$domain->lunar_model => $domain->model];
         });
     }
+
+    /**
+     * Get policies from domain config.
+     */
+    public function getPolicies(): self
+    {
+        return $this->mapWithKeys(function (DomainConfig $domain) {
+            if (! $domain->hasPolicy()) {
+                return [];
+            }
+
+            return [$domain->lunar_model ?? $domain->model => $domain->policy];
+        });
+    }
 }
