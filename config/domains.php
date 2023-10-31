@@ -38,6 +38,32 @@ return [
         'settings' => [],
     ],
 
+    'attributes' => [
+        'model' => Dystcz\LunarApi\Domain\Attributes\Models\Attribute::class,
+        'lunar_model' => Lunar\Models\Attribute::class,
+        'policy' => Dystcz\LunarApi\Domain\Attributes\Policies\AttributePolicy::class,
+        'schema' => Dystcz\LunarApi\Domain\Attributes\JsonApi\V1\AttributeSchema::class,
+        'resource' => Dystcz\LunarApi\Domain\Attributes\JsonApi\V1\AttributeResource::class,
+        'query' => Dystcz\LunarApi\Domain\Attributes\JsonApi\V1\AttributeQuery::class,
+        'collection_query' => Dystcz\LunarApi\Domain\Attributes\JsonApi\V1\AttributeCollectionQuery::class,
+        'routes' => null,
+        'route_actions' => [],
+        'settings' => [],
+    ],
+
+    'attribute_groups' => [
+        'model' => Dystcz\LunarApi\Domain\AttributeGroups\Models\AttributeGroup::class,
+        'lunar_model' => Lunar\Models\AttributeGroup::class,
+        'policy' => Dystcz\LunarApi\Domain\AttributeGroups\Policies\AttributeGroupPolicy::class,
+        'schema' => Dystcz\LunarApi\Domain\AttributeGroups\JsonApi\V1\AttributeGroupSchema::class,
+        'resource' => Dystcz\LunarApi\Domain\AttributeGroups\JsonApi\V1\AttributeGroupResource::class,
+        'query' => Dystcz\LunarApi\Domain\AttributeGroups\JsonApi\V1\AttributeGroupQuery::class,
+        'collection_query' => Dystcz\LunarApi\Domain\AttributeGroups\JsonApi\V1\AttributeGroupCollectionQuery::class,
+        'routes' => null,
+        'route_actions' => [],
+        'settings' => [],
+    ],
+
     'associations' => [
         'model' => Dystcz\LunarApi\Domain\ProductAssociations\Models\ProductAssociation::class,
         'lunar_model' => Lunar\Models\ProductAssociation::class,
@@ -278,6 +304,32 @@ return [
         'settings' => [],
     ],
 
+    'product_options' => [
+        'model' => Dystcz\LunarApi\Domain\ProductOptions\Models\ProductOption::class,
+        'lunar_model' => Lunar\Models\ProductOption::class,
+        'policy' => Dystcz\LunarApi\Domain\ProductOptions\Policies\ProductOptionPolicy::class,
+        'schema' => null,
+        'resource' => Dystcz\LunarApi\Domain\ProductOptions\JsonApi\V1\ProductOptionResource::class,
+        'query' => Dystcz\LunarApi\Domain\ProductOptions\JsonApi\V1\ProductOptionQuery::class,
+        'collection_query' => Dystcz\LunarApi\Domain\ProductOptions\JsonApi\V1\ProductOptionCollectionQuery::class,
+        'routes' => null,
+        'route_actions' => [],
+        'settings' => [],
+    ],
+
+    'product_option_values' => [
+        'model' => Dystcz\LunarApi\Domain\ProductOptionValues\Models\ProductOptionValue::class,
+        'lunar_model' => Lunar\Models\ProductOptionValue::class,
+        'policy' => Dystcz\LunarApi\Domain\ProductOptionValues\Policies\ProductOptionValuePolicy::class,
+        'schema' => null,
+        'resource' => Dystcz\LunarApi\Domain\ProductOptionValues\JsonApi\V1\ProductOptionValueResource::class,
+        'query' => Dystcz\LunarApi\Domain\ProductOptionValues\JsonApi\V1\ProductOptionValueQuery::class,
+        'collection_query' => Dystcz\LunarApi\Domain\ProductOptionValues\JsonApi\V1\ProductOptionValueCollectionQuery::class,
+        'routes' => null,
+        'route_actions' => [],
+        'settings' => [],
+    ],
+
     'product_types' => [
         'model' => Dystcz\LunarApi\Domain\ProductTypes\Models\ProductType::class,
         'lunar_model' => Lunar\Models\ProductType::class,
@@ -341,6 +393,19 @@ return [
         'query' => Dystcz\LunarApi\Domain\Tags\JsonApi\V1\TagQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Tags\JsonApi\V1\TagCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Tags\Http\Routing\TagRouteGroup::class,
+        'route_actions' => [],
+        'settings' => [],
+    ],
+
+    'transactions' => [
+        'model' => Dystcz\LunarApi\Domain\Transactions\Models\Transaction::class,
+        'lunar_model' => Lunar\Models\Transaction::class,
+        'policy' => Dystcz\LunarApi\Domain\Transactions\Policies\TransactionPolicy::class,
+        'schema' => Dystcz\LunarApi\Domain\Transactions\JsonApi\V1\TransactionSchema::class,
+        'resource' => Dystcz\LunarApi\Domain\Transactions\JsonApi\V1\TransactionResource::class,
+        'query' => Dystcz\LunarApi\Domain\Transactions\JsonApi\V1\TransactionQuery::class,
+        'collection_query' => Dystcz\LunarApi\Domain\Transactions\JsonApi\V1\TransactionCollectionQuery::class,
+        'routes' => null,
         'route_actions' => [],
         'settings' => [],
     ],
