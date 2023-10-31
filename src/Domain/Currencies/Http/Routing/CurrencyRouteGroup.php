@@ -20,7 +20,8 @@ class CurrencyRouteGroup extends RouteGroup
             ->prefix('v1')
             ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), CurrenciesController::class)
-                    ->only('index');
+                    ->only('index')
+                    ->readOnly();
             });
     }
 }

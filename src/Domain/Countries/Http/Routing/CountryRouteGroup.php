@@ -20,7 +20,8 @@ class CountryRouteGroup extends RouteGroup
             ->prefix('v1')
             ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), CountriesController::class)
-                    ->only('index');
+                    ->only('index')
+                    ->readOnly();
             });
     }
 }
