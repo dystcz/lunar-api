@@ -23,7 +23,7 @@ abstract class Server extends BaseServer
      */
     protected function setBaseUri(string $path = 'v1'): void
     {
-        $prefix = Config::get('lunar-api.route_prefix');
+        $prefix = Config::get('lunar-api.general.route_prefix');
 
         $this->baseUri = "/{$prefix}/{$path}";
     }
@@ -33,7 +33,7 @@ abstract class Server extends BaseServer
      */
     protected function getAdditionalServerSchemas(): array
     {
-        $additionalServers = Config::get('lunar-api.additional_servers');
+        $additionalServers = Config::get('lunar-api.general.additional_servers');
 
         $schemas = array_reduce($additionalServers, function ($schemas, $server) {
             $server = (new $server(

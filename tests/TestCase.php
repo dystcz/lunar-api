@@ -119,7 +119,7 @@ abstract class TestCase extends Orchestra
         /**
          * Lunar configuration
          */
-        Config::set('lunar-api.additional_servers', [
+        Config::set('lunar-api.general.additional_servers', [
             Server::class,
         ]);
         // Set cart auto creation to true

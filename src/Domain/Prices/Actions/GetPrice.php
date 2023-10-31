@@ -14,7 +14,7 @@ class GetPrice
 
     public function __construct()
     {
-        $this->withTax = Config::get('lunar-api.taxation.prices_with_default_tax');
+        $this->withTax = Config::get('lunar-api.general.taxation.prices_with_default_tax');
 
         $this->getPriceWithDefaultTax = new GetPriceWithDefaultTax;
     }

@@ -17,7 +17,7 @@ class CountryCollectionQuery extends CollectionQuery
     {
         // Set the maximum page size to 250, so that the frontend can fetch all countries at once.
         // This is not an issue, because the countries are cached.
-        Config::set('lunar-api.pagination.max_size', 250);
+        Config::set('lunar-api.general.pagination.max_size', 250);
 
         return [
             ...parent::rules(),

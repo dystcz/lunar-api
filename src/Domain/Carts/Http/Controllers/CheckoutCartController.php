@@ -52,7 +52,7 @@ class CheckoutCartController extends Controller
             ->where('id', $order->id)
             ->firstOrFail();
 
-        if (Config::get('lunar-api.domains.cart.forget_cart_after_order_created', true)) {
+        if (Config::get('lunar-api.domains.carts.settings.forget_cart_after_order_created', true)) {
             $this->cartSession->forget();
         }
 

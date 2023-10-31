@@ -50,7 +50,7 @@ class MediaResource extends JsonApiResource
             return [];
         }
 
-        if (! $conversions = Config::get('lunar-api.domains.media.conversions', false)) {
+        if (! $conversions = Config::get('lunar-api.domains.media.settings.conversions', false)) {
             return [];
         }
 

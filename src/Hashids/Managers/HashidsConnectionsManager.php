@@ -15,7 +15,7 @@ class HashidsConnectionsManager
     public function registerConnections(): void
     {
         Config::set(
-            'hashids.connections',
+            'lunar-api.hashids.connections',
             $this->getConnectionsFromModels()->toArray(),
         );
     }
@@ -25,7 +25,7 @@ class HashidsConnectionsManager
      */
     public function getConnections(): array
     {
-        return Config::get('hashids.connections', []);
+        return Config::get('lunar-api.hashids.connections', []);
     }
 
     /**
@@ -53,9 +53,9 @@ class HashidsConnectionsManager
             return [
                 $connectionKey => [
                     'salt' => $baseModelClass.Config::get('app.key'),
-                    'length' => Config::get('hashids.default_length', 16),
+                    'length' => Config::get('lunar-api.hashids.default_length', 16),
                     'alphabet' => Config::get(
-                        'hashids.default_alphabet',
+                        'lunar-api.hashids.default_alphabet',
                         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890',
                     ),
                 ],

@@ -93,14 +93,14 @@ class OrderPolicy
 
         if (
             // If cart should not be forgotten after order is created, check if cart id matches
-            ! Config::get('lunar-api.domains.cart.forget_cart_after_order_created', true)
+            ! Config::get('lunar-api.domains.carts.settings.forget_cart_after_order_created', true)
                 && $this->cartSession->current()->getKey() === $order->cart_id) {
             return true;
         }
 
         if (
             // If order show route should be signed and signature is valid
-            (Config::get('lunar-api.domains.orders.sign_show_route', true) && $this->request->hasValidSignature())
+            (Config::get('lunar-api.domains.orders.settings.sign_show_route', true) && $this->request->hasValidSignature())
                 // If env is  local
                 || App::environment('local')
         ) {
