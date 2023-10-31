@@ -119,6 +119,7 @@ abstract class TestCase extends Orchestra
         /**
          * Lunar configuration.
          */
+
         // Set cart auto creation to true
         Config::set('lunar.cart.auto_create', true);
         // Default payment driver
