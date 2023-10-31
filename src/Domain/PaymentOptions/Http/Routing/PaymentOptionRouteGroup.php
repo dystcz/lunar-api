@@ -21,7 +21,8 @@ class PaymentOptionRouteGroup extends RouteGroup
             ->prefix('v1')
             ->resources(function ($server) {
                 $server->resource($this->getPrefix(), PaymentOptionsController::class)
-                    ->only('index');
+                    ->only('index')
+                    ->readOnly();
             });
     }
 }
