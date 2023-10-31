@@ -2,10 +2,11 @@
 
 namespace Dystcz\LunarApi\Tests;
 
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Facades\SchemaManifest;
 use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
-use Dystcz\LunarApi\Tests\Stubs\JsonApi\V1\Server;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestTaxDriver;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
+use Dystcz\LunarApi\Tests\Stubs\Users\JsonApi\V1\UserSchema;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
@@ -37,11 +38,10 @@ abstract class TestCase extends Orchestra
         Config::set('lunar.urls.generator', TestUrlGenerator::class);
         Config::set('lunar.taxes.driver', 'test');
 
-        // Config::set('lunar-api.schemas.use_hashids', true);
-
-        Taxes::extend('test', function (Application $app) {
-            return $app->make(TestTaxDriver::class);
-        });
+        Taxes::extend(
+            'test',
+            fn (Application $app) => $app->make(TestTaxDriver::class),
+        );
 
         Currency::factory()->create([
             'code' => 'EUR',
@@ -117,18 +117,15 @@ abstract class TestCase extends Orchestra
         $app->bootstrapWith([LoadEnvironmentVariables::class]);
 
         /**
-         * Lunar configuration
+         * Lunar configuration.
          */
-        Config::set('lunar-api.general.additional_servers', [
-            Server::class,
-        ]);
         // Set cart auto creation to true
         Config::set('lunar.cart.auto_create', true);
         // Default payment driver
         Config::set('lunar.payments.default', 'cash-in-hand');
 
         /**
-         * App configuration
+         * App configuration.
          */
         Config::set('database.default', 'sqlite');
         Config::set('database.migrations', 'migrations');
@@ -147,6 +144,11 @@ abstract class TestCase extends Orchestra
             'username' => 'homestead',
             'password' => 'secret',
         ]);
+
+        /**
+         * Schema configuration.
+         */
+        SchemaManifest::registerSchema(UserSchema::class);
     }
 
     /**
@@ -168,6 +170,9 @@ abstract class TestCase extends Orchestra
         // );
     }
 
+    /**
+     * Resolve application HTTP exception handler implementation.
+     */
     protected function resolveApplicationExceptionHandler($app): void
     {
         $app->singleton(
