@@ -48,4 +48,4 @@ it('can empty the cart', function () {
     $response->assertNoContent();
 
     expect(CartSession::current()->lines->count())->toBe(0);
-});
+})->group('carts');

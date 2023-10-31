@@ -1,29 +1,28 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Brands\Factories\BrandFactory;
-use Dystcz\LunarApi\Domain\CollectionGroups\Factories\CollectionGroupFactory;
-use Dystcz\LunarApi\Domain\Collections\Factories\CollectionFactory;
+use Dystcz\LunarApi\Domain\CollectionGroups\Models\CollectionGroup;
+use Dystcz\LunarApi\Domain\Collections\Models\Collection;
 use Dystcz\LunarApi\Domain\Media\Factories\MediaFactory;
 use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
-use Dystcz\LunarApi\Domain\ProductAssociations\Factories\ProductAssociationFactory;
-use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
+use Dystcz\LunarApi\Domain\Prices\Models\Price;
+use Dystcz\LunarApi\Domain\ProductAssociations\Models\ProductAssociation;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
-use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
-use Dystcz\LunarApi\Domain\Tags\Factories\TagFactory;
+use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
+use Dystcz\LunarApi\Domain\Tags\Models\Tag;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Collection as LaravelCollection;
 use Illuminate\Support\Facades\Config;
-use Lunar\Database\Factories\LanguageFactory;
+use Lunar\Models\Language;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can list bare products', function () {
     /** @var TestCase $this */
-    $products = ProductFactory::new()
+    $products = Product::factory()
         ->has(
-            ProductVariantFactory::new()->has(PriceFactory::new())->count(2),
+            ProductVariant::factory()->has(Price::factory())->count(2),
             'variants'
         )
         ->count(3)
@@ -42,7 +41,7 @@ it('can list bare products', function () {
 
 it('can show product detail', function () {
     /** @var TestCase $this */
-    $product = ProductFactory::new()->create();
+    $product = Product::factory()->create();
 
     $response = $this
         ->jsonApi()
@@ -71,7 +70,7 @@ it('returns error response when product doesnt exists', function () {
 
 test('product can include images', function () {
     /** @var TestCase $this */
-    $product = ProductFactory::new()
+    $product = Product::factory()
         ->has(MediaFactory::new(), 'images')
         ->create();
 
@@ -89,7 +88,7 @@ test('product can include images', function () {
 
 test('product can include thumbnail', function () {
     /** @var TestCase $this */
-    $product = ProductFactory::new()
+    $product = Product::factory()
         ->has(MediaFactory::new()->thumbnail(), 'images')
         ->create();
 
@@ -107,9 +106,9 @@ test('product can include thumbnail', function () {
 
 test('product can include variants', function () {
     /** @var TestCase $this */
-    $product = ProductFactory::new()
+    $product = Product::factory()
         ->has(
-            ProductVariantFactory::new()->has(PriceFactory::new())->count(3),
+            ProductVariant::factory()->has(PriceFactory::new())->count(3),
             'variants'
         )
         ->create();
@@ -128,9 +127,9 @@ test('product can include variants', function () {
 
 it('can show product with variants count', function () {
     /** @var TestCase $this */
-    $product = ProductFactory::new()
+    $product = Product::factory()
         ->has(
-            ProductVariantFactory::new()->has(PriceFactory::new())->count(5),
+            ProductVariant::factory()->has(Price::factory())->count(5),
             'variants'
         )
         ->create();
@@ -149,8 +148,8 @@ it('can show product with variants count', function () {
 
 test('product can include tags', function () {
     /** @var TestCase $this */
-    $product = ProductFactory::new()
-        ->has(TagFactory::new()->count(2))
+    $product = Product::factory()
+        ->has(Tag::factory()->count(2))
         ->create();
 
     $response = $this
@@ -169,43 +168,43 @@ test('product can include tags', function () {
 })->group('products');
 
 it('can list products with all includes', function () {
-    LanguageFactory::new()->create();
+    Language::factory()->create();
 
     Config::set('lunar.urls.generator', \Lunar\Generators\UrlGenerator::class);
 
     $allModels = [];
 
     /** @var TestCase $this */
-    $models = ProductFactory::new()
-        ->has(TagFactory::new()->count(2), 'tags')
+    $models = Product::factory()
+        ->has(Tag::factory()->count(2), 'tags')
         ->has(MediaFactory::new()->thumbnail(), 'images')
-        ->has(ProductVariantFactory::new()->has(PriceFactory::new(), 'prices'), 'variants')
+        ->has(ProductVariant::factory()->has(Price::factory(), 'prices'), 'variants')
         ->count(3)
-        ->create(['brand_id' => fn () => BrandFactory::new()->has(MediaFactory::new()->thumbnail(), 'media')->create()]);
+        ->create(['brand_id' => fn () => Brand::factory()->has(MediaFactory::new()->thumbnail(), 'media')->create()]);
 
     $allModels['products'] = [...$models];
 
     foreach ($models as $model) {
 
-        CollectionFactory::new()
-            ->has(CollectionGroupFactory::new(), 'group')
+        Collection::factory()
+            ->has(CollectionGroup::factory(), 'group')
             ->hasAttached($model, ['position' => 1], 'products')
             ->create();
 
-        ProductAssociationFactory::new()
+        ProductAssociation::factory()
             ->create([
                 'product_parent_id' => $model,
-                'product_target_id' => $target = ProductFactory::new()
-                    ->has(ProductVariantFactory::new()->has(PriceFactory::new(), 'prices'), 'variants')
+                'product_target_id' => $target = Product::factory()
+                    ->has(ProductVariant::factory()->has(PriceFactory::new(), 'prices'), 'variants')
                     ->has(MediaFactory::new()->thumbnail(), 'media')
                     ->create(),
             ]);
 
-        ProductAssociationFactory::new()
+        ProductAssociation::factory()
             ->create([
                 'product_target_id' => $model,
-                'product_parent_id' => $parent = ProductFactory::new()
-                    ->has(ProductVariantFactory::new()->has(PriceFactory::new(), 'prices'), 'variants')
+                'product_parent_id' => $parent = Product::factory()
+                    ->has(ProductVariant::factory()->has(PriceFactory::new(), 'prices'), 'variants')
                     ->has(MediaFactory::new()->thumbnail(), 'media')
                     ->create(),
             ]);
@@ -265,7 +264,7 @@ it('can list products with all includes', function () {
     //     $data->groupBy('type')->mapWithKeys(fn ($values, $type) => [$type => $values->count()])
     // )->orange();
 
-    $products = Collection::make($allModels['products'])->flatMap(fn ($model) => [
+    $products = LaravelCollection::make($allModels['products'])->flatMap(fn ($model) => [
         // Media
         ['type' => 'media', 'id' => (string) $model->thumbnail->getRouteKey()],
         ['type' => 'urls', 'id' => (string) $model->defaultUrl->getRouteKey()],
@@ -294,7 +293,7 @@ it('can list products with all includes', function () {
     ]);
 
     // Association targets
-    $targets = Collection::make($allModels['targets'])->flatMap(fn ($model) => [
+    $targets = LaravelCollection::make($allModels['targets'])->flatMap(fn ($model) => [
         ['type' => 'products', 'id' => (string) $model->getRouteKey()],
         ['type' => 'variants', 'id' => (string) $model->variants[0]->getRouteKey()],
         ['type' => 'media', 'id' => (string) $model->thumbnail->getRouteKey()],
@@ -303,21 +302,21 @@ it('can list products with all includes', function () {
     ]);
 
     // Inverse association parents
-    $parents = Collection::make($allModels['parents'])->flatMap(fn ($model) => [
+    $parents = LaravelCollection::make($allModels['parents'])->flatMap(fn ($model) => [
         ['type' => 'products', 'id' => (string) $model->getRouteKey()],
         ['type' => 'variants', 'id' => (string) $model->variants[0]->getRouteKey()],
         ['type' => 'urls', 'id' => (string) $model->defaultUrl->getRouteKey()],
         ['type' => 'media', 'id' => (string) $model->thumbnail->getRouteKey()],
     ]);
 
-    $allModels = Collection::make(Arr::flatten($allModels));
+    $allModels = LaravelCollection::make(Arr::flatten($allModels));
 
     // ray($allModels->map(fn ($m) => [
     //     'id' => $m->id,
     //     'prices' => $m->prices,
     // ]))->red();
 
-    $included = Collection::make()
+    $included = LaravelCollection::make()
         ->merge($products)
         ->merge($targets)
         ->merge($parents);
@@ -343,5 +342,4 @@ it('can list products with all includes', function () {
             ],
         ]));
     // ->assertIncluded($included->toArray());
-})->group('products')
-    ->todo();
+})->group('products')->todo();

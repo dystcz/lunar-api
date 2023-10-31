@@ -63,7 +63,7 @@ it('can read tag detail with products included', function () {
             ['type' => 'taggables', 'id' => $tag->taggables[0]->getRouteKey()],
             ['type' => 'taggables', 'id' => $tag->taggables[1]->getRouteKey()],
         ]);
-})->group('tags')->skip();
+})->group('tags')->todo();
 
 it('returns error response when tag doesnt exists', function () {
     /** @var TestCase $this */

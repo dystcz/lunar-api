@@ -26,7 +26,7 @@ beforeEach(function () {
     ];
 });
 
-it('can be updated', function () {
+it('can update a customer by logged in user', function () {
     /** @var TestCase $this */
     $response = $this
         ->jsonApi()
@@ -44,3 +44,9 @@ it('can be updated', function () {
         'account_ref' => '123456789',
     ]);
 });
+
+it('only updates logged in users customer', function () {
+    /** @var TestCase $this */
+
+    //
+})->todo();

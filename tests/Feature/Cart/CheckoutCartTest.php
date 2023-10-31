@@ -113,6 +113,43 @@ test('a user can be registered when checking out', function () {
     expect($order->user_id)->not()->toBeNull();
 })->group('checkout');
 
+it('does not forget cart after checkout if configured', function () {
+    /** @var TestCase $this */
+    Event::fake(CartCreated::class);
+
+    Config::set('lunar-api.domains.carts.settings.forget_cart_after_order_created', false);
+
+    /** @var CartFactory $factory */
+    $factory = Cart::factory();
+
+    /** @var Cart $cart */
+    $cart = $factory
+        ->withAddresses()
+        ->withLines()
+        ->create();
+
+    /** @var CartSessionManager $cartSession */
+    $cartSession = App::make(CartSessionInterface::class);
+    $cartSession->use($cart);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->withData([
+            'type' => 'carts',
+            'attributes' => [
+                'create_user' => false,
+            ],
+        ])
+        ->post('/api/v1/carts/-actions/checkout');
+
+    $response
+        ->assertSuccessful();
+
+    $this->assertTrue(Session::has($cartSession->getSessionKey()));
+
+})->group('checkout');
+
 it('forgets cart after checkout if configured', function () {
     /** @var TestCase $this */
     Event::fake(CartCreated::class);
@@ -150,7 +187,7 @@ it('forgets cart after checkout if configured', function () {
 
 })->group('checkout');
 
-it('returns signed urls', function () {
+it('returns signed urls for order actions', function () {
     /** @var TestCase $this */
     Event::fake(CartCreated::class);
 

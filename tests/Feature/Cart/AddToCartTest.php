@@ -48,7 +48,7 @@ it('can add purchasable to the cart', function () {
     ]);
 });
 
-test('cart line quantity will be incremented if already presented inside the user\'s cart', function () {
+test('cart line quantity will be incremented if already presented inside the users cart', function () {
     /** @var TestCase $this */
     $cart = Cart::factory()->withLines()->create();
 

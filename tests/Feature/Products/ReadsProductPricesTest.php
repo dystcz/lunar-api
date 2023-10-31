@@ -8,7 +8,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-it('can read product prices', function () {
+test('product can include prices', function () {
+    /** @var TestCase $this */
+
     /** @var Product $product */
     $product = ProductFactory::new()
         ->has(
@@ -22,16 +24,18 @@ it('can read product prices', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->includePaths(
-            'prices',
-        )
+        ->includePaths('prices')
         ->get($self);
 
-    $response->assertFetchedOne($product)
+    $response
+        ->assertFetchedOne($product)
         ->assertIsIncluded('prices', $product->prices->first());
-});
 
-it('can read product lowest price', function () {
+})->group(['products', 'prices']);
+
+test('product can include lowest price', function () {
+    /** @var TestCase $this */
+
     /** @var Product $product */
     $product = ProductFactory::new()
         ->has(
@@ -52,4 +56,4 @@ it('can read product lowest price', function () {
 
     $response->assertFetchedOne($product)
         ->assertIsIncluded('prices', $product->lowestPrice);
-});
+})->group(['products', 'prices']);

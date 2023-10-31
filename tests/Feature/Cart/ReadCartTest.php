@@ -8,7 +8,7 @@ use Lunar\Facades\CartSession;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-it('can read the cart', function () {
+it('can read the cart (my-cart action)', function () {
     /** @var TestCase $this */
     $user = User::factory()->create();
 
@@ -33,7 +33,8 @@ it('can read the cart', function () {
         )
         ->get('/api/v1/carts/-actions/my-cart');
 
-    $response->assertFetchedOne($cart)
+    $response
+        ->assertFetchedOne($cart)
         ->assertIsIncluded('cart-addresses', $cart->shippingAddress)
         ->assertIsIncluded('cart-addresses', $cart->billingAddress);
 });

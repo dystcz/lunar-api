@@ -31,4 +31,4 @@ it('can fetch payment options', function () {
             ];
         }, $paymentOption, array_keys($paymentOption))
     );
-});
+})->group('payment-options');

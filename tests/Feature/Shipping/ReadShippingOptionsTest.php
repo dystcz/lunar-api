@@ -11,6 +11,7 @@ use Lunar\Models\Country;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can fetch shipping options for cart', function () {
+    /** @var TestCase $this */
     $cart = Cart::factory()->create();
 
     CartSession::use($cart);
@@ -43,6 +44,7 @@ it('can fetch shipping options for cart', function () {
 });
 
 it('can fetch shipping options for a cart based on country', function () {
+    /** @var TestCase $this */
     $country = Country::factory()->create([
         'name' => 'Czech Republic',
         'iso3' => 'CZE',
