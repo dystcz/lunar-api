@@ -20,12 +20,12 @@ beforeEach(function () {
 
 it('can list all brands', function () {
     /** @var TestCase $this */
-    $response = $this->testIndex('brands', Brand::class, 20);
+    $response = $this->indexTest('brands', Brand::class, 20);
 })->group('brands');
 
 it('can list brands with custom pagination', function () {
     /** @var TestCase $this */
-    $response = $this->testPagination('brands', Brand::class);
+    $response = $this->paginationTest('brands', Brand::class);
 
 })->group('brands');
 
@@ -42,6 +42,6 @@ test('brands can be listed with thumbnail included', function () {
         ),
     ]);
 
-    $response = $this->testIndexWithIncludes('brands', Brand::class, 5, $includes);
+    $response = $this->indexWithIncludesTest('brands', Brand::class, 5, $includes);
 
 })->group('brands');

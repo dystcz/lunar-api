@@ -135,7 +135,7 @@ it('can list collections with included products', function () {
         ),
     ]);
 
-    $response = $this->testIndexWithIncludes('collections', Collection::class, 5, $includes);
+    $response = $this->indexWithIncludesTest('collections', Collection::class, 5, $includes);
 
 })->group('collections');
 

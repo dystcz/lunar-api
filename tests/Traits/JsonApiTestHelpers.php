@@ -14,7 +14,7 @@ trait JsonApiTestHelpers
     /**
      * @param  class-string  $model
      */
-    public function testIndex(
+    public function indexTest(
         string $schemaType,
         string $model,
         int $modelCount = 5,
@@ -49,7 +49,7 @@ trait JsonApiTestHelpers
      * @param  class-string  $model
      * @param  array<string,array<string,string>>  $includes
      */
-    public function testIndexWithIncludes(
+    public function indexWithIncludesTest(
         string $schemaType,
         string $model,
         int $modelCount,
@@ -106,7 +106,7 @@ trait JsonApiTestHelpers
     /**
      * @param  class-string  $model
      */
-    public function testPagination(
+    public function paginationTest(
         string $schemaType,
         string $model,
         int $modelCount = 20,
