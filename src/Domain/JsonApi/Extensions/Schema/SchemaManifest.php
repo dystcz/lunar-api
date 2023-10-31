@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaExtension as SchemaExtensionContract;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaManifest as SchemaManifestContract;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Manifest;
+use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -112,13 +113,8 @@ class SchemaManifest extends Manifest implements SchemaManifestContract
      */
     private function registerBaseSchemas(): void
     {
-        $schemas = Collection::make(Config::get('lunar-api.domains'))
-            ->mapWithKeys(function (array $domain) {
-                /** @var Schema $schema */
-                $schema = $domain['schema'];
-
-                return [$schema::type() => $schema];
-            });
+        $schemas = DomainConfigCollection::make()
+            ->getSchemas();
 
         $this->register($schemas);
     }
