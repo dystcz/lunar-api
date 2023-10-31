@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestTaxDriver;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
 use Dystcz\LunarApi\Tests\Stubs\Users\JsonApi\V1\UserSchema;
+use Dystcz\LunarApi\Tests\Traits\JsonApiTestHelpers;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
@@ -25,6 +26,7 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
+    use JsonApiTestHelpers;
     use MakesJsonApiRequests;
 
     protected function setUp(): void
