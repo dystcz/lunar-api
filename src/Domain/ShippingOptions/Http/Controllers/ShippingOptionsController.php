@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\ShippingOptions\Http\Controllers;
 
-use Dystcz\LunarApi\Controller;
+use Dystcz\LunarApi\Base\Controller;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
 

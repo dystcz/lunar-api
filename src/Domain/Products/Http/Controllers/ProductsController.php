@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Http\Controllers;
 
-use Dystcz\LunarApi\Controller;
+use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductQuery;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Illuminate\Support\Facades\App;

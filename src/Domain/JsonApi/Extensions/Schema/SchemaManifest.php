@@ -10,7 +10,6 @@ use Dystcz\LunarApi\Domain\JsonApi\Extensions\Manifest;
 use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
 
 /**
  * @property array<SchemaExtensionContract> $extensions
@@ -98,8 +97,20 @@ class SchemaManifest extends Manifest implements SchemaManifestContract
      * Get schema extension for a given schema class.
      *
      * @param  class-string<Schema>  $class
+     *
+     * @deprecated Use SchemaExtension::for() instead.
      */
     public static function for(string $class): SchemaExtensionContract
+    {
+        return self::extendSchema($class);
+    }
+
+    /**
+     * Get schema extension for a given schema class.
+     *
+     * @param  class-string<Schema>  $class
+     */
+    public static function extendSchema(string $class): SchemaExtensionContract
     {
         $self = App::make(SchemaManifestContract::class);
 

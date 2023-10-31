@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
-use Dystcz\LunarApi\Controller;
+use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
