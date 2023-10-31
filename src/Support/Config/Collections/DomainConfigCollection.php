@@ -37,4 +37,18 @@ class DomainConfigCollection extends Collection
             return [$domain->schema::type() => $domain->routes];
         });
     }
+
+    /**
+     * Get models for Lunar model manifest.
+     */
+    public function getModelsForModelManifest(): self
+    {
+        return $this->mapWithKeys(function (DomainConfig $domain) {
+            if (! $domain->swapsLunarModel()) {
+                return [];
+            }
+
+            return [$domain->lunar_model => $domain->model];
+        });
+    }
 }
