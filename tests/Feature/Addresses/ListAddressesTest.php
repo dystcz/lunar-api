@@ -36,6 +36,26 @@ it('can list addresses', function () {
 
 })->group('addresses');
 
+test('user cannot list addresses belonging to other users', function () {
+    /** @var TestCase $this */
+    $models = Address::factory()
+        ->count(3)
+        ->create([
+            'customer_id' => User::factory()->has(Customer::factory()),
+        ]);
+
+    $response = $this
+        ->actingAs($this->user)
+        ->jsonApi()
+        ->expects('addresses')
+        ->get('/api/v1/addresses');
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedNone();
+
+})->group('addresses');
+
 it('can list addresses with country included', function () {
     /** @var TestCase $this */
     $country = Country::factory()

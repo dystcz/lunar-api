@@ -34,6 +34,41 @@ it('can show address', function () {
 
 })->group('addresses');
 
+it('returns error when trying to read other users address', function () {
+    /** @var TestCase $this */
+    $model = Address::factory()
+        ->create([
+            'customer_id' => User::factory()->has(Customer::factory()),
+        ]);
+
+    $response = $this
+        ->actingAs($this->user)
+        ->jsonApi()
+        ->expects('addresses')
+        ->get(serverUrl("/addresses/{$model->getRouteKey()}"));
+
+    $response->assertErrorStatus([
+        'detail' => 'This action is unauthorized.',
+        'status' => '403',
+        'title' => 'Forbidden',
+    ]);
+
+})->group('addresses');
+
+it('returns error response when address doesnt exists', function () {
+    /** @var TestCase $this */
+    $response = $this
+        ->jsonApi()
+        ->expects('addresses')
+        ->get('/api/v1/addresses/1');
+
+    $response->assertErrorStatus([
+        'status' => '404',
+        'title' => 'Not Found',
+    ]);
+
+})->group('addresses');
+
 it('can show address with country and customer included', function () {
     /** @var TestCase $this */
     $model = Address::factory()
