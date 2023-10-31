@@ -36,10 +36,10 @@ function decodeHashedId(BaseModel $model, mixed $id): mixed
 /**
  * Map models to response data.
  */
-function mapModelsToResponseData(string $type, Collection $models): Collection
+function mapModelsToResponseData(string $schemaType, Collection $models): Collection
 {
     return $models->map(fn ($model) => [
-        'type' => $type,
+        'type' => $schemaType,
         'id' => $model->getRouteKey(),
     ]);
 }
