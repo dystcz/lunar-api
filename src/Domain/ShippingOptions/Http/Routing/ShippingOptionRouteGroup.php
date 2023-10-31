@@ -19,7 +19,8 @@ class ShippingOptionRouteGroup extends RouteGroup
             ->prefix('v1')
             ->resources(function ($server) {
                 $server->resource($this->getPrefix(), ShippingOptionsController::class)
-                    ->only('index');
+                    ->only('index')
+                    ->readonly();
             });
     }
 }
