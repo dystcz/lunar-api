@@ -31,11 +31,19 @@ class DomainConfig
     }
 
     /**
+     * Check if domain has schema.
+     */
+    public function hasSchema(): bool
+    {
+        return ! is_null($this->schema);
+    }
+
+    /**
      * Check if domain has model.
      */
     public function hasModel(): bool
     {
-        return (bool) $this->model;
+        return ! is_null($this->model);
     }
 
     /**
@@ -43,7 +51,7 @@ class DomainConfig
      */
     public function hasLunarModel(): bool
     {
-        return (bool) $this->lunar_model;
+        return ! is_null($this->lunar_model);
     }
 
     /**
@@ -59,7 +67,7 @@ class DomainConfig
      */
     public function hasPolicy(): bool
     {
-        return (bool) $this->policy;
+        return ! is_null($this->policy);
     }
 
     /**
@@ -67,7 +75,7 @@ class DomainConfig
      */
     public function hasRoutes(): bool
     {
-        return (bool) $this->routes && (bool) $this->schema;
+        return ! is_null($this->routes);
     }
 
     /**
