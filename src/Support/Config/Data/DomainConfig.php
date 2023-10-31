@@ -31,11 +31,43 @@ class DomainConfig
     }
 
     /**
+     * Check if domain has model.
+     */
+    public function hasModel(): bool
+    {
+        return (bool) $this->model;
+    }
+
+    /**
+     * Check if domain has lunar model.
+     */
+    public function hasLunarModel(): bool
+    {
+        return (bool) $this->lunar_model;
+    }
+
+    /**
+     * Check if domain has model and lunar model.
+     */
+    public function swapsLunarModel(): bool
+    {
+        return $this->hasModel() && $this->hasLunarModel();
+    }
+
+    /**
+     * Check if domain has policy.
+     */
+    public function hasPolicy(): bool
+    {
+        return (bool) $this->policy;
+    }
+
+    /**
      * Check if domain has routes.
      */
     public function hasRoutes(): bool
     {
-        return $this->routes && $this->schema;
+        return (bool) $this->routes && (bool) $this->schema;
     }
 
     /**
