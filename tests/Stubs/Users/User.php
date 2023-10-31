@@ -12,7 +12,6 @@ class User extends Authenticatable
 {
     use HasFactory;
     use LunarUser;
-    use LunarUser;
     use Notifiable;
 
     /**
