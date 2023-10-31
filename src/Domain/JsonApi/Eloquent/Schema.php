@@ -171,7 +171,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     {
         return PagePagination::make()
             ->withDefaultPerPage(
-                Config::get('lunar-api.general.pagination.per_page', 12)
+                Config::get('lunar-api.general.pagination.per_page', 24)
             );
     }
 

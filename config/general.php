@@ -33,8 +33,8 @@ return [
 
     // Pagination defaults
     'pagination' => [
-        'per_page' => 12,
-        'max_size' => 25,
+        'per_page' => 24,
+        'max_size' => 48,
     ],
 
     // Tax defaults

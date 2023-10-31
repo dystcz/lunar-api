@@ -48,7 +48,7 @@ class CollectionQuery extends ResourceQuery
             'page.size' => [
                 'nullable',
                 'integer',
-                'between:1,'.Config::get('lunar-api.general.pagination.max_size', 25),
+                'between:1,'.Config::get('lunar-api.general.pagination.max_size', 48),
             ],
             'sort' => [
                 'nullable',
