@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
-use Illuminate\Support\Collection as LaravelCollection;
+use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
@@ -155,35 +155,9 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     protected function registerModels(): void
     {
-        $models = [
-            \Lunar\Models\Address::class => \Dystcz\LunarApi\Domain\Addresses\Models\Address::class,
-            \Lunar\Models\Attribute::class => \Dystcz\LunarApi\Domain\Attributes\Models\Attribute::class,
-            \Lunar\Models\AttributeGroup::class => \Dystcz\LunarApi\Domain\AttributeGroups\Models\AttributeGroup::class,
-            \Lunar\Models\Brand::class => \Dystcz\LunarApi\Domain\Brands\Models\Brand::class,
-            \Lunar\Models\Cart::class => \Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
-            \Lunar\Models\CartAddress::class => \Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress::class,
-            \Lunar\Models\CartLine::class => \Dystcz\LunarApi\Domain\CartLines\Models\CartLine::class,
-            \Lunar\Models\Collection::class => \Dystcz\LunarApi\Domain\Collections\Models\Collection::class,
-            \Lunar\Models\CollectionGroup::class => \Dystcz\LunarApi\Domain\CollectionGroups\Models\CollectionGroup::class,
-            \Lunar\Models\Country::class => \Dystcz\LunarApi\Domain\Countries\Models\Country::class,
-            \Lunar\Models\Currency::class => \Dystcz\LunarApi\Domain\Currencies\Models\Currency::class,
-            \Lunar\Models\Customer::class => \Dystcz\LunarApi\Domain\Customers\Models\Customer::class,
-            \Lunar\Models\Order::class => \Dystcz\LunarApi\Domain\Orders\Models\Order::class,
-            \Lunar\Models\OrderAddress::class => \Dystcz\LunarApi\Domain\OrderAddresses\Models\OrderAddress::class,
-            \Lunar\Models\OrderLine::class => \Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine::class,
-            \Lunar\Models\Price::class => \Dystcz\LunarApi\Domain\Prices\Models\Price::class,
-            \Lunar\Models\Product::class => \Dystcz\LunarApi\Domain\Products\Models\Product::class,
-            \Lunar\Models\ProductAssociation::class => \Dystcz\LunarApi\Domain\ProductAssociations\Models\ProductAssociation::class,
-            \Lunar\Models\ProductOption::class => \Dystcz\LunarApi\Domain\ProductOptions\Models\ProductOption::class,
-            \Lunar\Models\ProductOptionValue::class => \Dystcz\LunarApi\Domain\ProductOptionValues\Models\ProductOptionValue::class,
-            \Lunar\Models\ProductType::class => \Dystcz\LunarApi\Domain\ProductTypes\Models\ProductType::class,
-            \Lunar\Models\ProductVariant::class => \Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class,
-            \Lunar\Models\Tag::class => \Dystcz\LunarApi\Domain\Tags\Models\Tag::class,
-            \Lunar\Models\Transaction::class => \Dystcz\LunarApi\Domain\Transactions\Models\Transaction::class,
-            \Lunar\Models\Url::class => \Dystcz\LunarApi\Domain\Urls\Models\Url::class,
-        ];
-
-        ModelManifest::register(LaravelCollection::make($models));
+        ModelManifest::register(
+            DomainConfigCollection::make()->getModelsForModelManifest(),
+        );
     }
 
     /**
