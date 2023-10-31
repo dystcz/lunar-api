@@ -1,5 +1,6 @@
 <?php
 
+use Dystcz\LunarApi\Domain\CollectionGroups\Models\CollectionGroup;
 use Dystcz\LunarApi\Domain\Collections\Models\Collection;
 use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
@@ -29,10 +30,69 @@ it('can list all collections', function () {
         ->expects('collections')
         ->get('/api/v1/collections');
 
-    $response->assertSuccessful()
+    $response
+        ->assertSuccessful()
         ->assertFetchedMany($models);
 
     expect($response->json('data'))->toHaveCount(3);
+})->group('collections');
+
+it('can list collections with included collection group', function () {
+    /** @var TestCase $this */
+    $models = Collection::factory()
+        ->has(
+            CollectionGroup::factory(),
+            'group',
+        )
+        ->count(4)
+        ->create();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('collections')
+        ->includePaths('group')
+        ->get('/api/v1/collections');
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedMany($models)
+        ->assertIncluded(
+            mapModelsToResponseData(
+                'collection-groups',
+                $models->pluck('group'),
+            ),
+        );
+
+    expect($response->json('data'))->toHaveCount(4);
+
+})->group('collections');
+
+it('can list collections with included default url', function () {
+    /** @var TestCase $this */
+    generateUrls();
+
+    $models = Collection::factory()
+        ->count(3)
+        ->create();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('collections')
+        ->includePaths('default_url')
+        ->get('/api/v1/collections');
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedMany($models)
+        ->assertIncluded(
+            mapModelsToResponseData(
+                'urls',
+                $models->pluck('defaultUrl'),
+            ),
+        );
+
+    expect($response->json('data'))->toHaveCount(3);
+
 })->group('collections');
 
 it('can read collection detail', function () {
@@ -44,8 +104,10 @@ it('can read collection detail', function () {
         ->expects('collections')
         ->get('/api/v1/collections/'.$model->getRouteKey());
 
-    $response->assertSuccessful()
+    $response
+        ->assertSuccessful()
         ->assertFetchedOne($model);
+
 })->group('collections');
 
 it('can read products in a collection', function () {
@@ -58,10 +120,10 @@ it('can read products in a collection', function () {
                         ->has(
                             PriceFactory::new()
                         )
-                        ->count(1),
+                        ->count(2),
                     'variants'
                 )
-                ->count(1)
+                ->count(3)
         )
         ->create();
 
@@ -71,7 +133,14 @@ it('can read products in a collection', function () {
         ->includePaths('products')
         ->get('/api/v1/collections/'.$model->getRouteKey());
 
-    $response->assertSuccessful()
+    $response
+        ->assertSuccessful()
         ->assertFetchedOne($model)
-        ->assertIsIncluded('products', $model->products->first());
+        ->assertIncluded(
+            mapModelsToResponseData(
+                'products',
+                $model->products,
+            ),
+        );
+
 })->group('collections');
