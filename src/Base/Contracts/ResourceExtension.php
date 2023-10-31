@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts;
+namespace Dystcz\LunarApi\Base\Contracts;
 
 use Closure;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Data\ExtensionValueCollection;
+use Dystcz\LunarApi\Base\Data\ExtensionValueCollection;
 
 /**
  * @property  class-string<ExtendableContract>  $class

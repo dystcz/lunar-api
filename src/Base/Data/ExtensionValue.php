@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Data;
+namespace Dystcz\LunarApi\Base\Data;
 
 use Closure;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\Extendable;
+use Dystcz\LunarApi\Base\Contracts\Extendable;
 use LaravelJsonApi\Contracts\Schema\Field;
 use LaravelJsonApi\Contracts\Schema\Filter;
 use LaravelJsonApi\Contracts\Schema\Relation;

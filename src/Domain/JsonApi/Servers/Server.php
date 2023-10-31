@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Servers;
 
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Facades\SchemaManifest;
+use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Core\Server\Server as BaseServer;
 use LaravelJsonApi\Core\Support\AppResolver;
@@ -34,6 +34,6 @@ abstract class Server extends BaseServer
      */
     protected function allSchemas(): array
     {
-        return SchemaManifest::getRegisteredSchemas()->values()->toArray();
+        return SchemaManifestFacade::getRegisteredSchemas()->values()->toArray();
     }
 }

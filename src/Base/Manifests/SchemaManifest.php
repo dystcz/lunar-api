@@ -1,12 +1,11 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema;
+namespace Dystcz\LunarApi\Base\Manifests;
 
+use Dystcz\LunarApi\Base\Contracts\SchemaExtension as SchemaExtensionContract;
+use Dystcz\LunarApi\Base\Contracts\SchemaManifest as SchemaManifestContract;
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\Schema as SchemaContract;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaExtension as SchemaExtensionContract;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaManifest as SchemaManifestContract;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Manifest;
 use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
@@ -98,11 +97,11 @@ class SchemaManifest extends Manifest implements SchemaManifestContract
      *
      * @param  class-string<Schema>  $class
      *
-     * @deprecated Use SchemaExtension::for() instead.
+     * @deprecated Use SchemaManifest::extend() instead.
      */
     public static function for(string $class): SchemaExtensionContract
     {
-        return self::extendSchema($class);
+        return self::extend($class);
     }
 
     /**
@@ -110,7 +109,7 @@ class SchemaManifest extends Manifest implements SchemaManifestContract
      *
      * @param  class-string<Schema>  $class
      */
-    public static function extendSchema(string $class): SchemaExtensionContract
+    public static function extend(string $class): SchemaExtensionContract
     {
         $self = App::make(SchemaManifestContract::class);
 

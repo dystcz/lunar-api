@@ -1,10 +1,10 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Facades;
+namespace Dystcz\LunarApi\Base\Facades;
 
+use Dystcz\LunarApi\Base\Contracts\ResourceManifest as ResourceManifestContract;
+use Dystcz\LunarApi\Base\Extensions\Extension;
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\Schema as SchemaContract;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaManifest as SchemaManifestContract;
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Extension;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
 
@@ -15,17 +15,17 @@ use Illuminate\Support\Facades\Facade;
  * @method static Collection getSchemaTypes()
  * @method static SchemaContract getRegisteredSchema(string $schemaType)
  * @method static void removeSchema(string $schemaType)
- * @method static Extension for(string $class)
+ * @method static Extension extend(string $class)
  *
- * @see \Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest
+ * @see \Dystcz\LunarApi\Base\Manifests\SchemaManifest
  */
-class SchemaManifest extends Facade
+class ResourceManifestFacade extends Facade
 {
     /**
      * Get the registered name of the component.
      */
     protected static function getFacadeAccessor(): string
     {
-        return SchemaManifestContract::class;
+        return ResourceManifestContract::class;
     }
 }

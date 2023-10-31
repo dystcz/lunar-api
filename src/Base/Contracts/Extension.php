@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts;
+namespace Dystcz\LunarApi\Base\Contracts;
 
 use Closure;
 

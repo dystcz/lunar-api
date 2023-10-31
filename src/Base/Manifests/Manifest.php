@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\JsonApi\Extensions;
+namespace Dystcz\LunarApi\Base\Manifests;
 
-use Dystcz\LunarApi\Domain\JsonApi\Contracts\Extendable;
+use Dystcz\LunarApi\Base\Contracts\Extendable;
 
 abstract class Manifest
 {
