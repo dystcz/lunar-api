@@ -79,6 +79,7 @@ return [
 
     'cart_lines' => [
         'model' => Dystcz\LunarApi\Domain\CartLines\Models\CartLine::class,
+        'lunar_model' => Lunar\Models\CartLine::class,
         'policy' => Dystcz\LunarApi\Domain\CartLines\Policies\CartLinePolicy::class,
         'schema' => Dystcz\LunarApi\Domain\CartLines\JsonApi\V1\CartLineSchema::class,
         'resource' => Dystcz\LunarApi\Domain\CartLines\JsonApi\V1\CartLineResource::class,
