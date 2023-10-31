@@ -1,6 +1,7 @@
 <?php
 
 use Dystcz\LunarApi\Support\Models\Actions\GetModelKey;
+use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -52,4 +53,13 @@ function generateUrls(): void
 
     /** @var TestCase $this */
     Config::set('lunar.urls.generator', \Lunar\Generators\UrlGenerator::class);
+}
+
+/**
+ * Turn off url generator.
+ */
+function dontGenerateUrls(): void
+{
+    /** @var TestCase $this */
+    Config::set('lunar.urls.generator', TestUrlGenerator::class);
 }
