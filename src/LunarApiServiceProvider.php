@@ -23,33 +23,16 @@ class LunarApiServiceProvider extends ServiceProvider
     protected $root = __DIR__.'/..';
 
     /**
-     * Bootstrap the application services.
-     */
-    public function boot(): void
-    {
-        $this->loadRoutesFrom("{$this->root}/routes/api.php");
-        $this->loadTranslationsFrom("{$this->root}/lang", 'lunar-api');
-
-        $this->registerModels();
-        $this->registerEvents();
-
-        LunarApi::createUserFromCartUsing(Config::get('domains.auth.actions.create_user_from_cart', CreateUserFromCart::class));
-        LunarApi::registerUserUsing(Config::get('domains.auth.actions.register_user', RegisterUser::class));
-
-        if ($this->app->runningInConsole()) {
-            $this->publishConfig();
-            $this->publishTranslations();
-            $this->registerCommands();
-        }
-    }
-
-    /**
      * Register the application services.
      */
     public function register(): void
     {
-        // Register config files.
         $this->registerConfig();
+
+        $this->loadTranslationsFrom(
+            "{$this->root}/lang",
+            'lunar-api',
+        );
 
         $this->booting(function () {
             $this->registerPolicies();
@@ -66,6 +49,26 @@ class LunarApiServiceProvider extends ServiceProvider
             PaymentAdaptersRegister::class,
             fn () => new PaymentAdaptersRegister,
         );
+    }
+
+    /**
+     * Bootstrap the application services.
+     */
+    public function boot(): void
+    {
+        $this->loadRoutesFrom("{$this->root}/routes/api.php");
+
+        $this->registerModels();
+        $this->registerEvents();
+
+        LunarApi::createUserFromCartUsing(Config::get('domains.auth.actions.create_user_from_cart', CreateUserFromCart::class));
+        LunarApi::registerUserUsing(Config::get('domains.auth.actions.register_user', RegisterUser::class));
+
+        if ($this->app->runningInConsole()) {
+            $this->publishConfig();
+            $this->publishTranslations();
+            $this->registerCommands();
+        }
     }
 
     /**
