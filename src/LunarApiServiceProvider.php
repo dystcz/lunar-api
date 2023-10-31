@@ -28,11 +28,9 @@ class LunarApiServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadRoutesFrom("{$this->root}/routes/api.php");
-
         $this->loadTranslationsFrom("{$this->root}/lang", 'lunar-api');
 
         $this->registerModels();
-
         $this->registerEvents();
 
         LunarApi::createUserFromCartUsing(Config::get('domains.auth.actions.create_user_from_cart', CreateUserFromCart::class));
@@ -40,9 +38,7 @@ class LunarApiServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
-
             $this->publishTranslations();
-
             $this->registerCommands();
         }
     }
