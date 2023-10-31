@@ -1,6 +1,6 @@
 <?php
 
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Resource\ResourceManifest;
+use Dystcz\LunarApi\Base\Manifests\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\JsonApi\V1\Server;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
@@ -13,14 +13,14 @@ use LaravelJsonApi\Core\Resources\Relation;
 uses(TestCase::class, RefreshDatabase::class);
 
 test('a resource attributes can be extended', function () {
-    ResourceManifest::for(ProductResourceMock::class)
+    ResourceManifest::extend(ProductResourceMock::class)
         ->setAttributes(fn (JsonApiResource $resource) => [
             'secret_id' => $resource->resource->id,
             'nazdar' => 'cau',
             'ahoj' => 'zdar',
         ]);
 
-    expect(ResourceManifest::for(ProductResourceMock::class)->attributes()->all()[0])
+    expect(ResourceManifest::extend(ProductResourceMock::class)->attributes()->all()[0])
         ->value()
         ->toBeInstanceOf(Closure::class);
 
@@ -42,12 +42,12 @@ test('a resource attributes can be extended', function () {
 });
 
 test('a resource relationships can be extended', function () {
-    ResourceManifest::for(ProductResourceMock::class)
+    ResourceManifest::extend(ProductResourceMock::class)
         ->setRelationships(fn (JsonApiResource $resource) => [
             $resource->relation('golden_chocolate'),
         ]);
 
-    expect(ResourceManifest::for(ProductResourceMock::class)->relationships()->all()[0])
+    expect(ResourceManifest::extend(ProductResourceMock::class)->relationships()->all()[0])
         ->value()
         ->toBeInstanceOf(Closure::class);
 

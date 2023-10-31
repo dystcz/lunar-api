@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Tests;
 
-use Dystcz\LunarApi\Domain\JsonApi\Extensions\Facades\SchemaManifest;
+use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
 use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestTaxDriver;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
@@ -149,7 +149,7 @@ abstract class TestCase extends Orchestra
         /**
          * Schema configuration.
          */
-        SchemaManifest::registerSchema(UserSchema::class);
+        SchemaManifestFacade::registerSchema(UserSchema::class);
     }
 
     /**
