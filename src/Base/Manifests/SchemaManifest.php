@@ -21,7 +21,7 @@ class SchemaManifest extends Manifest implements SchemaManifestContract
     protected Collection $schemas;
 
     /**
-     * @var Dystcz\LunarApi\Domain\JsonApi\Extensions\Contracts\SchemaExtension[]
+     * @var Dystcz\LunarApi\Base\Contracts\SchemaExtension[]
      */
     public array $extensions;
 
