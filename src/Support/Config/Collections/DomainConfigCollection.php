@@ -17,9 +17,17 @@ class DomainConfigCollection extends Collection
             return new static($items);
         }
 
+        return self::fromConfig('lunar-api.domains');
+    }
+
+    /**
+     * Create domain config collection from a given config file.
+     */
+    public static function fromConfig(string $configKey): self
+    {
         $items = array_map(function (array $domain) {
             return new DomainConfig(...$domain);
-        }, Config::get('lunar-api.domains'));
+        }, Config::get($configKey, []));
 
         return new static($items);
     }
