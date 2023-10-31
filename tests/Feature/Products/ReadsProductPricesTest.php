@@ -31,7 +31,7 @@ test('product can include prices', function () {
         ->assertFetchedOne($product)
         ->assertIsIncluded('prices', $product->prices->first());
 
-})->group(['products', 'prices']);
+})->group('products', 'prices');
 
 test('product can include lowest price', function () {
     /** @var TestCase $this */
@@ -56,4 +56,4 @@ test('product can include lowest price', function () {
 
     $response->assertFetchedOne($product)
         ->assertIsIncluded('prices', $product->lowestPrice);
-})->group(['products', 'prices']);
+})->group('products', 'prices');
