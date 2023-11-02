@@ -18,6 +18,10 @@ class OrderRequest extends ResourceRequest
                 'string',
                 'nullable',
             ],
+            'meta' => [
+                'array',
+                'nullable',
+            ],
         ];
     }
 
@@ -30,6 +34,7 @@ class OrderRequest extends ResourceRequest
     {
         return [
             'notes.string' => __('lunar-api::validations.orders.notes.string'),
+            'meta.array' => __('lunar-api::validations.orders.meta.array'),
         ];
     }
 }
