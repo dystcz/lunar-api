@@ -27,6 +27,9 @@ class CartRequest extends ResourceRequest
                 'nullable',
                 'array',
             ],
+            'agree' => [
+                'accepted',
+            ],
         ];
     }
 
@@ -60,7 +63,7 @@ class CartRequest extends ResourceRequest
             /** @var CartAddress $shippingAddress */
             $shippingAddress = $cart->shippingAddress;
 
-            if (! $shippingAddress->hasShippingOption()) {
+            if (!$shippingAddress->hasShippingOption()) {
                 $validator->errors()->add(
                     'cart',
                     // TODO: Make translatable
