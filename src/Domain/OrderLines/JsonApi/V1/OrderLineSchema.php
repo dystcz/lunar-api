@@ -84,7 +84,10 @@ class OrderLineSchema extends Schema
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
-                ArrayHash::make('tax_breakdown'),
+                ArrayHash::make('tax_breakdown', 'taxBreakdown')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->amounts,
+                    ),
             ]),
 
             BelongsTo::make('order')

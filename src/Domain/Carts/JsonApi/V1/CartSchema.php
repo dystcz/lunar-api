@@ -91,8 +91,14 @@ class CartSchema extends Schema
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
-                ArrayHash::make('tax_breakdown', 'taxBreakdown'),
-                ArrayHash::make('discount_breakdown', 'discountBreakdown'),
+                ArrayHash::make('tax_breakdown', 'taxBreakdown')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->amounts,
+                    ),
+                ArrayHash::make('discount_breakdown', 'discountBreakdown')
+                    ->serializeUsing(
+                        static fn ($value) => $value,
+                    ),
             ]),
 
             Str::make('coupon_code'),

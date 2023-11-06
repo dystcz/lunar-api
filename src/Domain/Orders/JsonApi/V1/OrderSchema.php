@@ -130,11 +130,17 @@ class OrderSchema extends Schema
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
-                ArrayHash::make('tax_breakdown'),
-                ArrayHash::make('discount_breakdown'),
+                ArrayHash::make('tax_breakdown', 'taxBreakdown')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->amounts,
+                    ),
                 ArrayHash::make('shipping_breakdown')
                     ->serializeUsing(
                         static fn ($value) => $value?->items,
+                    ),
+                ArrayHash::make('discount_breakdown', 'discountBreakdown')
+                    ->serializeUsing(
+                        static fn ($value) => $value,
                     ),
                 Number::make('exchange_rate'),
             ]),
