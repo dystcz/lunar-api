@@ -8,7 +8,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-it('works', function () {
+it('can list customers orders', function () {
+    /** @var TestCase $this */
     $customer = Customer::factory()
         ->withOrder()
         ->has(User::factory())
