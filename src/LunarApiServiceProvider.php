@@ -78,7 +78,7 @@ class LunarApiServiceProvider extends ServiceProvider
     {
         foreach ($this->configFiles as $configFile) {
             $this->publishes([
-                "{$this->root}/config/{$configFile}.php" => config_path("lunar-api.{$configFile}.php"),
+                "{$this->root}/config/{$configFile}.php" => config_path("lunar-api/{$configFile}.php"),
             ], 'lunar-api');
         }
 
