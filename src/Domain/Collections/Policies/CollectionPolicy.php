@@ -49,4 +49,20 @@ class CollectionPolicy
     {
         return false;
     }
+
+    /**
+     * Authorize a user to view collections's products.
+     */
+    public function viewProducts(?Authenticatable $user, Collection $collection): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view collection's default url.
+     */
+    public function viewDefaultUrl(?Authenticatable $user, Collection $collection): bool
+    {
+        return true;
+    }
 }
