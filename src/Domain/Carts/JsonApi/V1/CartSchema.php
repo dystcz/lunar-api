@@ -109,6 +109,9 @@ class CartSchema extends Schema
 
             ArrayHash::make('meta'),
 
+            Boolean::make('agree')
+                ->hidden(),
+
             HasOne::make('order', 'draftOrder')
                 ->type('orders')
                 ->serializeUsing(
