@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\FilterCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
@@ -185,6 +186,8 @@ class ProductSchema extends Schema
     {
         return [
             ...parent::sortables(),
+
+            InRandomOrder::make('random'),
         ];
     }
 
