@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Queries\Query;
-use LaravelJsonApi\Validation\Rule as JsonApiRule;
 
 class CollectionQuery extends Query
 {
@@ -19,29 +18,18 @@ class CollectionQuery extends Query
     {
         return [
             ...parent::rules(),
+        ];
+    }
 
-            'fields' => [
-                'nullable',
-                'array',
-                JsonApiRule::fieldSets(),
-            ],
-            'filter' => [
-                'nullable',
-                'array',
-                JsonApiRule::filter()->forget('id'),
-            ],
-            'include' => [
-                'nullable',
-                'string',
-                JsonApiRule::includePaths(),
-            ],
-            'page' => JsonApiRule::notSupported(),
-            'sort' => JsonApiRule::notSupported(),
-            'withCount' => [
-                'nullable',
-                'string',
-                JsonApiRule::countable(),
-            ],
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string,string>
+     */
+    public function messages(): array
+    {
+        return [
+            ...parent::messages(),
         ];
     }
 }
