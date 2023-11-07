@@ -62,6 +62,12 @@ return [
             'string' => 'Coupon code field must be a string.',
             'invalid' => 'The coupon is not valid or has been used too many times',
         ],
+        'agree' => [
+            'accepted' => 'You must agree to the terms and conditions.',
+        ],
+        'shipping_option' => [
+            'required' => 'Please select a shipping option.',
+        ],
     ],
 
     'cart_addresses' => [

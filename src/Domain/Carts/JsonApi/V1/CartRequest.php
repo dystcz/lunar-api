@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Validator;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
@@ -43,6 +43,7 @@ class CartRequest extends ResourceRequest
         return [
             'create_user.boolean' => __('lunar-api::validation.cart.create_user.boolean'),
             'meta.array' => __('lunar-api::validation.cart.meta.array'),
+            'agree.accepted' => __('lunar-api::validation.cart.agree.accepted'),
         ];
     }
 
@@ -63,11 +64,10 @@ class CartRequest extends ResourceRequest
             /** @var CartAddress $shippingAddress */
             $shippingAddress = $cart->shippingAddress;
 
-            if (!$shippingAddress->hasShippingOption()) {
+            if (! $shippingAddress->hasShippingOption()) {
                 $validator->errors()->add(
                     'cart',
-                    // TODO: Make translatable
-                    'Please select a shipping option.'
+                    __('lunar-api::validation.cart.shipping_option.required'),
                 );
             }
         });
