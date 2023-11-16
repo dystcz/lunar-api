@@ -85,6 +85,7 @@ it('can read order details when accessing order with valid signature', function 
         ->withData([
             'type' => 'carts',
             'attributes' => [
+                'agree' => true,
                 'create_user' => false,
             ],
         ])

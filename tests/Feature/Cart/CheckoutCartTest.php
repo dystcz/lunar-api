@@ -40,6 +40,7 @@ test('a user can checkout a cart', function () {
         ->withData([
             'type' => 'carts',
             'attributes' => [
+                'agree' => true,
                 'create_user' => false,
             ],
         ])
@@ -86,6 +87,7 @@ test('a user can be registered when checking out', function () {
         ->withData([
             'type' => 'carts',
             'attributes' => [
+                'agree' => true,
                 'create_user' => true,
             ],
         ])
@@ -138,6 +140,7 @@ it('does not forget cart after checkout if configured', function () {
         ->withData([
             'type' => 'carts',
             'attributes' => [
+                'agree' => true,
                 'create_user' => false,
             ],
         ])
@@ -175,6 +178,7 @@ it('forgets cart after checkout if configured', function () {
         ->withData([
             'type' => 'carts',
             'attributes' => [
+                'agree' => true,
                 'create_user' => false,
             ],
         ])
@@ -210,6 +214,7 @@ it('returns signed urls for order actions', function () {
         ->withData([
             'type' => 'carts',
             'attributes' => [
+                'agree' => true,
                 'create_user' => false,
             ],
         ])
