@@ -98,12 +98,17 @@ class OrderPolicy
             return true;
         }
 
-        if (
-            // If order show route should be signed and signature is valid
-            (Config::get('lunar-api.domains.orders.settings.sign_show_route', true) && $this->request->hasValidSignature())
-                // If env is  local
-                || App::environment('local')
-        ) {
+        $signsUrl = Config::get('lunar-api.domains.orders.settings.sign_show_route', true);
+        $validSignature = $this->request->hasValidSignatureWhileIgnoring([
+            'include',
+            'fields',
+            'sort',
+            'page',
+            'filter',
+        ]);
+
+        // If order show route should be signed and signature is valid
+        if (($signsUrl && $validSignature) || App::environment('local')) {
             return true;
         }
 
