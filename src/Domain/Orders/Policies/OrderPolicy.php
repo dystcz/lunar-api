@@ -5,11 +5,21 @@ namespace Dystcz\LunarApi\Domain\Orders\Policies;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Lunar\Facades\CartSession;
 
 class OrderPolicy
 {
     use HandlesAuthorization;
+
+    private Request $request;
+
+    public function __construct()
+    {
+        $this->request = App::get('request');
+    }
 
     /**
      * Determine whether the user can view any models.
@@ -48,8 +58,11 @@ class OrderPolicy
             return true;
         }
 
-        // TODO: User authorizer
-        if (request()->hasValidSignature()) {
+        if (
+            Config::get('lunar-api.domains.orders.sign_show_route', false)
+            && $this->request->hasValidSignature()
+            || App::environment('local')
+        ) {
             return true;
         }
 

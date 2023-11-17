@@ -22,6 +22,10 @@ class ProductResource extends JsonApiResource
             $model->variants->each(fn ($variant) => $variant->setRelation('product', $model));
         }
 
+        if ($model->relationLoaded('cheapestVariant')) {
+            $model->cheapestVariant->setRelation('product', $model);
+        }
+
         return parent::attributes($request);
     }
 }

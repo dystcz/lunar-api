@@ -3,9 +3,11 @@
 namespace Dystcz\LunarApi\Domain\Orders\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
@@ -30,10 +32,12 @@ class OrderSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'customer',
-            'user',
+            'addresses',
+            'addresses.country',
 
             'currency',
+
+            'customer',
 
             'addresses',
             'addresses.country',
@@ -42,14 +46,11 @@ class OrderSchema extends Schema
             'billingAddress',
             'billingAddress.country',
 
+            // Order Lines
             'lines',
             'lines.currency',
-            'lines.purchasable',
-            'lines.purchasable.prices',
-            'lines.purchasable.images',
-            'lines.purchasable.product',
-            'lines.purchasable.product.thumbnail',
 
+            // Product lines
             'productLines',
             'productLines.currency',
             'productLines.purchasable',
@@ -58,13 +59,29 @@ class OrderSchema extends Schema
             'productLines.purchasable.product',
             'productLines.purchasable.product.thumbnail',
 
+            // Physical product lines
+            'physicalLines',
+            'physicalLines.currency',
+            'physicalLines.purchasable',
+            'physicalLines.purchasable.prices',
+            'physicalLines.purchasable.images',
+            'physicalLines.purchasable.product',
+            'physicalLines.purchasable.product.thumbnail',
+
+            // Digital product lines
+            'digitalLines',
+            'digitalLines.currency',
+            'digitalLines.purchasable',
+            'digitalLines.purchasable.prices',
+            'digitalLines.purchasable.images',
+            'digitalLines.purchasable.product',
+            'digitalLines.purchasable.product.thumbnail',
+
+            // Shipping lines
             'shippingLines',
             'shippingLines.currency',
-            'shippingLines.purchasable',
-            'shippingLines.purchasable.prices',
-            'shippingLines.purchasable.images',
-            'shippingLines.purchasable.product',
-            'shippingLines.purchasable.product.thumbnail',
+
+            'user',
 
             ...parent::includePaths(),
         ];
@@ -83,20 +100,41 @@ class OrderSchema extends Schema
             Str::make('notes'),
             Str::make('currency_code'),
             Str::make('compare_currency_code'),
-            Number::make('sub_total'),
-            Number::make('discount_total'),
-            Number::make('shipping_total'),
-            Number::make('tax_total'),
-            Number::make('total'),
-            Number::make('exchange_rate'),
+            Map::make('prices', [
+                Number::make('sub_total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('total', 'total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('tax_total', 'tax_total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('discount_total', 'discount_total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                Number::make('shipping_total', 'shipping_total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
+                ArrayHash::make('tax_breakdown'),
+                ArrayHash::make('discount_breakdown'),
+                Number::make('exchange_rate'),
+            ]),
             DateTime::make('placed_at'),
             DateTime::make('created_at'),
             DateTime::make('updated_at'),
             // ArrayHash::make('meta'),
 
             HasMany::make('lines')->type('order-lines'),
-            HasMany::make('shippingLines')->type('order-lines'),
             HasMany::make('productLines')->type('order-lines'),
+            HasMany::make('digitalLines')->type('order-lines'),
+            HasMany::make('physicalLines')->type('order-lines'),
+            HasMany::make('shippingLines')->type('order-lines'),
 
             BelongsTo::make('customer'),
             BelongsTo::make('user'),

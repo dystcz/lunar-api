@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\Prices\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\Prices\Actions\GetPrice;
+use Dystcz\LunarApi\Domain\Prices\Actions\GetPriceWithoutDefaultTax;
 use Dystcz\LunarApi\Domain\Prices\JsonApi\Filters\MaxPriceFilter;
 use Dystcz\LunarApi\Domain\Prices\JsonApi\Filters\MinPriceFilter;
 use LaravelJsonApi\Eloquent\Fields\ID;
@@ -47,6 +48,30 @@ class PriceSchema extends Schema
                     ->extractUsing(static function (Price $model) {
                         /** @var PriceDataType $basePrice */
                         $price = (new GetPrice)($model->price, $model->priceable);
+
+                        return $price->value;
+                    }),
+            ]),
+
+            Map::make('sub_price', [
+                Str::make('formatted')
+                    ->extractUsing(static function (Price $model) {
+                        /** @var PriceDataType $basePrice */
+                        $price = (new GetPriceWithoutDefaultTax)($model->price, $model->priceable);
+
+                        return $price->formatted();
+                    }),
+                Number::make('decimal')
+                    ->extractUsing(static function (Price $model) {
+                        /** @var PriceDataType $basePrice */
+                        $price = (new GetPriceWithoutDefaultTax)($model->price, $model->priceable);
+
+                        return $price->decimal;
+                    }),
+                Number::make('value')
+                    ->extractUsing(static function (Price $model) {
+                        /** @var PriceDataType $basePrice */
+                        $price = (new GetPriceWithoutDefaultTax)($model->price, $model->priceable);
 
                         return $price->value;
                     }),

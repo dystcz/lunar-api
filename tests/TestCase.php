@@ -138,12 +138,6 @@ abstract class TestCase extends Orchestra
             'username' => 'homestead',
             'password' => 'secret',
         ]);
-
-        Config::set('services.stripe', [
-            'public_key' => env('STRIPE_PUBLIC_KEY'),
-            'key' => env('STRIPE_SECRET_KEY'),
-            'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
-        ]);
     }
 
     /**

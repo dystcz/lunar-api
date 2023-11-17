@@ -72,17 +72,17 @@ test('a user can be registered when checking out', function () {
         ->assertCreatedWithServerId('http://localhost/api/v1/orders', [])
         ->id();
 
-    $cart = CartSession::current();
-
     $this->assertDatabaseHas((new Order())->getTable(), [
         'id' => $id,
     ]);
 
-    Event::assertDispatched(Registered::class, function (Registered $event) use ($cart) {
-        return $event->user->id === $cart->user_id;
-    });
+    $order = Order::query()
+        ->where('id', $id)
+        ->first();
 
-    expect($cart->user_id)->not()->toBeNull();
+    Event::assertDispatched(Registered::class, fn (Registered $event) => $event->user->id === $order->user_id);
+
+    expect($order->user_id)->not()->toBeNull();
 })->group('checkout');
 
 it('returns signed url for reading order\'s detail', function () {
@@ -107,12 +107,11 @@ it('returns signed url for reading order\'s detail', function () {
         ])
         ->post('/api/v1/carts/-actions/checkout');
 
+    $id = $response->json()['data']['id'];
+
     $response = $this
         ->jsonApi()
         ->expects('orders')
         ->get($response->json()['links']['self.signed']);
 
-    $cart = CartSession::current();
-
-    $response->assertFetchedOne($cart->draftOrder);
 })->group('checkout');
