@@ -17,13 +17,6 @@ return [
         //
     ],
 
-    // Mapping for the Lunar API compatible payment providers
-    'payment_intent_providers' => [
-        'stripe' => Dystcz\LunarApi\Domain\Payments\Actions\CreateStripePaymentIntent::class,
-        'paypal' => Dystcz\LunarApi\Domain\Payments\Actions\CreatePaypalPaymentIntent::class,
-        'mollie' => Dystcz\LunarApi\Domain\Payments\Actions\CreateMolliePaymentIntent::class,
-    ],
-
     'auth' => [
         'actions' => [
             'create_user_from_cart' => Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart::class,
@@ -140,6 +133,7 @@ return [
             'route_groups' => [
                 Dystcz\LunarApi\Domain\Orders\Http\Routing\OrderRouteGroup::class,
             ],
+            'sign_show_route' => false,
         ],
 
         'order_lines' => [

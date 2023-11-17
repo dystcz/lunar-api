@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaExtension;
 use Dystcz\LunarApi\Domain\JsonApi\Extensions\Schema\SchemaManifest;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\Rule;
@@ -14,11 +15,13 @@ class CreatePaymentIntentRequest extends ResourceRequest
     // Hack to add a field to the schema on the fly
     protected function prepareForValidation(): void
     {
-        SchemaManifest::for(OrderSchema::class)
-            ->setFields([
-                Str::make('payment_method'),
-                ArrayList::make('meta')]
-            );
+        /** @var SchemaExtension $orderSchemaExtension */
+        $orderSchemaExtension = SchemaManifest::for(OrderSchema::class);
+
+        $orderSchemaExtension->setFields([
+            Str::make('payment_method'),
+            ArrayList::make('meta'),
+        ]);
     }
 
     /**

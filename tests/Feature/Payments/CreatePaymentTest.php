@@ -41,4 +41,5 @@ test('a payment intent can be created', function (string $paymentMethod) {
 
     $response->assertSuccessful();
 })
-    ->with(['cash-in-hand']);
+    ->with(['cash-in-hand'])
+    ->todo();

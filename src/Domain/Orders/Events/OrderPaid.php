@@ -9,7 +9,10 @@ class OrderPaid
 {
     use Dispatchable;
 
+    public $order;
+
     public function __construct(Order $order)
     {
+        $this->order = $order;
     }
 }

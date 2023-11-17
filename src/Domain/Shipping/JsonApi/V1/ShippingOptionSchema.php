@@ -47,4 +47,12 @@ class ShippingOptionSchema extends Schema
             ->withServer($this->server)
             ->withSchema($this);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function type(): string
+    {
+        return 'shipping-options';
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Models;
 
+use Dystcz\LunarApi\Domain\Attributes\Traits\InteractsWithAttributes;
 use Dystcz\LunarApi\Domain\ProductVariants\Enums\PurchaseStatus;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -13,6 +14,8 @@ use Lunar\Models\ProductVariant as LunarPoductVariant;
 
 class ProductVariant extends LunarPoductVariant
 {
+    use InteractsWithAttributes;
+
     /**
      * Create a new factory instance for the model.
      */
@@ -46,8 +49,8 @@ class ProductVariant extends LunarPoductVariant
     {
         // TODO: Not working, finish
         return $this->product->morphOne(config('media-library.media_model'), 'model')
-        ->where(function ($query) {
-            $query->where('id', function ($q) {
+            ->where(function ($query) {
+                $query->where('id', function ($q) {
                     $prefix = Config::get('lunar.database.table_prefix');
 
                     return $q->from("{$prefix}media_product_variant")
