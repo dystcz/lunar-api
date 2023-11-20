@@ -4,10 +4,10 @@ return [
 
     'addresses' => [
         'company_in' => [
-            'string' => 'Company in field must be a string.',
+            'string' => 'Company ID must be a string.',
         ],
         'company_tin' => [
-            'string' => 'Company tin field must be a string.',
+            'string' => 'Company tax ID field must be a string.',
         ],
         'line_one' => [
             'required' => 'Line one field is required.',
@@ -162,10 +162,10 @@ return [
             'string' => 'Company name field must be a string.',
         ],
         'vat_no' => [
-            'string' => 'Vat no field must be a string.',
+            'string' => 'Company tax ID must be a string.',
         ],
         'account_ref' => [
-            'string' => 'Account ref field must be a string.',
+            'string' => 'Company ID must be a string.',
         ],
     ],
 
