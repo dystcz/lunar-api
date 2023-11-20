@@ -50,7 +50,7 @@ return [
         ],
     ],
 
-    'cart' => [
+    'carts' => [
         'create_user' => [
             'boolean' => 'Create user field must be a boolean.',
         ],

@@ -50,7 +50,7 @@ return [
         ],
     ],
 
-    'cart' => [
+    'carts' => [
         'create_user' => [
             'boolean' => 'Pole vytvořit uživatele musí být logická hodnota.',
         ],
