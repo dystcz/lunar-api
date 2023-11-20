@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\Discounts\Data\DiscountBreakdown;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
@@ -10,6 +11,7 @@ use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use Lunar\Base\ValueObjects\Cart\DiscountBreakdown as LunarDiscountBreakdown;
 use Lunar\Models\Cart;
 
 class CartSchema extends Schema
@@ -97,7 +99,9 @@ class CartSchema extends Schema
                     ),
                 ArrayHash::make('discount_breakdown', 'discountBreakdown')
                     ->serializeUsing(
-                        static fn ($value) => $value,
+                        static fn ($value) => $value?->map(function (LunarDiscountBreakdown $discountBreakdown) {
+                            return (new DiscountBreakdown($discountBreakdown))->toArray();
+                        })
                     ),
             ]),
 
