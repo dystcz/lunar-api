@@ -58,17 +58,17 @@ class OrderLineSchema extends Schema
             Str::make('notes'),
 
             Map::make('prices', [
-                Number::make('unit_price')
+                Number::make('unit_price', 'unitPrice')
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
-                Number::make('unit_quantity'),
-                Number::make('quantity'),
-                Number::make('sub_total')
+                Number::make('unit_quantity', 'unitQuantity'),
+                Number::make('quantity', 'quantity'),
+                Number::make('sub_total', 'subTotal')
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
-                Number::make('sub_total_discounted')
+                Number::make('sub_total_discounted', 'subTotalDiscounted')
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
@@ -76,11 +76,11 @@ class OrderLineSchema extends Schema
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
-                Number::make('tax_total', 'tax_total')
+                Number::make('tax_total', 'taxTotal')
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
-                Number::make('discount_total', 'discount_total')
+                Number::make('discount_total', 'discountTotal')
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
