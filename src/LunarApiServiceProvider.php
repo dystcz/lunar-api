@@ -169,6 +169,5 @@ class LunarApiServiceProvider extends ServiceProvider
             ->each(
                 fn (string $policy, string $model) => Gate::policy($model, $policy),
             );
-
     }
 }

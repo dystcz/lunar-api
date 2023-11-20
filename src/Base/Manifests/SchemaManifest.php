@@ -61,7 +61,7 @@ class SchemaManifest extends Manifest implements SchemaManifestContract
     }
 
     /**
-     * Get list of all registered models.
+     * Get list of all registered schemas.
      */
     public function getRegisteredSchemas(): Collection
     {
@@ -81,7 +81,7 @@ class SchemaManifest extends Manifest implements SchemaManifestContract
      */
     public function getRegisteredSchema(string $schemaType): SchemaContract
     {
-        return App::make($this->models->get($schemaType) ?? $schemaType);
+        return App::make($this->schemas->get($schemaType) ?? $schemaType);
     }
 
     /**
