@@ -41,9 +41,9 @@ class CartRequest extends ResourceRequest
     public function messages(): array
     {
         return [
-            'create_user.boolean' => __('lunar-api::validation.cart.create_user.boolean'),
-            'meta.array' => __('lunar-api::validation.cart.meta.array'),
-            'agree.accepted' => __('lunar-api::validation.cart.agree.accepted'),
+            'create_user.boolean' => __('lunar-api::validations.carts.create_user.boolean'),
+            'meta.array' => __('lunar-api::validations.carts.meta.array'),
+            'agree.accepted' => __('lunar-api::validations.carts.agree.accepted'),
         ];
     }
 
@@ -67,7 +67,7 @@ class CartRequest extends ResourceRequest
             if (! $shippingAddress->hasShippingOption()) {
                 $validator->errors()->add(
                     'cart',
-                    __('lunar-api::validation.cart.shipping_option.required'),
+                    __('lunar-api::validations.carts.shipping_option.required'),
                 );
             }
         });
