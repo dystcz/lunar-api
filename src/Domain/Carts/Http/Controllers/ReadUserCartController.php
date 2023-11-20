@@ -19,7 +19,7 @@ class ReadUserCartController extends Controller
      *
      * @return Responsable|Response
      */
-    public function myCart(Route $route, StoreContract $store)
+    public function myCart(Route $route, StoreContract $store): DataResponse
     {
         // $this->authorize('viewAny', Cart::class);
 
@@ -35,6 +35,8 @@ class ReadUserCartController extends Controller
             ->withRequest($request)
             ->first();
 
-        return DataResponse::make($model)->withQueryParameters($request);
+        return DataResponse::make($model)
+            ->withQueryParameters($request)
+            ->didntCreate();
     }
 }
