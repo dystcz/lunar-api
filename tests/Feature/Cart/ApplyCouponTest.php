@@ -31,7 +31,7 @@ uses(TestCase::class, RefreshDatabase::class);
 //     ]);
 // }
 
-test('a user can apply a valid coupon', function () {
+test('a user can apply a valid fixed value coupon', function () {
     Event::fake(CartCreated::class);
 
     /** @var TestCase $this */
@@ -114,10 +114,95 @@ test('a user can apply a valid coupon', function () {
 
     $cart = CartSession::current();
 
-    $this->assertEquals(1000, $cart->discountTotal->value);
-    $this->assertEquals(10000, $cart->subTotal->value);
-    $this->assertEquals(9000, $cart->subTotalDiscounted->value);
-    $this->assertEquals(10800, $cart->total->value);
-    $this->assertEquals(1800, $cart->taxTotal->value);
+    $this->assertEquals(10 * 100, $cart->discountTotal->value);
+    $this->assertEquals(100 * 100, $cart->subTotal->value);
+    $this->assertEquals(90 * 100, $cart->subTotalDiscounted->value);
+    $this->assertEquals(108 * 100, $cart->total->value);
+    $this->assertEquals(18 * 100, $cart->taxTotal->value);
+    $this->assertCount(1, $cart->discounts);
+})->group('coupons');
+
+test('a user can apply a valid percentage coupon', function () {
+    Event::fake(CartCreated::class);
+
+    /** @var TestCase $this */
+    $currency = Currency::getDefault();
+
+    $customerGroup = CustomerGroup::getDefault();
+
+    $channel = Channel::getDefault();
+
+    $purchasableA = ProductVariantFactory::new()->create();
+
+    Price::factory()->create([
+        'price' => 2000, // 20 EUR
+        'tier' => 1,
+        'currency_id' => $currency->id,
+        'priceable_type' => $purchasableA->getMorphClass(),
+        'priceable_id' => $purchasableA->id,
+    ]);
+
+    $cart = Cart::factory()->create([
+        'currency_id' => $currency->id,
+        'channel_id' => $channel->id,
+    ]);
+
+    $cart->lines()->create([
+        'purchasable_type' => $purchasableA->getMorphClass(),
+        'purchasable_id' => $purchasableA->id,
+        'quantity' => 10,
+    ]);
+
+    $discount = DiscountFactory::new()->create([
+        'type' => AmountOff::class,
+        'name' => 'Test Coupon',
+        'coupon' => 'SWAG10',
+        'data' => [
+            'fixed_value' => false,
+            'percentage' => 10,
+        ],
+    ]);
+
+    $discount->customerGroups()->sync([
+        $customerGroup->id => [
+            'enabled' => true,
+            'starts_at' => Carbon::now(),
+        ],
+    ]);
+
+    $discount->channels()->sync([
+        $channel->id => [
+            'enabled' => true,
+            'starts_at' => Carbon::now()->subHour(),
+        ],
+    ]);
+
+    CartSession::use($cart);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('carts')
+        ->withData([
+            'type' => 'carts',
+            'attributes' => [
+                'coupon_code' => 'swag10',
+            ],
+        ])
+        ->post('/api/v1/carts/-actions/apply-coupon');
+
+    $response->assertSuccessful();
+
+    $this->assertDatabaseHas($cart->getTable(), [
+        'id' => $cart->id,
+        'coupon_code' => 'SWAG10',
+    ]);
+
+    $cart = CartSession::current();
+
+    $this->assertEquals(20 * 100, $cart->discountTotal->value);
+    $this->assertEquals(200 * 100, $cart->subTotal->value);
+    $this->assertEquals(180 * 100, $cart->subTotalDiscounted->value);
+    $this->assertEquals(216 * 100, $cart->total->value);
+    $this->assertEquals(36 * 100, $cart->taxTotal->value);
     $this->assertCount(1, $cart->discounts);
 })->group('coupons');
