@@ -46,6 +46,8 @@ class ProductVariantSchema extends Schema
 
             Number::make('stock'),
 
+            Number::make('backorder'),
+
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
 
