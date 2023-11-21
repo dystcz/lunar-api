@@ -20,7 +20,7 @@ enum PurchaseStatus implements Arrayable
     {
         return match (true) {
             $productVariant->stock <= 0 && $productVariant->purchasable === 'in_stock' => self::OUT_OF_STOCK,
-            $productVariant->backorder >= 0 && $productVariant->purchasable === 'backorder' => self::BACKORDER,
+            $productVariant->backorder > 0 && $productVariant->purchasable === 'backorder' => self::BACKORDER,
             default => self::AVAILABLE,
         };
     }
