@@ -33,7 +33,7 @@ abstract class RouteGroup implements RouteGroupContract
     }
 
     /**
-     * Register routes.
+     * Static constructor.
      */
     public static function make(string $prefix = '', array|string $middleware = []): self
     {
@@ -43,15 +43,7 @@ abstract class RouteGroup implements RouteGroupContract
     /**
      * Register routes.
      */
-    public function routes(): void
-    {
-        $this->router->group([
-            'prefix' => $this->getPrefix($this->getPrefix()),
-            'middleware' => $this->getMiddleware($this->getMiddleware()),
-        ], function () {
-            // Add routes here in the class that extends this class
-        });
-    }
+    abstract public function routes(): void;
 
     /**
      * Get prefix for route group.
