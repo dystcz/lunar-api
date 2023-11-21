@@ -379,7 +379,7 @@ return [
         'resource' => Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantResource::class,
         'query' => Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantCollectionQuery::class,
-        'routes' => null,
+        'routes' => Dystcz\LunarApi\Domain\ProductVariants\Http\Routing\ProductVariantRouteGroup::class,
         'route_actions' => [],
         'settings' => [],
     ],
