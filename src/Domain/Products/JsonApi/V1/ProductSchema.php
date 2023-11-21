@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Illuminate\Support\Facades\Config;
+use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasManyThrough;
@@ -89,6 +90,8 @@ class ProductSchema extends Schema
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
+
+            Boolean::make('in_stock'),
 
             HasMany::make('associations')
                 ->type('associations')

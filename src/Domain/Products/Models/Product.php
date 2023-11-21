@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Models;
 
+use Dystcz\LunarApi\Domain\Products\Actions\IsInStock;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -87,16 +88,16 @@ class Product extends LunarProduct
                 'product_id',
                 'priceable_id'
             )
-            ->where($pricesTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
-                $query->select($pricesTable.'.id')
+            ->where($pricesTable . '.id', function ($query) use ($variantsTable, $pricesTable) {
+                $query->select($pricesTable . '.id')
                     ->from($pricesTable)
                     ->where('priceable_type', ProductVariant::class)
                     ->whereIn('priceable_id', function ($query) use ($variantsTable) {
                         $query->select('variants.id')
-                            ->from($variantsTable.' as variants')
+                            ->from($variantsTable . ' as variants')
                             ->whereRaw("variants.product_id = {$variantsTable}.product_id");
                     })
-                    ->orderBy($pricesTable.'.price', 'asc')
+                    ->orderBy($pricesTable . '.price', 'asc')
                     ->limit(1);
             });
     }
@@ -111,16 +112,16 @@ class Product extends LunarProduct
 
         return $this
             ->hasOne(ProductVariant::class)
-            ->where($variantsTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
+            ->where($variantsTable . '.id', function ($query) use ($variantsTable, $pricesTable) {
                 $query
                     ->select('variants.id')
-                    ->from($variantsTable.' as variants')
+                    ->from($variantsTable . ' as variants')
                     ->join($pricesTable, function ($join) {
                         $join->on('priceable_id', '=', 'variants.id')
                             ->where('priceable_type', ProductVariant::class);
                     })
                     ->whereRaw("variants.product_id = {$variantsTable}.product_id")
-                    ->orderBy($pricesTable.'.price', 'asc')
+                    ->orderBy($pricesTable . '.price', 'asc')
                     ->limit(1);
             });
     }
@@ -131,5 +132,10 @@ class Product extends LunarProduct
     public function basePrices(): HasManyThrough
     {
         return $this->prices()->whereTier(1)->whereNull('customer_group_id');
+    }
+
+    public function getInStockAttribute(): bool
+    {
+        return (new IsInStock)($this);
     }
 }
