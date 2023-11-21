@@ -11,8 +11,6 @@ class RegisterRoutesFromConfig extends Action
     {
         DomainConfigCollection::fromConfig($configKey ?? 'lunar-api.domains')
             ->getRoutes()
-            ->each(
-                fn (string $routeGroup, string $schemaType) => $routeGroup::make($schemaType)->routes(),
-            );
+            ->each(fn (string $routeGroup, string $schemaType) => $routeGroup::make($schemaType)->routes());
     }
 }

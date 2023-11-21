@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi;
 
-use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Repository;
 use Illuminate\Support\ServiceProvider;
 
 class JsonApiServiceProvider extends ServiceProvider
@@ -34,7 +33,7 @@ class JsonApiServiceProvider extends ServiceProvider
         // Register custom repository
         $this->app->bind(
             \LaravelJsonApi\Eloquent\Repository::class,
-            fn () => Repository::class,
+            fn () => \Dystcz\LunarApi\Domain\JsonApi\Eloquent\Repository::class,
         );
 
         // Register schema extension implementation
