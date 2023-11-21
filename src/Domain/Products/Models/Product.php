@@ -5,13 +5,14 @@ namespace Dystcz\LunarApi\Domain\Products\Models;
 use Dystcz\LunarApi\Domain\Products\Actions\IsInStock;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use Lunar\Models\Attribute;
+use Lunar\Models\Attribute as LunarAttribute;
 use Lunar\Models\Price;
 use Lunar\Models\Product as LunarProduct;
 use Lunar\Models\ProductType;
@@ -41,7 +42,7 @@ class Product extends LunarProduct
         }
 
         $relation = new MorphToMany(
-            Attribute::query(),
+            LunarAttribute::query(),
             new ProductType(['id' => $this->product_type_id]),
             'attributable',
             "{$prefix}attributables",
@@ -89,16 +90,16 @@ class Product extends LunarProduct
                 'product_id',
                 'priceable_id'
             )
-            ->where($pricesTable . '.id', function ($query) use ($variantsTable, $pricesTable) {
-                $query->select($pricesTable . '.id')
+            ->where($pricesTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
+                $query->select($pricesTable.'.id')
                     ->from($pricesTable)
                     ->where('priceable_type', ProductVariant::class)
                     ->whereIn('priceable_id', function ($query) use ($variantsTable) {
                         $query->select('variants.id')
-                            ->from($variantsTable . ' as variants')
+                            ->from($variantsTable.' as variants')
                             ->whereRaw("variants.product_id = {$variantsTable}.product_id");
                     })
-                    ->orderBy($pricesTable . '.price', 'asc')
+                    ->orderBy($pricesTable.'.price', 'asc')
                     ->limit(1);
             });
     }
@@ -113,16 +114,16 @@ class Product extends LunarProduct
 
         return $this
             ->hasOne(ProductVariant::class)
-            ->where($variantsTable . '.id', function ($query) use ($variantsTable, $pricesTable) {
+            ->where($variantsTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
                 $query
                     ->select('variants.id')
-                    ->from($variantsTable . ' as variants')
+                    ->from($variantsTable.' as variants')
                     ->join($pricesTable, function ($join) {
                         $join->on('priceable_id', '=', 'variants.id')
                             ->where('priceable_type', ProductVariant::class);
                     })
                     ->whereRaw("variants.product_id = {$variantsTable}.product_id")
-                    ->orderBy($pricesTable . '.price', 'asc')
+                    ->orderBy($pricesTable.'.price', 'asc')
                     ->limit(1);
             });
     }
@@ -132,23 +133,34 @@ class Product extends LunarProduct
      */
     public function basePrices(): HasManyThrough
     {
-        return $this->prices()->whereTier(1)->whereNull('customer_group_id');
+        return $this
+            ->prices()
+            ->where('tier', 1)
+            ->where('customer_group_id', null);
     }
 
-
-
-    public function getInStockAttribute(): bool
+    /**
+     * Get in stock attribute.
+     */
+    public function inStock(): Attribute
     {
         if ($this->relationLoaded('variants')) {
-            $isInStock = (new IsInStock())($this);
-            Cache::put("product-{$this->id}-in-stock", $isInStock, 3600);
-            return $isInStock;
+            $inStock = (new IsInStock)($this);
+            Cache::put("product-{$this->id}-in-stock", $inStock, 3600);
+
+            return Attribute::make(
+                get: fn () => $inStock,
+            );
         }
 
-        $cashedStock = Cache::remember("product-{$this->id}-in-stock", 3600, function () {
-            return (new IsInStock)($this);
-        });
+        $inStock = Cache::remember(
+            "product-{$this->id}-in-stock",
+            3600,
+            fn () => (new IsInStock)($this),
+        );
 
-        return $cashedStock;
+        return Attribute::make(
+            get: fn () => $inStock,
+        );
     }
 }
