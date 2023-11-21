@@ -1944,16 +1944,16 @@
         },
         {
             "name": "laravel-json-api/encoder-neomerx",
-            "version": "v3.1.0",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-json-api/encoder-neomerx.git",
-                "reference": "abb8b9659b5122197684656f9ac32f742a03ff96"
+                "reference": "30dbfe08be6680408334e6e6dcdeabf0114418bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-json-api/encoder-neomerx/zipball/abb8b9659b5122197684656f9ac32f742a03ff96",
-                "reference": "abb8b9659b5122197684656f9ac32f742a03ff96",
+                "url": "https://api.github.com/repos/laravel-json-api/encoder-neomerx/zipball/30dbfe08be6680408334e6e6dcdeabf0114418bf",
+                "reference": "30dbfe08be6680408334e6e6dcdeabf0114418bf",
                 "shasum": ""
             },
             "require": {
@@ -2007,9 +2007,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel-json-api/encoder-neomerx/issues",
-                "source": "https://github.com/laravel-json-api/encoder-neomerx/tree/v3.1.0"
+                "source": "https://github.com/laravel-json-api/encoder-neomerx/tree/v3.1.1"
             },
-            "time": "2023-11-08T18:01:40+00:00"
+            "time": "2023-11-20T18:29:23+00:00"
         },
         {
             "name": "laravel-json-api/exceptions",
@@ -2490,16 +2490,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.32.1",
+            "version": "v10.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "b30e44f20d244f7ba125283e14a8bbac167f4e5b"
+                "reference": "4536872e3e5b6be51b1f655dafd12c9a4fa0cfe8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/b30e44f20d244f7ba125283e14a8bbac167f4e5b",
-                "reference": "b30e44f20d244f7ba125283e14a8bbac167f4e5b",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/4536872e3e5b6be51b1f655dafd12c9a4fa0cfe8",
+                "reference": "4536872e3e5b6be51b1f655dafd12c9a4fa0cfe8",
                 "shasum": ""
             },
             "require": {
@@ -2688,7 +2688,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-11-14T22:57:08+00:00"
+            "time": "2023-11-21T14:49:31+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -9879,16 +9879,16 @@
         },
         {
             "name": "orchestra/testbench-core",
-            "version": "v8.15.1",
+            "version": "v8.15.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench-core.git",
-                "reference": "428628ef2fecffe30c1c922536242ebe0da1c47e"
+                "reference": "1bd2aa77c0fdd674d28e8d6e44fe5f6528ff966a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/428628ef2fecffe30c1c922536242ebe0da1c47e",
-                "reference": "428628ef2fecffe30c1c922536242ebe0da1c47e",
+                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/1bd2aa77c0fdd674d28e8d6e44fe5f6528ff966a",
+                "reference": "1bd2aa77c0fdd674d28e8d6e44fe5f6528ff966a",
                 "shasum": ""
             },
             "require": {
@@ -9963,7 +9963,7 @@
                 "issues": "https://github.com/orchestral/testbench/issues",
                 "source": "https://github.com/orchestral/testbench-core"
             },
-            "time": "2023-11-10T04:43:17+00:00"
+            "time": "2023-11-20T22:34:56+00:00"
         },
         {
             "name": "orchestra/workbench",
@@ -10670,16 +10670,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.43",
+            "version": "1.10.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "2c4129f6ca8c7cfa870098884b8869b410a5a361"
+                "reference": "bf84367c53a23f759513985c54ffe0d0c249825b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/2c4129f6ca8c7cfa870098884b8869b410a5a361",
-                "reference": "2c4129f6ca8c7cfa870098884b8869b410a5a361",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/bf84367c53a23f759513985c54ffe0d0c249825b",
+                "reference": "bf84367c53a23f759513985c54ffe0d0c249825b",
                 "shasum": ""
             },
             "require": {
@@ -10728,7 +10728,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-19T19:55:25+00:00"
+            "time": "2023-11-21T16:30:46+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
