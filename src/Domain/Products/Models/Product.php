@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Lunar\Models\Attribute;
 use Lunar\Models\Price;
@@ -134,8 +135,20 @@ class Product extends LunarProduct
         return $this->prices()->whereTier(1)->whereNull('customer_group_id');
     }
 
+
+
     public function getInStockAttribute(): bool
     {
-        return (new IsInStock)($this);
+        if ($this->relationLoaded('variants')) {
+            $isInStock = (new IsInStock())($this);
+            Cache::put("product-{$this->id}-in-stock", $isInStock, 3600);
+            return $isInStock;
+        }
+
+        $cashedStock = Cache::remember("product-{$this->id}-in-stock", 3600, function () {
+            return (new IsInStock)($this);
+        });
+
+        return $cashedStock;
     }
 }
