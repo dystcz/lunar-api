@@ -6,6 +6,8 @@ use Dystcz\LunarApi\Domain\Products\Http\Controllers\ProductsController;
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
+use LaravelJsonApi\Laravel\Routing\Relationships;
+use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 
 class ProductRouteGroup extends RouteGroup implements RouteGroupContract
 {
@@ -18,48 +20,45 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
     {
         JsonApiRoute::server('v1')
             ->prefix('v1')
-            ->resources(function ($server) {
+            ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), ProductsController::class)
-                    ->relationships(function ($relationships) {
+                    ->relationships(function (Relationships $relationships) {
                         $relationships
                             ->hasMany('associations')
-                            // ->only('related', 'show')
                             ->readOnly();
 
                         $relationships
                             ->hasMany('inverse_associations')
-                            // ->only('related', 'show')
                             ->readOnly();
 
                         $relationships
                             ->hasOne('brand')
-                            // ->only('related', 'show')
                             ->readOnly();
 
                         $relationships
                             ->hasOne('cheapest_variant')
-                            // ->only('related', 'show')
                             ->readOnly();
 
                         $relationships
                             ->hasOne('default_url')
-                            // ->only('related', 'show')
                             ->readOnly();
 
                         $relationships
                             ->hasOne('lowest_price')
-                            // ->only('related', 'show')
                             ->readOnly();
 
                         $relationships
                             ->hasMany('prices')
-                            // ->only('related', 'show')
                             ->readOnly();
 
                         $relationships
                             ->hasMany('variants')
-                            // ->only('related', 'show')
                             ->readOnly();
+
+                        // TODO: Introduce route manifest
+                        if (class_exists('Dystcz\LunarApiReviews\LunarReviewsServiceProvider')) {
+                            $relationships->hasMany('reviews')->only('index')->readOnly();
+                        }
                     })
                     ->only('index', 'show')
                     ->readOnly();
