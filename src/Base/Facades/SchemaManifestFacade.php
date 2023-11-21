@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static void register(Collection $schemas) Register collection of schemas
  * @method static void registerSchema(string $schemaClass) Register a schema
  * @method static Collection getRegisteredSchemas() Get registered schemas
+ * @method static array getServerSchemas() Get server schemas
  * @method static Collection getSchemaTypes() Get registered schema types
  * @method static SchemaContract getRegisteredSchema(string $schemaType) Get registered schema by type
  * @method static void removeSchema(string $schemaType) Remove schema from manifest

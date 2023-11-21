@@ -34,6 +34,6 @@ abstract class Server extends BaseServer
      */
     protected function allSchemas(): array
     {
-        return SchemaManifestFacade::getRegisteredSchemas()->values()->toArray();
+        return SchemaManifestFacade::getServerSchemas();
     }
 }

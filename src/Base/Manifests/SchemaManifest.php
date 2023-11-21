@@ -69,6 +69,17 @@ class SchemaManifest extends Manifest implements SchemaManifestContract
     }
 
     /**
+     * Get all server schemas.
+     */
+    public function getServerSchemas(): array
+    {
+        return $this
+            ->getRegisteredSchemas()
+            ->values()
+            ->toArray();
+    }
+
+    /**
      * Get list of registered schema types.
      */
     public function getSchemaTypes(): Collection
