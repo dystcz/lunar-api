@@ -10,4 +10,6 @@ Route::group([
     'middleware' => Config::get('lunar-api.general.route_middleware'),
 ], fn () => RegisterRoutesFromConfig::run());
 
-Route::post('{paymentDriver}/webhook', HandlePaymentWebhookController::class);
+// Payments
+Route::post('{paymentDriver}/webhook', HandlePaymentWebhookController::class)
+    ->name('payments.webhook');
