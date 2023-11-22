@@ -2,6 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Http\Routing;
 
+use Dystcz\LunarApi\Domain\ProductVariants\Http\Controllers\ProductVariantsController;
+use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
@@ -16,9 +18,12 @@ class ProductVariantRouteGroup extends RouteGroup implements RouteGroupContract
      */
     public function routes(string $prefix = null, array|string $middleware = []): void
     {
-        // JsonApiRoute::server('v1')
-        //     ->prefix('v1')
-        //     ->resources(function (ResourceRegistrar $server) {
-        //     });
+        JsonApiRoute::server('v1')
+            ->prefix('v1')
+            ->resources(function (ResourceRegistrar $server) {
+                $server
+                    ->resource(ProductVariantSchema::type(), ProductVariantsController::class)
+                    ->readOnly();
+            });
     }
 }
