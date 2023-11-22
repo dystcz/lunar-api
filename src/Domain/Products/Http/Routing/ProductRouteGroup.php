@@ -54,11 +54,6 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
                         $relationships
                             ->hasMany('variants')
                             ->readOnly();
-
-                        // TODO: Introduce route manifest
-                        if (class_exists('Dystcz\LunarApiReviews\LunarReviewsServiceProvider')) {
-                            $relationships->hasMany('reviews')->only('index')->readOnly();
-                        }
                     })
                     ->only('index', 'show')
                     ->readOnly();
