@@ -24,6 +24,7 @@ class CreatePaymentIntentRequest extends ResourceRequest
                 Rule::in(array_keys($paymentTypes)),
             ],
             'meta' => [
+                'nullable',
                 'array',
             ],
         ];

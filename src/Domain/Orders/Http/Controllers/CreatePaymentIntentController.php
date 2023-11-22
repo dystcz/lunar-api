@@ -19,9 +19,10 @@ class CreatePaymentIntentController extends Controller
         $this->authorize('update', $order);
 
         $paymentMethod = $request->validated('payment_method');
+        $meta = $request->validated('meta') ?? [];
 
         try {
-            $intent = $createPaymentIntent($paymentMethod, $order->cart);
+            $intent = $createPaymentIntent($paymentMethod, $order->cart, $meta);
         } catch (RuntimeException $e) {
             return DataResponse::make($order)->withMeta([
                 'payment_intent' => null,

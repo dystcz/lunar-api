@@ -38,8 +38,9 @@ abstract class PaymentAdapter
 
     /**
      * Create payment intent.
-     */
-    abstract public function createIntent(Cart $cart): PaymentIntent;
+     *
+     * @param  array<string,mixed>  $meta */
+    abstract public function createIntent(Cart $cart, array $meta = []): PaymentIntent;
 
     /**
      * Handle incoming webhook call.

@@ -15,12 +15,14 @@ class CreatePaymentIntent
 
     /**
      * Create payment intent.
+     *
+     * @param  array<string,mixed>  $meta
      */
-    public function __invoke(string $paymentMethod, Cart $cart): PaymentIntent
+    public function __invoke(string $paymentMethod, Cart $cart, array $meta = []): PaymentIntent
     {
         $payment = $this->register->get($paymentMethod);
 
-        $intent = $payment->createIntent($cart);
+        $intent = $payment->createIntent($cart, $meta);
 
         return $intent;
     }
