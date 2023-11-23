@@ -26,6 +26,9 @@ class TokenBasedCartSessionMiddleware
             'v1.shipping-options.index',
             'v1.cart-addresses.store',
             'v1.cart-addresses.update',
+            'v1.cart-addresses.attachShippingOption',
+            'v1.cart-addresses.detachShippingOption',
+            'v1.cart-addresses.updateCountry',
         ];
     }
 
@@ -34,8 +37,6 @@ class TokenBasedCartSessionMiddleware
         /**
          * Early return if the route is not in the list
          */
-        $routeName = $request->route()->getName();
-
         if (! in_array($request->route()->getName(), $this->getRoutes())) {
             return $next($request);
         }

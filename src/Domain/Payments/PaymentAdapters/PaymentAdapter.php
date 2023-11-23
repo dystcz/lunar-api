@@ -65,7 +65,9 @@ abstract class PaymentAdapter
             card_type: $this->getType(),
         ))->when(
             ! empty($data),
-            fn ($data) => $data->mergeData($data),
+            function($transactionData) use ($data) {
+                return $transactionData->mergeData($data);
+            },
         );
     }
 

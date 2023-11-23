@@ -9,6 +9,7 @@ class PaymentIntent
         public readonly int $amount,
         public readonly string $status,
         public readonly ?string $client_secret = null,
+        public readonly ?array $meta = [],
     ) {
     }
 
@@ -22,6 +23,7 @@ class PaymentIntent
             'amount' => $this->amount,
             'status' => $this->status,
             'client_secret' => $this->client_secret,
+            'meta' => $this->meta ?? [],
         ];
     }
 }
