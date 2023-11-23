@@ -6,6 +6,7 @@ use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Orders\Events\OrderCreated;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -55,6 +56,8 @@ class CheckoutCartController extends Controller
         if (Config::get('lunar-api.domains.carts.settings.forget_cart_after_order_created', true)) {
             $this->cartSession->forget();
         }
+
+        OrderCreated::dispatch($model);
 
         return DataResponse::make($model)
             ->withLinks([
