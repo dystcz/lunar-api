@@ -38,7 +38,13 @@ class Customer extends LunarCustomer
     protected function fullName(): Attribute
     {
         return Attribute::make(
-            get: fn () => implode(' ', array_filter([$this->first_name, $this->last_name])),
+            get: function () {
+                if (! $this->first_name && ! $this->last_name) {
+                    return null;
+                }
+
+                return implode(' ', array_filter([$this->first_name, $this->last_name]));
+            }
         );
     }
 }
