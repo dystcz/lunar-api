@@ -4,18 +4,16 @@ namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCart;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
-use Dystcz\LunarApi\Domain\Orders\Events\OrderCreated;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
 use LaravelJsonApi\Contracts\Store\Store as StoreContract;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
-use Lunar\Models\Order as LunarOrder;
 
 class CheckoutCartController extends Controller
 {
@@ -35,7 +33,8 @@ class CheckoutCartController extends Controller
     public function checkout(
         StoreContract $store,
         CartRequest $request,
-        CreateUserFromCart $createUserFromCartAction
+        CreateUserFromCart $createUserFromCartAction,
+        CheckoutCart $checkoutCartAction
     ): DataResponse {
         // $this->authorize('update', Cart::class);
 
@@ -46,40 +45,30 @@ class CheckoutCartController extends Controller
             $createUserFromCartAction($cart);
         }
 
-        /** @var LunarOrder $order */
-        $order = $cart->createOrder();
+        /** @var Order $order */
+        $order = ($checkoutCartAction)($cart);
 
-        $model = Order::query()
-            ->where('id', $order->id)
-            ->firstOrFail();
-
-        if (Config::get('lunar-api.domains.carts.settings.forget_cart_after_order_created', true)) {
-            $this->cartSession->forget();
-        }
-
-        OrderCreated::dispatch($model);
-
-        return DataResponse::make($model)
+        return DataResponse::make($order)
             ->withLinks([
                 'self.signed' => URL::signedRoute(
                     'v1.orders.show',
-                    ['order' => $model->getRouteKey()],
+                    ['order' => $order->getRouteKey()],
                 ),
                 'create-payment-intent.signed' => URL::signedRoute(
                     'v1.orders.createPaymentIntent',
-                    ['order' => $model->getRouteKey()],
+                    ['order' => $order->getRouteKey()],
                 ),
                 'mark-order-pending-payment.signed' => URL::signedRoute(
                     'v1.orders.markPendingPayment',
-                    ['order' => $model->getRouteKey()],
+                    ['order' => $order->getRouteKey()],
                 ),
                 'mark-order-awaiting-payment.signed' => URL::signedRoute(
                     'v1.orders.markAwaitingPayment',
-                    ['order' => $model->getRouteKey()],
+                    ['order' => $order->getRouteKey()],
                 ),
                 'check-order-payment-status.signed' => URL::signedRoute(
                     'v1.orders.checkOrderPaymentStatus',
-                    ['order' => $model->getRouteKey()],
+                    ['order' => $order->getRouteKey()],
                 ),
             ])
             ->didCreate();

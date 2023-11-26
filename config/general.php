@@ -16,18 +16,6 @@ return [
         //
     ],
 
-    'auth' => [
-        'actions' => [
-            'create_user_from_cart' => Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart::class,
-            'register_user' => Dystcz\LunarApi\Domain\Users\Actions\RegisterUser::class,
-        ],
-
-        'notifications' => [
-            'reset_password' => Illuminate\Auth\Notifications\ResetPassword::class,
-            'verify_email' => Illuminate\Auth\Notifications\VerifyEmail::class,
-        ],
-    ],
-
     // Enable or disable hashids
     'use_hashids' => env('LUNAR_API_USE_HASHIDS', false),
 
