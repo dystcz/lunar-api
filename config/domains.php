@@ -117,6 +117,9 @@ return [
     ],
 
     'carts' => [
+        'actions' => [
+            'checkout_cart' => Dystcz\LunarApi\Domain\Carts\Actions\CheckoutCart::class,
+        ],
         'model' => Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
         'lunar_model' => Lunar\Models\Cart::class,
         'policy' => Dystcz\LunarApi\Domain\Carts\Policies\CartPolicy::class,
