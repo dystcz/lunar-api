@@ -60,6 +60,7 @@ class LunarApiServiceProvider extends ServiceProvider
         $this->loadRoutesFrom("{$this->root}/routes/api.php");
 
         $this->registerModels();
+        $this->registerObservers();
         $this->registerEvents();
 
         LunarApi::createUserFromCartUsing(Config::get('domains.auth.actions.create_user_from_cart', CreateUserFromCart::class));
@@ -149,6 +150,14 @@ class LunarApiServiceProvider extends ServiceProvider
                 Event::listen($event, $listener);
             }
         }
+    }
+
+    /**
+     * Register observers.
+     */
+    protected function registerObservers(): void
+    {
+        \Lunar\Models\Order::observe(\Dystcz\LunarApi\Domain\Orders\Observers\OrderObserver::class);
     }
 
     /**
