@@ -6,6 +6,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Contracts\FilterCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
+use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\InStockFilter;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
@@ -204,6 +205,8 @@ class ProductSchema extends Schema
 
         return [
             WhereIdIn::make($this),
+
+            InStockFilter::make(),
 
             WhereHas::make($this, 'prices'),
 
