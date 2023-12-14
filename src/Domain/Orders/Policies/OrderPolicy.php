@@ -75,11 +75,25 @@ class OrderPolicy
     public function viewSigned(?Authenticatable $user, Order $order): bool
     {
         // If order check payment status signature is valid or env is local
-        if ($this->request->hasValidSignature() || App::environment('local')) {
+        if ($this->checkValidSignature() || App::environment('local')) {
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * Check if request has valid signature.
+     */
+    protected function checkValidSignature(): bool
+    {
+        return $this->request->hasValidSignatureWhileIgnoring([
+            'include',
+            'fields',
+            'sort',
+            'page',
+            'filter',
+        ]);
     }
 
     /**
@@ -99,16 +113,9 @@ class OrderPolicy
         }
 
         $signsUrl = Config::get('lunar-api.domains.orders.settings.sign_show_route', true);
-        $validSignature = $this->request->hasValidSignatureWhileIgnoring([
-            'include',
-            'fields',
-            'sort',
-            'page',
-            'filter',
-        ]);
 
         // If order show route should be signed and signature is valid
-        if (($signsUrl && $validSignature) || App::environment('local')) {
+        if (($signsUrl && $this->checkValidSignature()) || App::environment('local')) {
             return true;
         }
 
