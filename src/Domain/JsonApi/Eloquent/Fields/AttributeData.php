@@ -3,10 +3,12 @@
 namespace Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields;
 
 use Closure;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use LaravelJsonApi\Core\Json\Hash;
-use LaravelJsonApi\Core\Support\Arr;
+use LaravelJsonApi\Core\Support\Arr as JsonApiArr;
 use LaravelJsonApi\Eloquent\Fields\Attribute;
+use Lunar\FieldTypes\Dropdown;
 use Lunar\Models\Attribute as AttributeModel;
 
 class AttributeData extends Attribute
@@ -21,7 +23,7 @@ class AttributeData extends Attribute
     /**
      * Create an array attribute.
      */
-    public static function make(string $fieldName, string $column = null): self
+    public static function make(string $fieldName, ?string $column = null): self
     {
         return new self($fieldName, $column);
     }
@@ -47,7 +49,7 @@ class AttributeData extends Attribute
     /**
      * {@inheritDoc}
      */
-    public function serialize(object $model)
+    public function serialize(object $model): Hash
     {
         $value = parent::serialize($model);
 
@@ -60,12 +62,27 @@ class AttributeData extends Attribute
                 ->where('attribute_type', $model->getMorphClass())
                 ->whereIn('handle', array_keys($value->all()))
                 ->groupBy(fn (AttributeModel $attribute) => $attribute->attributeGroup->handle)
-                ->map(fn ($attributes) => $attributes->mapWithKeys(fn (AttributeModel $attribute) => [
-                    $attribute->handle => [
-                        'name' => $attribute->translate('name'),
-                        'value' => $model->attr($attribute->handle),
-                    ],
-                ]));
+                ->map(fn ($attributes) => $attributes->mapWithKeys(function (AttributeModel $attribute) use ($model) {
+                    $value = null;
+
+                    if ($attribute->type === Dropdown::class) {
+                        $value = Arr::first(Arr::where(
+                            $attribute->configuration['lookups'] ?? [],
+                            fn ($lookup) => $lookup['value'] === $model->attr($attribute->handle),
+                        ));
+
+                        if ($value && $value['label']) {
+                            $value = $value['label'];
+                        }
+                    }
+
+                    return [
+                        $attribute->handle => [
+                            'name' => $attribute->translate('name'),
+                            'value' => $value ?? $model->attr($attribute->handle),
+                        ],
+                    ];
+                }));
         }
 
         return Hash::cast($value);
@@ -74,7 +91,7 @@ class AttributeData extends Attribute
     /**
      * {@inheritDoc}
      */
-    protected function deserialize($value)
+    protected function deserialize($value): ?array
     {
         $value = parent::deserialize($value);
 
@@ -98,7 +115,7 @@ class AttributeData extends Attribute
      */
     protected function assertValue($value): void
     {
-        if ((! is_null($value) && ! is_array($value)) || (! empty($value) && ! Arr::isAssoc($value))) {
+        if ((! is_null($value) && ! is_array($value)) || (! empty($value) && ! JsonApiArr::isAssoc($value))) {
             throw new \UnexpectedValueException(sprintf(
                 'Expecting the value of attribute %s to be an associative array.',
                 $this->name()
