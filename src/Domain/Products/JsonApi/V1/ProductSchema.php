@@ -73,6 +73,7 @@ class ProductSchema extends Schema
             'variants',
             'variants.images',
             'variants.prices',
+            'variants.values',
             // 'variants.thumbnail',
 
             'tags',
@@ -216,7 +217,7 @@ class ProductSchema extends Schema
 
             WhereHas::make($this, 'urls'),
 
-            WhereHas::make($this, 'productType', 'product_type'),
+            WhereHas::make($this, 'product_type'),
 
             WhereHas::make($this, 'channels'),
 

@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Lunar\Facades\CartSession;
+use Lunar\Models\Order;
 
 class TokenBasedCartSessionMiddleware
 {
@@ -48,11 +49,11 @@ class TokenBasedCartSessionMiddleware
          */
         if (! $token) {
 
-            $token = $this->createCartWithToken();
+            $cart = $this->createCartWithToken();
 
             $response = $next($request);
 
-            $response = $this->setToken($response, $token);
+            $response = $this->setToken($response, $cart->meta->token);
 
             return $response;
         }
@@ -92,7 +93,28 @@ class TokenBasedCartSessionMiddleware
      */
     public function findCartByToken(string $token): ?Cart
     {
-        return Cart::where('meta->token', $token)->first();
+        /**
+         * @var Cart $cart
+         */
+        $cart = Cart::where('meta->token', $token)->first();
+
+        if ($cart === null) {
+            return $this->createCartWithToken();
+        }
+
+        if ($order = $cart->orders()->first()) {
+
+            /**
+             * @var Order $order
+             */
+            $orderIsPlaced = $order->isPlaced();
+
+            if ($orderIsPlaced) {
+                return $this->createCartWithToken();
+            }
+        }
+
+        return $cart;
     }
 
     /**
@@ -133,9 +155,9 @@ class TokenBasedCartSessionMiddleware
     /**
      * Create a new cart and return the token
      *
-     * @return string The token created for the cart
+     * @return Cart The cart
      */
-    public function createCartWithToken(): string
+    public function createCartWithToken(): Cart
     {
         $cart = CartSession::current();
 
@@ -149,6 +171,6 @@ class TokenBasedCartSessionMiddleware
 
         $cart->save();
 
-        return $token;
+        return $cart;
     }
 }

@@ -28,6 +28,7 @@ class ProductVariantSchema extends Schema
             'images',
             // 'thumbnail',
 
+            'values',
             'prices',
             'product',
             'product.thumbnail',
@@ -76,6 +77,13 @@ class ProductVariantSchema extends Schema
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
+
+            HasMany::make('values', 'values')
+                ->type('product-option-values'),
+            // ->canCount()
+            // ->serializeUsing(
+            // static fn ($relation) => $relation->withoutLinks(),
+            // ),
 
             HasMany::make('prices')
                 ->serializeUsing(
