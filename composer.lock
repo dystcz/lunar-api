@@ -3542,16 +3542,16 @@
         },
         {
             "name": "lunarphp/lunar",
-            "version": "0.7.3",
+            "version": "0.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lunarphp/lunar.git",
-                "reference": "fa8fcaff640e4f3813a6660c6569646dbed7024a"
+                "reference": "7f41cf66ebc96ee7465a84c8a4c4dd24228bf47d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lunarphp/lunar/zipball/fa8fcaff640e4f3813a6660c6569646dbed7024a",
-                "reference": "fa8fcaff640e4f3813a6660c6569646dbed7024a",
+                "url": "https://api.github.com/repos/lunarphp/lunar/zipball/7f41cf66ebc96ee7465a84c8a4c4dd24228bf47d",
+                "reference": "7f41cf66ebc96ee7465a84c8a4c4dd24228bf47d",
                 "shasum": ""
             },
             "require": {
@@ -3635,7 +3635,7 @@
             "description": "Lunar Monorepo",
             "support": {
                 "issues": "https://github.com/lunarphp/lunar/issues",
-                "source": "https://github.com/lunarphp/lunar/tree/0.7.3"
+                "source": "https://github.com/lunarphp/lunar/tree/0.7.4"
             },
             "funding": [
                 {
@@ -3643,7 +3643,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-12-20T12:10:58+00:00"
+            "time": "2023-12-22T10:37:47+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
