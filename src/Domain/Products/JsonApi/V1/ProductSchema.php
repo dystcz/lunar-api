@@ -223,6 +223,7 @@ class ProductSchema extends Schema
 
             WhereHas::make($this, 'status'),
 
+            WhereHas::make($this, 'collections'),
 
 
             ...(new $filterCollection)->toArray(),
