@@ -28,10 +28,14 @@ class CartAddressesController extends Controller
     ): DataResponse {
         // $this->authorize('create');
 
+        $validatedRequest = $request->validated();
+
         $meta = [
+            ...$validatedRequest['meta'],
             'company_in' => $request->validated('company_in', null),
             'company_tin' => $request->validated('company_tin', null),
         ];
+
 
         $model = $schema
             ->repository()
