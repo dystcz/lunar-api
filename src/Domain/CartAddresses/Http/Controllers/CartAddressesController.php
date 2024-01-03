@@ -31,7 +31,7 @@ class CartAddressesController extends Controller
         $validatedRequest = $request->validated();
 
         $meta = [
-            ...$validatedRequest['meta'],
+            ...$validatedRequest['meta'] ?? [],
             'company_in' => $request->validated('company_in', null),
             'company_tin' => $request->validated('company_tin', null),
         ];
