@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Lunar\Models\Attribute as LunarAttribute;
 use Lunar\Models\Price;
@@ -144,14 +143,8 @@ class Product extends LunarProduct
      */
     public function inStock(): Attribute
     {
-        $inStock = Cache::remember(
-            "product-{$this->id}-in-stock",
-            3600,
-            fn () => (new IsInStock)($this),
-        );
-
         return Attribute::make(
-            get: fn () => $inStock,
+            get: fn () => (new IsInStock)($this),
         );
     }
 }
