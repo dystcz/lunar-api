@@ -9,6 +9,8 @@ use Dystcz\LunarApi\Domain\Orders\Http\Controllers\MarkOrderPendingPaymentContro
 use Dystcz\LunarApi\Domain\Orders\Http\Controllers\OrdersController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
+use LaravelJsonApi\Laravel\Routing\ActionRegistrar;
+use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 
 class OrderRouteGroup extends RouteGroup
 {
@@ -17,11 +19,11 @@ class OrderRouteGroup extends RouteGroup
     /**
      * Register routes.
      */
-    public function routes(string $prefix = null, array|string $middleware = []): void
+    public function routes(?string $prefix = null, array|string $middleware = []): void
     {
         JsonApiRoute::server('v1')
             ->prefix('v1')
-            ->resources(function ($server) {
+            ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), OrdersController::class)
                     ->relationships(function ($relationships) {
                         $relationships->hasMany('order_lines')->readOnly();
@@ -35,25 +37,25 @@ class OrderRouteGroup extends RouteGroup
 
                 $server->resource($this->getPrefix(), CreatePaymentIntentController::class)
                     ->only('')
-                    ->actions('-actions', function ($actions) {
+                    ->actions('-actions', function (ActionRegistrar $actions) {
                         $actions->withId()->post('create-payment-intent');
                     });
 
                 $server->resource($this->getPrefix(), MarkOrderPendingPaymentController::class)
                     ->only('')
-                    ->actions('-actions', function ($actions) {
+                    ->actions('-actions', function (ActionRegistrar $actions) {
                         $actions->withId()->patch('mark-pending-payment');
                     });
 
                 $server->resource($this->getPrefix(), MarkOrderAwaitingPaymentController::class)
                     ->only('')
-                    ->actions('-actions', function ($actions) {
+                    ->actions('-actions', function (ActionRegistrar $actions) {
                         $actions->withId()->patch('mark-awaiting-payment');
                     });
 
                 $server->resource($this->getPrefix(), CheckOrderPaymentStatusController::class)
                     ->only('')
-                    ->actions('-actions', function ($actions) {
+                    ->actions('-actions', function (ActionRegistrar $actions) {
                         $actions->withId()->get('check-order-payment-status');
                     });
             });
