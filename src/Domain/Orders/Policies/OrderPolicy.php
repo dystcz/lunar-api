@@ -102,7 +102,9 @@ class OrderPolicy
      */
     protected function orderAccessible(?Authenticatable $user, Order $order): bool
     {
-        $user = $user ?? Auth::guard('sanctum')->user();
+        if (class_exists('Laravel\Sanctum\Guard')) {
+            $user = $user ?? Auth::guard('sanctum')->user();
+        }
 
         // If order belongs to user
         if ($user && $user->getKey() === $order->user_id) {
