@@ -26,6 +26,9 @@ class CartLineSchema extends Schema
         return [
             $this->idField(),
 
+            Number::make('purchasable_id'),
+            Str::make('purchasable_type'),
+
             Map::make('prices', [
                 Number::make('unit_price', 'unitPrice')
                     ->serializeUsing(
@@ -54,13 +57,10 @@ class CartLineSchema extends Schema
                     ),
             ]),
 
+            // WARNING: DEPRECATED: Duplicate value, already present in prices.quantity
             Number::make('quantity'),
 
             ArrayHash::make('meta'),
-
-            Number::make('purchasable_id'),
-
-            Str::make('purchasable_type'),
 
             BelongsTo::make('cart'),
 
