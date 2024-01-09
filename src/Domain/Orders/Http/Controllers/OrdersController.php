@@ -9,11 +9,13 @@ use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Support\Facades\URL;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
 
 class OrdersController extends Controller
 {
     use FetchOne;
+    use FetchRelated;
     use Update;
 
     /**
