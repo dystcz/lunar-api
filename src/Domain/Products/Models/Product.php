@@ -144,15 +144,6 @@ class Product extends LunarProduct
      */
     public function inStock(): Attribute
     {
-        if ($this->relationLoaded('variants')) {
-            $inStock = (new IsInStock)($this);
-            Cache::put("product-{$this->id}-in-stock", $inStock, 3600);
-
-            return Attribute::make(
-                get: fn () => $inStock,
-            );
-        }
-
         $inStock = Cache::remember(
             "product-{$this->id}-in-stock",
             3600,
