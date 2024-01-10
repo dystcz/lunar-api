@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Http\Routing;
 
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ApplyCouponController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CheckoutCartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ClearUserCartController;
+use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CouponsController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ReadUserCartController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
@@ -17,7 +17,7 @@ class CartRouteGroup extends RouteGroup
     /**
      * Register routes.
      */
-    public function routes(string $prefix = null, array|string $middleware = []): void
+    public function routes(?string $prefix = null, array|string $middleware = []): void
     {
         JsonApiRoute::server('v1')
             ->prefix('v1')
@@ -40,11 +40,13 @@ class CartRouteGroup extends RouteGroup
                         $actions->post('checkout');
                     });
 
-                $server->resource($this->getPrefix(), ApplyCouponController::class)
+                $server->resource($this->getPrefix(), CouponsController::class)
                     ->only('')
                     ->actions('-actions', function ($actions) {
-                        $actions->post('apply-coupon');
+                        $actions->post('apply-coupon', 'update');
+                        $actions->delete('remove-coupon', 'destroy');
                     });
+
             });
     }
 }
