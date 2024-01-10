@@ -9,6 +9,7 @@ use Lunar\Facades\CartSession;
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
+    /** @var TestCase $this */
     $this->cart = Cart::factory()->create();
 
     $this->cartAddress = CartAddress::factory()->for($this->cart)->create();
@@ -17,7 +18,6 @@ beforeEach(function () {
         'id' => (string) $this->cartAddress->getRouteKey(),
         'type' => 'cart-addresses',
         'attributes' => [
-            'address_type' => $this->cartAddress->type,
             'first_name' => $this->cartAddress->first_name,
             'last_name' => $this->cartAddress->last_name,
             'company_name' => $this->cartAddress->company_name,
@@ -26,11 +26,13 @@ beforeEach(function () {
             'postcode' => $this->cartAddress->postcode,
             'contact_email' => $this->cartAddress->contact_email,
             'contact_phone' => $this->cartAddress->contact_phone,
+            'delivery_instructions' => $this->cartAddress->delivery_instructions,
         ],
     ];
 });
 
 test('a cart address can be update', function () {
+    /** @var TestCase $this */
     CartSession::use($this->cart);
 
     $response = $this
@@ -40,9 +42,23 @@ test('a cart address can be update', function () {
         ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey());
 
     $response->assertFetchedOne($this->cartAddress);
-});
+
+    $this->assertDatabaseHas($this->cartAddress->getTable(), [
+        'id' => $this->cartAddress->id,
+        'first_name' => $this->cartAddress->first_name,
+        'last_name' => $this->cartAddress->last_name,
+        'company_name' => $this->cartAddress->company_name,
+        'city' => $this->cartAddress->city,
+        'line_one' => $this->cartAddress->line_one,
+        'postcode' => $this->cartAddress->postcode,
+        'contact_email' => $this->cartAddress->contact_email,
+        'contact_phone' => $this->cartAddress->contact_phone,
+        'delivery_instructions' => $this->cartAddress->delivery_instructions,
+    ]);
+})->group('cart-addresses');
 
 test('only the user who owns the cart can assign address to it', function () {
+    /** @var TestCase $this */
     $response = $this
         ->jsonApi()
         ->expects('cart-addresses')
@@ -54,4 +70,4 @@ test('only the user who owns the cart can assign address to it', function () {
         'status' => '401',
         'title' => 'Unauthorized',
     ]);
-});
+})->group('cart-addresses');
