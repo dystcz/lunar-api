@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\Discounts\Data;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Lunar\Base\ValueObjects\Cart\DiscountBreakdown as LunarDiscountBreakdown;
+use Lunar\Base\ValueObjects\Cart\DiscountBreakdownLine;
 
 class DiscountBreakdown implements Arrayable
 {
@@ -15,12 +16,16 @@ class DiscountBreakdown implements Arrayable
 
     public function toArray(): array
     {
-        /** \Lunar\DataTypes\Price $price */
-        $price = $this->discountBreakdown->price;
+        $lines = $this->discountBreakdown->lines->map(function (DiscountBreakdownLine $line) {
+            return [
+                'line_id' => $line->line->id,
+                'quantity' => $line->quantity,
+            ];
+        });
 
-        // TODO: Finish mapping
         return [
-            'total' => $price->decimal,
+            'total' => $this->discountBreakdown->price->decimal,
+            'lines' => $lines->toArray(),
         ];
     }
 }
