@@ -6,6 +6,7 @@ use Dystcz\LunarApi\Domain\Products\Actions\IsInStock;
 use Dystcz\LunarApi\Domain\Products\Builders\ProductBuilder;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -39,7 +40,7 @@ class Product extends LunarProduct
      * @param  \Illuminate\Database\Query\Builder  $query
      * @return ProductBuilder|static
      */
-    public function newEloquentBuilder($query): ProductBuilder
+    public function newEloquentBuilder($query): Builder
     {
         return new ProductBuilder($query);
     }
