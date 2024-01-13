@@ -17,7 +17,7 @@ class ProductFactory extends LunarProductFactory
         return [
             'product_type_id' => ProductType::factory(),
             'status' => 'published',
-            'brand_id' => Brand::factory()->create()->id,
+            'brand_id' => Brand::factory(),
             'attribute_data' => collect([
                 'name' => new Text($this->faker->name),
                 'description' => new Text($this->faker->sentence),
