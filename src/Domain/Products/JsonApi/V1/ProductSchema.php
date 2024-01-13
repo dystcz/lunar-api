@@ -7,6 +7,8 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\InStockFilter;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
@@ -24,6 +26,14 @@ class ProductSchema extends Schema
      * {@inheritDoc}
      */
     public static string $model = Product::class;
+
+    /**
+     * Build an index query for this resource.
+     */
+    public function indexQuery(?Request $request, Builder $query): Builder
+    {
+        return $query->where('status', '!=', 'draft');
+    }
 
     /**
      * {@inheritDoc}

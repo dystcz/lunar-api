@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Actions;
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Users\Contracts\CreatesUserFromCart;
 use Dystcz\LunarApi\Domain\Users\Contracts\RegistersUser;
@@ -13,6 +13,9 @@ use RuntimeException;
 
 class CreateUserFromCart implements CreatesUserFromCart
 {
+    /**
+     * Create a user from a cart.
+     */
     public function __invoke(
         Cart $cart,
     ): ?Authenticatable {
@@ -45,6 +48,9 @@ class CreateUserFromCart implements CreatesUserFromCart
         return $user;
     }
 
+    /**
+     * Get or create a customer.
+     */
     protected function getCustomer(Authenticatable $user, CartAddress $shippingAddress): Customer
     {
         /** @var Customer $customer */
@@ -65,6 +71,9 @@ class CreateUserFromCart implements CreatesUserFromCart
         return $customer;
     }
 
+    /**
+     * Get addresses from cart.
+     */
     protected function getAddresses(Cart $cart): array
     {
         $shippingAddress = $cart->shippingAddress;
@@ -78,6 +87,9 @@ class CreateUserFromCart implements CreatesUserFromCart
         return array_filter($addresses);
     }
 
+    /**
+     * Get address data in array.
+     */
     protected function getAddress(?CartAddress $address): ?array
     {
         return ! $address ? null : [
