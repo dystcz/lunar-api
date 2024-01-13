@@ -5,13 +5,11 @@ namespace Dystcz\LunarApi\Domain\ProductVariants\Enums;
 use Illuminate\Contracts\Support\Arrayable;
 use Lunar\Models\ProductVariant;
 
-enum PurchaseStatus implements Arrayable
+enum PurchaseStatus: string implements Arrayable
 {
-    case AVAILABLE;
-
-    case OUT_OF_STOCK;
-
-    case BACKORDER;
+    case AVAILABLE = 'in_stock';
+    case OUT_OF_STOCK = 'out_of_stock';
+    case BACKORDER = 'backorder';
 
     /**
      * Get purchase status from product variant.
