@@ -8,8 +8,6 @@ interface CreatesNewUsers
 {
     /**
      * Validate and create a newly registered user.
-     *
-     * @param  array<string, string>  $input
      */
-    public function create(array $input): Authenticatable;
+    public function create(UserData $data): Authenticatable;
 }

@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Users\Actions;
 
 use Dystcz\LunarApi\Domain\Users\Contracts\CreatesNewUsers;
+use Dystcz\LunarApi\Domain\Users\Contracts\UserData;
 use Dystcz\LunarApi\Domain\Users\Models\User;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
@@ -13,33 +14,29 @@ use Illuminate\Validation\Rules\Password;
 class CreateUser implements CreatesNewUsers
 {
     /**
-     * Create a newly registered user.
-     *
-     * @param  array<string, string>  $input
+     * Create user.
      */
-    public function create(array $input): Authenticatable
+    public function create(UserData $data): Authenticatable
     {
-        $data = $this->validate($input);
+        $this->validate($data);
 
         /** @var Authenticatable $user */
         $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'name' => $data->name(),
+            'email' => $data->email(),
+            'password' => Hash::make($data->password()),
         ]);
 
         return $user;
     }
 
     /**
-     * Validate the given input.
-     *
-     * @param  array<string, string>  $input
+     * Validate the given data.
      */
-    public function validate(array $input): array
+    public function validate(UserData $data): void
     {
-        return Validator::make(
-            $input,
+        Validator::make(
+            $data->toArray(),
             $this->rules(),
             $this->messages(),
         )->validate();

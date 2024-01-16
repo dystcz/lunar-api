@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Users\Contracts\CreatesUserFromCart;
 use Dystcz\LunarApi\Domain\Users\Contracts\RegistersUser;
+use Dystcz\LunarApi\Domain\Users\Data\UserData;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use RuntimeException;
 
@@ -38,10 +39,12 @@ class CreateUserFromCart implements CreatesUserFromCart
         }
 
         /** @var Authenticatable $user */
-        $user = $this->registerUser->register([
-            'name' => implode(' ', [$shippingAddress->first_name, $shippingAddress->last_name]),
-            'email' => $shippingAddress->contact_email,
-        ]);
+        $user = $this->registerUser->register(
+            new UserData(
+                name: implode(' ', [$shippingAddress->first_name, $shippingAddress->last_name]),
+                email: $shippingAddress->contact_email,
+            ),
+        );
 
         $customer = $this->getCustomer($user, $shippingAddress);
 

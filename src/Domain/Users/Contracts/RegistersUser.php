@@ -8,8 +8,6 @@ interface RegistersUser
 {
     /**
      * Create a newly registered user.
-     *
-     * @param  array<string, string>  $data
      */
-    public function register(array $data): Authenticatable;
+    public function register(UserData $data): Authenticatable;
 }
