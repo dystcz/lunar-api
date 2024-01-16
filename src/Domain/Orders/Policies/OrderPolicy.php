@@ -7,6 +7,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
@@ -75,7 +76,7 @@ class OrderPolicy
     public function viewSigned(?Authenticatable $user, Order $order): bool
     {
         // If order check payment status signature is valid or env is local
-        if ($this->request->hasValidSignature() || App::environment('local')) {
+        if ($this->checkValidSignature() || App::environment('local')) {
             return true;
         }
 
@@ -83,10 +84,29 @@ class OrderPolicy
     }
 
     /**
+     * Check if request has valid signature.
+     */
+    protected function checkValidSignature(): bool
+    {
+        return $this->request->hasValidSignatureWhileIgnoring([
+            'include',
+            'fields',
+            'sort',
+            'page',
+            'filter',
+        ]);
+    }
+
+    /**
      * Determine whether the user can view the model.
      */
     protected function orderAccessible(?Authenticatable $user, Order $order): bool
     {
+        if (class_exists('Laravel\Sanctum\Guard')) {
+            $user = $user ?? Auth::guard('sanctum')->user();
+        }
+
+        // If order belongs to user
         if ($user && $user->getKey() === $order->user_id) {
             return true;
         }
@@ -99,16 +119,9 @@ class OrderPolicy
         }
 
         $signsUrl = Config::get('lunar-api.domains.orders.settings.sign_show_route', true);
-        $validSignature = $this->request->hasValidSignatureWhileIgnoring([
-            'include',
-            'fields',
-            'sort',
-            'page',
-            'filter',
-        ]);
 
         // If order show route should be signed and signature is valid
-        if (($signsUrl && $validSignature) || App::environment('local')) {
+        if (($signsUrl && $this->checkValidSignature()) || App::environment('local')) {
             return true;
         }
 

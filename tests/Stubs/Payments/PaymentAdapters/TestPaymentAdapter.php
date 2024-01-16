@@ -12,22 +12,20 @@ class TestPaymentAdapter extends PaymentAdapter
 {
     public function createIntent(Cart $cart, array $meta = []): PaymentIntent
     {
-        $this->cart = $cart;
-
         $paymentIntent = new PaymentIntent(
             id: 1,
             amount: 500,
             status: 'intent',
         );
 
-        $this->createTransaction($paymentIntent);
+        $this->createTransaction($cart, $paymentIntent);
 
         return $paymentIntent;
     }
 
     public function handleWebhook(Request $request): JsonResponse
     {
-        return response()->json(null, 200);
+        return new JsonResponse(null, 200);
     }
 
     public function getDriver(): string

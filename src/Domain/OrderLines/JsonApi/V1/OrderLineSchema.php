@@ -51,6 +51,9 @@ class OrderLineSchema extends Schema
         return [
             $this->idField(),
 
+            Number::make('purchasable_id'),
+            Str::make('purchasable_type'),
+
             Str::make('type'),
             Str::make('description'),
             Str::make('option'),
@@ -89,6 +92,8 @@ class OrderLineSchema extends Schema
                         static fn ($value) => $value?->amounts,
                     ),
             ]),
+
+            ArrayHash::make('meta'),
 
             BelongsTo::make('order')
                 ->serializeUsing(

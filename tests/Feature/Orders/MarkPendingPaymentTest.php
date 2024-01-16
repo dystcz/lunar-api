@@ -28,7 +28,7 @@ beforeEach(function () {
     $this->order = Order::query()->where($order->getKeyName(), $order->getKey())->firstOrFail();
 });
 
-test('can change order status to pending payment', function () {
+it('can change order status to pending payment', function () {
     /** @var TestCase $this */
     Event::fake(OrderStatusChanged::class);
 
@@ -58,4 +58,4 @@ test('can change order status to pending payment', function () {
         OrderStatusChanged::class,
         fn (OrderStatusChanged $event) => $event->order->getKey() === $this->order->getKey(),
     );
-});
+})->group('orders');

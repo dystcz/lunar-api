@@ -2,17 +2,25 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Actions;
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Users\Contracts\CreatesUserFromCart;
 use Dystcz\LunarApi\Domain\Users\Contracts\RegistersUser;
+use Dystcz\LunarApi\Domain\Users\Data\UserData;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\App;
 use RuntimeException;
 
 class CreateUserFromCart implements CreatesUserFromCart
 {
+    public function __construct(
+        protected RegistersUser $registerUser,
+    ) {
+    }
+
+    /**
+     * Create a user from a cart.
+     */
     public function __invoke(
         Cart $cart,
     ): ?Authenticatable {
@@ -31,10 +39,12 @@ class CreateUserFromCart implements CreatesUserFromCart
         }
 
         /** @var Authenticatable $user */
-        $user = App::make(RegistersUser::class)([
-            'name' => implode(' ', [$shippingAddress->first_name, $shippingAddress->last_name]),
-            'email' => $shippingAddress->contact_email,
-        ]);
+        $user = $this->registerUser->register(
+            new UserData(
+                name: implode(' ', [$shippingAddress->first_name, $shippingAddress->last_name]),
+                email: $shippingAddress->contact_email,
+            ),
+        );
 
         $customer = $this->getCustomer($user, $shippingAddress);
 
@@ -45,6 +55,9 @@ class CreateUserFromCart implements CreatesUserFromCart
         return $user;
     }
 
+    /**
+     * Get or create a customer.
+     */
     protected function getCustomer(Authenticatable $user, CartAddress $shippingAddress): Customer
     {
         /** @var Customer $customer */
@@ -65,6 +78,9 @@ class CreateUserFromCart implements CreatesUserFromCart
         return $customer;
     }
 
+    /**
+     * Get addresses from cart.
+     */
     protected function getAddresses(Cart $cart): array
     {
         $shippingAddress = $cart->shippingAddress;
@@ -78,6 +94,9 @@ class CreateUserFromCart implements CreatesUserFromCart
         return array_filter($addresses);
     }
 
+    /**
+     * Get address data in array.
+     */
     protected function getAddress(?CartAddress $address): ?array
     {
         return ! $address ? null : [

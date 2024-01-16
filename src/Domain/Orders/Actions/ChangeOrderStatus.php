@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Orders\Actions;
 
 use Dystcz\LunarApi\Domain\Orders\Contracts\OrderStatusContract;
-use Dystcz\LunarApi\Domain\Orders\Events\OrderStatusChanged;
 use Lunar\Models\Order;
 
 class ChangeOrderStatus
@@ -29,8 +28,6 @@ class ChangeOrderStatus
         }
 
         $order->update(['status' => $newStatus]);
-
-        OrderStatusChanged::dispatch($order, $newStatus, $oldStatus);
 
         return $order;
     }

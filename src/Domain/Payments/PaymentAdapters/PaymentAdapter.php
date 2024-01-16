@@ -13,8 +13,6 @@ use Lunar\Models\Transaction;
 
 abstract class PaymentAdapter
 {
-    protected Cart $cart;
-
     /**
      * Register payment adapter.
      */
@@ -52,11 +50,11 @@ abstract class PaymentAdapter
      *
      * @param  array<string,mixed>  $data
      */
-    protected function prepareTransactionData(PaymentIntent $paymentIntent, array $data = []): TransactionData
+    protected function prepareTransactionData(Cart $cart, PaymentIntent $paymentIntent, array $data = []): TransactionData
     {
         return (new TransactionData(
             type: 'intent',
-            order_id: $this->cart->draftOrder->id,
+            order_id: $cart->draftOrder->id,
             driver: $this->getDriver(),
             amount: $paymentIntent->amount,
             success: $paymentIntent->status === 'succeeded',
@@ -65,7 +63,7 @@ abstract class PaymentAdapter
             card_type: $this->getType(),
         ))->when(
             ! empty($data),
-            function($transactionData) use ($data) {
+            function ($transactionData) use ($data) {
                 return $transactionData->mergeData($data);
             },
         );
@@ -78,28 +76,18 @@ abstract class PaymentAdapter
      *
      * @throws BadMethodCallException
      */
-    public function createTransaction(PaymentIntent $paymentIntent, array $data = []): Transaction
+    public function createTransaction(Cart $cart, PaymentIntent $paymentIntent, array $data = []): Transaction
     {
-        $this->validateCart();
-
-        $transactionData = $this->prepareTransactionData($paymentIntent, $data);
-
-        return (new CreateTransaction)($transactionData);
-    }
-
-    /**
-     * Validate cart.
-     *
-     * @throws BadMethodCallException
-     */
-    protected function validateCart(): void
-    {
-        if ($this->cart->hasCompletedOrders()) {
+        if ($cart->hasCompletedOrders()) {
             throw new BadMethodCallException('Cannot create transaction for completed order.');
         }
 
-        if (! $this->cart->draftOrder) {
+        if (! $cart->draftOrder) {
             throw new BadMethodCallException('Cart has no order.');
         }
+
+        $transactionData = $this->prepareTransactionData($cart, $paymentIntent, $data);
+
+        return (new CreateTransaction)($transactionData);
     }
 }

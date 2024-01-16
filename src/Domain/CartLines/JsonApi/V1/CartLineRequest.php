@@ -41,7 +41,7 @@ class CartLineRequest extends ResourceRequest
     public function messages(): array
     {
         return [
-            'quality.integer' => __('lunar-api::validations.cart_lines.quantity.integer'),
+            'quantity.integer' => __('lunar-api::validations.cart_lines.quantity.integer'),
             'purchasable_id.required' => __('lunar-api::validations.cart_lines.purchasable_id.required'),
             'purchasable_id.integer' => __('lunar-api::validations.cart_lines.purchasable_id.integer'),
             'purchasable_type.required' => __('lunar-api::validations.cart_lines.purchasable_type.required'),

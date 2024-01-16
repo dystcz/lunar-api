@@ -3,14 +3,15 @@
 namespace Dystcz\LunarApi\Domain\Products\Models;
 
 use Dystcz\LunarApi\Domain\Products\Actions\IsInStock;
+use Dystcz\LunarApi\Domain\Products\Builders\ProductBuilder;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Lunar\Models\Attribute as LunarAttribute;
 use Lunar\Models\Price;
@@ -18,6 +19,9 @@ use Lunar\Models\Product as LunarProduct;
 use Lunar\Models\ProductType;
 use Lunar\Models\ProductVariant;
 
+/**
+ * @method static ProductBuilder query()
+ */
 class Product extends LunarProduct
 {
     use HashesRouteKey;
@@ -28,6 +32,17 @@ class Product extends LunarProduct
     protected static function newFactory(): ProductFactory
     {
         return ProductFactory::new();
+    }
+
+    /**
+     * Create a new Eloquent query builder for the model.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @return ProductBuilder|static
+     */
+    public function newEloquentBuilder($query): Builder
+    {
+        return new ProductBuilder($query);
     }
 
     /**
@@ -144,23 +159,8 @@ class Product extends LunarProduct
      */
     public function inStock(): Attribute
     {
-        if ($this->relationLoaded('variants')) {
-            $inStock = (new IsInStock)($this);
-            Cache::put("product-{$this->id}-in-stock", $inStock, 3600);
-
-            return Attribute::make(
-                get: fn () => $inStock,
-            );
-        }
-
-        $inStock = Cache::remember(
-            "product-{$this->id}-in-stock",
-            3600,
-            fn () => (new IsInStock)($this),
-        );
-
         return Attribute::make(
-            get: fn () => $inStock,
+            get: fn () => (new IsInStock)($this),
         );
     }
 }
