@@ -6,6 +6,7 @@
 return [
     'auth' => [
         'actions' => [
+            'create_user' => Dystcz\LunarApi\Domain\Users\Actions\CreateUser::class,
             'create_user_from_cart' => Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart::class,
             'register_user' => Dystcz\LunarApi\Domain\Users\Actions\RegisterUser::class,
         ],
