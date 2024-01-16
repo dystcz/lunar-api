@@ -8,11 +8,15 @@ use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Users\Contracts\CreatesUserFromCart;
 use Dystcz\LunarApi\Domain\Users\Contracts\RegistersUser;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\App;
 use RuntimeException;
 
 class CreateUserFromCart implements CreatesUserFromCart
 {
+    public function __construct(
+        protected RegistersUser $registerUser,
+    ) {
+    }
+
     /**
      * Create a user from a cart.
      */
@@ -34,7 +38,7 @@ class CreateUserFromCart implements CreatesUserFromCart
         }
 
         /** @var Authenticatable $user */
-        $user = App::make(RegistersUser::class)([
+        $user = $this->registerUser->register([
             'name' => implode(' ', [$shippingAddress->first_name, $shippingAddress->last_name]),
             'email' => $shippingAddress->contact_email,
         ]);
