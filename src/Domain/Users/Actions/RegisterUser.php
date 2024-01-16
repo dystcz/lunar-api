@@ -6,12 +6,16 @@ use Dystcz\LunarApi\Domain\Users\Contracts\CreatesNewUsers;
 use Dystcz\LunarApi\Domain\Users\Contracts\RegistersUser;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 
 class RegisterUser implements RegistersUser
 {
+    public function __construct(
+        protected CreatesNewUsers $createUser,
+    ) {
+    }
+
     /**
      * Create a newly registered user.
      *
@@ -33,7 +37,7 @@ class RegisterUser implements RegistersUser
      */
     protected function createUser(array $data): Authenticatable
     {
-        return App::make(CreatesNewUsers::class)->create([
+        return $this->createUser->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $data['password'] ?? Str::random(32),
