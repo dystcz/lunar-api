@@ -2,10 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Contracts;
 
-interface FilterCollection
+use Illuminate\Contracts\Support\Arrayable;
+
+interface FilterCollection extends Arrayable
 {
-    /**
-     * Get filters to be registered.
-     */
-    public function toArray(): array;
 }
