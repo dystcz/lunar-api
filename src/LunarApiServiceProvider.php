@@ -64,10 +64,10 @@ class LunarApiServiceProvider extends ServiceProvider
         $this->registerObservers();
         $this->registerEvents();
 
-        LunarApi::createUserUsing(Config::get('domains.auth.actions.create_user', CreateUser::class));
-        LunarApi::createUserFromCartUsing(Config::get('domains.auth.actions.create_user_from_cart', CreateUserFromCart::class));
-        LunarApi::registerUserUsing(Config::get('domains.auth.actions.register_user', RegisterUser::class));
-        LunarApi::checkoutCartUsing(Config::get('domains.carts.actions.checkout_cart', CheckoutCart::class));
+        LunarApi::createUserUsing(Config::get('lunar-api.domains.auth.actions.create_user', CreateUser::class));
+        LunarApi::createUserFromCartUsing(Config::get('lunar-api.domains.auth.actions.create_user_from_cart', CreateUserFromCart::class));
+        LunarApi::registerUserUsing(Config::get('lunar-api.domains.auth.actions.register_user', RegisterUser::class));
+        LunarApi::checkoutCartUsing(Config::get('lunar-api.domains.carts.actions.checkout_cart', CheckoutCart::class));
 
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
