@@ -17,7 +17,7 @@ class RegisterUser implements RegistersUser
      *
      * @param  array<string, string>  $data
      */
-    public function __invoke(array $data): ?Authenticatable
+    public function register(array $data): Authenticatable
     {
         $user = $this->createUser($data);
 
@@ -31,7 +31,7 @@ class RegisterUser implements RegistersUser
      *
      * @param  array<string, string>  $data
      */
-    protected function createUser(array $data): ?Authenticatable
+    protected function createUser(array $data): Authenticatable
     {
         return App::make(CreatesNewUsers::class)->create([
             'name' => $data['name'],
