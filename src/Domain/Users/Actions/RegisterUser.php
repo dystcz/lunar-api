@@ -19,14 +19,24 @@ class RegisterUser implements RegistersUser
      */
     public function __invoke(array $data): ?Authenticatable
     {
-        $user = App::make(CreatesNewUsers::class)->create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => $data['password'] ?? Str::random(32),
-        ]);
+        $user = $this->createUser($data);
 
         Event::dispatch(new Registered($user));
 
         return $user;
+    }
+
+    /**
+     * Create a new user instance.
+     *
+     * @param  array<string, string>  $data
+     */
+    protected function createUser(array $data): ?Authenticatable
+    {
+        return App::make(CreatesNewUsers::class)->create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'] ?? Str::random(32),
+        ]);
     }
 }
