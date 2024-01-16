@@ -5,6 +5,7 @@ use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\LunarApi;
+use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -113,6 +114,52 @@ test('a user can be registered when checking out', function () {
     Event::assertDispatched(Registered::class, fn (Registered $event) => $event->user->id === $order->user_id);
 
     expect($order->user_id)->not()->toBeNull();
+})->group('checkout');
+
+test('it validates existing user before being registered when checking out', function () {
+    /** @var TestCase $this */
+    Event::fake([CartCreated::class, Registered::class]);
+
+    /** @var Cart $cart */
+    $cart = Cart::withoutEvents(function () {
+        /** @var CartFactory $factory */
+        $factory = Cart::factory();
+
+        return $factory
+            ->withAddresses()
+            ->withLines()
+            ->create();
+    });
+
+    // Create a user with the same email as the cart's shipping address
+    $user = User::factory()->create([
+        'email' => $cart->shippingAddress->contact_email,
+    ]);
+
+    /** @var CartSessionManager $cartSession */
+    $cartSession = App::make(CartSessionInterface::class);
+    $cartSession->use($cart);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->withData([
+            'type' => 'carts',
+            'attributes' => [
+                'agree' => true,
+                'create_user' => true,
+            ],
+        ])
+        ->post('/api/v1/carts/-actions/checkout');
+
+    $response
+        ->assertStatus(422)
+        ->assertErrorStatus([
+            'detail' => __('lunar-api::validations.auth.email.unique'),
+            'status' => '422',
+        ]);
+
+    Event::assertNotDispatched(Registered::class);
 })->group('checkout');
 
 it('does not forget cart after checkout if configured', function () {
