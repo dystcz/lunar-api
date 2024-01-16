@@ -2,6 +2,21 @@
 
 return [
 
+    'auth' => [
+        'email' => [
+            'required' => 'Please enter your email address.',
+            'email' => 'Please enter a valid email address.',
+            'unique' => 'This email address is already in use.',
+            'max' => 'Your email address must be less than :max characters long.',
+        ],
+
+        'password' => [
+            'required' => 'Please enter a password.',
+            'min' => 'Your password must be at least :min characters long.',
+            'confirmed' => 'Please confirm your password.',
+        ],
+    ],
+
     'addresses' => [
         'company_in' => [
             'string' => 'Company ID must be a string.',
