@@ -84,6 +84,8 @@ class CollectionSchema extends Schema
 
             WhereHas::make($this, 'default_url', 'url')->singular(),
 
+            WhereHas::make($this, 'group', 'group'),
+
             ...parent::filters(),
         ];
     }
