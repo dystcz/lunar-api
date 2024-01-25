@@ -37,11 +37,14 @@ class CartSchema extends Schema
             'cart_lines.purchasable.prices',
             'cart_lines.purchasable.product',
             'cart_lines.purchasable.product.thumbnail',
+            'cart_lines.purchasable.product.default_url',
+            'cart_lines.purchasable.product.collections',
 
             'order',
             'order.product_lines',
             'order.product_lines.purchasable',
             'order.product_lines.purchasable.thumbnail',
+            'order.product_lines.purchasable.default_url',
 
             'cart_addresses',
             'cart_addresses.country',
