@@ -36,7 +36,6 @@ class CartAddressesController extends Controller
             'company_tin' => $request->validated('company_tin', null),
         ];
 
-
         $model = $schema
             ->repository()
             ->create()
@@ -65,7 +64,10 @@ class CartAddressesController extends Controller
     ): DataResponse {
         $this->authorize('update', $cartAddress);
 
+        $validatedRequest = $request->validated();
+
         $meta = array_merge($cartAddress->meta?->toArray() ?? [], [
+            ...$validatedRequest['meta'] ?? [],
             'company_in' => $request->validated('company_in', null),
             'company_tin' => $request->validated('company_tin', null),
         ]);
