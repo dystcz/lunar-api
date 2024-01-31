@@ -58,6 +58,10 @@ class ProductSchema extends Schema
             'thumbnail',
 
             'associations',
+            'associations.target',
+            'associations.target.images',
+            'associations.target.prices',
+            'associations.target.collections',
             'associations.target.default_url',
             'associations.target.thumbnail',
             'associations.target.lowest_price',
