@@ -158,8 +158,7 @@ class OrderSchema extends Schema
             Str::make('payment_method')
                 ->hidden(),
 
-            ArrayHash::make('meta')
-                ->hidden(),
+            ArrayHash::make('meta'),
 
             HasMany::make('order_lines', 'lines')
                 ->type('order-lines'),
