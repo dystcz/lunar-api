@@ -29,6 +29,16 @@ abstract class TestCase extends Orchestra
     use JsonApiTestHelpers;
     use MakesJsonApiRequests;
 
+    /**
+     * @var \Lunar\Models\Order
+     */
+    protected $order;
+
+    /**
+     * @var \Lunar\Models\Cart
+     */
+    protected $cart;
+
     protected function setUp(): void
     {
         parent::setUp();
