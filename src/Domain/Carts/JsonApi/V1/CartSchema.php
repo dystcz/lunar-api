@@ -40,6 +40,7 @@ class CartSchema extends Schema
             'cart_lines.purchasable.product.thumbnail',
             'cart_lines.purchasable.product.default_url',
             'cart_lines.purchasable.product.collections',
+            'cart_lines.purchasable.product.product_type',
 
             'order',
             'order.product_lines',

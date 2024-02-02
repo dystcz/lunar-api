@@ -90,7 +90,7 @@ class ProductSchema extends Schema
             'variants.prices',
             'variants.values',
             // 'variants.thumbnail',
-
+            'product_type',
             'tags',
 
             ...parent::includePaths(),
@@ -191,7 +191,6 @@ class ProductSchema extends Schema
                 ),
 
             BelongsTo::make('product_type', 'productType')
-                ->hidden()
                 ->retainFieldName()
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
