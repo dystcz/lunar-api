@@ -7,7 +7,6 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
@@ -102,10 +101,6 @@ class OrderPolicy
      */
     protected function orderAccessible(?Authenticatable $user, Order $order): bool
     {
-        if (class_exists('Laravel\Sanctum\Guard')) {
-            $user = $user ?? Auth::guard('sanctum')->user();
-        }
-
         // If order belongs to user
         if ($user && $user->getKey() === $order->user_id) {
             return true;
