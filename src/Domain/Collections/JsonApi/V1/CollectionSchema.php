@@ -4,11 +4,13 @@ namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Filters\WhereNull;
 use Lunar\Models\Collection;
 
 class CollectionSchema extends Schema
@@ -70,6 +72,9 @@ class CollectionSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks()
                 ),
 
+            Number::make('parent_id', 'parent_id')
+                ->hidden(),
+
             ...parent::fields(),
         ];
     }
@@ -83,6 +88,10 @@ class CollectionSchema extends Schema
             WhereIdIn::make($this),
 
             WhereHas::make($this, 'default_url', 'url')->singular(),
+
+            WhereHas::make($this, 'group', 'group'),
+
+            WhereNull::make('root', 'parent_id'),
 
             ...parent::filters(),
         ];

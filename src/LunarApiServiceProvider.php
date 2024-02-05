@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi;
 use Dystcz\LunarApi\Domain\Carts\Actions\CheckoutCart;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
+use Dystcz\LunarApi\Domain\Users\Actions\CreateUser;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
 use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
 use Illuminate\Support\Facades\Config;
@@ -63,9 +64,10 @@ class LunarApiServiceProvider extends ServiceProvider
         $this->registerObservers();
         $this->registerEvents();
 
-        LunarApi::createUserFromCartUsing(Config::get('domains.auth.actions.create_user_from_cart', CreateUserFromCart::class));
-        LunarApi::registerUserUsing(Config::get('domains.auth.actions.register_user', RegisterUser::class));
-        LunarApi::checkoutCartUsing(Config::get('domains.carts.actions.checkout_cart', CheckoutCart::class));
+        LunarApi::createUserUsing(Config::get('lunar-api.domains.auth.actions.create_user', CreateUser::class));
+        LunarApi::createUserFromCartUsing(Config::get('lunar-api.domains.auth.actions.create_user_from_cart', CreateUserFromCart::class));
+        LunarApi::registerUserUsing(Config::get('lunar-api.domains.auth.actions.register_user', RegisterUser::class));
+        LunarApi::checkoutCartUsing(Config::get('lunar-api.domains.carts.actions.checkout_cart', CheckoutCart::class));
 
         if ($this->app->runningInConsole()) {
             $this->publishConfig();

@@ -22,6 +22,6 @@ class HandleFailedPayment
         (new ChangeOrderStatus)($order, OrderStatus::AWAITING_PAYMENT);
 
         // Create failed transaction
-        $paymentAdapter->createTransaction($paymentIntent);
+        $paymentAdapter->createTransaction($order->cart, $paymentIntent);
     }
 }

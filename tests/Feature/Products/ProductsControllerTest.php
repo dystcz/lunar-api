@@ -39,6 +39,27 @@ it('can list bare products', function () {
         ->assertDoesntHaveIncluded();
 })->group('products');
 
+it('cannot list unpublished products', function () {
+    /** @var TestCase $this */
+    $products = Product::factory()
+        ->has(
+            ProductVariant::factory()->has(Price::factory())->count(2),
+            'variants'
+        )
+        ->count(3)
+        ->create(['status' => 'draft']);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->get(serverUrl('/products'));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedNone()
+        ->assertDoesntHaveIncluded();
+})->group('products');
+
 it('can show product detail', function () {
     /** @var TestCase $this */
     $product = Product::factory()->create();

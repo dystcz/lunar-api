@@ -23,6 +23,8 @@ class OrderSchema extends Schema
      */
     public static string $model = Order::class;
 
+    protected $defaultSort = '-created_at';
+
     /**
      * Get the include paths supported by this resource.
      *
@@ -144,9 +146,14 @@ class OrderSchema extends Schema
                     ),
                 Number::make('exchange_rate'),
             ]),
-            DateTime::make('placed_at'),
-            DateTime::make('created_at'),
-            DateTime::make('updated_at'),
+            DateTime::make('placed_at')
+                ->sortable(),
+
+            DateTime::make('created_at')
+                ->sortable(),
+
+            DateTime::make('updated_at')
+                ->sortable(),
 
             Str::make('payment_method')
                 ->hidden(),

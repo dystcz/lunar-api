@@ -13,21 +13,21 @@ class GetProductPurchaseStatus
     }
 
     /**
-     * Get purchase status for product
+     * Get purchase status for product.
      */
-    public function __invoke(Product $product)
+    public function __invoke(Product $product): PurchaseStatus
     {
-        $variantsStatuses = $product->variants->map(function (ProductVariant $variant) {
-            return PurchaseStatus::fromProductVariant($variant);
-        });
+        $variantsStatuses = $product->variants->map(
+            fn (ProductVariant $variant) => PurchaseStatus::fromProductVariant($variant),
+        );
 
         if ($variantsStatuses->contains(PurchaseStatus::AVAILABLE)) {
-            return PurchaseStatus::AVAILABLE->toArray();
+            return PurchaseStatus::AVAILABLE;
         }
         if ($variantsStatuses->contains(PurchaseStatus::BACKORDER)) {
-            return PurchaseStatus::BACKORDER->toArray();
+            return PurchaseStatus::BACKORDER;
         }
 
-        return PurchaseStatus::OUT_OF_STOCK->toArray();
+        return PurchaseStatus::OUT_OF_STOCK;
     }
 }

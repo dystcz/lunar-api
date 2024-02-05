@@ -7,6 +7,8 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\InStockFilter;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
@@ -14,6 +16,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasManyThrough;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
+use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use Lunar\Models\Product;
@@ -24,6 +27,14 @@ class ProductSchema extends Schema
      * {@inheritDoc}
      */
     public static string $model = Product::class;
+
+    /**
+     * Build an index query for this resource.
+     */
+    public function indexQuery(?Request $request, Builder $query): Builder
+    {
+        return $query->where('status', '!=', 'draft');
+    }
 
     /**
      * {@inheritDoc}
@@ -94,6 +105,8 @@ class ProductSchema extends Schema
                 ->groupAttributes(),
 
             Boolean::make('in_stock'),
+
+            Str::make('status'),
 
             HasMany::make('associations')
                 ->type('associations')
@@ -213,13 +226,18 @@ class ProductSchema extends Schema
 
             WhereHas::make($this, 'brand'),
 
-            WhereHas::make($this, 'default_url', 'url')->singular(),
+            WhereHas::make($this, 'default_url', 'url')
+                ->singular(),
 
             WhereHas::make($this, 'urls'),
 
             WhereHas::make($this, 'product_type'),
 
             WhereHas::make($this, 'channels'),
+
+            WhereHas::make($this, 'status'),
+
+            WhereHas::make($this, 'collections'),
 
             ...(new $filterCollection)->toArray(),
 

@@ -61,8 +61,7 @@ class CartAddressSchema extends Schema
             Str::make('shipping_option'),
             Str::make('address_type', 'type'),
 
-            ArrayHash::make('meta')
-                ->hidden(),
+            ArrayHash::make('meta'),
 
             BelongsTo::make('country'),
             BelongsTo::make('cart'),

@@ -93,7 +93,6 @@ class CartAddressRequest extends AddressRequest
                     AddressType::BILLING->value,
                 ]),
             ],
-
             'cart' => [
                 JsonApiRule::toOne(),
                 'required',
@@ -101,6 +100,10 @@ class CartAddressRequest extends AddressRequest
             'country' => [
                 JsonApiRule::toOne(),
                 'required',
+            ],
+            'meta' => [
+                'nullable',
+                'array',
             ],
         ];
     }
