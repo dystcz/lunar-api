@@ -50,7 +50,7 @@ class ShippingOption implements Arrayable
      */
     public static function fromArray(
         \Lunar\DataTypes\ShippingOption $shippingOption
-    ): ShippingOption {
+    ): self {
         $identifier = Str::slug($shippingOption->identifier);
 
         return new self(

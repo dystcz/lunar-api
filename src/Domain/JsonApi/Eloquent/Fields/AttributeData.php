@@ -8,7 +8,6 @@ use Illuminate\Support\Collection;
 use LaravelJsonApi\Core\Json\Hash;
 use LaravelJsonApi\Core\Support\Arr as JsonApiArr;
 use LaravelJsonApi\Eloquent\Fields\Attribute;
-use Lunar\FieldTypes\Dropdown;
 use Lunar\Models\Attribute as AttributeModel;
 
 class AttributeData extends Attribute
@@ -65,7 +64,7 @@ class AttributeData extends Attribute
                 ->map(fn ($attributes) => $attributes->mapWithKeys(function (AttributeModel $attribute) use ($model) {
                     $value = null;
 
-                    if ($attribute->type === Dropdown::class) {
+                    if ($attribute->configuration->has('lookups')) {
                         $value = Arr::first(Arr::where(
                             $attribute->configuration['lookups'] ?? [],
                             fn ($lookup) => $lookup['value'] === $model->attr($attribute->handle),

@@ -226,6 +226,19 @@ return [
     //     'settings' => [],
     // ],
 
+    'filters' => [
+        'model' => null,
+        'lunar_model' => null,
+        'policy' => null,
+        'schema' => Dystcz\LunarApi\Domain\Filters\JsonApi\V1\FilterSchema::class,
+        'resource' => Dystcz\LunarApi\Domain\Filters\JsonApi\V1\FilterResource::class,
+        'query' => Dystcz\LunarApi\Domain\Filters\JsonApi\V1\FilterQuery::class,
+        'collection_query' => Dystcz\LunarApi\Domain\Filters\JsonApi\V1\FilterCollectionQuery::class,
+        'routes' => Dystcz\LunarApi\Domain\Filters\Http\Routing\FilterRouteGroup::class,
+        'route_actions' => [],
+        'settings' => [],
+    ],
+
     'media' => [
         'model' => Spatie\MediaLibrary\MediaCollections\Models\Media::class,
         'lunar_model' => null,
@@ -371,7 +384,7 @@ return [
         'routes' => Dystcz\LunarApi\Domain\Products\Http\Routing\ProductRouteGroup::class,
         'route_actions' => [],
         'settings' => [
-            'filters' => Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilterCollection::class,
+            'filters' => Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilters::class,
         ],
     ],
 
