@@ -18,7 +18,7 @@ class TestPaymentAdapter extends PaymentAdapter
             status: 'intent',
         );
 
-        $this->createTransaction($cart, $paymentIntent);
+        $this->createIntentTransaction($cart, $paymentIntent);
 
         return $paymentIntent;
     }

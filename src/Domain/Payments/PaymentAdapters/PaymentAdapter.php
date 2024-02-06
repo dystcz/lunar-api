@@ -3,7 +3,8 @@
 namespace Dystcz\LunarApi\Domain\Payments\PaymentAdapters;
 
 use BadMethodCallException;
-use Dystcz\LunarApi\Domain\Payments\Data\PaymentIntent;
+use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent;
+use Dystcz\LunarApi\Domain\Payments\Enums\TransactionType;
 use Dystcz\LunarApi\Domain\Transactions\Actions\CreateTransaction;
 use Dystcz\LunarApi\Domain\Transactions\Data\TransactionData;
 use Illuminate\Http\JsonResponse;
@@ -14,8 +15,6 @@ use Lunar\Models\Transaction;
 
 abstract class PaymentAdapter
 {
-    protected Cart $cart;
-
     /**
      * Register payment adapter.
      */
@@ -40,7 +39,8 @@ abstract class PaymentAdapter
     /**
      * Create payment intent.
      *
-     * @param  array<string,mixed>  $meta */
+     * @param  array<string,mixed>  $meta
+     */
     abstract public function createIntent(Cart $cart, array $meta = []): PaymentIntent;
 
     /**
@@ -51,32 +51,33 @@ abstract class PaymentAdapter
     /**
      * Create transaction for payment intent.
      *
-     * @param  array<string,mixed>  $data
+     * @param  array<string,mixed>  $meta
      *
      * @throws BadMethodCallException
      */
-    public function createTransaction(PaymentIntent $paymentIntent, array $data = []): Transaction
+    public function createIntentTransaction(Cart $cart, PaymentIntent $paymentIntent, array $meta = []): Transaction
     {
-        $this->validateCart();
-
-        // TODO: Finish
-
-        return (new CreateTransaction)(new TransactionData);
-    }
-
-    /**
-     * Validate cart.
-     *
-     * @throws BadMethodCallException
-     */
-    protected function validateCart(): void
-    {
-        if ($this->cart->hasCompletedOrders()) {
+        if ($cart->hasCompletedOrders()) {
             throw new BadMethodCallException('Cannot create transaction for completed order.');
         }
 
-        if (! $this->cart->draftOrder) {
+        if (! $cart->draftOrder) {
             throw new BadMethodCallException('Cart has no order.');
         }
+
+        $meta = array_merge($paymentIntent->meta, $meta);
+
+        $data = new TransactionData(
+            order_id: $cart->draftOrder->id,
+            success: true,
+            type: TransactionType::INTENT->value,
+            driver: $this->getDriver(),
+            amount: $paymentIntent->getAmount(),
+            reference: $paymentIntent->getId(),
+            status: $paymentIntent->getStatus(),
+            card_type: $this->getType(),
+        );
+
+        return (new CreateTransaction)($data);
     }
 }
