@@ -2,23 +2,27 @@
 
 namespace Dystcz\LunarApi\Tests\Stubs\Payments\PaymentAdapters;
 
+use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent as PaymentIntentContract;
+use Dystcz\LunarApi\Domain\Payments\Data\PaymentIntent;
+use Dystcz\LunarApi\Domain\Payments\Enums\PaymentIntentStatus;
 use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdapter;
-use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentIntent;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Lunar\Models\Cart;
 
 class TestPaymentAdapter extends PaymentAdapter
 {
-    public function createIntent(Cart $cart, array $meta = []): PaymentIntent
+    public function createIntent(Cart $cart, array $meta = []): PaymentIntentContract
     {
-        $paymentIntent = new PaymentIntent(
-            id: 1,
-            amount: 500,
-            status: 'intent',
-        );
+        $intent = [
+            'id' => 1,
+            'amount' => 500,
+            'status' => PaymentIntentStatus::INTENT->value,
+        ];
 
-        $this->createTransaction($cart, $paymentIntent);
+        $paymentIntent = new PaymentIntent((object) $intent);
+
+        $this->createIntentTransaction($cart, $paymentIntent);
 
         return $paymentIntent;
     }
