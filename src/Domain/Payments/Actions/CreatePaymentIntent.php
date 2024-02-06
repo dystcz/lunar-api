@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Payments\Actions;
 
-use Dystcz\LunarApi\Domain\Payments\Data\PaymentIntent;
+use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent;
 use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
 use Lunar\Models\Cart;
 

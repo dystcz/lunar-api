@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Orders\Events;
 
 use Dystcz\LunarApi\Domain\Payments\Contracts\FailedPaymentEventContract;
-use Dystcz\LunarApi\Domain\Payments\Data\PaymentIntent;
+use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent;
 use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdapter;
 use Illuminate\Foundation\Events\Dispatchable;
 use Lunar\Models\Order;
