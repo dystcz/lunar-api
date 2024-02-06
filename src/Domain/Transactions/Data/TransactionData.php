@@ -10,6 +10,9 @@ class TransactionData implements Arrayable
 {
     use Conditionable;
 
+    /**
+     * @param  array<string,mixed>  $meta
+     */
     public function __construct(
         public int $order_id,
         public bool $success,
@@ -22,9 +25,10 @@ class TransactionData implements Arrayable
         public ?string $notes = null,
         public ?int $parent_transaction_id = null,
         public ?string $last_four = null,
+        public ?Carbon $captured_at = null,
         public array $meta = [],
-        public ?Carbon $captured_at = null
     ) {
+
         //
     }
 
@@ -34,6 +38,7 @@ class TransactionData implements Arrayable
     public function toArray(): array
     {
         return [
+            'parent_transaction_id' => $this->parent_transaction_id,
             'order_id' => $this->order_id,
             'success' => $this->success,
             'type' => $this->type,
@@ -43,15 +48,16 @@ class TransactionData implements Arrayable
             'status' => $this->status,
             'card_type' => $this->card_type,
             'notes' => $this->notes,
-            'parent_transaction_id' => $this->parent_transaction_id,
             'last_four' => $this->last_four,
-            'meta' => $this->meta,
             'captured_at' => $this->captured_at?->toDateTimeString(),
+            'meta' => $this->meta,
         ];
     }
 
     /**
      * Merge transaction data.
+     *
+     * @param  array<string,mixed>  $data
      */
     public function mergeData(array $data): self
     {

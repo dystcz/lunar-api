@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Payments\Actions;
 
+use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent;
 use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
-use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentIntent;
 use Lunar\Models\Cart;
 
 class CreatePaymentIntent

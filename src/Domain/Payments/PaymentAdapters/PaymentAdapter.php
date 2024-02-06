@@ -3,6 +3,8 @@
 namespace Dystcz\LunarApi\Domain\Payments\PaymentAdapters;
 
 use BadMethodCallException;
+use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent;
+use Dystcz\LunarApi\Domain\Payments\Enums\TransactionType;
 use Dystcz\LunarApi\Domain\Transactions\Actions\CreateTransaction;
 use Dystcz\LunarApi\Domain\Transactions\Data\TransactionData;
 use Illuminate\Http\JsonResponse;
@@ -37,7 +39,8 @@ abstract class PaymentAdapter
     /**
      * Create payment intent.
      *
-     * @param  array<string,mixed>  $meta */
+     * @param  array<string,mixed>  $meta
+     */
     abstract public function createIntent(Cart $cart, array $meta = []): PaymentIntent;
 
     /**
@@ -46,37 +49,13 @@ abstract class PaymentAdapter
     abstract public function handleWebhook(Request $request): JsonResponse;
 
     /**
-     * Prepare transaction data.
-     *
-     * @param  array<string,mixed>  $data
-     */
-    protected function prepareTransactionData(Cart $cart, PaymentIntent $paymentIntent, array $data = []): TransactionData
-    {
-        return (new TransactionData(
-            type: 'intent',
-            order_id: $cart->draftOrder->id,
-            driver: $this->getDriver(),
-            amount: $paymentIntent->amount,
-            success: $paymentIntent->status === 'succeeded',
-            reference: $paymentIntent->id,
-            status: $paymentIntent->status,
-            card_type: $this->getType(),
-        ))->when(
-            ! empty($data),
-            function ($transactionData) use ($data) {
-                return $transactionData->mergeData($data);
-            },
-        );
-    }
-
-    /**
      * Create transaction for payment intent.
      *
-     * @param  array<string,mixed>  $data
+     * @param  array<string,mixed>  $meta
      *
      * @throws BadMethodCallException
      */
-    public function createTransaction(Cart $cart, PaymentIntent $paymentIntent, array $data = []): Transaction
+    public function createIntentTransaction(Cart $cart, PaymentIntent $paymentIntent, array $meta = []): Transaction
     {
         if ($cart->hasCompletedOrders()) {
             throw new BadMethodCallException('Cannot create transaction for completed order.');
@@ -86,8 +65,19 @@ abstract class PaymentAdapter
             throw new BadMethodCallException('Cart has no order.');
         }
 
-        $transactionData = $this->prepareTransactionData($cart, $paymentIntent, $data);
+        $meta = array_merge($paymentIntent->meta, $meta);
 
-        return (new CreateTransaction)($transactionData);
+        $data = new TransactionData(
+            order_id: $cart->draftOrder->id,
+            success: true,
+            type: TransactionType::INTENT->value,
+            driver: $this->getDriver(),
+            amount: $paymentIntent->getAmount(),
+            reference: $paymentIntent->getId(),
+            status: $paymentIntent->getStatus(),
+            card_type: $this->getType(),
+        );
+
+        return (new CreateTransaction)($data);
     }
 }
