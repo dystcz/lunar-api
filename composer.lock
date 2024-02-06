@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f27f18a264470c9fa4c678b3a515690f",
+    "content-hash": "3cbc192133f0676c5814ff7fc19de5ff",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -3547,16 +3547,16 @@
         },
         {
             "name": "lunarphp/lunar",
-            "version": "0.7.6",
+            "version": "0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lunarphp/lunar.git",
-                "reference": "65a84acc6806ef402be0a8a675fb93a1aa067f3c"
+                "reference": "cbe131e983700f582f24ab267387f8a92f9c63d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lunarphp/lunar/zipball/65a84acc6806ef402be0a8a675fb93a1aa067f3c",
-                "reference": "65a84acc6806ef402be0a8a675fb93a1aa067f3c",
+                "url": "https://api.github.com/repos/lunarphp/lunar/zipball/cbe131e983700f582f24ab267387f8a92f9c63d1",
+                "reference": "cbe131e983700f582f24ab267387f8a92f9c63d1",
                 "shasum": ""
             },
             "require": {
@@ -3640,7 +3640,7 @@
             "description": "Lunar Monorepo",
             "support": {
                 "issues": "https://github.com/lunarphp/lunar/issues",
-                "source": "https://github.com/lunarphp/lunar/tree/0.7.6"
+                "source": "https://github.com/lunarphp/lunar/tree/0.8.0"
             },
             "funding": [
                 {
@@ -3648,7 +3648,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-31T16:14:53+00:00"
+            "time": "2024-01-31T16:41:34+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
