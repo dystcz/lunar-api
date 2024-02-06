@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Payments\Contracts;
 
-use Dystcz\LunarApi\Domain\Payments\Data\PaymentIntent;
 use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdapter;
 use Lunar\Models\Order;
 
