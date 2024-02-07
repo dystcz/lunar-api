@@ -54,7 +54,7 @@ abstract class PaymentAdapter
     {
         return (new TransactionData(
             type: 'intent',
-            order_id: $cart->draftOrder->id,
+            order_id: $cart ? $cart->draftOrder->id : 1, // Fix me
             driver: $this->getDriver(),
             amount: $paymentIntent->amount,
             success: $paymentIntent->status === 'succeeded',
@@ -78,13 +78,13 @@ abstract class PaymentAdapter
      */
     public function createTransaction(Cart $cart, PaymentIntent $paymentIntent, array $data = []): Transaction
     {
-        if ($cart->hasCompletedOrders()) {
-            throw new BadMethodCallException('Cannot create transaction for completed order.');
-        }
+        // if ($cart->hasCompletedOrders()) {
+        //     throw new BadMethodCallException('Cannot create transaction for completed order.');
+        // }
 
-        if (! $cart->draftOrder) {
-            throw new BadMethodCallException('Cart has no order.');
-        }
+        // if (! $cart->draftOrder) {
+        //     throw new BadMethodCallException('Cart has no order.');
+        // }
 
         $transactionData = $this->prepareTransactionData($cart, $paymentIntent, $data);
 
