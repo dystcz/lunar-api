@@ -54,7 +54,7 @@ abstract class PaymentAdapter
     {
         return (new TransactionData(
             type: 'intent',
-            order_id: $cart ? $cart->draftOrder->id : 1, // Fix me
+            order_id: ($cart && $cart->draftOrder) ? $cart->draftOrder->id : 1, // Fix me
             driver: $this->getDriver(),
             amount: $paymentIntent->amount,
             success: $paymentIntent->status === 'succeeded',
