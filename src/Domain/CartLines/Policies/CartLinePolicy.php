@@ -6,11 +6,27 @@ use Dystcz\LunarApi\Domain\CartLines\Models\CartLine;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Lunar\Facades\CartSession;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Lunar\Base\CartSessionInterface;
 
 class CartLinePolicy
 {
     use HandlesAuthorization;
+
+    private Request $request;
+
+    /**
+     * @var CartSessionManager
+     */
+    private CartSessionInterface $cartSession;
+
+    public function __construct()
+    {
+        $this->request = App::get('request');
+
+        $this->cartSession = App::make(CartSessionInterface::class);
+    }
 
     /**
      * Determine whether the user can view any models.
@@ -41,10 +57,7 @@ class CartLinePolicy
      */
     public function update(?Authenticatable $user, CartLine $cartLine): bool
     {
-        /** @var Cart $cart */
-        $cart = CartSession::current();
-
-        return $cart->lines->contains($cartLine->id);
+        return $this->check($user, $cartLine);
     }
 
     /**
@@ -52,6 +65,17 @@ class CartLinePolicy
      */
     public function delete(?Authenticatable $user, CartLine $cartLine): bool
     {
-        return $this->update($user, $cartLine);
+        return $this->check($user, $cartLine);
+    }
+
+    /**
+     * Determine whether the user has access to the model.
+     */
+    public function check(?Authenticatable $user, CartLine $cartLine): bool
+    {
+        /** @var Cart $cart */
+        $cart = $this->cartSession->current();
+
+        return $cart->lines->contains($cartLine->id);
     }
 }

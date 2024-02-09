@@ -1,0 +1,3635 @@
+{
+	"info": {
+		"_postman_id": "c3c6673f-31aa-4b03-99ac-07e73017dfb4",
+		"name": "Lunar API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32871221"
+	},
+	"item": [
+		{
+			"name": "Addresses",
+			"item": [
+				{
+					"name": "Customers",
+					"item": [
+						{
+							"name": "Address Customer show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/addresses/1/customer",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"addresses",
+										"1",
+										"customer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Address Customer relationship",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/addresses/1/relationships/customer",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"addresses",
+										"1",
+										"relationships",
+										"customer"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Countries",
+					"item": [
+						{
+							"name": "Address Country show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/addresses/1/country",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"addresses",
+										"1",
+										"country"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Address Country relationship",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/addresses/1/relationships/country",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"addresses",
+										"1",
+										"relationships",
+										"country"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create Address",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "referer",
+								"value": "{{ _.referer }}",
+								"type": "default"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{ _.xsrf }}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"addresses\",\n    \"attributes\": {\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"company_name\": \"ABC Company\",\n      \"city\": \"New York\",\n      \"line_one\": \"123 Main Street\",\n      \"postcode\": \"10001\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n          \"type\": \"customers\",\n          \"id\": \"1\"\n        }\n      },\n      \"country\": {\n        \"data\": {\n          \"type\": \"countries\",\n          \"id\": \"1\"\n        }\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/addresses",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Address",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "referer",
+								"value": "{{ _.referer }}",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/addresses/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Addresses show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/addresses/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"1"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "customer,country",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Addresses update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"addresses\",\n    \"attributes\": {\n      \"first_name\": \"Jane\",\n      \"last_name\": \"Doe\",\n      \"company_name\": \"ABC Company\",\n      \"city\": \"New York\",\n      \"line_one\": \"123 Main Street\",\n      \"postcode\": \"10001\",\n      \"contact_phone\": \"789456789\",\n      \"company_in\": \"12345678\",\n      \"company_tin\": \"CZ12345678\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n          \"type\": \"customers\",\n          \"id\": \"1\"\n        }\n      },\n      \"country\": {\n        \"data\": {\n          \"type\": \"countries\",\n          \"id\": \"1\"\n        }\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/addresses/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Actions",
+					"item": [
+						{
+							"name": "Apply Coupon",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"type\": \"carts\",\n    \"attributes\": {\n      \"coupon_code\": \"code\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/carts/-actions/apply-coupon",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"carts",
+										"-actions",
+										"apply-coupon"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "My Cart show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/carts/-actions/my-cart?include=cart_lines",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"carts",
+										"-actions",
+										"my-cart"
+									],
+									"query": [
+										{
+											"key": "include",
+											"value": "cart_lines"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Clear Cart",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/carts/-actions/clear",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"carts",
+										"-actions",
+										"clear"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Checkout Cart",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"type\": \"carts\",\n    \"attributes\": {\n      \"create_user\": true,\n      \"agree\": true\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/carts/-actions/checkout",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"carts",
+										"-actions",
+										"checkout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CartLines",
+					"item": [
+						{
+							"name": "Cart CartLines index Copy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/carts/1949444/cart_lines",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"carts",
+										"1949444",
+										"cart_lines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cart CartLines relationships Copy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/carts/1949444/relationships/cart_lines",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"carts",
+										"1949444",
+										"relationships",
+										"cart_lines"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cart show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/carts/1949444",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								"1949444"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "transactions",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CartLines",
+			"item": [
+				{
+					"name": "CartLine update (update quantity)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "referer",
+								"value": "{{referer}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"cart-lines\",\n    \"id\": \"13516\",\n    \"attributes\": {\n      \"quantity\": 5\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart-lines/13516",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart-lines",
+								"13516"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CartLine delete (remove from cart)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/cart-lines/18",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart-lines",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CartLine store (add to cart)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"cart-lines\",\n    \"attributes\": {\n      \"quantity\": 1,\n      \"meta\": null,\n      \"purchasable_id\": 349,\n      \"purchasable_type\": \"Lunar\\\\Models\\\\ProductVariant\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart-lines",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart-lines"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart Addresses",
+			"item": [
+				{
+					"name": "Actions",
+					"item": [
+						{
+							"name": "Attach ShippingOption",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"cart-addresses\",\n    \"attributes\": {\n      \"shipping_option\": \"DPDDEL\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/cart-addresses/1/-actions/attach-shipping-option",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"cart-addresses",
+										"1",
+										"-actions",
+										"attach-shipping-option"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Detach ShippingOption",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"cart-addresses\",\n    \"attributes\": {\n      \"shipping_option\": \"DPDDEL\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/cart-addresses/1/-actions/detach-shipping-option",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"cart-addresses",
+										"1",
+										"-actions",
+										"detach-shipping-option"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Continuous update",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"cart-addresses\",\n    \"attributes\": {\n      \"company_name\": \"Hovno\",\n      \"address_type\": \"billing\",\n      \"company_in\": \"12345678\",\n      \"company_tin\": \"CZ12345678\"\n    },\n    \"relationships\": {\n      \"cart\": {\n        \"data\": {\n          \"type\": \"carts\",\n          \"id\": \"1\"\n        }\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/cart-addresses/1/-actions/continuous-update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"cart-addresses",
+										"1",
+										"-actions",
+										"continuous-update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Country",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"cart-addresses\",\n    \"relationships\": {\n      \"country\": {\n        \"data\": {\n          \"type\": \"countries\",\n          \"id\": \"2\"\n        }\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/cart-addresses/1/-actions/update-country",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"cart-addresses",
+										"1",
+										"-actions",
+										"update-country"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CreateAddress store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"cart-addresses\",\n    \"attributes\": {\n      \"address_type\": \"shipping\",\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"company_name\": \"ABC Company\",\n      \"company_in\": \"12345678\",\n      \"company_tin\": \"CZ12345678\",\n      \"city\": \"New York\",\n      \"line_one\": \"123 Main Street\",\n      \"postcode\": \"10001\",\n      \"shipping_option\": \"Friendly Freight Co.\",\n      \"contact_email\": \"bob6@mail.com\",\n      \"contact_phone\": \"777888999\"\n    },\n    \"relationships\": {\n      \"cart\": {\n        \"data\": {\n          \"type\": \"carts\",\n          \"id\": \"1949444\"\n        }\n      },\n      \"country\": {\n        \"data\": {\n          \"type\": \"countries\",\n          \"id\": \"1\"\n        }\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart-addresses",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart-addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CartAddress update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"cart-addresses\",\n    \"attributes\": {\n      \"address_type\": \"shipping\",\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"company_name\": \"ABC Company\",\n      \"company_in\": \"12345678\",\n      \"company_tin\": \"CZ12345678\",\n      \"city\": \"New York\",\n      \"line_one\": \"123 Main Street\",\n      \"postcode\": \"10001\",\n      \"shipping_option\": \"SODEL\",\n      \"contact_email\": \"bob6@mail.com\",\n      \"contact_phone\": \"777888999\"\n    },\n    \"relationships\": {\n      \"cart\": {\n        \"data\": {\n          \"type\": \"carts\",\n          \"id\": \"1\"\n        }\n      },\n      \"country\": {\n        \"data\": {\n          \"type\": \"countries\",\n          \"id\": \"1\"\n        }\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart-addresses/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart-addresses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Collections",
+			"item": [
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "Collection Products index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/collections/1/products",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"collections",
+										"1",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collection Products relationships",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/collections/1/relationships/products",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"collections",
+										"1",
+										"relationships",
+										"products"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Urls",
+					"item": [
+						{
+							"name": "Collection default Url show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/collections/1/default_url",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"collections",
+										"1",
+										"default_url"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collection default Url relationship",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/collections/1/relationships/default_url",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"collections",
+										"1",
+										"relationships",
+										"default_url"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Collection show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/collections/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"collections",
+								"1"
+							],
+							"query": [
+								{
+									"key": "filter[url][slug]",
+									"value": "mechanical-keyboards",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Collection index",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/collections",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"collections"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Countries",
+			"item": [
+				{
+					"name": "Countries index",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/countries",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"countries"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Orders",
+					"item": [
+						{
+							"name": "Customer Orders index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/customers/1/orders",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"1",
+										"orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Customer Orders relationships",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/customers/1/relationships/orders",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"1",
+										"relationships",
+										"orders"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Addresses",
+					"item": [
+						{
+							"name": "Customer Addresses index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/customers/1/addresses",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"1",
+										"addresses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Customer Addresses relationships",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/customers/1/relationships/addresses",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"1",
+										"relationships",
+										"addresses"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Customer show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/customers/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"first_name\": \"Jane\",\n      \"last_name\": \"Doe\",\n      \"company_name\": \"Not Evil\",\n      \"account_ref\": \"987654321\",\n      \"vat_no\": \"1234567899\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/customers/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Media",
+			"item": [
+				{
+					"name": "Media show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/media/100?media_conversions=webp,large",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"media",
+								"100"
+							],
+							"query": [
+								{
+									"key": "media_conversions",
+									"value": "webp,large"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Actions",
+					"item": [
+						{
+							"name": "Check order payment status",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/orders/1/-actions/check-order-payment-status?include=latest_transaction",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"1",
+										"-actions",
+										"check-order-payment-status"
+									],
+									"query": [
+										{
+											"key": "include",
+											"value": "latest_transaction"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mark pending payment",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/orders/1/-actions/mark-pending-payment",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"1",
+										"-actions",
+										"mark-pending-payment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mark awaiting payment",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/orders/1/-actions/mark-awaiting-payment",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"1",
+										"-actions",
+										"mark-awaiting-payment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "OrderLines",
+					"item": [
+						{
+							"name": "Order OrderLines index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/orders/100/order_lines",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"100",
+										"order_lines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order OrderLines relationships",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/orders/100/relationships/order_lines",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"100",
+										"relationships",
+										"order_lines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order digital OrderLines index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/orders/100/digital_lines",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"100",
+										"digital_lines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order digital OrderLines relationships",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/orders/100/relationships/digital_lines",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"100",
+										"relationships",
+										"digital_lines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order physical OrderLines index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/orders/100/physical_lines",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"100",
+										"physical_lines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order physical OrderLines relationships",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/orders/100/relationships/physical_lines",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"100",
+										"relationships",
+										"physical_lines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order product OrderLines index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/orders/100/product_lines",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"100",
+										"product_lines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order product OrderLines relationships",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/orders/100/relationships/product_lines",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"100",
+										"relationships",
+										"product_lines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order shipping OrderLines index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/orders/100/shipping_lines",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"100",
+										"shipping_lines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order shipping OrderLines relationships",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/orders/100/relationships/shipping_lines",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"100",
+										"relationships",
+										"shipping_lines"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Order show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/orders/1?signature=xxx",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"1"
+							],
+							"query": [
+								{
+									"key": "signature",
+									"value": "xxx"
+								},
+								{
+									"key": "include",
+									"value": "transactions",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"orders\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"notes\": \"What a lovely day!\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/orders/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Associations",
+					"item": [
+						{
+							"name": "Product Associations index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/associations",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"associations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product Associations relationships",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/relationships/associations",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"relationships",
+										"associations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product inverse Associations index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/inverse_associations",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"inverse_associations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product inverse Associations relationships",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/relationships/inverse_associations",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"relationships",
+										"inverse_associations"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Brands",
+					"item": [
+						{
+							"name": "Product Brand show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/brand",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"brand"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product Brand relationship",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/relationships/brand",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"relationships",
+										"brand"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Collections",
+					"item": [
+						{
+							"name": "Product Collections index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/collections",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"collections"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product Collections relationships",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/relationships/collections",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"relationships",
+										"collections"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Images",
+					"item": [
+						{
+							"name": "Product Images index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/images",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"images"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product Images relationships",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/relationships/images",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"relationships",
+										"images"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product Thumbnail show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/thumbnail",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"thumbnail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product Thumbnail relationship",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/relationships/thumbnail",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"relationships",
+										"thumbnail"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Prices",
+					"item": [
+						{
+							"name": "Product lowest Price show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/lowest_price",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"lowest_price"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product lowest Price relationship",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/relationships/lowest_price",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"relationships",
+										"lowest_price"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product Prices index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/prices",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"prices"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product Prices relationships",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/relationships/prices",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"relationships",
+										"prices"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ProductVariants",
+					"item": [
+						{
+							"name": "Product ProductVariants index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/variants",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"variants"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product ProductVariants relationships",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/relationships/variants",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"relationships",
+										"variants"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product cheapest ProductVariant show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/cheapest_variant",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"cheapest_variant"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product cheapest ProductVariant relationship",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/relationships/cheapest_variant",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"relationships",
+										"cheapest_variant"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tags",
+					"item": [
+						{
+							"name": "Product Tags index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/tags",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"tags"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product Tags relationship",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/relationships/tags",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"relationships",
+										"tags"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Urls",
+					"item": [
+						{
+							"name": "Product default Url show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/default_url",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"default_url"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product default Url relationship",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/products/100/relationships/default_url",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"100",
+										"relationships",
+										"default_url"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Product show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/products/100",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"100"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "variants.prices,cheapest_variant.prices",
+									"description": "Include product relations",
+									"disabled": true
+								},
+								{
+									"key": "filter[url][slug]",
+									"value": "slug",
+									"description": "Get sigle product by its slug",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product index",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "variants.prices,cheapest_variant.prices",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ShippingOptions",
+			"item": [
+				{
+					"name": "ShippingOptions index",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/shipping-options",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"shipping-options"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "⚠️ Not supported yet",
+			"item": [
+				{
+					"name": "Account",
+					"item": [
+						{
+							"name": "Get user orders",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "referer",
+										"value": "{{ _.referer }}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/users/-actions/me/orders",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"-actions",
+										"me",
+										"orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/user",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Files",
+					"item": [
+						{
+							"name": "Actions",
+							"item": [
+								{
+									"name": "Delete temp file",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "text/plain",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "eyJpdiI6ImF6bHpDZG5XRXlTbVBHTkZQYTB6K1E9PSIsInZhbHVlIjoiR3RMNmlKamtNLy9sQ2ZRSVJETnhRVEpFYmVJaHVVTy9MT0lEWVkzN2RTOExLUWwyMkxJQ3RVYVAxanY4Y2xlOCIsIm1hYyI6IjQ0YTNlYmY1NGFlNWQ0OGQzZDg0MzdlNjQzNmIwMTljOTQzYzk3NTkzMmYwM2I5NWZhNzY4NTUxMDI1NDg2ZmIiLCJ0YWciOiIifQ==",
+											"options": {
+												"raw": {
+													"language": "text"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/api/v1/files/-actions/delete-file",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"files",
+												"-actions",
+												"delete-file"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Upload file",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "multipart/form-data",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "file",
+													"type": "file",
+													"src": []
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/api/v1/files/-actions/upload-file",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"files",
+												"-actions",
+												"upload-file"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Forgot Password",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"type\": \"users\",\n    \"attributes\": {\n      \"email\": \"cms@webiz.cz\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/users/-actions/forgot-password",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"-actions",
+										"forgot-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({",
+											"    url: pm.environment.get('url') + '/sanctum/csrf-cookie',",
+											"    method: 'GET'",
+											"}, function (error, response, { cookies }) {",
+											"    if (!error) {",
+											"        pm.environment.set('xsrf_token', cookies.get('XSRF-TOKEN'))",
+											"    }",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"jakub@dy.st\",\n  \"password\": \"hesloheslo\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Generate Sanctum token",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"jakub@dy.st\",\n  \"password\": \"hesloheslo\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/testing/sanctum/token",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"testing",
+										"sanctum",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"cms@webiz.cz\",\n  \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/logout",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Password",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"type\": \"users\",\n    \"attributes\": {\n      \"email\": \"cms@webiz.cz\",\n      \"password\": \"password\",\n      \"password_confirmation\": \"password\",\n      \"token\": \"8821c9ada30b0ea31929318c260f130dc37913044dc49bfd88221879b6c31184\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/users/-actions/reset-password",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"-actions",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register Without Password",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"type\": \"users\",\n    \"attributes\": {\n      \"email\": \"cms7@webiz.cz\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/users/-actions/register-without-password",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"-actions",
+										"register-without-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"type\": \"users\",\n    \"attributes\": {\n      \"email\": \"cms6@webiz.cz\",\n      \"password\": \"password\",\n      \"password_confirmation\": \"password\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User orders",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/users/-actions/me/orders",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"-actions",
+										"me",
+										"orders"
+									],
+									"query": [
+										{
+											"key": "include",
+											"value": "product_lines,product_lines.purchasable,product_lines.purchasable.product,product_lines.purchasable.product.thumbnail",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cart",
+					"item": [
+						{
+							"name": "Actions",
+							"item": [
+								{
+									"name": "Add Composable To Cart",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/vnd.api+json",
+												"type": "default"
+											},
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"data\": {\n    \"type\": \"cart-lines\",\n    \"attributes\": {\n      \"composable\": {\n        \"purchasable_id\": 60906,\n        \"purchasable_type\": \"Lunar\\\\Models\\\\ProductVariant\",\n        \"meta\": null\n      },\n      \"components\": [\n        {\n          \"purchasable_id\": 60908,\n          \"purchasable_type\": \"Lunar\\\\Models\\\\ProductVariant\",\n          \"meta\": null\n        },\n        {\n          \"purchasable_id\": 60921,\n          \"purchasable_type\": \"Lunar\\\\Models\\\\ProductVariant\",\n          \"meta\": null\n        }\n      ]\n    }\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/api/v1/cart-lines/-actions/add-composable",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"cart-lines",
+												"-actions",
+												"add-composable"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "CSRF token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/sanctum/csrf-cookie",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sanctum",
+								"csrf-cookie"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{auth_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:8000",
+			"type": "default"
+		},
+		{
+			"key": "auth_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

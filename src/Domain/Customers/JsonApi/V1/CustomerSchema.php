@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Customer;
 
 class CustomerSchema extends Schema
@@ -40,6 +41,9 @@ class CustomerSchema extends Schema
         return [
             $this->idField(),
 
+            AttributeData::make('attribute_data')
+                ->groupAttributes(),
+
             Str::make('title'),
             Str::make('first_name'),
             Str::make('last_name'),
@@ -47,21 +51,13 @@ class CustomerSchema extends Schema
             Str::make('account_ref'),
             Str::make('vat_no'),
 
-            AttributeData::make('attribute_data')
-                ->groupAttributes(),
-
             HasMany::make('orders')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
-            HasMany::make('addresses')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->canCount(),
+
+            HasMany::make('addresses'),
+
             BelongsToMany::make('users')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             ...parent::fields(),
         ];

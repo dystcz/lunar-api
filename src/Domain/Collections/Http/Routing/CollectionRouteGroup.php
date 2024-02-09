@@ -6,29 +6,26 @@ use Dystcz\LunarApi\Domain\Collections\Http\Controllers\CollectionsController;
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
+use LaravelJsonApi\Laravel\Routing\Relationships;
+use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 
 class CollectionRouteGroup extends RouteGroup implements RouteGroupContract
 {
-    public array $middleware = [];
-
     /**
      * Register routes.
      */
-    public function routes(string $prefix = null, array|string $middleware = []): void
+    public function routes(): void
     {
-        $this->router->group([
-            // 'prefix' => $this->getPrefix($prefix),
-            'middleware' => $this->getMiddleware($middleware),
-        ], function () {
-            JsonApiRoute::server('v1')->prefix('v1')->resources(function ($server) {
+        JsonApiRoute::server('v1')
+            ->prefix('v1')
+            ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), CollectionsController::class)
-                    ->relationships(function ($relationships) {
+                    ->relationships(function (Relationships $relationships) {
                         $relationships->hasMany('products')->readOnly();
                         $relationships->hasOne('default_url')->readOnly();
                     })
                     ->only('index', 'show')
                     ->readOnly();
             });
-        });
     }
 }

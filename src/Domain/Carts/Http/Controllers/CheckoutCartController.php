@@ -36,10 +36,11 @@ class CheckoutCartController extends Controller
         CreateUserFromCart $createUserFromCartAction,
         CheckoutCart $checkoutCartAction
     ): DataResponse {
-        // $this->authorize('update', Cart::class);
 
         /** @var Cart $cart */
         $cart = $this->cartSession->current();
+
+        $this->authorize('checkout', $cart);
 
         if ($request->validated('create_user', false)) {
             $createUserFromCartAction($cart);
