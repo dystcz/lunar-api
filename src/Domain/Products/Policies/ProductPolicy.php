@@ -75,9 +75,65 @@ class ProductPolicy
     }
 
     /**
+     * Authorize a user to view product's collections.
+     */
+    public function viewCollections(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
+
+    /**
      * Authorize a user to view product's default url.
      */
     public function viewDefaultUrl(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view product's images.
+     */
+    public function viewImages(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view product's inverse associations.
+     */
+    public function viewInverseAssociations(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view product's lowest price.
+     */
+    public function viewLowestPrice(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view product's prices.
+     */
+    public function viewPrices(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view product's tags.
+     */
+    public function viewTags(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view product's thumbnail.
+     */
+    public function viewThumbnail(?Authenticatable $user, Product $product): bool
     {
         return true;
     }

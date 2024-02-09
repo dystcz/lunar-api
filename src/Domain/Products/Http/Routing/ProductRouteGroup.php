@@ -16,44 +16,25 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
     /**
      * Register routes.
      */
-    public function routes(string $prefix = null, array|string $middleware = []): void
+    public function routes(?string $prefix = null, array|string $middleware = []): void
     {
         JsonApiRoute::server('v1')
             ->prefix('v1')
             ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), ProductsController::class)
                     ->relationships(function (Relationships $relationships) {
-                        $relationships
-                            ->hasMany('associations')
-                            ->readOnly();
-
-                        $relationships
-                            ->hasMany('inverse_associations')
-                            ->readOnly();
-
-                        $relationships
-                            ->hasOne('brand')
-                            ->readOnly();
-
-                        $relationships
-                            ->hasOne('cheapest_variant')
-                            ->readOnly();
-
-                        $relationships
-                            ->hasOne('default_url')
-                            ->readOnly();
-
-                        $relationships
-                            ->hasOne('lowest_price')
-                            ->readOnly();
-
-                        $relationships
-                            ->hasMany('prices')
-                            ->readOnly();
-
-                        $relationships
-                            ->hasMany('variants')
-                            ->readOnly();
+                        $relationships->hasMany('associations')->readOnly();
+                        $relationships->hasOne('brand')->readOnly();
+                        $relationships->hasOne('cheapest_variant')->readOnly();
+                        $relationships->hasMany('collections')->readOnly();
+                        $relationships->hasOne('default_url')->readOnly();
+                        $relationships->hasOne('images')->readOnly();
+                        $relationships->hasMany('inverse_associations')->readOnly();
+                        $relationships->hasOne('lowest_price')->readOnly();
+                        $relationships->hasMany('prices')->readOnly();
+                        $relationships->hasMany('tags')->readOnly();
+                        $relationships->hasOne('thumbnail')->readOnly();
+                        $relationships->hasMany('variants')->readOnly();
                     })
                     ->only('index', 'show')
                     ->readOnly();
