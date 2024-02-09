@@ -11,11 +11,6 @@ return [
     // Middleware for all the API routes
     'route_middleware' => ['api'],
 
-    // Additional Lunar API compatible servers
-    'additional_servers' => [
-        //
-    ],
-
     // Enable or disable hashids
     'use_hashids' => env('LUNAR_API_USE_HASHIDS', false),
 
