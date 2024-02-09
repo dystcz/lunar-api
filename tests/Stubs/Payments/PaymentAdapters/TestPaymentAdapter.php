@@ -12,7 +12,7 @@ use Lunar\Models\Cart;
 
 class TestPaymentAdapter extends PaymentAdapter
 {
-    public function createIntent(Cart $cart, array $meta = []): PaymentIntentContract
+    public function createIntent(Cart $cart, array $meta = [], ?int $amount = null): PaymentIntentContract
     {
         $intent = [
             'id' => 1,
