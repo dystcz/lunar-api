@@ -196,6 +196,9 @@ return [
             'string' => 'Payment method field must be a string.',
             'in' => 'Payment method field must be one of: :types.',
         ],
+        'amount' => [
+            'numeric' => 'Amount field must be numeric.',
+        ],
         'meta' => [
             'array' => 'Meta field must be an array.',
         ],

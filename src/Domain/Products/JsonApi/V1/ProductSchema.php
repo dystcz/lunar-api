@@ -58,6 +58,10 @@ class ProductSchema extends Schema
             'thumbnail',
 
             'associations',
+            'associations.target',
+            'associations.target.images',
+            'associations.target.prices',
+            'associations.target.collections',
             'associations.target.default_url',
             'associations.target.thumbnail',
             'associations.target.lowest_price',
@@ -86,7 +90,7 @@ class ProductSchema extends Schema
             'variants.prices',
             'variants.values',
             // 'variants.thumbnail',
-
+            'product_type',
             'tags',
 
             ...parent::includePaths(),

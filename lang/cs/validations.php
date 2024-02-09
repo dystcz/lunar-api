@@ -181,6 +181,9 @@ return [
             'string' => 'Pole způsob platby musí být řetězec.',
             'in' => 'Pole způsob platby musí být jedno z: :types.',
         ],
+        'amount' => [
+            'numeric' => 'Pole částka musí být číslo.',
+        ],
         'meta' => [
             'array' => 'Pole meta musí být pole.',
         ],

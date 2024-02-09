@@ -19,6 +19,7 @@ class CreatePaymentIntentController extends Controller
         $this->authorize('update', $order);
 
         $paymentMethod = $request->validated('payment_method');
+        $amount = $request->validated('amount') ?? null;
         $meta = $request->validated('meta') ?? [];
 
         try {
