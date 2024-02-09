@@ -18,7 +18,7 @@ class TransactionData implements Arrayable
         public bool $success,
         public string $type,
         public string $driver,
-        public float $amount,
+        public int $amount,
         public string $reference,
         public string $status,
         public string $card_type,
