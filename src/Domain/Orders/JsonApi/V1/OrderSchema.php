@@ -14,6 +14,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Order;
 
 class OrderSchema extends Schema
@@ -182,37 +183,37 @@ class OrderSchema extends Schema
                 ->type('order-lines'),
 
             BelongsTo::make('customer')
-                ->serializeUsing(static fn ($relation) => $relation->withoutLinks()),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             BelongsTo::make('user')
-                ->serializeUsing(static fn ($relation) => $relation->withoutLinks()),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             BelongsTo::make('currency')
-                ->serializeUsing(static fn ($relation) => $relation->withoutLinks()),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasMany::make('order_addresses', 'addresses')
                 ->type('order-addresses')
                 ->retainFieldName()
-                ->serializeUsing(static fn ($relation) => $relation->withoutLinks()),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasOne::make('shipping_address', 'shippingAddress')
                 ->type('order-addresses')
                 ->retainFieldName()
-                ->serializeUsing(static fn ($relation) => $relation->withoutLinks()),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasOne::make('billing_address', 'billingAddress')
                 ->type('order-addresses')
                 ->retainFieldName()
-                ->serializeUsing(static fn ($relation) => $relation->withoutLinks()),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasOne::make('latest_transaction', 'latestTransaction')
                 ->type('transactions')
                 ->retainFieldName()
-                ->serializeUsing(static fn ($relation) => $relation->withoutLinks()),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasMany::make('transactions')
                 ->type('transactions')
-                ->serializeUsing(static fn ($relation) => $relation->withoutLinks()),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             ...parent::fields(),
         ];
