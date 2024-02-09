@@ -1,5 +1,7 @@
 <?php
 
+use Dystcz\LunarApi\Domain\Checkout\Enums\CheckoutProtectionStrategy;
+
 /*
  * Lunar API general configuration
  */
@@ -35,7 +37,7 @@ return [
 
         // Protection strategy for checkout routes
         // Available strategies: signature, auth, null
-        'checkout_protection_strategy' => 'signature',
+        'checkout_protection_strategy' => CheckoutProtectionStrategy::SIGNATURE,
     ],
 
 ];
