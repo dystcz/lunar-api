@@ -25,7 +25,7 @@ class CreatePaymentIntentRequest extends ResourceRequest
             ],
             'amount' => [
                 'nullable',
-                'numeric',
+                'integer',
             ],
             'meta' => [
                 'nullable',
