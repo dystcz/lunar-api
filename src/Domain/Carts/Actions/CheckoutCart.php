@@ -26,13 +26,15 @@ class CheckoutCart implements CheckoutCartContract
     public function __invoke(Cart $cart): Order
     {
         /** @var LunarOrder $order */
-        $order = $cart->createOrder();
+        $order = $cart->createOrder(
+            allowMultipleOrders: Config::get('lunar-api.general.checkout.multiple_orders_per_cart', false),
+        );
 
         $model = Order::query()
             ->where('id', $order->id)
             ->firstOrFail();
 
-        if (Config::get('lunar-api.domains.carts.settings.forget_cart_after_order_created', true)) {
+        if (Config::get('lunar-api.general.checkout.forget_cart_after_order_creation', true)) {
             $this->cartSession->forget();
         }
 
