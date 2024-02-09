@@ -11,6 +11,8 @@ use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Destroy;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
 
@@ -19,6 +21,8 @@ class AddressesController extends Controller
     use Destroy;
     use FetchMany;
     use FetchOne;
+    use FetchRelated;
+    use FetchRelationship;
     use Store;
     use Update;
 
@@ -32,7 +36,7 @@ class AddressesController extends Controller
         AddressRequest $request,
         AddressQuery $query,
     ): DataResponse {
-        // $this->authorize('create');
+        $this->authorize('create', Address::class);
 
         $meta = [
             'company_in' => $request->validated('company_in', null),

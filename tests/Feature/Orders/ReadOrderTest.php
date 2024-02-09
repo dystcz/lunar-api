@@ -3,6 +3,7 @@
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Checkout\Enums\CheckoutProtectionStrategy;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
@@ -62,7 +63,7 @@ it('can read order details when accessing order with valid signature', function 
     /** @var TestCase $this */
     Event::fake(CartCreated::class);
 
-    Config::set('lunar-api.domains.orders.settings.signed_show_route', true);
+    Config::set('lunar-api.general.checkout.checkout_protection_strategy', CheckoutProtectionStrategy::SIGNATURE);
 
     /** @var User $user */
     $user = User::factory()->create();

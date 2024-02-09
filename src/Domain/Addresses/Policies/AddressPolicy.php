@@ -24,7 +24,23 @@ class AddressPolicy
      */
     public function view(Authenticatable $user, Address $address): bool
     {
-        return $this->update($user, $address);
+        return $this->check($user, $address);
+    }
+
+    /**
+     * Determine whether the user can view address country.
+     */
+    public function viewCountry(Authenticatable $user, Address $address): bool
+    {
+        return $this->check($user, $address);
+    }
+
+    /**
+     * Determine whether the user can view address customer.
+     */
+    public function viewCustomer(Authenticatable $user, Address $address): bool
+    {
+        return $this->check($user, $address);
     }
 
     /**
@@ -40,9 +56,7 @@ class AddressPolicy
      */
     public function update(Authenticatable $user, Address $address): bool
     {
-        return $user->customers()
-            ->where((new Customer)->getTable().'.id', $address->customer_id)
-            ->exists();
+        return $this->check($user, $address);
     }
 
     /**
@@ -50,6 +64,20 @@ class AddressPolicy
      */
     public function delete(Authenticatable $user, Address $address): bool
     {
-        return $this->update($user, $address);
+        return $this->check($user, $address);
+    }
+
+    /**
+     * Determine whether the user can access the model.
+     */
+    public function check(Authenticatable $user, Address $address): bool
+    {
+        $customersTable = (new Customer)->getTable();
+
+        /** @var User $user */
+        return $user
+            ->customers()
+            ->where("{$customersTable}.id", $address->customer_id)
+            ->exists();
     }
 }

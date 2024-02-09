@@ -23,7 +23,11 @@ class CreatePaymentIntentController extends Controller
         $meta = $request->validated('meta') ?? [];
 
         try {
-            $intent = $createPaymentIntent($paymentMethod, $order->cart, $meta, $amount);
+            $paymentIntent = $createPaymentIntent($paymentMethod, $order->cart, $meta);
+
+            $order->update([
+                'meta->payment_intent' => $paymentIntent->getId(),
+            ]);
         } catch (RuntimeException $e) {
             return DataResponse::make($order)->withMeta([
                 'payment_intent' => null,
@@ -32,7 +36,7 @@ class CreatePaymentIntentController extends Controller
 
         return DataResponse::make($order)
             ->withMeta([
-                'payment_intent' => $intent->toArray(),
+                'payment_intent' => $paymentIntent->toArray(),
             ]);
     }
 }

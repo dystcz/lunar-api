@@ -26,7 +26,7 @@ class CartAddressesController extends Controller
         CartAddressRequest $request,
         CartAddressQuery $query,
     ): DataResponse {
-        // $this->authorize('create');
+        $this->authorize('create', CartAddress::class);
 
         $validatedRequest = $request->validated();
 

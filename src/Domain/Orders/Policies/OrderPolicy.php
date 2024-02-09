@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\Policies;
 
+use Dystcz\LunarApi\Domain\Checkout\Enums\CheckoutProtectionStrategy;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -42,7 +43,7 @@ class OrderPolicy
      */
     public function view(?Authenticatable $user, Order $order): bool
     {
-        return $this->orderAccessible($user, $order);
+        return $this->check($user, $order);
     }
 
     /**
@@ -58,7 +59,7 @@ class OrderPolicy
      */
     public function update(?Authenticatable $user, Order $order): bool
     {
-        return $this->orderAccessible($user, $order);
+        return $this->check($user, $order);
     }
 
     /**
@@ -66,7 +67,47 @@ class OrderPolicy
      */
     public function delete(?Authenticatable $user, Order $order): bool
     {
-        return $this->orderAccessible($user, $order);
+        return $this->check($user, $order);
+    }
+
+    /**
+     * Authorize a user to view order's order lines.
+     */
+    public function viewOrderLines(?Authenticatable $user, Order $order): bool
+    {
+        return $this->check($user, $order);
+    }
+
+    /**
+     * Authorize a user to view order's digital lines.
+     */
+    public function viewDigitalLines(?Authenticatable $user, Order $order): bool
+    {
+        return $this->check($user, $order);
+    }
+
+    /**
+     * Authorize a user to view order's product lines.
+     */
+    public function viewProductLines(?Authenticatable $user, Order $order): bool
+    {
+        return $this->check($user, $order);
+    }
+
+    /**
+     * Authorize a user to view order's physical lines.
+     */
+    public function viewPhysicalLines(?Authenticatable $user, Order $order): bool
+    {
+        return $this->check($user, $order);
+    }
+
+    /**
+     * Authorize a user to view order's shipping lines.
+     */
+    public function viewShippingLines(?Authenticatable $user, Order $order): bool
+    {
+        return $this->check($user, $order);
     }
 
     /**
@@ -99,8 +140,23 @@ class OrderPolicy
     /**
      * Determine whether the user can view the model.
      */
-    protected function orderAccessible(?Authenticatable $user, Order $order): bool
+    protected function check(?Authenticatable $user, Order $order): bool
     {
+        $protectionStrategy = Config::get(
+            'lunar-api.general.checkout.checkout_protection_strategy',
+            CheckoutProtectionStrategy::SIGNATURE,
+        );
+
+        // If env is local, skip protection
+        if (App::environment('local')) {
+            return true;
+        }
+
+        // If no protection strategy is set
+        if ($protectionStrategy === CheckoutProtectionStrategy::NONE) {
+            return true;
+        }
+
         // If order belongs to user
         if ($user && $user->getKey() === $order->user_id) {
             return true;
@@ -108,15 +164,13 @@ class OrderPolicy
 
         if (
             // If cart should not be forgotten after order is created, check if cart id matches
-            ! Config::get('lunar-api.domains.carts.settings.forget_cart_after_order_created', true)
+            ! Config::get('lunar-api.general.checkout.forget_cart_after_order_creation', true)
                 && $this->cartSession->current()->getKey() === $order->cart_id) {
             return true;
         }
 
-        $signsUrl = Config::get('lunar-api.domains.orders.settings.sign_show_route', true);
-
-        // If order show route should be signed and signature is valid
-        if (($signsUrl && $this->checkValidSignature()) || App::environment('local')) {
+        // If order checkout routes should be signed and signature is valid
+        if ($protectionStrategy === CheckoutProtectionStrategy::SIGNATURE && $this->checkValidSignature()) {
             return true;
         }
 

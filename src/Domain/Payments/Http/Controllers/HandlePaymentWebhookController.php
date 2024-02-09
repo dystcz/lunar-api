@@ -17,8 +17,8 @@ class HandlePaymentWebhookController
         string $paymentDriver,
         Request $request,
     ): JsonResponse {
-        $payment = $this->register->get($paymentDriver);
+        $paymentAdapter = $this->register->get($paymentDriver);
 
-        return $payment->handleWebhook($request);
+        return $paymentAdapter->handleWebhook($request);
     }
 }

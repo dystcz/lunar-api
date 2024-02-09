@@ -10,22 +10,21 @@ use Dystcz\LunarApi\Domain\Orders\Http\Controllers\OrdersController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\ActionRegistrar;
+use LaravelJsonApi\Laravel\Routing\Relationships;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 
 class OrderRouteGroup extends RouteGroup
 {
-    public array $middleware = [];
-
     /**
      * Register routes.
      */
-    public function routes(?string $prefix = null, array|string $middleware = []): void
+    public function routes(): void
     {
         JsonApiRoute::server('v1')
             ->prefix('v1')
             ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), OrdersController::class)
-                    ->relationships(function ($relationships) {
+                    ->relationships(function (Relationships $relationships) {
                         $relationships->hasMany('order_lines')->readOnly();
                         $relationships->hasMany('product_lines')->readOnly();
                         $relationships->hasMany('digital_lines')->readOnly();

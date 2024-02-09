@@ -11,6 +11,7 @@ use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Base\ValueObjects\Cart\DiscountBreakdown as LunarDiscountBreakdown;
 use Lunar\Models\Cart;
 
@@ -71,43 +72,33 @@ class CartSchema extends Schema
 
             Map::make('prices', [
                 Number::make('sub_total', 'subTotal')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->decimal,
-                    ),
+                    ->serializeUsing(static fn ($value) => $value?->decimal),
+
                 Number::make('sub_total_discounted', 'subTotalDiscounted')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->decimal,
-                    ),
+                    ->serializeUsing(static fn ($value) => $value?->decimal),
+
                 Number::make('total', 'total')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->decimal,
-                    ),
+                    ->serializeUsing(static fn ($value) => $value?->decimal),
+
                 Number::make('shipping_sub_total', 'shippingSubTotal')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->decimal,
-                    ),
+                    ->serializeUsing(static fn ($value) => $value?->decimal),
+
                 Number::make('shipping_total', 'shippingTotal')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->decimal,
-                    ),
+                    ->serializeUsing(static fn ($value) => $value?->decimal),
+
                 Number::make('tax_total', 'taxTotal')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->decimal,
-                    ),
+                    ->serializeUsing(static fn ($value) => $value?->decimal),
+
                 Number::make('discount_total', 'discountTotal')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->decimal,
-                    ),
+                    ->serializeUsing(static fn ($value) => $value?->decimal),
+
                 ArrayHash::make('tax_breakdown', 'taxBreakdown')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->amounts,
-                    ),
+                    ->serializeUsing(static fn ($value) => $value?->amounts),
+
                 ArrayHash::make('discount_breakdown', 'discountBreakdown')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->map(function (LunarDiscountBreakdown $discountBreakdown) {
-                            return (new DiscountBreakdown($discountBreakdown))->toArray();
-                        })
-                    ),
+                    ->serializeUsing(static fn ($value) => $value?->map(
+                        fn (LunarDiscountBreakdown $discountBreakdown) => (new DiscountBreakdown($discountBreakdown))->toArray(),
+                    )),
             ]),
 
             Str::make('coupon_code'),
@@ -123,33 +114,26 @@ class CartSchema extends Schema
 
             HasOne::make('order', 'draftOrder')
                 ->type('orders')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasMany::make('cart_lines', 'lines')
-                ->type('cart-lines')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->retainFieldName()
+                ->type('cart-lines'),
 
             HasMany::make('cart_addresses', 'addresses')
+                ->retainFieldName()
                 ->type('cart-addresses')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasOne::make('shipping_address', 'shippingAddress')
+                ->retainFieldName()
                 ->type('cart-addresses')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasOne::make('billing_address', 'billingAddress')
+                ->retainFieldName()
                 ->type('cart-addresses')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             ...parent::fields(),
         ];

@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Customers\Policies;
 
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
+use Dystcz\LunarApi\Domain\Users\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -23,7 +24,7 @@ class CustomerPolicy
      */
     public function view(Authenticatable $user, Customer $customer): bool
     {
-        return $this->update($user, $customer);
+        return $this->check($user, $customer);
     }
 
     /**
@@ -39,9 +40,7 @@ class CustomerPolicy
      */
     public function update(Authenticatable $user, Customer $customer): bool
     {
-        return $user->customers()
-            ->where((new Customer)->getTable().'.id', $customer->id)
-            ->exists();
+        return $this->check($user, $customer);
     }
 
     /**
@@ -49,7 +48,15 @@ class CustomerPolicy
      */
     public function delete(Authenticatable $user, Customer $customer): bool
     {
-        return $this->update($user, $customer);
+        return $this->check($user, $customer);
+    }
+
+    /**
+     * Authorize a user to view a customer's addresses.
+     */
+    public function viewAddresses(Authenticatable $user, Customer $customer): bool
+    {
+        return $this->check($user, $customer);
     }
 
     /**
@@ -57,6 +64,20 @@ class CustomerPolicy
      */
     public function viewOrders(Authenticatable $user, Customer $customer): bool
     {
-        return $this->update($user, $customer);
+        return $this->check($user, $customer);
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     */
+    protected function check(Authenticatable $user, Customer $customer): bool
+    {
+        $customersTable = (new Customer)->getTable();
+
+        /** @var User $user */
+        return $user
+            ->customers()
+            ->where("{$customersTable}.id", $customer->getRouteKey())
+            ->exists();
     }
 }

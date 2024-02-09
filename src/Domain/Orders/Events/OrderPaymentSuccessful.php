@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\Orders\Events;
 use Illuminate\Foundation\Events\Dispatchable;
 use Lunar\Models\Order;
 
-class OrderPaid
+class OrderPaymentSuccessful
 {
     use Dispatchable;
 

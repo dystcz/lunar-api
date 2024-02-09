@@ -2,14 +2,13 @@
 
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Contracts\FilterCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\InStockFilter;
+use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilterCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
@@ -19,6 +18,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Product;
 
 class ProductSchema extends Schema
@@ -114,29 +114,20 @@ class ProductSchema extends Schema
 
             HasMany::make('associations')
                 ->type('associations')
-                ->canCount()
-                ->serializeUsing(
-                    static fn ($relation) => $relation,
-                ),
-
-            HasMany::make('inverse_associations', 'inverseAssociations')
-                ->type('associations')
-                ->canCount()
-                ->serializeUsing(
-                    static fn ($relation) => $relation,
-                ),
+                ->canCount(),
 
             BelongsTo::make('brand'),
 
+            HasMany::make('channels')
+                ->canCount()
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
+
             HasOne::make('cheapest_variant', 'cheapestVariant')
                 ->type('variants')
-                ->withUriFieldName('cheapest_variant'),
+                ->retainFieldName(),
 
             HasMany::make('collections')
-                ->canCount()
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks()
-                ),
+                ->canCount(),
 
             HasOne::make('default_url', 'defaultUrl')
                 ->type('urls')
@@ -144,57 +135,35 @@ class ProductSchema extends Schema
 
             HasMany::make('images', 'images')
                 ->type('media')
-                ->canCount()
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->canCount(),
+
+            HasMany::make('inverse_associations', 'inverseAssociations')
+                ->type('associations')
+                ->retainFieldName()
+                ->canCount(),
 
             HasOneThrough::make('lowest_price', 'lowestPrice')
                 ->type('prices')
-                ->retainFieldName()
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->retainFieldName(),
 
             HasManyThrough::make('prices')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
-
-            HasMany::make('tags')
-                ->canCount()
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
-
-            HasOne::make('thumbnail', 'thumbnail')
-                ->type('media')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
-
-            HasMany::make('urls')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
-
-            HasMany::make('variants')
-                ->canCount()
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
-
-            HasMany::make('channels')
-                ->canCount()
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->canCount(),
 
             BelongsTo::make('product_type', 'productType')
                 ->retainFieldName()
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
+
+            HasMany::make('tags')
+                ->canCount(),
+
+            HasOne::make('thumbnail', 'thumbnail')
+                ->type('media'),
+
+            HasMany::make('urls')
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
+
+            HasMany::make('variants')
+                ->canCount(),
 
             ...parent::fields(),
         ];
@@ -217,9 +186,6 @@ class ProductSchema extends Schema
      */
     public function filters(): array
     {
-        /** @var FilterCollection $filterCollection */
-        $filterCollection = Config::get('lunar-api.domains.products.settings.filters');
-
         return [
             WhereIdIn::make($this),
 
@@ -242,7 +208,7 @@ class ProductSchema extends Schema
 
             WhereHas::make($this, 'collections'),
 
-            ...(new $filterCollection)->toArray(),
+            ...(new ProductFilterCollection)->toArray(),
 
             ...parent::filters(),
         ];

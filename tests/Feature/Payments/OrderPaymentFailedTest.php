@@ -6,7 +6,6 @@ use Dystcz\LunarApi\Domain\Orders\Enums\OrderStatus;
 use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentFailed;
 use Dystcz\LunarApi\Domain\Payments\Listeners\HandleFailedPayment;
 use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
-use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentIntent;
 use Dystcz\LunarApi\Domain\Transactions\Models\Transaction;
 use Dystcz\LunarApi\Tests\Stubs\Payments\PaymentAdapters\TestPaymentAdapter;
 use Dystcz\LunarApi\Tests\TestCase;
@@ -38,12 +37,7 @@ it('can handle failed payment', function () {
     /** @var TestPaymentAdapter $paymentAdapter */
     $paymentAdapter = App::make(PaymentAdaptersRegister::class)->get('test');
 
-    $paymentAdapter->createIntent($this->cart);
-    $paymentIntent = new PaymentIntent(
-        id: 1,
-        amount: 500,
-        status: 'failed',
-    );
+    $paymentIntent = $paymentAdapter->createIntent($this->cart);
 
     OrderPaymentFailed::dispatch($this->order, $paymentAdapter, $paymentIntent);
 
@@ -54,8 +48,8 @@ it('can handle failed payment', function () {
 
     $this->assertDatabaseHas((new Transaction)->getTable(), [
         'order_id' => $this->order->id,
-        'reference' => $paymentIntent->id,
-        'status' => 'failed',
+        'reference' => $paymentIntent->getId(),
+        'status' => $paymentIntent->getStatus(),
     ]);
 
     $this->assertDatabaseHas($this->order->getTable(), [
