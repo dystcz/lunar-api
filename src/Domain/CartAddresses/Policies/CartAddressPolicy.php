@@ -43,7 +43,7 @@ class CartAddressPolicy
      */
     public function view(?Authenticatable $user, CartAddress $cartAddress): bool
     {
-        return $this->cartSession->current()?->getKey() === $cartAddress->cart_id;
+        return $this->check($user, $cartAddress);
     }
 
     /**
@@ -72,10 +72,7 @@ class CartAddressPolicy
      */
     public function update(?Authenticatable $user, CartAddress $cartAddress): bool
     {
-        $cartId = (string) $this->cartSession->current()->getKey();
-        $cartAddressCartId = (string) $cartAddress->cart_id;
-
-        return $cartId === $cartAddressCartId;
+        return $this->check($user, $cartAddress);
     }
 
     /**
@@ -83,6 +80,14 @@ class CartAddressPolicy
      */
     public function delete(?Authenticatable $user, CartAddress $cartAddress): bool
     {
-        return $this->update($user, $cartAddress);
+        return $this->check($user, $cartAddress);
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     */
+    protected function check(?Authenticatable $user, CartAddress $cartAddress): bool
+    {
+        return (string) $this->cartSession->current()?->getKey() === (string) $cartAddress->cart_id;
     }
 }

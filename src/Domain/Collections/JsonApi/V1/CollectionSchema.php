@@ -11,6 +11,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereNull;
+use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Collection;
 
 class CollectionSchema extends Schema
@@ -54,26 +55,22 @@ class CollectionSchema extends Schema
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
 
+            Number::make('parent_id', 'parent_id')
+                ->hidden(),
+
             HasOne::make('default_url', 'defaultUrl')
                 ->type('urls')
                 ->retainFieldName(),
 
             BelongsTo::make('group', 'group')
                 ->type('collection-groups')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks()
-                ),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasMany::make('products')
                 ->canCount(),
 
             HasMany::make('urls')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks()
-                ),
-
-            Number::make('parent_id', 'parent_id')
-                ->hidden(),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             ...parent::fields(),
         ];

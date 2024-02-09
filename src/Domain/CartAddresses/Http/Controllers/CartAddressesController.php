@@ -26,7 +26,7 @@ class CartAddressesController extends Controller
         CartAddressRequest $request,
         CartAddressQuery $query,
     ): DataResponse {
-        // $this->authorize('create');
+        $this->authorize('create', CartAddress::class);
 
         $validatedRequest = $request->validated();
 
@@ -35,7 +35,6 @@ class CartAddressesController extends Controller
             'company_in' => $request->validated('company_in', null),
             'company_tin' => $request->validated('company_tin', null),
         ];
-
 
         $model = $schema
             ->repository()

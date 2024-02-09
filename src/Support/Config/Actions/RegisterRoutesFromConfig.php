@@ -7,7 +7,7 @@ use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
 
 class RegisterRoutesFromConfig extends Action
 {
-    public function handle(string $configKey = null): void
+    public function handle(?string $configKey = null): void
     {
         DomainConfigCollection::fromConfig($configKey ?? 'lunar-api.domains')
             ->getRoutes()

@@ -55,7 +55,7 @@ it('returns error when trying to read other users address', function () {
 
 })->group('addresses');
 
-it('returns error response when address doesnt exists', function () {
+it('returns error response when address does not exists', function () {
     /** @var TestCase $this */
     $response = $this
         ->jsonApi()
@@ -63,8 +63,8 @@ it('returns error response when address doesnt exists', function () {
         ->get('/api/v1/addresses/1');
 
     $response->assertErrorStatus([
-        'status' => '404',
-        'title' => 'Not Found',
+        'status' => '401',
+        'title' => 'Unauthorized',
     ]);
 
 })->group('addresses');

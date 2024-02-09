@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\ArrayObject;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\CartAddress;
 
 class CartAddressSchema extends Schema
@@ -49,6 +50,7 @@ class CartAddressSchema extends Schema
                 ->serializeUsing(
                     static fn (?ArrayObject $value) => $value?->collect()->get('company_tin') ?? null,
                 ),
+
             Str::make('line_one'),
             Str::make('line_two'),
             Str::make('line_three'),
@@ -63,8 +65,11 @@ class CartAddressSchema extends Schema
 
             ArrayHash::make('meta'),
 
-            BelongsTo::make('country'),
-            BelongsTo::make('cart'),
+            BelongsTo::make('country')
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
+
+            BelongsTo::make('cart')
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             // ...parent::fields(),
         ];

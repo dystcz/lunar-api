@@ -9,12 +9,10 @@ use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 
 class CurrencyRouteGroup extends RouteGroup
 {
-    public array $middleware = [];
-
     /**
      * Register routes.
      */
-    public function routes(string $prefix = null, array|string $middleware = []): void
+    public function routes(): void
     {
         JsonApiRoute::server('v1')
             ->prefix('v1')

@@ -11,6 +11,7 @@ use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Address;
 
 class AddressSchema extends Schema
@@ -57,13 +58,9 @@ class AddressSchema extends Schema
             Str::make('last_name'),
             Str::make('company_name'),
             Str::make('company_in', 'meta')
-                ->serializeUsing(
-                    static fn (?ArrayObject $value) => $value?->collect()->get('company_in') ?? null,
-                ),
+                ->serializeUsing(static fn (?ArrayObject $value) => $value?->collect()->get('company_in') ?? null),
             Str::make('company_tin', 'meta')
-                ->serializeUsing(
-                    static fn (?ArrayObject $value) => $value?->collect()->get('company_tin') ?? null,
-                ),
+                ->serializeUsing(static fn (?ArrayObject $value) => $value?->collect()->get('company_tin') ?? null),
             Str::make('line_one'),
             Str::make('line_two'),
             Str::make('line_three'),
@@ -81,14 +78,10 @@ class AddressSchema extends Schema
             Boolean::make('billing_default'),
 
             BelongsTo::make('customer')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             BelongsTo::make('country')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             ...parent::fields(),
         ];
