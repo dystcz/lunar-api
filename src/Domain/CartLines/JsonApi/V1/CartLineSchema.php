@@ -9,6 +9,7 @@ use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\CartLine;
 
 class CartLineSchema extends Schema
@@ -62,10 +63,12 @@ class CartLineSchema extends Schema
 
             ArrayHash::make('meta'),
 
-            BelongsTo::make('cart'),
+            BelongsTo::make('cart')
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             MorphTo::make('purchasable', 'purchasable')
-                ->types('products', 'variants'),
+                ->types('products', 'variants')
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             ...parent::fields(),
         ];
