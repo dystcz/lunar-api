@@ -42,7 +42,7 @@ class OrderPolicy
      */
     public function view(?Authenticatable $user, Order $order): bool
     {
-        return $this->orderAccessible($user, $order);
+        return $this->check($user, $order);
     }
 
     /**
@@ -58,7 +58,7 @@ class OrderPolicy
      */
     public function update(?Authenticatable $user, Order $order): bool
     {
-        return $this->orderAccessible($user, $order);
+        return $this->check($user, $order);
     }
 
     /**
@@ -66,7 +66,47 @@ class OrderPolicy
      */
     public function delete(?Authenticatable $user, Order $order): bool
     {
-        return $this->orderAccessible($user, $order);
+        return $this->check($user, $order);
+    }
+
+    /**
+     * Authorize a user to view order's order lines.
+     */
+    public function viewOrderLines(?Authenticatable $user, Order $order): bool
+    {
+        return $this->check($user, $order);
+    }
+
+    /**
+     * Authorize a user to view order's digital lines.
+     */
+    public function viewDigitalLines(?Authenticatable $user, Order $order): bool
+    {
+        return $this->check($user, $order);
+    }
+
+    /**
+     * Authorize a user to view order's product lines.
+     */
+    public function viewProductLines(?Authenticatable $user, Order $order): bool
+    {
+        return $this->check($user, $order);
+    }
+
+    /**
+     * Authorize a user to view order's physical lines.
+     */
+    public function viewPhysicalLines(?Authenticatable $user, Order $order): bool
+    {
+        return $this->check($user, $order);
+    }
+
+    /**
+     * Authorize a user to view order's shipping lines.
+     */
+    public function viewShippingLines(?Authenticatable $user, Order $order): bool
+    {
+        return $this->check($user, $order);
     }
 
     /**
@@ -99,7 +139,7 @@ class OrderPolicy
     /**
      * Determine whether the user can view the model.
      */
-    protected function orderAccessible(?Authenticatable $user, Order $order): bool
+    protected function check(?Authenticatable $user, Order $order): bool
     {
         // If order belongs to user
         if ($user && $user->getKey() === $order->user_id) {
