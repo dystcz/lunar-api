@@ -2,10 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\Media\Http\Routing;
 
+use Dystcz\LunarApi\Domain\Media\Http\Controllers\MediaController;
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
-use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
 class MediaRouteGroup extends RouteGroup implements RouteGroupContract
 {
@@ -14,12 +14,12 @@ class MediaRouteGroup extends RouteGroup implements RouteGroupContract
     /**
      * Register routes.
      */
-    public function routes(string $prefix = null, array|string $middleware = []): void
+    public function routes(?string $prefix = null, array|string $middleware = []): void
     {
         JsonApiRoute::server('v1')
             ->prefix('v1')
             ->resources(function ($server) {
-                $server->resource($this->getPrefix(), JsonApiController::class)
+                $server->resource($this->getPrefix(), MediaController::class)
                     ->only('show')
                     ->readOnly();
             });
