@@ -12,9 +12,12 @@ class CreateTransaction
      */
     public function __invoke(TransactionData $transactionData): Transaction
     {
-        return Transaction::updateOrCreate(
-            ['reference' => $transactionData->reference, 'order_id' => $transactionData->order_id],
-            $transactionData->toArray(),
-        );
+        return Transaction::updateOrCreate([
+            'order_id' => $transactionData->order_id,
+            'parent_transaction_id' => $transactionData->parent_transaction_id,
+            'reference' => $transactionData->reference,
+            'status' => $transactionData->status,
+            'success' => $transactionData->success,
+        ], $transactionData->toArray());
     }
 }

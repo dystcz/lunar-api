@@ -1,5 +1,7 @@
 <?php
 
+use Dystcz\LunarApi\Domain\Checkout\Enums\CheckoutProtectionStrategy;
+
 /*
  * Lunar API general configuration
  */
@@ -23,6 +25,19 @@ return [
     // Tax defaults
     'taxation' => [
         'prices_with_default_tax' => true,
+    ],
+
+    // Checkout settings
+    'checkout' => [
+        // Forget cart right after order is created
+        'forget_cart_after_order_creation' => true,
+
+        // Allow multiple orders per cart
+        'multiple_orders_per_cart' => false,
+
+        // Protection strategy for checkout routes
+        // Available strategies: signature, auth, null
+        'checkout_protection_strategy' => CheckoutProtectionStrategy::SIGNATURE,
     ],
 
 ];

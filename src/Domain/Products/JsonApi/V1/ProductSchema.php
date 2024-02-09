@@ -2,14 +2,13 @@
 
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Contracts\FilterCollection;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\InStockFilter;
+use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilterCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
@@ -183,9 +182,6 @@ class ProductSchema extends Schema
      */
     public function filters(): array
     {
-        /** @var FilterCollection $filterCollection */
-        $filterCollection = Config::get('lunar-api.domains.products.settings.filters');
-
         return [
             WhereIdIn::make($this),
 
@@ -208,7 +204,7 @@ class ProductSchema extends Schema
 
             WhereHas::make($this, 'collections'),
 
-            ...(new $filterCollection)->toArray(),
+            ...(new ProductFilterCollection)->toArray(),
 
             ...parent::filters(),
         ];

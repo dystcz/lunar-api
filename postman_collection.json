@@ -170,91 +170,6 @@
 					]
 				},
 				{
-					"name": "Create Address",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/vnd.api+json",
-								"type": "default"
-							},
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json",
-								"type": "default"
-							},
-							{
-								"key": "referer",
-								"value": "{{ _.referer }}",
-								"type": "default"
-							},
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{ _.xsrf }}",
-								"type": "default"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"type\": \"addresses\",\n    \"attributes\": {\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"company_name\": \"ABC Company\",\n      \"city\": \"New York\",\n      \"line_one\": \"123 Main Street\",\n      \"postcode\": \"10001\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n          \"type\": \"customers\",\n          \"id\": \"1\"\n        }\n      },\n      \"country\": {\n        \"data\": {\n          \"type\": \"countries\",\n          \"id\": \"1\"\n        }\n      }\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/v1/addresses",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"addresses"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Address",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json",
-								"type": "default"
-							},
-							{
-								"key": "referer",
-								"value": "{{ _.referer }}",
-								"type": "default"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/vnd.api+json",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "{{url}}/api/v1/addresses/1",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"addresses",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Addresses show",
 					"request": {
 						"method": "GET",
@@ -292,6 +207,50 @@
 									"value": "customer,country",
 									"disabled": true
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Addresses store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"addresses\",\n    \"attributes\": {\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"company_name\": \"ABC Company\",\n      \"city\": \"New York\",\n      \"line_one\": \"123 Main Street\",\n      \"postcode\": \"10001\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n          \"type\": \"customers\",\n          \"id\": \"1\"\n        }\n      },\n      \"country\": {\n        \"data\": {\n          \"type\": \"countries\",\n          \"id\": \"1\"\n        }\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/addresses",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses"
 							]
 						}
 					},
@@ -341,6 +300,42 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Addresses destroy",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/addresses/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -364,6 +359,11 @@
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -794,6 +794,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -836,6 +841,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -878,6 +888,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -920,6 +935,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -1018,6 +1038,11 @@
 								"key": "Accept",
 								"value": "application/vnd.api+json",
 								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1066,6 +1091,11 @@
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1098,6 +1128,11 @@
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1136,6 +1171,11 @@
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1168,6 +1208,11 @@
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1203,6 +1248,11 @@
 								"key": "Content-Type",
 								"value": "application/vnd.api+json",
 								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -1241,6 +1291,11 @@
 								"key": "Content-Type",
 								"value": "application/vnd.api+json",
 								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -1276,6 +1331,11 @@
 								"key": "Content-Type",
 								"value": "application/vnd.api+json",
 								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -1314,6 +1374,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1346,6 +1411,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1384,6 +1454,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1416,6 +1491,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1487,6 +1567,11 @@
 								"key": "Accept",
 								"value": "application/vnd.api+json",
 								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1522,7 +1607,13 @@
 					"name": "Media show",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{url}}/api/v1/media/100?media_conversions=webp,large",
 							"host": [
@@ -1553,7 +1644,7 @@
 					"name": "Actions",
 					"item": [
 						{
-							"name": "Check order payment status",
+							"name": "Check Order payment status",
 							"protocolProfileBehavior": {
 								"disabledSystemHeaders": {}
 							},
@@ -1569,6 +1660,11 @@
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1608,6 +1704,11 @@
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1641,6 +1742,11 @@
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1679,6 +1785,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1711,6 +1822,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1744,6 +1860,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1776,6 +1897,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1809,6 +1935,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1841,6 +1972,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1874,6 +2010,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1906,6 +2047,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1939,6 +2085,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1971,6 +2122,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2006,6 +2162,11 @@
 								"key": "Content-Type",
 								"value": "application/vnd.api+json",
 								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -2048,6 +2209,11 @@
 								"key": "Accept",
 								"value": "application/vnd.api+json",
 								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -2096,6 +2262,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2128,6 +2299,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2161,6 +2337,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2193,6 +2374,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2231,6 +2417,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2263,6 +2454,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2301,6 +2497,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2333,6 +2534,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2371,6 +2577,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2403,6 +2614,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2436,6 +2652,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2468,6 +2689,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2506,6 +2732,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2538,6 +2769,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2571,6 +2807,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2603,6 +2844,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2641,6 +2887,11 @@
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
 										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2672,6 +2923,11 @@
 									{
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
+										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
 										"type": "text"
 									}
 								],
@@ -2706,6 +2962,11 @@
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
 										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2737,6 +2998,11 @@
 									{
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
+										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
 										"type": "text"
 									}
 								],
@@ -2776,6 +3042,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2808,6 +3079,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2846,6 +3122,11 @@
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
 										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2877,6 +3158,11 @@
 									{
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
+										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
 										"type": "text"
 									}
 								],
@@ -2913,6 +3199,11 @@
 								"key": "Accept",
 								"value": "application/vnd.api+json",
 								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -2958,6 +3249,11 @@
 								"key": "Accept",
 								"value": "application/vnd.api+json",
 								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -3000,6 +3296,11 @@
 								"key": "Content-Type",
 								"value": "application/vnd.api+json",
 								"type": "default"
+							},
+							{
+								"key": "Referer",
+								"value": "{{referer}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -3040,8 +3341,8 @@
 										"type": "default"
 									},
 									{
-										"key": "referer",
-										"value": "{{ _.referer }}",
+										"key": "Referer",
+										"value": "{{referer}}",
 										"type": "default"
 									}
 								],
@@ -3112,6 +3413,11 @@
 												"key": "Content-Type",
 												"value": "text/plain",
 												"type": "default"
+											},
+											{
+												"key": "Referer",
+												"value": "{{referer}}",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3145,9 +3451,15 @@
 										"method": "POST",
 										"header": [
 											{
+												"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
 												"key": "Content-Type",
 												"value": "multipart/form-data",
 												"type": "default"
+											},
+											{
+												"key": "Referer",
+												"value": "{{referer}}",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3197,6 +3509,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -3256,6 +3573,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -3293,6 +3615,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -3332,6 +3659,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -3369,6 +3701,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -3410,6 +3747,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -3451,6 +3793,11 @@
 										"key": "Accept",
 										"value": "application/vnd.api+json",
 										"type": "default"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -3489,6 +3836,11 @@
 									{
 										"key": "Content-Type",
 										"value": "application/vnd.api+json",
+										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "{{referer}}",
 										"type": "text"
 									}
 								],
@@ -3538,6 +3890,11 @@
 												"key": "Accept",
 												"value": "application/vnd.api+json",
 												"type": "default"
+											},
+											{
+												"key": "Referer",
+												"value": "{{referer}}",
+												"type": "text"
 											}
 										],
 										"body": {
