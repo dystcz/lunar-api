@@ -136,7 +136,7 @@ abstract class PaymentAdapter
             reference: $reference,
             status: $status,
             card_type: $this->getType(),
-            meta: array_merge($paymentIntent->getMeta(), $meta),
+            meta: $meta,
         );
     }
 
@@ -181,6 +181,6 @@ abstract class PaymentAdapter
      */
     protected function getOrderFromCart(Cart $cart): ?Order
     {
-        return $this->cart->draftOrder ?: $this->cart->completedOrder;
+        return $cart->draftOrder ?: $cart->completedOrder;
     }
 }
