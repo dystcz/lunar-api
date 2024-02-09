@@ -77,7 +77,7 @@ class CustomerPolicy
         /** @var User $user */
         return $user
             ->customers()
-            ->where("{$customersTable}.id", $customer->id)
+            ->where("{$customersTable}.id", $customer->getRouteKey())
             ->exists();
     }
 }
