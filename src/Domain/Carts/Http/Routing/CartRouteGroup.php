@@ -9,47 +9,47 @@ use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CouponsController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ReadUserCartController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
+use LaravelJsonApi\Laravel\Routing\ActionRegistrar;
+use LaravelJsonApi\Laravel\Routing\Relationships;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 
 class CartRouteGroup extends RouteGroup
 {
-    public array $middleware = [];
-
     /**
      * Register routes.
      */
-    public function routes(?string $prefix = null, array|string $middleware = []): void
+    public function routes(): void
     {
         JsonApiRoute::server('v1')
             ->prefix('v1')
             ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), CartsController::class)
-                    ->relationships(function ($relationships) {
+                    ->relationships(function (Relationships $relationships) {
                         $relationships->hasMany('cart_lines')->readOnly();
                     })
                     ->only('show');
 
                 $server->resource($this->getPrefix(), ClearUserCartController::class)
                     ->only('')
-                    ->actions('-actions', function ($actions) {
+                    ->actions('-actions', function (ActionRegistrar $actions) {
                         $actions->delete('clear');
                     });
 
                 $server->resource($this->getPrefix(), ReadUserCartController::class)
                     ->only('')
-                    ->actions('-actions', function ($actions) {
+                    ->actions('-actions', function (ActionRegistrar $actions) {
                         $actions->get('my-cart');
                     });
 
                 $server->resource($this->getPrefix(), CheckoutCartController::class)
                     ->only('')
-                    ->actions('-actions', function ($actions) {
+                    ->actions('-actions', function (ActionRegistrar $actions) {
                         $actions->post('checkout');
                     });
 
                 $server->resource($this->getPrefix(), CouponsController::class)
                     ->only('')
-                    ->actions('-actions', function ($actions) {
+                    ->actions('-actions', function (ActionRegistrar $actions) {
                         $actions->post('apply-coupon', 'update');
                         $actions->delete('remove-coupon', 'destroy');
                     });
