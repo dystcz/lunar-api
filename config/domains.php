@@ -14,7 +14,6 @@ return [
             'reset_password' => Illuminate\Auth\Notifications\ResetPassword::class,
             'verify_email' => Illuminate\Auth\Notifications\VerifyEmail::class,
         ],
-        'settings' => [],
     ],
 
     'addresses' => [
@@ -26,17 +25,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Addresses\Http\Routing\AddressRouteGroup::class,
-        'route_actions' => [
-            \Dystcz\LunarApi\Domain\Addresses\Http\Controllers\AddressesController::class => [
-                'store' => [
-                    'request' => Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressRequest::class,
-                ],
-                'update' => [
-                    'request' => Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressRequest::class,
-                ],
-            ],
-        ],
-        'settings' => [],
     ],
 
     'attributes' => [
@@ -48,8 +36,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Attributes\JsonApi\V1\AttributeQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Attributes\JsonApi\V1\AttributeCollectionQuery::class,
         'routes' => null,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'attribute_groups' => [
@@ -61,8 +47,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\AttributeGroups\JsonApi\V1\AttributeGroupQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\AttributeGroups\JsonApi\V1\AttributeGroupCollectionQuery::class,
         'routes' => null,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'associations' => [
@@ -74,8 +58,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1\ProductAssociationQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1\ProductAssociationCollectionQuery::class,
         'routes' => null,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'brands' => [
@@ -87,8 +69,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Brands\JsonApi\V1\BrandQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Brands\JsonApi\V1\BrandCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Brands\Http\Routing\BrandRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'cart_addresses' => [
@@ -100,8 +80,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\CartAddresses\Http\Routing\CartAddressRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'cart_lines' => [
@@ -113,8 +91,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\CartLines\JsonApi\V1\CartLineQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\CartLines\JsonApi\V1\CartLineCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\CartLines\Http\Routing\CartLineRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'carts' => [
@@ -129,10 +105,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Carts\Http\Routing\CartRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [
-            'forget_cart_after_order_created' => true,
-        ],
     ],
 
     'channels' => [
@@ -144,8 +116,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Channels\JsonApi\V1\ChannelQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Channels\JsonApi\V1\ChannelCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Channels\Http\Routing\ChannelRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'collections' => [
@@ -157,8 +127,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Collections\Http\Routing\CollectionRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'collection_groups' => [
@@ -170,8 +138,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1\CollectionGroupQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1\CollectionGroupCollectionQuery::class,
         'routes' => null,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'countries' => [
@@ -183,8 +149,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Countries\JsonApi\V1\CountryQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Countries\JsonApi\V1\CountryCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Countries\Http\Routing\CountryRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'currencies' => [
@@ -196,8 +160,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Currencies\JsonApi\V1\CurrencyQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Currencies\JsonApi\V1\CurrencyCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Currencies\Http\Routing\CurrencyRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'customers' => [
@@ -209,8 +171,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Customers\JsonApi\V1\CustomerQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Customers\JsonApi\V1\CustomerCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Customers\Http\Routing\CustomerRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     // 'discounts' => [
@@ -222,8 +182,7 @@ return [
     //     'query' => Dystcz\LunarApi\Domain\Discounts\JsonApi\V1\DiscountQuery::class,
     //     'collection_query' => Dystcz\LunarApi\Domain\Discounts\JsonApi\V1\DiscountCollectionQuery::class,
     //     'routes' => Dystcz\LunarApi\Domain\Discounts\Http\Routing\DiscountRouteGroup::class,
-    //     'route_actions' => [],
-    //     'settings' => [],
+    //
     // ],
 
     'media' => [
@@ -235,10 +194,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Media\Http\Routing\MediaRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [
-            'conversions' => [],
-        ],
     ],
 
     'orders' => [
@@ -250,10 +205,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Orders\Http\Routing\OrderRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [
-            'sign_show_route' => true,
-        ],
     ],
 
     'order_addresses' => [
@@ -265,8 +216,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\OrderAddresses\JsonApi\V1\OrderAddressQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\OrderAddresses\JsonApi\V1\OrderAddressCollectionQuery::class,
         'routes' => null,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'order_lines' => [
@@ -278,8 +227,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\OrderLines\JsonApi\V1\OrderLineQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\OrderLines\JsonApi\V1\OrderLineCollectionQuery::class,
         'routes' => null,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'payment_options' => [
@@ -291,8 +238,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\PaymentOptions\JsonApi\V1\PaymentOptionQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\PaymentOptions\JsonApi\V1\PaymentOptionCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\PaymentOptions\Http\Routing\PaymentOptionRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'prices' => [
@@ -304,8 +249,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceCollectionQuery::class,
         'routes' => null,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'product_associations' => [
@@ -317,8 +260,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1\ProductAssociationQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1\ProductAssociationCollectionQuery::class,
         'routes' => null,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'product_options' => [
@@ -330,8 +271,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\ProductOptions\JsonApi\V1\ProductOptionQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\ProductOptions\JsonApi\V1\ProductOptionCollectionQuery::class,
         'routes' => null,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'product_option_values' => [
@@ -343,8 +282,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\ProductOptionValues\JsonApi\V1\ProductOptionValueQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\ProductOptionValues\JsonApi\V1\ProductOptionValueCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\ProductOptionValues\Http\Routing\ProductOptionValueRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'product_types' => [
@@ -356,8 +293,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\ProductTypes\JsonApi\V1\ProductTypeQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\ProductTypes\JsonApi\V1\ProductTypeCollectionQuery::class,
         'routes' => null,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'products' => [
@@ -369,10 +304,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Products\Http\Routing\ProductRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [
-            'filters' => Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilterCollection::class,
-        ],
     ],
 
     'product_variants' => [
@@ -384,8 +315,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\ProductVariants\Http\Routing\ProductVariantRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'shipping_options' => [
@@ -397,8 +326,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\ShippingOptionQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\ShippingOptionCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\ShippingOptions\Http\Routing\ShippingOptionRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'tags' => [
@@ -410,8 +337,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Tags\JsonApi\V1\TagQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Tags\JsonApi\V1\TagCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Tags\Http\Routing\TagRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'transactions' => [
@@ -423,8 +348,6 @@ return [
         'query' => Dystcz\LunarApi\Domain\Transactions\JsonApi\V1\TransactionQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Transactions\JsonApi\V1\TransactionCollectionQuery::class,
         'routes' => null,
-        'route_actions' => [],
-        'settings' => [],
     ],
 
     'urls' => [
@@ -436,7 +359,5 @@ return [
         'query' => Dystcz\LunarApi\Domain\Urls\JsonApi\V1\UrlQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\Urls\JsonApi\V1\UrlCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Urls\Http\Routing\UrlRouteGroup::class,
-        'route_actions' => [],
-        'settings' => [],
     ],
 ];
