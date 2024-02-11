@@ -1,0 +1,2047 @@
+openapi: 3.0.3
+info:
+  title: Lunar API
+  version: 1.0.0
+  contact: {}
+servers:
+- url: '{{url}}'
+paths:
+  /api/v1/addresses/1:
+    get:
+      tags:
+      - Addresses
+      summary: Get address
+      description: Get address
+      operationId: getAddress
+      parameters:
+      - name: include
+        in: query
+        schema:
+          type: string
+          example: customer,country
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+      - Addresses
+      summary: Delete address
+      description: Delete address
+      operationId: deleteAddress
+      responses:
+        '200':
+          description: ''
+    patch:
+      tags:
+      - Addresses
+      summary: Update address
+      description: Update address
+      operationId: updateAddress
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        city:
+                          type: string
+                          example: New York
+                        company_in:
+                          type: string
+                          example: '12345678'
+                        company_name:
+                          type: string
+                          example: ABC Company
+                        company_tin:
+                          type: string
+                          example: CZ12345678
+                        contact_phone:
+                          type: string
+                          example: '789456789'
+                        first_name:
+                          type: string
+                          example: Jane
+                        last_name:
+                          type: string
+                          example: Doe
+                        line_one:
+                          type: string
+                          example: 123 Main Street
+                        postcode:
+                          type: string
+                          example: '10001'
+                    id:
+                      type: string
+                      example: '1'
+                    relationships:
+                      type: object
+                      properties:
+                        country:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  example: '1'
+                                type:
+                                  type: string
+                                  example: countries
+                        customer:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  example: '1'
+                                type:
+                                  type: string
+                                  example: customers
+                    type:
+                      type: string
+                      example: addresses
+            examples:
+              Update address:
+                value:
+                  data:
+                    attributes:
+                      city: New York
+                      company_in: '12345678'
+                      company_name: ABC Company
+                      company_tin: CZ12345678
+                      contact_phone: '789456789'
+                      first_name: Jane
+                      last_name: Doe
+                      line_one: 123 Main Street
+                      postcode: '10001'
+                    id: '1'
+                    relationships:
+                      country:
+                        data:
+                          id: '1'
+                          type: countries
+                      customer:
+                        data:
+                          id: '1'
+                          type: customers
+                    type: addresses
+      responses:
+        '200':
+          description: ''
+  /api/v1/addresses:
+    post:
+      tags:
+      - Addresses
+      summary: Create address
+      description: Create address
+      operationId: createAddress
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        city:
+                          type: string
+                          example: New York
+                        company_name:
+                          type: string
+                          example: ABC Company
+                        first_name:
+                          type: string
+                          example: John
+                        last_name:
+                          type: string
+                          example: Doe
+                        line_one:
+                          type: string
+                          example: 123 Main Street
+                        postcode:
+                          type: string
+                          example: '10001'
+                    relationships:
+                      type: object
+                      properties:
+                        country:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  example: '1'
+                                type:
+                                  type: string
+                                  example: countries
+                        customer:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  example: '1'
+                                type:
+                                  type: string
+                                  example: customers
+                    type:
+                      type: string
+                      example: addresses
+            examples:
+              Create address:
+                value:
+                  data:
+                    attributes:
+                      city: New York
+                      company_name: ABC Company
+                      first_name: John
+                      last_name: Doe
+                      line_one: 123 Main Street
+                      postcode: '10001'
+                    relationships:
+                      country:
+                        data:
+                          id: '1'
+                          type: countries
+                      customer:
+                        data:
+                          id: '1'
+                          type: customers
+                    type: addresses
+      responses:
+        '200':
+          description: ''
+  /api/v1/addresses/1/country:
+    get:
+      tags:
+      - Addresses
+      summary: Get address country
+      description: Get address country
+      operationId: getAddressCountry
+      responses:
+        '200':
+          description: ''
+  /api/v1/addresses/1/relationships/country:
+    get:
+      tags:
+      - Addresses
+      summary: Get address country relationship
+      description: Get address country relationship
+      operationId: getAddressCountryRelationship
+      responses:
+        '200':
+          description: ''
+  /api/v1/addresses/1/customer:
+    get:
+      tags:
+      - Addresses
+      summary: Get address customer
+      description: Get address customer
+      operationId: getAddressCustomer
+      responses:
+        '200':
+          description: ''
+  /api/v1/addresses/1/relationships/customer:
+    get:
+      tags:
+      - Addresses
+      summary: Get address customer relationship
+      description: Get address customer relationship
+      operationId: getAddressCustomerRelationship
+      responses:
+        '200':
+          description: ''
+  /api/v1/carts/1/cart_lines:
+    get:
+      tags:
+      - Cart
+      summary: List cart lines
+      description: List cart lines
+      operationId: listCartLines
+      responses:
+        '200':
+          description: ''
+  /api/v1/carts/1/relationships/cart_lines:
+    get:
+      tags:
+      - Cart
+      summary: List cart lines relationships
+      description: List cart lines relationships
+      operationId: listCartLinesRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/carts/1:
+    get:
+      tags:
+      - Cart
+      summary: Get cart
+      description: Get cart
+      operationId: getCart
+      parameters:
+      - name: include
+        in: query
+        schema:
+          type: string
+          example: transactions
+      responses:
+        '200':
+          description: ''
+  /api/v1/carts/-actions/apply-coupon:
+    post:
+      tags:
+      - Cart
+      summary: Apply coupon to cart action
+      description: Apply coupon to cart action
+      operationId: applyCouponToCartAction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        coupon_code:
+                          type: string
+                          example: code
+                    type:
+                      type: string
+                      example: carts
+            examples:
+              Apply coupon to cart action:
+                value:
+                  data:
+                    attributes:
+                      coupon_code: code
+                    type: carts
+      responses:
+        '200':
+          description: ''
+  /api/v1/carts/-actions/my-cart:
+    get:
+      tags:
+      - Cart
+      summary: Get cart for logged in user action
+      description: Get cart for logged in user action
+      operationId: getCartForLoggedInUserAction
+      parameters:
+      - name: include
+        in: query
+        schema:
+          type: string
+          example: cart_lines
+      responses:
+        '200':
+          description: ''
+  /api/v1/carts/-actions/clear:
+    delete:
+      tags:
+      - Cart
+      summary: Clear cart action
+      description: Clear cart action
+      operationId: clearCartAction
+      responses:
+        '200':
+          description: ''
+  /api/v1/carts/-actions/checkout:
+    post:
+      tags:
+      - Cart
+      summary: Checkout cart action
+      description: Checkout cart action
+      operationId: checkoutCartAction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        agree:
+                          type: boolean
+                          example: true
+                        create_user:
+                          type: boolean
+                          example: true
+                    type:
+                      type: string
+                      example: carts
+            examples:
+              Checkout cart action:
+                value:
+                  data:
+                    attributes:
+                      agree: true
+                      create_user: true
+                    type: carts
+      responses:
+        '200':
+          description: ''
+  /api/v1/cart-lines:
+    post:
+      tags:
+      - CartLines
+      summary: Create cart line (add to cart)
+      description: Create cart line (add to cart)
+      operationId: createCartLineAddToCart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        meta:
+                          nullable: true
+                          example: null
+                        purchasable_id:
+                          type: number
+                          example: 349
+                        purchasable_type:
+                          type: string
+                          example: Lunar\Models\ProductVariant
+                        quantity:
+                          type: number
+                          example: 1
+                    type:
+                      type: string
+                      example: cart-lines
+            examples:
+              Create cart line (add to cart):
+                value:
+                  data:
+                    attributes:
+                      meta: null
+                      purchasable_id: 349
+                      purchasable_type: Lunar\Models\ProductVariant
+                      quantity: 1
+                    type: cart-lines
+      responses:
+        '200':
+          description: ''
+  /api/v1/cart-lines/13516:
+    patch:
+      tags:
+      - CartLines
+      summary: Update cart line (update quantity)
+      description: Update cart line (update quantity)
+      operationId: updateCartLineUpdateQuantity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        quantity:
+                          type: number
+                          example: 5
+                    id:
+                      type: string
+                      example: '13516'
+                    type:
+                      type: string
+                      example: cart-lines
+            examples:
+              Update cart line (update quantity):
+                value:
+                  data:
+                    attributes:
+                      quantity: 5
+                    id: '13516'
+                    type: cart-lines
+      responses:
+        '200':
+          description: ''
+  /api/v1/cart-lines/18:
+    delete:
+      tags:
+      - CartLines
+      summary: Delete cart line (remove from cart)
+      description: Delete cart line (remove from cart)
+      operationId: deleteCartLineRemoveFromCart
+      responses:
+        '200':
+          description: ''
+  /api/v1/cart-addresses:
+    post:
+      tags:
+      - CartAddresses
+      summary: Create cart address
+      description: Create cart address
+      operationId: createCartAddress
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        address_type:
+                          type: string
+                          example: shipping
+                        city:
+                          type: string
+                          example: New York
+                        company_in:
+                          type: string
+                          example: '12345678'
+                        company_name:
+                          type: string
+                          example: ABC Company
+                        company_tin:
+                          type: string
+                          example: CZ12345678
+                        contact_email:
+                          type: string
+                          example: bob6@mail.com
+                        contact_phone:
+                          type: string
+                          example: '777888999'
+                        first_name:
+                          type: string
+                          example: John
+                        last_name:
+                          type: string
+                          example: Doe
+                        line_one:
+                          type: string
+                          example: 123 Main Street
+                        postcode:
+                          type: string
+                          example: '10001'
+                        shipping_option:
+                          type: string
+                          example: Friendly Freight Co.
+                    relationships:
+                      type: object
+                      properties:
+                        cart:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  example: '1949444'
+                                type:
+                                  type: string
+                                  example: carts
+                        country:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  example: '1'
+                                type:
+                                  type: string
+                                  example: countries
+                    type:
+                      type: string
+                      example: cart-addresses
+            examples:
+              Create cart address:
+                value:
+                  data:
+                    attributes:
+                      address_type: shipping
+                      city: New York
+                      company_in: '12345678'
+                      company_name: ABC Company
+                      company_tin: CZ12345678
+                      contact_email: bob6@mail.com
+                      contact_phone: '777888999'
+                      first_name: John
+                      last_name: Doe
+                      line_one: 123 Main Street
+                      postcode: '10001'
+                      shipping_option: Friendly Freight Co.
+                    relationships:
+                      cart:
+                        data:
+                          id: '1949444'
+                          type: carts
+                      country:
+                        data:
+                          id: '1'
+                          type: countries
+                    type: cart-addresses
+      responses:
+        '200':
+          description: ''
+      security:
+      - bearerAuth: []
+  /api/v1/cart-addresses/1:
+    patch:
+      tags:
+      - CartAddresses
+      summary: Update cart address
+      description: Update cart address
+      operationId: updateCartAddress
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        address_type:
+                          type: string
+                          example: shipping
+                        city:
+                          type: string
+                          example: New York
+                        company_in:
+                          type: string
+                          example: '12345678'
+                        company_name:
+                          type: string
+                          example: ABC Company
+                        company_tin:
+                          type: string
+                          example: CZ12345678
+                        contact_email:
+                          type: string
+                          example: bob6@mail.com
+                        contact_phone:
+                          type: string
+                          example: '777888999'
+                        first_name:
+                          type: string
+                          example: John
+                        last_name:
+                          type: string
+                          example: Doe
+                        line_one:
+                          type: string
+                          example: 123 Main Street
+                        postcode:
+                          type: string
+                          example: '10001'
+                        shipping_option:
+                          type: string
+                          example: SODEL
+                    id:
+                      type: string
+                      example: '1'
+                    relationships:
+                      type: object
+                      properties:
+                        cart:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  example: '1'
+                                type:
+                                  type: string
+                                  example: carts
+                        country:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  example: '1'
+                                type:
+                                  type: string
+                                  example: countries
+                    type:
+                      type: string
+                      example: cart-addresses
+            examples:
+              Update cart address:
+                value:
+                  data:
+                    attributes:
+                      address_type: shipping
+                      city: New York
+                      company_in: '12345678'
+                      company_name: ABC Company
+                      company_tin: CZ12345678
+                      contact_email: bob6@mail.com
+                      contact_phone: '777888999'
+                      first_name: John
+                      last_name: Doe
+                      line_one: 123 Main Street
+                      postcode: '10001'
+                      shipping_option: SODEL
+                    id: '1'
+                    relationships:
+                      cart:
+                        data:
+                          id: '1'
+                          type: carts
+                      country:
+                        data:
+                          id: '1'
+                          type: countries
+                    type: cart-addresses
+      responses:
+        '200':
+          description: ''
+  /api/v1/cart-addresses/1/-actions/attach-shipping-option:
+    patch:
+      tags:
+      - CartAddresses
+      summary: Attach shipping option action
+      description: Attach shipping option action
+      operationId: attachShippingOptionAction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        shipping_option:
+                          type: string
+                          example: DPDDEL
+                    id:
+                      type: string
+                      example: '1'
+                    type:
+                      type: string
+                      example: cart-addresses
+            examples:
+              Attach shipping option action:
+                value:
+                  data:
+                    attributes:
+                      shipping_option: DPDDEL
+                    id: '1'
+                    type: cart-addresses
+      responses:
+        '200':
+          description: ''
+  /api/v1/cart-addresses/1/-actions/detach-shipping-option:
+    delete:
+      tags:
+      - CartAddresses
+      summary: Detach shipping option action
+      description: Detach shipping option action
+      operationId: detachShippingOptionAction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        shipping_option:
+                          type: string
+                          example: DPDDEL
+                    id:
+                      type: string
+                      example: '1'
+                    type:
+                      type: string
+                      example: cart-addresses
+            examples:
+              Detach shipping option action:
+                value:
+                  data:
+                    attributes:
+                      shipping_option: DPDDEL
+                    id: '1'
+                    type: cart-addresses
+      responses:
+        '200':
+          description: ''
+  /api/v1/cart-addresses/1/-actions/continuous-update:
+    patch:
+      tags:
+      - CartAddresses
+      summary: Continuous update action
+      description: Continuous update action
+      operationId: continuousUpdateAction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        address_type:
+                          type: string
+                          example: billing
+                        company_in:
+                          type: string
+                          example: '12345678'
+                        company_name:
+                          type: string
+                          example: Hovno
+                        company_tin:
+                          type: string
+                          example: CZ12345678
+                    id:
+                      type: string
+                      example: '1'
+                    relationships:
+                      type: object
+                      properties:
+                        cart:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  example: '1'
+                                type:
+                                  type: string
+                                  example: carts
+                    type:
+                      type: string
+                      example: cart-addresses
+            examples:
+              Continuous update action:
+                value:
+                  data:
+                    attributes:
+                      address_type: billing
+                      company_in: '12345678'
+                      company_name: Hovno
+                      company_tin: CZ12345678
+                    id: '1'
+                    relationships:
+                      cart:
+                        data:
+                          id: '1'
+                          type: carts
+                    type: cart-addresses
+      responses:
+        '200':
+          description: ''
+  /api/v1/cart-addresses/1/-actions/update-country:
+    patch:
+      tags:
+      - CartAddresses
+      summary: Update cart address country action
+      description: Update cart address country action
+      operationId: updateCartAddressCountryAction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: '1'
+                    relationships:
+                      type: object
+                      properties:
+                        country:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  example: '2'
+                                type:
+                                  type: string
+                                  example: countries
+                    type:
+                      type: string
+                      example: cart-addresses
+            examples:
+              Update cart address country action:
+                value:
+                  data:
+                    id: '1'
+                    relationships:
+                      country:
+                        data:
+                          id: '2'
+                          type: countries
+                    type: cart-addresses
+      responses:
+        '200':
+          description: ''
+  /api/v1/collections/1:
+    get:
+      tags:
+      - Collections
+      summary: Get collection
+      description: Get collection
+      operationId: getCollection
+      parameters:
+      - name: filter[url][slug]
+        in: query
+        schema:
+          type: string
+          example: mechanical-keyboards
+      responses:
+        '200':
+          description: ''
+  /api/v1/collections:
+    get:
+      tags:
+      - Collections
+      summary: List collections
+      description: List collections
+      operationId: listCollections
+      responses:
+        '200':
+          description: ''
+  /api/v1/collections/1/default_url:
+    get:
+      tags:
+      - Collections
+      summary: Get collection default url
+      description: Get collection default url
+      operationId: getCollectionDefaultUrl
+      responses:
+        '200':
+          description: ''
+  /api/v1/collections/1/relationships/default_url:
+    get:
+      tags:
+      - Collections
+      summary: Get collection default url relation
+      description: Get collection default url relation
+      operationId: getCollectionDefaultUrlRelation
+      responses:
+        '200':
+          description: ''
+  /api/v1/collections/1/products:
+    get:
+      tags:
+      - Collections
+      summary: List collection products
+      description: List collection products
+      operationId: listCollectionProducts
+      responses:
+        '200':
+          description: ''
+  /api/v1/collections/1/relationships/products:
+    get:
+      tags:
+      - Collections
+      summary: List collection products relationships
+      description: List collection products relationships
+      operationId: listCollectionProductsRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/countries:
+    get:
+      tags:
+      - Countries
+      summary: List countries
+      description: List countries
+      operationId: listCountries
+      responses:
+        '200':
+          description: ''
+  /api/v1/customers/1:
+    get:
+      tags:
+      - Customers
+      summary: Get customer
+      description: Get customer
+      operationId: getCustomer
+      responses:
+        '200':
+          description: ''
+    patch:
+      tags:
+      - Customers
+      summary: Update customer
+      description: Update customer
+      operationId: updateCustomer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        account_ref:
+                          type: string
+                          example: '987654321'
+                        company_name:
+                          type: string
+                          example: Not Evil
+                        first_name:
+                          type: string
+                          example: Jane
+                        last_name:
+                          type: string
+                          example: Doe
+                        vat_no:
+                          type: string
+                          example: '1234567899'
+                    id:
+                      type: string
+                      example: '1'
+                    type:
+                      type: string
+                      example: customers
+            examples:
+              Update customer:
+                value:
+                  data:
+                    attributes:
+                      account_ref: '987654321'
+                      company_name: Not Evil
+                      first_name: Jane
+                      last_name: Doe
+                      vat_no: '1234567899'
+                    id: '1'
+                    type: customers
+      responses:
+        '200':
+          description: ''
+  /api/v1/customers/1/addresses:
+    get:
+      tags:
+      - Customers
+      summary: List customer addresses
+      description: List customer addresses
+      operationId: listCustomerAddresses
+      responses:
+        '200':
+          description: ''
+  /api/v1/customers/1/relationships/addresses:
+    get:
+      tags:
+      - Customers
+      summary: List customer addresses relationships
+      description: List customer addresses relationships
+      operationId: listCustomerAddressesRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/customers/1/orders:
+    get:
+      tags:
+      - Customers
+      summary: List customer orders
+      description: List customer orders
+      operationId: listCustomerOrders
+      responses:
+        '200':
+          description: ''
+  /api/v1/customers/1/relationships/orders:
+    get:
+      tags:
+      - Customers
+      summary: List customer orders relationships
+      description: List customer orders relationships
+      operationId: listCustomerOrdersRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/media/100:
+    get:
+      tags:
+      - Media
+      summary: Get image
+      description: Get image
+      operationId: getImage
+      parameters:
+      - name: media_conversions
+        in: query
+        schema:
+          type: string
+          example: webp,large
+      responses:
+        '200':
+          description: ''
+  /api/v1/orders/1:
+    get:
+      tags:
+      - Orders
+      summary: Get order
+      description: Get order
+      operationId: getOrder
+      parameters:
+      - name: signature
+        in: query
+        schema:
+          type: string
+          example: signature
+      - name: include
+        in: query
+        schema:
+          type: string
+          example: transactions
+      responses:
+        '200':
+          description: ''
+    patch:
+      tags:
+      - Orders
+      summary: Update order
+      description: Update order
+      operationId: updateOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        notes:
+                          type: string
+                          example: What a lovely day!
+                    id:
+                      type: string
+                      example: '1'
+                    type:
+                      type: string
+                      example: orders
+            examples:
+              Update order:
+                value:
+                  data:
+                    attributes:
+                      notes: What a lovely day!
+                    id: '1'
+                    type: orders
+      responses:
+        '200':
+          description: ''
+  /api/v1/orders/1/-actions/check-order-payment-status:
+    get:
+      tags:
+      - Orders
+      summary: Check order payment status action
+      description: Check order payment status action
+      operationId: checkOrderPaymentStatusAction
+      parameters:
+      - name: include
+        in: query
+        schema:
+          type: string
+          example: latest_transaction
+      responses:
+        '200':
+          description: ''
+  /api/v1/orders/1/-actions/mark-pending-payment:
+    patch:
+      tags:
+      - Orders
+      summary: Mark pending payment action
+      description: Mark pending payment action
+      operationId: markPendingPaymentAction
+      responses:
+        '200':
+          description: ''
+  /api/v1/orders/1/-actions/mark-awaiting-payment:
+    patch:
+      tags:
+      - Orders
+      summary: Mark awaiting payment action
+      description: Mark awaiting payment action
+      operationId: markAwaitingPaymentAction
+      responses:
+        '200':
+          description: ''
+  /api/v1/orders/100/order_lines:
+    get:
+      tags:
+      - Orders
+      summary: List order lines
+      description: List order lines
+      operationId: listOrderLines
+      responses:
+        '200':
+          description: ''
+  /api/v1/orders/100/relationships/order_lines:
+    get:
+      tags:
+      - Orders
+      summary: List order lines relationships
+      description: List order lines relationships
+      operationId: listOrderLinesRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/orders/100/digital_lines:
+    get:
+      tags:
+      - Orders
+      summary: List order digital lines
+      description: List order digital lines
+      operationId: listOrderDigitalLines
+      responses:
+        '200':
+          description: ''
+  /api/v1/orders/100/relationships/digital_lines:
+    get:
+      tags:
+      - Orders
+      summary: List order digital lines relationships
+      description: List order digital lines relationships
+      operationId: listOrderDigitalLinesRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/orders/100/physical_lines:
+    get:
+      tags:
+      - Orders
+      summary: List order physical lines
+      description: List order physical lines
+      operationId: listOrderPhysicalLines
+      responses:
+        '200':
+          description: ''
+  /api/v1/orders/100/relationships/physical_lines:
+    get:
+      tags:
+      - Orders
+      summary: List order physical lines relationships
+      description: List order physical lines relationships
+      operationId: listOrderPhysicalLinesRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/orders/100/product_lines:
+    get:
+      tags:
+      - Orders
+      summary: List order product lines
+      description: List order product lines
+      operationId: listOrderProductLines
+      responses:
+        '200':
+          description: ''
+  /api/v1/orders/100/relationships/product_lines:
+    get:
+      tags:
+      - Orders
+      summary: List order product lines relationships
+      description: List order product lines relationships
+      operationId: listOrderProductLinesRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/orders/100/shipping_lines:
+    get:
+      tags:
+      - Orders
+      summary: List order shipping lines
+      description: List order shipping lines
+      operationId: listOrderShippingLines
+      responses:
+        '200':
+          description: ''
+  /api/v1/orders/100/relationships/shipping_lines:
+    get:
+      tags:
+      - Orders
+      summary: List order shipping lines relationships
+      description: List order shipping lines relationships
+      operationId: listOrderShippingLinesRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100:
+    get:
+      tags:
+      - Products
+      summary: Get product
+      description: Get product
+      operationId: getProduct
+      parameters:
+      - name: include
+        in: query
+        schema:
+          type: string
+          example: variants.prices,cheapest_variant.prices
+        description: Include product relations
+      - name: filter[url][slug]
+        in: query
+        schema:
+          type: string
+          example: slug
+        description: Get sigle product by its slug
+      responses:
+        '200':
+          description: ''
+  /api/v1/products:
+    get:
+      tags:
+      - Products
+      summary: List products
+      description: List products
+      operationId: listProducts
+      parameters:
+      - name: include
+        in: query
+        schema:
+          type: string
+          example: variants.prices,cheapest_variant.prices
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/associations:
+    get:
+      tags:
+      - Products
+      summary: List product associations
+      description: List product associations
+      operationId: listProductAssociations
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/relationships/associations:
+    get:
+      tags:
+      - Products
+      summary: List product associations relationships
+      description: List product associations relationships
+      operationId: listProductAssociationsRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/inverse_associations:
+    get:
+      tags:
+      - Products
+      summary: List product inverse associations
+      description: List product inverse associations
+      operationId: listProductInverseAssociations
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/relationships/inverse_associations:
+    get:
+      tags:
+      - Products
+      summary: List product inverse associations index relationships
+      description: List product inverse associations index relationships
+      operationId: listProductInverseAssociationsIndexRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/brand:
+    get:
+      tags:
+      - Products
+      summary: Get product brand
+      description: Get product brand
+      operationId: getProductBrand
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/relationships/brand:
+    get:
+      tags:
+      - Products
+      summary: Get product brand relationship
+      description: Get product brand relationship
+      operationId: getProductBrandRelationship
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/collections:
+    get:
+      tags:
+      - Products
+      summary: List product collection
+      description: List product collection
+      operationId: listProductCollection
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/relationships/collections:
+    get:
+      tags:
+      - Products
+      summary: List product collection relationships
+      description: List product collection relationships
+      operationId: listProductCollectionRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/images:
+    get:
+      tags:
+      - Products
+      summary: List product images
+      description: List product images
+      operationId: listProductImages
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/relationships/images:
+    get:
+      tags:
+      - Products
+      summary: List product images relationships
+      description: List product images relationships
+      operationId: listProductImagesRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/thumbnail:
+    get:
+      tags:
+      - Products
+      summary: Get product thumbnail
+      description: Get product thumbnail
+      operationId: getProductThumbnail
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/relationships/thumbnail:
+    get:
+      tags:
+      - Products
+      summary: Get product thumbnail relationship
+      description: Get product thumbnail relationship
+      operationId: getProductThumbnailRelationship
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/lowest_price:
+    get:
+      tags:
+      - Products
+      summary: Get product lowest price
+      description: Get product lowest price
+      operationId: getProductLowestPrice
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/relationships/lowest_price:
+    get:
+      tags:
+      - Products
+      summary: Get product lowest price relationship
+      description: Get product lowest price relationship
+      operationId: getProductLowestPriceRelationship
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/prices:
+    get:
+      tags:
+      - Products
+      summary: List product prices
+      description: List product prices
+      operationId: listProductPrices
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/relationships/prices:
+    get:
+      tags:
+      - Products
+      summary: List product prices relationships
+      description: List product prices relationships
+      operationId: listProductPricesRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/variants:
+    get:
+      tags:
+      - Products
+      summary: List product variants
+      description: List product variants
+      operationId: listProductVariants
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/relationships/variants:
+    get:
+      tags:
+      - Products
+      summary: List product variants relationships
+      description: List product variants relationships
+      operationId: listProductVariantsRelationships
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/cheapest_variant:
+    get:
+      tags:
+      - Products
+      summary: Get product cheapest variant
+      description: Get product cheapest variant
+      operationId: getProductCheapestVariant
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/relationships/cheapest_variant:
+    get:
+      tags:
+      - Products
+      summary: Get product cheapest variant relationship
+      description: Get product cheapest variant relationship
+      operationId: getProductCheapestVariantRelationship
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/tags:
+    get:
+      tags:
+      - Products
+      summary: List product tags
+      description: List product tags
+      operationId: listProductTags
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/relationships/tags:
+    get:
+      tags:
+      - Products
+      summary: List product tags relationship
+      description: List product tags relationship
+      operationId: listProductTagsRelationship
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/default_url:
+    get:
+      tags:
+      - Products
+      summary: Get product default url
+      description: Get product default url
+      operationId: getProductDefaultUrl
+      responses:
+        '200':
+          description: ''
+  /api/v1/products/100/relationships/default_url:
+    get:
+      tags:
+      - Products
+      summary: Get product default url relationship
+      description: Get product default url relationship
+      operationId: getProductDefaultUrlRelationship
+      responses:
+        '200':
+          description: ''
+  /api/v1/shipping-options:
+    get:
+      tags:
+      - ShippingOptions
+      summary: List shipping options
+      description: List shipping options
+      operationId: listShippingOptions
+      responses:
+        '200':
+          description: ''
+  /api/v1/users/-actions/me/orders:
+    get:
+      tags:
+      - ⚠️ Not supported yet
+      - Auth
+      summary: Get user orders
+      description: Get user orders
+      operationId: getUserOrders
+      parameters:
+      - name: include
+        in: query
+        schema:
+          type: string
+          example: product_lines,product_lines.purchasable,product_lines.purchasable.product,product_lines.purchasable.product.thumbnail
+      responses:
+        '200':
+          description: ''
+  /user:
+    get:
+      tags:
+      - ⚠️ Not supported yet
+      - Account
+      summary: Get user
+      description: Get user
+      operationId: getUser
+      responses:
+        '200':
+          description: ''
+  /api/v1/files/-actions/delete-file:
+    delete:
+      tags:
+      - ⚠️ Not supported yet
+      - Files
+      - Actions
+      summary: Delete temp file
+      description: Delete temp file
+      operationId: deleteTempFile
+      requestBody:
+        content:
+          text/plain:
+            examples:
+              Delete temp file:
+                value: eyJpdiI6ImF6bHpDZG5XRXlTbVBHTkZQYTB6K1E9PSIsInZhbHVlIjoiR3RMNmlKamtNLy9sQ2ZRSVJETnhRVEpFYmVJaHVVTy9MT0lEWVkzN2RTOExLUWwyMkxJQ3RVYVAxanY4Y2xlOCIsIm1hYyI6IjQ0YTNlYmY1NGFlNWQ0OGQzZDg0MzdlNjQzNmIwMTljOTQzYzk3NTkzMmYwM2I5NWZhNzY4NTUxMDI1NDg2ZmIiLCJ0YWciOiIifQ==
+      responses:
+        '200':
+          description: ''
+  /api/v1/files/-actions/upload-file:
+    post:
+      tags:
+      - ⚠️ Not supported yet
+      - Files
+      - Actions
+      summary: Upload file
+      description: Upload file
+      operationId: uploadFile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: ''
+  /api/v1/users/-actions/forgot-password:
+    post:
+      tags:
+      - ⚠️ Not supported yet
+      - Auth
+      summary: Forgot Password
+      description: Forgot Password
+      operationId: forgotPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          example: cms@webiz.cz
+                    type:
+                      type: string
+                      example: users
+            examples:
+              Forgot Password:
+                value:
+                  data:
+                    attributes:
+                      email: cms@webiz.cz
+                    type: users
+      responses:
+        '200':
+          description: ''
+  /login:
+    post:
+      tags:
+      - ⚠️ Not supported yet
+      - Auth
+      summary: Login
+      description: Login
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: jakub@dy.st
+                password:
+                  type: string
+                  example: hesloheslo
+            examples:
+              Login:
+                value:
+                  email: jakub@dy.st
+                  password: hesloheslo
+      responses:
+        '200':
+          description: ''
+  /testing/sanctum/token:
+    post:
+      tags:
+      - ⚠️ Not supported yet
+      - Auth
+      summary: Generate Sanctum token
+      description: Generate Sanctum token
+      operationId: generateSanctumToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: jakub@dy.st
+                password:
+                  type: string
+                  example: hesloheslo
+            examples:
+              Generate Sanctum token:
+                value:
+                  email: jakub@dy.st
+                  password: hesloheslo
+      responses:
+        '200':
+          description: ''
+  /logout:
+    post:
+      tags:
+      - ⚠️ Not supported yet
+      - Auth
+      summary: Logout
+      description: Logout
+      operationId: logout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: cms@webiz.cz
+                password:
+                  type: string
+                  example: password
+            examples:
+              Logout:
+                value:
+                  email: cms@webiz.cz
+                  password: password
+      responses:
+        '200':
+          description: ''
+  /api/v1/users/-actions/reset-password:
+    post:
+      tags:
+      - ⚠️ Not supported yet
+      - Auth
+      summary: New Password
+      description: New Password
+      operationId: newPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          example: cms@webiz.cz
+                        password:
+                          type: string
+                          example: password
+                        password_confirmation:
+                          type: string
+                          example: password
+                        token:
+                          type: string
+                          example: 8821c9ada30b0ea31929318c260f130dc37913044dc49bfd88221879b6c31184
+                    type:
+                      type: string
+                      example: users
+            examples:
+              New Password:
+                value:
+                  data:
+                    attributes:
+                      email: cms@webiz.cz
+                      password: password
+                      password_confirmation: password
+                      token: 8821c9ada30b0ea31929318c260f130dc37913044dc49bfd88221879b6c31184
+                    type: users
+      responses:
+        '200':
+          description: ''
+  /api/v1/users/-actions/register-without-password:
+    post:
+      tags:
+      - ⚠️ Not supported yet
+      - Auth
+      summary: Register Without Password
+      description: Register Without Password
+      operationId: registerWithoutPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          example: cms7@webiz.cz
+                    type:
+                      type: string
+                      example: users
+            examples:
+              Register Without Password:
+                value:
+                  data:
+                    attributes:
+                      email: cms7@webiz.cz
+                    type: users
+      responses:
+        '200':
+          description: ''
+  /api/v1/users:
+    post:
+      tags:
+      - ⚠️ Not supported yet
+      - Auth
+      summary: Register
+      description: Register
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          example: cms6@webiz.cz
+                        password:
+                          type: string
+                          example: password
+                        password_confirmation:
+                          type: string
+                          example: password
+                    type:
+                      type: string
+                      example: users
+            examples:
+              Register:
+                value:
+                  data:
+                    attributes:
+                      email: cms6@webiz.cz
+                      password: password
+                      password_confirmation: password
+                    type: users
+      responses:
+        '200':
+          description: ''
+  /api/v1/cart-lines/-actions/add-composable:
+    post:
+      tags:
+      - ⚠️ Not supported yet
+      - Cart1
+      - Actions1
+      summary: Add Composable To Cart
+      description: Add Composable To Cart
+      operationId: addComposableToCart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        components:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              meta:
+                                nullable: true
+                                example: null
+                              purchasable_id:
+                                type: number
+                                example: 60908
+                              purchasable_type:
+                                type: string
+                                example: Lunar\Models\ProductVariant
+                          example:
+                          - meta: null
+                            purchasable_id: 60908
+                            purchasable_type: Lunar\Models\ProductVariant
+                          - meta: null
+                            purchasable_id: 60921
+                            purchasable_type: Lunar\Models\ProductVariant
+                        composable:
+                          type: object
+                          properties:
+                            meta:
+                              nullable: true
+                              example: null
+                            purchasable_id:
+                              type: number
+                              example: 60906
+                            purchasable_type:
+                              type: string
+                              example: Lunar\Models\ProductVariant
+                    type:
+                      type: string
+                      example: cart-lines
+            examples:
+              Add Composable To Cart:
+                value:
+                  data:
+                    attributes:
+                      components:
+                      - meta: null
+                        purchasable_id: 60908
+                        purchasable_type: Lunar\Models\ProductVariant
+                      - meta: null
+                        purchasable_id: 60921
+                        purchasable_type: Lunar\Models\ProductVariant
+                      composable:
+                        meta: null
+                        purchasable_id: 60906
+                        purchasable_type: Lunar\Models\ProductVariant
+                    type: cart-lines
+      responses:
+        '200':
+          description: ''
+  /sanctum/csrf-cookie:
+    get:
+      tags:
+      - ⚠️ Not supported yet
+      summary: CSRF token
+      description: CSRF token
+      operationId: csrfToken
+      responses:
+        '200':
+          description: ''
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+- bearerAuth: []
+tags:
+- name: Addresses
+- name: Cart
+- name: CartLines
+- name: CartAddresses
+- name: Collections
+- name: Countries
+- name: Customers
+- name: Media
+- name: Orders
+- name: Products
+- name: ShippingOptions
+- name: ⚠️ Not supported yet
+- name: Account
+- name: Files
+- name: Actions
+- name: Auth
+- name: Cart1
+- name: Actions1
+
