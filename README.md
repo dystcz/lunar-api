@@ -23,12 +23,13 @@ php artisan vendor:publish --provider="Dystcz\LunarApi\LunarApiServiceProvider" 
 ## Usage
 
 ```php
-// Usage description here
+// Documentation is currently being written...
 ```
 
 ### Useful resource
 
-- `laravel-json-api` stubs [https://github.com/laravel-json-api/laravel/tree/develop/stubs](https://github.com/laravel-json-api/laravel/tree/develop/stubs)
+-   [Postman request collection](postman_collection.json) [WIP]
+-   `laravel-json-api` [stubs](https://github.com/laravel-json-api/laravel/tree/develop/stubs)
 
 ### Testing
 
@@ -38,12 +39,13 @@ composer test
 
 ### Lunar API compatible packages
 
-- [Lunar API Reviews](https://github.com/dystcz/lunar-api-reviews)
-- [Lunar API Product Views](https://github.com/dystcz/lunar-api-product-views)
-- [Lunar API Product Stock Notifications](https://github.com/dystcz/lunar-api-product-notifications)
-- [Lunar API Newsletter](https://github.com/dystcz/lunar-api-newsletter)
-- [Lunar API Stripe Adapter](https://github.com/dystcz/lunar-api-stripe-adapter)
-- [Lunar API PayPal Adapter](https://github.com/dystcz/lunar-api-paypal-adapter)
+-   [Reviews](https://github.com/dystcz/lunar-api-reviews) (Adds user reviews functionality)
+-   [Product Views](https://github.com/dystcz/lunar-api-product-views) (Store unique product views in Redis)
+-   [Product Stock Notifications](https://github.com/dystcz/lunar-api-product-notifications) (Notify users when product is in stock again)
+-   [Newsletter](https://github.com/dystcz/lunar-api-newsletter) (Newsletter sign up with support for Mailchimp / Mailcoach / Brevo)
+-   [Stripe Payment Adapter](https://github.com/dystcz/lunar-api-stripe-adapter)
+-   [Mollie Payment Adapter](https://github.com/pixelpillow/lunar-api-mollie-adapter)
+-   [PayPal Adapter](https://github.com/dystcz/lunar-api-paypal-adapter) [WIP]
 
 ### Changelog
 
@@ -59,11 +61,10 @@ If you discover any security related issues, please email jakub@dy.st instead of
 
 ## Credits
 
-- [All Contributors](../../contributors)
-- [Lunar](https://github.com/lunarphp/lunar) for providing awesome e-commerce package
-- [Laravel JSON:API](https://github.com/laravel-json-api/laravel) which is a brilliant JSON:API layer for Laravel applications
+-   [All Contributors](../../contributors)
+-   [Lunar](https://github.com/lunarphp/lunar) for providing awesome e-commerce package
+-   [Laravel JSON:API](https://github.com/laravel-json-api/laravel) which is a brilliant JSON:API layer for Laravel applications
 
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
