@@ -4,15 +4,12 @@ on:
   pull_request:
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
-      fail-fast: true
       matrix:
-        php: [ 8.2 ]
-        laravel: [ 10 ]
-
+        php: [8.2]
+        laravel: [10]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
