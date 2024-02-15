@@ -8,6 +8,7 @@ use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
+use LaravelJsonApi\Eloquent\Filters\Has;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereNull;
@@ -98,6 +99,8 @@ class CollectionSchema extends Schema
             WhereHas::make($this, 'group', 'group'),
 
             WhereNull::make('root', 'parent_id'),
+
+            Has::make($this, 'products', 'has_products'),
 
             ...parent::filters(),
         ];
