@@ -8,6 +8,7 @@ use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
+use LaravelJsonApi\Eloquent\Filters\Has;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereNull;
@@ -28,6 +29,8 @@ class CollectionSchema extends Schema
     {
         return [
             'default_url',
+            'images',
+            'thumbnail',
             'urls',
 
             'group',
@@ -62,12 +65,19 @@ class CollectionSchema extends Schema
                 ->type('urls')
                 ->retainFieldName(),
 
+            HasMany::make('images', 'images')
+                ->type('media')
+                ->canCount(),
+
             BelongsTo::make('group', 'group')
                 ->type('collection-groups')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasMany::make('products')
                 ->canCount(),
+
+            HasOne::make('thumbnail', 'thumbnail')
+                ->type('media'),
 
             HasMany::make('urls')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
@@ -89,6 +99,8 @@ class CollectionSchema extends Schema
             WhereHas::make($this, 'group', 'group'),
 
             WhereNull::make('root', 'parent_id'),
+
+            Has::make($this, 'products', 'has_products'),
 
             ...parent::filters(),
         ];
