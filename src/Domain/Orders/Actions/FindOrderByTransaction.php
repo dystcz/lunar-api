@@ -16,10 +16,7 @@ class FindOrderByTransaction
     public function __invoke(PaymentIntent $intent): ?Order
     {
         return Order::query()
-            ->whereHas(
-                'transactions',
-                fn ($query) => $query->where('reference', $intent->getId()),
-            )
+            ->whereHas('transactions', fn ($query) => $query->where('reference', $intent->getId()))
             ->first();
     }
 }
