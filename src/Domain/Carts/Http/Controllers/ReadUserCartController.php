@@ -16,7 +16,7 @@ use Lunar\Base\CartSessionInterface;
 class ReadUserCartController extends Controller
 {
     /**
-     * @var CartSessionManager
+     * @var \Lunar\Managers\CartSessionManager
      */
     private CartSessionInterface $cartSession;
 
