@@ -4,7 +4,7 @@ use Dystcz\LunarApi\Base\Manifests\ResourceManifest;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\JsonApi\V1\Server;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
-use Dystcz\LunarApi\Tests\Feature\JsonApi\Extensions\ProductResourceMock;
+use Dystcz\LunarApi\Tests\Feature\Domain\JsonApi\Extensions\ProductResourceMock;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;

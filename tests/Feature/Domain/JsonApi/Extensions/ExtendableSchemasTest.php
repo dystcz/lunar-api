@@ -1,8 +1,8 @@
 <?php
 
 use Dystcz\LunarApi\Base\Manifests\SchemaManifest;
-use Dystcz\LunarApi\Tests\Feature\JsonApi\Extensions\ExtendableSchemasMock;
-use Dystcz\LunarApi\Tests\Feature\JsonApi\Extensions\ServerMock;
+use Dystcz\LunarApi\Tests\Feature\Domain\JsonApi\Extensions\ExtendableSchemasMock;
+use Dystcz\LunarApi\Tests\Feature\Domain\JsonApi\Extensions\ServerMock;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;

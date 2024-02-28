@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Tests\Feature\JsonApi\Extensions;
+namespace Dystcz\LunarApi\Tests\Feature\Domain\JsonApi\Extensions;
 
 use LaravelJsonApi\Core\Server\Server;
 
