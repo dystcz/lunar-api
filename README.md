@@ -28,8 +28,8 @@ php artisan vendor:publish --provider="Dystcz\LunarApi\LunarApiServiceProvider" 
 
 ### Useful resource
 
--   [Postman request collection](postman_collection.json) [WIP]
--   `laravel-json-api` [stubs](https://github.com/laravel-json-api/laravel/tree/develop/stubs)
+- [Postman request collection](postman_collection.json) [WIP]
+- `laravel-json-api` [stubs](https://github.com/laravel-json-api/laravel/tree/develop/stubs)
 
 ### Testing
 
@@ -39,13 +39,16 @@ composer test
 
 ### Lunar API compatible packages
 
--   [Reviews](https://github.com/dystcz/lunar-api-reviews) (Adds user reviews functionality)
--   [Product Views](https://github.com/dystcz/lunar-api-product-views) (Store unique product views in Redis)
--   [Product Stock Notifications](https://github.com/dystcz/lunar-api-product-notifications) (Notify users when product is in stock again)
--   [Newsletter](https://github.com/dystcz/lunar-api-newsletter) (Newsletter sign up with support for Mailchimp / Mailcoach / Brevo)
--   [Stripe Payment Adapter](https://github.com/dystcz/lunar-api-stripe-adapter)
--   [Mollie Payment Adapter](https://github.com/pixelpillow/lunar-api-mollie-adapter)
--   [PayPal Adapter](https://github.com/dystcz/lunar-api-paypal-adapter) [WIP]
+- [Reviews](https://github.com/dystcz/lunar-api-reviews) (Adds user reviews functionality)
+- [Product Views](https://github.com/dystcz/lunar-api-product-views)
+ (Store unique product views in Redis)
+- [Product Stock Notifications](https://github.com/dystcz/lunar-api-product-notifications)
+ (Notify users when product is in stock again)
+- [Newsletter](https://github.com/dystcz/lunar-api-newsletter)
+ (Newsletter sign up with support for Mailchimp / Mailcoach / Brevo)
+- [Stripe Payment Adapter](https://github.com/dystcz/lunar-api-stripe-adapter)
+- [Mollie Payment Adapter](https://github.com/pixelpillow/lunar-api-mollie-adapter)
+- [PayPal Adapter](https://github.com/dystcz/lunar-api-paypal-adapter) [WIP]
 
 ### Changelog
 
@@ -61,9 +64,10 @@ If you discover any security related issues, please email jakub@dy.st instead of
 
 ## Credits
 
--   [All Contributors](../../contributors)
--   [Lunar](https://github.com/lunarphp/lunar) for providing awesome e-commerce package
--   [Laravel JSON:API](https://github.com/laravel-json-api/laravel) which is a brilliant JSON:API layer for Laravel applications
+- All Contributors](../../contributors)
+- [Lunar](https://github.com/lunarphp/lunar) for providing awesome e-commerce package
+- [Laravel JSON:API](https://github.com/laravel-json-api/laravel)
+ which is a brilliant JSON:API layer for Laravel applications
 
 ## License
 
