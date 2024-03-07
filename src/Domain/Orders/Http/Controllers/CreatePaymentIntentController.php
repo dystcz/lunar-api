@@ -23,7 +23,7 @@ class CreatePaymentIntentController extends Controller
         $meta = $request->validated('meta') ?? [];
 
         try {
-            $paymentIntent = $createPaymentIntent($paymentMethod, $order->cart, $meta);
+            $paymentIntent = $createPaymentIntent($paymentMethod, $order->cart, $meta, $amount);
 
             $order->update([
                 'meta->payment_intent' => $paymentIntent->getId(),
