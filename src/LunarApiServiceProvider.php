@@ -159,6 +159,14 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     protected function registerObservers(): void
     {
+        // NOTE: Use custom observer, because Lunar ignores only shipping purchasable type
+        $orderLineEventDispatcher = \Lunar\Models\OrderLine::getEventDispatcher();
+        $orderLineEventDispatcher->forget('eloquent.creating: '.\Lunar\Models\OrderLine::class);
+        $orderLineEventDispatcher->forget('eloquent.updating: '.\Lunar\Models\OrderLine::class);
+
+        $orderLine = ModelManifest::getRegisteredModel(\Lunar\Models\OrderLine::class);
+
+        \Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine::observe(\Dystcz\LunarApi\Domain\OrderLines\Observers\OrderLineObserver::class);
         \Lunar\Models\Order::observe(\Dystcz\LunarApi\Domain\Orders\Observers\OrderObserver::class);
     }
 
