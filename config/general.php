@@ -27,6 +27,13 @@ return [
         'prices_with_default_tax' => true,
     ],
 
+    // Purchasable
+    'purchasable' => [
+        'non_eloquent_types' => [
+            'shipping',
+        ],
+    ],
+
     // Checkout settings
     'checkout' => [
         // Forget cart right after order is created
