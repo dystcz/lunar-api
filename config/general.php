@@ -29,7 +29,7 @@ return [
 
     // Purchasable
     'purchasable' => [
-        'ignored_types' => [
+        'non_eloquent_types' => [
             'shipping',
         ],
     ],
