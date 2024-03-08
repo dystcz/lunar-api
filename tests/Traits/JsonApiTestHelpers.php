@@ -66,6 +66,27 @@ trait JsonApiTestHelpers
 
     /**
      * @param  class-string  $model
+     * @param  array<string,mixed>  $data
+     */
+    public function updateTest(
+        string $schemaType,
+        Model|string $model,
+        array $data,
+    ): TestResponse {
+        /** @var TestCase $this */
+        $model instanceof Model ?: $model = $model::factory()->create();
+
+        $response = $this
+            ->jsonApi()
+            ->expects($schemaType)
+            ->withData($data)
+            ->patch(serverUrl("/{$schemaType}/{$model->getRouteKey()}"));
+
+        return $response;
+    }
+
+    /**
+     * @param  class-string  $model
      */
     public function deleteTest(
         string $schemaType,
