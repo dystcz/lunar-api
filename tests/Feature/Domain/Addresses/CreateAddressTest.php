@@ -53,6 +53,7 @@ it('can store addresses', function () {
             ],
         ],
     ];
+
     $response = $this
         ->actingAs($this->user)
         ->jsonApi()

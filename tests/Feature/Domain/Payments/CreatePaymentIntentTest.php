@@ -79,3 +79,30 @@ test('a payment intent can be created with custom amount', function (string $pay
 })
     ->with(['cash-in-hand'])
     ->group('payments');
+
+test('a payment cannot be created withhout correct signature', function (string $paymentMethod) {
+    /** @var TestCase $this */
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->withData([
+            'type' => 'orders',
+            'id' => (string) $this->order->getRouteKey(),
+            'attributes' => [
+                'payment_method' => $paymentMethod,
+                'amount' => 1000,
+            ],
+        ])
+        ->post(route(
+            'v1.orders.createPaymentIntent',
+            ['order' => $this->order->getRouteKey()],
+        ));
+
+    $response->assertErrorStatus([
+        'detail' => 'This action is unauthorized.',
+        'status' => '403',
+        'title' => 'Forbidden',
+    ]);
+})
+    ->with(['cash-in-hand'])
+    ->group('payments', 'policies');
