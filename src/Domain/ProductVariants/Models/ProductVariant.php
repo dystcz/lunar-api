@@ -31,14 +31,6 @@ class ProductVariant extends LunarPoductVariant
     }
 
     /**
-     * Get the product variant base class.
-     */
-    public function baseModelClass(): string
-    {
-        return LunarPoductVariant::class;
-    }
-
-    /**
      * Get product variant purchase status.
      */
     protected function purchaseStatus(): Attribute
