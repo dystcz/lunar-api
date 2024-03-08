@@ -5,9 +5,10 @@ namespace Dystcz\LunarApi\Tests\Traits;
 use Dystcz\LunarApi\Tests\Data\TestInclude;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Testing\TestResponse;
+use LaravelJsonApi\Testing\TestResponse;
 
 trait JsonApiTestHelpers
 {
@@ -41,6 +42,24 @@ trait JsonApiTestHelpers
                     fn ($collection) => $collection,
                 ),
             );
+
+        return $response;
+    }
+
+    /**
+     * @param  class-string  $model
+     */
+    public function deleteTest(
+        string $schemaType,
+        string|Model $model,
+    ): TestResponse {
+        /** @var TestCase $this */
+        $model instanceof Model ?: $model = $model::factory()->create();
+
+        $response = $this
+            ->jsonApi()
+            ->expects($schemaType)
+            ->delete(serverUrl("/{$schemaType}/{$model->getRouteKey()}"));
 
         return $response;
     }
