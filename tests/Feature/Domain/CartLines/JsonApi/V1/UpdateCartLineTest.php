@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\LunarApi;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Lunar\Facades\CartSession;
 
 uses(TestCase::class, RefreshDatabase::class);
 
