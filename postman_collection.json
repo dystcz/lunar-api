@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f38c8a15-b48e-41a9-8816-587f8f6f9d5b",
+		"_postman_id": "3464fc95-3302-4e0e-8852-a746f7d0026d",
 		"name": "Lunar API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "32871221"
@@ -306,6 +306,9 @@
 				},
 				{
 					"name": "Get cart for logged in user action",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2364,6 +2367,105 @@
 					]
 				},
 				{
+					"name": "Search",
+					"item": [
+						{
+							"name": "Generate Algolia secured key action",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/v1/search/-actions/generate-secured-key",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"search",
+										"-actions",
+										"generate-secured-key"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Orders",
+					"item": [
+						{
+							"name": "Add cash in hand to order action",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"type\": \"orders\",\n    \"id\": \"241\"\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/orders/241/-actions/add-cash-in-hand",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"241",
+										"-actions",
+										"add-cash-in-hand"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove cash in hand from order action",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"type\": \"orders\",\n    \"id\": \"241\"\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/orders/241/-actions/remove-cash-in-hand",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"241",
+										"-actions",
+										"remove-cash-in-hand"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "CSRF token",
 					"request": {
 						"method": "GET",
@@ -2400,7 +2502,7 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					"pm.request.headers.upsert({key: 'Referer', value: 'localhost' })",
+					"pm.request.headers.upsert({key: 'Referer', value: 'localhost:3000' })",
 					"pm.request.headers.upsert({key: 'Content-Type', value: 'application/vnd.api+json' })",
 					"pm.request.headers.upsert({key: 'Accept', value: 'application/vnd.api+json' })"
 				]
