@@ -7,13 +7,50 @@
 ## What's going on here?
 
 This package introduces an API layer for Lunar ecommerce package.
+It connects the Lunar backend with your SPA, other applications
+and possibly with a mobile app.
+
+Main aim is to provide a solid foundation for your e-commerce project,
+give you a head start, while keeping the flexibility, so you
+can easily build features for your project needs.
 
 ### Some perks
 
-- focus on extensibility
-- wannabe ecosystem of [complementary packages](#lunar-api-compatible-packages) with emphasis on the plug and play spirit 
-- already running in production 🤫
-- built on top of [Laravel JSON:API](https://github.com/laravel-json-api/laravel)
+- Focus on extensibility
+- Wannabe ecosystem of [complementary packages](#lunar-api-compatible-packages)
+with emphasis on the plug and play spirit
+- Already running in production 🤫
+- Built on top of [Laravel JSON:API](https://github.com/laravel-json-api/laravel)
+
+### Feature set
+
+- [x] Configurable checkout flow with guest checkout
+- [x] Solid extensibility (Models, Schemas, Resources, Routes, ...)
+- [x] Payment adapters registrar
+(currently [Stripe](https://github.com/dystcz/lunar-api-stripe-adapter)
+& [Mollie](https://github.com/pixelpillow/lunar-api-mollie-adapter))
+
+### Work in progress 🚧
+
+- [ ] Documentation Wiki
+- [ ] Vitepress documentation
+- [ ] Better test coverage
+- [ ] Paypal payment adapter
+- [ ] Custom model filters
+- [ ] Composable products (good for configurators)
+- [ ] Purchasable payment options
+- [ ] HashIds
+
+### Planned 🕛
+
+- [ ] Automated Open API documentation
+- [ ] Authentication flow (currently has to be implemented in the main app)
+- [ ] More streamlined configuration
+
+### Feature requests and ideas 💡
+
+Got an idea? Share it in a [dicussion](https://github.com/dystcz/lunar-api/discussions/categories/ideas)
+or create an issue.
 
 ## Getting started guide
 
@@ -49,7 +86,7 @@ You can view the rest of the API routes by running `php artisan route:list --nam
 
 ### Useful resource
 
-- [Postman request collection](postman_collection.json) 🚧
+- [Postman request collection](postman_collection.json) [🚧]
 , so you can test the API with ease
 - [Laravel JSON:API Docs](https://laraveljsonapi.io/docs/3.0/)
 , if you plan to extend the API
@@ -71,7 +108,7 @@ composer test
  (Newsletter sign up with support for Mailchimp / Mailcoach / Brevo)
 - [Stripe Payment Adapter](https://github.com/dystcz/lunar-api-stripe-adapter)
 - [Mollie Payment Adapter](https://github.com/pixelpillow/lunar-api-mollie-adapter)
-- [PayPal Adapter](https://github.com/dystcz/lunar-api-paypal-adapter) [WIP]
+- [PayPal Adapter](https://github.com/dystcz/lunar-api-paypal-adapter) [🚧]
 
 ### Changelog
 
