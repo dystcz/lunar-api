@@ -18,7 +18,7 @@ class CreatePaymentIntent
      *
      * @param  array<string,mixed>  $meta
      */
-    public function __invoke(string $paymentMethod, Cart $cart, array $meta = [], int $amount = null): PaymentIntent
+    public function __invoke(string $paymentMethod, Cart $cart, array $meta = [], ?int $amount = null): PaymentIntent
     {
         $payment = $this->register->get($paymentMethod);
 
