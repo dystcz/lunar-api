@@ -6,13 +6,13 @@
 
 ## What's going on here?
 
-This package introduces an API layer for Lunar ecommerce package.
-It connects the Lunar backend with your SPA, other applications
+This package introduces an API layer for the Lunar ecommerce package.
+It connects the Lunar backend with your SPA, other applications,
 and possibly with a mobile app.
 
-Main aim is to provide a solid foundation for your e-commerce project,
-give you a head start, while keeping the flexibility, so you
-can easily build features for your project needs.
+The main aim is to provide a solid foundation for your e-commerce project,
+giving you a head start while maintaining flexibility so you can
+easily build features to meet your project's needs.
 
 ### Some perks
 
