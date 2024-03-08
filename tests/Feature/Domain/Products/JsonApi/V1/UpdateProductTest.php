@@ -15,7 +15,7 @@ beforeEach(function () {
         ->create();
 });
 
-test('shipping options cannot be updated', function () {
+test('products cannot be updated', function () {
     /** @var TestCase $this */
     $response = $this->updateTest('products', Product::class, []);
 
