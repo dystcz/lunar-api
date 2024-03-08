@@ -13,7 +13,15 @@ class OrderObserver
      */
     public function updating(Order $order): void
     {
-        if ($order->isDirty('status')) {
+        //
+    }
+
+    /**
+     * Handle the Order "updated" event.
+     */
+    public function updated(Order $order): void
+    {
+        if ($order->wasChanged('status')) {
             Event::dispatch(
                 new OrderStatusChanged(
                     order: $order,
@@ -22,13 +30,5 @@ class OrderObserver
                 ),
             );
         }
-    }
-
-    /**
-     * Handle the Order "updated" event.
-     */
-    public function updated(Order $order): void
-    {
-        //
     }
 }
