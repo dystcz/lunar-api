@@ -76,6 +76,14 @@ class CartPolicy
     }
 
     /**
+     * Determine whether the user can update the model.
+     */
+    public function clear(?Authenticatable $user, Cart $cart): bool
+    {
+        return true;
+    }
+
+    /**
      * Determine whether the user can delete the model.
      */
     public function delete(?Authenticatable $user, Cart $cart): bool
