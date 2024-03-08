@@ -14,7 +14,7 @@ use Lunar\Facades\CartSession;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-it('can read order details when user is logged in and owns the order', function () {
+it('can read order details without signature when user is logged in and owns the order', function () {
     /** @var TestCase $this */
     Event::fake(CartCreated::class);
 
@@ -145,4 +145,4 @@ it('returns unauthorized if the user does not own the order', function () {
         'status' => '401',
         'title' => 'Unauthorized',
     ]);
-})->group('orders');
+})->group('orders', 'policies');
