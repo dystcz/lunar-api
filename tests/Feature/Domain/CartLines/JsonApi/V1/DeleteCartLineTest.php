@@ -47,7 +47,7 @@ it('can remove a cart line', function () {
     $this->assertDatabaseMissing($cartLine->getTable(), [
         'id' => $cartLine->getKey(),
     ]);
-});
+})->group('cart-lines');
 
 test('only the owner of the cart can delete cart lines', function () {
     /** @var TestCase $this */
@@ -64,4 +64,4 @@ test('only the owner of the cart can delete cart lines', function () {
         'status' => '401',
         'title' => 'Unauthorized',
     ]);
-});
+})->group('cart-lines', 'policies');
