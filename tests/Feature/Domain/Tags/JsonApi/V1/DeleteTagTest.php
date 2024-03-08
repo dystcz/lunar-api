@@ -1,7 +1,5 @@
 <?php
 
-namespace Dystcz\LunarApi\Tests\Feature\Domain\Countries;
-
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Tags\Models\Tag;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
