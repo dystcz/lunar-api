@@ -57,6 +57,8 @@ it('cannot update order by other user', function () {
         ->patch('http://localhost/api/v1/orders/'.$order->getRouteKey());
 
     $response->assertErrorStatus([
-        'detail' => 'Unauthenticated.',
+        'detail' => 'This action is unauthorized.',
+        'status' => '403',
+        'title' => 'Forbidden',
     ]);
-})->group('orders')->todo();
+})->group('orders');
