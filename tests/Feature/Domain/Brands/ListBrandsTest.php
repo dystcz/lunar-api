@@ -45,3 +45,13 @@ test('brands can be listed with thumbnail included', function () {
     $response = $this->indexWithIncludesTest('brands', Brand::class, 5, $includes);
 
 })->group('brands');
+
+test('brands cannot be deleted', function () {
+    /** @var TestCase $this */
+    $response = $this->deleteTest('brands', Brand::class);
+
+    $response->assertErrorStatus([
+        'status' => '405',
+        'title' => 'Method Not Allowed',
+    ]);
+})->group('brands', 'policies');

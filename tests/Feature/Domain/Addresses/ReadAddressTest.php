@@ -53,7 +53,7 @@ it('returns error when trying to read other users address', function () {
         'title' => 'Forbidden',
     ]);
 
-})->group('addresses');
+})->group('addresses', 'policies');
 
 it('returns error response when address does not exists', function () {
     /** @var TestCase $this */

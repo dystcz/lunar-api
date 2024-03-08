@@ -70,4 +70,4 @@ it('can delete only address belonging to logged in user', function () {
         'id' => $id,
     ]);
 
-})->group('addresses');
+})->group('addresses', 'policies');

@@ -133,5 +133,4 @@ it('can update only address belonging to logged in user', function () {
             ),
         ),
     ]);
-
-})->group('addresses');
+})->group('addresses', 'policies');

@@ -54,7 +54,7 @@ test('user cannot list addresses belonging to other users', function () {
         ->assertSuccessful()
         ->assertFetchedNone();
 
-})->group('addresses');
+})->group('addresses', 'policies');
 
 it('can list addresses with country included', function () {
     /** @var TestCase $this */

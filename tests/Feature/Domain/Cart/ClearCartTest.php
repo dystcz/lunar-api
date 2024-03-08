@@ -6,11 +6,14 @@ use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Facades\CartSession;
+use Illuminate\Support\Facades\App;
+use Lunar\Base\CartSessionInterface;
+use Lunar\Managers\CartSessionManager;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-it('can empty the cart', function () {
+beforeEach(function () {
+    /** @var TestCase $this */
     $currency = Currency::factory()->create([
         'decimal_places' => 2,
     ]);
@@ -37,9 +40,15 @@ it('can empty the cart', function () {
         'quantity' => 1,
     ]);
 
-    CartSession::use($cart);
+    /** @property CartSessionManager $cartSession */
+    $this->cartSession = App::make(CartSessionInterface::class);
 
-    expect(CartSession::current()->lines->count())->toBe(1);
+    $this->cartSession->use($cart);
+});
+
+it('can clear the cart which is currently in session', function () {
+    /** @var TestCase $this */
+    expect($this->cartSession->current()->lines->count())->toBe(1);
 
     $response = $this
         ->jsonApi()
@@ -47,5 +56,5 @@ it('can empty the cart', function () {
 
     $response->assertNoContent();
 
-    expect(CartSession::current()->lines->count())->toBe(0);
+    expect($this->cartSession->current()->lines->count())->toBe(0);
 })->group('carts');
