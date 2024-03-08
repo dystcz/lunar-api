@@ -3,20 +3,33 @@
 namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
-use Illuminate\Http\Response;
-use Lunar\Facades\CartSession;
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\App;
+use Lunar\Base\CartSessionInterface;
+use Lunar\Managers\CartSessionManager;
 
 class ClearUserCartController extends Controller
 {
     /**
+     * @param  CartSessionManager  $cartSession
+     */
+    private CartSessionInterface $cartSession;
+
+    public function __construct()
+    {
+        $this->cartSession = App::make(CartSessionInterface::class);
+    }
+
+    /**
      * Clear all items from user's cart.
      */
-    public function clear(): Response
+    public function clear(): JsonResponse
     {
-        // $this->authorize('delete', Cart::class);
+        $this->authorize('clear', $this->cartSession->current());
 
-        CartSession::clear();
+        $this->cartSession->clear();
 
-        return response('', 204);
+        return new JsonResponse(status: 204);
     }
 }
