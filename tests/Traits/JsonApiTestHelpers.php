@@ -5,12 +5,31 @@ namespace Dystcz\LunarApi\Tests\Traits;
 use Dystcz\LunarApi\Tests\Data\TestInclude;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Testing\TestResponse;
+use LaravelJsonApi\Testing\TestResponse;
 
 trait JsonApiTestHelpers
 {
+    /**
+     * @param  class-string  $model
+     * @param  array<string,mixed>  $data
+     */
+    public function createTest(
+        string $schemaType,
+        array $data,
+    ): TestResponse {
+        /** @var TestCase $this */
+        $response = $this
+            ->jsonApi()
+            ->expects($schemaType)
+            ->withData($data)
+            ->post(serverUrl("/{$schemaType}"));
+
+        return $response;
+    }
+
     /**
      * @param  class-string  $model
      */
@@ -41,6 +60,45 @@ trait JsonApiTestHelpers
                     fn ($collection) => $collection,
                 ),
             );
+
+        return $response;
+    }
+
+    /**
+     * @param  class-string  $model
+     * @param  array<string,mixed>  $data
+     */
+    public function updateTest(
+        string $schemaType,
+        Model|string $model,
+        array $data,
+    ): TestResponse {
+        /** @var TestCase $this */
+        $model instanceof Model ?: $model = $model::factory()->create();
+
+        $response = $this
+            ->jsonApi()
+            ->expects($schemaType)
+            ->withData($data)
+            ->patch(serverUrl("/{$schemaType}/{$model->getRouteKey()}"));
+
+        return $response;
+    }
+
+    /**
+     * @param  class-string  $model
+     */
+    public function deleteTest(
+        string $schemaType,
+        string|Model $model,
+    ): TestResponse {
+        /** @var TestCase $this */
+        $model instanceof Model ?: $model = $model::factory()->create();
+
+        $response = $this
+            ->jsonApi()
+            ->expects($schemaType)
+            ->delete(serverUrl("/{$schemaType}/{$model->getRouteKey()}"));
 
         return $response;
     }
