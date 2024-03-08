@@ -14,6 +14,24 @@ trait JsonApiTestHelpers
 {
     /**
      * @param  class-string  $model
+     * @param  array<string,mixed>  $data
+     */
+    public function createTest(
+        string $schemaType,
+        array $data,
+    ): TestResponse {
+        /** @var TestCase $this */
+        $response = $this
+            ->jsonApi()
+            ->expects($schemaType)
+            ->withData($data)
+            ->post(serverUrl("/{$schemaType}"));
+
+        return $response;
+    }
+
+    /**
+     * @param  class-string  $model
      */
     public function indexTest(
         string $schemaType,
