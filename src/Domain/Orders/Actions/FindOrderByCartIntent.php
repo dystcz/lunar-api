@@ -17,6 +17,6 @@ class FindOrderByCartIntent
     {
         return Order::query()
             ->whereHas('cart', fn ($query) => $query->where('meta->payment_intent', $intent->getId()))
-            ->first();
+            ->firstOrFail();
     }
 }
