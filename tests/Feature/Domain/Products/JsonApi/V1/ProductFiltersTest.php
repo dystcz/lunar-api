@@ -3,10 +3,28 @@
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
-// uses(\Dystcz\LunarApi\Tests\MySqlTestCase::class, RefreshDatabase::class);
+use Lunar\Models\Product;
 
 uses(TestCase::class, RefreshDatabase::class);
+
+it('can filter a single product by its slug', function () {
+    /** @var TestCase $this */
+    generateUrls();
+
+    $product = Product::factory()->create();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->get(serverUrl("/products/{$product->getRouteKey()}?filter[url][slug]={$product->defaultUrl->slug}"));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($product)
+        ->assertDoesntHaveIncluded();
+
+    dontGenerateUrls();
+})->group('products');
 
 it('filter products by recently viewed', function () {
     /** @var TestCase $this */
