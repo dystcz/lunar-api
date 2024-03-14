@@ -17,6 +17,6 @@ class FindOrderByTransaction
     {
         return Order::query()
             ->whereHas('transactions', fn ($query) => $query->where('reference', $intent->getId()))
-            ->first();
+            ->firstOrFail();
     }
 }
