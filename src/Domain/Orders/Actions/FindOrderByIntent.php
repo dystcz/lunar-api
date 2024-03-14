@@ -17,6 +17,6 @@ class FindOrderByIntent
     {
         return Order::query()
             ->where('meta->payment_intent', $intent->getId())
-            ->first();
+            ->firstOrFail();
     }
 }
