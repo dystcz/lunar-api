@@ -12,13 +12,7 @@ use Lunar\Models\TaxClass;
 
 class TestShippingModifier extends ShippingModifier
 {
-    public static string $name = 'Basic Delivery';
-
-    public static string $description = 'A basic delivery option';
-
-    public static string $identifier = 'FFCDEL';
-
-    public function handle(Cart $cart)
+    public function handle(Cart $cart): void
     {
         ShippingManifest::addOption(
             new ShippingOption(
@@ -50,7 +44,7 @@ class TestShippingModifier extends ShippingModifier
      */
     public function getCurrency(Cart $cart): Currency
     {
-        return $cart->currency ?? Currency::first();
+        return $cart->currency ?? Currency::query()->first();
     }
 
     /**
@@ -58,6 +52,6 @@ class TestShippingModifier extends ShippingModifier
      */
     public function getTaxClass(): TaxClass
     {
-        return TaxClass::first() ?? TaxClass::factory()->create();
+        return TaxClass::query()->first() ?? TaxClass::factory()->create();
     }
 }
