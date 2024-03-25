@@ -15,6 +15,7 @@ use Lunar\DataTypes\Price;
 use Lunar\Models\Cart as LunarCart;
 
 /**
+ * @property PaymentOption|null $paymentOption
  * @property Price|null $paymentSubTotal
  * @property Price|null $paymentTotal
  * @property PaymentOption|null $paymentOptionOverride
@@ -33,10 +34,16 @@ class Cart extends LunarCart
         parent::__construct($attributes);
 
         $this->cachableProperties = array_merge($this->cachableProperties, [
+            'paymentOption',
             'paymentSubTotal',
             'paymentTotal',
         ]);
     }
+
+    /**
+     * The applied payment option.
+     */
+    public ?PaymentOption $paymentOption = null;
 
     /**
      * The payment sub total for the cart.
@@ -47,11 +54,6 @@ class Cart extends LunarCart
      * The payment total for the cart.
      */
     public ?Price $paymentTotal = null;
-
-    /**
-     * The payment override to use for the cart.
-     */
-    public ?PaymentOption $paymentOptionOverride = null;
 
     /**
      * Additional payment estimate meta data.
@@ -66,7 +68,7 @@ class Cart extends LunarCart
     /**
      * Set the payment option to the shipping address.
      */
-    public function setPaymentOption(PaymentOption $option, bool $refresh = true): self
+    public function setPaymentOption(PaymentOption $option, bool $refresh = true): Cart
     {
         foreach (Config::get('lunar.cart.validators.set_payment_option', []) as $action) {
             App::make($action)->using(cart: $this, paymentOption: $option)->validate();
