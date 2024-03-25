@@ -12,9 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Orders
         Schema::table(Config::get('lunar.database.table_prefix').'orders', function (Blueprint $table) {
-            $table->string('payment_option')->nullable()->index()->after('shipping_total');
-            $table->integer('payment_total')->default(0)->unsigned()->index()->after('payment_option');
+            $table->integer('payment_total')->default(0)->unsigned()->index()->after('shipping_total');
+        });
+
+        // Carts
+        Schema::table(Config::get('lunar.database.table_prefix').'carts', function (Blueprint $table) {
+            $table->string('payment_option')->nullable()->index()->after('order_id');
         });
     }
 
@@ -23,9 +28,14 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Orders
         Schema::table(Config::get('lunar.database.table_prefix').'orders', function (Blueprint $table) {
-            $table->dropColumn('payment_option');
             $table->dropColumn('payment_total');
+        });
+
+        // Carts
+        Schema::table(Config::get('lunar.database.table_prefix').'carts', function (Blueprint $table) {
+            $table->dropColumn('payment_option');
         });
     }
 };
