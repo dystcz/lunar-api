@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\PaymentOptions\Entities;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Facades\Config;
 
 class PaymentOption implements Arrayable
 {
@@ -13,31 +14,53 @@ class PaymentOption implements Arrayable
         public string $driver,
         public string $name,
     ) {
-        $this->default = $this->driver === config('lunar.payments.default');
+        $this->default = $this->isDefault();
     }
 
+    /**
+     * Get name.
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * Get payment driver.
+     */
     public function getDriver(): string
     {
         return $this->driver;
     }
 
+    /**
+     * Get id.
+     */
     public function getId(): string
     {
         return $this->id;
     }
 
+    /**
+     * Get default.
+     */
     public function getDefault(): bool
     {
         return $this->default;
     }
 
     /**
+     * Determine wether this payment option is default.
+     */
+    private function isDefault(): bool
+    {
+        return $this->driver === Config::get('lunar.payments.default');
+    }
+
+    /**
      * Create a new payment option entity from an array.
+     *
+     * @param  array<string,mixed>  $paymentOption
      */
     public static function fromArray(
         array $paymentOption
