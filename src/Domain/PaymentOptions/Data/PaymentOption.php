@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\PaymentOptions\Data;
 
+use Closure;
 use Illuminate\Support\Collection;
 use Lunar\Base\Purchasable;
 use Lunar\DataTypes\Price;
@@ -18,7 +19,8 @@ class PaymentOption implements Purchasable
         public ?string $taxReference = null,
         public ?string $option = null,
         public bool $collect = false,
-        public ?array $meta = null
+        public ?array $meta = null,
+        public ?Closure $callback = null
     ) {
     }
 
