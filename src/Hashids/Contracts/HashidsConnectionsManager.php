@@ -14,5 +14,5 @@ interface HashidsConnectionsManager
     /**
      * Get all registered hashids connections.
      */
-    public function getConnections(): Collection
+    public function getConnections(): Collection;
 }
