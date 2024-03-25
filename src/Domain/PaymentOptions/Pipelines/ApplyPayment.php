@@ -3,11 +3,11 @@
 namespace Dystcz\LunarApi\Domain\PaymentOptions\Pipelines;
 
 use Closure;
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdownItem;
 use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
 use Lunar\DataTypes\Price;
-use Lunar\Models\Cart;
 
 class ApplyPayment
 {
@@ -15,13 +15,13 @@ class ApplyPayment
      * Called just before cart totals are calculated.
      *
      * @param  Closure(Cart): void  $next
+     * @return void
      */
-    public function handle(Cart $cart, Closure $next): void
+    public function handle(Cart $cart, Closure $next)
     {
         $paymentSubTotal = 0;
         $paymentBreakdown = $cart->paymentBreakdown ?: new PaymentBreakdown;
-
-        $paymentOption = $cart->paymentOptionOverride ?: PaymentManifest::getPaymentOption($cart);
+        $paymentOption = $cart->paymentOption ?: PaymentManifest::getPaymentOption($cart);
 
         if ($paymentOption) {
             $paymentBreakdown->items->put(
@@ -45,6 +45,6 @@ class ApplyPayment
             1
         );
 
-        $next($cart);
+        return $next($cart);
     }
 }
