@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Support\Collection;
 use Lunar\Base\Purchasable;
 use Lunar\DataTypes\Price;
+use Lunar\Models\Cart;
 use Lunar\Models\TaxClass;
 
 class PaymentOption implements Purchasable
@@ -20,8 +21,20 @@ class PaymentOption implements Purchasable
         public ?string $option = null,
         public bool $collect = false,
         public ?array $meta = null,
-        public ?Closure $callback = null
+        public ?Closure $modifyCart = null
     ) {
+    }
+
+    /**
+     * Modify the cart during pipeline execution.
+     *
+     * @param  Closure(Cart, PaymentOption): void  $closure
+     */
+    public function modifyCartUsing(Closure $closure): self
+    {
+        $this->modifyCart = $closure;
+
+        return $this;
     }
 
     /**
