@@ -59,6 +59,7 @@ class LunarApiServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadRoutesFrom("{$this->root}/routes/api.php");
+        $this->loadMigrationsFrom("{$this->root}/database/migrations");
 
         $this->registerModels();
         $this->registerObservers();
@@ -72,6 +73,7 @@ class LunarApiServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
             $this->publishTranslations();
+            $this->publishMigrations();
             $this->registerCommands();
         }
     }
@@ -98,7 +100,7 @@ class LunarApiServiceProvider extends ServiceProvider
     protected function publishTranslations(): void
     {
         $this->publishes([
-            __DIR__.'/../lang' => $this->app->langPath('vendor/lunar-api'),
+            "{$this->root}/lang" => $this->app->langPath('vendor/lunar-api'),
         ], 'lunar-api.translations');
     }
 
@@ -118,6 +120,16 @@ class LunarApiServiceProvider extends ServiceProvider
             "{$this->root}/config/jsonapi.php",
             'jsonapi',
         );
+    }
+
+    /**
+     * Publish migrations.
+     */
+    protected function publishMigrations(): void
+    {
+        $this->publishes([
+            "{$this->root}/database/migrations/" => $this->app->databasePath('migrations'),
+        ], 'lunar-api.migrations');
     }
 
     /**
