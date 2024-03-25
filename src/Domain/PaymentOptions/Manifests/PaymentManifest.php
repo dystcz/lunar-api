@@ -13,7 +13,7 @@ use Lunar\Models\Cart;
 class PaymentManifest implements PaymentManifestContract
 {
     /**
-     * The collection of available shipping options.
+     * The collection of available payment options.
      */
     public Collection $options;
 
@@ -24,7 +24,7 @@ class PaymentManifest implements PaymentManifestContract
      */
     public function __construct()
     {
-        $this->options = collect();
+        $this->options = Collection::make();
     }
 
     /**
