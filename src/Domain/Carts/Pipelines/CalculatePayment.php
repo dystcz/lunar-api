@@ -10,7 +10,7 @@ use Lunar\Base\ValueObjects\Cart\TaxBreakdownAmount;
 use Lunar\DataTypes\Price;
 use Lunar\Facades\Taxes;
 
-class CalculatePaymentTax
+class CalculatePayment
 {
     /**
      * Called just before cart totals are calculated.
@@ -44,12 +44,6 @@ class CalculatePaymentTax
             $paymentTotal += $paymentTaxTotal?->value;
         }
 
-        $cart->paymentTotal = new Price(
-            $paymentTotal,
-            $cart->currency,
-            1
-        );
-
         $cart->taxTotal = new Price($taxTotal, $cart->currency, 1);
 
         $cart->taxBreakdown = new TaxBreakdown(
@@ -62,6 +56,12 @@ class CalculatePaymentTax
                 );
             })
         );
+
+        $paymentTotal = new Price($paymentTotal, $cart->currency, 1);
+        $cart->paymentTotal = $paymentTotal;
+
+        $total = $cart->total->value + $cart->paymentTotal?->value;
+        $cart->total = new Price($total, $cart->currency, 1);
 
         return $next($cart);
     }

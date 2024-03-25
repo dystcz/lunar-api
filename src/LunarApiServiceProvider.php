@@ -152,14 +152,14 @@ class LunarApiServiceProvider extends ServiceProvider
             );
         }
 
-        // Push CalculatePaymentTax pipeline after CalculateTax pipeline
-        $calculateTaxIndex = array_search(\Lunar\Pipelines\Cart\CalculateTax::class, $cartPipelines);
+        // Push CalculatePayment pipeline after Calculate pipeline
+        $calculateIndex = array_search(\Lunar\Pipelines\Cart\Calculate::class, $cartPipelines);
 
-        if ($calculateTaxIndex) {
+        if ($calculateIndex) {
             $cartPipelines = array_merge(
-                array_slice($cartPipelines, 0, $calculateTaxIndex + 1),
-                [\Dystcz\LunarApi\Domain\Carts\Pipelines\CalculatePaymentTax::class],
-                array_slice($cartPipelines, $calculateTaxIndex + 1),
+                array_slice($cartPipelines, 0, $calculateIndex + 1),
+                [\Dystcz\LunarApi\Domain\Carts\Pipelines\CalculatePayment::class],
+                array_slice($cartPipelines, $calculateIndex + 1),
             );
         }
 
