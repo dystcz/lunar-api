@@ -63,6 +63,11 @@ class CalculatePayment
         $total = $cart->total->value + $cart->paymentTotal?->value;
         $cart->total = new Price($total, $cart->currency, 1);
 
+        // Call the modify cart closure if it exists.
+        if (is_callable($paymentOption->modifyCart)) {
+            $cart = ($paymentOption->modifyCart)($cart, $paymentOption);
+        }
+
         return $next($cart);
     }
 }

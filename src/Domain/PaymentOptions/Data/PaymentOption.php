@@ -33,7 +33,7 @@ class PaymentOption implements Purchasable
     /**
      * Modify the cart during pipeline execution.
      *
-     * @param  Closure(Cart, PaymentOption): void  $closure
+     * @param  Closure(Cart, PaymentOption): Cart  $closure
      */
     public function modifyCartUsing(Closure $closure): self
     {
