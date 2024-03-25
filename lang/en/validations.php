@@ -219,8 +219,8 @@ return [
     'payments' => [
         'attach_payment_option' => [
             'payment_option' => [
-                'required' => 'Please select a payment option.',
-                'string' => 'Payment option field must be a string.',
+                'required' => 'Please select a payment method.',
+                'string' => 'Payment method field must be a string.',
             ],
         ],
     ],
