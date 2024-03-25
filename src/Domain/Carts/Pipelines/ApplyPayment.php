@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\PaymentOptions\Pipelines;
+namespace Dystcz\LunarApi\Domain\Carts\Pipelines;
 
 use Closure;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;

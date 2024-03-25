@@ -1,9 +1,9 @@
 <?php
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Pipelines\ApplyPayment;
 use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
 use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
-use Dystcz\LunarApi\Domain\PaymentOptions\Pipelines\ApplyPayment;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
