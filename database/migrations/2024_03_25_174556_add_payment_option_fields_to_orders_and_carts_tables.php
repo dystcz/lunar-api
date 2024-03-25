@@ -14,7 +14,8 @@ return new class extends Migration
     {
         // Orders
         Schema::table(Config::get('lunar.database.table_prefix').'orders', function (Blueprint $table) {
-            $table->integer('payment_total')->default(0)->unsigned()->index()->after('shipping_total');
+            $table->json('payment_breakdown')->nullable()->after('shipping_total');
+            $table->integer('payment_total')->default(0)->unsigned()->index()->after('payment_breakdown');
         });
 
         // Carts
@@ -30,6 +31,7 @@ return new class extends Migration
     {
         // Orders
         Schema::table(Config::get('lunar.database.table_prefix').'orders', function (Blueprint $table) {
+            $table->dropColumn('payment_breakdown');
             $table->dropColumn('payment_total');
         });
 
