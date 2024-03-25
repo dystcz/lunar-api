@@ -174,6 +174,11 @@ class LunarApiServiceProvider extends ServiceProvider
             'lunar.cart.actions.set_payment_option',
             \Dystcz\LunarApi\Domain\Carts\Actions\SetPaymentOption::class,
         );
+
+        Config::set(
+            'lunar.cart.actions.unset_payment_option',
+            [\Dystcz\LunarApi\Domain\Carts\Actions\UnsetPaymentOption::class],
+        );
     }
 
     /**
