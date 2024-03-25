@@ -46,5 +46,4 @@ return [
         // Available strategies: signature, auth, null
         'checkout_protection_strategy' => CheckoutProtectionStrategy::SIGNATURE,
     ],
-
 ];
