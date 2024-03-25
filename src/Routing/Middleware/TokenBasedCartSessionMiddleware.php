@@ -88,7 +88,7 @@ class TokenBasedCartSessionMiddleware
     /**
      * Find a cart by the token
      *
-     * @param  string  $token The token
+     * @param  string  $token  The token
      * @return Cart|null The cart or null if not found
      */
     public function findCartByToken(string $token): ?Cart
@@ -130,7 +130,7 @@ class TokenBasedCartSessionMiddleware
     /**
      * Get the token from the request header X-Cart-Token
      *
-     * @param  Request  $request The request object
+     * @param  Request  $request  The request object
      * @return string|null The token or null if not found
      */
     public function getToken($request): ?string
@@ -141,8 +141,8 @@ class TokenBasedCartSessionMiddleware
     /**
      * Set the token in the response header X-Cart-Token
      *
-     * @param  Response  $response The response object
-     * @param $token The token
+     * @param  Response  $response  The response object
+     * @param  $token  The token
      * @return Response The response object
      */
     public function setToken(Response $response, $token): Response

@@ -23,7 +23,7 @@ class AttributeWhereInFilter implements Filter
      *
      * @return static
      */
-    public static function make(string $name, string $attribute = null): self
+    public static function make(string $name, ?string $attribute = null): self
     {
         return new static($name, $attribute);
     }
@@ -31,7 +31,7 @@ class AttributeWhereInFilter implements Filter
     /**
      * CustomFilter constructor.
      */
-    public function __construct(string $name, string $attribute = null)
+    public function __construct(string $name, ?string $attribute = null)
     {
         $this->name = $name;
         $this->column = 'attribute_data';

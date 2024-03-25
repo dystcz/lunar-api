@@ -38,7 +38,7 @@ class TestTaxDriver implements TaxDriver
     /**
      * {@inheritDoc}
      */
-    public function setShippingAddress(Addressable $address = null): self
+    public function setShippingAddress(?Addressable $address = null): self
     {
         $this->shippingAddress = $address;
 
@@ -58,7 +58,7 @@ class TestTaxDriver implements TaxDriver
     /**
      * {@inheritDoc}
      */
-    public function setBillingAddress(Addressable $address = null): self
+    public function setBillingAddress(?Addressable $address = null): self
     {
         $this->billingAddress = $address;
 
