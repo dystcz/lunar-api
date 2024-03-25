@@ -4,10 +4,10 @@ namespace Dystcz\LunarApi;
 
 use Dystcz\LunarApi\Domain\Carts\Actions\CheckoutCart;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
-use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
 use Dystcz\LunarApi\Domain\Users\Actions\CreateUser;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
 use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
@@ -30,6 +30,7 @@ class LunarApiServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->registerConfig();
+        $this->setPaymentOptionsConfig();
 
         $this->loadTranslationsFrom(
             "{$this->root}/lang",
@@ -48,8 +49,20 @@ class LunarApiServiceProvider extends ServiceProvider
 
         // Register payment adapters register.
         $this->app->singleton(
-            PaymentAdaptersRegister::class,
-            fn () => new PaymentAdaptersRegister,
+            \Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister::class,
+            fn () => new \Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister,
+        );
+
+        // Register payment modifiers.
+        $this->app->singleton(
+            \Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifiers::class,
+            fn (Application $app) => new \Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifiers(),
+        );
+
+        // Register payment manifest.
+        $this->app->singleton(
+            \Dystcz\LunarApi\Domain\PaymentOptions\Contracts\PaymentManifest::class,
+            fn (Application $app) => $app->make(\Dystcz\LunarApi\Domain\PaymentOptions\Manifests\PaymentManifest::class),
         );
     }
 
@@ -119,6 +132,33 @@ class LunarApiServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             "{$this->root}/config/jsonapi.php",
             'jsonapi',
+        );
+    }
+
+    /**
+     * Set payment options config.
+     */
+    protected function setPaymentOptionsConfig(): void
+    {
+        $cartPipelines = Config::get('lunar.cart.pipelines.cart', []);
+        $applyShippingIndex = array_search(\Lunar\Pipelines\Cart\ApplyShipping::class, $cartPipelines);
+
+        if ($applyShippingIndex) {
+            $cartPipelines = array_merge(
+                array_slice($cartPipelines, 0, $applyShippingIndex + 1),
+                [\Dystcz\LunarApi\Domain\PaymentOptions\Pipelines\ApplyPayment::class],
+                array_slice($cartPipelines, $applyShippingIndex + 1),
+            );
+        }
+
+        Config::set(
+            'lunar.cart.validators.set_payment_option',
+            [\Dystcz\LunarApi\Domain\Carts\Validation\PaymentOptionValidator::class],
+        );
+
+        Config::set(
+            'lunar.cart.actions.set_payment_option',
+            \Dystcz\LunarApi\Domain\Carts\Actions\SetPaymentOption::class,
         );
     }
 
