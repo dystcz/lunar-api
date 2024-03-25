@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\PaymentOptions\Data;
 
 use Closure;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config;
 use Lunar\Base\Purchasable;
 use Lunar\DataTypes\Price;
 use Lunar\Models\Cart;
@@ -11,10 +12,13 @@ use Lunar\Models\TaxClass;
 
 class PaymentOption implements Purchasable
 {
+    public bool $default;
+
     public function __construct(
         public string $name,
         public string $description,
         public string $identifier,
+        public string $driver,
         public Price $price,
         public TaxClass $taxClass,
         public ?string $taxReference = null,
@@ -23,6 +27,7 @@ class PaymentOption implements Purchasable
         public ?array $meta = null,
         public ?Closure $modifyCart = null
     ) {
+        $this->default = $this->isDefault();
     }
 
     /**
@@ -38,7 +43,23 @@ class PaymentOption implements Purchasable
     }
 
     /**
-     * Get the price for the purchasable item.
+     * Determine wether this payment option is default.
+     */
+    private function isDefault(): bool
+    {
+        return $this->driver === Config::get('lunar.payments.default');
+    }
+
+    /**
+     * Get  payment driver.
+     */
+    public function getDriver(): string
+    {
+        return $this->driver;
+    }
+
+    /**
+     * Get price.
      */
     public function getPrice(): Price
     {
@@ -46,7 +67,7 @@ class PaymentOption implements Purchasable
     }
 
     /**
-     * Get prices for the purchasable item.
+     * Get prices.
      */
     public function getPrices(): Collection
     {
@@ -64,7 +85,7 @@ class PaymentOption implements Purchasable
     }
 
     /**
-     * Return the purchasable tax class.
+     * Get tax class.
      */
     public function getTaxClass(): TaxClass
     {
@@ -72,7 +93,7 @@ class PaymentOption implements Purchasable
     }
 
     /**
-     * Return the purchasable tax reference.
+     * Get tax reference.
      */
     public function getTaxReference(): ?string
     {
