@@ -140,16 +140,30 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     protected function setPaymentOptionsConfig(): void
     {
+        // Push ApplyPayment pipeline after ApplyShipping pipeline
         $cartPipelines = Config::get('lunar.cart.pipelines.cart', []);
         $applyShippingIndex = array_search(\Lunar\Pipelines\Cart\ApplyShipping::class, $cartPipelines);
 
         if ($applyShippingIndex) {
             $cartPipelines = array_merge(
                 array_slice($cartPipelines, 0, $applyShippingIndex + 1),
-                [\Dystcz\LunarApi\Domain\PaymentOptions\Pipelines\ApplyPayment::class],
+                [\Dystcz\LunarApi\Domain\Carts\Pipelines\ApplyPayment::class],
                 array_slice($cartPipelines, $applyShippingIndex + 1),
             );
         }
+
+        // Push CalculatePaymentTax pipeline after CalculateTax pipeline
+        $calculateTaxIndex = array_search(\Lunar\Pipelines\Cart\CalculateTax::class, $cartPipelines);
+
+        if ($calculateTaxIndex) {
+            $cartPipelines = array_merge(
+                array_slice($cartPipelines, 0, $calculateTaxIndex + 1),
+                [\Dystcz\LunarApi\Domain\Carts\Pipelines\CalculatePaymentTax::class],
+                array_slice($cartPipelines, $calculateTaxIndex + 1),
+            );
+        }
+
+        Config::set('lunar.cart.pipelines.cart', $cartPipelines);
 
         Config::set(
             'lunar.cart.validators.set_payment_option',
