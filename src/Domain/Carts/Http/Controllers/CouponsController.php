@@ -28,10 +28,10 @@ class CouponsController extends Controller
         AddCouponToCartRequest $request,
         ApplyCoupon $applyCoupon,
     ): DataResponse {
-        // $this->authorize('viewAny', Cart::class);
-
         /** @var Cart $cart */
         $cart = $this->cartSession->current();
+
+        $this->authorize('updateCoupon', $cart);
 
         $cart = $applyCoupon($cart, $request->validated('coupon_code'));
 
@@ -45,10 +45,10 @@ class CouponsController extends Controller
     public function destroy(
         RemoveCoupon $removeCoupon,
     ): DataResponse {
-        // $this->authorize('viewAny', Cart::class);
-
         /** @var Cart $cart */
         $cart = $this->cartSession->current();
+
+        $this->authorize('updateCoupon', $cart);
 
         $cart = $removeCoupon($cart);
 
