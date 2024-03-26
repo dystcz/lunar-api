@@ -6,7 +6,6 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Lunar\DataTypes\Price;
-use Lunar\DataTypes\ShippingOption;
 use Lunar\Models\Currency;
 
 class ShippingOption implements Arrayable
@@ -103,7 +102,7 @@ class ShippingOption implements Arrayable
     }
 
     /**
-     * {@inheritDoc}
+     * Cast to array.
      */
     public function toArray(): array
     {
