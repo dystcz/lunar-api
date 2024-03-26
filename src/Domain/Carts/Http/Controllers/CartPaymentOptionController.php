@@ -4,9 +4,9 @@ namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\AttachPaymentOptionRequest;
-use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartSchema;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\DetachPaymentOptionRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
 use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use Lunar\Base\CartSessionInterface;
@@ -27,15 +27,16 @@ class CartPaymentOptionController extends Controller
      * Attach payment option to cart.
      */
     public function attachPaymentOption(
-        CartSchema $schema,
         AttachPaymentOptionRequest $request,
     ): DataResponse {
         /** @var Cart $cart */
         $cart = $this->cartSession->current();
 
-        $this->authorize('update', $cart);
+        $this->authorize('updatePaymentOption', $cart);
 
-        $model = $cart->setPaymentOption($request->input('data.attributes.payment_option'));
+        $option = PaymentManifest::getOption($cart, $request->input('data.attributes.payment_option'));
+
+        $model = $cart->setPaymentOption($option);
 
         return DataResponse::make($model)
             ->didntCreate();
@@ -45,13 +46,13 @@ class CartPaymentOptionController extends Controller
      * Detach payment option from cart.
      */
     public function detachPaymentOption(
-        CartSchema $schema,
         DetachPaymentOptionRequest $request,
-        Cart $cart,
     ): DataResponse {
-        $this->authorize('update', $cart);
+        $cart = $this->cartSession->current();
 
-        $model = $cart->unsetPaymentOption($request->input('data.attributes.payment_option'));
+        $this->authorize('updatePaymentOption', $cart);
+
+        $model = $cart->unsetPaymentOption();
 
         return DataResponse::make($model)
             ->didntCreate();
