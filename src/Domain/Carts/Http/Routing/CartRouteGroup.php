@@ -58,7 +58,7 @@ class CartRouteGroup extends RouteGroup
                 $server->resource($this->getPrefix(), CartPaymentOptionController::class)
                     ->only('')
                     ->actions('-actions', function (ActionRegistrar $actions) {
-                        $actions->patch('attach-payment-option');
+                        $actions->post('attach-payment-option');
                         $actions->delete('detach-payment-option');
                     });
             });
