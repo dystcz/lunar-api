@@ -86,6 +86,12 @@ class CartSchema extends Schema
                 Number::make('shipping_total', 'shippingTotal')
                     ->serializeUsing(static fn ($value) => $value?->decimal),
 
+                Number::make('payment_sub_total', 'paymentSubTotal')
+                    ->serializeUsing(static fn ($value) => $value?->decimal),
+
+                Number::make('payment_total', 'paymentTotal')
+                    ->serializeUsing(static fn ($value) => $value?->decimal),
+
                 Number::make('tax_total', 'taxTotal')
                     ->serializeUsing(static fn ($value) => $value?->decimal),
 
@@ -102,6 +108,8 @@ class CartSchema extends Schema
             ]),
 
             Str::make('coupon_code'),
+
+            Str::make('payment_option'),
 
             // Custom fields (not in the database)
             Boolean::make('create_user')

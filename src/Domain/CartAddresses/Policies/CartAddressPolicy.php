@@ -61,10 +61,9 @@ class CartAddressPolicy
             $cartAddressCartId = (new Cart)->decodedRouteKey($cartAddressCartId);
         }
 
-        $cartId = (string) $this->cartSession->current()->getKey();
-        $cartAddressCartId = (string) $cartAddressCartId;
+        $cartId = $this->cartSession->current()->getRouteKey();
 
-        return $cartId === $cartAddressCartId;
+        return (string) $cartId === (string) $cartAddressCartId;
     }
 
     /**
@@ -88,6 +87,6 @@ class CartAddressPolicy
      */
     protected function check(?Authenticatable $user, CartAddress $cartAddress): bool
     {
-        return (string) $this->cartSession->current()?->getKey() === (string) $cartAddress->cart_id;
+        return (string) $this->cartSession->current()?->getRouteKey() === (string) $cartAddress->cart->getRouteKey();
     }
 }

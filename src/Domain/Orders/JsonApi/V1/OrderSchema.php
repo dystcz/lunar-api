@@ -133,11 +133,19 @@ class OrderSchema extends Schema
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
+                Number::make('payment_total', 'payment_total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
                 ArrayHash::make('tax_breakdown', 'taxBreakdown')
                     ->serializeUsing(
                         static fn ($value) => $value?->amounts,
                     ),
                 ArrayHash::make('shipping_breakdown')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->items,
+                    ),
+                ArrayHash::make('payment_breakdown')
                     ->serializeUsing(
                         static fn ($value) => $value?->items,
                     ),

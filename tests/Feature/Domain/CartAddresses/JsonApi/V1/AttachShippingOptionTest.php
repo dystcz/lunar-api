@@ -4,13 +4,16 @@ use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Facades\CartSession;
+use Illuminate\Support\Facades\App;
+use Lunar\Base\CartSessionInterface;
 use Lunar\Facades\ShippingManifest;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
     /** @var TestCase $this */
+    $this->cartSession = App::make(CartSessionInterface::class);
+
     $this->cart = Cart::factory()->create();
 
     $this->cartAddress = CartAddress::factory()->for($this->cart)->create();
@@ -28,34 +31,60 @@ beforeEach(function () {
 
 test('users can attach a shipping option to cart address', function () {
     /** @var TestCase $this */
-    CartSession::use($this->cart);
+    $this->cartSession->use($this->cart);
 
     $response = $this
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/attach-shipping-option');
+        ->patch(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}/-actions/attach-shipping-option"));
 
-    $response->assertFetchedOne($this->cartAddress);
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($this->cartAddress);
 
     $this->assertDatabaseHas($this->cartAddress->getTable(), [
         'shipping_option' => $this->shippingOption->identifier,
     ]);
 
     expect($this->cartAddress->fresh()->shipping_option)->toBe($this->data['attributes']['shipping_option']);
-});
+})->group('cart-addresses', 'shipping-options');
+
+it('validates shipping option attribute when attaching shipping option to cart address', function () {
+    /** @var TestCase $this */
+    $this->cartSession->use($this->cart);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('cart-addresses')
+        ->withData([
+            'id' => (string) $this->cartAddress->getRouteKey(),
+            'type' => 'cart-addresses',
+            'attributes' => [
+                'shipping_option' => null,
+            ],
+        ])
+        ->patch(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}/-actions/attach-shipping-option"));
+
+    $response->assertErrorStatus([
+        'detail' => __('lunar-api::validations.shipping.attach_shipping_option.shipping_option.required'),
+        'status' => '422',
+    ]);
+})->group('cart-addresses', 'shipping-options');
 
 test('only the user who owns the cart address can attach shipping option for it', function () {
     /** @var TestCase $this */
+    $this->cartSession->forget();
+
     $response = $this
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/attach-shipping-option');
+        ->patch(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}/-actions/attach-shipping-option"));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',
         'status' => '401',
         'title' => 'Unauthorized',
     ]);
-});
+})->group('cart-addresses', 'shipping-options');

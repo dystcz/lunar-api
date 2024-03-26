@@ -3,6 +3,8 @@
 namespace Dystcz\LunarApi\Tests;
 
 use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
+use Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifiers;
+use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\TestPaymentModifier;
 use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestTaxDriver;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
@@ -81,6 +83,7 @@ abstract class TestCase extends Orchestra
         TaxClass::factory()->create();
 
         App::get(ShippingModifiers::class)->add(TestShippingModifier::class);
+        App::get(PaymentModifiers::class)->add(TestPaymentModifier::class);
 
         activity()->disableLogging();
     }

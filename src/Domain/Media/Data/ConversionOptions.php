@@ -22,9 +22,9 @@ class ConversionOptions implements Arrayable
      */
     public static function make(
         string $key,
-        int $width = null,
-        int $height = null,
-        string $format = null,
+        ?int $width = null,
+        ?int $height = null,
+        ?string $format = null,
         array $collections = [],
         bool $queue = true,
     ): self {

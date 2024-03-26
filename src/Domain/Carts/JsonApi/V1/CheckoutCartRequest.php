@@ -10,7 +10,7 @@ use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
 
-class CartRequest extends ResourceRequest
+class CheckoutCartRequest extends ResourceRequest
 {
     /**
      * Get the validation rules for the resource.

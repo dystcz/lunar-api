@@ -94,7 +94,7 @@ class ExtensionValueCollection implements IteratorAggregate
      *
      * @return array<string, string|array>
      */
-    public function resolve(Extendable $extendable = null): array
+    public function resolve(?Extendable $extendable = null): array
     {
         return array_map(
             fn (ExtensionValue $value) => $value->resolve($extendable),

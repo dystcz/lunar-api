@@ -7,7 +7,7 @@ use Dystcz\LunarApi\Base\Contracts\ResourceExtension as ResourceExtensionContrac
 use Dystcz\LunarApi\Base\Data\ExtensionValueCollection;
 
 /**
- * @property  class-string<ExtendableContract>  $class
+ * @property class-string<ExtendableContract> $class
  *
  * @method ExtensionValueCollection attributes()
  * @method self setAttributes(iterable|callable $value)

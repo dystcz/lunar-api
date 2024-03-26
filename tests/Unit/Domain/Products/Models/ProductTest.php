@@ -22,7 +22,7 @@ test('product has prices relation', function () {
         ->create();
 
     expect($product->prices)->toHaveCount(1);
-});
+})->group('products');
 
 test('product has lowest price relation', function () {
     /** @var Collection<Product> $products */
@@ -38,7 +38,7 @@ test('product has lowest price relation', function () {
         expect($product->lowestPrice->price->value)
             ->toBe($product->prices()->orderBy('price')->first()->price->value);
     }
-});
+})->group('products');
 
 test('product has cheapest variant relation', function () {
     /** @var Collection<Product> $products */
@@ -54,7 +54,7 @@ test('product has cheapest variant relation', function () {
         expect($product->cheapestVariant->id)
             ->toBe($product->variants->sortBy('lowestPrice.price')->first()->id);
     }
-});
+})->group('products');
 
 test('product has tags relation', function () {
     /** @var Product $product */
@@ -79,7 +79,7 @@ test('product is in stock when any variant has stock', function () {
         ->create();
 
     expect((new IsInStock())($product))->toBeTrue();
-});
+})->group('products');
 
 test('product is in stock when any variant has purchasable to always', function () {
     /** @var Product $product */
@@ -95,7 +95,7 @@ test('product is in stock when any variant has purchasable to always', function 
         ->create();
 
     expect((new IsInStock())($product))->toBeTrue();
-});
+})->group('products');
 
 test('product is in stock when any variant can be purchased always', function () {
     /** @var Product $product */
@@ -119,4 +119,4 @@ test('product is out of stock when any variant cannot be purchased', function ()
         ->create();
 
     expect((new IsInStock())($product))->toBeFalse();
-});
+})->group('products');

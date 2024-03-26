@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\PaymentOptions\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
 
 class PaymentOptionResource extends JsonApiResource
 {
@@ -19,10 +20,9 @@ class PaymentOptionResource extends JsonApiResource
      */
     public function attributes($request): iterable
     {
-        return [
-            'name' => $this->resource->getName(),
-            'driver' => $this->resource->getDriver(),
-            'default' => $this->resource->getDefault(),
-        ];
+        /** @var PaymentOption $option */
+        $option = $this->resource;
+
+        return $option->toArray();
     }
 }

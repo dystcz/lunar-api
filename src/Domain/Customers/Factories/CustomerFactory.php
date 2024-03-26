@@ -3,8 +3,8 @@
 namespace Dystcz\LunarApi\Domain\Customers\Factories;
 
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
-use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine;
+use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Illuminate\Support\Str;
 

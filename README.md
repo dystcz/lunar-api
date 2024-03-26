@@ -76,6 +76,14 @@ Publish config files
 php artisan vendor:publish --provider="Dystcz\LunarApi\LunarApiServiceProvider" --tag="lunar-api"
 ```
 
+Publish migrations
+
+> Only in case you want to customize the database schema
+
+```bash
+php artisan vendor:publish --provider="Dystcz\LunarApi\LunarApiServiceProvider" --tag="lunar-api.migrations"
+```
+
 ### Let's hit your first endpoint
 
 Just visit `/api/v1/products` and you should see a list of products.

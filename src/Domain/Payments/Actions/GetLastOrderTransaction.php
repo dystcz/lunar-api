@@ -14,7 +14,7 @@ class GetLastOrderTransaction
     /**
      * Get last order transaction.
      */
-    public function __invoke(Order $order, string $driver, string $type = null): ?Transaction
+    public function __invoke(Order $order, string $driver, ?string $type = null): ?Transaction
     {
         return Transaction::query()
             ->when($type, fn ($query) => $query->where('type', $type))

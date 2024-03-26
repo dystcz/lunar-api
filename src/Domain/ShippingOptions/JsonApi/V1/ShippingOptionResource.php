@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
+use Dystcz\LunarApi\Domain\ShippingOptions\Entities\ShippingOption;
 
 class ShippingOptionResource extends JsonApiResource
 {
@@ -13,14 +14,9 @@ class ShippingOptionResource extends JsonApiResource
 
     public function attributes($request): iterable
     {
-        $data = $this->resource->toArray();
+        /** @var ShippingOption $option */
+        $option = $this->resource;
 
-        return [
-            'name' => $this->resource->getName(),
-            'description' => $this->resource->getDescription(),
-            'identifier' => $this->resource->getIdentifier(),
-            'price' => $data['price'],
-            'currency' => $data['currency'],
-        ];
+        return $option->toArray();
     }
 }

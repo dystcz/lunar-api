@@ -2,8 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\PaymentOptions\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
 use LaravelJsonApi\Core\Schema\Schema;
+use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\NonEloquent\Fields\Attribute;
 use LaravelJsonApi\NonEloquent\Fields\ID;
 
@@ -28,8 +29,14 @@ class PaymentOptionSchema extends Schema
             ID::make(),
 
             Attribute::make('name'),
-            Attribute::make('driver'),
+            Attribute::make('description'),
+            Attribute::make('identifier'),
+            Attribute::make('price'),
+            Attribute::make('currency'),
             Attribute::make('default'),
+            Attribute::make('driver'),
+
+            ArrayHash::make('meta'),
         ];
     }
 

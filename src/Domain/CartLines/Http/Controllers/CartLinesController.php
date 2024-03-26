@@ -21,6 +21,9 @@ class CartLinesController extends Controller
     use Store;
     use Update;
 
+    /*
+     * Add cart line to cart.
+     */
     public function creating(CartLineRequest $request, CartLineQuery $query): DataResponse
     {
         $data = CartLineData::fromRequest($request);
@@ -32,6 +35,9 @@ class CartLinesController extends Controller
             ->didCreate();
     }
 
+    /*
+     * Update cart line.
+     */
     public function updating(CartLine $cartLine, CartLineRequest $request, CartLineQuery $query): DataResponse
     {
         $data = CartLineData::fromRequest($request);

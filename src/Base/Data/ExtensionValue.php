@@ -27,7 +27,7 @@ class ExtensionValue
     /**
      * Resolve value.
      */
-    public function resolve(Extendable $extendable = null): string|array|Relation|Field|Filter|SortField
+    public function resolve(?Extendable $extendable = null): string|array|Relation|Field|Filter|SortField
     {
         return $this->value instanceof Closure
             ? ($this->value)($extendable)
