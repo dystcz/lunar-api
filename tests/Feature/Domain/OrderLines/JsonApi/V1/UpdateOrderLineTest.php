@@ -1,7 +1,7 @@
 <?php
 
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
-use Dystcz\LunarApi\Domain\ProductAssociations\Models\ProductAssociation;
+use Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,12 +15,12 @@ beforeEach(function () {
         ->create();
 });
 
-test('users cannot update product associations', function () {
+test('users cannot update order lines', function () {
     /** @var TestCase $this */
-    $response = $this->updateTest('associations', ProductAssociation::class, []);
+    $response = $this->updateTest('order-lines', OrderLine::class, []);
 
     $response->assertErrorStatus([
         'status' => '404',
         'title' => 'Not Found',
     ]);
-})->group('associations', 'policies');
+})->group('order-lines', 'policies');
