@@ -179,6 +179,20 @@ class LunarApiServiceProvider extends ServiceProvider
             'lunar.cart.actions.unset_payment_option',
             \Dystcz\LunarApi\Domain\Carts\Actions\UnsetPaymentOption::class,
         );
+
+        // Push ApplyPayment pipeline after ApplyShipping pipeline
+        $orderPipelines = Config::get('lunar.orders.pipelines.creation', []);
+        $createShippingLineIndex = array_search(\Lunar\Pipelines\Order\Creation\CreateShippingLine::class, $orderPipelines);
+
+        if ($createShippingLineIndex) {
+            $orderPipelines = array_merge(
+                array_slice($orderPipelines, 0, $createShippingLineIndex + 1),
+                [\Dystcz\LunarApi\Domain\Orders\Pipelines\CreatePaymentLine::class],
+                array_slice($orderPipelines, $createShippingLineIndex + 1),
+            );
+        }
+
+        Config::set('lunar.orders.pipelines.creation', $orderPipelines);
     }
 
     /**
