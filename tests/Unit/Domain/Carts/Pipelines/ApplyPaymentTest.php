@@ -56,7 +56,7 @@ it('can apply empty payment totals', function () {
     });
 
     $this->assertInstanceOf(PriceDataType::class, $cart->paymentSubTotal);
-})->group('lunar-api.cart.payment-options');
+})->group('payment-options', 'carts.payment-options');
 
 it('can apply payment totals', function () {
     /** @var TestCase $this */
@@ -116,4 +116,4 @@ it('can apply payment totals', function () {
 
     $this->assertInstanceOf(PriceDataType::class, $cart->paymentSubTotal);
     $this->assertEquals(500, $cart->paymentSubTotal->value);
-})->group('lunar-api.cart.payment-options');
+})->group('payment-options', 'carts.payment-options');

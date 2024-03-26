@@ -88,4 +88,4 @@ it('can manipulate cart during calculation', function () {
 
     $this->assertEquals(0, $cart->paymentTotal->value);
     $this->assertEquals(0, $cart->total->value);
-})->group('lunar-api.payment-options');
+})->group('payment-options');

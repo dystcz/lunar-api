@@ -35,7 +35,7 @@ it('handles creation of payment intent', function () {
     $intent = $payment->createIntent($this->cart);
 
     expect($intent)->toBeInstanceOf(PaymentIntent::class);
-});
+})->group('payments');
 
 it('handles webhooks', function () {
     /** @var TestCase $this */
@@ -44,4 +44,4 @@ it('handles webhooks', function () {
     $response = $payment->handleWebhook(new Request());
 
     expect($response)->toBeInstanceOf(JsonResponse::class);
-});
+})->group('payments');

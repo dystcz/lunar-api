@@ -77,4 +77,4 @@ it('can calculate payment option price', function () {
 
     $this->assertEquals(600, $cart->paymentTotal->value);
     $this->assertEquals(1000, $cart->total->value);
-})->group('lunar-api.cart.payment-options');
+})->group('carts', 'carts.payment-options');
