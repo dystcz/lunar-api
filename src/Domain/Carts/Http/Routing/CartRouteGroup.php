@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Http\Routing;
 
+use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartPaymentOptionController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartsController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CheckoutCartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ClearUserCartController;
@@ -54,6 +55,12 @@ class CartRouteGroup extends RouteGroup
                         $actions->delete('remove-coupon', 'destroy');
                     });
 
+                $server->resource($this->getPrefix(), CartPaymentOptionController::class)
+                    ->only('')
+                    ->actions('-actions', function (ActionRegistrar $actions) {
+                        $actions->patch('attach-payment-option');
+                        $actions->delete('detach-payment-option');
+                    });
             });
     }
 }
