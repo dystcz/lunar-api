@@ -3,14 +3,14 @@
 namespace Dystcz\LunarApi\Domain\Carts\Actions;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
-use Dystcz\LunarApi\Support\Actions\Action;
+use Lunar\Actions\AbstractAction;
 
-class UnsetPaymentOption extends Action
+class UnsetPaymentOption extends AbstractAction
 {
     /**
      * Unset payment option from cart.
      */
-    public function handle(
+    public function execute(
         Cart $cart
     ): self {
         $cart->paymentOption = null;

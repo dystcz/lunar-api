@@ -52,7 +52,7 @@ trait InteractsWithPaymentOptions
         }
 
         return App::make(Config::get('lunar.cart.actions.set_payment_option', SetPaymentOption::class))
-            ->handle($cart, $option)
+            ->execute($cart, $option)
             ->then(fn () => $refresh ? $cart->refresh()->calculate() : $cart);
     }
 
@@ -65,7 +65,7 @@ trait InteractsWithPaymentOptions
         $cart = $this;
 
         return App::make(Config::get('lunar.cart.actions.unset_payment_option', UnsetPaymentOption::class))
-            ->handle($cart, $option)
+            ->execute($cart, $option)
             ->then(fn () => $refresh ? $cart->refresh()->calculate() : $cart);
     }
 
