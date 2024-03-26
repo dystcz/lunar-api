@@ -30,6 +30,7 @@ return [
     // Purchasable
     'purchasable' => [
         'non_eloquent_types' => [
+            'payment',
             'shipping',
         ],
     ],
