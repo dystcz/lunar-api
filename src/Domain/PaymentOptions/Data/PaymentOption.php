@@ -3,14 +3,18 @@
 namespace Dystcz\LunarApi\Domain\PaymentOptions\Data;
 
 use Closure;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Str;
 use Lunar\Base\Purchasable;
 use Lunar\DataTypes\Price;
 use Lunar\Models\Cart;
+use Lunar\Models\Currency;
 use Lunar\Models\TaxClass;
 
-class PaymentOption implements Purchasable
+class PaymentOption implements Arrayable, Purchasable
 {
     public bool $default;
 
@@ -27,7 +31,7 @@ class PaymentOption implements Purchasable
         public ?array $meta = null,
         public ?Closure $modifyCart = null
     ) {
-        $this->default = $this->isDefault();
+        $this->setDefault();
     }
 
     /**
@@ -45,9 +49,19 @@ class PaymentOption implements Purchasable
     /**
      * Determine wether this payment option is default.
      */
-    private function isDefault(): bool
+    private function setDefault(): self
     {
-        return $this->driver === Config::get('lunar.payments.default');
+        $this->default = $this->driver === Config::get('lunar.payments.default');
+
+        return $this;
+    }
+
+    /**
+     * Get default.
+     */
+    public function isDefault(): bool
+    {
+        return $this->default === true;
     }
 
     /**
@@ -64,6 +78,14 @@ class PaymentOption implements Purchasable
     public function getPrice(): Price
     {
         return $this->price;
+    }
+
+    /**
+     * Get curency.
+     */
+    public function getCurrency(): Currency
+    {
+        return $this->getPrice()->currency;
     }
 
     /**
@@ -109,7 +131,7 @@ class PaymentOption implements Purchasable
     }
 
     /**
-     * Return the name for the purchasable.
+     * Get name.
      */
     public function getName(): string
     {
@@ -117,7 +139,7 @@ class PaymentOption implements Purchasable
     }
 
     /**
-     * Return the description for the purchasable.
+     * Get description.
      */
     public function getDescription(): string
     {
@@ -133,7 +155,15 @@ class PaymentOption implements Purchasable
     }
 
     /**
-     * Return a unique string which identifies the purchasable item.
+     * Get id.
+     */
+    public function getId(): string
+    {
+        return Str::slug($this->identifier);
+    }
+
+    /**
+     * Get identifier.
      */
     public function getIdentifier(): string
     {
@@ -141,7 +171,7 @@ class PaymentOption implements Purchasable
     }
 
     /**
-     * Returns whether the purchasable item is shippable.
+     * Determine if this purchasable is shippable.
      */
     public function isShippable(): bool
     {
@@ -154,5 +184,36 @@ class PaymentOption implements Purchasable
     public function getThumbnail(): ?string
     {
         return null;
+    }
+
+    /**
+     * Get meta.
+     *
+     * @return array<string,mixed>
+     */
+    public function getMeta(): array
+    {
+        return $this->meta;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'identifier' => $this->getIdentifier(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'driver' => $this->getDriver(),
+            'price' => [
+                'decimal' => $this->getPrice()->decimal,
+                'formatted' => $this->getPrice()->formatted,
+            ],
+            'currency' => Arr::only($this->getCurrency()->toArray(), ['code', 'name']),
+            'default' => $this->isDefault(),
+            'meta' => $this->getMeta(),
+        ];
     }
 }
