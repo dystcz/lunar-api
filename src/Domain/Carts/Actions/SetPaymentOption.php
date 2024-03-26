@@ -4,14 +4,14 @@ namespace Dystcz\LunarApi\Domain\Carts\Actions;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
-use Lunar\Actions\AbstractAction;
+use Dystcz\LunarApi\Support\Actions\Action;
 
-class SetPaymentOption extends AbstractAction
+class SetPaymentOption extends Action
 {
     /**
-     * Execute the action.
+     * Set payment option for the cart.
      */
-    public function execute(
+    public function handle(
         Cart $cart,
         PaymentOption $paymentOption
     ): self {
