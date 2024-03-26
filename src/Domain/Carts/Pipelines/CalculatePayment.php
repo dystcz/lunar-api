@@ -59,6 +59,7 @@ class CalculatePayment
 
         $paymentTotal = new Price($paymentTotal, $cart->currency, 1);
         $cart->paymentTotal = $paymentTotal;
+        $cart->paymentTaxTotal = $paymentTaxTotal;
 
         $total = $cart->total->value + $cart->paymentTotal?->value;
         $cart->total = new Price($total, $cart->currency, 1);

@@ -14,6 +14,7 @@ use Lunar\Models\Cart as LunarCart;
 /**
  * @property PaymentOption|null $paymentOption
  * @property Price|null $paymentSubTotal
+ * @property Price|null $paymentTaxTotal
  * @property Price|null $paymentTotal
  * @property PaymentOption|null $paymentOptionOverride
  * @property array $paymentEstimateMeta
@@ -38,6 +39,7 @@ class Cart extends LunarCart
         $this->cachableProperties = array_merge($this->cachableProperties, [
             'paymentOption',
             'paymentSubTotal',
+            'paymentTaxTotal',
             'paymentTotal',
         ]);
     }

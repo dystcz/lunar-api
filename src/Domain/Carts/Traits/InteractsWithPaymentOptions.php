@@ -25,6 +25,11 @@ trait InteractsWithPaymentOptions
     public ?Price $paymentSubTotal = null;
 
     /**
+     * The payment tax total for the cart.
+     */
+    public ?Price $paymentTaxTotal = null;
+
+    /**
      * The payment total for the cart.
      */
     public ?Price $paymentTotal = null;
