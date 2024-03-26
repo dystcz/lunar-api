@@ -3,27 +3,35 @@
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
-use Lunar\Facades\CartSession;
+use Lunar\Base\CartSessionInterface;
 use Lunar\Facades\ShippingManifest;
 use Lunar\Models\Country;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-it('can fetch shipping options for cart', function () {
+beforeEach(function () {
     /** @var TestCase $this */
-    $cart = Cart::factory()->create();
+    $this->cart = Cart::factory()->create();
 
-    CartSession::use($cart);
+    /** @property CartSessionManager $cartSession */
+    $this->cartSession = App::make(CartSessionInterface::class);
 
+    $this->cartSession->use($this->cart);
+});
+
+it('can list shipping options for a cart', function () {
+    /** @var TestCase $this */
     $response = $this
         ->jsonApi()
         ->expects('shipping-options')
-        ->get('/api/v1/shipping-options');
+        ->get(serverUrl('/shipping-options'));
 
     $response->assertSuccessful();
 
-    $shippingOption = ShippingManifest::getOptions($cart)->firstWhere('name', 'Basic Delivery');
+    $shippingOption = ShippingManifest::getOptions($this->cart)->firstWhere('name', 'Basic Delivery');
 
     $response->assertFetchedMany([
         [
@@ -37,13 +45,13 @@ it('can fetch shipping options for cart', function () {
                     'decimal' => (int) $shippingOption->price->decimal,
                     'formatted' => $shippingOption->price->formatted,
                 ],
-                'currency' => $shippingOption->price->currency->toArray(),
+                'currency' => Arr::only($shippingOption->price->currency->toArray(), ['code', 'name']),
             ],
         ],
     ]);
-});
+})->group('shipping-options');
 
-it('can fetch shipping options for a cart based on country', function () {
+it('can list shipping options for a cart based on country', function () {
     /** @var TestCase $this */
     $country = Country::factory()->create([
         'name' => 'Czech Republic',
@@ -57,12 +65,12 @@ it('can fetch shipping options for a cart based on country', function () {
             ->create();
     });
 
-    CartSession::use($cart);
+    $this->cartSession->use($cart);
 
     $response = $this
         ->jsonApi()
         ->expects('shipping-options')
-        ->get('http://localhost/api/v1/shipping-options');
+        ->get(serverUrl('/shipping-options'));
 
     $response->assertSuccessful();
 
@@ -88,4 +96,4 @@ it('can fetch shipping options for a cart based on country', function () {
             ],
         ],
     ]);
-});
+})->group('shipping-options');
