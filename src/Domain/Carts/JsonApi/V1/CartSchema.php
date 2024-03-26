@@ -103,6 +103,8 @@ class CartSchema extends Schema
 
             Str::make('coupon_code'),
 
+            Str::make('payment_option'),
+
             // Custom fields (not in the database)
             Boolean::make('create_user')
                 ->hidden(),
