@@ -59,13 +59,13 @@ trait InteractsWithPaymentOptions
     /**
      * Unset the payment option from the cart.
      */
-    public function unsetPaymentOption(PaymentOption $option, bool $refresh = true): Cart
+    public function unsetPaymentOption(bool $refresh = true): Cart
     {
         /** @var Cart $cart */
         $cart = $this;
 
         return App::make(Config::get('lunar.cart.actions.unset_payment_option', UnsetPaymentOption::class))
-            ->execute($cart, $option)
+            ->execute($cart)
             ->then(fn () => $refresh ? $cart->refresh()->calculate() : $cart);
     }
 
