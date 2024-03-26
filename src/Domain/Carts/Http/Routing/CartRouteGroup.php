@@ -59,7 +59,7 @@ class CartRouteGroup extends RouteGroup
                     ->only('')
                     ->actions('-actions', function (ActionRegistrar $actions) {
                         $actions->post('attach-payment-option');
-                        $actions->delete('detach-payment-option');
+                        $actions->post('detach-payment-option');
                     });
             });
     }

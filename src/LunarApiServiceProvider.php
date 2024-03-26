@@ -177,7 +177,7 @@ class LunarApiServiceProvider extends ServiceProvider
 
         Config::set(
             'lunar.cart.actions.unset_payment_option',
-            [\Dystcz\LunarApi\Domain\Carts\Actions\UnsetPaymentOption::class],
+            \Dystcz\LunarApi\Domain\Carts\Actions\UnsetPaymentOption::class,
         );
     }
 

@@ -48,6 +48,7 @@ class CartPaymentOptionController extends Controller
     public function detachPaymentOption(
         DetachPaymentOptionRequest $request,
     ): DataResponse {
+        /** @var Cart $cart */
         $cart = $this->cartSession->current();
 
         $this->authorize('updatePaymentOption', $cart);

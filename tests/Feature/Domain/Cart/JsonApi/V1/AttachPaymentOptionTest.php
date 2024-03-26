@@ -18,7 +18,7 @@ beforeEach(function () {
     $this->paymentOption = PaymentManifest::getOptions($this->cart)->first();
 });
 
-test('users can attach a payment option to cart address', function () {
+test('users can attach a payment option to cart', function () {
     /** @var TestCase $this */
     $this->cartSession->use($this->cart);
 
