@@ -14,7 +14,7 @@ class ProductVariantFactory extends \Lunar\Database\Factories\ProductVariantFact
 {
     protected $model = ProductVariant::class;
 
-    public function withPrice(int $price = null, int $comparePrice = null): static
+    public function withPrice(?int $price = null, ?int $comparePrice = null): static
     {
         return $this->has(
             Price::factory()->state([

@@ -11,7 +11,7 @@ use InvalidArgumentException;
 use LaravelJsonApi\Eloquent\Fields\Relations\Relation;
 
 /**
- * @property  class-string<Extendable>  $class
+ * @property class-string<Extendable> $class
  *
  * @method ExtensionValueCollection with()
  * @method self setWith(iterable|callable $value)
