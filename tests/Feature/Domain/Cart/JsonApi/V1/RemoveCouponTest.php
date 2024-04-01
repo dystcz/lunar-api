@@ -31,7 +31,7 @@ test('a user can remove a coupon from cart', function () {
 
     Price::factory()->create([
         'price' => 1000, // 10 EUR
-        'tier' => 1,
+        'min_quantity' => 1,
         'currency_id' => $currency->id,
         'priceable_type' => $purchasableA->getMorphClass(),
         'priceable_id' => $purchasableA->id,

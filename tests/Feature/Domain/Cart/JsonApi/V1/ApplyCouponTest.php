@@ -45,7 +45,7 @@ test('a user can apply a valid fixed value coupon', function () {
 
     Price::factory()->create([
         'price' => 1000, // 10 EUR
-        'tier' => 1,
+        'min_quantity' => 1,
         'currency_id' => $currency->id,
         'priceable_type' => $purchasableA->getMorphClass(),
         'priceable_id' => $purchasableA->id,
@@ -136,7 +136,7 @@ test('a user can apply a valid percentage coupon', function () {
 
     Price::factory()->create([
         'price' => 2000, // 20 EUR
-        'tier' => 1,
+        'min_quantity' => 1,
         'currency_id' => $currency->id,
         'priceable_type' => $purchasableA->getMorphClass(),
         'priceable_id' => $purchasableA->id,

@@ -150,7 +150,7 @@ class Product extends LunarProduct
     {
         return $this
             ->prices()
-            ->where('tier', 1)
+            ->where('min_quantity', 1)
             ->where('customer_group_id', null);
     }
 
