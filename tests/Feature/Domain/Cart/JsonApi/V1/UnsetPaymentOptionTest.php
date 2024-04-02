@@ -17,7 +17,7 @@ beforeEach(function () {
     ]);
 });
 
-test('users can detach a payment option from cart', function () {
+test('users can unset a payment option from cart', function () {
     /** @var TestCase $this */
     $this->cartSession->use($this->cart);
 
@@ -27,7 +27,7 @@ test('users can detach a payment option from cart', function () {
         ->withData([
             'type' => 'carts',
         ])
-        ->post(serverUrl('/carts/-actions/detach-payment-option'));
+        ->post(serverUrl('/carts/-actions/unset-payment-option'));
 
     $response
         ->assertSuccessful()

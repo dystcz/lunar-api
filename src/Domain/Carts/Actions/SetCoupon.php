@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\Carts\Actions;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Illuminate\Support\Str;
 
-class ApplyCoupon
+class SetCoupon
 {
     /**
      * Apply coupon.

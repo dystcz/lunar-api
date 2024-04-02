@@ -5,22 +5,23 @@ namespace Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers;
 use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema;
 use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
-use Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\AttachShippingOptionRequest;
-use Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\DetachShippingOptionRequest;
+use Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\SetShippingOptionRequest;
+use Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\UnsetShippingOptionRequest;
 use LaravelJsonApi\Core\Responses\DataResponse;
 
 class CartAddressShippingOptionController extends Controller
 {
     /*
-    * Attach shipping option to cart shipping address.
+    * Set shipping option to cart shipping address.
     */
-    public function attachShippingOption(
+    public function setShippingOption(
         CartAddressSchema $schema,
-        AttachShippingOptionRequest $request,
+        SetShippingOptionRequest $request,
         CartAddress $cartAddress,
     ): DataResponse {
         $this->authorize('update', $cartAddress);
 
+        // Set shipping option
         $cartAddress->update([
             'shipping_option' => $request->input('data.attributes.shipping_option'),
         ]);
@@ -35,16 +36,16 @@ class CartAddressShippingOptionController extends Controller
     }
 
     /*
-    * Detach shipping option from cart shipping address.
+    * Unset shipping option from cart shipping address.
     */
-    public function detachShippingOption(
+    public function unsetShippingOption(
         CartAddressSchema $schema,
-        DetachShippingOptionRequest $request,
+        UnsetShippingOptionRequest $request,
         CartAddress $cartAddress,
     ): DataResponse {
         $this->authorize('update', $cartAddress);
 
-        // Detach shipping option
+        // Unset shipping option
         $cartAddress->update(['shipping_option' => null]);
 
         $model = $schema

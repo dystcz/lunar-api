@@ -190,7 +190,7 @@ return [
     ],
 
     'shipping' => [
-        'attach_shipping_option' => [
+        'set_shipping_option' => [
             'shipping_option' => [
                 'required' => 'Prosím vyberte možnost doručení.',
                 'string' => 'Pole možnost doručení musí být řetězec.',
@@ -199,7 +199,7 @@ return [
     ],
 
     'payments' => [
-        'attach_payment_option' => [
+        'set_payment_option' => [
             'payment_option' => [
                 'required' => 'Prosím vyberte platební metodu.',
                 'string' => 'Pole platební metoda musí být řetězec.',

@@ -208,7 +208,7 @@ return [
     ],
 
     'shipping' => [
-        'attach_shipping_option' => [
+        'set_shipping_option' => [
             'shipping_option' => [
                 'required' => 'Please select a shipping option.',
                 'string' => 'Shipping option field must be a string.',
@@ -217,7 +217,7 @@ return [
     ],
 
     'payments' => [
-        'attach_payment_option' => [
+        'set_payment_option' => [
             'payment_option' => [
                 'required' => 'Please select a payment method.',
                 'string' => 'Payment method field must be a string.',

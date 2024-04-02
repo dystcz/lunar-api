@@ -3,8 +3,8 @@
 namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
-use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\AttachPaymentOptionRequest;
-use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\DetachPaymentOptionRequest;
+use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\SetPaymentOptionRequest;
+use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\UnsetPaymentOptionRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
 use Illuminate\Support\Facades\App;
@@ -24,10 +24,10 @@ class CartPaymentOptionController extends Controller
     }
 
     /**
-     * Attach payment option to cart.
+     * Set payment option to cart.
      */
-    public function attachPaymentOption(
-        AttachPaymentOptionRequest $request,
+    public function setPaymentOption(
+        SetPaymentOptionRequest $request,
     ): DataResponse {
         /** @var Cart $cart */
         $cart = $this->cartSession->current();
@@ -43,10 +43,10 @@ class CartPaymentOptionController extends Controller
     }
 
     /**
-     * Detach payment option from cart.
+     * Unset payment option from cart.
      */
-    public function detachPaymentOption(
-        DetachPaymentOptionRequest $request,
+    public function unsetPaymentOption(
+        UnsetPaymentOptionRequest $request,
     ): DataResponse {
         /** @var Cart $cart */
         $cart = $this->cartSession->current();

@@ -20,7 +20,7 @@ beforeEach(function () {
     Config::set('lunar.payments.default', 'paypal');
 });
 
-it('can apply empty payment totals', function () {
+it('can set empty payment totals', function () {
     /** @var TestCase $this */
     $currency = Currency::factory()->create();
 
@@ -58,7 +58,7 @@ it('can apply empty payment totals', function () {
     $this->assertInstanceOf(PriceDataType::class, $cart->paymentSubTotal);
 })->group('payment-options', 'carts.payment-options');
 
-it('can apply payment totals', function () {
+it('can set payment totals', function () {
     /** @var TestCase $this */
     $currency = Currency::factory()->create();
 

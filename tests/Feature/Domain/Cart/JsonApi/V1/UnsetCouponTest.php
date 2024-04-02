@@ -17,7 +17,7 @@ use Lunar\Models\CustomerGroup;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-test('a user can remove a coupon from cart', function () {
+test('a user can unset a coupon from cart', function () {
     Event::fake(CartCreated::class);
 
     /** @var TestCase $this */
@@ -87,7 +87,7 @@ test('a user can remove a coupon from cart', function () {
                 'coupon_code' => 'ahoj',
             ],
         ])
-        ->post('/api/v1/carts/-actions/apply-coupon');
+        ->post('/api/v1/carts/-actions/set-coupon');
 
     // ray($response->json()['data']['attributes']['prices'])->purple();
 
@@ -105,7 +105,7 @@ test('a user can remove a coupon from cart', function () {
             'type' => 'carts',
             'attributes' => [],
         ])
-        ->delete('/api/v1/carts/-actions/remove-coupon');
+        ->post('/api/v1/carts/-actions/unset-coupon');
 
     $response->assertSuccessful();
 

@@ -27,8 +27,8 @@ class CartAddressRouteGroup extends RouteGroup
                 $server->resource($this->getPrefix(), CartAddressShippingOptionController::class)
                     ->only('')
                     ->actions('-actions', function (ActionRegistrar $actions) {
-                        $actions->withId()->patch('attach-shipping-option');
-                        $actions->withId()->delete('detach-shipping-option');
+                        $actions->withId()->patch('set-shipping-option');
+                        $actions->withId()->patch('unset-shipping-option');
                     });
 
                 $server->resource($this->getPrefix(), UpdateCartAddressCountryController::class)

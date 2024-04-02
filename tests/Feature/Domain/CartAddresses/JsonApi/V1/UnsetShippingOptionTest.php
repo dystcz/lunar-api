@@ -23,7 +23,7 @@ beforeEach(function () {
     ];
 });
 
-test('users can detach a shipping option from cart address', function () {
+test('users can unset a shipping option from cart address', function () {
     /** @var TestCase $this */
     $this->cartSession->use($this->cart);
 
@@ -31,7 +31,7 @@ test('users can detach a shipping option from cart address', function () {
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->delete(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}/-actions/detach-shipping-option"));
+        ->patch(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}/-actions/unset-shipping-option"));
 
     $response->assertFetchedOne($this->cartAddress);
 
@@ -42,14 +42,14 @@ test('users can detach a shipping option from cart address', function () {
     expect($this->cartAddress->fresh()->shipping_option)->toBeNull();
 })->group('cart-addresses', 'shipping-options');
 
-test('only the user who owns the cart address can detach shipping option for it', function () {
+test('only the user who owns the cart address can unset shipping option for it', function () {
     /** @var TestCase $this */
     $this->cartSession->forget();
     $response = $this
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->delete(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}/-actions/detach-shipping-option"));
+        ->patch(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}/-actions/unset-shipping-option"));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',

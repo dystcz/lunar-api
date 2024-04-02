@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 use Dystcz\LunarApi\Domain\Carts\Rules\ValidCoupon;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 
-class AddCouponToCartRequest extends ResourceRequest
+class SetCouponToCartRequest extends ResourceRequest
 {
     /**
      * Get the validation rules for the resource.

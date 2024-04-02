@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 
-class DetachPaymentOptionRequest extends ResourceRequest
+class UnsetCouponRequest extends ResourceRequest
 {
     /**
      * Get the validation rules for the resource.
@@ -26,7 +26,8 @@ class DetachPaymentOptionRequest extends ResourceRequest
     public function messages(): array
     {
         return [
-            //
+            'coupon_code.required' => __('lunar-api::validations.carts.coupon_code.required'),
+            'coupon_code.string' => __('lunar-api::validations.carts.coupon_code.string'),
         ];
     }
 }

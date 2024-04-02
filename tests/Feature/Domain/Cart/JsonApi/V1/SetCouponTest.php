@@ -31,7 +31,7 @@ uses(TestCase::class, RefreshDatabase::class);
 //     ]);
 // }
 
-test('a user can apply a valid fixed value coupon', function () {
+test('a user can set a valid fixed value coupon to cart', function () {
     Event::fake(CartCreated::class);
 
     /** @var TestCase $this */
@@ -101,7 +101,7 @@ test('a user can apply a valid fixed value coupon', function () {
                 'coupon_code' => 'ahoj',
             ],
         ])
-        ->post('/api/v1/carts/-actions/apply-coupon');
+        ->post('/api/v1/carts/-actions/set-coupon');
 
     // ray($response->json()['data']['attributes']['prices'])->purple();
 
@@ -122,7 +122,7 @@ test('a user can apply a valid fixed value coupon', function () {
     $this->assertCount(1, $cart->discounts);
 })->group('coupons');
 
-test('a user can apply a valid percentage coupon', function () {
+test('a user can set a valid percentage coupon to cart', function () {
     Event::fake(CartCreated::class);
 
     /** @var TestCase $this */
@@ -188,7 +188,7 @@ test('a user can apply a valid percentage coupon', function () {
                 'coupon_code' => 'swag10',
             ],
         ])
-        ->post('/api/v1/carts/-actions/apply-coupon');
+        ->post('/api/v1/carts/-actions/set-coupon');
 
     $response->assertSuccessful();
 

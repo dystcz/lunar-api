@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 
-class AttachPaymentOptionRequest extends ResourceRequest
+class SetPaymentOptionRequest extends ResourceRequest
 {
     /**
      * Get the validation rules for the resource.
@@ -29,8 +29,8 @@ class AttachPaymentOptionRequest extends ResourceRequest
     public function messages(): array
     {
         return [
-            'payment_option.required' => __('lunar-api::validations.payments.attach_payment_option.payment_option.required'),
-            'payment_option.string' => __('lunar-api::validations.payments.attach_payment_option.payment_option.string'),
+            'payment_option.required' => __('lunar-api::validations.payments.set_payment_option.payment_option.required'),
+            'payment_option.string' => __('lunar-api::validations.payments.set_payment_option.payment_option.string'),
         ];
     }
 }

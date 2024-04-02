@@ -18,7 +18,7 @@ beforeEach(function () {
     $this->paymentOption = PaymentManifest::getOptions($this->cart)->first();
 });
 
-test('users can attach a payment option to cart', function () {
+test('users can set a payment option to cart', function () {
     /** @var TestCase $this */
     $this->cartSession->use($this->cart);
 
@@ -33,7 +33,7 @@ test('users can attach a payment option to cart', function () {
         ->jsonApi()
         ->expects('carts')
         ->withData($data)
-        ->post(serverUrl('/carts/-actions/attach-payment-option'));
+        ->post(serverUrl('/carts/-actions/set-payment-option'));
 
     $response
         ->assertSuccessful()
@@ -46,7 +46,7 @@ test('users can attach a payment option to cart', function () {
     expect($this->cart->fresh()->payment_option)->toBe($data['attributes']['payment_option']);
 })->group('carts', 'payment-options');
 
-it('validates payment option attribute when attaching payment option to cart', function () {
+it('validates payment option attribute when setting payment option to cart', function () {
     /** @var TestCase $this */
     $response = $this
         ->jsonApi()
@@ -57,10 +57,10 @@ it('validates payment option attribute when attaching payment option to cart', f
                 'payment_option' => null,
             ],
         ])
-        ->post(serverUrl('/carts/-actions/attach-payment-option'));
+        ->post(serverUrl('/carts/-actions/set-payment-option'));
 
     $response->assertErrorStatus([
-        'detail' => __('lunar-api::validations.payments.attach_payment_option.payment_option.required'),
+        'detail' => __('lunar-api::validations.payments.set_payment_option.payment_option.required'),
         'status' => '422',
     ]);
 })->group('carts', 'payment-options');

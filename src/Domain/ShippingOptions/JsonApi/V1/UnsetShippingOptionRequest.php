@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1;
 
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 
-class AttachShippingOptionRequest extends ResourceRequest
+class UnsetShippingOptionRequest extends ResourceRequest
 {
     /**
      * Get the validation rules for the resource.
@@ -14,10 +14,7 @@ class AttachShippingOptionRequest extends ResourceRequest
     public function rules(): array
     {
         return [
-            'shipping_option' => [
-                'required',
-                'string',
-            ],
+            //
         ];
     }
 
@@ -29,8 +26,7 @@ class AttachShippingOptionRequest extends ResourceRequest
     public function messages(): array
     {
         return [
-            'shipping_option.required' => __('lunar-api::validations.shipping.attach_shipping_option.shipping_option.required'),
-            'shipping_option.string' => __('lunar-api::validations.shipping.attach_shipping_option.shipping_option.string'),
+            //
         ];
     }
 }
