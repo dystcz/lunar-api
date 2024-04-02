@@ -13,7 +13,9 @@
 | Set shipping option | `CartAddress` | `/attach-shipping-option` → `/set-shipping-option` | --- |
 | Unset shipping option | `CartAddress` | `/detach-shipping-option` → `/unset-shipping-option` | `delete` → `patch` |
 
-### New endpoints
+### Purchasable payment options
+
+#### Endpoints for setting and unsetting payment options
 
 | Description | Related Model | Endpoint | Method |
 | ----------- | ------------- | -------- | -------|
