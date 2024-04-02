@@ -30,6 +30,7 @@ return [
     // Purchasable
     'purchasable' => [
         'non_eloquent_types' => [
+            'payment',
             'shipping',
         ],
     ],
@@ -46,5 +47,4 @@ return [
         // Available strategies: signature, auth, null
         'checkout_protection_strategy' => CheckoutProtectionStrategy::SIGNATURE,
     ],
-
 ];

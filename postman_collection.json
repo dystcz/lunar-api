@@ -363,7 +363,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"type\": \"carts\",\n    \"attributes\": {\n      \"create_user\": true,\n      \"agree\": true\n    }\n  }\n}",
+							"raw": "{\n  \"data\": {\n    \"type\": \"carts\",\n    \"attributes\": {\n      \"create_user\": false,\n      \"agree\": true\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -385,6 +385,66 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Attach payment option action",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"carts\",\n    \"attributes\": {\n      \"payment_option\": \"DOBIRKA\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/carts/-actions/attach-payment-option",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								"-actions",
+								"attach-payment-option"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detach payment option action",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"carts\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/carts/-actions/detach-payment-option",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								"-actions",
+								"detach-payment-option"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -398,7 +458,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"type\": \"cart-lines\",\n    \"attributes\": {\n      \"quantity\": 1,\n      \"meta\": null,\n      \"purchasable_id\": 349,\n      \"purchasable_type\": \"Lunar\\\\Models\\\\ProductVariant\"\n    }\n  }\n}",
+							"raw": "{\n  \"data\": {\n    \"type\": \"cart-lines\",\n    \"attributes\": {\n      \"quantity\": 1,\n      \"meta\": null,\n      \"purchasable_id\": 1,\n      \"purchasable_type\": \"Lunar\\\\Models\\\\ProductVariant\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -555,7 +615,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/cart-addresses/1/-actions/attach-shipping-option",
+							"raw": "{{url}}/api/v1/cart-addresses/666271/-actions/attach-shipping-option",
 							"host": [
 								"{{url}}"
 							],
@@ -563,7 +623,7 @@
 								"api",
 								"v1",
 								"cart-addresses",
-								"1",
+								"666271",
 								"-actions",
 								"attach-shipping-option"
 							]
@@ -1951,6 +2011,30 @@
 								"api",
 								"v1",
 								"shipping-options"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PaymentOptions",
+			"item": [
+				{
+					"name": "List payment options",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/payment-options",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"payment-options"
 							]
 						}
 					},

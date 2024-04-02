@@ -2,12 +2,20 @@
 
 namespace Dystcz\LunarApi\Domain\PaymentOptions\Entities;
 
+use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
 use Generator;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\App;
+use Lunar\Base\CartSessionInterface;
 
 class PaymentOptionStorage
 {
+    /**
+     * @var CartSessionManager
+     */
+    private CartSessionInterface $cartSession;
+
     /**
      * @var Collection<PaymentOption>
      */
@@ -15,33 +23,40 @@ class PaymentOptionStorage
 
     public function __construct()
     {
-        $this->paymentOptions = collect(Config::get('lunar.payments.types'))
-            ->map(
-                fn (array $paymentOption, string $key) => PaymentOption::fromArray([
-                    'id' => $paymentOption['driver'],
-                    'driver' => $paymentOption['driver'],
-                    'name' => $key,
-                ])
-            );
+        $this->cartSession = App::make(CartSessionInterface::class);
+
+        /** @var Cart $cart */
+        $cart = $this->cartSession->current();
+
+        $this->paymentOptions = PaymentManifest::getOptions($cart);
     }
 
     /**
      * Find a payment option.
      */
-    public function find(string $id): ?PaymentOption
+    public function find(string $i): ?PaymentOption
     {
-        return $this->paymentOptions->firstWhere('id', $id);
+        if (isset($this->paymentOptions[$i])) {
+            return $this->paymentOptions[$i];
+        }
+
+        return null;
     }
 
+    /**
+     * @return Generator<PaymentOption>
+     */
     public function cursor(): Generator
     {
-        foreach ($this->paymentOptions as $shippingOption) {
-            yield $shippingOption;
+        foreach ($this->paymentOptions as $paymentOption) {
+            yield $paymentOption;
         }
     }
 
     /**
      * Get all payment options.
+     *
+     * @return PaymentOption[]
      */
     public function all(): array
     {

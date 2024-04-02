@@ -18,7 +18,8 @@ class TokenBasedCartSessionMiddleware
     {
         return [
             'v1.carts.myCart',
-            'v1.carts.applyCoupon',
+            'v1.carts.setCoupon',
+            'v1.carts.unsetCoupon',
             'v1.carts.checkout',
             'v1.carts.clear',
             'v1.cart-lines.store',
@@ -27,8 +28,8 @@ class TokenBasedCartSessionMiddleware
             'v1.shipping-options.index',
             'v1.cart-addresses.store',
             'v1.cart-addresses.update',
-            'v1.cart-addresses.attachShippingOption',
-            'v1.cart-addresses.detachShippingOption',
+            'v1.cart-addresses.setShippingOption',
+            'v1.cart-addresses.unsetShippingOption',
             'v1.cart-addresses.updateCountry',
         ];
     }
@@ -88,7 +89,7 @@ class TokenBasedCartSessionMiddleware
     /**
      * Find a cart by the token
      *
-     * @param  string  $token The token
+     * @param  string  $token  The token
      * @return Cart|null The cart or null if not found
      */
     public function findCartByToken(string $token): ?Cart
@@ -130,7 +131,7 @@ class TokenBasedCartSessionMiddleware
     /**
      * Get the token from the request header X-Cart-Token
      *
-     * @param  Request  $request The request object
+     * @param  Request  $request  The request object
      * @return string|null The token or null if not found
      */
     public function getToken($request): ?string
@@ -141,8 +142,8 @@ class TokenBasedCartSessionMiddleware
     /**
      * Set the token in the response header X-Cart-Token
      *
-     * @param  Response  $response The response object
-     * @param $token The token
+     * @param  Response  $response  The response object
+     * @param  $token  The token
      * @return Response The response object
      */
     public function setToken(Response $response, $token): Response

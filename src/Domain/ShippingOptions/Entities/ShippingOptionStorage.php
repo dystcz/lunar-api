@@ -4,17 +4,25 @@ namespace Dystcz\LunarApi\Domain\ShippingOptions\Entities;
 
 use Generator;
 use Illuminate\Support\Collection;
-use Lunar\Facades\CartSession;
+use Illuminate\Support\Facades\App;
+use Lunar\Base\CartSessionInterface;
 use Lunar\Facades\ShippingManifest;
 
 class ShippingOptionStorage
 {
+    /**
+     * @var CartSessionManager
+     */
+    private CartSessionInterface $cartSession;
+
     private Collection $shippingOptions;
 
     public function __construct()
     {
+        $this->cartSession = App::make(CartSessionInterface::class);
+
         /** @var Cart $cart */
-        $cart = CartSession::current();
+        $cart = $this->cartSession->current();
 
         $this->shippingOptions = ShippingManifest::getOptions($cart);
     }
@@ -22,24 +30,29 @@ class ShippingOptionStorage
     /**
      * Find a shipping option.
      */
-    public function find(string $i): ?ShippingOption
+    public function find(string $id): ?ShippingOption
     {
-        if (isset($this->shippingOptions[$i])) {
-            return ShippingOption::fromArray($this->shippingOptions[$i]);
+        if (isset($this->shippingOptions[$id])) {
+            return ShippingOption::fromOption($this->shippingOptions[$id]);
         }
 
         return null;
     }
 
+    /**
+     * @return Generator<ShippingOption>
+     */
     public function cursor(): Generator
     {
         foreach ($this->shippingOptions as $shippingOption) {
-            yield ShippingOption::fromArray($shippingOption);
+            yield ShippingOption::fromOption($shippingOption);
         }
     }
 
     /**
      * Get all shippingOptions.
+     *
+     * @return ShippingOption[]
      */
     public function all(): array
     {

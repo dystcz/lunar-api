@@ -83,6 +83,9 @@ return [
         'shipping_option' => [
             'required' => 'Please select a shipping option.',
         ],
+        'payment_option' => [
+            'required' => 'Please select a payment option.',
+        ],
     ],
 
     'cart_addresses' => [
@@ -205,9 +208,20 @@ return [
     ],
 
     'shipping' => [
-        'shipping_option' => [
-            'required' => 'Please select a shipping option.',
-            'string' => 'Shipping option field must be a string.',
+        'set_shipping_option' => [
+            'shipping_option' => [
+                'required' => 'Please select a shipping option.',
+                'string' => 'Shipping option field must be a string.',
+            ],
+        ],
+    ],
+
+    'payments' => [
+        'set_payment_option' => [
+            'payment_option' => [
+                'required' => 'Please select a payment method.',
+                'string' => 'Payment method field must be a string.',
+            ],
         ],
     ],
 ];
