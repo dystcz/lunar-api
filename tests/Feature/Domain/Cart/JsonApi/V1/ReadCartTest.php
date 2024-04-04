@@ -140,4 +140,4 @@ it('can merge carts when user logs in', function () {
             'purchasable_id' => $line['attributes']['purchasable_id'],
         ]);
     }
-})->group('carts', 'carts.read');
+})->group('carts', 'carts.read')->skip('Merging carts is temporarily disabled.');
