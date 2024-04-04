@@ -31,6 +31,9 @@ class CheckoutCart implements CheckoutCartContract
         );
 
         $model = Order::query()
+            ->with([
+                'cart' => fn ($query) => $query->with(Config::get('lunar.cart.eager_load', [])),
+            ])
             ->where('id', $order->id)
             ->firstOrFail();
 
