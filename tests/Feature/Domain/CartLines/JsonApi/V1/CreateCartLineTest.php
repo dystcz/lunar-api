@@ -12,9 +12,6 @@ uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
     /** @var TestCase $this */
-
-    // Event::fake(CartCreated::class);
-
     $this->cartSession = App::make(CartSessionInterface::class);
 });
 

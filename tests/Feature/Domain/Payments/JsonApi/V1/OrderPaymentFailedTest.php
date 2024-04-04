@@ -1,6 +1,5 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Enums\OrderStatus;
 use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentFailed;
@@ -17,8 +16,6 @@ uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
     /** @var TestCase $this */
-    Event::fake(CartCreated::class);
-
     /** @var Cart $cart */
     $cart = Cart::factory()
         ->withAddresses()
