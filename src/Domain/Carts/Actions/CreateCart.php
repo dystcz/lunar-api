@@ -13,9 +13,12 @@ class CreateCart extends Action
 {
     protected CartSessionManager $cartSession;
 
+    protected AuthManager $authManager;
+
     public function __construct(
-        protected AuthManager $authManager,
     ) {
+        $this->authManager = App::make(AuthManager::class);
+
         $this->cartSession = App::make(CartSessionInterface::class);
     }
 
