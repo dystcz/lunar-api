@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.8.8
+
+### Changes
+
+- Carts do not get automatically created when fetching them unless configured with `lunar.cart.auto_create = true`. However, they are created on demand by adding a first `CartLine` to a `Cart`.
+- Added custom `CartSessionAuthListener` which merges current cart in the session with previously associated user cart and returns the updated user cart.
+- Added `CreateEmptyCartAddresses` action from a listener with the same name.
+
+### ⚠️ Breaking changes
+
+- Empty `CartAddress`es are not created automatically with `Cart` anymore. You will have to create them manually by calling the endpoint below or using your own listener for the `CartCreated` event.
+
+#### New endpoints
+
+| Description | Related Model / Entity | Endpoint | Method |
+| ----------- | ------------- | -------- | -------|
+| Create empty cart addresses | `Cart` | `/carts/-actions/create-empty-addresses` | `post` |
+
 ## 0.8.7
 
 ### ⚠️ Breaking changes
