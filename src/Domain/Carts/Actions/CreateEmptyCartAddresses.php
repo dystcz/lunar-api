@@ -1,19 +1,21 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Carts\Listeners;
+namespace Dystcz\LunarApi\Domain\Carts\Actions;
 
-use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Support\Actions\Action;
 
-class CreateEmptyCartAddresses
+class CreateEmptyCartAddresses extends Action
 {
     public function __construct()
     {
     }
 
-    public function handle(CartCreated $event): void
+    /**
+     * Create empty addresses for a cart.
+     */
+    public function handle(Cart $cart): void
     {
-        $cart = $event->cart;
-
         $cart->setShippingAddress([
             'country_id' => null,
             'title' => null,

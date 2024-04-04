@@ -68,6 +68,14 @@ class CartPolicy
     }
 
     /**
+     * Determine whether the user can create empty addresses.
+     */
+    public function createEmptyAddresses(?Authenticatable $user, Cart $cart): bool
+    {
+        return $this->check($user, $cart);
+    }
+
+    /**
      * Determine whether the user can update the model.
      */
     public function checkout(?Authenticatable $user, Cart $cart): bool
