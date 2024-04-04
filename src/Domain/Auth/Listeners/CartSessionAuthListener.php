@@ -37,25 +37,25 @@ class CartSessionAuthListener extends LunarCartSessionAuthListener
         };
     }
 
-    /**
-     * Handle the login event.
-     */
-    public function login(Login $event): void
-    {
-        parent::login($event);
-
-        if (! is_lunar_user($event->user)) {
-            return;
-        }
-
-        // Does this user have a cart?
-        $userCart = Cart::query()
-            ->where('user_id', $event->user->getKey())
-            ->active()
-            ->first();
-
-        if ($userCart) {
-            $this->cartSession->use($userCart);
-        }
-    }
+    // /**
+    //  * Handle the login event.
+    //  */
+    // public function login(Login $event): void
+    // {
+    //     parent::login($event);
+    //
+    //     if (! is_lunar_user($event->user)) {
+    //         return;
+    //     }
+    //
+    //     // Does this user have a cart?
+    //     $userCart = Cart::query()
+    //         ->where('user_id', $event->user->getKey())
+    //         ->active()
+    //         ->first();
+    //
+    //     if ($userCart) {
+    //         $this->cartSession->use($userCart);
+    //     }
+    // }
 }

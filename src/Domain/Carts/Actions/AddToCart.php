@@ -37,6 +37,8 @@ class AddToCart extends Action
             fn (CartLine $cartLine) => $cartLine->purchasable->is($purchasable)
         );
 
+        $this->cartSession->use($cart);
+
         return [$cart, $cartLine];
     }
 
