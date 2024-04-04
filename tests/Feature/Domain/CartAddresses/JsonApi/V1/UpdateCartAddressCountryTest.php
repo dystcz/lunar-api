@@ -4,13 +4,14 @@ use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Countries\Models\Country;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Facades\CartSession;
+use Illuminate\Support\Facades\App;
+use Lunar\Base\CartSessionInterface;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
     /** @var TestCase $this */
-    $this->cart = Cart::factory()->create();
+    $this->cart = Cart::factory()->withAddresses()->create();
 
     $this->country = Country::factory()->create();
 
@@ -28,19 +29,23 @@ beforeEach(function () {
             ],
         ],
     ];
+
+    $this->cartSession = App::make(CartSessionInterface::class);
 });
 
 test('users can update cart address country', function () {
     /** @var TestCase $this */
-    CartSession::use($this->cart);
+    $this->cartSession->use($this->cart);
 
     $response = $this
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/update-country');
+        ->patch(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}/-actions/update-country"));
 
-    $response->assertFetchedOne($this->cartAddress);
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($this->cartAddress);
 
     $this->assertDatabaseHas($this->cartAddress->getTable(), [
         'country_id' => $this->country->id,
@@ -54,7 +59,7 @@ test('only the user who owns the cart address can update its country', function 
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey().'/-actions/update-country');
+        ->patch(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}/-actions/update-country"));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',

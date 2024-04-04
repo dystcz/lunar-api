@@ -31,6 +31,7 @@ beforeEach(function () {
 
 it('can handle canceled payment', function () {
     /** @var TestCase $this */
+    Event::fake();
 
     /** @var TestPaymentAdapter $paymentAdapter */
     $paymentAdapter = App::make(PaymentAdaptersRegister::class)->get('test');
