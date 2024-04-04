@@ -221,9 +221,6 @@ class LunarApiServiceProvider extends ServiceProvider
     protected function registerEvents(): void
     {
         $events = [
-            \Dystcz\LunarApi\Domain\Carts\Events\CartCreated::class => [
-                \Dystcz\LunarApi\Domain\Carts\Listeners\CreateCartAddresses::class,
-            ],
             \Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentFailed::class => [
                 \Dystcz\LunarApi\Domain\Payments\Listeners\HandleFailedPayment::class,
             ],

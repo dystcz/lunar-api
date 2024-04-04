@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\Carts\Listeners;
 
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 
-class CreateCartAddresses
+class CreateEmptyCartAddresses
 {
     public function __construct()
     {
