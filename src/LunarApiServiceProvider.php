@@ -230,6 +230,9 @@ class LunarApiServiceProvider extends ServiceProvider
             \Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentCanceled::class => [
                 \Dystcz\LunarApi\Domain\Payments\Listeners\HandleFailedPayment::class,
             ],
+            \Illuminate\Auth\Events\Login::class => [
+                \Dystcz\LunarApi\Domain\Auth\Listeners\CartSessionAuthListener::class,
+            ],
         ];
 
         foreach ($events as $event => $listeners) {
