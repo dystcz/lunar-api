@@ -1,14 +1,12 @@
 <?php
 
 use Carbon\Carbon;
-use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Discounts\Factories\DiscountFactory;
 use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
 use Lunar\DiscountTypes\AmountOff;
 use Lunar\Facades\CartSession;
 use Lunar\Models\Channel;
@@ -18,7 +16,6 @@ use Lunar\Models\CustomerGroup;
 uses(TestCase::class, RefreshDatabase::class);
 
 test('a user can unset a coupon from cart', function () {
-    Event::fake(CartCreated::class);
 
     /** @var TestCase $this */
     $currency = Currency::getDefault();

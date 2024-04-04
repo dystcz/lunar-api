@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartsController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CheckoutCartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ClearUserCartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CouponsController;
+use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CreateEmptyCartAddressesController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ReadUserCartController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
@@ -40,6 +41,12 @@ class CartRouteGroup extends RouteGroup
                     ->only('')
                     ->actions('-actions', function (ActionRegistrar $actions) {
                         $actions->get('my-cart');
+                    });
+
+                $server->resource($this->getPrefix(), CreateEmptyCartAddressesController::class)
+                    ->only('')
+                    ->actions('-actions', function (ActionRegistrar $actions) {
+                        $actions->post('create-empty-addresses');
                     });
 
                 $server->resource($this->getPrefix(), CheckoutCartController::class)

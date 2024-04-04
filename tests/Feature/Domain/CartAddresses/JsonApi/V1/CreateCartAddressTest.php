@@ -6,7 +6,8 @@ use Dystcz\LunarApi\Domain\Countries\Models\Country;
 use Dystcz\LunarApi\LunarApi;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Facades\CartSession;
+use Illuminate\Support\Facades\App;
+use Lunar\Base\CartSessionInterface;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -44,21 +45,23 @@ beforeEach(function () {
             ],
         ],
     ];
+
+    $this->cartSession = App::make(CartSessionInterface::class);
 });
 
 test('cart address can be created', function () {
     /** @var TestCase $this */
-    CartSession::use($this->cart);
+    $this->cartSession->use($this->cart);
 
     $response = $this
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
         ->includePaths('cart', 'country')
-        ->post('/api/v1/cart-addresses');
+        ->post(serverUrl('/cart-addresses'));
 
     $id = $response
-        ->assertCreatedWithServerId('http://localhost/api/v1/cart-addresses', $this->data)
+        ->assertCreatedWithServerId(serverUrl('/cart-addresses', true), $this->data)
         ->id();
 
     if (LunarApi::usesHashids()) {
@@ -77,7 +80,7 @@ test('only the user who owns the cart can assign an address to it', function () 
         ->expects('cart-addresses')
         ->withData($this->data)
         ->includePaths('cart')
-        ->post('/api/v1/cart-addresses');
+        ->post(serverUrl('/cart-addresses'));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',

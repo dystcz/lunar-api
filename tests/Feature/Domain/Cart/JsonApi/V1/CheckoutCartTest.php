@@ -1,6 +1,5 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
@@ -20,7 +19,6 @@ uses(TestCase::class, RefreshDatabase::class);
 
 test('a user can checkout a cart', function () {
     /** @var TestCase $this */
-    Event::fake(CartCreated::class);
 
     /** @var CartFactory $factory */
     $factory = Cart::factory();
@@ -65,7 +63,7 @@ test('a user can checkout a cart', function () {
 
 test('a user can be registered when checking out', function () {
     /** @var TestCase $this */
-    Event::fake([CartCreated::class, Registered::class]);
+    Event::fake([Registered::class]);
 
     /** @var Cart $cart */
     $cart = Cart::withoutEvents(function () {
@@ -118,7 +116,7 @@ test('a user can be registered when checking out', function () {
 
 test('it validates existing user before being registered when checking out', function () {
     /** @var TestCase $this */
-    Event::fake([CartCreated::class, Registered::class]);
+    Event::fake([Registered::class]);
 
     /** @var Cart $cart */
     $cart = Cart::withoutEvents(function () {
@@ -164,8 +162,6 @@ test('it validates existing user before being registered when checking out', fun
 
 it('does not forget cart after checkout if configured', function () {
     /** @var TestCase $this */
-    Event::fake(CartCreated::class);
-
     Config::set('lunar-api.general.checkout.forget_cart_after_order_creation', false);
 
     /** @var CartFactory $factory */
@@ -202,8 +198,6 @@ it('does not forget cart after checkout if configured', function () {
 
 it('forgets cart after checkout if configured', function () {
     /** @var TestCase $this */
-    Event::fake(CartCreated::class);
-
     Config::set('lunar-api.general.checkout.forget_cart_after_order_creation', true);
 
     /** @var CartFactory $factory */
@@ -240,7 +234,6 @@ it('forgets cart after checkout if configured', function () {
 
 it('returns signed urls for order actions', function () {
     /** @var TestCase $this */
-    Event::fake(CartCreated::class);
 
     /** @var CartFactory $factory */
     $factory = Cart::factory();

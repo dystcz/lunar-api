@@ -5,12 +5,13 @@ namespace Dystcz\LunarApi\Domain\CartLines\Actions;
 use Dystcz\LunarApi\Domain\CartLines\Data\CartLineData;
 use Dystcz\LunarApi\Domain\CartLines\Models\CartLine;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Support\Actions\Action;
 use Illuminate\Support\Facades\App;
 use JetBrains\PhpStorm\ArrayShape;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
 
-class UpdateCartLine
+class UpdateCartLine extends Action
 {
     protected CartSessionManager $cartSession;
 
@@ -20,7 +21,7 @@ class UpdateCartLine
     }
 
     #[ArrayShape([Cart::class, CartLine::class])]
-    public function __invoke(CartLineData $data, CartLine $cartLine): array
+    public function handle(CartLineData $data, CartLine $cartLine): array
     {
         /** @var Cart $cart */
         $cart = $this->cartSession->current();
