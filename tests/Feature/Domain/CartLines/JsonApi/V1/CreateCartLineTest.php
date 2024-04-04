@@ -84,6 +84,9 @@ it('manually creates a cart when cart auto create turned off', function () {
         ->assertSuccessful()
         ->assertFetchedNull();
 
+    $this->assertNull($this->cartSession->current());
+
+    // This adds cart to session
     $response = $this
         ->jsonApi()
         ->expects('cart-lines')
