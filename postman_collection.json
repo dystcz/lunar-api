@@ -275,7 +275,7 @@
 					"response": []
 				},
 				{
-					"name": "Apply coupon to cart action",
+					"name": "Set coupon action",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -289,7 +289,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/carts/-actions/apply-coupon",
+							"raw": "{{url}}/api/v1/carts/-actions/set-coupon",
 							"host": [
 								"{{url}}"
 							],
@@ -298,7 +298,37 @@
 								"v1",
 								"carts",
 								"-actions",
-								"apply-coupon"
+								"set-coupon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unset coupon action",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"carts\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/carts/-actions/unset-coupon",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								"-actions",
+								"unset-coupon"
 							]
 						}
 					},
@@ -387,37 +417,7 @@
 					"response": []
 				},
 				{
-					"name": "Attach payment option action",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"type\": \"carts\",\n    \"attributes\": {\n      \"payment_option\": \"DOBIRKA\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/v1/carts/-actions/attach-payment-option",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"carts",
-								"-actions",
-								"attach-payment-option"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Detach payment option action",
+					"name": "Create empty addresses action",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -431,7 +431,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/carts/-actions/detach-payment-option",
+							"raw": "{{url}}/api/v1/carts/-actions/create-empty-addresses",
 							"host": [
 								"{{url}}"
 							],
@@ -440,7 +440,67 @@
 								"v1",
 								"carts",
 								"-actions",
-								"detach-payment-option"
+								"create-empty-addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set payment option action",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"carts\",\n    \"attributes\": {\n      \"payment_option\": \"DOBIRKA\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/carts/-actions/set-payment-option",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								"-actions",
+								"set-payment-option"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unset payment option action",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"carts\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/carts/-actions/unset-payment-option",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								"-actions",
+								"unset-payment-option"
 							]
 						}
 					},
@@ -601,7 +661,7 @@
 					"response": []
 				},
 				{
-					"name": "Attach shipping option action",
+					"name": "Set shipping option action",
 					"request": {
 						"method": "PATCH",
 						"header": [],
@@ -615,7 +675,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/cart-addresses/666271/-actions/attach-shipping-option",
+							"raw": "{{url}}/api/v1/cart-addresses/1/-actions/set-shipping-option",
 							"host": [
 								"{{url}}"
 							],
@@ -623,9 +683,9 @@
 								"api",
 								"v1",
 								"cart-addresses",
-								"666271",
+								"1",
 								"-actions",
-								"attach-shipping-option"
+								"set-shipping-option"
 							]
 						}
 					},
@@ -634,7 +694,7 @@
 				{
 					"name": "Detach shipping option action",
 					"request": {
-						"method": "DELETE",
+						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -646,7 +706,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/cart-addresses/1/-actions/detach-shipping-option",
+							"raw": "{{url}}/api/v1/cart-addresses/1/-actions/unset-shipping-option",
 							"host": [
 								"{{url}}"
 							],
@@ -656,7 +716,7 @@
 								"cart-addresses",
 								"1",
 								"-actions",
-								"detach-shipping-option"
+								"unset-shipping-option"
 							]
 						}
 					},
