@@ -46,6 +46,6 @@ class AddToCart extends Action
     private function getCart(): Cart
     {
         /** @var Cart $cart */
-        $cart = $this->cartSession->current() ?? CreateCart::run();
+        return $this->cartSession->current() ?? CreateCart::run();
     }
 }
