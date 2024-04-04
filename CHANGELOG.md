@@ -27,7 +27,7 @@
 | Description | Related Model | Endpoint change | Method change |
 | ----------- | ------------- | --------------- | --------------|
 | Set coupon action | `Cart` | `/apply-coupon` → `/set-coupon` | `patch` → `post` |
-| Unset coupon action | `Cart` | `/remove-coupon` → `/unset-coupon` | `patch` → `post` |
+| Unset coupon action | `Cart` | `/remove-coupon` → `/unset-coupon` | `delete` → `post` |
 | Set shipping option | `CartAddress` | `/attach-shipping-option` → `/set-shipping-option` | --- |
 | Unset shipping option | `CartAddress` | `/detach-shipping-option` → `/unset-shipping-option` | `delete` → `patch` |
 
