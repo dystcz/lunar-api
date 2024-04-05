@@ -3,12 +3,12 @@
 namespace Dystcz\LunarApi\Domain\Carts\Pipelines;
 
 use Closure;
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
 use Lunar\Base\ValueObjects\Cart\TaxBreakdown;
 use Lunar\Base\ValueObjects\Cart\TaxBreakdownAmount;
 use Lunar\DataTypes\Price;
 use Lunar\Facades\Taxes;
+use Lunar\Models\Cart;
 
 class CalculatePayment
 {

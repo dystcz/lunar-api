@@ -3,11 +3,11 @@
 namespace Dystcz\LunarApi\Domain\Carts\Pipelines;
 
 use Closure;
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdownItem;
 use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
 use Lunar\DataTypes\Price;
+use Lunar\Models\Cart;
 
 class ApplyPayment
 {
