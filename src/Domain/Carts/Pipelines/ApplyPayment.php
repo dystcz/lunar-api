@@ -28,11 +28,11 @@ class ApplyPayment
                 new PaymentBreakdownItem(
                     name: $paymentOption->getName(),
                     identifier: $paymentOption->getIdentifier(),
-                    price: $paymentOption->price,
+                    price: $paymentOption->getPrice(),
                 )
             );
 
-            $paymentSubTotal = $paymentOption->price->value;
+            $paymentSubTotal = $paymentOption->getPrice()->value;
             $paymentTotal = $paymentSubTotal;
         }
 
