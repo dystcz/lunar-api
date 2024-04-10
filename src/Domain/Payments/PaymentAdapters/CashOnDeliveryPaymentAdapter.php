@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Payments\PaymentAdapters;
 
-use Domain\Payments\Data\CashOnDeliveryPaymentIntent;
 use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent as PaymentIntentContract;
+use Dystcz\LunarApi\Domain\Payments\Data\CashOnDeliveryPaymentIntent;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Lunar\Models\Cart;
@@ -18,18 +18,18 @@ class CashOnDeliveryPaymentAdapter extends PaymentAdapter
      * Get payment driver on which this adapter binds.
      *
      * Drivers for lunar are set in lunar.payments.types.
-     * When stripe is set as a driver, this adapter will be used.
+     * When offline is set as a driver, this adapter will be used.
      */
     public function getDriver(): string
     {
-        return 'cash-on-delivery';
+        return 'offline';
     }
 
     /**
      * Get payment type.
      *
      * This key serves is an identification for this adapter.
-     * That means that stripe driver is handled by this adapter if configured.
+     * That means that offline driver is handled by this adapter if configured.
      */
     public function getType(): string
     {
@@ -46,8 +46,8 @@ class CashOnDeliveryPaymentAdapter extends PaymentAdapter
 
         $paymentIntent = new CashOnDeliveryPaymentIntent(
             amount: $order->total->value,
-            id: "{$this->getType()}-{$order->reference}",
-            meta: array_merge($meta, ['payment_method' => $this->getType()]),
+            id: "{$this->getDriver()}-{$order->reference}",
+            meta: array_merge($meta, ['payment_method' => $this->getDriver()]),
         );
 
         $this->createIntentTransaction($cart, $paymentIntent, $meta);
