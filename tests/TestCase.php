@@ -135,7 +135,7 @@ abstract class TestCase extends Orchestra
          * Lunar configuration.
          */
         Config::set('lunar.cart.auto_create', true);
-        Config::set('lunar.payments.default', 'cash-in-hand');
+        Config::set('lunar.payments.default', 'cash-on-delivery');
 
         /**
          * App configuration.
