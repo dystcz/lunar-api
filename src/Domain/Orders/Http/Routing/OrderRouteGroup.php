@@ -30,6 +30,7 @@ class OrderRouteGroup extends RouteGroup
                         $relationships->hasMany('digital_lines')->readOnly();
                         $relationships->hasMany('physical_lines')->readOnly();
                         $relationships->hasMany('shipping_lines')->readOnly();
+                        $relationships->hasMany('payment_lines')->readOnly();
                         $relationships->hasMany('transactions')->readOnly();
                     })
                     ->only('show', 'update');

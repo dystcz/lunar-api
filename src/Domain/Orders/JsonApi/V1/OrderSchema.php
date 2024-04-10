@@ -87,6 +87,10 @@ class OrderSchema extends Schema
             'shipping_lines',
             'shipping_lines.currency',
 
+            // Payment lines
+            'payment_lines',
+            'payment_lines.currency',
+
             // Transactions
             'transactions',
             'transactions.currency',
@@ -189,6 +193,10 @@ class OrderSchema extends Schema
                 ->type('order-lines'),
 
             HasMany::make('shipping_lines', 'shippingLines')
+                ->retainFieldName()
+                ->type('order-lines'),
+
+            HasMany::make('payment_lines', 'paymentLines')
                 ->retainFieldName()
                 ->type('order-lines'),
 
