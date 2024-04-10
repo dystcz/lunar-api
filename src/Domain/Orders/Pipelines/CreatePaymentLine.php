@@ -5,7 +5,6 @@ namespace Dystcz\LunarApi\Domain\Orders\Pipelines;
 use Closure;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
-use Lunar\Base\ValueObjects\Cart\TaxBreakdown;
 use Lunar\Models\Order;
 use Lunar\Models\OrderLine;
 
@@ -29,10 +28,6 @@ class CreatePaymentLine
                     $orderLine->identifier == $paymentOption->getIdentifier();
             }) ?: new OrderLine;
 
-            $paymentTaxBreakdown = new TaxBreakdown(
-                $cart->taxBreakdown->amounts->where('identifier', $paymentOption->getIdentifier()),
-            );
-
             $paymentLine->fill([
                 'order_id' => $order->id,
                 'purchasable_type' => PaymentOption::class,
@@ -46,17 +41,12 @@ class CreatePaymentLine
                 'quantity' => 1,
                 'sub_total' => $cart->paymentSubTotal->value,
                 'discount_total' => $cart->paymentSubTotal->discountTotal?->value ?: 0,
-                'tax_breakdown' => $paymentTaxBreakdown,
+                'tax_breakdown' => $cart->paymentTaxBreakdown,
                 'tax_total' => $cart->paymentTaxTotal->value,
                 'total' => $cart->paymentTotal->value,
                 'notes' => null,
                 'meta' => [],
             ])->save();
-
-            $order->update([
-                'payment_total' => $cart->paymentTotal->value,
-                'payment_breakdown' => $cart->paymentBreakdown,
-            ]);
         }
 
         return $next($order->refresh());
