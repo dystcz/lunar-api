@@ -52,8 +52,6 @@ class CreatePaymentLine
                 'notes' => null,
                 'meta' => [],
             ])->save();
-
-            ray($paymentLine);
         }
 
         return $next($order->refresh());
