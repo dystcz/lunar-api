@@ -41,6 +41,7 @@ class Cart extends LunarCart
             'paymentSubTotal',
             'paymentTaxTotal',
             'paymentTotal',
+            'paymentTaxBreakdown',
         ]);
     }
 
