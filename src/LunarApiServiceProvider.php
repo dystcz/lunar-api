@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Facades\ModelManifest;
+use Lunar\Facades\Payments;
 
 class LunarApiServiceProvider extends ServiceProvider
 {
@@ -77,6 +78,7 @@ class LunarApiServiceProvider extends ServiceProvider
         $this->registerModels();
         $this->registerObservers();
         $this->registerEvents();
+        $this->registerPayments();
 
         LunarApi::createUserUsing(CreateUser::class);
         LunarApi::createUserFromCartUsing(CreateUserFromCart::class);
@@ -192,6 +194,10 @@ class LunarApiServiceProvider extends ServiceProvider
             );
         }
 
+        // Swap clean up order lines pipeline
+        $cleanupOrderLinesPipelineKey = array_search(\Lunar\Pipelines\Order\Creation\CleanUpOrderLines::class, $orderPipelines);
+        $orderPipelines[$cleanupOrderLinesPipelineKey] = \Dystcz\LunarApi\Domain\Orders\Pipelines\CleanUpOrderLines::class;
+
         Config::set('lunar.orders.pipelines.creation', $orderPipelines);
     }
 
@@ -237,6 +243,22 @@ class LunarApiServiceProvider extends ServiceProvider
                 Event::listen($event, $listener);
             }
         }
+    }
+
+    /**
+     * Register payment.
+     */
+    protected function registerPayments(): void
+    {
+        // Cash on delivery payments
+        \Dystcz\LunarApi\Domain\Payments\PaymentAdapters\CashOnDeliveryPaymentAdapter::register();
+
+        \Lunar\Facades\Payments::extend(
+            'offline',
+            fn (Application $app) => $app->make(
+                \Dystcz\LunarApi\Domain\Payments\PaymentTypes\OfflinePaymentType::class,
+            ),
+        );
     }
 
     /**

@@ -23,7 +23,7 @@ class CreatePaymentLine
         $cart = $order->cart->calculate();
 
         if ($paymentOption = $cart->getPaymentOption()) {
-            $shippingLine = $order->lines->first(function ($orderLine) use ($paymentOption) {
+            $paymentLine = $order->lines->first(function ($orderLine) use ($paymentOption) {
                 return $orderLine->type == 'payment' &&
                     $orderLine->purchasable_type == PaymentOption::class &&
                     $orderLine->identifier == $paymentOption->getIdentifier();
@@ -33,7 +33,7 @@ class CreatePaymentLine
                 $cart->taxBreakdown->amounts->where('identifier', $paymentOption->getIdentifier()),
             );
 
-            $shippingLine->fill([
+            $paymentLine->fill([
                 'order_id' => $order->id,
                 'purchasable_type' => PaymentOption::class,
                 'purchasable_id' => 1,
