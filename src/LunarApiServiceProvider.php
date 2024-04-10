@@ -192,6 +192,10 @@ class LunarApiServiceProvider extends ServiceProvider
             );
         }
 
+        // Swap clean up order lines pipeline
+        $cleanupOrderLinesPipelineKey = array_search(\Lunar\Pipelines\Order\Creation\CleanUpOrderLines::class, $orderPipelines);
+        $orderPipelines[$cleanupOrderLinesPipelineKey] = \Dystcz\LunarApi\Domain\Orders\Pipelines\CleanUpOrderLines::class;
+
         Config::set('lunar.orders.pipelines.creation', $orderPipelines);
     }
 
