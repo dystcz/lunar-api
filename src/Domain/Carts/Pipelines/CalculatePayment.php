@@ -4,7 +4,6 @@ namespace Dystcz\LunarApi\Domain\Carts\Pipelines;
 
 use Closure;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
-use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
 use Lunar\Base\ValueObjects\Cart\TaxBreakdown;
 use Lunar\Base\ValueObjects\Cart\TaxBreakdownAmount;
 use Lunar\DataTypes\Price;
@@ -20,7 +19,7 @@ class CalculatePayment
      */
     public function handle(Cart $cart, Closure $next)
     {
-        $paymentOption = $cart->paymentOption ?: PaymentManifest::getPaymentOption($cart);
+        $paymentOption = $cart->paymentOption ?: $cart->getPaymentOption();
 
         if (! $paymentOption) {
             return $next($cart);

@@ -52,6 +52,11 @@ class CreatePaymentLine
                 'notes' => null,
                 'meta' => [],
             ])->save();
+
+            $order->update([
+                'payment_total' => $cart->paymentTotal->value,
+                'payment_breakdown' => $cart->paymentBreakdown,
+            ]);
         }
 
         return $next($order->refresh());

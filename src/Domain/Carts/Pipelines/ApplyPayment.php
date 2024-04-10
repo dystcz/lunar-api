@@ -6,7 +6,6 @@ use Closure;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdownItem;
-use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
 use Lunar\DataTypes\Price;
 
 class ApplyPayment
@@ -21,7 +20,7 @@ class ApplyPayment
     {
         $paymentSubTotal = 0;
         $paymentBreakdown = $cart->paymentBreakdown ?: new PaymentBreakdown;
-        $paymentOption = $cart->paymentOption ?: PaymentManifest::getPaymentOption($cart);
+        $paymentOption = $cart->paymentOption ?: $cart->getPaymentOption();
 
         if ($paymentOption) {
             $paymentBreakdown->items->put(
