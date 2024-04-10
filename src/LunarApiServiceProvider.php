@@ -146,7 +146,7 @@ class LunarApiServiceProvider extends ServiceProvider
         $cartPipelines = Config::get('lunar.cart.pipelines.cart', []);
         $applyShippingIndex = array_search(\Lunar\Pipelines\Cart\ApplyShipping::class, $cartPipelines);
 
-        if ($applyShippingIndex) {
+        if (array_key_exists($applyShippingIndex, $cartPipelines)) {
             $cartPipelines = array_merge(
                 array_slice($cartPipelines, 0, $applyShippingIndex + 1),
                 [\Dystcz\LunarApi\Domain\Carts\Pipelines\ApplyPayment::class],
@@ -157,7 +157,7 @@ class LunarApiServiceProvider extends ServiceProvider
         // Push CalculatePayment pipeline after Calculate pipeline
         $calculateIndex = array_search(\Lunar\Pipelines\Cart\Calculate::class, $cartPipelines);
 
-        if ($calculateIndex) {
+        if (array_key_exists($calculateIndex, $cartPipelines)) {
             $cartPipelines = array_merge(
                 array_slice($cartPipelines, 0, $calculateIndex + 1),
                 [\Dystcz\LunarApi\Domain\Carts\Pipelines\CalculatePayment::class],
@@ -182,11 +182,22 @@ class LunarApiServiceProvider extends ServiceProvider
             \Dystcz\LunarApi\Domain\Carts\Actions\UnsetPaymentOption::class,
         );
 
-        // Push ApplyPayment pipeline after ApplyShipping pipeline
-        $orderPipelines = Config::get('lunar.orders.pipelines.creation', []);
-        $createShippingLineIndex = array_search(\Lunar\Pipelines\Order\Creation\CreateShippingLine::class, $orderPipelines);
+        Config::set(
+            'lunar.cart.actions.order_create',
+            \Dystcz\LunarApi\Domain\Carts\Actions\CreateOrder::class,
+        );
 
-        if ($createShippingLineIndex) {
+        $orderPipelines = Config::get('lunar.orders.pipelines.creation', []);
+
+        // Swap fill order from cart pipeline
+        $fillOrderFromCartIndex = array_search(\Lunar\Pipelines\Order\Creation\FillOrderFromCart::class, $orderPipelines);
+        if (array_key_exists($fillOrderFromCartIndex, $orderPipelines)) {
+            $orderPipelines[$fillOrderFromCartIndex] = \Dystcz\LunarApi\Domain\Orders\Pipelines\FillOrderFromCart::class;
+        }
+
+        // Push ApplyPayment pipeline after ApplyShipping pipeline
+        $createShippingLineIndex = array_search(\Lunar\Pipelines\Order\Creation\CreateShippingLine::class, $orderPipelines);
+        if (array_key_exists($createShippingLineIndex, $orderPipelines)) {
             $orderPipelines = array_merge(
                 array_slice($orderPipelines, 0, $createShippingLineIndex + 1),
                 [\Dystcz\LunarApi\Domain\Orders\Pipelines\CreatePaymentLine::class],
@@ -195,8 +206,10 @@ class LunarApiServiceProvider extends ServiceProvider
         }
 
         // Swap clean up order lines pipeline
-        $cleanupOrderLinesPipelineKey = array_search(\Lunar\Pipelines\Order\Creation\CleanUpOrderLines::class, $orderPipelines);
-        $orderPipelines[$cleanupOrderLinesPipelineKey] = \Dystcz\LunarApi\Domain\Orders\Pipelines\CleanUpOrderLines::class;
+        $cleanupOrderLinesIndex = array_search(\Lunar\Pipelines\Order\Creation\CleanUpOrderLines::class, $orderPipelines);
+        if (array_key_exists($cleanupOrderLinesIndex, $orderPipelines)) {
+            $orderPipelines[$cleanupOrderLinesIndex] = \Dystcz\LunarApi\Domain\Orders\Pipelines\CleanUpOrderLines::class;
+        }
 
         Config::set('lunar.orders.pipelines.creation', $orderPipelines);
     }

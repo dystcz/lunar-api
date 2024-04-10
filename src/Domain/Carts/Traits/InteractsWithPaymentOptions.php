@@ -10,6 +10,7 @@ use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
 use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
+use Lunar\Base\ValueObjects\Cart\TaxBreakdown;
 use Lunar\DataTypes\Price;
 
 trait InteractsWithPaymentOptions
@@ -43,6 +44,11 @@ trait InteractsWithPaymentOptions
      * All the payment breakdowns for the cart.
      */
     public ?PaymentBreakdown $paymentBreakdown = null;
+
+    /**
+     * Payment tax breakdown.
+     */
+    public ?TaxBreakdown $paymentTaxBreakdown = null;
 
     /**
      * Set the payment option for the cart.

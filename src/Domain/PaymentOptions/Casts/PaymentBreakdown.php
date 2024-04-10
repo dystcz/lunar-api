@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi\Domain\PaymentOptions\Casts;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdownItem;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Contracts\Database\Eloquent\SerializesCastableAttributes;
+use Illuminate\Support\Collection;
 use Lunar\DataTypes\Price;
 use Lunar\Models\Currency;
 
@@ -23,7 +24,7 @@ class PaymentBreakdown implements CastsAttributes, SerializesCastableAttributes
     {
         $breakdown = new \Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown();
 
-        $breakdown->items = collect(
+        $breakdown->items = Collection::make(
             json_decode($value, false)
         )->mapWithKeys(function ($payment, $key) {
             $currency = Currency::query()
