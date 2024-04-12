@@ -73,4 +73,18 @@ class ProductVariant extends LunarPoductVariant
                 'priceable'
             )->ofMany('price', 'min');
     }
+
+    protected function inStockQuantity(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->purchasable == 'always') {
+                    return 1000000;
+                } elseif ($this->purchasable == 'backorder') {
+                    return $this->backorder;
+                }
+                return $this->stock;
+            },
+        );
+    }
 }

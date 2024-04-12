@@ -61,13 +61,41 @@ class CheckoutCartRequest extends ResourceRequest
                 ->current()
                 ->load(['shippingAddress']);
 
-            /** @var CartAddress $shippingAddress */
-            $shippingAddress = $cart->shippingAddress;
+            $this->validateShippingOption($validator, $cart);
+            $this->validateStock($validator, $cart);
+        });
+    }
 
-            if (! $shippingAddress->hasShippingOption()) {
+    /**
+     * Validate the shipping option.
+     */
+    protected function validateShippingOption(Validator $validator, Cart $cart): void
+    {
+        /** @var CartAddress $shippingAddress */
+        $shippingAddress = $cart->shippingAddress;
+
+        if (!$shippingAddress->hasShippingOption()) {
+            $validator->errors()->add(
+                'cart',
+                __('lunar-api::validations.carts.shipping_option.required'),
+            );
+        }
+    }
+
+    /**
+     * Validate the stock.
+     */
+    protected function validateStock(Validator $validator, Cart $cart): void
+    {
+        if (!config('lunar-api.general.checkout.check_stock_on_checkout')) {
+            return;
+        }
+
+        $cart->lines->each(function ($line) use ($validator) {
+            if ($line->purchasable->inStockQuantity < $line->quantity) {
                 $validator->errors()->add(
                     'cart',
-                    __('lunar-api::validations.carts.shipping_option.required'),
+                    __('lunar-api::validations.carts.products.out_of_stock'),
                 );
             }
         });
