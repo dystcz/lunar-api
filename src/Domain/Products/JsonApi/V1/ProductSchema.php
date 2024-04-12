@@ -110,6 +110,8 @@ class ProductSchema extends Schema
 
             Boolean::make('in_stock'),
 
+            Boolean::make('is_new'),
+
             Str::make('status'),
 
             HasMany::make('associations')

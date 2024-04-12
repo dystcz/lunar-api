@@ -46,6 +46,8 @@ class ProductVariantSchema extends Schema
         return [
             $this->idField(),
 
+            Number::make('sku'),
+
             Number::make('stock'),
 
             Number::make('backorder'),
