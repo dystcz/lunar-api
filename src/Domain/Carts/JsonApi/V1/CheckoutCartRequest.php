@@ -74,7 +74,7 @@ class CheckoutCartRequest extends ResourceRequest
         /** @var CartAddress $shippingAddress */
         $shippingAddress = $cart->shippingAddress;
 
-        if (!$shippingAddress->hasShippingOption()) {
+        if (! $shippingAddress->hasShippingOption()) {
             $validator->errors()->add(
                 'cart',
                 __('lunar-api::validations.carts.shipping_option.required'),
@@ -87,7 +87,7 @@ class CheckoutCartRequest extends ResourceRequest
      */
     protected function validateStock(Validator $validator, Cart $cart): void
     {
-        if (!config('lunar-api.general.checkout.check_stock_on_checkout')) {
+        if (! config('lunar-api.general.checkout.check_stock_on_checkout')) {
             return;
         }
 

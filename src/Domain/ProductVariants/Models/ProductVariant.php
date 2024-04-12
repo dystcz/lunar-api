@@ -83,6 +83,7 @@ class ProductVariant extends LunarPoductVariant
                 } elseif ($this->purchasable == 'backorder') {
                     return $this->backorder;
                 }
+
                 return $this->stock;
             },
         );

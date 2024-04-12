@@ -79,7 +79,7 @@ test('a user cannot checkout a cart if the products are not in stock', function 
 
     $cart->lines->first()->purchasable->update([
         'stock' => 1,
-        'purchasable' => 'in_stock'
+        'purchasable' => 'in_stock',
     ]);
 
     $response = $this
