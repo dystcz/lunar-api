@@ -86,6 +86,9 @@ return [
         'payment_option' => [
             'required' => 'Please select a payment option.',
         ],
+        'products' => [
+            'out_of_stock' => 'Not all products are available in the required quantity.',
+        ],
     ],
 
     'cart_addresses' => [

@@ -57,6 +57,8 @@ enum PurchaseStatus: string implements Arrayable
 
     /**
      * Cast to array.
+     *
+     * @return array<string,mixed>
      */
     public function toArray(): array
     {

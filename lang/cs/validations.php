@@ -68,6 +68,9 @@ return [
         'shipping_option' => [
             'required' => 'Prosím vyberte možnost doručení.',
         ],
+        'products' => [
+            'out_of_stock' => 'Některý z produktů není dostupný v požadovaném množství.',
+        ],
     ],
 
     'cart_addresses' => [
