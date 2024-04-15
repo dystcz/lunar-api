@@ -26,14 +26,14 @@ class CouponsController extends Controller
      */
     public function setCoupon(
         SetCouponToCartRequest $request,
-        SetCoupon $applyCoupon,
+        SetCoupon $setCoupon,
     ): DataResponse {
         /** @var Cart $cart */
         $cart = $this->cartSession->current();
 
         $this->authorize('updateCoupon', $cart);
 
-        $cart = $applyCoupon($cart, $request->validated('coupon_code'));
+        $cart = $setCoupon($cart, $request->validated('coupon_code'));
 
         return DataResponse::make($cart)
             ->didntCreate();
@@ -43,14 +43,14 @@ class CouponsController extends Controller
      * Unset coupon from cart.
      */
     public function unsetCoupon(
-        UnsetCoupon $removeCoupon,
+        UnsetCoupon $unsetCoupon,
     ): DataResponse {
         /** @var Cart $cart */
         $cart = $this->cartSession->current();
 
         $this->authorize('updateCoupon', $cart);
 
-        $cart = $removeCoupon($cart);
+        $cart = $unsetCoupon($cart);
 
         return DataResponse::make($cart)
             ->didntCreate();
