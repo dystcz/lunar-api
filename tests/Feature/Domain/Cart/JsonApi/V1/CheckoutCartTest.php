@@ -61,6 +61,42 @@ test('a user can checkout a cart', function () {
     expect($cart->user_id)->toBeNull();
 })->group('checkout');
 
+test('a user cannot checkout a cart if the products are not in stock', function () {
+    /** @var TestCase $this */
+
+    /** @var CartFactory $factory */
+    $factory = Cart::factory();
+
+    /** @var Cart $cart */
+    $cart = $factory
+        ->withAddresses()
+        ->withLines()
+        ->create();
+
+    /** @var CartSessionManager $cartSession */
+    $cartSession = App::make(CartSessionInterface::class);
+    $cartSession->use($cart);
+
+    $cart->lines->first()->purchasable->update([
+        'stock' => 1,
+        'purchasable' => 'in_stock',
+    ]);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->withData([
+            'type' => 'carts',
+            'attributes' => [
+                'agree' => true,
+                'create_user' => false,
+            ],
+        ])
+        ->post('/api/v1/carts/-actions/checkout');
+
+    $response->assertStatus(422);
+})->group('checkout');
+
 test('a user can be registered when checking out', function () {
     /** @var TestCase $this */
     Event::fake([Registered::class]);
@@ -193,7 +229,6 @@ it('does not forget cart after checkout if configured', function () {
         ->assertSuccessful();
 
     $this->assertTrue(Session::has($cartSession->getSessionKey()));
-
 })->group('checkout');
 
 it('forgets cart after checkout if configured', function () {
@@ -229,7 +264,6 @@ it('forgets cart after checkout if configured', function () {
         ->assertSuccessful();
 
     $this->assertFalse(Session::has($cartSession->getSessionKey()));
-
 })->group('checkout');
 
 it('returns signed urls for order actions', function () {
@@ -269,5 +303,4 @@ it('returns signed urls for order actions', function () {
             'mark-order-awaiting-payment.signed' => $response->json()['links']['mark-order-awaiting-payment.signed'],
             'check-order-payment-status.signed' => $response->json()['links']['check-order-payment-status.signed'],
         ]);
-
 })->group('checkout');

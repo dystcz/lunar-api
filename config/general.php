@@ -5,6 +5,7 @@ use Dystcz\LunarApi\Domain\Checkout\Enums\CheckoutProtectionStrategy;
 /*
  * Lunar API general configuration
  */
+
 return [
     // Prefix for all the API routes
     // Leave empty if you don't want to use a prefix
@@ -52,5 +53,8 @@ return [
         'auto_create_payment_intent_for_drivers' => [
             'offline',
         ],
+
+        // Check if everything is in stock on checkout
+        'check_stock_on_checkout' => true,
     ],
 ];
