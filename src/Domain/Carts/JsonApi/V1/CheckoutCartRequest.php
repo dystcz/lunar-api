@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\Validator;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 use Lunar\Base\CartSessionInterface;
@@ -87,11 +88,15 @@ class CheckoutCartRequest extends ResourceRequest
      */
     protected function validateStock(Validator $validator, Cart $cart): void
     {
-        if (! config('lunar-api.general.checkout.check_stock_on_checkout')) {
+        if (! Config::get('lunar-api.general.checkout.check_stock_on_checkout')) {
             return;
         }
 
         $cart->lines->each(function ($line) use ($validator) {
+            if ($line->purchasable->purchasable === 'always') {
+                return;
+            }
+
             if ($line->purchasable->inStockQuantity < $line->quantity) {
                 $validator->errors()->add(
                     'cart',
