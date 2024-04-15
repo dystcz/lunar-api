@@ -41,6 +41,19 @@ class ProductVariant extends LunarPoductVariant
     }
 
     /**
+     * In stock quantity attribute.
+     */
+    protected function inStockQuantity(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => match (true) {
+                $this->backorder === 'backorder' => $this->backorder,
+                default => $this->stock,
+            }
+        );
+    }
+
+    /**
      * Thumbnail relation.
      */
     public function thumbnail(): MorphOne
@@ -72,20 +85,5 @@ class ProductVariant extends LunarPoductVariant
                 LunarPrice::class,
                 'priceable'
             )->ofMany('price', 'min');
-    }
-
-    protected function inStockQuantity(): Attribute
-    {
-        return Attribute::make(
-            get: function () {
-                if ($this->purchasable == 'always') {
-                    return 1000000;
-                } elseif ($this->purchasable == 'backorder') {
-                    return $this->backorder;
-                }
-
-                return $this->stock;
-            },
-        );
     }
 }
