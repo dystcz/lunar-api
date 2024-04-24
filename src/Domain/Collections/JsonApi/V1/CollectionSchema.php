@@ -112,7 +112,10 @@ class CollectionSchema extends Schema
         return [
             WhereIdIn::make($this),
 
-            WhereHas::make($this, 'default_url', 'url')->singular(),
+            WhereHas::make($this, 'urls', 'url')
+                ->singular(),
+
+            WhereHas::make($this, 'urls', 'urls'),
 
             WhereHas::make($this, 'group', 'group'),
 
