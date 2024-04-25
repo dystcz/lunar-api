@@ -6,11 +6,9 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Map;
-use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
-use LaravelJsonApi\Eloquent\Fields\Str;
 use Lunar\Models\ProductVariant;
 
 class ProductVariantSchema extends Schema
@@ -46,19 +44,19 @@ class ProductVariantSchema extends Schema
         return [
             $this->idField(),
 
-            Number::make('stock'),
-
-            Number::make('backorder'),
-
-            Str::make('purchasable'),
-
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
 
-            Map::make('purchasability', [
-                ArrayHash::make('purchase_status')
+            Map::make('availability', [
+                ArrayHash::make('stock')
                     ->extractUsing(
-                        static fn (ProductVariant $model) => $model->purchaseStatus->toArray()
+                        static fn (ProductVariant $model) => [
+                            'quantity_string' => $model->approximateInStockQuantity,
+                        ],
+                    ),
+                ArrayHash::make('status')
+                    ->extractUsing(
+                        static fn (ProductVariant $model) => $model->availability->toArray()
                     ),
             ]),
 
