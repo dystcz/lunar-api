@@ -56,8 +56,9 @@ enum Availability: string implements Arrayable
     {
         return match (true) {
             $productVariant->attr('eta') !== null && $productVariant->attr('eta') !== '' => self::PREORDER,
-            $productVariant->stock >= 0 && $productVariant->purchasable === 'in_stock' => self::IN_STOCK,
-            $productVariant->backorder >= 0 && $productVariant->purchasable === 'backorder' => self::BACKORDER,
+            $productVariant->purchasable === 'always' => self::IN_STOCK,
+            $productVariant->stock > 0 && $productVariant->purchasable === 'in_stock' => self::IN_STOCK,
+            $productVariant->backorder > 0 && $productVariant->purchasable === 'backorder' => self::BACKORDER,
             default => self::OUT_OF_STOCK,
         };
     }

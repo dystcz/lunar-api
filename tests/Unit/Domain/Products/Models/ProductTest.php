@@ -109,7 +109,7 @@ test('product is in stock when any variant can be purchased always', function ()
     expect((new IsInStock())($product))->toBeTrue();
 });
 
-test('product is out of stock when any variant cannot be purchased', function () {
+test('product is out of stock when no variant can be purchased', function () {
     /** @var Product $product */
     $product = ProductFactory::new()
         ->has(
