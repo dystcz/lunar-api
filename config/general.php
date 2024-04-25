@@ -36,6 +36,13 @@ return [
         ],
     ],
 
+    // Availability
+    'availability' => [
+        'approximate_in_stock_quantity' => [
+            'threshold' => 5,
+        ],
+    ],
+
     // Checkout settings
     'checkout' => [
         // Forget cart right after order is created
