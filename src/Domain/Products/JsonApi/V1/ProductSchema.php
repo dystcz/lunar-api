@@ -19,6 +19,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Product;
 
@@ -88,8 +89,10 @@ class ProductSchema extends Schema
             'collections.group',
 
             'variants',
+            'variants.default_url',
             'variants.images',
             'variants.prices',
+            'variants.urls',
             'variants.values',
             // 'variants.thumbnail',
             'product_type',
@@ -195,6 +198,8 @@ class ProductSchema extends Schema
     {
         return [
             WhereIdIn::make($this),
+
+            WhereIdNotIn::make($this),
 
             InStockFilter::make(),
 
