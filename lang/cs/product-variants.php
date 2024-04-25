@@ -5,8 +5,8 @@ return [
     'availability' => [
         'stock' => [
             'quantity_string' => [
-                'less_than' => '(<:quantity)',
-                'more_than' => '(>:quantity)',
+                'less_than' => '<:quantity',
+                'more_than' => '>:quantity',
             ],
         ],
     ],
