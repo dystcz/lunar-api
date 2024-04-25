@@ -57,6 +57,7 @@ class ProductSchema extends Schema
             'lowest_price',
             'prices',
             'thumbnail',
+            'urls',
 
             'associations',
             'associations.target',
@@ -201,10 +202,10 @@ class ProductSchema extends Schema
 
             WhereHas::make($this, 'brand'),
 
-            WhereHas::make($this, 'default_url', 'url')
+            WhereHas::make($this, 'urls', 'url')
                 ->singular(),
 
-            WhereHas::make($this, 'urls'),
+            WhereHas::make($this, 'urls', 'urls'),
 
             WhereHas::make($this, 'product_type'),
 
