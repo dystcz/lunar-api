@@ -9,7 +9,8 @@ use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\InStockFilter;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilterCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use LaravelJsonApi\Eloquent\Fields\Boolean;
+use LaravelJsonApi\Eloquent\Fields\ArrayHash;
+use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasManyThrough;
@@ -18,6 +19,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Product;
 
@@ -56,6 +58,7 @@ class ProductSchema extends Schema
             'lowest_price',
             'prices',
             'thumbnail',
+            'urls',
 
             'associations',
             'associations.target',
@@ -86,8 +89,10 @@ class ProductSchema extends Schema
             'collections.group',
 
             'variants',
+            'variants.default_url',
             'variants.images',
             'variants.prices',
+            'variants.urls',
             'variants.values',
             // 'variants.thumbnail',
             'product_type',
@@ -108,7 +113,12 @@ class ProductSchema extends Schema
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
 
-            Boolean::make('in_stock'),
+            Map::make('availability', [
+                ArrayHash::make('status')
+                    ->extractUsing(
+                        static fn (Product $model) => $model->availability->toArray()
+                    ),
+            ]),
 
             Str::make('status'),
 
@@ -189,16 +199,18 @@ class ProductSchema extends Schema
         return [
             WhereIdIn::make($this),
 
+            WhereIdNotIn::make($this),
+
             InStockFilter::make(),
 
             WhereHas::make($this, 'prices'),
 
             WhereHas::make($this, 'brand'),
 
-            WhereHas::make($this, 'default_url', 'url')
+            WhereHas::make($this, 'urls', 'url')
                 ->singular(),
 
-            WhereHas::make($this, 'urls'),
+            WhereHas::make($this, 'urls', 'urls'),
 
             WhereHas::make($this, 'product_type'),
 

@@ -1,6 +1,5 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Checkout\Enums\CheckoutProtectionStrategy;
@@ -9,14 +8,12 @@ use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Event;
 use Lunar\Facades\CartSession;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can read order details without signature when user is logged in and owns the order', function () {
     /** @var TestCase $this */
-    Event::fake(CartCreated::class);
 
     /** @var User $user */
     $user = User::factory()->create();
@@ -61,8 +58,6 @@ it('can read order details without signature when user is logged in and owns the
 
 it('can read order details when accessing order with valid signature', function () {
     /** @var TestCase $this */
-    Event::fake(CartCreated::class);
-
     Config::set('lunar-api.general.checkout.checkout_protection_strategy', CheckoutProtectionStrategy::SIGNATURE);
 
     /** @var User $user */
@@ -118,7 +113,6 @@ it('can read order details when accessing order with valid signature', function 
 
 it('returns unauthorized if the user does not own the order', function () {
     /** @var TestCase $this */
-    Event::fake(CartCreated::class);
 
     /** @var CartFactory $factory */
     $factory = Cart::factory();

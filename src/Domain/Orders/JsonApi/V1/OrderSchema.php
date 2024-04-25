@@ -87,6 +87,10 @@ class OrderSchema extends Schema
             'shipping_lines',
             'shipping_lines.currency',
 
+            // Payment lines
+            'payment_lines',
+            'payment_lines.currency',
+
             // Transactions
             'transactions',
             'transactions.currency',
@@ -133,11 +137,19 @@ class OrderSchema extends Schema
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,
                     ),
+                Number::make('payment_total', 'payment_total')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->decimal,
+                    ),
                 ArrayHash::make('tax_breakdown', 'taxBreakdown')
                     ->serializeUsing(
                         static fn ($value) => $value?->amounts,
                     ),
                 ArrayHash::make('shipping_breakdown')
+                    ->serializeUsing(
+                        static fn ($value) => $value?->items,
+                    ),
+                ArrayHash::make('payment_breakdown')
                     ->serializeUsing(
                         static fn ($value) => $value?->items,
                     ),
@@ -181,6 +193,10 @@ class OrderSchema extends Schema
                 ->type('order-lines'),
 
             HasMany::make('shipping_lines', 'shippingLines')
+                ->retainFieldName()
+                ->type('order-lines'),
+
+            HasMany::make('payment_lines', 'paymentLines')
                 ->retainFieldName()
                 ->type('order-lines'),
 

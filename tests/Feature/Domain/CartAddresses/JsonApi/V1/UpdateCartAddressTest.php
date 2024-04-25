@@ -4,7 +4,8 @@ use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Facades\CartSession;
+use Illuminate\Support\Facades\App;
+use Lunar\Base\CartSessionInterface;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -29,17 +30,19 @@ beforeEach(function () {
             'delivery_instructions' => 'Leave it at the door',
         ],
     ];
+
+    $this->cartSession = App::make(CartSessionInterface::class);
 });
 
 test('a cart address can be update', function () {
     /** @var TestCase $this */
-    CartSession::use($this->cart);
+    $this->cartSession->use($this->cart);
 
     $response = $this
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey());
+        ->patch(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}"));
 
     $response->assertFetchedOne($this->cartAddress);
 
@@ -63,7 +66,7 @@ test('only the user who owns the cart can assign address to it', function () {
         ->jsonApi()
         ->expects('cart-addresses')
         ->withData($this->data)
-        ->patch('/api/v1/cart-addresses/'.$this->cartAddress->getRouteKey());
+        ->patch(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}"));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',

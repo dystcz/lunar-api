@@ -3,9 +3,9 @@
 namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
-use Dystcz\LunarApi\Domain\Carts\Actions\ApplyCoupon;
-use Dystcz\LunarApi\Domain\Carts\Actions\RemoveCoupon;
-use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\AddCouponToCartRequest;
+use Dystcz\LunarApi\Domain\Carts\Actions\SetCoupon;
+use Dystcz\LunarApi\Domain\Carts\Actions\UnsetCoupon;
+use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\SetCouponToCartRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Core\Responses\DataResponse;
@@ -22,35 +22,35 @@ class CouponsController extends Controller
     }
 
     /**
-     * Apply coupon.
+     * Set coupon to cart.
      */
-    public function update(
-        AddCouponToCartRequest $request,
-        ApplyCoupon $applyCoupon,
+    public function setCoupon(
+        SetCouponToCartRequest $request,
+        SetCoupon $setCoupon,
     ): DataResponse {
-        // $this->authorize('viewAny', Cart::class);
-
         /** @var Cart $cart */
         $cart = $this->cartSession->current();
 
-        $cart = $applyCoupon($cart, $request->validated('coupon_code'));
+        $this->authorize('updateCoupon', $cart);
+
+        $cart = $setCoupon($cart, $request->validated('coupon_code'));
 
         return DataResponse::make($cart)
             ->didntCreate();
     }
 
     /**
-     * Remove coupon.
+     * Unset coupon from cart.
      */
-    public function destroy(
-        RemoveCoupon $removeCoupon,
+    public function unsetCoupon(
+        UnsetCoupon $unsetCoupon,
     ): DataResponse {
-        // $this->authorize('viewAny', Cart::class);
-
         /** @var Cart $cart */
         $cart = $this->cartSession->current();
 
-        $cart = $removeCoupon($cart);
+        $this->authorize('updateCoupon', $cart);
+
+        $cart = $unsetCoupon($cart);
 
         return DataResponse::make($cart)
             ->didntCreate();

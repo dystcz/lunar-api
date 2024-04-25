@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCart;
-use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartRequest;
+use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CheckoutCartRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Support\Facades\App;
@@ -32,7 +32,7 @@ class CheckoutCartController extends Controller
      */
     public function checkout(
         StoreContract $store,
-        CartRequest $request,
+        CheckoutCartRequest $request,
         CreateUserFromCart $createUserFromCartAction,
         CheckoutCart $checkoutCartAction
     ): DataResponse {

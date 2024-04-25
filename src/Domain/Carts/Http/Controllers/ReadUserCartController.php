@@ -37,6 +37,12 @@ class ReadUserCartController extends Controller
         /** @var Cart $cart */
         $cart = $this->cartSession->current();
 
+        // If cart auto creation is disabled and no cart is found
+        if (! $cart) {
+            return DataResponse::make(null)
+                ->didntCreate();
+        }
+
         $request = ResourceQuery::queryOne(
             $resourceType = $route->resourceType()
         );

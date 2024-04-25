@@ -18,14 +18,14 @@ class AttributeData extends Attribute
     /**
      * Group attributes.
      */
-    private bool $groupAttributes = false;
+    protected bool $groupAttributes = false;
 
     /**
      * Create an array attribute.
      */
-    public static function make(string $fieldName, ?string $column = null): self
+    public static function make(string $fieldName, ?string $column = null): static
     {
-        return new self($fieldName, $column);
+        return new static($fieldName, $column);
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\ProductVariants\Models;
 
 use Dystcz\LunarApi\Domain\Attributes\Traits\InteractsWithAttributes;
-use Dystcz\LunarApi\Domain\ProductVariants\Enums\PurchaseStatus;
+use Dystcz\LunarApi\Domain\Products\Enums\Availability;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
+use Lunar\Base\Traits\HasUrls;
 use Lunar\Models\Price as LunarPrice;
 use Lunar\Models\ProductVariant as LunarPoductVariant;
 
@@ -20,6 +21,7 @@ use Lunar\Models\ProductVariant as LunarPoductVariant;
 class ProductVariant extends LunarPoductVariant
 {
     use HashesRouteKey;
+    use HasUrls;
     use InteractsWithAttributes;
 
     /**
@@ -31,12 +33,47 @@ class ProductVariant extends LunarPoductVariant
     }
 
     /**
-     * Get product variant purchase status.
+     * Get availability attribute.
      */
-    protected function purchaseStatus(): Attribute
+    public function availability(): Attribute
     {
         return Attribute::make(
-            get: fn () => PurchaseStatus::fromProductVariant($this),
+            get: fn () => Availability::of($this),
+        );
+    }
+
+    /**
+     * In stock approximate quantity attribute.
+     */
+    public function approximateInStockQuantity(): Attribute
+    {
+        $threshold = Config::get('lunar-api.general.availability.approximate_in_stock_quantity.threshold', 5);
+
+        return Attribute::make(
+            get: fn () => match (true) {
+                $this->inStockQuantity > $threshold => __(
+                    'lunar-api::product-variants.availability.stock.quantity_string.more_than',
+                    ['quantity' => $threshold],
+                ),
+                $this->inStockQuantity <= $threshold => __(
+                    'lunar-api::product-variants.availability.stock.quantity_string.less_than',
+                    ['quantity' => $threshold],
+                ),
+                default => null,
+            }
+        );
+    }
+
+    /**
+     * In stock quantity attribute.
+     */
+    public function inStockQuantity(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => match (true) {
+                $this->purchasable === 'backorder' => $this->backorder,
+                default => $this->stock,
+            }
         );
     }
 

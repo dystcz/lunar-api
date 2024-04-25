@@ -68,6 +68,9 @@ return [
         'shipping_option' => [
             'required' => 'Prosím vyberte možnost doručení.',
         ],
+        'products' => [
+            'out_of_stock' => 'Některý z produktů není dostupný v požadovaném množství.',
+        ],
     ],
 
     'cart_addresses' => [
@@ -190,9 +193,20 @@ return [
     ],
 
     'shipping' => [
-        'shipping_option' => [
-            'required' => 'Prosím vyberte možnost doručení',
-            'string' => 'Pole možnost doručení musí být řetězec.',
+        'set_shipping_option' => [
+            'shipping_option' => [
+                'required' => 'Prosím vyberte možnost doručení.',
+                'string' => 'Pole možnost doručení musí být řetězec.',
+            ],
+        ],
+    ],
+
+    'payments' => [
+        'set_payment_option' => [
+            'payment_option' => [
+                'required' => 'Prosím vyberte platební metodu.',
+                'string' => 'Pole platební metoda musí být řetězec.',
+            ],
         ],
     ],
 ];

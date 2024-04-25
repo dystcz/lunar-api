@@ -4,15 +4,16 @@ namespace Dystcz\LunarApi;
 
 use Dystcz\LunarApi\Domain\Carts\Actions\CheckoutCart;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
-use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
 use Dystcz\LunarApi\Domain\Users\Actions\CreateUser;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
 use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Facades\ModelManifest;
+use Lunar\Facades\Payments;
 
 class LunarApiServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,7 @@ class LunarApiServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->registerConfig();
+        $this->setPaymentOptionsConfig();
 
         $this->loadTranslationsFrom(
             "{$this->root}/lang",
@@ -48,8 +50,20 @@ class LunarApiServiceProvider extends ServiceProvider
 
         // Register payment adapters register.
         $this->app->singleton(
-            PaymentAdaptersRegister::class,
-            fn () => new PaymentAdaptersRegister,
+            \Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister::class,
+            fn () => new \Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister,
+        );
+
+        // Register payment modifiers.
+        $this->app->singleton(
+            \Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifiers::class,
+            fn (Application $app) => new \Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifiers(),
+        );
+
+        // Register payment manifest.
+        $this->app->singleton(
+            \Dystcz\LunarApi\Domain\PaymentOptions\Contracts\PaymentManifest::class,
+            fn (Application $app) => $app->make(\Dystcz\LunarApi\Domain\PaymentOptions\Manifests\PaymentManifest::class),
         );
     }
 
@@ -59,19 +73,22 @@ class LunarApiServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadRoutesFrom("{$this->root}/routes/api.php");
+        $this->loadMigrationsFrom("{$this->root}/database/migrations");
 
         $this->registerModels();
         $this->registerObservers();
         $this->registerEvents();
+        $this->registerPayments();
 
-        LunarApi::createUserUsing(Config::get('lunar-api.domains.auth.actions.create_user', CreateUser::class));
-        LunarApi::createUserFromCartUsing(Config::get('lunar-api.domains.auth.actions.create_user_from_cart', CreateUserFromCart::class));
-        LunarApi::registerUserUsing(Config::get('lunar-api.domains.auth.actions.register_user', RegisterUser::class));
-        LunarApi::checkoutCartUsing(Config::get('lunar-api.domains.carts.actions.checkout_cart', CheckoutCart::class));
+        LunarApi::createUserUsing(CreateUser::class);
+        LunarApi::createUserFromCartUsing(CreateUserFromCart::class);
+        LunarApi::registerUserUsing(RegisterUser::class);
+        LunarApi::checkoutCartUsing(CheckoutCart::class);
 
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
             $this->publishTranslations();
+            $this->publishMigrations();
             $this->registerCommands();
         }
     }
@@ -98,7 +115,7 @@ class LunarApiServiceProvider extends ServiceProvider
     protected function publishTranslations(): void
     {
         $this->publishes([
-            __DIR__.'/../lang' => $this->app->langPath('vendor/lunar-api'),
+            "{$this->root}/lang" => $this->app->langPath('vendor/lunar-api'),
         ], 'lunar-api.translations');
     }
 
@@ -121,12 +138,99 @@ class LunarApiServiceProvider extends ServiceProvider
     }
 
     /**
+     * Set payment options config.
+     */
+    protected function setPaymentOptionsConfig(): void
+    {
+        // Push ApplyPayment pipeline after ApplyShipping pipeline
+        $cartPipelines = Config::get('lunar.cart.pipelines.cart', []);
+        $applyShippingIndex = array_search(\Lunar\Pipelines\Cart\ApplyShipping::class, $cartPipelines);
+
+        if (array_key_exists($applyShippingIndex, $cartPipelines)) {
+            $cartPipelines = array_merge(
+                array_slice($cartPipelines, 0, $applyShippingIndex + 1),
+                [\Dystcz\LunarApi\Domain\Carts\Pipelines\ApplyPayment::class],
+                array_slice($cartPipelines, $applyShippingIndex + 1),
+            );
+        }
+
+        // Push CalculatePayment pipeline after Calculate pipeline
+        $calculateIndex = array_search(\Lunar\Pipelines\Cart\Calculate::class, $cartPipelines);
+
+        if (array_key_exists($calculateIndex, $cartPipelines)) {
+            $cartPipelines = array_merge(
+                array_slice($cartPipelines, 0, $calculateIndex + 1),
+                [\Dystcz\LunarApi\Domain\Carts\Pipelines\CalculatePayment::class],
+                array_slice($cartPipelines, $calculateIndex + 1),
+            );
+        }
+
+        Config::set('lunar.cart.pipelines.cart', $cartPipelines);
+
+        Config::set(
+            'lunar.cart.validators.set_payment_option',
+            [\Dystcz\LunarApi\Domain\Carts\Validation\PaymentOptionValidator::class],
+        );
+
+        Config::set(
+            'lunar.cart.actions.set_payment_option',
+            \Dystcz\LunarApi\Domain\Carts\Actions\SetPaymentOption::class,
+        );
+
+        Config::set(
+            'lunar.cart.actions.unset_payment_option',
+            \Dystcz\LunarApi\Domain\Carts\Actions\UnsetPaymentOption::class,
+        );
+
+        Config::set(
+            'lunar.cart.actions.order_create',
+            \Dystcz\LunarApi\Domain\Carts\Actions\CreateOrder::class,
+        );
+
+        $orderPipelines = Config::get('lunar.orders.pipelines.creation', []);
+
+        // Swap fill order from cart pipeline
+        $fillOrderFromCartIndex = array_search(\Lunar\Pipelines\Order\Creation\FillOrderFromCart::class, $orderPipelines);
+        if (array_key_exists($fillOrderFromCartIndex, $orderPipelines)) {
+            $orderPipelines[$fillOrderFromCartIndex] = \Dystcz\LunarApi\Domain\Orders\Pipelines\FillOrderFromCart::class;
+        }
+
+        // Push ApplyPayment pipeline after ApplyShipping pipeline
+        $createShippingLineIndex = array_search(\Lunar\Pipelines\Order\Creation\CreateShippingLine::class, $orderPipelines);
+        if (array_key_exists($createShippingLineIndex, $orderPipelines)) {
+            $orderPipelines = array_merge(
+                array_slice($orderPipelines, 0, $createShippingLineIndex + 1),
+                [\Dystcz\LunarApi\Domain\Orders\Pipelines\CreatePaymentLine::class],
+                array_slice($orderPipelines, $createShippingLineIndex + 1),
+            );
+        }
+
+        // Swap clean up order lines pipeline
+        $cleanupOrderLinesIndex = array_search(\Lunar\Pipelines\Order\Creation\CleanUpOrderLines::class, $orderPipelines);
+        if (array_key_exists($cleanupOrderLinesIndex, $orderPipelines)) {
+            $orderPipelines[$cleanupOrderLinesIndex] = \Dystcz\LunarApi\Domain\Orders\Pipelines\CleanUpOrderLines::class;
+        }
+
+        Config::set('lunar.orders.pipelines.creation', $orderPipelines);
+    }
+
+    /**
+     * Publish migrations.
+     */
+    protected function publishMigrations(): void
+    {
+        $this->publishes([
+            "{$this->root}/database/migrations/" => $this->app->databasePath('migrations'),
+        ], 'lunar-api.migrations');
+    }
+
+    /**
      * Register commands.
      */
     protected function registerCommands(): void
     {
         $this->commands([
-            //
+            \Dystcz\LunarApi\Domain\ProductVariants\Commands\GenerateUrls::class,
         ]);
     }
 
@@ -136,14 +240,14 @@ class LunarApiServiceProvider extends ServiceProvider
     protected function registerEvents(): void
     {
         $events = [
-            \Dystcz\LunarApi\Domain\Carts\Events\CartCreated::class => [
-                \Dystcz\LunarApi\Domain\Carts\Listeners\CreateCartAddresses::class,
-            ],
             \Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentFailed::class => [
                 \Dystcz\LunarApi\Domain\Payments\Listeners\HandleFailedPayment::class,
             ],
             \Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentCanceled::class => [
                 \Dystcz\LunarApi\Domain\Payments\Listeners\HandleFailedPayment::class,
+            ],
+            \Illuminate\Auth\Events\Login::class => [
+                \Dystcz\LunarApi\Domain\Auth\Listeners\CartSessionAuthListener::class,
             ],
         ];
 
@@ -152,6 +256,22 @@ class LunarApiServiceProvider extends ServiceProvider
                 Event::listen($event, $listener);
             }
         }
+    }
+
+    /**
+     * Register payment.
+     */
+    protected function registerPayments(): void
+    {
+        // Cash on delivery payments
+        \Dystcz\LunarApi\Domain\Payments\PaymentAdapters\CashOnDeliveryPaymentAdapter::register();
+
+        \Lunar\Facades\Payments::extend(
+            'offline',
+            fn (Application $app) => $app->make(
+                \Dystcz\LunarApi\Domain\Payments\PaymentTypes\OfflinePaymentType::class,
+            ),
+        );
     }
 
     /**
