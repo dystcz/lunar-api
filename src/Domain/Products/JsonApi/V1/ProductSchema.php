@@ -9,7 +9,8 @@ use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\InStockFilter;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilterCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use LaravelJsonApi\Eloquent\Fields\Boolean;
+use LaravelJsonApi\Eloquent\Fields\ArrayHash;
+use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasManyThrough;
@@ -109,7 +110,12 @@ class ProductSchema extends Schema
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
 
-            Boolean::make('in_stock'),
+            Map::make('availability', [
+                ArrayHash::make('status')
+                    ->extractUsing(
+                        static fn (Product $model) => $model->availability->toArray()
+                    ),
+            ]),
 
             Str::make('status'),
 

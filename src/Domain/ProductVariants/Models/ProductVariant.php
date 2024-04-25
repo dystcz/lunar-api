@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\ProductVariants\Models;
 
 use Dystcz\LunarApi\Domain\Attributes\Traits\InteractsWithAttributes;
-use Dystcz\LunarApi\Domain\ProductVariants\Enums\PurchaseStatus;
+use Dystcz\LunarApi\Domain\Products\Enums\Availability;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -31,23 +31,37 @@ class ProductVariant extends LunarPoductVariant
     }
 
     /**
-     * Get product variant purchase status.
+     * Get availability attribute.
      */
-    protected function purchaseStatus(): Attribute
+    public function availability(): Attribute
     {
         return Attribute::make(
-            get: fn () => PurchaseStatus::fromProductVariant($this),
+            get: fn () => Availability::of($this),
+        );
+    }
+
+    /**
+     * In stock approximate quantity attribute.
+     */
+    public function approximateInStockQuantity(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => match (true) {
+                $this->inStockQuantity > 5 => '>5',
+                $this->inStockQuantity <= 5 => '<=5',
+                default => '0',
+            }
         );
     }
 
     /**
      * In stock quantity attribute.
      */
-    protected function inStockQuantity(): Attribute
+    public function inStockQuantity(): Attribute
     {
         return Attribute::make(
             get: fn () => match (true) {
-                $this->backorder === 'backorder' => $this->backorder,
+                $this->purchasable === 'backorder' => $this->backorder,
                 default => $this->stock,
             }
         );
