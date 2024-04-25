@@ -230,7 +230,7 @@ class LunarApiServiceProvider extends ServiceProvider
     protected function registerCommands(): void
     {
         $this->commands([
-            //
+            \Dystcz\LunarApi\Domain\ProductVariants\Commands\GenerateUrls::class,
         ]);
     }
 

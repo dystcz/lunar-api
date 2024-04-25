@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
+use Lunar\Base\Traits\HasUrls;
 use Lunar\Models\Price as LunarPrice;
 use Lunar\Models\ProductVariant as LunarPoductVariant;
 
@@ -20,6 +21,7 @@ use Lunar\Models\ProductVariant as LunarPoductVariant;
 class ProductVariant extends LunarPoductVariant
 {
     use HashesRouteKey;
+    use HasUrls;
     use InteractsWithAttributes;
 
     /**
