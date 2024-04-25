@@ -5,11 +5,6 @@
  */
 return [
     'auth' => [
-        'actions' => [
-            'create_user' => Dystcz\LunarApi\Domain\Users\Actions\CreateUser::class,
-            'create_user_from_cart' => Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart::class,
-            'register_user' => Dystcz\LunarApi\Domain\Users\Actions\RegisterUser::class,
-        ],
         'notifications' => [
             'reset_password' => Illuminate\Auth\Notifications\ResetPassword::class,
             'verify_email' => Illuminate\Auth\Notifications\VerifyEmail::class,
@@ -94,9 +89,6 @@ return [
     ],
 
     'carts' => [
-        'actions' => [
-            'checkout_cart' => Dystcz\LunarApi\Domain\Carts\Actions\CheckoutCart::class,
-        ],
         'model' => Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
         'lunar_model' => Lunar\Models\Cart::class,
         'policy' => Dystcz\LunarApi\Domain\Carts\Policies\CartPolicy::class,

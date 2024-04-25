@@ -1,19 +1,16 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
     /** @var TestCase $this */
-    Event::fake(CartCreated::class);
 
     /** @var Cart $cart */
     $cart = CartFactory::new()

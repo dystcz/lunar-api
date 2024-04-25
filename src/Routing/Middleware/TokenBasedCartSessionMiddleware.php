@@ -18,7 +18,8 @@ class TokenBasedCartSessionMiddleware
     {
         return [
             'v1.carts.myCart',
-            'v1.carts.applyCoupon',
+            'v1.carts.setCoupon',
+            'v1.carts.unsetCoupon',
             'v1.carts.checkout',
             'v1.carts.clear',
             'v1.cart-lines.store',
@@ -27,8 +28,8 @@ class TokenBasedCartSessionMiddleware
             'v1.shipping-options.index',
             'v1.cart-addresses.store',
             'v1.cart-addresses.update',
-            'v1.cart-addresses.attachShippingOption',
-            'v1.cart-addresses.detachShippingOption',
+            'v1.cart-addresses.setShippingOption',
+            'v1.cart-addresses.unsetShippingOption',
             'v1.cart-addresses.updateCountry',
         ];
     }

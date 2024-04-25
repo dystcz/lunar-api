@@ -1,6 +1,5 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
@@ -20,7 +19,6 @@ uses(TestCase::class, RefreshDatabase::class);
 
 test('a user can checkout a cart', function () {
     /** @var TestCase $this */
-    Event::fake(CartCreated::class);
 
     /** @var CartFactory $factory */
     $factory = Cart::factory();
@@ -63,9 +61,45 @@ test('a user can checkout a cart', function () {
     expect($cart->user_id)->toBeNull();
 })->group('checkout');
 
+test('a user cannot checkout a cart if the products are not in stock', function () {
+    /** @var TestCase $this */
+
+    /** @var CartFactory $factory */
+    $factory = Cart::factory();
+
+    /** @var Cart $cart */
+    $cart = $factory
+        ->withAddresses()
+        ->withLines()
+        ->create();
+
+    /** @var CartSessionManager $cartSession */
+    $cartSession = App::make(CartSessionInterface::class);
+    $cartSession->use($cart);
+
+    $cart->lines->first()->purchasable->update([
+        'stock' => 1,
+        'purchasable' => 'in_stock',
+    ]);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->withData([
+            'type' => 'carts',
+            'attributes' => [
+                'agree' => true,
+                'create_user' => false,
+            ],
+        ])
+        ->post('/api/v1/carts/-actions/checkout');
+
+    $response->assertStatus(422);
+})->group('checkout');
+
 test('a user can be registered when checking out', function () {
     /** @var TestCase $this */
-    Event::fake([CartCreated::class, Registered::class]);
+    Event::fake([Registered::class]);
 
     /** @var Cart $cart */
     $cart = Cart::withoutEvents(function () {
@@ -118,7 +152,7 @@ test('a user can be registered when checking out', function () {
 
 test('it validates existing user before being registered when checking out', function () {
     /** @var TestCase $this */
-    Event::fake([CartCreated::class, Registered::class]);
+    Event::fake([Registered::class]);
 
     /** @var Cart $cart */
     $cart = Cart::withoutEvents(function () {
@@ -164,8 +198,6 @@ test('it validates existing user before being registered when checking out', fun
 
 it('does not forget cart after checkout if configured', function () {
     /** @var TestCase $this */
-    Event::fake(CartCreated::class);
-
     Config::set('lunar-api.general.checkout.forget_cart_after_order_creation', false);
 
     /** @var CartFactory $factory */
@@ -197,13 +229,10 @@ it('does not forget cart after checkout if configured', function () {
         ->assertSuccessful();
 
     $this->assertTrue(Session::has($cartSession->getSessionKey()));
-
 })->group('checkout');
 
 it('forgets cart after checkout if configured', function () {
     /** @var TestCase $this */
-    Event::fake(CartCreated::class);
-
     Config::set('lunar-api.general.checkout.forget_cart_after_order_creation', true);
 
     /** @var CartFactory $factory */
@@ -235,12 +264,10 @@ it('forgets cart after checkout if configured', function () {
         ->assertSuccessful();
 
     $this->assertFalse(Session::has($cartSession->getSessionKey()));
-
 })->group('checkout');
 
 it('returns signed urls for order actions', function () {
     /** @var TestCase $this */
-    Event::fake(CartCreated::class);
 
     /** @var CartFactory $factory */
     $factory = Cart::factory();
@@ -276,5 +303,4 @@ it('returns signed urls for order actions', function () {
             'mark-order-awaiting-payment.signed' => $response->json()['links']['mark-order-awaiting-payment.signed'],
             'check-order-payment-status.signed' => $response->json()['links']['check-order-payment-status.signed'],
         ]);
-
 })->group('checkout');

@@ -3,12 +3,14 @@
 namespace Dystcz\LunarApi\Domain\Brands\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIn;
+use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Brand;
 
 class BrandSchema extends Schema
@@ -25,6 +27,7 @@ class BrandSchema extends Schema
     {
         return [
             'default_url',
+            'urls',
             'thumbnail',
 
             ...parent::includePaths(),
@@ -48,6 +51,9 @@ class BrandSchema extends Schema
             HasOne::make('thumbnail')
                 ->type('media'),
 
+            HasMany::make('urls')
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
+
             ...parent::fields(),
         ];
     }
@@ -64,7 +70,10 @@ class BrandSchema extends Schema
 
             WhereIn::make('names', 'name')->delimiter(','),
 
-            WhereHas::make($this, 'default_url', 'url'),
+            WhereHas::make($this, 'urls', 'url')
+                ->singular(),
+
+            WhereHas::make($this, 'urls', 'urls'),
 
             ...parent::filters(),
         ];

@@ -15,7 +15,7 @@ beforeEach(function () {
         ->create();
 });
 
-test('shipping options cannot be updated', function () {
+test('users cannot update product associations', function () {
     /** @var TestCase $this */
     $response = $this->updateTest('associations', ProductAssociation::class, []);
 

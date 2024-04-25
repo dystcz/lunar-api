@@ -1,6 +1,5 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Enums\OrderStatus;
 use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentCanceled;
@@ -17,7 +16,6 @@ uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
     /** @var TestCase $this */
-    Event::fake(CartCreated::class);
 
     /** @var Cart $cart */
     $cart = Cart::factory()
@@ -33,6 +31,7 @@ beforeEach(function () {
 
 it('can handle canceled payment', function () {
     /** @var TestCase $this */
+    Event::fake();
 
     /** @var TestPaymentAdapter $paymentAdapter */
     $paymentAdapter = App::make(PaymentAdaptersRegister::class)->get('test');

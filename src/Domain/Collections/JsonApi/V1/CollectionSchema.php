@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Sorts\InDefaultOrder;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
@@ -21,6 +22,11 @@ class CollectionSchema extends Schema
      * {@inheritDoc}
      */
     public static string $model = Collection::class;
+
+    /**
+     * {@inheritDoc}
+     */
+    protected $defaultSort = 'ordered';
 
     /**
      * {@inheritDoc}
@@ -89,12 +95,27 @@ class CollectionSchema extends Schema
     /**
      * {@inheritDoc}
      */
+    public function sortables(): iterable
+    {
+        return [
+            ...parent::sortables(),
+
+            InDefaultOrder::make('ordered'),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function filters(): array
     {
         return [
             WhereIdIn::make($this),
 
-            WhereHas::make($this, 'default_url', 'url')->singular(),
+            WhereHas::make($this, 'urls', 'url')
+                ->singular(),
+
+            WhereHas::make($this, 'urls', 'urls'),
 
             WhereHas::make($this, 'group', 'group'),
 
