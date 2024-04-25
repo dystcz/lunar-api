@@ -45,11 +45,19 @@ class ProductVariant extends LunarPoductVariant
      */
     public function approximateInStockQuantity(): Attribute
     {
+        $threshold = Config::get('lunar-api.general.availability.approximate_in_stock_quantity.threshold', 5);
+
         return Attribute::make(
             get: fn () => match (true) {
-                $this->inStockQuantity > 5 => '>5',
-                $this->inStockQuantity <= 5 => '<=5',
-                default => '0',
+                $this->inStockQuantity > $threshold => __(
+                    'lunar-api::product-variants.availability.stock.quantity_string.more_than',
+                    ['quantity' => $threshold],
+                ),
+                $this->inStockQuantity <= $threshold => __(
+                    'lunar-api::product-variants.availability.stock.quantity_string.less_than',
+                    ['quantity' => $threshold],
+                ),
+                default => null,
             }
         );
     }
