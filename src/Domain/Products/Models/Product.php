@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\Products\Models;
 
 use Dystcz\LunarApi\Domain\Products\Actions\IsInStock;
 use Dystcz\LunarApi\Domain\Products\Builders\ProductBuilder;
+use Dystcz\LunarApi\Domain\Products\Enums\Availability;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Builder;
@@ -43,6 +44,26 @@ class Product extends LunarProduct
     public function newEloquentBuilder($query): Builder
     {
         return new ProductBuilder($query);
+    }
+
+    /**
+     * Get availability attribute.
+     */
+    public function availability(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Availability::of($this),
+        );
+    }
+
+    /**
+     * Get in stock attribute.
+     */
+    public function inStock(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => (new IsInStock)($this),
+        );
     }
 
     /**
@@ -152,15 +173,5 @@ class Product extends LunarProduct
             ->prices()
             ->where('tier', 1)
             ->where('customer_group_id', null);
-    }
-
-    /**
-     * Get in stock attribute.
-     */
-    public function inStock(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => (new IsInStock)($this),
-        );
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Actions;
 
+use Dystcz\LunarApi\Domain\Products\Enums\Availability;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
-use Dystcz\LunarApi\Domain\ProductVariants\Enums\PurchaseStatus;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Illuminate\Support\Facades\Cache;
 
@@ -31,7 +31,7 @@ class IsInStock
     protected function atLeastOneVariantInStock(Product $product): bool
     {
         return $product->variants->reduce(function (bool $carry, ProductVariant $variant) {
-            return $carry || in_array(PurchaseStatus::fromProductVariant($variant), [PurchaseStatus::AVAILABLE, PurchaseStatus::BACKORDER]);
+            return $carry || in_array(Availability::fromProductVariant($variant), [Availability::IN_STOCK, Availability::BACKORDER]);
         }, false);
     }
 }

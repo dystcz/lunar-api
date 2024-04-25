@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Actions;
 
+use Dystcz\LunarApi\Domain\Products\Enums\Availability;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
-use Dystcz\LunarApi\Domain\ProductVariants\Enums\PurchaseStatus;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Illuminate\Support\Collection;
 
@@ -15,7 +15,7 @@ class GetVariantsInStock
     public function __invoke(Product $product): Collection
     {
         return $product->variants->filter(function (ProductVariant $variant) {
-            return PurchaseStatus::fromProductVariant($variant) != PurchaseStatus::OUT_OF_STOCK;
+            return Availability::of($variant) !== Availability::OUT_OF_STOCK;
         });
     }
 }
