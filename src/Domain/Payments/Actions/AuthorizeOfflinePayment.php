@@ -16,7 +16,7 @@ class AuthorizeOfflinePayment
     public function __invoke(Order $order, Cart $cart, ?array $meta = null): void
     {
         /** @var PaymentAuthorize $payment */
-        $payment = Payments::driver('cash-on-delivery')
+        $payment = Payments::driver('offline')
             ->order($order)
             ->cart($cart)
             ->withData([
