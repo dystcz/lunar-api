@@ -31,7 +31,7 @@ class IsPurchasable
     protected function atLeastOneVariantPurchasable(Product $product): bool
     {
         return $product->variants->reduce(function (bool $carry, ProductVariant $variant) {
-            return $carry || in_array(Availability::of($variant)->purchasable());
+            return $carry || Availability::of($variant)->purchasable();
         }, false);
     }
 }
