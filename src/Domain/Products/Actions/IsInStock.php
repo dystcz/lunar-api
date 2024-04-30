@@ -31,7 +31,10 @@ class IsInStock
     protected function atLeastOneVariantInStock(Product $product): bool
     {
         return $product->variants->reduce(function (bool $carry, ProductVariant $variant) {
-            return $carry || in_array(Availability::of($variant), [Availability::IN_STOCK, Availability::BACKORDER]);
+            return $carry || in_array(
+                Availability::of($variant),
+                [Availability::ALWAYS, Availability::IN_STOCK, Availability::BACKORDER],
+            );
         }, false);
     }
 }
