@@ -3,12 +3,12 @@
 namespace Dystcz\LunarApi\Domain\Payments\PaymentAdapters;
 
 use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent as PaymentIntentContract;
-use Dystcz\LunarApi\Domain\Payments\Data\CashOnDeliveryPaymentIntent;
+use Dystcz\LunarApi\Domain\Payments\Data\OfflinePaymentIntent;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Lunar\Models\Cart;
 
-class CashOnDeliveryPaymentAdapter extends PaymentAdapter
+class OfflinePaymentAdapter extends PaymentAdapter
 {
     public function __construct()
     {
@@ -33,7 +33,7 @@ class CashOnDeliveryPaymentAdapter extends PaymentAdapter
      */
     public function getType(): string
     {
-        return 'cash-on-delivery';
+        return 'offline';
     }
 
     /**
@@ -44,7 +44,7 @@ class CashOnDeliveryPaymentAdapter extends PaymentAdapter
         $cart = $this->updateCartMeta($cart, $meta);
         $order = $this->getOrCreateOrder($cart);
 
-        $paymentIntent = new CashOnDeliveryPaymentIntent(
+        $paymentIntent = new OfflinePaymentIntent(
             amount: $order->total->value,
             id: "{$this->getDriver()}-{$order->reference}",
             meta: array_merge($meta, ['payment_method' => $this->getDriver()]),
