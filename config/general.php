@@ -38,8 +38,10 @@ return [
 
     // Availability
     'availability' => [
+        'display_real_quantity' => false,
         'approximate_in_stock_quantity' => [
             'threshold' => 5,
+            'display_real_under_threshold' => true,
         ],
     ],
 
