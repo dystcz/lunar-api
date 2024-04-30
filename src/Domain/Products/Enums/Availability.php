@@ -8,6 +8,7 @@ use Lunar\Models\ProductVariant;
 
 enum Availability: string implements Arrayable
 {
+    case ALWAYS = 'always';
     case IN_STOCK = 'in_stock';
     case OUT_OF_STOCK = 'out_of_stock';
     case BACKORDER = 'backorder';
@@ -56,7 +57,7 @@ enum Availability: string implements Arrayable
     {
         return match (true) {
             $productVariant->attr('eta') !== null && $productVariant->attr('eta') !== '' => self::PREORDER,
-            $productVariant->purchasable === 'always' => self::IN_STOCK,
+            $productVariant->purchasable === 'always' => self::ALWAYS,
             $productVariant->stock > 0 && $productVariant->purchasable === 'in_stock' => self::IN_STOCK,
             $productVariant->backorder > 0 && $productVariant->purchasable === 'backorder' => self::BACKORDER,
             default => self::OUT_OF_STOCK,
@@ -69,10 +70,11 @@ enum Availability: string implements Arrayable
     public function label(): string
     {
         return match ($this) {
-            self::IN_STOCK => __('In Stock'),
-            self::OUT_OF_STOCK => __('Out of stock'),
-            self::BACKORDER => __('Backorder'),
-            self::PREORDER => __('Preorder'),
+            self::ALWAYS => __('lunar-api::availability.lables.always'),
+            self::IN_STOCK => __('lunar-api::availability.lables.in_stock'),
+            self::BACKORDER => __('lunar-api::availability.lables.backorder'),
+            self::PREORDER => __('lunar-api::availability.lables.preorder'),
+            self::OUT_OF_STOCK => __('lunar-api::availability.lables.out_of_stock'),
         };
     }
 
@@ -82,10 +84,11 @@ enum Availability: string implements Arrayable
     public function schemaOrg(): string
     {
         return match ($this) {
+            self::ALWAYS => 'InStock',
             self::IN_STOCK => 'InStock',
-            self::OUT_OF_STOCK => 'OutOfStock',
             self::BACKORDER => 'BackOrder',
             self::PREORDER => 'PreOrder',
+            self::OUT_OF_STOCK => 'OutOfStock',
         };
     }
 
@@ -95,10 +98,11 @@ enum Availability: string implements Arrayable
     public function color(): string
     {
         return match ($this) {
+            self::ALWAYS => 'green',
             self::IN_STOCK => 'green',
-            self::OUT_OF_STOCK => 'red',
             self::BACKORDER => 'blue',
             self::PREORDER => 'blue',
+            self::OUT_OF_STOCK => 'red',
         };
     }
 
@@ -107,7 +111,12 @@ enum Availability: string implements Arrayable
      */
     public function purchasable(): bool
     {
-        return in_array($this, [self::IN_STOCK, self::BACKORDER, self::PREORDER]);
+        return in_array($this, [
+            self::ALWAYS,
+            self::IN_STOCK,
+            self::BACKORDER,
+            self::PREORDER,
+        ]);
     }
 
     /**
@@ -118,7 +127,7 @@ enum Availability: string implements Arrayable
     public function toArray(): array
     {
         return [
-            'name' => __('Availability'),
+            'name' => __('lunar-api::availability.availability'),
             'value' => $this->value,
             'label' => $this->label(),
             'color' => $this->color(),
