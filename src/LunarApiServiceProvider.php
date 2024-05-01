@@ -265,6 +265,8 @@ class LunarApiServiceProvider extends ServiceProvider
     {
         // Offline payments
         \Dystcz\LunarApi\Domain\Payments\PaymentAdapters\OfflinePaymentAdapter::register();
+        \Dystcz\LunarApi\Domain\Payments\PaymentAdapters\BankTransferPaymentAdapter::register();
+        \Dystcz\LunarApi\Domain\Payments\PaymentAdapters\CashOnDeliveryPaymentAdapter::register();
 
         \Lunar\Facades\Payments::extend(
             'offline',
