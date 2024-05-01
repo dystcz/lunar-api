@@ -23,7 +23,7 @@ class OfflinePaymentType extends AbstractPayment
     /**
      * {@inheritDoc}
      */
-    public function authorize(string $type = 'offline'): PaymentAuthorize
+    public function authorize(string $paymentType = 'offline'): PaymentAuthorize
     {
         $meta = array_merge(
             (array) $this->order->meta,
@@ -38,7 +38,7 @@ class OfflinePaymentType extends AbstractPayment
             'placed_at' => Carbon::now(),
         ]);
 
-        $this->createCaptureTransaction($type);
+        $this->createCaptureTransaction($paymentType);
 
         return new PaymentAuthorize(true);
     }
@@ -46,9 +46,9 @@ class OfflinePaymentType extends AbstractPayment
     /**
      * Create transaction for the payment.
      */
-    protected function createCaptureTransaction(string $type): Transaction
+    protected function createCaptureTransaction(string $paymentType): Transaction
     {
-        $paymentAdapter = $this->register->get('offline');
+        $paymentAdapter = $this->register->get($paymentType);
 
         $lastTransaction = (new GetLastOrderTransaction)(
             order: $this->order,
@@ -58,7 +58,7 @@ class OfflinePaymentType extends AbstractPayment
         $transaction = $paymentAdapter->createTransaction(
             model: $this->order,
             type: TransactionType::CAPTURE,
-            reference: "{$type}-{$this->order->reference}",
+            reference: "{$paymentType}-{$this->order->reference}",
             status: PaymentIntentStatus::SUCCEEDED->value,
             success: true,
             amount: $this->order->total->value,

@@ -13,7 +13,7 @@ class AuthorizeOfflinePayment
     /**
      * @param  array<string,mixed>  $meta
      */
-    public function __invoke(Order $order, Cart $cart, string $type = 'offline', ?array $meta = null): void
+    public function __invoke(Order $order, Cart $cart, string $paymentType = 'offline', ?array $meta = null): void
     {
         /** @var PaymentAuthorize $payment */
         $payment = Payments::driver('offline')
@@ -21,11 +21,11 @@ class AuthorizeOfflinePayment
             ->cart($cart)
             ->withData([
                 'meta' => array_merge(
-                    ['payment_type' => $type],
+                    ['payment_type' => $paymentType],
                     $meta ?? [],
                 ),
             ])
-            ->authorize($type);
+            ->authorize($paymentType);
 
         if (! $payment->success) {
             report("Payment failed for order: {$order->id} with reason: {$payment->message}");
