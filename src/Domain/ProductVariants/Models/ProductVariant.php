@@ -62,15 +62,15 @@ class ProductVariant extends LunarPoductVariant
 
         return Attribute::make(
             get: fn () => match (true) {
-                $this->inStockQuantity > $threshold => __(
+                ($this->inStockQuantity > $threshold) => __(
                     'lunar-api::availability.stock.quantity_string.more_than',
                     ['quantity' => $threshold],
                 ),
-                $this->inStockQuantity <= $threshold => __(
+                ($this->inStockQuantity <= $threshold) && $displayRealUnderThreshold => $this->inStockQuantity,
+                ($this->inStockQuantity <= $threshold) => __(
                     'lunar-api::availability.stock.quantity_string.less_than',
                     ['quantity' => $threshold],
                 ),
-                ($this->inStockQuantity <= $threshold) && $displayRealUnderThreshold => $this->inStockQuantity,
                 default => null,
             }
         );
