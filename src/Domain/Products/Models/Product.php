@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Models;
 
-use Dystcz\LunarApi\Domain\Products\Actions\IsInStock;
+use Dystcz\LunarApi\Domain\Products\Actions\IsPurchasable;
 use Dystcz\LunarApi\Domain\Products\Builders\ProductBuilder;
 use Dystcz\LunarApi\Domain\Products\Enums\Availability;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
@@ -57,12 +57,12 @@ class Product extends LunarProduct
     }
 
     /**
-     * Get in stock attribute.
+     * Get purchaseble attribute.
      */
-    public function inStock(): Attribute
+    public function isPurchasable(): Attribute
     {
         return Attribute::make(
-            get: fn () => (new IsInStock)($this),
+            get: fn () => (new IsPurchasable)($this),
         );
     }
 
