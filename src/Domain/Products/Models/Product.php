@@ -57,9 +57,9 @@ class Product extends LunarProduct
     }
 
     /**
-     * Get in stock attribute.
+     * Get purchaseble attribute.
      */
-    public function purchasable(): Attribute
+    public function isPurchasable(): Attribute
     {
         return Attribute::make(
             get: fn () => (new IsPurchasable)($this),
