@@ -46,8 +46,8 @@ class OfflinePaymentAdapter extends PaymentAdapter
 
         $paymentIntent = new OfflinePaymentIntent(
             amount: $order->total->value,
-            id: "{$this->getDriver()}-{$order->reference}",
-            meta: array_merge($meta, ['payment_method' => $this->getDriver()]),
+            id: "{$this->getType()}-{$order->reference}",
+            meta: array_merge($meta, ['payment_method' => $this->getType()]),
         );
 
         $this->createIntentTransaction($cart, $paymentIntent, $meta);
