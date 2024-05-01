@@ -70,11 +70,11 @@ enum Availability: string implements Arrayable
     public function label(): string
     {
         return match ($this) {
-            self::ALWAYS => __('lunar-api::availability.lables.always'),
-            self::IN_STOCK => __('lunar-api::availability.lables.in_stock'),
-            self::BACKORDER => __('lunar-api::availability.lables.backorder'),
-            self::PREORDER => __('lunar-api::availability.lables.preorder'),
-            self::OUT_OF_STOCK => __('lunar-api::availability.lables.out_of_stock'),
+            self::ALWAYS => __('lunar-api::availability.labels.always'),
+            self::IN_STOCK => __('lunar-api::availability.labels.in_stock'),
+            self::BACKORDER => __('lunar-api::availability.labels.backorder'),
+            self::PREORDER => __('lunar-api::availability.labels.preorder'),
+            self::OUT_OF_STOCK => __('lunar-api::availability.labels.out_of_stock'),
         };
     }
 
