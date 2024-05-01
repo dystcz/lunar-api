@@ -43,7 +43,7 @@ enum Availability: string implements Arrayable
             return self::BACKORDER;
         }
 
-        if ($variantsStatuses->contains(self::IN_STOCK)) {
+        if ($variantsStatuses->contains(self::IN_STOCK) || $variantsStatuses->contains(self::ALWAYS)) {
             return self::IN_STOCK;
         }
 
