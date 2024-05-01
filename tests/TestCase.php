@@ -147,6 +147,7 @@ abstract class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => '',
         ]);
+        Config::set('queue.default', 'sync');
 
         Config::set('database.connections.mysql', [
             'driver' => 'mysql',
