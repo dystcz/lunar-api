@@ -65,6 +65,12 @@ class LunarApiServiceProvider extends ServiceProvider
             \Dystcz\LunarApi\Domain\PaymentOptions\Contracts\PaymentManifest::class,
             fn (Application $app) => $app->make(\Dystcz\LunarApi\Domain\PaymentOptions\Manifests\PaymentManifest::class),
         );
+
+        // Bind checkout controller.
+        $this->app->bind(
+            \Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCartController::class,
+            \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CheckoutCartController::class,
+        );
     }
 
     /**
