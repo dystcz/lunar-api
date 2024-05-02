@@ -201,7 +201,7 @@ class ProductSchema extends Schema
 
             WhereIdNotIn::make($this),
 
-            InStockFilter::make(),
+            InStockFilter::make('in_stock'),
 
             WhereHas::make($this, 'prices'),
 

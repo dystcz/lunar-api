@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Payments\PaymentAdapters;
 
-class CashOnDeliveryPaymentAdapter extends OfflinePaymentAdapter
+class BankTransferPaymentAdapter extends OfflinePaymentAdapter
 {
     /**
      * Get payment driver on which this adapter binds.
@@ -23,6 +23,6 @@ class CashOnDeliveryPaymentAdapter extends OfflinePaymentAdapter
      */
     public function getType(): string
     {
-        return 'cash-on-delivery';
+        return 'bank-transfer';
     }
 }

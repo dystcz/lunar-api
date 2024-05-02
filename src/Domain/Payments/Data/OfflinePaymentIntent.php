@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\Payments\Data;
 use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent as PaymentIntentContract;
 use Dystcz\LunarApi\Domain\Payments\Enums\PaymentIntentStatus;
 
-class CashOnDeliveryPaymentIntent implements PaymentIntentContract
+class OfflinePaymentIntent implements PaymentIntentContract
 {
     /**
      * @param  array<string,mixed>  $meta
@@ -13,6 +13,7 @@ class CashOnDeliveryPaymentIntent implements PaymentIntentContract
     public function __construct(
         public int $amount,
         public string $id,
+        public ?string $status = null,
         public array $meta = [],
     ) {
     }
@@ -38,7 +39,7 @@ class CashOnDeliveryPaymentIntent implements PaymentIntentContract
      */
     public function getStatus(): string
     {
-        return PaymentIntentStatus::INTENT->value;
+        return $this->status ?? PaymentIntentStatus::SUCCEEDED->value;
     }
 
     /**
@@ -46,7 +47,7 @@ class CashOnDeliveryPaymentIntent implements PaymentIntentContract
      */
     public function getClientSecret(): string
     {
-        return 'cash-on-delivery-secret';
+        return 'offline-secret';
     }
 
     /**

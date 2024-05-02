@@ -263,7 +263,9 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     protected function registerPayments(): void
     {
-        // Cash on delivery payments
+        // Offline payments
+        \Dystcz\LunarApi\Domain\Payments\PaymentAdapters\OfflinePaymentAdapter::register();
+        \Dystcz\LunarApi\Domain\Payments\PaymentAdapters\BankTransferPaymentAdapter::register();
         \Dystcz\LunarApi\Domain\Payments\PaymentAdapters\CashOnDeliveryPaymentAdapter::register();
 
         \Lunar\Facades\Payments::extend(
