@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Http\Routing;
 
+use Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartPaymentOptionController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartsController;
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CheckoutCartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ClearUserCartController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CouponsController;
 use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CreateEmptyCartAddressesController;
