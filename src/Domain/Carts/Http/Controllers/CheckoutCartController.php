@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCart;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCartController as CheckoutCartControllerContract;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CheckoutCartRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
@@ -15,7 +16,7 @@ use LaravelJsonApi\Core\Responses\DataResponse;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
 
-class CheckoutCartController extends Controller
+class CheckoutCartController extends Controller implements CheckoutCartControllerContract
 {
     /**
      * @var CartSessionManager
