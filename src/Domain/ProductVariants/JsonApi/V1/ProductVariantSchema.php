@@ -43,6 +43,7 @@ class ProductVariantSchema extends Schema
         $includePaths = [
             'default_url',
             'images',
+            'lowest_price',
             'prices',
             'thumbnail',
             'urls',
@@ -98,10 +99,7 @@ class ProductVariantSchema extends Schema
 
             HasOne::make('lowest_price', 'lowestPrice')
                 ->type('prices')
-                ->retainFieldName()
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->retainFieldName(),
 
             HasMany::make('images', 'images')
                 ->type('media')
