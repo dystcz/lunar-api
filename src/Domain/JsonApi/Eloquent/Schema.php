@@ -136,6 +136,26 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     }
 
     /**
+     * Get include paths for schema type.
+     *
+     * @return string[]|iterable
+     */
+    protected function getIncludePathsFor(string $type, ?string $relationship = null): array
+    {
+        $includePaths = $this->server->schemas()->schemaFor($type)->includePaths();
+
+        $relationship = $relationship ?? $type;
+
+        return array_merge(
+            [$relationship],
+            array_map(
+                fn (string $path) => "{$relationship}.{$path}",
+                $includePaths,
+            )
+        );
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function fields(): iterable
