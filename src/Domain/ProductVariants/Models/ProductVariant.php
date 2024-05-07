@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\Products\Enums\Availability;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Facades\Config;
@@ -14,6 +15,7 @@ use InvalidArgumentException;
 use Lunar\Base\Traits\HasUrls;
 use Lunar\Models\Price as LunarPrice;
 use Lunar\Models\ProductVariant as LunarPoductVariant;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @method MorphMany notifications() Get the notifications relation if `lunar-api-product-notifications` package is installed.
@@ -92,21 +94,20 @@ class ProductVariant extends LunarPoductVariant
     /**
      * Thumbnail relation.
      */
-    public function thumbnail(): MorphOne
+    public function thumbnail(): HasOneThrough
     {
-        // TODO: Not working, finish
-        return $this->product->morphOne(config('media-library.media_model'), 'model')
-            ->where(function ($query) {
-                $query->where('id', function ($q) {
-                    $prefix = Config::get('lunar.database.table_prefix');
+        $prefix = Config::get('lunar.database.table_prefix');
+        $table = "{$prefix}media_product_variant";
 
-                    return $q->from("{$prefix}media_product_variant")
-                        ->select('media_id')
-                        ->where('product_variant_id', $this->getKey())
-                        ->where('primary', true)
-                        ->take(1);
-                });
-            });
+        return $this
+            ->hasOneThrough(
+                Media::class,
+                ProductVariantMedia::class,
+                'product_variant_id',
+                'id',
+                'id',
+                'media_id'
+            )->where('primary', true);
     }
 
     /**
