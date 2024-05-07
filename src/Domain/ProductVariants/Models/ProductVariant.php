@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\ProductVariants\Models;
 
 use Dystcz\LunarApi\Domain\Attributes\Traits\InteractsWithAttributes;
 use Dystcz\LunarApi\Domain\Products\Enums\Availability;
+use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -107,7 +108,8 @@ class ProductVariant extends LunarPoductVariant
                 'id',
                 'id',
                 'media_id'
-            )->where('primary', true);
+            )
+            ->where('primary', true);
     }
 
     /**
@@ -121,6 +123,17 @@ class ProductVariant extends LunarPoductVariant
             ->morphOne(
                 LunarPrice::class,
                 'priceable'
-            )->ofMany('price', 'min');
+            )
+            ->ofMany('price', 'min');
+    }
+
+    /**
+     * Other variants relation.
+     */
+    public function otherVariants()
+    {
+        return $this
+            ->hasMany(LunarPoductVariant::class, 'product_id', 'product_id')
+            ->where($this->getRouteKeyName(), '!=', $this->getAttribute($this->getRouteKeyName()));
     }
 }
