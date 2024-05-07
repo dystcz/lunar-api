@@ -4,11 +4,14 @@ namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
@@ -23,6 +26,17 @@ class ProductVariantSchema extends Schema
     public static string $model = ProductVariant::class;
 
     /**
+     * Build an index query for this resource.
+     */
+    public function indexQuery(?Request $request, Builder $query): Builder
+    {
+        return $query->whereHas(
+            'product',
+            fn ($query) => $query->where('status', '!=', 'draft'),
+        );
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function includePaths(): iterable
@@ -33,6 +47,7 @@ class ProductVariantSchema extends Schema
             'prices',
             'product',
             'product.thumbnail',
+            'thumbnail',
             'urls',
             'values',
 
@@ -85,10 +100,6 @@ class ProductVariantSchema extends Schema
 
             HasMany::make('values', 'values')
                 ->type('product-option-values'),
-            // ->canCount()
-            // ->serializeUsing(
-            // static fn ($relation) => $relation->withoutLinks(),
-            // ),
 
             HasMany::make('prices')
                 ->serializeUsing(
@@ -102,7 +113,8 @@ class ProductVariantSchema extends Schema
             HasMany::make('urls')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            // HasOne::make('thumbnail'),
+            HasOneThrough::make('thumbnail')
+                ->type('media'),
 
             ...parent::fields(),
         ];
