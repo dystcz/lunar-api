@@ -8,6 +8,7 @@ use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
+use Lunar\FieldTypes\Text;
 use Lunar\Models\Currency;
 use Lunar\Models\ProductVariant as LunarProductVariant;
 use Lunar\Models\TaxClass;
@@ -81,15 +82,18 @@ class ProductVariantFactory extends \Lunar\Database\Factories\ProductVariantFact
     {
         return [
             'product_id' => Product::factory(),
-            'tax_class_id' => TaxClass::factory()->hasTaxRateAmounts(
-                TaxRateAmount::factory()
-            ),
+            'tax_class_id' => TaxClass::factory()
+                ->hasTaxRateAmounts(TaxRateAmount::factory()),
             'sku' => Str::random(12),
             'unit_quantity' => 1,
             'gtin' => $this->faker->unique()->isbn13,
             'mpn' => $this->faker->unique()->isbn13,
             'ean' => $this->faker->unique()->ean13,
             'shippable' => true,
+            'attribute_data' => collect([
+                'name' => new Text($this->faker->name),
+                'description' => new Text($this->faker->sentence),
+            ]),
         ];
     }
 }
