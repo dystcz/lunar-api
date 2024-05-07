@@ -15,7 +15,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
-use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\ProductVariant;
 
 class ProductVariantSchema extends Schema
@@ -41,16 +40,27 @@ class ProductVariantSchema extends Schema
      */
     public function includePaths(): iterable
     {
-        return [
+        $includePaths = [
             'default_url',
             'images',
             'prices',
-            'product',
-            'product.thumbnail',
             'thumbnail',
             'urls',
             'values',
+        ];
 
+        $otherVariantsIncludePaths = array_merge(
+            ['other_variants'],
+            array_map(
+                fn (string $path) => "other_variants.{$path}",
+                $includePaths,
+            )
+        );
+
+        return [
+            ...$includePaths,
+            ...$otherVariantsIncludePaths,
+            ...$this->getIncludePathsFor('products', 'product'),
             ...parent::includePaths(),
         ];
     }
@@ -79,10 +89,12 @@ class ProductVariantSchema extends Schema
                     ),
             ]),
 
-            BelongsTo::make('product')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+            BelongsTo::make('product'),
+
+            HasMany::make('other_variants', 'otherVariants')
+                ->type('variants')
+                ->canCount()
+                ->retainFieldName(),
 
             HasOne::make('lowest_price', 'lowestPrice')
                 ->type('prices')
@@ -93,13 +105,13 @@ class ProductVariantSchema extends Schema
 
             HasMany::make('images', 'images')
                 ->type('media')
-                ->canCount()
+                ->canCount(),
+
+            HasMany::make('values', 'values')
+                ->type('product-option-values')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
-
-            HasMany::make('values', 'values')
-                ->type('product-option-values'),
 
             HasMany::make('prices')
                 ->serializeUsing(
@@ -110,8 +122,7 @@ class ProductVariantSchema extends Schema
                 ->type('urls')
                 ->retainFieldName(),
 
-            HasMany::make('urls')
-                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
+            HasMany::make('urls'),
 
             HasOneThrough::make('thumbnail')
                 ->type('media'),
