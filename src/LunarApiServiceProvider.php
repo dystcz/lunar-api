@@ -82,6 +82,7 @@ class LunarApiServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom("{$this->root}/database/migrations");
 
         $this->registerModels();
+        $this->registerDynamicRelations();
         $this->registerObservers();
         $this->registerEvents();
         $this->registerPayments();
@@ -306,6 +307,26 @@ class LunarApiServiceProvider extends ServiceProvider
         ModelManifest::register(
             DomainConfigCollection::make()->getModelsForModelManifest(),
         );
+    }
+
+    /**
+     * Register dynamic relations.
+     */
+    protected function registerDynamicRelations(): void
+    {
+        \Lunar\Models\ProductVariant::resolveRelationUsing('urls', function ($model) {
+            return $model->morphMany(
+                \Lunar\Models\Url::class,
+                'element'
+            );
+        });
+
+        \Lunar\Models\ProductVariant::resolveRelationUsing('defaultUrl', function ($model) {
+            return $model->morphOne(
+                \Lunar\Models\Url::class,
+                'element'
+            )->whereDefault(true);
+        });
     }
 
     /**
