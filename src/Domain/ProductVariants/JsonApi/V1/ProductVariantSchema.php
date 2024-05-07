@@ -95,12 +95,12 @@ class ProductVariantSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasOne::make('default_url', 'defaultUrl')
-                ->type('urls')
-                ->retainFieldName(),
-
-            HasMany::make('urls')
-                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
+            // HasOne::make('default_url', 'defaultUrl')
+            //     ->type('urls')
+            //     ->retainFieldName(),
+            //
+            // HasMany::make('urls')
+            //     ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             // HasOne::make('thumbnail'),
 

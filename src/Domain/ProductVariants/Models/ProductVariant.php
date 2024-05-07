@@ -21,7 +21,8 @@ use Lunar\Models\ProductVariant as LunarPoductVariant;
 class ProductVariant extends LunarPoductVariant
 {
     use HashesRouteKey;
-    use HasUrls;
+
+    // use HasUrls;
     use InteractsWithAttributes;
 
     /**
