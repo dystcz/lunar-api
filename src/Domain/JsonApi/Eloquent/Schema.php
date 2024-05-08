@@ -27,7 +27,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     /**
      * The maximum depth of include paths.
      */
-    protected int $maxDepth = 0;
+    protected int $maxDepth = 5;
 
     /**
      * The default paging parameters to use if the client supplies none.
