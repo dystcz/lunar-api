@@ -241,6 +241,7 @@ class LunarApiServiceProvider extends ServiceProvider
             \Dystcz\LunarApi\Domain\CartAddresses\Contracts\ContinuousUpdateCartAddressController::class => \Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\ContinuousUpdateCartAddressController::class,
             \Dystcz\LunarApi\Domain\CartAddresses\Contracts\UpdateCartAddressCountryController::class => \Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\UpdateCartAddressCountryController::class,
             \Dystcz\LunarApi\Domain\CartLines\Contracts\CartLinesController::class => \Dystcz\LunarApi\Domain\CartLines\Http\Controllers\CartLinesController::class,
+            \Dystcz\LunarApi\Domain\Carts\Contracts\CartCouponsController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartCouponsController::class,
             \Dystcz\LunarApi\Domain\Carts\Contracts\CartPaymentOptionController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartPaymentOptionController::class,
             \Dystcz\LunarApi\Domain\Carts\Contracts\CartsController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartsController::class,
             \Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCartController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CheckoutCartController::class,
@@ -267,6 +268,7 @@ class LunarApiServiceProvider extends ServiceProvider
             \Dystcz\LunarApi\Domain\Tags\Contracts\TagsController::class => \Dystcz\LunarApi\Domain\Tags\Http\Controllers\TagsController::class,
             \Dystcz\LunarApi\Domain\Urls\Contracts\UrlsController::class => \Dystcz\LunarApi\Domain\Urls\Http\Controllers\UrlsController::class,
             \Dystcz\LunarApi\Domain\Users\Contracts\UsersController::class => \Dystcz\LunarApi\Domain\Users\Http\Controllers\UsersController::class,
+
         ];
 
         foreach ($controllers as $abstract => $concrete) {
