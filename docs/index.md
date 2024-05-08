@@ -10,16 +10,18 @@ hero:
     - theme: brand
       text: Getting started
       link: /overview
-    - theme: alt
-      text: API Examples
-      link: /api-examples
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - icon: 🏗️
+    title: Highly customizable
+    details: This package aims to be maximally extensible, allowing you to build features to meet your project's needs.
+    link: /extending/overview
+  - icon: 📦
+    title: Package ecosystem
+    details: Wannabe ecosystem of complementary packages with emphasis on the plug and play spirit
+    link: /more/compatible-packages
+  - icon: 🧑‍💻
+    title: Continuously developed
+    details: Numerous ecommerce projects are already running in production with Lunar API.
 ---
 

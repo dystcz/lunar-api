@@ -7,10 +7,7 @@ export default defineConfig({
     description: "API layer for Lunar ecommerce package",
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
-        nav: [
-            { text: "Home", link: "/" },
-            { text: "Examples", link: "/markdown-examples" },
-        ],
+        nav: [{ text: "Home", link: "/" }],
 
         sidebar: [
             {
@@ -47,6 +44,7 @@ export default defineConfig({
             {
                 text: "Extending",
                 items: [
+                    { text: "Overview", link: "/extending/overview" },
                     { text: "Controllers", link: "/extending/controllers" },
                     { text: "Models", link: "/extending/models" },
                     { text: "Policies", link: "/extending/policies" },
