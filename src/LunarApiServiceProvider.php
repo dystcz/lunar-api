@@ -265,6 +265,7 @@ class LunarApiServiceProvider extends ServiceProvider
             \Dystcz\LunarApi\Domain\Products\Contracts\ProductsController::class => \Dystcz\LunarApi\Domain\Products\Http\Controllers\ProductsController::class,
             \Dystcz\LunarApi\Domain\ShippingOptions\Contracts\ShippingOptionsController::class => \Dystcz\LunarApi\Domain\ShippingOptions\Http\Controllers\ShippingOptionsController::class,
             \Dystcz\LunarApi\Domain\Tags\Contracts\TagsController::class => \Dystcz\LunarApi\Domain\Tags\Http\Controllers\TagsController::class,
+            \Dystcz\LunarApi\Domain\Urls\Contracts\UrlsController::class => \Dystcz\LunarApi\Domain\Urls\Http\Controllers\UrlsController::class,
         ];
 
         foreach ($controllers as $abstract => $concrete) {
