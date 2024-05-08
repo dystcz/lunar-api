@@ -3,13 +3,14 @@
 namespace Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
+use Dystcz\LunarApi\Domain\CartAddresses\Contracts\ContinuousUpdateCartAddressController as ContinuousUpdateCartAddressControllerContract;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressContinuousUpdateRequest;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressQuery;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema;
 use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use LaravelJsonApi\Core\Responses\DataResponse;
 
-class ContinuousUpdateCartAddressController extends Controller
+class ContinuousUpdateCartAddressController extends Controller implements ContinuousUpdateCartAddressControllerContract
 {
     /**
      * Update an existing resource.
