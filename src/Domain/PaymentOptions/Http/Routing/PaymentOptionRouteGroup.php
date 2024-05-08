@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\PaymentOptions\Http\Routing;
 
-use Dystcz\LunarApi\Domain\PaymentOptions\Http\Controllers\PaymentOptionsController;
+use Dystcz\LunarApi\Domain\PaymentOptions\Contracts\PaymentOptionsController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
