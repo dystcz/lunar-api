@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Orders\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
+use Dystcz\LunarApi\Domain\Orders\Contracts\OrdersController as OrdersControllerContract;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderQuery;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderSchema;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
@@ -13,7 +14,7 @@ use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
 
-class OrdersController extends Controller
+class OrdersController extends Controller implements OrdersControllerContract
 {
     use FetchOne;
     use FetchRelated;

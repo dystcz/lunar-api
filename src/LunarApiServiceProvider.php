@@ -253,6 +253,11 @@ class LunarApiServiceProvider extends ServiceProvider
             \Dystcz\LunarApi\Domain\Currencies\Contracts\CurrenciesController::class => \Dystcz\LunarApi\Domain\Currencies\Http\Controllers\CurrenciesController::class,
             \Dystcz\LunarApi\Domain\Customers\Contracts\CustomersController::class => \Dystcz\LunarApi\Domain\Customers\Http\Controllers\CustomersController::class,
             \Dystcz\LunarApi\Domain\Media\Contracts\MediaController::class => \Dystcz\LunarApi\Domain\Media\Http\Controllers\MediaController::class,
+            \Dystcz\LunarApi\Domain\Orders\Contracts\CheckOrderPaymentStatusController::class => \Dystcz\LunarApi\Domain\Orders\Http\Controllers\CheckOrderPaymentStatusController::class,
+            \Dystcz\LunarApi\Domain\Orders\Contracts\CreatePaymentIntentController::class => \Dystcz\LunarApi\Domain\Orders\Http\Controllers\CreatePaymentIntentController::class,
+            \Dystcz\LunarApi\Domain\Orders\Contracts\MarkOrderAwaitingPaymentController::class => \Dystcz\LunarApi\Domain\Orders\Http\Controllers\MarkOrderAwaitingPaymentController::class,
+            \Dystcz\LunarApi\Domain\Orders\Contracts\MarkOrderPendingPaymentController::class => \Dystcz\LunarApi\Domain\Orders\Http\Controllers\MarkOrderPendingPaymentController::class,
+            \Dystcz\LunarApi\Domain\Orders\Contracts\OrdersController::class => \Dystcz\LunarApi\Domain\Orders\Http\Controllers\OrdersController::class,
         ];
 
         foreach ($controllers as $abstract => $concrete) {
