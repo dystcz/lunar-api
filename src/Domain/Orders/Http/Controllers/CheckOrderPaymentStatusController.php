@@ -3,12 +3,13 @@
 namespace Dystcz\LunarApi\Domain\Orders\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
+use Dystcz\LunarApi\Domain\Orders\Contracts\CheckOrderPaymentStatusController as CheckOrderPaymentStatusControllerContract;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\CheckOrderPaymentStatusQuery;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderSchema;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use LaravelJsonApi\Core\Responses\DataResponse;
 
-class CheckOrderPaymentStatusController extends Controller
+class CheckOrderPaymentStatusController extends Controller implements CheckOrderPaymentStatusControllerContract
 {
     public function checkOrderPaymentStatus(
         OrderSchema $schema,

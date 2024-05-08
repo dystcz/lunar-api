@@ -2,11 +2,13 @@
 
 namespace Dystcz\LunarApi\Domain\Payments\Http\Controllers;
 
+use Dystcz\LunarApi\Base\Controller;
+use Dystcz\LunarApi\Domain\Payments\Contracts\HandlePaymentWebhookController as HandlePaymentWebhookControllerContract;
 use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class HandlePaymentWebhookController
+class HandlePaymentWebhookController extends Controller implements HandlePaymentWebhookControllerContract
 {
     public function __construct(
         protected PaymentAdaptersRegister $register

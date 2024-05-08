@@ -3,12 +3,13 @@
 namespace Dystcz\LunarApi\Domain\Countries\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
+use Dystcz\LunarApi\Domain\Countries\Contracts\CountriesController as CountriesControllerContract;
 use Dystcz\LunarApi\Domain\Countries\JsonApi\V1\CountryCollectionQuery;
 use Dystcz\LunarApi\Domain\Countries\JsonApi\V1\CountrySchema;
 use Illuminate\Support\Facades\Cache;
 use LaravelJsonApi\Core\Responses\DataResponse;
 
-class CountriesController extends Controller
+class CountriesController extends Controller implements CountriesControllerContract
 {
     /**
      * Fetch zero to many JSON API resources.

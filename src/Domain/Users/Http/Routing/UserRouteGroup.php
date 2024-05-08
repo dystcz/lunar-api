@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Users\Http\Routing;
 
-use Dystcz\LunarApi\Domain\Users\Http\Controllers\UsersController;
+use Dystcz\LunarApi\Domain\Users\Contracts\UsersController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;

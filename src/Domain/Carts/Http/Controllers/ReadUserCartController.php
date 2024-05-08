@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
+use Dystcz\LunarApi\Domain\Carts\Contracts\ReadUserCartController as ReadUserCartControllerContract;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Response;
@@ -13,7 +14,7 @@ use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceQuery;
 use Lunar\Base\CartSessionInterface;
 
-class ReadUserCartController extends Controller
+class ReadUserCartController extends Controller implements ReadUserCartControllerContract
 {
     /**
      * @var \Lunar\Managers\CartSessionManager
