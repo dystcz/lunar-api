@@ -42,11 +42,8 @@ class LunarApiServiceProvider extends ServiceProvider
             $this->registerPolicies();
         });
 
-        // Register the main class to use with the facade.
-        $this->app->singleton(
-            'lunar-api',
-            fn () => new LunarApi,
-        );
+        $this->app->singleton('lunar-api', fn () => new LunarApi);
+        $this->app->singleton('lunar-api-config', fn () => new LunarApiConfig);
 
         // Register payment adapters register.
         $this->app->singleton(
