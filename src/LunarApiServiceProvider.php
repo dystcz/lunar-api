@@ -48,6 +48,8 @@ class LunarApiServiceProvider extends ServiceProvider
             fn () => new LunarApi,
         );
 
+        $this->registerControllers();
+
         // Register payment adapters register.
         $this->app->singleton(
             \Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister::class,
@@ -66,11 +68,6 @@ class LunarApiServiceProvider extends ServiceProvider
             fn (Application $app) => $app->make(\Dystcz\LunarApi\Domain\PaymentOptions\Manifests\PaymentManifest::class),
         );
 
-        // Bind checkout controller.
-        $this->app->bind(
-            \Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCartController::class,
-            \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CheckoutCartController::class,
-        );
     }
 
     /**
@@ -229,6 +226,34 @@ class LunarApiServiceProvider extends ServiceProvider
         $this->publishes([
             "{$this->root}/database/migrations/" => $this->app->databasePath('migrations'),
         ], 'lunar-api.migrations');
+    }
+
+    /**
+     * Register controllers.
+     */
+    protected function registerControllers(): void
+    {
+        $controllers = [
+            \Dystcz\LunarApi\Domain\Addresses\Contracts\AddressesController::class => \Dystcz\LunarApi\Domain\Addresses\Http\Controllers\AddressesController::class,
+            \Dystcz\LunarApi\Domain\Carts\Contracts\CartPaymentOptionController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartPaymentOptionController::class,
+            \Dystcz\LunarApi\Domain\Carts\Contracts\CartsController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartsController::class,
+            \Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCartController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CheckoutCartController::class,
+            \Dystcz\LunarApi\Domain\Carts\Contracts\ClearUserCartController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\ClearUserCartController::class,
+            \Dystcz\LunarApi\Domain\Carts\Contracts\CreateEmptyCartAddressesController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CreateEmptyCartAddressesController::class,
+            \Dystcz\LunarApi\Domain\Carts\Contracts\ReadUserCartController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\ReadUserCartController::class,
+            \Dystcz\LunarApi\Domain\Brands\Contracts\BrandsController::class => \Dystcz\LunarApi\Domain\Brands\Http\Controllers\BrandsController::class,
+            \Dystcz\LunarApi\Domain\CartAddresses\Contracts\CartAddressesController::class => \Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\CartAddressesController::class,
+            \Dystcz\LunarApi\Domain\CartAddresses\Contracts\CartAddressShippingOptionController::class => \Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\CartAddressShippingOptionController::class,
+            \Dystcz\LunarApi\Domain\CartAddresses\Contracts\ContinuousUpdateCartAddressController::class => \Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\ContinuousUpdateCartAddressController::class,
+            \Dystcz\LunarApi\Domain\CartAddresses\Contracts\UpdateCartAddressCountryController::class => \Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\UpdateCartAddressCountryController::class,
+            \Dystcz\LunarApi\Domain\CartLines\Contracts\CartLinesController::class => \Dystcz\LunarApi\Domain\CartLines\Http\Controllers\CartLinesController::class,
+            \Dystcz\LunarApi\Domain\Channels\Contracts\ChannelsController::class => \Dystcz\LunarApi\Domain\Channels\Http\Controllers\ChannelsController::class,
+            \Dystcz\LunarApi\Domain\Collections\Contracts\CollectionsController::class => \Dystcz\LunarApi\Domain\Collections\Http\Controllers\CollectionsController::class,
+        ];
+
+        foreach ($controllers as $abstract => $concrete) {
+            $this->app->bind($abstract, $concrete);
+        }
     }
 
     /**
