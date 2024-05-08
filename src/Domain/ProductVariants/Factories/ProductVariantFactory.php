@@ -19,6 +19,28 @@ class ProductVariantFactory extends \Lunar\Database\Factories\ProductVariantFact
     protected $model = ProductVariant::class;
 
     /**
+     * Define the model's default state.
+     */
+    public function definition(): array
+    {
+        return [
+            'product_id' => Product::factory(),
+            'tax_class_id' => TaxClass::factory()
+                ->hasTaxRateAmounts(TaxRateAmount::factory()),
+            'sku' => Str::random(12),
+            'unit_quantity' => 1,
+            'gtin' => $this->faker->unique()->isbn13,
+            'mpn' => $this->faker->unique()->isbn13,
+            'ean' => $this->faker->unique()->ean13,
+            'shippable' => true,
+            'attribute_data' => collect([
+                'name' => new Text($this->faker->name),
+                'description' => new Text($this->faker->sentence),
+            ]),
+        ];
+    }
+
+    /**
      * Create a model with a price.
      */
     public function withPrice(?int $price = null, ?int $comparePrice = null): static
@@ -73,27 +95,5 @@ class ProductVariantFactory extends \Lunar\Database\Factories\ProductVariantFact
                     ->count($count),
                 'images',
             );
-    }
-
-    /**
-     * Define the model's default state.
-     */
-    public function definition(): array
-    {
-        return [
-            'product_id' => Product::factory(),
-            'tax_class_id' => TaxClass::factory()
-                ->hasTaxRateAmounts(TaxRateAmount::factory()),
-            'sku' => Str::random(12),
-            'unit_quantity' => 1,
-            'gtin' => $this->faker->unique()->isbn13,
-            'mpn' => $this->faker->unique()->isbn13,
-            'ean' => $this->faker->unique()->ean13,
-            'shippable' => true,
-            'attribute_data' => collect([
-                'name' => new Text($this->faker->name),
-                'description' => new Text($this->faker->sentence),
-            ]),
-        ];
     }
 }
