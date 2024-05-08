@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Currencies\Http\Routing;
 
-use Dystcz\LunarApi\Domain\Currencies\Http\Controllers\CurrenciesController;
+use Dystcz\LunarApi\Domain\Currencies\Contracts\CurrenciesController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
