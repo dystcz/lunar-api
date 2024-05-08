@@ -54,9 +54,9 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     protected SchemaExtensionContract $extension;
 
     /**
-     * Flag to stop recursion when merging include paths from other schemas.
+     * Already merged include paths from other schemas.
      */
-    protected $mergingIncludePaths = false;
+    protected array $mergedIncludePaths = [];
 
     /**
      * Schema constructor.
@@ -147,11 +147,6 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
         $extendedIncludePaths = $this->extension->includePaths()->resolve($this);
         $mergedIncludePaths = $this->getMergedIncludePaths();
 
-        ray([
-            ...$mergedIncludePaths,
-            ...$extendedIncludePaths,
-        ]);
-
         return [
             ...$mergedIncludePaths,
             ...$extendedIncludePaths,
@@ -165,20 +160,21 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      */
     protected function getMergedIncludePaths(): array
     {
-        $mergedIncludePaths = Collection::make($this->newStatic()->mergeIncludePathsFrom())
+        return Collection::make($this->mergeIncludePathsFrom())
             ->reduce(
-                function (array $carry, string $type, string|int $relationship) {
+                function (array $carry, string|array $relationship, string $type) {
+                    $relationships = Arr::wrap($relationship);
+
                     return array_merge(
                         $carry,
-                        $this->getIncludePathsFor($type, is_string($relationship) ? $relationship : null),
+                        ...array_map(
+                            fn (string $relationship) => $this->getIncludePathsFor($type, $relationship),
+                            $relationships,
+                        ),
                     );
                 },
                 [],
             );
-
-        $this->mergingIncludePaths = false;
-
-        return $mergedIncludePaths;
     }
 
     /**
@@ -186,20 +182,30 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      *
      * @return string[]|iterable
      */
-    protected function getIncludePathsFor(string $type, ?string $relationship = null): array
+    protected function getIncludePathsFor(string $type, string $relationship): array
     {
-        if ($this->mergingIncludePaths) {
-            return [];
+        $mergeKey = $this->getMergeKey($type);
+
+        if (array_key_exists($mergeKey, $this->mergedIncludePaths)) {
+            $includePaths = $this->mergedIncludePaths[$mergeKey];
+
+            return $this->mapIncludePathsForRelationship($includePaths, $relationship);
         }
 
-        if ($type === static::type()) {
-            $this->mergingIncludePaths = true;
-        }
+        $this->mergedIncludePaths[$mergeKey] = [];
 
         $includePaths = $this->server->schemas()->schemaFor($type)->includePaths();
 
-        $relationship = $relationship ?? $type;
+        $this->mergedIncludePaths[$mergeKey] = $includePaths;
 
+        return $this->mapIncludePathsForRelationship($includePaths, $relationship);
+    }
+
+    /**
+     * Map include paths for relationship.
+     */
+    protected function mapIncludePathsForRelationship(array $includePaths, string $relationship): array
+    {
         return array_merge(
             [$relationship],
             array_map(
@@ -210,12 +216,21 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     }
 
     /**
+     * Get the merge key for include paths.
+     */
+    private function getMergeKey(string $type): string
+    {
+        $types = [static::type(), $type];
+
+        return implode('.', $types);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function fields(): iterable
     {
         return $this->extension->fields()->resolve($this);
-
     }
 
     /**
@@ -291,13 +306,5 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
         }
 
         return ID::make($column);
-    }
-
-    /**
-     * Get a new instance of the schema.
-     */
-    protected function newStatic(): static
-    {
-        return new static($this->server);
     }
 }
