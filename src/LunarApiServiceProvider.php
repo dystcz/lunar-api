@@ -346,7 +346,7 @@ class LunarApiServiceProvider extends ServiceProvider
     protected function registerModels(): void
     {
         ModelManifest::register(
-            DomainConfigCollection::make()->getModelsForModelManifest(),
+            DomainConfigCollection::make()->getModels(),
         );
     }
 
