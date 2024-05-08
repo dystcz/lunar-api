@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\ShippingOptions\Http\Routing;
 
-use Dystcz\LunarApi\Domain\ShippingOptions\Http\Controllers\ShippingOptionsController;
+use Dystcz\LunarApi\Domain\ShippingOptions\Contracts\ShippingOptionsController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;

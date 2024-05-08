@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
+use Dystcz\LunarApi\Domain\CartAddresses\Contracts\CartAddressesController as CartAddressesControllerContract;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressQuery;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressRequest;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema;
@@ -11,7 +12,7 @@ use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
 
-class CartAddressesController extends Controller
+class CartAddressesController extends Controller implements CartAddressesControllerContract
 {
     use Store;
     use Update;

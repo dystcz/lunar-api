@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Http\Routing;
 
-use Dystcz\LunarApi\Domain\Products\Http\Controllers\ProductsController;
+use Dystcz\LunarApi\Domain\Products\Contracts\ProductsController;
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
@@ -32,6 +32,7 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
                         $relationships->hasMany('prices')->readOnly();
                         $relationships->hasMany('tags')->readOnly();
                         $relationships->hasOne('thumbnail')->readOnly();
+                        $relationships->hasMany('urls')->readOnly();
                         $relationships->hasMany('variants')->readOnly();
                     })
                     ->only('index', 'show')

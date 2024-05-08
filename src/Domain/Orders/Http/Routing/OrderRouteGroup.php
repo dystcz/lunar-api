@@ -2,11 +2,11 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\Http\Routing;
 
-use Dystcz\LunarApi\Domain\Orders\Http\Controllers\CheckOrderPaymentStatusController;
-use Dystcz\LunarApi\Domain\Orders\Http\Controllers\CreatePaymentIntentController;
-use Dystcz\LunarApi\Domain\Orders\Http\Controllers\MarkOrderAwaitingPaymentController;
-use Dystcz\LunarApi\Domain\Orders\Http\Controllers\MarkOrderPendingPaymentController;
-use Dystcz\LunarApi\Domain\Orders\Http\Controllers\OrdersController;
+use Dystcz\LunarApi\Domain\Orders\Contracts\CheckOrderPaymentStatusController;
+use Dystcz\LunarApi\Domain\Orders\Contracts\CreatePaymentIntentController;
+use Dystcz\LunarApi\Domain\Orders\Contracts\MarkOrderAwaitingPaymentController;
+use Dystcz\LunarApi\Domain\Orders\Contracts\MarkOrderPendingPaymentController;
+use Dystcz\LunarApi\Domain\Orders\Contracts\OrdersController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\ActionRegistrar;

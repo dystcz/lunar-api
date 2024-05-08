@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\ProductOptionValues\Http\Routing;
 
-use Dystcz\LunarApi\Domain\ProductOptionValues\Http\Controllers\ProductOptionValueController;
+use Dystcz\LunarApi\Domain\ProductOptionValues\Contracts\ProductOptionValuesController;
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
@@ -19,7 +19,7 @@ class ProductOptionValueRouteGroup extends RouteGroup implements RouteGroupContr
             ->prefix('v1')
             ->resources(function (ResourceRegistrar $server) {
                 $server
-                    ->resource($this->getPrefix(), ProductOptionValueController::class)
+                    ->resource($this->getPrefix(), ProductOptionValuesController::class)
                     ->readOnly();
             });
     }

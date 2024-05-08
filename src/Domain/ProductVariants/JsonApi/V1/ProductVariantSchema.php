@@ -4,15 +4,17 @@ namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
-use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\ProductVariant;
 
 class ProductVariantSchema extends Schema
@@ -23,6 +25,28 @@ class ProductVariantSchema extends Schema
     public static string $model = ProductVariant::class;
 
     /**
+     * Build an index query for this resource.
+     */
+    public function indexQuery(?Request $request, Builder $query): Builder
+    {
+        return $query->whereHas(
+            'product',
+            fn ($query) => $query->where('status', '!=', 'draft'),
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function mergeIncludePathsFrom(): iterable
+    {
+        return [
+            'products' => 'product',
+            'variants' => 'other_variants',
+        ];
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function includePaths(): iterable
@@ -30,9 +54,9 @@ class ProductVariantSchema extends Schema
         return [
             'default_url',
             'images',
+            'lowest_price',
             'prices',
-            'product',
-            'product.thumbnail',
+            'thumbnail',
             'urls',
             'values',
 
@@ -64,31 +88,26 @@ class ProductVariantSchema extends Schema
                     ),
             ]),
 
-            BelongsTo::make('product')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+            BelongsTo::make('product'),
+
+            HasMany::make('other_variants', 'otherVariants')
+                ->type('variants')
+                ->canCount()
+                ->retainFieldName(),
 
             HasOne::make('lowest_price', 'lowestPrice')
                 ->type('prices')
-                ->retainFieldName()
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                ->retainFieldName(),
 
             HasMany::make('images', 'images')
                 ->type('media')
-                ->canCount()
+                ->canCount(),
+
+            HasMany::make('values', 'values')
+                ->type('product-option-values')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
-
-            HasMany::make('values', 'values')
-                ->type('product-option-values'),
-            // ->canCount()
-            // ->serializeUsing(
-            // static fn ($relation) => $relation->withoutLinks(),
-            // ),
 
             HasMany::make('prices')
                 ->serializeUsing(
@@ -99,10 +118,10 @@ class ProductVariantSchema extends Schema
                 ->type('urls')
                 ->retainFieldName(),
 
-            HasMany::make('urls')
-                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
+            HasMany::make('urls'),
 
-            // HasOne::make('thumbnail'),
+            HasOneThrough::make('thumbnail')
+                ->type('media'),
 
             ...parent::fields(),
         ];

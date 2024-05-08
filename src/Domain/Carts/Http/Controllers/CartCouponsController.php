@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Carts\Actions\SetCoupon;
 use Dystcz\LunarApi\Domain\Carts\Actions\UnsetCoupon;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CartCouponsController as CartCouponsControllerContract;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\SetCouponToCartRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Illuminate\Support\Facades\App;
@@ -12,7 +13,7 @@ use LaravelJsonApi\Core\Responses\DataResponse;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
 
-class CouponsController extends Controller
+class CartCouponsController extends Controller implements CartCouponsControllerContract
 {
     protected CartSessionManager $cartSession;
 

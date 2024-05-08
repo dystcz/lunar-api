@@ -50,6 +50,17 @@ class ProductSchema extends Schema
     /**
      * {@inheritDoc}
      */
+    public function mergeIncludePathsFrom(): iterable
+    {
+        return [
+            'associations' => ['associations', 'inverse_associations'],
+            'variants' => ['cheapest_variant', 'variants'],
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function includePaths(): iterable
     {
         return [
@@ -59,22 +70,6 @@ class ProductSchema extends Schema
             'prices',
             'thumbnail',
             'urls',
-
-            'associations',
-            'associations.target',
-            'associations.target.images',
-            'associations.target.prices',
-            'associations.target.collections',
-            'associations.target.default_url',
-            'associations.target.thumbnail',
-            'associations.target.lowest_price',
-            'associations.target.variants.prices',
-
-            'inverse_associations',
-            'inverse_associations.parent.default_url',
-            'inverse_associations.parent.thumbnail',
-            'inverse_associations.parent.lowest_price',
-            'inverse_associations.target.variants.prices',
 
             'brand',
             'brand.default_url',
@@ -88,13 +83,6 @@ class ProductSchema extends Schema
             'collections.default_url',
             'collections.group',
 
-            'variants',
-            'variants.default_url',
-            'variants.images',
-            'variants.prices',
-            'variants.urls',
-            'variants.values',
-            // 'variants.thumbnail',
             'product_type',
             'tags',
 

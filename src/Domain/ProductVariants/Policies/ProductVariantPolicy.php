@@ -51,10 +51,58 @@ class ProductVariantPolicy
     }
 
     /**
+     * Authorize a user to view variant's default url.
+     */
+    public function viewDefaultUrl(?Authenticatable $user, ProductVariant $variant): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view variant's images.
+     */
+    public function viewImages(?Authenticatable $user, ProductVariant $variant): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view other variants.
+     */
+    public function viewOtherVariants(?Authenticatable $user, ProductVariant $variant): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view variant's prices.
+     */
+    public function viewPrices(?Authenticatable $user, ProductVariant $variant): bool
+    {
+        return true;
+    }
+
+    /**
      * Authorize a user to view variant's product.
      */
     public function viewProduct(?Authenticatable $user, ProductVariant $variant): bool
     {
-        return false;
+        return true;
+    }
+
+    /**
+     * Authorize a user to view variant's thumbnail.
+     */
+    public function viewThumbnail(?Authenticatable $user, ProductVariant $variant): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view variant's urls.
+     */
+    public function viewUrls(?Authenticatable $user, ProductVariant $variant): bool
+    {
+        return true;
     }
 }

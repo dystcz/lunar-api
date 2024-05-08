@@ -3,13 +3,14 @@
 namespace Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
+use Dystcz\LunarApi\Domain\CartAddresses\Contracts\CartAddressShippingOptionController as CartAddressShippingOptionControllerContract;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema;
 use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\SetShippingOptionRequest;
 use Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\UnsetShippingOptionRequest;
 use LaravelJsonApi\Core\Responses\DataResponse;
 
-class CartAddressShippingOptionController extends Controller
+class CartAddressShippingOptionController extends Controller implements CartAddressShippingOptionControllerContract
 {
     /*
     * Set shipping option to cart shipping address.

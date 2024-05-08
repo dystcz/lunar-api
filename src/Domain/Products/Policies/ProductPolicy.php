@@ -139,6 +139,14 @@ class ProductPolicy
     }
 
     /**
+     * Authorize a user to view product's urls.
+     */
+    public function viewUrls(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
+
+    /**
      * Authorize a user to view product's variants.
      */
     public function viewVariants(?Authenticatable $user, Product $product): bool
