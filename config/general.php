@@ -28,14 +28,6 @@ return [
         'prices_with_default_tax' => true,
     ],
 
-    // Purchasable
-    'purchasable' => [
-        'non_eloquent_types' => [
-            'payment',
-            'shipping',
-        ],
-    ],
-
     // Availability
     'availability' => [
         'display_real_quantity' => false,
