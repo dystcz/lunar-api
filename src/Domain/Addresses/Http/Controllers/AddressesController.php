@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Addresses\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
+use Dystcz\LunarApi\Domain\Addresses\Contracts\AddressesController as AddressesControllerContract;
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressQuery;
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressRequest;
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressSchema;
@@ -16,7 +17,7 @@ use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
 
-class AddressesController extends Controller
+class AddressesController extends Controller implements AddressesControllerContract
 {
     use Destroy;
     use FetchMany;

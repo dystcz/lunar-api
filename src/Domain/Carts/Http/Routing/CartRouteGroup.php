@@ -2,13 +2,13 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Http\Routing;
 
+use Dystcz\LunarApi\Domain\Carts\Contracts\CartCouponsController;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CartPaymentOptionController;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CartsController;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCartController;
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartPaymentOptionController;
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartsController;
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ClearUserCartController;
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CouponsController;
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\CreateEmptyCartAddressesController;
-use Dystcz\LunarApi\Domain\Carts\Http\Controllers\ReadUserCartController;
+use Dystcz\LunarApi\Domain\Carts\Contracts\ClearUserCartController;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CreateEmptyCartAddressesController;
+use Dystcz\LunarApi\Domain\Carts\Contracts\ReadUserCartController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\ActionRegistrar;
@@ -55,7 +55,7 @@ class CartRouteGroup extends RouteGroup
                         $actions->post('checkout');
                     });
 
-                $server->resource($this->getPrefix(), CouponsController::class)
+                $server->resource($this->getPrefix(), CartCouponsController::class)
                     ->only('')
                     ->actions('-actions', function (ActionRegistrar $actions) {
                         $actions->post('set-coupon');

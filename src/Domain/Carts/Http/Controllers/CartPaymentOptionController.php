@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CartPaymentOptionController as CartPaymentOptionControllerContract;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\SetPaymentOptionRequest;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\UnsetPaymentOptionRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use Lunar\Base\CartSessionInterface;
 
-class CartPaymentOptionController extends Controller
+class CartPaymentOptionController extends Controller implements CartPaymentOptionControllerContract
 {
     /**
      * @var CartSessionManager

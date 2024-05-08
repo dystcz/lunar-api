@@ -2,10 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\CartAddresses\Http\Routing;
 
-use Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\CartAddressesController;
-use Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\CartAddressShippingOptionController;
-use Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\ContinuousUpdateCartAddressController;
-use Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\UpdateCartAddressCountryController;
+use Dystcz\LunarApi\Domain\CartAddresses\Contracts\CartAddressesController;
+use Dystcz\LunarApi\Domain\CartAddresses\Contracts\CartAddressShippingOptionController;
+use Dystcz\LunarApi\Domain\CartAddresses\Contracts\ContinuousUpdateCartAddressController;
+use Dystcz\LunarApi\Domain\CartAddresses\Contracts\UpdateCartAddressCountryController;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\ActionRegistrar;

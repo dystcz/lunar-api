@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Collections\Http\Routing;
 
-use Dystcz\LunarApi\Domain\Collections\Http\Controllers\CollectionsController;
+use Dystcz\LunarApi\Domain\Collections\Contracts\CollectionsController;
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;

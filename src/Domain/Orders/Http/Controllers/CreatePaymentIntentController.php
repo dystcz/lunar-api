@@ -3,13 +3,14 @@
 namespace Dystcz\LunarApi\Domain\Orders\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
+use Dystcz\LunarApi\Domain\Orders\Contracts\CreatePaymentIntentController as CreatePaymentIntentControllerContract;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\CreatePaymentIntentRequest;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Domain\Payments\Actions\CreatePaymentIntent;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use RuntimeException;
 
-class CreatePaymentIntentController extends Controller
+class CreatePaymentIntentController extends Controller implements CreatePaymentIntentControllerContract
 {
     public function createPaymentIntent(
         CreatePaymentIntentRequest $request,
