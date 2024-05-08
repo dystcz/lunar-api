@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateEmptyCartAddresses;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CreateEmptyCartAddressesController as CreateEmptyCartAddressesControllerContract;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartQuery;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartSchema;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CreateEmptyCartAddressesRequest;
@@ -13,7 +14,7 @@ use LaravelJsonApi\Core\Responses\DataResponse;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
 
-class CreateEmptyCartAddressesController extends Controller
+class CreateEmptyCartAddressesController extends Controller implements CreateEmptyCartAddressesControllerContract
 {
     /**
      * @var CartSessionManager
