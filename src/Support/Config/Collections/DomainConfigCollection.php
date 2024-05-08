@@ -25,9 +25,11 @@ class DomainConfigCollection extends Collection
      */
     public static function fromConfig(string $configKey): self
     {
-        $items = array_map(function (array $domain) {
-            return new DomainConfig(...$domain);
-        }, Config::get($configKey, []));
+        $items = array_map(
+            fn (string $domain, array $config) => new DomainConfig($domain, ...$config),
+            array_keys(Config::get($configKey, [])),
+            array_values(Config::get($configKey, []))
+        );
 
         return new static($items);
     }
@@ -63,7 +65,7 @@ class DomainConfigCollection extends Collection
     /**
      * Get models for Lunar model manifest.
      */
-    public function getModelsForModelManifest(): self
+    public function getModels(): self
     {
         return $this->mapWithKeys(function (DomainConfig $domain) {
             if (! $domain->swapsLunarModel()) {
