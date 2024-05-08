@@ -44,6 +44,14 @@ class LunarApi
     }
 
     /**
+     * Use hashids are used.
+     */
+    public static function useHashids(bool $useHashids = true): void
+    {
+        Config::set('lunar-api.general.use_hashids', $useHashids);
+    }
+
+    /**
      * Check if hashids are used.
      */
     public static function usesHashids(): bool
