@@ -4,15 +4,16 @@ use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Auth;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
     /** @var TestCase $this */
-    $this->actingAs(User::factory()->has(Customer::factory())->create());
+    $this->user = User::factory()
+        ->has(Customer::factory())
+        ->create();
 
-    $this->customer = Auth::user()->customers->first();
+    $this->customer = $this->user->customers->first();
 
     $this->data = [
         'id' => (string) $this->customer->getRouteKey(),
@@ -29,12 +30,15 @@ beforeEach(function () {
 it('can update a customer by logged in user', function () {
     /** @var TestCase $this */
     $response = $this
+        ->actingAs($this->user)
         ->jsonApi()
         ->expects('customers')
         ->withData($this->data)
-        ->patch('/api/v1/customers/'.$this->customer->getRouteKey());
+        ->patch(serverUrl("/customers/{$this->customer->getRouteKey()}"));
 
-    $response->assertFetchedOne($this->customer);
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($this->customer);
 
     $this->assertDatabaseHas($this->customer->getTable(), [
         'id' => $this->customer->getKey(),
@@ -43,10 +47,19 @@ it('can update a customer by logged in user', function () {
         'vat_no' => 'CZ123456789',
         'account_ref' => '123456789',
     ]);
-});
+})->group('customers');
 
-it('only updates logged in users customer', function () {
+it('can only customer when logged in', function () {
     /** @var TestCase $this */
+    $response = $this
+        ->jsonApi()
+        ->expects('customers')
+        ->withData($this->data)
+        ->patch(serverUrl("/customers/{$this->customer->getRouteKey()}"));
 
-    //
-})->todo();
+    $response->assertErrorStatus([
+        'detail' => 'Unauthenticated.',
+        'status' => '401',
+        'title' => 'Unauthorized',
+    ]);
+})->group('customers');

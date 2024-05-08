@@ -16,7 +16,7 @@ it('can read collection detail', function () {
     $response = $this
         ->jsonApi()
         ->expects('collections')
-        ->get('/api/v1/collections/'.$model->getRouteKey());
+        ->get(serverUrl("/collections/{$model->getRouteKey()}"));
 
     $response
         ->assertSuccessful()
@@ -45,7 +45,7 @@ it('can read products in a collection', function () {
         ->jsonApi()
         ->expects('collections')
         ->includePaths('products')
-        ->get('/api/v1/collections/'.$model->getRouteKey());
+        ->get(serverUrl("/collections/{$model->getRouteKey()}"));
 
     $response
         ->assertSuccessful()
