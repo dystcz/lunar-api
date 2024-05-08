@@ -2,18 +2,20 @@
 
 namespace Dystcz\LunarApi\Support\Config\Data;
 
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
+use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Exception;
 use Illuminate\Support\Str;
+use LaravelJsonApi\Contracts\Schema\Schema;
+use Lunar\Base\BaseModel;
 
 class DomainConfig
 {
     /**
-     * @param  array<string,mixed>  $route_actions
-     * @param  array<string,class-string>  $actions
-     * @param  array<string,class-string>  $notifications
-     * @param  array<string,mixed>  $settings
+     * @param  array<int,mixed>  $rest
      */
     public function __construct(
+        public string $domain,
         public ?string $model = null,
         public ?string $lunar_model = null,
         public ?string $policy = null,
@@ -22,12 +24,81 @@ class DomainConfig
         public ?string $query = null,
         public ?string $collection_query = null,
         public ?string $routes = null,
-        public array $route_actions = [],
-        public array $actions = [],
-        public array $notifications = [],
-        public array $settings = [],
+        array ...$rest,
     ) {
         $this->validate();
+    }
+
+    /**
+     * Get domain name.
+     */
+    public function getDomain(): string
+    {
+        return $this->domain;
+    }
+
+    /**
+     * Get model class.
+     */
+    public function getModel(): ?string
+    {
+        return $this->model;
+    }
+
+    /**
+     * Get lunar model class.
+     */
+    public function getLunarModel(): ?string
+    {
+        return $this->lunar_model;
+    }
+
+    /**
+     * Get policy class.
+     */
+    public function getPolicy(): ?string
+    {
+        return $this->policy;
+    }
+
+    /**
+     * Get schema class.
+     */
+    public function getSchema(): ?string
+    {
+        return $this->schema;
+    }
+
+    /**
+     * Get resource class.
+     */
+    public function getResource(): ?string
+    {
+        return $this->resource;
+    }
+
+    /**
+     * Get query class.
+     */
+    public function getQuery(): ?string
+    {
+        return $this->query;
+    }
+
+    /**
+     * Get collection query class.
+     */
+    public function getCollectionQuery(): ?string
+    {
+        return $this->collection_query;
+    }
+
+    /**
+     * Get routes class.
+     */
+    public function getRoutes(): ?string
+    {
+        return $this->routes;
     }
 
     /**
@@ -35,7 +106,15 @@ class DomainConfig
      */
     public function hasSchema(): bool
     {
-        return ! is_null($this->schema);
+        return ! is_null($this->getSchema());
+    }
+
+    /**
+     * Check if domain has resource.
+     */
+    public function hasResource(): bool
+    {
+        return ! is_null($this->getResource());
     }
 
     /**
@@ -43,7 +122,7 @@ class DomainConfig
      */
     public function hasModel(): bool
     {
-        return ! is_null($this->model);
+        return ! is_null($this->getModel());
     }
 
     /**
@@ -51,7 +130,7 @@ class DomainConfig
      */
     public function hasLunarModel(): bool
     {
-        return ! is_null($this->lunar_model);
+        return ! is_null($this->getLunarModel());
     }
 
     /**
@@ -67,7 +146,7 @@ class DomainConfig
      */
     public function hasPolicy(): bool
     {
-        return ! is_null($this->policy);
+        return ! is_null($this->getPolicy());
     }
 
     /**
@@ -75,7 +154,7 @@ class DomainConfig
      */
     public function hasRoutes(): bool
     {
-        return ! is_null($this->routes);
+        return ! is_null($this->getRoutes());
     }
 
     /**
@@ -84,8 +163,12 @@ class DomainConfig
     public function validate(): void
     {
         $this->validateClassExistence();
+        $this->validateModel();
+        $this->validateSchema();
+        $this->validateResource();
+        $this->validateRoutes();
 
-        // TODO: Add remaining checks
+        // ...
     }
 
     /**
@@ -111,6 +194,70 @@ class DomainConfig
 
             $this->validateClassExists($type, $this->{$type});
         }
+    }
+
+    /**
+     * Validate model.
+     */
+    private function validateModel(): void
+    {
+        if (! $this->swapsLunarModel()) {
+            return;
+        }
+
+        $this->validateSubclassOf(
+            'model',
+            $this->getModel(),
+            BaseModel::class,
+        );
+    }
+
+    /**
+     * Validate schema.
+     */
+    private function validateSchema(): void
+    {
+        if (! $this->hasSchema()) {
+            return;
+        }
+
+        $this->validateClassImplements(
+            'schema',
+            $this->getSchema(),
+            Schema::class,
+        );
+    }
+
+    /**
+     * Validate resource.
+     */
+    private function validateResource(): void
+    {
+        if (! $this->hasResource()) {
+            return;
+        }
+
+        $this->validateSubclassOf(
+            'resource',
+            $this->getResource(),
+            JsonApiResource::class,
+        );
+    }
+
+    /**
+     * Validate domain route groups.
+     */
+    private function validateRoutes(): void
+    {
+        if (! $this->hasRoutes()) {
+            return;
+        }
+
+        $this->validateClassImplements(
+            'routes',
+            $this->getRoutes(),
+            RouteGroupContract::class,
+        );
     }
 
     /**
