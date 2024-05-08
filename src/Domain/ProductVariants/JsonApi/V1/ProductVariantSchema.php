@@ -38,9 +38,20 @@ class ProductVariantSchema extends Schema
     /**
      * {@inheritDoc}
      */
+    public function mergeIncludePathsFrom(): iterable
+    {
+        return [
+            'product' => 'products',
+            'other_variants' => 'variants',
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function includePaths(): iterable
     {
-        $includePaths = [
+        return [
             'default_url',
             'images',
             'lowest_price',
@@ -48,20 +59,32 @@ class ProductVariantSchema extends Schema
             'thumbnail',
             'urls',
             'values',
+
+            ...parent::includePaths(),
         ];
 
-        $otherVariantsIncludePaths = array_merge(
-            ['other_variants'],
-            array_map(
-                fn (string $path) => "other_variants.{$path}",
-                $includePaths,
-            )
-        );
+        // $includePaths = [
+        //     'default_url',
+        //     'images',
+        //     'lowest_price',
+        //     'prices',
+        //     'thumbnail',
+        //     'urls',
+        //     'values',
+        // ];
+
+        // $otherVariantsIncludePaths = array_merge(
+        //     ['other_variants'],
+        //     array_map(
+        //         fn (string $path) => "other_variants.{$path}",
+        //         $includePaths,
+        //     )
+        // );
 
         return [
             ...$includePaths,
-            ...$otherVariantsIncludePaths,
-            ...$this->getIncludePathsFor('products', 'product'),
+            // ...$otherVariantsIncludePaths,
+            // ...$this->getIncludePathsFor('products', 'product'),
             ...parent::includePaths(),
         ];
     }
