@@ -4,35 +4,43 @@ use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Auth;
 
 uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
     /** @var TestCase $this */
-    $this->actingAs(User::factory()->has(Customer::factory())->create());
+    $this->user = User::factory()
+        ->has(Customer::factory())
+        ->create();
 
-    $this->customer = Auth::user()->customers->first();
+    $this->customer = $this->user->customers->first();
 });
 
-it('can read a customer', function () {
+it('can read a customer when logged in', function () {
+    /** @var TestCase $this */
+    $response = $this
+        ->actingAs($this->user)
+        ->jsonApi()
+        ->expects('customers')
+        ->get(serverUrl("/customers/{$this->customer->getRouteKey()}"));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($this->customer);
+
+})->group('customers');
+
+it('cannot read customer when not logged in', function () {
     /** @var TestCase $this */
     $response = $this
         ->jsonApi()
         ->expects('customers')
-        ->get('/api/v1/customers/'.$this->customer->getRouteKey());
+        ->get(serverUrl("/customers/{$this->customer->getRouteKey()}"));
 
-    $response
-        ->assertFetchedOne($this->customer);
-});
+    $response->assertErrorStatus([
+        'detail' => 'Unauthenticated.',
+        'status' => '401',
+        'title' => 'Unauthorized',
+    ]);
 
-it('can read only logged in users customer', function () {
-    /** @var TestCase $this */
-    $response = $this
-        ->jsonApi()
-        ->expects('customers')
-        ->get('/api/v1/customers/'.$this->customer->getRouteKey());
-
-    $response
-        ->assertFetchedOne($this->customer);
-})->todo();
+})->group('customers');
