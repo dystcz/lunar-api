@@ -9,6 +9,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Contracts\Schema as SchemaContract;
 use Dystcz\LunarApi\LunarApi;
 use Dystcz\LunarApi\Support\Models\Actions\GetModelKey;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
@@ -51,6 +52,11 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      * Schema extension.
      */
     protected SchemaExtensionContract $extension;
+
+    /**
+     * Flag to stop recursion when merging include paths from other schemas.
+     */
+    protected $mergingIncludePaths = false;
 
     /**
      * Schema constructor.
@@ -116,6 +122,16 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     }
 
     /**
+     * Merge include paths from other schema types.
+     *
+     * @return array<string,string> Schema type and relationship name pairs.
+     */
+    public function mergeIncludePathsFrom(): iterable
+    {
+        return [];
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function includePaths(): iterable
@@ -128,11 +144,41 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
             );
         }
 
+        $extendedIncludePaths = $this->extension->includePaths()->resolve($this);
+        $mergedIncludePaths = $this->getMergedIncludePaths();
+
+        ray([
+            ...$mergedIncludePaths,
+            ...$extendedIncludePaths,
+        ]);
+
         return [
-            ...$this->extension->includePaths()->resolve($this),
+            ...$mergedIncludePaths,
+            ...$extendedIncludePaths,
 
             ...parent::includePaths(),
         ];
+    }
+
+    /**
+     * Get merged include paths from other schemas.
+     */
+    protected function getMergedIncludePaths(): array
+    {
+        $mergedIncludePaths = Collection::make($this->newStatic()->mergeIncludePathsFrom())
+            ->reduce(
+                function (array $carry, string $type, string|int $relationship) {
+                    return array_merge(
+                        $carry,
+                        $this->getIncludePathsFor($type, is_string($relationship) ? $relationship : null),
+                    );
+                },
+                [],
+            );
+
+        $this->mergingIncludePaths = false;
+
+        return $mergedIncludePaths;
     }
 
     /**
@@ -142,6 +188,14 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      */
     protected function getIncludePathsFor(string $type, ?string $relationship = null): array
     {
+        if ($this->mergingIncludePaths) {
+            return [];
+        }
+
+        if ($type === static::type()) {
+            $this->mergingIncludePaths = true;
+        }
+
         $includePaths = $this->server->schemas()->schemaFor($type)->includePaths();
 
         $relationship = $relationship ?? $type;
@@ -237,5 +291,13 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
         }
 
         return ID::make($column);
+    }
+
+    /**
+     * Get a new instance of the schema.
+     */
+    protected function newStatic(): static
+    {
+        return new static($this->server);
     }
 }
