@@ -13,7 +13,7 @@ easily build features to meet your project's needs.
 ## Some perks
 
 - Focus on extensibility
-- Wannabe ecosystem of [complementary packages](Compatible-packages)
+- Wannabe ecosystem of [complementary packages](./more/compatible-packages.md)
 with emphasis on the plug and play spirit
 - Already running in production 🤫
 - Built on top of [Laravel JSON:API](https://github.com/laravel-json-api/laravel)
