@@ -5,6 +5,7 @@ use Dystcz\LunarApi\Domain\Media\Factories\MediaFactory;
 use Dystcz\LunarApi\Domain\Prices\Factories\PriceFactory;
 use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
+use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Dystcz\LunarApi\Domain\Tags\Models\Tag;
 use Dystcz\LunarApi\Tests\TestCase;
@@ -57,6 +58,49 @@ test('can show a product with included images', function () {
         ->assertSuccessful()
         ->assertFetchedOne($product)
         ->assertIsIncluded('media', $product->images->first());
+})->group('products');
+
+test('can show a product with included prices', function () {
+    /** @var TestCase $this */
+    $product = Product::factory()
+        ->has(Price::factory()->count(3), 'prices')
+        ->create();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->includePaths('images')
+        ->get(serverUrl('/products/'.$product->getRouteKey()));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($product);
+
+    foreach ($product->prices as $price) {
+        $response->assertIsIncluded('prices', $price);
+    }
+})->group('products');
+
+test('can show a product with included lowest price', function () {
+    /** @var TestCase $this */
+    $product = Product::factory()
+        ->has(
+            ProductVariantFactory::new()->withPrice(),
+            'variants'
+        )
+        ->create();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->includePaths('lowest_price')
+        ->get(serverUrl('/products/'.$product->getRouteKey()));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($product)
+        ->assertIsIncluded('prices', $product->lowestPrice);
+
 })->group('products');
 
 it('can show a product with included thumbnail', function () {
