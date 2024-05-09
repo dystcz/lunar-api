@@ -95,7 +95,16 @@ class ProductVariantSchema extends Schema
                 ->canCount()
                 ->retainFieldName(),
 
+            HasMany::make('prices')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
             HasOne::make('lowest_price', 'lowestPrice')
+                ->type('prices')
+                ->retainFieldName(),
+
+            HasOne::make('highest_price', 'highestPrice')
                 ->type('prices')
                 ->retainFieldName(),
 
@@ -105,11 +114,6 @@ class ProductVariantSchema extends Schema
 
             HasMany::make('values', 'values')
                 ->type('product-option-values')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
-
-            HasMany::make('prices')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),

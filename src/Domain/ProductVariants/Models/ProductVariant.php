@@ -129,6 +129,21 @@ class ProductVariant extends LunarPoductVariant
     }
 
     /**
+     * Highest price relation.
+     *
+     * @throws InvalidArgumentException
+     */
+    public function highestPrice(): MorphOne
+    {
+        return $this
+            ->morphOne(
+                LunarPrice::class,
+                'priceable'
+            )
+            ->ofMany('price', 'max');
+    }
+
+    /**
      * Other variants relation.
      */
     public function otherVariants(): HasMany
