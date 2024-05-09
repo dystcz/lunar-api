@@ -6,4 +6,6 @@
 
 ## JsonApi configuration
 
+## Actions
+
 ## HashIds
