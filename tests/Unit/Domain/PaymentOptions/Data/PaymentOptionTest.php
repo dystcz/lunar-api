@@ -33,7 +33,7 @@ it('can manipulate cart during calculation', function () {
 
     Price::factory()->create([
         'price' => 600,
-        'min_quantity' => 1,
+        'tier' => 1,
         'currency_id' => $currency->id,
         'priceable_type' => get_class($purchasable),
         'priceable_id' => $purchasable->id,

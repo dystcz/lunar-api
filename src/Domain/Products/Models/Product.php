@@ -141,6 +141,35 @@ class Product extends LunarProduct
     }
 
     /**
+     * Highest price relation.
+     */
+    public function highestPrice(): HasOneThrough
+    {
+        $pricesTable = $this->prices()->getModel()->getTable();
+        $variantsTable = $this->variants()->getModel()->getTable();
+
+        return $this
+            ->hasOneThrough(
+                Price::class,
+                ProductVariant::class,
+                'product_id',
+                'priceable_id'
+            )
+            ->where($pricesTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
+                $query->select($pricesTable.'.id')
+                    ->from($pricesTable)
+                    ->where('priceable_type', ProductVariant::class)
+                    ->whereIn('priceable_id', function ($query) use ($variantsTable) {
+                        $query->select('variants.id')
+                            ->from($variantsTable.' as variants')
+                            ->whereRaw("variants.product_id = {$variantsTable}.product_id");
+                    })
+                    ->orderBy($pricesTable.'.price', 'desc')
+                    ->limit(1);
+            });
+    }
+
+    /**
      * Cheapest variant relation.
      */
     public function cheapestVariant(): HasOne
@@ -165,13 +194,37 @@ class Product extends LunarProduct
     }
 
     /**
+     * Most expensive variant relation.
+     */
+    public function mostExpensiveVariant(): HasOne
+    {
+        $pricesTable = $this->prices()->getModel()->getTable();
+        $variantsTable = $this->variants()->getModel()->getTable();
+
+        return $this
+            ->hasOne(ProductVariant::class)
+            ->where($variantsTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
+                $query
+                    ->select('variants.id')
+                    ->from($variantsTable.' as variants')
+                    ->join($pricesTable, function ($join) {
+                        $join->on('priceable_id', '=', 'variants.id')
+                            ->where('priceable_type', ProductVariant::class);
+                    })
+                    ->whereRaw("variants.product_id = {$variantsTable}.product_id")
+                    ->orderBy($pricesTable.'.price', 'desc')
+                    ->limit(1);
+            });
+    }
+
+    /**
      * Get base prices through variants.
      */
     public function basePrices(): HasManyThrough
     {
         return $this
             ->prices()
-            ->where('min_quantity', 1)
+            ->where('tier', 1)
             ->where('customer_group_id', null);
     }
 }

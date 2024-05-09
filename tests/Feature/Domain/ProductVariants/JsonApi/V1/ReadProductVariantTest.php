@@ -118,6 +118,26 @@ it('can show a product variant with included lowest price', function () {
 
 })->group('variants');
 
+it('can show a product variant with included highest price', function () {
+    /** @var TestCase $this */
+    $variant = ProductVariantFactory::new()
+        ->for(Product::factory(), 'product')
+        ->has(Price::factory()->count(5), 'prices')
+        ->create();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('variants')
+        ->includePaths('highest_price')
+        ->get(serverUrl('/variants/'.$variant->getRouteKey()));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($variant)
+        ->assertIsIncluded('prices', $variant->prices->sortByDesc('price')->first());
+
+})->group('variants');
+
 it('can show a product variant with included prices', function () {
     /** @var TestCase $this */
     $variant = ProductVariantFactory::new()

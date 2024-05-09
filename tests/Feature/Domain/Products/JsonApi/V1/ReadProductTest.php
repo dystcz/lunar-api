@@ -85,7 +85,7 @@ test('can show a product with included lowest price', function () {
     /** @var TestCase $this */
     $product = Product::factory()
         ->has(
-            ProductVariantFactory::new()->withPrice(),
+            ProductVariantFactory::new()->withPrice()->count(3),
             'variants'
         )
         ->create();
@@ -99,7 +99,29 @@ test('can show a product with included lowest price', function () {
     $response
         ->assertSuccessful()
         ->assertFetchedOne($product)
-        ->assertIsIncluded('prices', $product->lowestPrice);
+        ->assertIsIncluded('prices', $product->prices->sortBy('price')->first());
+
+})->group('products');
+
+test('can show a product with included highest price', function () {
+    /** @var TestCase $this */
+    $product = Product::factory()
+        ->has(
+            ProductVariantFactory::new()->withPrice()->count(3),
+            'variants'
+        )
+        ->create();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->includePaths('highest_price')
+        ->get(serverUrl('/products/'.$product->getRouteKey()));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($product)
+        ->assertIsIncluded('prices', $product->prices->sortByDesc('price')->first());
 
 })->group('products');
 

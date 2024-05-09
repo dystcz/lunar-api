@@ -8,6 +8,7 @@ use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -128,9 +129,24 @@ class ProductVariant extends LunarPoductVariant
     }
 
     /**
+     * Highest price relation.
+     *
+     * @throws InvalidArgumentException
+     */
+    public function highestPrice(): MorphOne
+    {
+        return $this
+            ->morphOne(
+                LunarPrice::class,
+                'priceable'
+            )
+            ->ofMany('price', 'max');
+    }
+
+    /**
      * Other variants relation.
      */
-    public function otherVariants()
+    public function otherVariants(): HasMany
     {
         return $this
             ->hasMany(LunarPoductVariant::class, 'product_id', 'product_id')
