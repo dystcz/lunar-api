@@ -42,7 +42,7 @@ test('a user can set a valid fixed value coupon to cart', function () {
 
     Price::factory()->create([
         'price' => 1000, // 10 EUR
-        'min_quantity' => 1,
+        'tier' => 1,
         'currency_id' => $currency->id,
         'priceable_type' => $purchasableA->getMorphClass(),
         'priceable_id' => $purchasableA->id,
@@ -131,7 +131,7 @@ test('a user can set a valid percentage coupon to cart', function () {
 
     Price::factory()->create([
         'price' => 2000, // 20 EUR
-        'min_quantity' => 1,
+        'tier' => 1,
         'currency_id' => $currency->id,
         'priceable_type' => $purchasableA->getMorphClass(),
         'priceable_id' => $purchasableA->id,
