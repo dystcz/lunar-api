@@ -24,11 +24,13 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
                         $relationships->hasMany('associations')->readOnly();
                         $relationships->hasOne('brand')->readOnly();
                         $relationships->hasOne('cheapest_variant')->readOnly();
+                        $relationships->hasOne('most_expensive_variant')->readOnly();
                         $relationships->hasMany('collections')->readOnly();
                         $relationships->hasOne('default_url')->readOnly();
                         $relationships->hasOne('images')->readOnly();
                         $relationships->hasMany('inverse_associations')->readOnly();
                         $relationships->hasOne('lowest_price')->readOnly();
+                        $relationships->hasOne('highest_price')->readOnly();
                         $relationships->hasMany('prices')->readOnly();
                         $relationships->hasMany('tags')->readOnly();
                         $relationships->hasOne('thumbnail')->readOnly();

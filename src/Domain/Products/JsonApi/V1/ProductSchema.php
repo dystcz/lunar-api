@@ -124,6 +124,10 @@ class ProductSchema extends Schema
                 ->type('variants')
                 ->retainFieldName(),
 
+            HasOne::make('most_expensive_variant', 'mostExpensiveVariant')
+                ->type('variants')
+                ->retainFieldName(),
+
             HasMany::make('collections')
                 ->canCount(),
 
@@ -141,6 +145,10 @@ class ProductSchema extends Schema
                 ->canCount(),
 
             HasOneThrough::make('lowest_price', 'lowestPrice')
+                ->type('prices')
+                ->retainFieldName(),
+
+            HasOneThrough::make('highest_price', 'highestPrice')
                 ->type('prices')
                 ->retainFieldName(),
 
