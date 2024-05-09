@@ -75,6 +75,14 @@ class ProductPolicy
     }
 
     /**
+     * Authorize a user to view product's most expensive variant.
+     */
+    public function viewMostExpensiveVariant(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
+
+    /**
      * Authorize a user to view product's collections.
      */
     public function viewCollections(?Authenticatable $user, Product $product): bool
@@ -107,6 +115,14 @@ class ProductPolicy
     }
 
     /**
+     * Authorize a user to view product's prices.
+     */
+    public function viewPrices(?Authenticatable $user, Product $product): bool
+    {
+        return true;
+    }
+
+    /**
      * Authorize a user to view product's lowest price.
      */
     public function viewLowestPrice(?Authenticatable $user, Product $product): bool
@@ -115,9 +131,9 @@ class ProductPolicy
     }
 
     /**
-     * Authorize a user to view product's prices.
+     * Authorize a user to view product's highest price.
      */
-    public function viewPrices(?Authenticatable $user, Product $product): bool
+    public function viewHighestPrice(?Authenticatable $user, Product $product): bool
     {
         return true;
     }
