@@ -126,14 +126,4 @@ class ProductVariant extends LunarPoductVariant
             )
             ->ofMany('price', 'min');
     }
-
-    /**
-     * Other variants relation.
-     */
-    public function otherVariants()
-    {
-        return $this
-            ->hasMany(LunarPoductVariant::class, 'product_id', 'product_id')
-            ->where($this->getRouteKeyName(), '!=', $this->getAttribute($this->getRouteKeyName()));
-    }
 }
