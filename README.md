@@ -19,7 +19,7 @@ easily build features to meet your project's needs.
 
 - PHP ^8.2
 - Laravel 10
-- [Lunar requirements](https://docs.lunarphp.io/core/installation.html#server-requirements)
+- [Lunar requirements](https://v0.lunarphp.io/core/installation.html#server-requirements)
 
 ## Documentation
 
