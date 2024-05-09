@@ -24,6 +24,7 @@ export default defineConfig({
             {
                 text: "Reference",
                 items: [
+                    { text: "Overview", link: "/reference/overview" },
                     { text: "Addresses", link: "/reference/addresses" },
                     { text: "Attributes", link: "/reference/attributes" },
                     { text: "Auth", link: "/reference/auth" },
