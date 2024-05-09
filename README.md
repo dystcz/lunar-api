@@ -18,12 +18,12 @@ easily build features to meet your project's needs.
 ## Requirements
 
 - PHP ^8.2
-- Laravel 10
+- Laravel 11
 - [Lunar requirements](https://docs.lunarphp.io/core/installation.html#server-requirements)
 
 ## Documentation
 
-- [v0.8 documentation](https://0.lunar-api.docs.dy.st/)
+- [v1.0.0-alpha documentation](https://lunar-api.docs.dy.st/)
 
 ### Testing
 
