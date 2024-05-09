@@ -10,6 +10,9 @@ hero:
     - theme: brand
       text: Getting started
       link: /overview
+    - theme: alt
+      text: Reference
+      link: /reference/overview
 
 features:
   - icon: 🏗️
