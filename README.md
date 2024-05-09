@@ -31,7 +31,7 @@ easily build features to meet your project's needs.
 composer test
 ```
 
-### Lunar API compatible packages
+### Compatible packages
 
 - [Reviews](https://github.com/dystcz/lunar-api-reviews) (Adds user reviews functionality)
 - [Product Views](https://github.com/dystcz/lunar-api-product-views)
