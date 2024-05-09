@@ -3,7 +3,7 @@
 ## Requirements
 
 - PHP ^8.2
-- Laravel 10
+- Laravel 11
 - [Lunar requirements](https://docs.lunarphp.io/core/installation.html#server-requirements)
 
 ## Installation
