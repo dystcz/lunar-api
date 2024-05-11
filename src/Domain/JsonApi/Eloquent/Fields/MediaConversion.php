@@ -6,6 +6,7 @@ use Closure;
 use LaravelJsonApi\Core\Json\Hash;
 use LaravelJsonApi\Core\Support\Arr;
 use LaravelJsonApi\Eloquent\Fields\Attribute;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MediaConversion extends Attribute
 {
@@ -22,8 +23,9 @@ class MediaConversion extends Attribute
     /**
      * {@inheritDoc}
      */
-    public function serialize(object $model)
+    public function serialize(object $model): array|Hash
     {
+        /** @var Media $model */
         $value = parent::serialize($model);
 
         return [
@@ -38,7 +40,7 @@ class MediaConversion extends Attribute
     /**
      * {@inheritDoc}
      */
-    protected function deserialize($value)
+    protected function deserialize($value): ?array
     {
         $value = parent::deserialize($value);
 
