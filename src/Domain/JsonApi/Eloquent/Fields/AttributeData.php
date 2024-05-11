@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields;
 
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use LaravelJsonApi\Core\Json\Hash;
@@ -19,6 +20,11 @@ class AttributeData extends Attribute
      * Group attributes.
      */
     protected bool $groupAttributes = false;
+
+    /**
+     * Model attribute override.
+     */
+    protected bool $modelAttributes = true;
 
     /**
      * Extra attributes.
@@ -66,6 +72,18 @@ class AttributeData extends Attribute
     }
 
     /**
+     * Enable or disable model attribute override.
+     * This means that $model->{$attribute} will have
+     * bigger priority than $model->attr($attribute) if defined.
+     */
+    public function modelAttributes(bool $modelAttributes = true): self
+    {
+        $this->modelAttributes = $modelAttributes;
+
+        return $this;
+    }
+
+    /**
      * Set extra attributes.
      *
      * @param  Collection<AttributeModel>  $attributes
@@ -102,32 +120,54 @@ class AttributeData extends Attribute
                 ->whereIn('handle', array_keys($value->all()))
                 ->groupBy(fn (AttributeModel $attribute) => $attribute->attributeGroup->handle)
                 ->map(fn (Collection $attributes, string $group) => $attributes->mapWithKeys(function (AttributeModel $attribute) use ($model) {
-                    $value = null;
+                    $value = match ($attribute->type) {
+                        Dropdown::class => $this->getDropdownValue($attribute, $model, $this->modelAttributes),
+                        default => null
+                    };
 
-                    if ($attribute->type === Dropdown::class) {
-                        $value = Arr::first(Arr::where(
-                            $attribute->configuration['lookups'] ?? [],
-                            fn ($lookup) => $lookup['value'] === $model->attr($attribute->handle),
-                        ));
-
-                        if ($value && $value['label']) {
-                            $value = $value['label'];
-                        }
-                    }
-
-                    $value = $value ?? $model->attr($attribute->handle);
+                    $value = $value ?? $this->getValue($attribute, $model, $this->modelAttributes);
 
                     return [
                         $attribute->handle => [
                             'name' => $attribute->translate('name'),
                             'value' => $value,
-                            'plaintext_value' => strip_tags($value ?? ''),
                         ],
                     ];
                 }));
         }
 
         return Hash::cast($value);
+    }
+
+    /**
+     * Get the value of the attribute.
+     */
+    protected function getValue(AttributeModel $attribute, object $model, bool $useModelAttributes): mixed
+    {
+        $value = $useModelAttributes
+            ? $model->getAttribute($attribute->handle) ?? $model->attr($attribute->handle)
+            : $model->attr($attribute->handle);
+
+        return $value;
+    }
+
+    /**
+     * Get the dropdown field type value.
+     */
+    protected function getDropdownValue(AttributeModel $attribute, object $model, bool $useModelAttributes): mixed
+    {
+        $value = Arr::first(Arr::where(
+            $attribute->configuration['lookups'] ?? [],
+            fn ($lookup) => $lookup['value'] === $useModelAttributes
+            ? $model->getAttribute($attribute->handle) ?? $model->attr($attribute->handle)
+            : $model->attr($attribute->handle)
+        ));
+
+        if ($value && $value['label']) {
+            $value = $value['label'];
+        }
+
+        return $value;
     }
 
     /**
