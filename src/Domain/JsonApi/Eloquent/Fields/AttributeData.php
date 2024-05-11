@@ -21,11 +21,38 @@ class AttributeData extends Attribute
     protected bool $groupAttributes = false;
 
     /**
-     * Create an array attribute.
+     * Extra attributes.
+     *
+     * @var Collection<AttributeModel>|null
      */
-    public static function make(string $fieldName, ?string $column = null): static
-    {
-        return new static($fieldName, $column);
+    protected Collection $attributes;
+
+    /**
+     * Attribute constructor.
+     *
+     * @param  Collection<AttributeModel>  $attributes
+     */
+    public function __construct(
+        string $fieldName,
+        ?string $column = null,
+        ?Collection $attributes = null,
+    ) {
+        parent::__construct($fieldName, $column);
+
+        $this->attributes = $attributes ?? new Collection();
+    }
+
+    /**
+     * Create an array attribute.
+     *
+     * @param  Collection<AttributeModel>  $attributes
+     */
+    public static function make(
+        string $fieldName,
+        ?string $column = null,
+        ?Collection $attributes = null,
+    ): static {
+        return new static($fieldName, $column, $attributes);
     }
 
     /**
@@ -34,6 +61,18 @@ class AttributeData extends Attribute
     public function groupAttributes(): self
     {
         $this->groupAttributes = true;
+
+        return $this;
+    }
+
+    /**
+     * Set extra attributes.
+     *
+     * @param  Collection<AttributeModel>  $attributes
+     */
+    public function addAttributes(Collection $attributes): self
+    {
+        $this->attributes = $attributes;
 
         return $this;
     }
@@ -62,7 +101,7 @@ class AttributeData extends Attribute
                 ->where('attribute_type', $model->getMorphClass())
                 ->whereIn('handle', array_keys($value->all()))
                 ->groupBy(fn (AttributeModel $attribute) => $attribute->attributeGroup->handle)
-                ->map(fn ($attributes) => $attributes->mapWithKeys(function (AttributeModel $attribute) use ($model) {
+                ->map(fn (Collection $attributes, string $group) => $attributes->mapWithKeys(function (AttributeModel $attribute) use ($model) {
                     $value = null;
 
                     if ($attribute->type === Dropdown::class) {
@@ -76,10 +115,13 @@ class AttributeData extends Attribute
                         }
                     }
 
+                    $value = $value ?? $model->attr($attribute->handle);
+
                     return [
                         $attribute->handle => [
                             'name' => $attribute->translate('name'),
-                            'value' => $value ?? $model->attr($attribute->handle),
+                            'value' => $value,
+                            'plaintext_value' => strip_tags($value ?? ''),
                         ],
                     ];
                 }));
