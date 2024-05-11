@@ -91,6 +91,7 @@ class AttributeData extends Attribute
      * Enable or disable plaintext value.
      * This will add a plaintext value to the attribute.
      * Plaintext value is a version of the value with HTML tags stripped.
+     * This only applies for fields with richtext configuration option turned on.
      */
     public function plainTextValues(bool $plaintextValues = true): self
     {
@@ -126,40 +127,54 @@ class AttributeData extends Attribute
     {
         $value = parent::serialize($model);
 
-        if (! $this->groupAttributes) {
-            return Hash::cast($value);
-        }
-
         if ($model->attributes instanceof Collection && $model->attributes->isNotEmpty()) {
-            $value = $model->attributes
+            $attributes = $model->attributes
                 ->where('attribute_type', $model->getMorphClass())
-                ->whereIn('handle', array_keys($value->all()))
-                ->groupBy(fn (AttributeModel $attribute) => $attribute->attributeGroup->handle)
-                ->map(fn (Collection $attributes, string $group) => $attributes->mapWithKeys(function (AttributeModel $attribute) use ($model) {
-                    $value = match ($attribute->type) {
-                        Dropdown::class => $this->getDropdownValue($attribute, $model, $this->modelAttributes),
-                        default => null
-                    };
+                ->whereIn('handle', array_keys($value->all()));
 
-                    $value = $value ?? $this->getValue($attribute, $model, $this->modelAttributes);
+            if ($this->groupAttributes) {
+                $value = $attributes
+                    ->groupBy(fn (AttributeModel $attribute) => $attribute->attributeGroup->handle)
+                    ->map(fn (Collection $attributes, string $group) => $this->mapAttributes($attributes, $model));
 
-                    return [
-                        $attribute->handle => [
-                            'name' => $attribute->translate('name'),
-                            'value' => $value,
-                            ...($this->plaintextValues ? ['plaintext' => is_string($value) ? trim(strip_tags($value)) : ''] : []),
-                        ],
-                    ];
-                }));
+                return Hash::cast($value);
+            }
+
+            $value = $this->mapAttributes($attributes, $model);
         }
 
         return Hash::cast($value);
     }
 
     /**
-     * Get the value of the attribute.
+     * Map the attributes.
+     *
+     * @param  Collection<AttributeModel>  $attributes
      */
-    protected function getValue(AttributeModel $attribute, object $model, bool $useModelAttributes): mixed
+    protected function mapAttributes(Collection $attributes, object $model): Collection
+    {
+        return $attributes->mapWithKeys(function (AttributeModel $attribute) use ($model) {
+            $value = match ($attribute->type) {
+                Dropdown::class => $this->getDropdownValue($attribute, $model, $this->modelAttributes),
+                default => null
+            };
+
+            $value = $value ?? $this->getOtherValue($attribute, $model, $this->modelAttributes);
+
+            return [
+                $attribute->handle => [
+                    'name' => $attribute->translate('name'),
+                    'value' => $value,
+                    ...($this->plaintextValues ? ['plaintext' => is_string($value) ? trim(strip_tags($value)) : ''] : []),
+                ],
+            ];
+        });
+    }
+
+    /**
+     * Get other field type value.
+     */
+    protected function getOtherValue(AttributeModel $attribute, object $model, bool $useModelAttributes): mixed
     {
         $value = $useModelAttributes
             ? $model->getAttribute($attribute->handle) ?? $model->attr($attribute->handle)
