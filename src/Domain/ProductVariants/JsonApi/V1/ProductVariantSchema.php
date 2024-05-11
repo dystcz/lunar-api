@@ -12,6 +12,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
+use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
@@ -74,6 +75,10 @@ class ProductVariantSchema extends Schema
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
+
+            Str::make('sku'),
+            Str::make('ean'),
+            Str::make('tax_ref'),
 
             Map::make('availability', [
                 ArrayHash::make('stock')
