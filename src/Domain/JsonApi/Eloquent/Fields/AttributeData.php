@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields;
 
 use Closure;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use LaravelJsonApi\Core\Json\Hash;
@@ -69,9 +68,9 @@ class AttributeData extends Attribute
     /**
      * Group attributes.
      */
-    public function groupAttributes(): self
+    public function groupAttributes(bool $groupAttributes = true): self
     {
-        $this->groupAttributes = true;
+        $this->groupAttributes = $groupAttributes;
 
         return $this;
     }
