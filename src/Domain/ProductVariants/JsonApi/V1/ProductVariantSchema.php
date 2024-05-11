@@ -77,6 +77,8 @@ class ProductVariantSchema extends Schema
                 ->groupAttributes(),
 
             Str::make('sku'),
+            Str::make('gtin'),
+            Str::make('mpn'),
             Str::make('ean'),
             Str::make('tax_ref'),
 
