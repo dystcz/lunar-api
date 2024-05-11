@@ -160,12 +160,13 @@ class AttributeData extends Attribute
             };
 
             $value = $value ?? $this->getOtherValue($attribute, $model, $this->modelAttributes);
+            $addPlaintext = $this->plaintextValues && ($attribute->configuration['richtext'] ?? false);
 
             return [
                 $attribute->handle => [
                     'name' => $attribute->translate('name'),
                     'value' => $value,
-                    ...($this->plaintextValues ? ['plaintext' => is_string($value) ? trim(strip_tags($value)) : ''] : []),
+                    ...($addPlaintext ? ['plaintext' => is_string($value) ? trim(strip_tags($value)) : ''] : []),
                 ],
             ];
         });
