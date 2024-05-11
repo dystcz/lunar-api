@@ -27,6 +27,11 @@ class AttributeData extends Attribute
     protected bool $modelAttributes = true;
 
     /**
+     * Add plaintext value to response.
+     */
+    protected bool $plaintextValues = false;
+
+    /**
      * Extra attributes.
      *
      * @var Collection<AttributeModel>|null
@@ -84,6 +89,18 @@ class AttributeData extends Attribute
     }
 
     /**
+     * Enable or disable plaintext value.
+     * This will add a plaintext value to the attribute.
+     * Plaintext value is a version of the value with HTML tags stripped.
+     */
+    public function plainTextValues(bool $plaintextValues = true): self
+    {
+        $this->plaintextValues = $plaintextValues;
+
+        return $this;
+    }
+
+    /**
      * Set extra attributes.
      *
      * @param  Collection<AttributeModel>  $attributes
@@ -131,6 +148,7 @@ class AttributeData extends Attribute
                         $attribute->handle => [
                             'name' => $attribute->translate('name'),
                             'value' => $value,
+                            ...($this->plaintextValues ? ['plaintext' => is_string($value) ? trim(strip_tags($value)) : ''] : []),
                         ],
                     ];
                 }));
