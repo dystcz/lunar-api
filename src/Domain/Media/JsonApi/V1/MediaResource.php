@@ -9,6 +9,7 @@ use Dystcz\LunarApi\Domain\Media\Data\ConversionOptions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
+use LaravelJsonApi\Contracts\Schema\Attribute;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MediaResource extends JsonApiResource
@@ -37,42 +38,61 @@ class MediaResource extends JsonApiResource
             return parent::allAttributes($request);
         }
 
+        /** @var Media $model */
+        $model = $this->resource;
+
+        $conversions = array_filter(
+            explode(',', $request->get('media_conversions', '')),
+            fn ($conversion) => $model->hasGeneratedConversion($conversion),
+        );
+
+        /** @var array<int, MediaConversionContract> $registeredConversions */
+        $registeredConversions = Config::get('lunar.media.conversions', []);
+
+        /** @var array<int, ConversionOptions> $conversionOptions */
+        $conversionOptions = Arr::flatten(array_map(
+            fn (string $class) => $class::conversions(),
+            $registeredConversions,
+        ));
+
+        $conversions = array_values(array_unique(array_map(
+            fn (ConversionOptions $options) => $options->key,
+            array_filter($conversionOptions, fn (ConversionOptions $options) => in_array($options->key, $conversions)),
+        )));
+
+        if (empty($conversions) || empty($registeredConversions)) {
+            return parent::allAttributes($request);
+        }
+
+        $allAttributes = array_filter(
+            parent::allAttributes($request),
+            function (Attribute $value, mixed $key) use ($conversions) {
+
+                if (! in_array($conversions, ['default'])) {
+                    return ! in_array($key, [
+                        'path',
+                        'url',
+                        'srcset',
+                        'file_name',
+                        'mime_type',
+                    ]);
+                }
+
+            }, ARRAY_FILTER_USE_BOTH);
+
         return [
-            ...parent::allAttributes($request),
-            ...$this->conversions(explode(',', $request->get('media_conversions'))),
+            ...$allAttributes,
+            ...$this->conversions($conversions),
         ];
     }
 
     /**
      * Map media conversions to fields.
      *
-     * @param  string[]  $conversions
+     * @param  array<int, MediaConversionContract>  $conversions
      */
     protected function conversions(array $conversions): array
     {
-        /** @var array<int, MediaConversionContract> $registeredConversions */
-        $registeredConversions = Config::get('lunar.media.conversions', []);
-
-        if (empty($conversions) || empty($registeredConversions)) {
-            return [];
-        }
-
-        $registeredConversions = [
-            ...$registeredConversions,
-            ...$registeredConversions,
-        ];
-
-        $registeredConversions = Arr::flatten(array_map(
-            fn (string $class) => $class::conversions(),
-            $registeredConversions,
-        ));
-
-        /** @var MediaConversionContract $conversions */
-        $conversions = array_values(array_unique(array_map(
-            fn (ConversionOptions $options) => $options->key,
-            array_filter($registeredConversions, fn (ConversionOptions $options) => in_array($options->key, $conversions)),
-        )));
-
         return array_reduce($conversions, function (array $carry, string $conversion) {
             array_push($carry, MediaConversion::make($conversion));
 
