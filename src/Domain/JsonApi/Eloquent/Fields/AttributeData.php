@@ -76,10 +76,13 @@ class AttributeData extends Attribute
                         }
                     }
 
+                    $value = $value ?? $model->attr($attribute->handle);
+
                     return [
                         $attribute->handle => [
                             'name' => $attribute->translate('name'),
-                            'value' => $value ?? $model->attr($attribute->handle),
+                            'value' => $value,
+                            'plaintext_value' => strip_tags($value ?? ''),
                         ],
                     ];
                 }));
