@@ -21,19 +21,93 @@ class AttributeData extends Attribute
     protected bool $groupAttributes = false;
 
     /**
-     * Create an array attribute.
+     * Model attribute override.
      */
-    public static function make(string $fieldName, ?string $column = null): static
-    {
-        return new static($fieldName, $column);
+    protected bool $modelAttributes = true;
+
+    /**
+     * Add plaintext value to response.
+     */
+    protected bool $plaintextValues = false;
+
+    /**
+     * Extra attributes.
+     *
+     * @var Collection<AttributeModel>|null
+     */
+    protected Collection $attributes;
+
+    /**
+     * Attribute constructor.
+     *
+     * @param  Collection<AttributeModel>  $attributes
+     */
+    public function __construct(
+        string $fieldName,
+        ?string $column = null,
+        ?Collection $attributes = null,
+    ) {
+        parent::__construct($fieldName, $column);
+
+        $this->attributes = $attributes ?? new Collection();
+    }
+
+    /**
+     * Create an array attribute.
+     *
+     * @param  Collection<AttributeModel>  $attributes
+     */
+    public static function make(
+        string $fieldName,
+        ?string $column = null,
+        ?Collection $attributes = null,
+    ): static {
+        return new static($fieldName, $column, $attributes);
     }
 
     /**
      * Group attributes.
      */
-    public function groupAttributes(): self
+    public function groupAttributes(bool $groupAttributes = true): self
     {
-        $this->groupAttributes = true;
+        $this->groupAttributes = $groupAttributes;
+
+        return $this;
+    }
+
+    /**
+     * Enable or disable model attribute override.
+     * This means that $model->{$attribute} will have
+     * bigger priority than $model->attr($attribute) if defined.
+     */
+    public function modelAttributes(bool $modelAttributes = true): self
+    {
+        $this->modelAttributes = $modelAttributes;
+
+        return $this;
+    }
+
+    /**
+     * Enable or disable plaintext value.
+     * This will add a plaintext value to the attribute.
+     * Plaintext value is a version of the value with HTML tags stripped.
+     * This only applies for fields with richtext configuration option turned on.
+     */
+    public function plainTextValues(bool $plaintextValues = true): self
+    {
+        $this->plaintextValues = $plaintextValues;
+
+        return $this;
+    }
+
+    /**
+     * Set extra attributes.
+     *
+     * @param  Collection<AttributeModel>  $attributes
+     */
+    public function addAttributes(Collection $attributes): self
+    {
+        $this->attributes = $attributes;
 
         return $this;
     }
@@ -53,42 +127,80 @@ class AttributeData extends Attribute
     {
         $value = parent::serialize($model);
 
-        if (! $this->groupAttributes) {
-            return Hash::cast($value);
-        }
-
         if ($model->attributes instanceof Collection && $model->attributes->isNotEmpty()) {
-            $value = $model->attributes
+            $attributes = $model->attributes
                 ->where('attribute_type', $model->getMorphClass())
-                ->whereIn('handle', array_keys($value->all()))
-                ->groupBy(fn (AttributeModel $attribute) => $attribute->attributeGroup->handle)
-                ->map(fn ($attributes) => $attributes->mapWithKeys(function (AttributeModel $attribute) use ($model) {
-                    $value = null;
+                ->whereIn('handle', array_keys($value->all()));
 
-                    if ($attribute->type === Dropdown::class) {
-                        $value = Arr::first(Arr::where(
-                            $attribute->configuration['lookups'] ?? [],
-                            fn ($lookup) => $lookup['value'] === $model->attr($attribute->handle),
-                        ));
+            if ($this->groupAttributes) {
+                $value = $attributes
+                    ->groupBy(fn (AttributeModel $attribute) => $attribute->attributeGroup->handle)
+                    ->map(fn (Collection $attributes, string $group) => $this->mapAttributes($attributes, $model));
 
-                        if ($value && $value['label']) {
-                            $value = $value['label'];
-                        }
-                    }
+                return Hash::cast($value);
+            }
 
-                    $value = $value ?? $model->attr($attribute->handle);
-
-                    return [
-                        $attribute->handle => [
-                            'name' => $attribute->translate('name'),
-                            'value' => $value,
-                            'plaintext_value' => strip_tags($value ?? ''),
-                        ],
-                    ];
-                }));
+            $value = $this->mapAttributes($attributes, $model);
         }
 
         return Hash::cast($value);
+    }
+
+    /**
+     * Map the attributes.
+     *
+     * @param  Collection<AttributeModel>  $attributes
+     */
+    protected function mapAttributes(Collection $attributes, object $model): Collection
+    {
+        return $attributes->mapWithKeys(function (AttributeModel $attribute) use ($model) {
+            $value = match ($attribute->type) {
+                Dropdown::class => $this->getDropdownValue($attribute, $model, $this->modelAttributes),
+                default => null
+            };
+
+            $value = $value ?? $this->getOtherValue($attribute, $model, $this->modelAttributes);
+            $addPlaintext = $this->plaintextValues && ($attribute->configuration['richtext'] ?? false);
+
+            return [
+                $attribute->handle => [
+                    'name' => $attribute->translate('name'),
+                    'value' => $value,
+                    ...($addPlaintext ? ['plaintext' => is_string($value) ? trim(strip_tags($value)) : ''] : []),
+                ],
+            ];
+        });
+    }
+
+    /**
+     * Get other field type value.
+     */
+    protected function getOtherValue(AttributeModel $attribute, object $model, bool $useModelAttributes): mixed
+    {
+        $value = $useModelAttributes
+            ? $model->getAttribute($attribute->handle) ?? $model->attr($attribute->handle)
+            : $model->attr($attribute->handle);
+
+        return $value;
+    }
+
+    /**
+     * Get the dropdown field type value.
+     */
+    protected function getDropdownValue(AttributeModel $attribute, object $model, bool $useModelAttributes): mixed
+    {
+        $value = Arr::first(Arr::where(
+            $attribute->configuration['lookups'] ?? [],
+            fn ($lookup) => $lookup['value'] === $useModelAttributes
+            ? $model->getAttribute($attribute->handle) ?? $model->attr($attribute->handle)
+            : $model->attr($attribute->handle)
+        ));
+
+        if ($value && $value['label']) {
+            $value = $value['label'];
+        }
+
+        return $value;
     }
 
     /**
