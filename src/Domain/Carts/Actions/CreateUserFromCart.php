@@ -10,7 +10,6 @@ use Dystcz\LunarApi\Domain\Users\Contracts\CreatesUserFromCart;
 use Dystcz\LunarApi\Domain\Users\Contracts\RegistersUser;
 use Dystcz\LunarApi\Domain\Users\Data\UserData;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
 use RuntimeException;
 
@@ -127,7 +126,7 @@ class CreateUserFromCart implements CreatesUserFromCart
         ];
 
         /** @var AddressRequest $addressRequest */
-        $addressRequest = App::make(AddressRequest::class);
+        $addressRequest = new AddressRequest;
 
         $validator = Validator::make($data, $addressRequest->modelRules());
 
