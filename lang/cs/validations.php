@@ -3,6 +3,14 @@
 return [
 
     'addresses' => [
+        'first_name' => [
+            'required' => 'Pole jméno je povinné.',
+            'string' => 'Pole jméno musí být řetězec.',
+        ],
+        'last_name' => [
+            'required' => 'Pole příjmení je povinné.',
+            'string' => 'Pole příjmení musí být řetězec.',
+        ],
         'company_in' => [
             'string' => 'IČO společnosti musí být řetězec.',
         ],

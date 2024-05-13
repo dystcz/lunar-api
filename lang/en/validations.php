@@ -18,6 +18,14 @@ return [
     ],
 
     'addresses' => [
+        'first_name' => [
+            'required' => 'First name field is required.',
+            'string' => 'First name field must be a string.',
+        ],
+        'last_name' => [
+            'required' => 'Last name field is required.',
+            'string' => 'Last name field must be a string.',
+        ],
         'company_in' => [
             'string' => 'Company ID must be a string.',
         ],
