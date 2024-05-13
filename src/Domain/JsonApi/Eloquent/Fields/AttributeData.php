@@ -155,11 +155,11 @@ class AttributeData extends Attribute
     {
         return $attributes->mapWithKeys(function (AttributeModel $attribute) use ($model) {
             $value = match ($attribute->type) {
-                Dropdown::class => $this->getDropdownValue($attribute, $model, $this->modelAttributes),
+                Dropdown::class => $this->getDropdownValue($attribute, $model),
                 default => null
             };
 
-            $value = $value ?? $this->getOtherValue($attribute, $model, $this->modelAttributes);
+            $value = $value ?? $this->getAttributeValue($model, $attribute->handle);
             $addPlaintext = $this->plaintextValues && ($attribute->configuration['richtext'] ?? false);
 
             return [
@@ -173,34 +173,31 @@ class AttributeData extends Attribute
     }
 
     /**
-     * Get other field type value.
+     * Get the dropdown field type value.
      */
-    protected function getOtherValue(AttributeModel $attribute, object $model, bool $useModelAttributes): mixed
+    protected function getDropdownValue(AttributeModel $attribute, object $model): mixed
     {
-        $value = $useModelAttributes
-            ? $model->getAttribute($attribute->handle) ?? $model->attr($attribute->handle)
-            : $model->attr($attribute->handle);
+        $value = Arr::first(
+            $attribute->configuration['lookups'] ?? [],
+            fn ($lookup) => $lookup['value'] === $this->getAttributeValue($model, $attribute->handle)
+                || $lookup['label'] === $this->getAttributeValue($model, $attribute->handle)
+        );
+
+        if ($value && (! $value['value'] && $value['label'])) {
+            $value = $value['label'];
+        }
 
         return $value;
     }
 
     /**
-     * Get the dropdown field type value.
+     * Get the attribute value from model.
      */
-    protected function getDropdownValue(AttributeModel $attribute, object $model, bool $useModelAttributes): mixed
+    protected function getAttributeValue(object $model, string $handle): mixed
     {
-        $value = Arr::first(Arr::where(
-            $attribute->configuration['lookups'] ?? [],
-            fn ($lookup) => $lookup['value'] === $useModelAttributes
-            ? $model->getAttribute($attribute->handle) ?? $model->attr($attribute->handle)
-            : $model->attr($attribute->handle)
-        ));
-
-        if ($value && $value['label']) {
-            $value = $value['label'];
-        }
-
-        return $value;
+        return $this->modelAttributes
+            ? $model->getAttribute($handle) ?? $model->attr($handle)
+            : $model->attr($handle);
     }
 
     /**
