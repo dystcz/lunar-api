@@ -57,7 +57,12 @@ trait InteractsWithAvailability
         /** @var Product $this */
         $this->setAttribute(
             'variants_availability',
-            $this->variants->map(fn (ProductVariant $variant) => $variant->getAvailability()),
-        );
+            $this->variants->map(function (ProductVariant $variant) {
+                if (! $variant->relationLoaded('product')) {
+                    $variant->setRelation('product', $this);
+                }
+
+                return $variant->getAvailability();
+            }));
     }
 }
