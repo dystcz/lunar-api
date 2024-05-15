@@ -23,9 +23,7 @@ it('can calculate payment option price', function () {
     /** @var TestCase $this */
     $country = Country::factory()->create();
 
-    $currency = Currency::factory()->create([
-        'decimal_places' => 2,
-    ]);
+    $currency = Currency::getDefault();
 
     $cart = Cart::factory()->create([
         'currency_id' => $currency->id,

@@ -22,7 +22,7 @@ beforeEach(function () {
 
 it('can set empty payment totals', function () {
     /** @var TestCase $this */
-    $currency = Currency::factory()->create();
+    $currency = Currency::getDefault();
 
     /** @var Cart $cart */
     $cart = Cart::factory()->create([
@@ -60,7 +60,7 @@ it('can set empty payment totals', function () {
 
 it('can set payment totals', function () {
     /** @var TestCase $this */
-    $currency = Currency::factory()->create();
+    $currency = Currency::getDefault();
 
     $cart = Cart::factory()->create([
         'currency_id' => $currency->id,
