@@ -41,9 +41,9 @@ class MediaResource extends JsonApiResource
         /** @var Media $model */
         $model = $this->resource;
 
-        $conversions = array_filter(
+        $conversionsInParams = array_filter(
             explode(',', $request->get('media_conversions', '')),
-            fn ($conversion) => $model->hasGeneratedConversion($conversion),
+            fn ($conversion) => $model->hasGeneratedConversion($conversion) || in_array($conversion, ['default']),
         );
 
         /** @var array<int, MediaConversionContract> $registeredConversions */
@@ -57,7 +57,10 @@ class MediaResource extends JsonApiResource
 
         $conversions = array_values(array_unique(array_map(
             fn (ConversionOptions $options) => $options->key,
-            array_filter($conversionOptions, fn (ConversionOptions $options) => in_array($options->key, $conversions)),
+            array_filter(
+                $conversionOptions,
+                fn (ConversionOptions $options) => in_array($options->key, $conversionsInParams),
+            ),
         )));
 
         if (empty($conversions) || empty($registeredConversions)) {
@@ -66,9 +69,9 @@ class MediaResource extends JsonApiResource
 
         $allAttributes = array_filter(
             parent::allAttributes($request),
-            function (Attribute $value, mixed $key) use ($conversions) {
+            function (Attribute $value, mixed $key) use ($conversionsInParams) {
 
-                if (! in_array($conversions, ['default'])) {
+                if (! in_array('default', $conversionsInParams)) {
                     return ! in_array($key, [
                         'path',
                         'url',
@@ -77,6 +80,8 @@ class MediaResource extends JsonApiResource
                         'mime_type',
                     ]);
                 }
+
+                return true;
 
             }, ARRAY_FILTER_USE_BOTH);
 
