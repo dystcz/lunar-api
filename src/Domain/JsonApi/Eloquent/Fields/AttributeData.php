@@ -195,7 +195,7 @@ class AttributeData extends Attribute
 
         // If value is not set, use label as value.
         if ($value['label'] && ! $value['value']) {
-            $value['value'] = $value['label'];
+            return $value['label'];
         }
 
         return null;
