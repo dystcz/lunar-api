@@ -2,6 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Models;
 
+use Dystcz\LunarApi\Base\Contracts\Preorderable;
+use Dystcz\LunarApi\Base\Contracts\Translatable;
+use Dystcz\LunarApi\Base\Traits\CanBePreordered;
 use Dystcz\LunarApi\Domain\Attributes\Traits\InteractsWithAttributes;
 use Dystcz\LunarApi\Domain\Products\Enums\Availability;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
@@ -22,8 +25,9 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 /**
  * @method MorphMany notifications() Get the notifications relation if `lunar-api-product-notifications` package is installed.
  */
-class ProductVariant extends LunarPoductVariant
+class ProductVariant extends LunarPoductVariant implements Preorderable, Translatable
 {
+    use CanBePreordered;
     use HashesRouteKey;
     use HasUrls;
     use InteractsWithAttributes;

@@ -2,6 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Models;
 
+use Dystcz\LunarApi\Base\Contracts\Preorderable;
+use Dystcz\LunarApi\Base\Contracts\Translatable;
+use Dystcz\LunarApi\Base\Traits\CanBePreordered;
 use Dystcz\LunarApi\Domain\Products\Actions\IsPurchasable;
 use Dystcz\LunarApi\Domain\Products\Builders\ProductBuilder;
 use Dystcz\LunarApi\Domain\Products\Enums\Availability;
@@ -23,8 +26,9 @@ use Lunar\Models\ProductVariant;
 /**
  * @method static ProductBuilder query()
  */
-class Product extends LunarProduct
+class Product extends LunarProduct implements Preorderable, Translatable
 {
+    use CanBePreordered;
     use HashesRouteKey;
 
     /**
