@@ -86,32 +86,8 @@ abstract class TestCase extends OrchestraTestCase
     protected function getPackageProviders($app): array
     {
         return [
-            // Ray
-            \Spatie\LaravelRay\RayServiceProvider::class,
-
-            // Laravel JsonApi
-            \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
-            \LaravelJsonApi\Laravel\ServiceProvider::class,
-            \LaravelJsonApi\Spec\ServiceProvider::class,
-
-            // Lunar core
-            \Lunar\LunarServiceProvider::class,
-            \Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
-            \Spatie\Activitylog\ActivitylogServiceProvider::class,
-            \Cartalyst\Converter\Laravel\ConverterServiceProvider::class,
-            \Kalnoy\Nestedset\NestedSetServiceProvider::class,
-            \Spatie\LaravelBlink\BlinkServiceProvider::class,
-
-            // Livewire
-            \Livewire\LivewireServiceProvider::class,
-
-            // Lunar Api
-            \Dystcz\LunarApi\LunarApiServiceProvider::class,
-            \Dystcz\LunarApi\JsonApiServiceProvider::class,
-
-            // Hashids
-            \Vinkla\Hashids\HashidsServiceProvider::class,
-            \Dystcz\LunarApi\LunarApiHashidsServiceProvider::class,
+            // Package service providers defined in testbench.yaml
+            ...parent::getPackageProvidersUsingWorkbench($app),
         ];
     }
 
