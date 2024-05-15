@@ -12,6 +12,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Lunar\FieldTypes\Text;
 
+use function PHPUnit\Framework\assertFalse;
+use function PHPUnit\Framework\assertTrue;
+
 uses(TestCase::class, RefreshDatabase::class, WithFaker::class);
 
 it('can determine variant is always purchasable', function () {
@@ -32,7 +35,7 @@ it('can determine variant is always purchasable', function () {
     /** @var ProductVariant $variant */
     $variant = $product->variants->first();
 
-    $this->assertTrue($variant->availability === Availability::ALWAYS);
+    assertTrue($variant->availability === Availability::ALWAYS);
 })->group('products-variants', 'availability');
 
 it('can determine variant is in stock', function () {
@@ -53,7 +56,7 @@ it('can determine variant is in stock', function () {
     /** @var ProductVariant $variant */
     $variant = $product->variants->first();
 
-    $this->assertFalse($variant->availability === Availability::IN_STOCK);
+    assertFalse($variant->availability === Availability::IN_STOCK);
 
     $variant->update([
         'stock' => 1,
@@ -61,7 +64,7 @@ it('can determine variant is in stock', function () {
 
     $variant->refresh();
 
-    $this->assertTrue($variant->availability === Availability::IN_STOCK);
+    assertTrue($variant->availability === Availability::IN_STOCK);
 
 })->group('products-variants', 'availability');
 
@@ -83,7 +86,7 @@ it('can determine variant is backorder', function () {
     /** @var ProductVariant $variant */
     $variant = $product->variants->first();
 
-    $this->assertFalse($variant->availability === Availability::BACKORDER);
+    assertFalse($variant->availability === Availability::BACKORDER);
 
     $variant->update([
         'backorder' => 1,
@@ -91,7 +94,7 @@ it('can determine variant is backorder', function () {
 
     $variant->refresh();
 
-    $this->assertTrue($variant->availability === Availability::BACKORDER);
+    assertTrue($variant->availability === Availability::BACKORDER);
 
 })->group('products-variants', 'availability');
 
@@ -119,7 +122,7 @@ it('can determine variant is preorder', function () {
     /** @var ProductVariant $variant */
     $variant = $product->variants->first();
 
-    $this->assertFalse($variant->availability === Availability::PREORDER);
+    assertFalse($variant->availability === Availability::PREORDER);
 
     $variant->update([
         'stock' => 1,
@@ -127,7 +130,7 @@ it('can determine variant is preorder', function () {
 
     $variant->refresh();
 
-    $this->assertTrue($variant->availability === Availability::PREORDER);
+    assertTrue($variant->availability === Availability::PREORDER);
 
     $variant->update([
         'stock' => 0,
@@ -137,7 +140,7 @@ it('can determine variant is preorder', function () {
 
     $variant->refresh();
 
-    $this->assertTrue($variant->availability === Availability::PREORDER);
+    assertTrue($variant->availability === Availability::PREORDER);
 
 })->group('products-variants', 'availability');
 
@@ -159,7 +162,7 @@ it('can determine variant is out of stock', function () {
     /** @var ProductVariant $variant */
     $variant = $product->variants->first();
 
-    $this->assertTrue($variant->availability === Availability::OUT_OF_STOCK);
+    assertTrue($variant->availability === Availability::OUT_OF_STOCK);
 
     $variant->update([
         'purchasable' => 'random',
@@ -167,7 +170,7 @@ it('can determine variant is out of stock', function () {
 
     $variant->refresh();
 
-    $this->assertTrue($variant->availability === Availability::OUT_OF_STOCK);
+    assertTrue($variant->availability === Availability::OUT_OF_STOCK);
 
     $variant->update([
         'purchasable' => PurchasableStatus::BACKORDER->value,
@@ -176,6 +179,6 @@ it('can determine variant is out of stock', function () {
 
     $variant->refresh();
 
-    $this->assertTrue($variant->availability === Availability::OUT_OF_STOCK);
+    assertTrue($variant->availability === Availability::OUT_OF_STOCK);
 
 })->group('products-variants', 'availability');
