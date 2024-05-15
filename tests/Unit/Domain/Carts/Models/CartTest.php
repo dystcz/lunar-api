@@ -3,13 +3,13 @@
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
 use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
+use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Lunar\DataTypes\Price as DataTypesPrice;
 use Lunar\Models\Country;
 use Lunar\Models\Currency;
-use Lunar\Models\Price;
 use Lunar\Models\ProductVariant;
 use Lunar\Models\TaxClass;
 
@@ -23,9 +23,7 @@ it('can calculate payment option price', function () {
     /** @var TestCase $this */
     $country = Country::factory()->create();
 
-    $currency = Currency::factory()->create([
-        'decimal_places' => 2,
-    ]);
+    $currency = Currency::getDefault();
 
     $cart = Cart::factory()->create([
         'currency_id' => $currency->id,
@@ -39,7 +37,7 @@ it('can calculate payment option price', function () {
         'price' => 400,
         'tier' => 1,
         'currency_id' => $currency->id,
-        'priceable_type' => get_class($purchasable),
+        'priceable_type' => $purchasable->getMorphClass(),
         'priceable_id' => $purchasable->id,
     ]);
 
