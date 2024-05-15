@@ -9,7 +9,6 @@ use Dystcz\LunarApi\Domain\Media\Data\ConversionOptions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
-use LaravelJsonApi\Contracts\Schema\Attribute;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MediaResource extends JsonApiResource
@@ -41,9 +40,9 @@ class MediaResource extends JsonApiResource
         /** @var Media $model */
         $model = $this->resource;
 
-        $conversionsInParams = array_filter(
+        $conversions = array_filter(
             explode(',', $request->get('media_conversions', '')),
-            fn ($conversion) => $model->hasGeneratedConversion($conversion) || in_array($conversion, ['default']),
+            fn ($conversion) => $model->hasGeneratedConversion($conversion),
         );
 
         /** @var array<int, MediaConversionContract> $registeredConversions */
@@ -59,7 +58,7 @@ class MediaResource extends JsonApiResource
             fn (ConversionOptions $options) => $options->key,
             array_filter(
                 $conversionOptions,
-                fn (ConversionOptions $options) => in_array($options->key, $conversionsInParams),
+                fn (ConversionOptions $options) => in_array($options->key, $conversions),
             ),
         )));
 
@@ -67,26 +66,8 @@ class MediaResource extends JsonApiResource
             return parent::allAttributes($request);
         }
 
-        $allAttributes = array_filter(
-            parent::allAttributes($request),
-            function (Attribute $value, mixed $key) use ($conversionsInParams) {
-
-                if (! in_array('default', $conversionsInParams)) {
-                    return ! in_array($key, [
-                        'path',
-                        'url',
-                        'srcset',
-                        'file_name',
-                        'mime_type',
-                    ]);
-                }
-
-                return true;
-
-            }, ARRAY_FILTER_USE_BOTH);
-
         return [
-            ...$allAttributes,
+            ...parent::allAttributes($request),
             ...$this->conversions($conversions),
         ];
     }
