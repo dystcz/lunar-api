@@ -189,12 +189,12 @@ class AttributeData extends Attribute
         }
 
         // If value is set, use value as value.
-        if ($value['value']) {
+        if (is_string($value['value']) && trim($value['value']) !== '') {
             return $value['value'];
         }
 
         // If value is not set, use label as value.
-        if ($value['label'] && ! $value['value']) {
+        if (is_string($value['label']) && trim($value['label']) !== '') {
             return $value['label'];
         }
 
