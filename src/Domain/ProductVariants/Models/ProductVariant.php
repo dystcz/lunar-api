@@ -2,11 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Models;
 
-use Dystcz\LunarApi\Base\Contracts\Preorderable;
+use Dystcz\LunarApi\Base\Contracts\HasAvailability;
 use Dystcz\LunarApi\Base\Contracts\Translatable;
-use Dystcz\LunarApi\Base\Traits\CanBePreordered;
+use Dystcz\LunarApi\Base\Traits\InteractsWithAvailability;
 use Dystcz\LunarApi\Domain\Attributes\Traits\InteractsWithAttributes;
-use Dystcz\LunarApi\Domain\Products\Enums\Availability;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
@@ -25,12 +24,12 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 /**
  * @method MorphMany notifications() Get the notifications relation if `lunar-api-product-notifications` package is installed.
  */
-class ProductVariant extends LunarPoductVariant implements Preorderable, Translatable
+class ProductVariant extends LunarPoductVariant implements HasAvailability, Translatable
 {
-    use CanBePreordered;
     use HashesRouteKey;
     use HasUrls;
     use InteractsWithAttributes;
+    use InteractsWithAvailability;
 
     /**
      * Create a new factory instance for the model.
@@ -41,13 +40,19 @@ class ProductVariant extends LunarPoductVariant implements Preorderable, Transla
     }
 
     /**
-     * Get availability attribute.
+     * Determine when model is considered to be preorderable.
      */
-    public function availability(): Attribute
+    public function isPreorderable(): bool
     {
-        return Attribute::make(
-            get: fn () => Availability::of($this),
-        );
+        /** @var Product $product */
+        $product = $this->product;
+
+        return $product->isPreorderable()
+            && (
+                $this->isAlwaysPurchasable()
+                || $this->isInStock()
+                || $this->isBackorderable()
+            );
     }
 
     /**
