@@ -180,14 +180,25 @@ class AttributeData extends Attribute
         $value = Arr::first(
             $attribute->configuration['lookups'] ?? [],
             fn ($lookup) => $lookup['value'] === $this->getAttributeValue($model, $attribute->handle)
-                || $lookup['label'] === $this->getAttributeValue($model, $attribute->handle)
+                || $lookup['label'] === $this->getAttributeValue($model, $attribute->handle),
+            null
         );
 
-        if ($value && (! $value['value'] && $value['label'])) {
-            $value = $value['label'];
+        if (! $value) {
+            return null;
         }
 
-        return $value;
+        // If value is set, use value as value.
+        if ($value['value']) {
+            return $value['value'];
+        }
+
+        // If value is not set, use label as value.
+        if ($value['label'] && ! $value['value']) {
+            return $value['label'];
+        }
+
+        return null;
     }
 
     /**
