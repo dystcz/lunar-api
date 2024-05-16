@@ -67,6 +67,9 @@ class LunarApiServiceProvider extends ServiceProvider
             fn (Application $app) => $app->make(\Dystcz\LunarApi\Domain\PaymentOptions\Manifests\PaymentManifest::class),
         );
 
+        if ($this->app->environment('local')) {
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+        }
     }
 
     /**
