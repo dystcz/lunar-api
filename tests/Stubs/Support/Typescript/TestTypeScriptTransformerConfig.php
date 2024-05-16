@@ -62,7 +62,7 @@ class TestTypeScriptTransformerConfig extends TypeScriptTransformerConfig
         return $this;
     }
 
-    public function collectors(array $collectors)
+    public function collectors(array $collectors): self
     {
         $this->collectors = array_merge($collectors, [DefaultCollector::class]);
 
