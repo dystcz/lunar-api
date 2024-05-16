@@ -2,13 +2,12 @@
 
 namespace Dystcz\LunarApi\Support\Typescript\Transformers;
 
-// use Dystcz\LunarApi\Domain\JsonApi\Contracts\Schema as SchemaContract;
 use Config;
+use Dystcz\LunarApi\Domain\JsonApi\Contracts\Schema as SchemaContract;
 use Dystcz\LunarApi\Domain\JsonApi\V1\Server;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Contracts\Schema\Field;
-use LaravelJsonApi\Contracts\Schema\Schema as SchemaContract;
 use LaravelJsonApi\Eloquent\Fields\Attribute;
 use LaravelJsonApi\Eloquent\Schema;
 use phpDocumentor\Reflection\Type;
