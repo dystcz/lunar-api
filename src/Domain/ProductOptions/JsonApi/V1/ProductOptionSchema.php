@@ -1,18 +1,18 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\ProductOptionValues\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\ProductOptions\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
-use Lunar\Models\ProductOptionValue;
+use Lunar\Models\ProductOption;
 
-class ProductOptionValueSchema extends Schema
+class ProductOptionSchema extends Schema
 {
     /**
      * {@inheritDoc}
      */
-    public static string $model = ProductOptionValue::class;
+    public static string $model = ProductOption::class;
 
     /**
      * {@inheritDoc}
@@ -35,12 +35,21 @@ class ProductOptionValueSchema extends Schema
             Str::make('name')
                 ->readOnly()
                 ->extractUsing(
-                    fn (ProductOptionValue $model, string $attribute) => $model->translate($attribute),
+                    fn (ProductOption $model, string $attribute) => $model->translate($attribute),
                 ),
 
-            BelongsTo::make('option', 'option')
+            Str::make('label')
                 ->readOnly()
-                ->type('product-options'),
+                ->extractUsing(
+                    fn (ProductOption $model, string $attribute) => $model->translate($attribute),
+                ),
+
+            Str::make('handle')
+                ->readOnly(),
+
+            HasMany::make('values', 'values')
+                ->readOnly()
+                ->type('product-option-values'),
 
             ...parent::fields(),
         ];
@@ -61,6 +70,6 @@ class ProductOptionValueSchema extends Schema
      */
     public static function type(): string
     {
-        return 'product-option-values';
+        return 'product-options';
     }
 }

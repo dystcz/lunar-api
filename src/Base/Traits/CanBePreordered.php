@@ -16,7 +16,7 @@ trait CanBePreordered
         /** @var Translatable $model */
         $model = $this;
 
-        $eta = $model->attr('eta');
+        $eta = $model->translateAttribute('eta');
 
         if (! $eta || $eta === '') {
             return false;
