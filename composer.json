@@ -58,7 +58,7 @@
       "vendor/bin/testbench clear-compiled",
       "vendor/bin/testbench ide-helper:generate",
       "vendor/bin/testbench ide-helper:meta",
-      "vendor/bin/testbench ide-helper:models --dir=src --write-mixin"
+      "vendor/bin/testbench ide-helper:models --dir=src --nowrite"
     ],
     "post-autoload-dump": "@composer run prepare",
     "artisan": "vendor/bin/testbench",
@@ -87,7 +87,10 @@
       ],
       "aliases": {
         "LunarApi": "Dystcz\\LunarApi\\Facade\\LunarApi"
-      }
+      },
+      "dont-discover": [
+        "barryvdh/laravel-ide-helper"
+      ]
     }
   },
   "minimum-stability": "dev",
