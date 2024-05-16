@@ -207,8 +207,8 @@ class AttributeData extends Attribute
     protected function getAttributeValue(object $model, string $handle): mixed
     {
         return $this->modelAttributes
-            ? $model->getAttribute($handle) ?? $model->attr($handle)
-            : $model->attr($handle);
+            ? $model->translate($handle) ?? $model->translateAttribute($handle)
+            : $model->translateAttribute($handle);
     }
 
     /**

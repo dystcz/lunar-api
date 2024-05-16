@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\ProductOptionValues\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use Lunar\Models\ProductOptionValue;
 
@@ -31,7 +32,15 @@ class ProductOptionValueSchema extends Schema
         return [
             $this->idField(),
 
-            Str::make('name'),
+            Str::make('name')
+                ->readOnly()
+                ->extractUsing(
+                    fn (ProductOptionValue $model, string $attribute) => $model->translate($attribute),
+                ),
+
+            BelongsTo::make('option', 'option')
+                ->readOnly()
+                ->type('product-options'),
 
             ...parent::fields(),
         ];
