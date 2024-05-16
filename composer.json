@@ -40,7 +40,8 @@
     "pestphp/pest": "^2.0",
     "pestphp/pest-plugin-laravel": "^2.0",
     "rector/rector": "^0.15.23",
-    "spatie/laravel-ray": "^1.32"
+    "spatie/laravel-ray": "^1.32",
+    "spatie/laravel-typescript-transformer": "^2.4"
   },
   "autoload": {
     "psr-4": {
@@ -54,7 +55,10 @@
   },
   "scripts": {
     "post-update-cmd": [
-      "vendor/bin/testbench ide-helper:generate"
+      "vendor/bin/testbench clear-compiled",
+      "vendor/bin/testbench ide-helper:generate",
+      "vendor/bin/testbench ide-helper:meta",
+      "vendor/bin/testbench ide-helper:models --dir=src --write-mixin"
     ],
     "post-autoload-dump": "@composer run prepare",
     "artisan": "vendor/bin/testbench",
@@ -78,7 +82,8 @@
       "providers": [
         "Dystcz\\LunarApi\\LunarApiServiceProvider",
         "Dystcz\\LunarApi\\JsonApiServiceProvider",
-        "Dystcz\\LunarApi\\LunarApiHashidsServiceProvider"
+        "Dystcz\\LunarApi\\LunarApiHashidsServiceProvider",
+        "Dystcz\\LunarApi\\LunarApiTypeScriptTransformerServiceProvider"
       ],
       "aliases": {
         "LunarApi": "Dystcz\\LunarApi\\Facade\\LunarApi"
