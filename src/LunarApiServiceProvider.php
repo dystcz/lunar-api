@@ -20,7 +20,6 @@ class LunarApiServiceProvider extends ServiceProvider
     protected array $configFiles = [
         'domains',
         'general',
-        'hashids',
     ];
 
     protected $root = __DIR__.'/..';
@@ -45,7 +44,7 @@ class LunarApiServiceProvider extends ServiceProvider
         // Register the main class to use with the facade.
         $this->app->singleton(
             'lunar-api',
-            fn () => new LunarApi,
+            fn () => new LunarApi($this->root),
         );
 
         $this->registerControllers();
