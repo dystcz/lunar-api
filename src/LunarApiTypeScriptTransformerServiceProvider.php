@@ -5,7 +5,6 @@ namespace Dystcz\LunarApi;
 use Dystcz\LunarApi\Facades\LunarApi;
 use Dystcz\LunarApi\Hashids\Facades\HashidsConnections;
 use Illuminate\Support\ServiceProvider;
-use Spatie\TypeScriptTransformer\TypeScriptTransformerConfig;
 
 class LunarApiTypeScriptTransformerServiceProvider extends ServiceProvider
 {
@@ -19,14 +18,16 @@ class LunarApiTypeScriptTransformerServiceProvider extends ServiceProvider
         // Register typescript transformer config.
         $this->app->bind(
             'lunar-api.typescript-transformer-config',
-            fn () => TypeScriptTransformerConfig::create()
+            fn () => \Spatie\TypeScriptTransformer\TypeScriptTransformerConfig::create()
                 ->autoDiscoverTypes(...[LunarApi::getPackageRoot().'/src'])
                 ->collectors([
                     \Spatie\TypeScriptTransformer\Collectors\DefaultCollector::class,
                     \Spatie\TypeScriptTransformer\Collectors\EnumCollector::class,
+                    \Dystcz\LunarApi\Support\Typescript\Collectors\SchemaCollector::class,
                 ])
                 ->transformers([
                     \Spatie\TypeScriptTransformer\Transformers\EnumTransformer::class,
+                    \Dystcz\LunarApi\Support\Typescript\Transformers\SchemaTransformer::class,
                 ])
                 ->defaultTypeReplacements([
                     \DateTime::class => 'string',
