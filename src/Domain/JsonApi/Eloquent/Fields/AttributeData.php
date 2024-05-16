@@ -10,7 +10,9 @@ use LaravelJsonApi\Core\Support\Arr as JsonApiArr;
 use LaravelJsonApi\Eloquent\Fields\Attribute;
 use Lunar\FieldTypes\Dropdown;
 use Lunar\Models\Attribute as AttributeModel;
+use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
 
+#[RecordTypeScriptType(keyType: 'string', valueType: 'any')]
 class AttributeData extends Attribute
 {
     private ?Closure $keys = null;
