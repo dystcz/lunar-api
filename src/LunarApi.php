@@ -11,6 +11,21 @@ use Illuminate\Support\Facades\Config;
 
 class LunarApi
 {
+    private string $root;
+
+    public function __construct(string $root)
+    {
+        $this->root = $root;
+    }
+
+    /**
+     * Get the root path of the package.
+     */
+    public function getPackageRoot(): string
+    {
+        return $this->root;
+    }
+
     /**
      * Create new user using class.
      */
