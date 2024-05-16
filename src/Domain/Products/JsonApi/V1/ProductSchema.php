@@ -2,27 +2,29 @@
 
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\ArrayHash;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\Map;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\Str;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Relations\BelongsTo;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Relations\HasMany;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Relations\HasManyThrough;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Relations\HasOne;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Relations\HasOneThrough;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\InStockFilter;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilterCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use LaravelJsonApi\Eloquent\Fields\ArrayHash;
-use LaravelJsonApi\Eloquent\Fields\Map;
-use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasManyThrough;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
-use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Product;
+use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
+#[TypeScript]
 class ProductSchema extends Schema
 {
     /**
@@ -98,17 +100,16 @@ class ProductSchema extends Schema
         return [
             $this->idField(),
 
+            Str::make('status')
+                ->readOnly(),
+
             AttributeData::make('attribute_data')
+                ->readOnly()
                 ->groupAttributes(),
 
             Map::make('availability', [
-                ArrayHash::make('status')
-                    ->extractUsing(
-                        static fn (Product $model) => $model->availability->toArray()
-                    ),
-            ]),
-
-            Str::make('status'),
+                ArrayHash::make('status')->extractUsing(static fn (Product $model) => $model->availability->toArray()),
+            ])->readOnly(),
 
             HasMany::make('associations')
                 ->type('associations')
