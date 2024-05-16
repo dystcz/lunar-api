@@ -35,4 +35,4 @@ providers:
   - Dystcz\LunarApi\LunarApiServiceProvider
   - Dystcz\LunarApi\JsonApiServiceProvider
   - Dystcz\LunarApi\LunarApiHashidsServiceProvider
-  - Dystcz\LunarApi\LunarApiTypescriptTransformerServiceProvider
+  - Dystcz\LunarApi\LunarApiTypeScriptTransformerServiceProvider
