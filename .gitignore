@@ -10,8 +10,10 @@ Session.vim
 phpstan.neon
 ray.php
 _ide_helper.php
+_ide_helper_models.php
 .phpstorm.meta.php
 .phpactor.json
+.env
 .env.testing
 .lando.yml
 /.vscode/launch.json
