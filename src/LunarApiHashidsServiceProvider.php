@@ -7,6 +7,22 @@ use Illuminate\Support\ServiceProvider;
 
 class LunarApiHashidsServiceProvider extends ServiceProvider
 {
+    protected $root = __DIR__.'/..';
+
+    /**
+     * Register the application services.
+     */
+    public function register(): void
+    {
+        $this->mergeConfigFrom(__DIR__.'/../config/hashids.php', 'lunar-api.hashids');
+
+        // Register payment adapters register.
+        $this->app->singleton(
+            \Dystcz\LunarApi\Hashids\Contracts\HashidsConnectionsManager::class,
+            fn () => new \Dystcz\LunarApi\Hashids\Managers\HashidsConnectionsManager,
+        );
+    }
+
     /**
      * Bootstrap the application services.
      */
@@ -15,20 +31,19 @@ class LunarApiHashidsServiceProvider extends ServiceProvider
         if (LunarApi::usesHashids()) {
             HashidsConnections::registerConnections();
         }
+
+        if ($this->app->runningInConsole()) {
+            $this->publishConfig();
+        }
     }
 
     /**
-     * Register the application services.
+     * Publish config files.
      */
-    public function register(): void
+    protected function publishConfig(): void
     {
-        // Automatically apply the package configuration.
-        $this->mergeConfigFrom(__DIR__.'/../config/hashids.php', 'hashids');
-
-        // Register payment adapters register.
-        $this->app->singleton(
-            \Dystcz\LunarApi\Hashids\Contracts\HashidsConnectionsManager::class,
-            fn () => new \Dystcz\LunarApi\Hashids\Managers\HashidsConnectionsManager,
-        );
+        $this->publishes([
+            "{$this->root}/config/hashids.php" => config_path('lunar-api/hashids.php'),
+        ], 'lunar-api.hashids');
     }
 }
