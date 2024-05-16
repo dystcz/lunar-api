@@ -4,7 +4,9 @@ namespace Dystcz\LunarApi\Domain\Products\Enums;
 
 use Dystcz\LunarApi\Base\Contracts\HasAvailability;
 use Illuminate\Contracts\Support\Arrayable;
+use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
+#[TypeScript]
 enum Availability: string implements Arrayable
 {
     case ALWAYS = 'always';
