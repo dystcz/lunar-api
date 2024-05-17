@@ -39,6 +39,18 @@ class ProductVariantSchema extends Schema
     /**
      * {@inheritDoc}
      */
+    public function with(): array
+    {
+        return [
+            'attributes',
+            'attributes.attributeGroup',
+            ...parent::with(),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function mergeIncludePathsFrom(): iterable
     {
         return [
