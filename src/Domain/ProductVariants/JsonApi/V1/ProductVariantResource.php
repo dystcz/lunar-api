@@ -22,10 +22,6 @@ class ProductVariantResource extends JsonApiResource
             $model->prices->each(fn ($price) => $price->setRelation('purchasable', $model));
         }
 
-        if ($model->relationLoaded('product')) {
-            $model->setRelation('attributes', $model->product->attributes);
-        }
-
         return parent::attributes($request);
     }
 }
