@@ -41,11 +41,15 @@ class ProductSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    protected array $with = [
-        'productType',
-        'productType.mappedAttributes',
-        'productType.mappedAttributes.attributeGroup',
-    ];
+    public function with(): array
+    {
+        return [
+            'productType',
+            'productType.mappedAttributes',
+            'productType.mappedAttributes.attributeGroup',
+            ...parent::with(),
+        ];
+    }
 
     /**
      * {@inheritDoc}
