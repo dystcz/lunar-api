@@ -127,7 +127,7 @@ class AttributeData extends Attribute
     {
         $value = parent::serialize($model);
 
-        if ($model->attributes instanceof Collection && $model->attributes->isNotEmpty()) {
+        if (is_iterable($model->attributes) && count($model->attributes) > 0) {
             $attributes = $model->attributes
                 ->where('attribute_type', $model->getMorphClass())
                 ->whereIn('handle', array_keys($value->all()));
