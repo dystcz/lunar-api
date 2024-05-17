@@ -114,6 +114,12 @@ class ProductSchema extends Schema
 
             Str::make('status'),
 
+            HasMany::make('attributes', 'attributes')
+                ->type('attributes')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
             HasMany::make('associations')
                 ->type('associations')
                 ->canCount(),

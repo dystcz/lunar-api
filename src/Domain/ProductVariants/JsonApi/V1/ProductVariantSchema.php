@@ -109,6 +109,12 @@ class ProductVariantSchema extends Schema
 
             BelongsTo::make('product'),
 
+            HasMany::make('attributes', 'attributes')
+                ->type('attributes')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
             HasMany::make('other_variants', 'otherVariants')
                 ->type('variants')
                 ->canCount()
