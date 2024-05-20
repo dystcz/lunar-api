@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Lunar\Base\CartSessionInterface;
 use Lunar\Facades\ModelManifest;
 use Lunar\Facades\Payments;
 
@@ -48,7 +49,8 @@ class LunarApiServiceProvider extends ServiceProvider
             fn () => new LunarApi,
         );
 
-        $this->registerControllers();
+        $this->bindControllers();
+        $this->bindModels();
 
         // Register payment adapters register.
         $this->app->singleton(
@@ -229,9 +231,9 @@ class LunarApiServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register controllers.
+     * Bind controllers.
      */
-    protected function registerControllers(): void
+    protected function bindControllers(): void
     {
         $controllers = [
             \Dystcz\LunarApi\Domain\Addresses\Contracts\AddressesController::class => \Dystcz\LunarApi\Domain\Addresses\Http\Controllers\AddressesController::class,
@@ -379,6 +381,28 @@ class LunarApiServiceProvider extends ServiceProvider
                 ->hasMany(\Lunar\Models\ProductVariant::class, 'product_id', 'product_id')
                 ->where($model->getRouteKeyName(), '!=', $model->getAttribute($model->getRouteKeyName()));
         });
+    }
+
+    /**
+     * Bind models.
+     */
+    protected function bindModels(): void
+    {
+        $this->app->bind(
+            \Dystcz\LunarApi\Domain\Carts\Contracts\Cart::class,
+            \Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
+        );
+
+        $this->app->bind(
+            \Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart::class,
+            function (Application $app) {
+                /** @var \Lunar\Managers\CartSessionManager */
+                $cartSession = $this->app->make(CartSessionInterface::class);
+
+                /** @var Cart $cart */
+                return $cartSession->current();
+            }
+        );
     }
 
     /**
