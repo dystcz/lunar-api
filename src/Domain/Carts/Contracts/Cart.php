@@ -2,6 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Contracts;
 
-interface Cart
+use Dystcz\LunarApi\Base\Contracts\Swappable;
+
+interface Cart extends Swappable
 {
 }
