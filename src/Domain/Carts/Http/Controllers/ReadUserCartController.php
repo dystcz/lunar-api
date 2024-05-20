@@ -31,7 +31,7 @@ class ReadUserCartController extends Controller implements ReadUserCartControlle
      *
      * @return Responsable|Response
      */
-    public function myCart(CartSchema $schema, CartQuery $query, CurrentSessionCart $cart): DataResponse
+    public function myCart(CartSchema $schema, CartQuery $query, ?CurrentSessionCart $cart): DataResponse
     {
         $this->authorize('viewAny', Cart::class);
 
