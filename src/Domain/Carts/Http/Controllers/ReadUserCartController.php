@@ -3,15 +3,15 @@
 namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
+use Dystcz\LunarApi\Domain\Carts\Contracts\Cart;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart;
 use Dystcz\LunarApi\Domain\Carts\Contracts\ReadUserCartController as ReadUserCartControllerContract;
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartQuery;
+use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartSchema;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
-use LaravelJsonApi\Contracts\Routing\Route;
-use LaravelJsonApi\Contracts\Store\Store as StoreContract;
 use LaravelJsonApi\Core\Responses\DataResponse;
-use LaravelJsonApi\Laravel\Http\Requests\ResourceQuery;
 use Lunar\Base\CartSessionInterface;
 
 class ReadUserCartController extends Controller implements ReadUserCartControllerContract
@@ -31,12 +31,9 @@ class ReadUserCartController extends Controller implements ReadUserCartControlle
      *
      * @return Responsable|Response
      */
-    public function myCart(Route $route, StoreContract $store): DataResponse
+    public function myCart(CartSchema $schema, CartQuery $query, CurrentSessionCart $cart): DataResponse
     {
         $this->authorize('viewAny', Cart::class);
-
-        /** @var Cart $cart */
-        $cart = $this->cartSession->current();
 
         // If cart auto creation is disabled and no cart is found
         if (! $cart) {
@@ -44,17 +41,8 @@ class ReadUserCartController extends Controller implements ReadUserCartControlle
                 ->didntCreate();
         }
 
-        $request = ResourceQuery::queryOne(
-            $resourceType = $route->resourceType()
-        );
-
-        $model = $store
-            ->queryOne($resourceType, $cart->fresh())
-            ->withRequest($request)
-            ->first();
-
-        return DataResponse::make($model)
-            ->withQueryParameters($request)
+        return DataResponse::make($cart)
+            ->withQueryParameters($query)
             ->didntCreate();
     }
 }
