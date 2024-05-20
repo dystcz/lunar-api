@@ -358,6 +358,15 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     protected function registerDynamicRelations(): void
     {
+        \Lunar\Models\ProductVariant::resolveRelationUsing('attributes', function ($model) {
+            return $model
+                ->hasMany(
+                    \Lunar\Models\Attribute::class,
+                    'attribute_type',
+                    'attribute_classname',
+                );
+        });
+
         \Lunar\Models\ProductVariant::resolveRelationUsing('urls', function ($model) {
             return $model
                 ->morphMany(
