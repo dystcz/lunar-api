@@ -11,12 +11,10 @@ use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
 use Dystcz\LunarApi\Tests\Stubs\Users\JsonApi\V1\UserSchema;
 use Dystcz\LunarApi\Tests\Traits\JsonApiTestHelpers;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
-use LaravelJsonApi\Testing\TestExceptionHandler;
 use Lunar\Base\ShippingModifiers;
 use Lunar\Facades\Taxes;
 use Lunar\Models\Channel;
@@ -186,8 +184,8 @@ abstract class TestCase extends OrchestraTestCase
     protected function resolveApplicationExceptionHandler($app): void
     {
         $app->singleton(
-            ExceptionHandler::class,
-            TestExceptionHandler::class
+            \Illuminate\Contracts\Debug\ExceptionHandler::class,
+            \LaravelJsonApi\Testing\TestExceptionHandler::class
         );
     }
 }
