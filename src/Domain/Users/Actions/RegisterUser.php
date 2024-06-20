@@ -15,8 +15,7 @@ class RegisterUser implements RegistersUser
 {
     public function __construct(
         protected CreatesNewUsers $createUser,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a newly registered user.

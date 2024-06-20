@@ -7,9 +7,7 @@ use Dystcz\LunarApi\Support\Actions\Action;
 
 class CreateEmptyCartAddresses extends Action
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Create empty addresses for a cart.

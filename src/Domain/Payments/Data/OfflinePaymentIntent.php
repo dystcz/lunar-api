@@ -15,8 +15,7 @@ class OfflinePaymentIntent implements PaymentIntentContract
         public string $id,
         public ?string $status = null,
         public array $meta = [],
-    ) {
-    }
+    ) {}
 
     /**
      * Get ID.
