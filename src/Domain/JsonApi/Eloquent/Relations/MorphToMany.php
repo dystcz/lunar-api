@@ -7,6 +7,4 @@ use LaravelJsonApi\Eloquent\Fields\Relations\MorphToMany as LaravelJsonApiMorphT
 use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
 
 #[RecordTypeScriptType(keyType: 'string', valueType: RelationType::class)]
-class MorphToMany extends LaravelJsonApiMorphToMany
-{
-}
+class MorphToMany extends LaravelJsonApiMorphToMany {}

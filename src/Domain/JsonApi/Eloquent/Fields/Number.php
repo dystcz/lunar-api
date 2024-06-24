@@ -6,6 +6,4 @@ use LaravelJsonApi\Eloquent\Fields\Number as LaravelJsonApiNumber;
 use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
 
 #[RecordTypeScriptType(keyType: 'string', valueType: 'number')]
-class Number extends LaravelJsonApiNumber
-{
-}
+class Number extends LaravelJsonApiNumber {}

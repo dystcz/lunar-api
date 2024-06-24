@@ -7,6 +7,4 @@ use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany as LaravelJsonApiBelo
 use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
 
 #[RecordTypeScriptType(keyType: 'string', valueType: RelationType::class)]
-class BelongsToMany extends LaravelJsonApiBelongsToMany
-{
-}
+class BelongsToMany extends LaravelJsonApiBelongsToMany {}

@@ -7,6 +7,4 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasManyThrough as LaravelJsonApiHas
 use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
 
 #[RecordTypeScriptType(keyType: 'string', valueType: RelationType::class)]
-class HasManyThrough extends LaravelJsonApiHasManyThrough
-{
-}
+class HasManyThrough extends LaravelJsonApiHasManyThrough {}

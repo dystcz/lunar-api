@@ -13,8 +13,7 @@ class PaymentIntent implements PaymentIntentContract
     public function __construct(
         public readonly mixed $intent,
         public array $meta = [],
-    ) {
-    }
+    ) {}
 
     /**
      * Get ID.
