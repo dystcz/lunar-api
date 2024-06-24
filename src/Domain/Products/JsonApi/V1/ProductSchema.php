@@ -43,11 +43,15 @@ class ProductSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    protected array $with = [
-        'productType',
-        'productType.mappedAttributes',
-        'productType.mappedAttributes.attributeGroup',
-    ];
+    public function with(): array
+    {
+        return [
+            'productType',
+            'productType.mappedAttributes',
+            'productType.mappedAttributes.attributeGroup',
+            ...parent::with(),
+        ];
+    }
 
     /**
      * {@inheritDoc}
@@ -110,6 +114,12 @@ class ProductSchema extends Schema
             Map::make('availability', [
                 ArrayHash::make('status')->extractUsing(static fn (Product $model) => $model->availability->toArray()),
             ])->readOnly(),
+
+            HasMany::make('attributes', 'attributes')
+                ->type('attributes')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
 
             HasMany::make('associations')
                 ->type('associations')

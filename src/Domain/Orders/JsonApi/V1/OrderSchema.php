@@ -58,6 +58,7 @@ class OrderSchema extends Schema
             'digital_lines.purchasable',
             'digital_lines.purchasable.prices',
             'digital_lines.purchasable.images',
+            'digital_lines.purchasable.thumbnail',
             'digital_lines.purchasable.product',
             'digital_lines.purchasable.product.thumbnail',
 
@@ -71,6 +72,7 @@ class OrderSchema extends Schema
             'physical_lines.purchasable',
             'physical_lines.purchasable.prices',
             'physical_lines.purchasable.images',
+            'physical_lines.purchasable.thumbnail',
             'physical_lines.purchasable.product',
             'physical_lines.purchasable.product.thumbnail',
 
@@ -80,6 +82,7 @@ class OrderSchema extends Schema
             'product_lines.purchasable',
             'product_lines.purchasable.prices',
             'product_lines.purchasable.images',
+            'product_lines.purchasable.thumbnail',
             'product_lines.purchasable.product',
             'product_lines.purchasable.product.thumbnail',
 
