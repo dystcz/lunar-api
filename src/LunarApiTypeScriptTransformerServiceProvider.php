@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi;
 
 use Dystcz\LunarApi\Facades\LunarApi;
-use Dystcz\LunarApi\Hashids\Facades\HashidsConnections;
 use Illuminate\Support\ServiceProvider;
 
 class LunarApiTypeScriptTransformerServiceProvider extends ServiceProvider
@@ -48,10 +47,6 @@ class LunarApiTypeScriptTransformerServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (LunarApi::usesHashids()) {
-            HashidsConnections::registerConnections();
-        }
-
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
             $this->registerCommands();
