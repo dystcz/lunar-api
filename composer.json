@@ -32,7 +32,6 @@
     "lunarphp/lunar": "^0.8"
   },
   "require-dev": {
-    "barryvdh/laravel-ide-helper": "^3.0",
     "driftingly/rector-laravel": "^0.17.0",
     "laravel-json-api/testing": "^2.1",
     "laravel/pint": "^1.7",
@@ -55,10 +54,7 @@
   },
   "scripts": {
     "post-update-cmd": [
-      "vendor/bin/testbench clear-compiled",
-      "vendor/bin/testbench ide-helper:generate",
-      "vendor/bin/testbench ide-helper:meta",
-      "vendor/bin/testbench ide-helper:models --dir=src --nowrite"
+      "vendor/bin/testbench clear-compiled"
     ],
     "post-autoload-dump": "@composer run prepare",
     "artisan": "vendor/bin/testbench",
