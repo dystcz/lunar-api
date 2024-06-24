@@ -29,6 +29,7 @@
     "laravel-json-api/hashids": "^2.0",
     "laravel-json-api/laravel": "^3.4",
     "laravel-json-api/non-eloquent": "^3.0",
+    "spatie/laravel-typescript-transformer": "^2.4",
     "lunarphp/lunar": "^0.8"
   },
   "require-dev": {
@@ -39,8 +40,7 @@
     "pestphp/pest": "^2.0",
     "pestphp/pest-plugin-laravel": "^2.0",
     "rector/rector": "^0.15.23",
-    "spatie/laravel-ray": "^1.32",
-    "spatie/laravel-typescript-transformer": "^2.4"
+    "spatie/laravel-ray": "^1.32"
   },
   "autoload": {
     "psr-4": {
@@ -83,10 +83,7 @@
       ],
       "aliases": {
         "LunarApi": "Dystcz\\LunarApi\\Facade\\LunarApi"
-      },
-      "dont-discover": [
-        "barryvdh/laravel-ide-helper"
-      ]
+      }
     }
   },
   "minimum-stability": "dev",

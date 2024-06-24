@@ -6,9 +6,6 @@ providers:
   # Ray
   - Spatie\LaravelRay\RayServiceProvider
 
-  # IdeHelper
-  - Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider
-
   # LaravelJsonApi
   - LaravelJsonApi\Encoder\Neomerx\ServiceProvider
   - LaravelJsonApi\Laravel\ServiceProvider
