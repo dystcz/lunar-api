@@ -8,8 +8,7 @@ use Lunar\Models\Transaction;
 class GetLastOrderTransaction
 {
     public function __construct(
-    ) {
-    }
+    ) {}
 
     /**
      * Get last order transaction.

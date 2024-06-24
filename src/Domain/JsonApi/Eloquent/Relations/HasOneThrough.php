@@ -7,6 +7,4 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough as LaravelJsonApiHasO
 use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
 
 #[RecordTypeScriptType(keyType: 'string', valueType: RelationType::class)]
-class HasOneThrough extends LaravelJsonApiHasOneThrough
-{
-}
+class HasOneThrough extends LaravelJsonApiHasOneThrough {}

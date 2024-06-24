@@ -16,8 +16,7 @@ class OrderPaymentFailed implements FailedPaymentEventContract
         public Order $order,
         public PaymentAdapter $paymentAdapter,
         public PaymentIntent $paymentIntent,
-    ) {
-    }
+    ) {}
 
     /**
      * Get payment adapter.

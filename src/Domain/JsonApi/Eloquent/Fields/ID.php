@@ -6,6 +6,4 @@ use LaravelJsonApi\Eloquent\Fields\ID as LaravelJsonApiID;
 use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
 
 #[RecordTypeScriptType(keyType: 'string', valueType: 'string')]
-class ID extends LaravelJsonApiID
-{
-}
+class ID extends LaravelJsonApiID {}

@@ -7,6 +7,4 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne as LaravelJsonApiHasOne;
 use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
 
 #[RecordTypeScriptType(keyType: 'string', valueType: RelationType::class)]
-class HasOne extends LaravelJsonApiHasOne
-{
-}
+class HasOne extends LaravelJsonApiHasOne {}

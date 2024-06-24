@@ -7,6 +7,4 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasMany as LaravelJsonApiHasMany;
 use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
 
 #[RecordTypeScriptType(keyType: 'string', valueType: RelationType::class)]
-class HasMany extends LaravelJsonApiHasMany
-{
-}
+class HasMany extends LaravelJsonApiHasMany {}

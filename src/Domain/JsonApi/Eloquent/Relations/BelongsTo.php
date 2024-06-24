@@ -7,6 +7,4 @@ use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo as LaravelJsonApiBelongsT
 use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
 
 #[RecordTypeScriptType(keyType: 'string', valueType: RelationType::class)]
-class BelongsTo extends LaravelJsonApiBelongsTo
-{
-}
+class BelongsTo extends LaravelJsonApiBelongsTo {}

@@ -12,8 +12,7 @@ class CartLineData
         public int $purchasable_id,
         public int $quantity = 1,
         public ?array $meta = [],
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(CartLineRequest $request): CartLineData
     {

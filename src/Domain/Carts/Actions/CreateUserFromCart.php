@@ -17,8 +17,7 @@ class CreateUserFromCart implements CreatesUserFromCart
 {
     public function __construct(
         protected RegistersUser $registerUser,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a user from a cart.
