@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\JsonApi\Eloquent\Relations;
+namespace Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\Relations;
 
 use Dystcz\LunarApi\Support\Typescript\Types\RelationType;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough as LaravelJsonApiHasOneThrough;
