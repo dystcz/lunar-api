@@ -2,23 +2,25 @@
 
 namespace Dystcz\LunarApi\Support\Typescript\Transformers;
 
-use Config;
+use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\Schema as SchemaContract;
 use Dystcz\LunarApi\Domain\JsonApi\V1\Server;
-use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Contracts\Schema\Field;
+use LaravelJsonApi\Contracts\Schema\Relation as RelationContract;
 use LaravelJsonApi\Eloquent\Fields\Attribute;
+use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Schema;
 use phpDocumentor\Reflection\Type;
 use ReflectionClass;
-use Spatie\TypeScriptTransformer\Attributes\Optional;
 use Spatie\TypeScriptTransformer\Structures\MissingSymbolsCollection;
 use Spatie\TypeScriptTransformer\Structures\TransformedType;
 use Spatie\TypeScriptTransformer\Transformers\Transformer;
 use Spatie\TypeScriptTransformer\Transformers\TransformsTypes;
-use Spatie\TypeScriptTransformer\TypeProcessors\DtoCollectionTypeProcessor;
-use Spatie\TypeScriptTransformer\TypeProcessors\ReplaceDefaultsTypeProcessor;
+use Spatie\TypeScriptTransformer\Types\TypeScriptType;
 use Spatie\TypeScriptTransformer\TypeScriptTransformerConfig;
 
 class SchemaTransformer implements Transformer
@@ -29,11 +31,15 @@ class SchemaTransformer implements Transformer
 
     protected Server $server;
 
+    protected array $schemas;
+
     public function __construct(TypeScriptTransformerConfig $config)
     {
         $this->config = $config;
 
         $this->server = $this->resolveServer();
+
+        $this->schemas = SchemaManifestFacade::getServerSchemas();
     }
 
     /**
@@ -54,7 +60,7 @@ class SchemaTransformer implements Transformer
      */
     public function transform(ReflectionClass $class, string $name): ?TransformedType
     {
-        if (! $class->implementsInterface(SchemaContract::class) || ! $class->isSubclassOf(Schema::class)) {
+        if (! $this->canTransform($class)) {
             return null;
         }
 
@@ -84,6 +90,8 @@ class SchemaTransformer implements Transformer
         if ($class->implementsInterface(SchemaContract::class) || $class->isSubclassOf(Schema::class)) {
             return true;
         }
+
+        return false;
     }
 
     /**
@@ -95,18 +103,9 @@ class SchemaTransformer implements Transformer
         ReflectionClass $class,
         MissingSymbolsCollection $missingSymbols
     ): string {
-
-        if (! $class->getName() === ProductSchema::class) {
-            return '';
-        }
-
-        // dd($class->getAttributes());
-
-        $isOptional = ! empty($class->getAttributes(Optional::class));
-
         return array_reduce(
             $this->resolveFields($class),
-            function (string $carry, Field $field) use ($isOptional, $missingSymbols) {
+            function (string $carry, Field $field) use ($missingSymbols) {
                 $class = new ReflectionClass($field);
 
                 // If field is hidden, skip it
@@ -119,21 +118,32 @@ class SchemaTransformer implements Transformer
 
                 $method = $class->getMethod('make');
 
-                $transformed = $this->reflectionToTypeScript(
+                $type = $this->reflectionToTypeScript(
                     $method,
                     $missingSymbols,
-                    ...$this->typeProcessors()
                 );
 
-                if ($transformed === null) {
-                    return $carry;
-                }
+                // // Fields tramsformed to String
+                // if (in_array($fieldClass->getName(), [Str::class, ID::class])) {
+                //     $type = TypeScriptType::create('string');
+                // }
+                //
+                // if ($fieldClass->implementsInterface(RelationContract::class)) {
+                //     /** @var RelationContract $field */
+                //     $relation = $field->inverse() ?? $field->name();
+                //
+                //     $relatedSchema = Arr::first($this->schemas, fn ($schena) => $schena::type() === $relation);
+                //
+                //     if ($relatedSchema) {
+                //         $relatedSchemaClass = new ReflectionClass($relatedSchema);
+                //         $type = TypeScriptType::create("{$relatedSchemaClass->getShortName()}[]");
+                //     }
+                // }
 
-                $propertyName = $this->transformFieldName($class, $missingSymbols);
+                $isOptional = true;
+                $assignOperator = $isOptional ? '?:' : ':';
 
-                return $isOptional
-                    ? "{$carry}{$propertyName}?: {$transformed};".PHP_EOL
-                    : "{$carry}{$propertyName}: {$transformed};".PHP_EOL;
+                return "{$carry}{$field->name()}{$assignOperator} {$type};".PHP_EOL;
             },
             ''
         );
@@ -161,33 +171,6 @@ class SchemaTransformer implements Transformer
         MissingSymbolsCollection $missingSymbols
     ): string {
         return '';
-    }
-
-    /**
-     * Transform the property name.
-     *
-     * @param  ReflectionClass<Field>  $class
-     */
-    protected function transformFieldName(
-        ReflectionClass $class,
-        MissingSymbolsCollection $missingSymbols
-    ): string {
-        return $class->getName();
-    }
-
-    /**
-     * Get the type processors.
-     *
-     * @return array<int,mixed>
-     */
-    protected function typeProcessors(): array
-    {
-        return [
-            new ReplaceDefaultsTypeProcessor(
-                $this->config->getDefaultTypeReplacements()
-            ),
-            // new DtoCollectionTypeProcessor(),
-        ];
     }
 
     /**
