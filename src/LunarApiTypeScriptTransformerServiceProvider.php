@@ -20,13 +20,14 @@ class LunarApiTypeScriptTransformerServiceProvider extends ServiceProvider
             fn () => \Spatie\TypeScriptTransformer\TypeScriptTransformerConfig::create()
                 ->autoDiscoverTypes(...[LunarApi::getPackageRoot().'/src'])
                 ->collectors([
-                    \Spatie\TypeScriptTransformer\Collectors\DefaultCollector::class,
                     \Spatie\TypeScriptTransformer\Collectors\EnumCollector::class,
                     \Dystcz\LunarApi\Support\Typescript\Collectors\SchemaCollector::class,
+                    \Dystcz\LunarApi\Support\Typescript\Collectors\SchemaFieldCollector::class,
                 ])
                 ->transformers([
                     \Spatie\TypeScriptTransformer\Transformers\EnumTransformer::class,
                     \Dystcz\LunarApi\Support\Typescript\Transformers\SchemaTransformer::class,
+                    \Dystcz\LunarApi\Support\Typescript\Transformers\SchemaFieldTransformer::class,
                 ])
                 ->defaultTypeReplacements([
                     \DateTime::class => 'string',
