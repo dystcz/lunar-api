@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Support\Typescript\Collectors;
 
+use Dystcz\LunarApi\Domain\Brands\JsonApi\V1\BrandSchema;
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\Schema as SchemaContract;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystcz\LunarApi\Support\Typescript\Transformers\SchemaTransformer;
@@ -44,13 +45,14 @@ class SchemaCollector extends DefaultCollector
      */
     protected function shouldCollect(ReflectionClass $class): bool
     {
-        if ($class->getName() !== ProductSchema::class) {
+        // TODO: Remove
+        if (! in_array($class->getName(), [ProductSchema::class, BrandSchema::class])) {
             return false;
         }
 
         $transformers = array_map('get_class', $this->config->getTransformers());
 
-        $hasSchemaTransformer = \count(
+        $hasSchemaTransformer = count(
             array_filter($transformers, function (string $transformer) {
                 if ($transformer === SchemaTransformer::class) {
                     return true;
