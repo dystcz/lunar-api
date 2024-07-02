@@ -25,19 +25,23 @@ class SchemaFieldTransformer implements Transformer
         $reflector = ClassTypeReflector::create($class);
 
         $type = $reflector->getType();
+        $inline = $reflector->isInline();
 
         $missingSymbols = new MissingSymbolsCollection();
 
-        $class = $class->getMethod('make')->getDeclaringClass();
+        $class = $class
+            ->getMethod('make')
+            ->getDeclaringClass();
 
         $transformed = $this->typeToTypeScript(
-            $type,
-            $missingSymbols,
-            $class->getName(),
+            type: $type,
+            missingSymbolsCollection: $missingSymbols,
+            currentClass: $class->getName(),
         );
 
-        $type = TransformedType::createInline(
+        $type = TransformedType::create(
             class: $class,
+            name: $name,
             transformed: $transformed,
             missingSymbols: $missingSymbols
         );
