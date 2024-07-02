@@ -2,6 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Checkout\Enums;
 
+use Spatie\TypeScriptTransformer\Attributes\TypeScript;
+
+#[TypeScript]
 enum CheckoutProtectionStrategy: string
 {
     // Routes are protected by a signature

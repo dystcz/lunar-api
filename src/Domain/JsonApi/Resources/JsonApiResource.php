@@ -20,6 +20,8 @@ use RecursiveIteratorIterator;
 
 class JsonApiResource extends BaseApiResource implements ExtendableContract
 {
+    private static array $types = [];
+
     /**
      * Resource extension.
      */
@@ -139,5 +141,23 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
         $iterator = new RecursiveIteratorIterator($recursiveArrayIterator);
 
         return iterator_to_array($iterator);
+    }
+
+    /**
+     * Get the model key.
+     *
+     * @return string|int
+     */
+    private function modelKey()
+    {
+        if ($key = $this->schema->idKeyName()) {
+            return $this->resource->{$key};
+        }
+
+        if ($this->resource instanceof UrlRoutable) {
+            return $this->resource->getRouteKey();
+        }
+
+        throw new LogicException('Resource is not URL routable: you must implement the id method yourself.');
     }
 }

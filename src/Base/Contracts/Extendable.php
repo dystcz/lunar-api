@@ -2,6 +2,4 @@
 
 namespace Dystcz\LunarApi\Base\Contracts;
 
-interface Extendable
-{
-}
+interface Extendable {}

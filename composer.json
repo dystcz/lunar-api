@@ -29,10 +29,10 @@
     "laravel-json-api/hashids": "^2.0",
     "laravel-json-api/laravel": "^3.4",
     "laravel-json-api/non-eloquent": "^3.0",
+    "spatie/laravel-typescript-transformer": "^2.4",
     "lunarphp/lunar": "^0.8"
   },
   "require-dev": {
-    "barryvdh/laravel-ide-helper": "^3.0",
     "driftingly/rector-laravel": "^0.17.0",
     "laravel-json-api/testing": "^2.1",
     "laravel/pint": "^1.7",
@@ -54,7 +54,7 @@
   },
   "scripts": {
     "post-update-cmd": [
-      "vendor/bin/testbench ide-helper:generate"
+      "vendor/bin/testbench clear-compiled"
     ],
     "post-autoload-dump": "@composer run prepare",
     "artisan": "vendor/bin/testbench",
@@ -78,7 +78,8 @@
       "providers": [
         "Dystcz\\LunarApi\\LunarApiServiceProvider",
         "Dystcz\\LunarApi\\JsonApiServiceProvider",
-        "Dystcz\\LunarApi\\LunarApiHashidsServiceProvider"
+        "Dystcz\\LunarApi\\LunarApiHashidsServiceProvider",
+        "Dystcz\\LunarApi\\LunarApiTypeScriptTransformerServiceProvider"
       ],
       "aliases": {
         "LunarApi": "Dystcz\\LunarApi\\Facade\\LunarApi"

@@ -3,4 +3,33 @@ env:
   - DB_DATABASE=":memory:"
 
 providers:
-  - Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider
+  # Ray
+  - Spatie\LaravelRay\RayServiceProvider
+
+  # LaravelJsonApi
+  - LaravelJsonApi\Encoder\Neomerx\ServiceProvider
+  - LaravelJsonApi\Laravel\ServiceProvider
+  - LaravelJsonApi\Spec\ServiceProvider
+
+  # Lunar
+  - Lunar\LunarServiceProvider
+  - Spatie\MediaLibrary\MediaLibraryServiceProvider
+  - Spatie\Activitylog\ActivitylogServiceProvider
+  - Cartalyst\Converter\Laravel\ConverterServiceProvider
+  - Kalnoy\Nestedset\NestedSetServiceProvider
+  - Spatie\LaravelBlink\BlinkServiceProvider
+
+  # Livewire
+  - Livewire\LivewireServiceProvider
+
+  # TypescriptTransformer
+  - Spatie\LaravelTypeScriptTransformer\TypeScriptTransformerServiceProvider
+
+  # Hashids
+  - Vinkla\Hashids\HashidsServiceProvider
+
+  # LunarApi
+  - Dystcz\LunarApi\LunarApiServiceProvider
+  - Dystcz\LunarApi\JsonApiServiceProvider
+  - Dystcz\LunarApi\LunarApiHashidsServiceProvider
+  - Dystcz\LunarApi\LunarApiTypeScriptTransformerServiceProvider

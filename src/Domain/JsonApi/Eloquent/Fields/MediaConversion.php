@@ -7,7 +7,13 @@ use LaravelJsonApi\Core\Json\Hash;
 use LaravelJsonApi\Core\Support\Arr;
 use LaravelJsonApi\Eloquent\Fields\Attribute;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\TypeScriptTransformer\Attributes\InlineTypeScriptType;
+use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
+use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
+#[TypeScript]
+#[InlineTypeScriptType]
+#[RecordTypeScriptType(keyType: 'string', valueType: 'string')]
 class MediaConversion extends Attribute
 {
     private ?Closure $keys = null;

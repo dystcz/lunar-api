@@ -22,7 +22,9 @@ use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Product;
+use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
+#[TypeScript]
 class ProductSchema extends Schema
 {
     /**
@@ -102,17 +104,16 @@ class ProductSchema extends Schema
         return [
             $this->idField(),
 
+            Str::make('status')
+                ->readOnly(),
+
             AttributeData::make('attribute_data')
+                ->readOnly()
                 ->groupAttributes(),
 
             Map::make('availability', [
-                ArrayHash::make('status')
-                    ->extractUsing(
-                        static fn (Product $model) => $model->availability->toArray()
-                    ),
-            ]),
-
-            Str::make('status'),
+                ArrayHash::make('status')->extractUsing(static fn (Product $model) => $model->availability->toArray()),
+            ])->readOnly(),
 
             HasMany::make('attributes', 'attributes')
                 ->type('attributes')
