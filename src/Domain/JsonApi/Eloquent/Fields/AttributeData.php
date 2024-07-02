@@ -11,7 +11,9 @@ use LaravelJsonApi\Eloquent\Fields\Attribute;
 use Lunar\FieldTypes\Dropdown;
 use Lunar\Models\Attribute as AttributeModel;
 use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
+use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
+#[TypeScript]
 #[RecordTypeScriptType(keyType: 'string', valueType: 'any')]
 class AttributeData extends Attribute
 {
