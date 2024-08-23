@@ -69,11 +69,17 @@ test('product is in stock when any variant has stock', function () {
     /** @var Product $product */
     $product = ProductFactory::new()
         ->has(
-            ProductVariantFactory::new()->state(['purchasable' => 'in_stock'])->has(PriceFactory::new())->count(5),
+            ProductVariantFactory::new()->state([
+                'purchasable' => 'in_stock',
+                'stock' => 0,
+            ])->has(PriceFactory::new())->count(5),
             'variants'
         )
         ->has(
-            ProductVariantFactory::new()->state(['purchasable' => 'in_stock', 'stock' => 44])->has(PriceFactory::new()),
+            ProductVariantFactory::new()->state([
+                'purchasable' => 'in_stock',
+                'stock' => 44,
+            ])->has(PriceFactory::new()),
             'variants'
         )
         ->create();
@@ -85,11 +91,17 @@ test('product is in stock when any variant has purchasable to always', function 
     /** @var Product $product */
     $product = ProductFactory::new()
         ->has(
-            ProductVariantFactory::new()->state(['purchasable' => 'in_stock'])->has(PriceFactory::new())->count(5),
+            ProductVariantFactory::new()->state([
+                'purchasable' => 'in_stock',
+                'stock' => 0,
+            ])->has(PriceFactory::new())->count(5),
             'variants'
         )
         ->has(
-            ProductVariantFactory::new()->state(['purchasable' => 'always'])->has(PriceFactory::new()),
+            ProductVariantFactory::new()->state([
+                'purchasable' => 'always',
+                'stock' => 0,
+            ])->has(PriceFactory::new()),
             'variants'
         )
         ->create();
@@ -101,7 +113,10 @@ test('product is in stock when any variant can be purchased always', function ()
     /** @var Product $product */
     $product = ProductFactory::new()
         ->has(
-            ProductVariantFactory::new()->state(['purchasable' => 'always'])->has(PriceFactory::new()),
+            ProductVariantFactory::new()->state([
+                'purchasable' => 'always',
+                'stock' => 0,
+            ])->has(PriceFactory::new()),
             'variants'
         )
         ->create();
@@ -113,7 +128,10 @@ test('product is out of stock when no variant can be purchased', function () {
     /** @var Product $product */
     $product = ProductFactory::new()
         ->has(
-            ProductVariantFactory::new()->state(['purchasable' => 'in_stock'])->has(PriceFactory::new()),
+            ProductVariantFactory::new()->state([
+                'purchasable' => 'in_stock',
+                'stock' => 0,
+            ])->has(PriceFactory::new()),
             'variants'
         )
         ->create();

@@ -27,7 +27,7 @@ it('can manipulate cart during calculation', function () {
 
     $taxClass = TaxClass::query()->first();
 
-    $purchasable = ProductVariant::factory()->create();
+    $purchasable = ProductVariant::factory()->state(['stock' => 1])->create();
 
     Price::factory()->create([
         'price' => 600,
