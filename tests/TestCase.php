@@ -127,7 +127,7 @@ abstract class TestCase extends OrchestraTestCase
             /**
              * Lunar configuration.
              */
-            $config->set('lunar.cart.auto_create', true);
+            $config->set('lunar.cart_session.auto_create', true);
             $config->set('lunar.payments.default', 'offline');
             $config->set('lunar.urls.generator', TestUrlGenerator::class);
             $config->set('lunar.taxes.driver', 'test');
