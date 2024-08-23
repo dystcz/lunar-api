@@ -24,7 +24,7 @@ it('can remove a cart line', function () {
 
     Price::factory()->create([
         'price' => 100,
-        'tier' => 1,
+        'min_quantity' => 1,
         'currency_id' => $currency->id,
         'priceable_type' => $purchasable->getMorphClass(),
         'priceable_id' => $purchasable->id,
