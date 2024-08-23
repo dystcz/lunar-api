@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\ProductVariants\Models;
 
 use Dystcz\LunarApi\Base\Contracts\HasAvailability;
 use Dystcz\LunarApi\Base\Contracts\Translatable;
+use Dystcz\LunarApi\Base\Enums\PurchasableStatus;
 use Dystcz\LunarApi\Base\Traits\InteractsWithAvailability;
 use Dystcz\LunarApi\Domain\Attributes\Traits\InteractsWithAttributes;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
@@ -19,17 +20,20 @@ use InvalidArgumentException;
 use Lunar\Base\Traits\HasUrls;
 use Lunar\Models\Price as LunarPrice;
 use Lunar\Models\ProductVariant as LunarPoductVariant;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @method MorphMany notifications() Get the notifications relation if `lunar-api-product-notifications` package is installed.
  */
-class ProductVariant extends LunarPoductVariant implements HasAvailability, Translatable
+class ProductVariant extends LunarPoductVariant implements HasAvailability, HasMedia, Translatable
 {
     use HashesRouteKey;
     use HasUrls;
     use InteractsWithAttributes;
     use InteractsWithAvailability;
+    use InteractsWithMedia;
 
     /**
      * Create a new factory instance for the model.
@@ -96,7 +100,7 @@ class ProductVariant extends LunarPoductVariant implements HasAvailability, Tran
     {
         return Attribute::make(
             get: fn () => match (true) {
-                $this->purchasable === 'backorder' => $this->backorder,
+                $this->purchasable === PurchasableStatus::BACKORDER => $this->backorder,
                 default => $this->stock,
             }
         );
