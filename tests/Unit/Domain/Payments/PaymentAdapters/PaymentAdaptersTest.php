@@ -37,7 +37,7 @@ it('handles webhooks', function () {
     /** @var TestCase $this */
     $payment = App::make(PaymentAdaptersRegister::class)->get('test');
 
-    $response = $payment->handleWebhook(new Request());
+    $response = $payment->handleWebhook(new Request);
 
     expect($response)->toBeInstanceOf(JsonResponse::class);
 })->group('payments');

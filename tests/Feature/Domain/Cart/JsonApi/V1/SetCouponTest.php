@@ -7,13 +7,19 @@ use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Lunar\Base\CartSessionInterface;
 use Lunar\DiscountTypes\AmountOff;
-use Lunar\Facades\CartSession;
+use Lunar\Managers\CartSessionManager;
 use Lunar\Models\Channel;
 use Lunar\Models\Currency;
 use Lunar\Models\CustomerGroup;
 
 uses(TestCase::class, RefreshDatabase::class);
+
+beforeEach(function () {
+    /** @property CartSessionManager $cartSession */
+    $this->cartSession = App::make(CartSessionInterface::class);
+});
 
 // function showCartPricing(Cart $cart): void
 // {
@@ -42,7 +48,7 @@ test('a user can set a valid fixed value coupon to cart', function () {
 
     Price::factory()->create([
         'price' => 1000, // 10 EUR
-        'tier' => 1,
+        'min_quantity' => 1,
         'currency_id' => $currency->id,
         'priceable_type' => $purchasableA->getMorphClass(),
         'priceable_id' => $purchasableA->id,
@@ -66,7 +72,7 @@ test('a user can set a valid fixed value coupon to cart', function () {
         'data' => [
             'fixed_value' => true,
             'fixed_values' => [
-                'EUR' => 10,
+                'EUR' => 10 * 100,
             ],
         ],
     ]);
@@ -87,7 +93,7 @@ test('a user can set a valid fixed value coupon to cart', function () {
 
     // showCartPricing($cart);
 
-    CartSession::use($cart);
+    $this->cartSession->use($cart);
 
     $response = $this
         ->jsonApi()
@@ -109,7 +115,7 @@ test('a user can set a valid fixed value coupon to cart', function () {
         'coupon_code' => 'AHOJ',
     ]);
 
-    $cart = CartSession::current();
+    $cart = $this->cartSession->current()->recalculate();
 
     $this->assertEquals(10 * 100, $cart->discountTotal->value);
     $this->assertEquals(100 * 100, $cart->subTotal->value);
@@ -131,7 +137,7 @@ test('a user can set a valid percentage coupon to cart', function () {
 
     Price::factory()->create([
         'price' => 2000, // 20 EUR
-        'tier' => 1,
+        'min_quantity' => 1,
         'currency_id' => $currency->id,
         'priceable_type' => $purchasableA->getMorphClass(),
         'priceable_id' => $purchasableA->id,
@@ -172,7 +178,7 @@ test('a user can set a valid percentage coupon to cart', function () {
         ],
     ]);
 
-    CartSession::use($cart);
+    $this->cartSession->use($cart);
 
     $response = $this
         ->jsonApi()
@@ -192,7 +198,7 @@ test('a user can set a valid percentage coupon to cart', function () {
         'coupon_code' => 'SWAG10',
     ]);
 
-    $cart = CartSession::current();
+    $cart = $this->cartSession->current()->recalculate();
 
     $this->assertEquals(20 * 100, $cart->discountTotal->value);
     $this->assertEquals(200 * 100, $cart->subTotal->value);

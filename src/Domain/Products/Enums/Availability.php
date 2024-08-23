@@ -2,64 +2,29 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Enums;
 
+use Dystcz\LunarApi\Base\Contracts\HasAvailability;
 use Illuminate\Contracts\Support\Arrayable;
-use Lunar\Models\Product;
-use Lunar\Models\ProductVariant;
 
 enum Availability: string implements Arrayable
 {
     case ALWAYS = 'always';
     case IN_STOCK = 'in_stock';
     case OUT_OF_STOCK = 'out_of_stock';
-    case BACKORDER = 'backorder';
+    case BACKORDER = 'in_stock_or_on_backorder';
     case PREORDER = 'preorder';
 
     /**
      * Get purchase status of a model.
      */
-    public static function of(Product|ProductVariant $model): self
+    public static function of(HasAvailability $model): self
     {
-        if ($model instanceof ProductVariant) {
-            return self::fromProductVariant($model);
-        }
+        $model->prepareModelForAvailabilityEvaluation();
 
-        return self::fromProduct($model);
-    }
-
-    /**
-     * Get purchase status from product.
-     */
-    public static function fromProduct(Product $product): self
-    {
-        $variantsStatuses = $product->variants->map(
-            fn (ProductVariant $variant) => self::fromProductVariant($variant),
-        );
-
-        if ($product->attr('eta') || $variantsStatuses->contains(self::PREORDER)) {
-            return self::PREORDER;
-        }
-
-        if ($variantsStatuses->contains(self::BACKORDER)) {
-            return self::BACKORDER;
-        }
-
-        if ($variantsStatuses->contains(self::IN_STOCK) || $variantsStatuses->contains(self::ALWAYS)) {
-            return self::IN_STOCK;
-        }
-
-        return self::OUT_OF_STOCK;
-    }
-
-    /**
-     * Get purchase status from product variant.
-     */
-    public static function fromProductVariant(ProductVariant $productVariant): self
-    {
         return match (true) {
-            $productVariant->attr('eta') !== null && $productVariant->attr('eta') !== '' => self::PREORDER,
-            $productVariant->purchasable === 'always' => self::ALWAYS,
-            $productVariant->stock > 0 && $productVariant->purchasable === 'in_stock' => self::IN_STOCK,
-            $productVariant->backorder > 0 && $productVariant->purchasable === 'backorder' => self::BACKORDER,
+            $model->isPreorderable() => self::PREORDER,
+            $model->isAlwaysPurchasable() => self::ALWAYS,
+            $model->isInStock() => self::IN_STOCK,
+            $model->isBackorderable() => self::BACKORDER,
             default => self::OUT_OF_STOCK,
         };
     }

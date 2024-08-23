@@ -3,14 +3,15 @@
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
 use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
+use Dystcz\LunarApi\Domain\Prices\Models\Price;
+use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
+use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Lunar\DataTypes\Price as DataTypesPrice;
 use Lunar\Models\Country;
 use Lunar\Models\Currency;
-use Lunar\Models\Price;
-use Lunar\Models\ProductVariant;
 use Lunar\Models\TaxClass;
 
 uses(TestCase::class, RefreshDatabase::class);
@@ -23,9 +24,7 @@ it('can calculate payment option price', function () {
     /** @var TestCase $this */
     $country = Country::factory()->create();
 
-    $currency = Currency::factory()->create([
-        'decimal_places' => 2,
-    ]);
+    $currency = Currency::getDefault();
 
     $cart = Cart::factory()->create([
         'currency_id' => $currency->id,
@@ -33,13 +32,14 @@ it('can calculate payment option price', function () {
 
     $taxClass = TaxClass::query()->first();
 
-    $purchasable = ProductVariant::factory()->create();
+    /** @var ProductVariant $purchasable */
+    $purchasable = ProductVariantFactory::new()->state(['stock' => 1])->create();
 
     Price::factory()->create([
         'price' => 400,
-        'tier' => 1,
+        'min_quantity' => 1,
         'currency_id' => $currency->id,
-        'priceable_type' => get_class($purchasable),
+        'priceable_type' => $purchasable->getMorphClass(),
         'priceable_id' => $purchasable->id,
     ]);
 
@@ -73,7 +73,7 @@ it('can calculate payment option price', function () {
 
     Config::set('lunar.pricing.stored_inclusive_of_tax', true);
 
-    $cart->calculate();
+    $cart->recalculate();
 
     $this->assertEquals(600, $cart->paymentTotal->value);
     $this->assertEquals(1000, $cart->total->value);

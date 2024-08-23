@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers;
 
+use Closure;
 use Lunar\Base\ShippingModifier;
 use Lunar\DataTypes\Price;
 use Lunar\DataTypes\ShippingOption;
@@ -12,7 +13,7 @@ use Lunar\Models\TaxClass;
 
 class TestShippingModifier extends ShippingModifier
 {
-    public function handle(Cart $cart): void
+    public function handle(Cart $cart, Closure $next): mixed
     {
         ShippingManifest::addOption(
             new ShippingOption(
@@ -37,6 +38,8 @@ class TestShippingModifier extends ShippingModifier
                 )
             );
         }
+
+        return $next($cart);
     }
 
     /**

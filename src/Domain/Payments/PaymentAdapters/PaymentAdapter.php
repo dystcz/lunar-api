@@ -24,7 +24,7 @@ abstract class PaymentAdapter
      */
     public static function register(): void
     {
-        $adapter = new static();
+        $adapter = new static;
 
         App::make(PaymentAdaptersRegister::class)
             ->add($adapter->getDriver(), static::class);

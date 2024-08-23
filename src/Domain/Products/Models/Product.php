@@ -2,10 +2,12 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Models;
 
+use Dystcz\LunarApi\Base\Contracts\HasAvailability;
+use Dystcz\LunarApi\Base\Contracts\Translatable;
 use Dystcz\LunarApi\Domain\Products\Actions\IsPurchasable;
 use Dystcz\LunarApi\Domain\Products\Builders\ProductBuilder;
-use Dystcz\LunarApi\Domain\Products\Enums\Availability;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
+use Dystcz\LunarApi\Domain\Products\Traits\InteractsWithAvailability;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -23,9 +25,10 @@ use Lunar\Models\ProductVariant;
 /**
  * @method static ProductBuilder query()
  */
-class Product extends LunarProduct
+class Product extends LunarProduct implements HasAvailability, Translatable
 {
     use HashesRouteKey;
+    use InteractsWithAvailability;
 
     /**
      * Create a new factory instance for the model.
@@ -44,16 +47,6 @@ class Product extends LunarProduct
     public function newEloquentBuilder($query): Builder
     {
         return new ProductBuilder($query);
-    }
-
-    /**
-     * Get availability attribute.
-     */
-    public function availability(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => Availability::of($this),
-        );
     }
 
     /**

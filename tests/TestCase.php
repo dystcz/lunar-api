@@ -10,11 +10,11 @@ use Dystcz\LunarApi\Tests\Stubs\Lunar\TestTaxDriver;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
 use Dystcz\LunarApi\Tests\Stubs\Users\JsonApi\V1\UserSchema;
 use Dystcz\LunarApi\Tests\Traits\JsonApiTestHelpers;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
 use Lunar\Base\ShippingModifiers;
@@ -24,33 +24,20 @@ use Lunar\Models\Country;
 use Lunar\Models\Currency;
 use Lunar\Models\CustomerGroup;
 use Lunar\Models\TaxClass;
-use Orchestra\Testbench\TestCase as Orchestra;
+use Orchestra\Testbench\Concerns\WithWorkbench;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-abstract class TestCase extends Orchestra
+use function Orchestra\Testbench\workbench_path;
+
+abstract class TestCase extends OrchestraTestCase
 {
     use JsonApiTestHelpers;
     use MakesJsonApiRequests;
-
-    /**
-     * @var \Lunar\Models\Order
-     */
-    protected $order;
-
-    /**
-     * @var \Lunar\Models\Cart
-     */
-    protected $cart;
+    use WithWorkbench;
 
     protected function setUp(): void
     {
         parent::setUp();
-
-        Config::set('auth.providers.users', [
-            'driver' => 'eloquent',
-            'model' => \Dystcz\LunarApi\Tests\Stubs\Users\User::class,
-        ]);
-        Config::set('lunar.urls.generator', TestUrlGenerator::class);
-        Config::set('lunar.taxes.driver', 'test');
 
         Taxes::extend(
             'test',
@@ -81,6 +68,11 @@ abstract class TestCase extends Orchestra
         ]);
 
         TaxClass::factory()->create();
+
+        /**
+         * Schema configuration.
+         */
+        SchemaManifestFacade::registerSchema(UserSchema::class);
 
         App::get(ShippingModifiers::class)->add(TestShippingModifier::class);
         App::get(PaymentModifiers::class)->add(TestPaymentModifier::class);
@@ -126,41 +118,46 @@ abstract class TestCase extends Orchestra
     /**
      * @param  Application  $app
      */
-    public function getEnvironmentSetUp($app): void
+    protected function defineEnvironment($app): void
     {
         $app->useEnvironmentPath(__DIR__.'/..');
         $app->bootstrapWith([LoadEnvironmentVariables::class]);
 
-        /**
-         * Lunar configuration.
-         */
-        Config::set('lunar.cart.auto_create', true);
-        Config::set('lunar.payments.default', 'offline');
+        tap($app['config'], function (Repository $config) {
+            /**
+             * Lunar configuration.
+             */
+            $config->set('lunar.cart_session.auto_create', true);
+            $config->set('lunar.payments.default', 'offline');
+            $config->set('lunar.urls.generator', TestUrlGenerator::class);
+            $config->set('lunar.taxes.driver', 'test');
 
-        /**
-         * App configuration.
-         */
-        Config::set('database.default', 'sqlite');
-        Config::set('database.migrations', 'migrations');
-        Config::set('database.connections.sqlite', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
-        ]);
+            /**
+             * App configuration.
+             */
+            $config->set('auth.providers.users', [
+                'driver' => 'eloquent',
+                'model' => \Dystcz\LunarApi\Tests\Stubs\Users\User::class,
+            ]);
 
-        Config::set('database.connections.mysql', [
-            'driver' => 'mysql',
-            'host' => 'mysql',
-            'port' => '3306',
-            'database' => 'lunar-api-testing',
-            'username' => 'homestead',
-            'password' => 'secret',
-        ]);
+            $config->set('database.default', 'sqlite');
+            $config->set('database.migrations', 'migrations');
+            $config->set('database.connections.sqlite', [
+                'driver' => 'sqlite',
+                'database' => ':memory:',
+                'prefix' => '',
+            ]);
 
-        /**
-         * Schema configuration.
-         */
-        SchemaManifestFacade::registerSchema(UserSchema::class);
+            $config->set('database.connections.mysql', [
+                'driver' => 'mysql',
+                'host' => 'mysql',
+                'port' => '3306',
+                'database' => 'lunar-api-testing',
+                'username' => 'homestead',
+                'password' => 'secret',
+            ]);
+        });
+
     }
 
     /**
@@ -169,8 +166,9 @@ abstract class TestCase extends Orchestra
     protected function defineDatabaseMigrations(): void
     {
         $this->loadLaravelMigrations();
+        // $this->loadMigrationsFrom(workbench_path('database/migrations'));
 
-        // NOTE MySQL migrations do not play nice with Lunar testing for some reason
+        // NOTE: MySQL migrations do not play nice with Lunar testing for some reason
         // // artisan($this, 'lunar:install');
         // // artisan($this, 'vendor:publish', ['--tag' => 'lunar']);
         // // artisan($this, 'vendor:publish', ['--tag' => 'lunar.migrations']);

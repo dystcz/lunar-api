@@ -2,11 +2,22 @@
 
 use Dystcz\LunarApi\Support\Models\Actions\GetModelKey;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
+use Illuminate\Foundation\Testing\TestCase as IlluminateTestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\BaseModel;
 use Lunar\Database\Factories\LanguageFactory;
+use Orchestra\Testbench\TestCase;
+
+/**
+ * $this helper.
+ */
+function using($test): TestCase
+{
+    /** @var IlluminateTestCase $test */
+    return $test;
+}
 
 /**
  * Get server url.

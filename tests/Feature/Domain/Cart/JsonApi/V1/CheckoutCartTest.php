@@ -43,7 +43,7 @@ test('a user can checkout a cart', function () {
                 'create_user' => false,
             ],
         ])
-        ->post('/api/v1/carts/-actions/checkout');
+        ->post(serverUrl('/carts/-actions/checkout'));
 
     $id = $response
         ->assertSuccessful()
@@ -54,7 +54,7 @@ test('a user can checkout a cart', function () {
         $id = decodeHashedId($cart->draftOrder, $id);
     }
 
-    $this->assertDatabaseHas((new Order())->getTable(), [
+    $this->assertDatabaseHas((new Order)->getTable(), [
         'id' => $id,
     ]);
 
@@ -92,7 +92,7 @@ test('a user cannot checkout a cart if the products are not in stock', function 
                 'create_user' => false,
             ],
         ])
-        ->post('/api/v1/carts/-actions/checkout');
+        ->post(serverUrl('/carts/-actions/checkout'));
 
     $response->assertStatus(422);
 })->group('checkout');
@@ -126,7 +126,7 @@ test('a user can be registered when checking out', function () {
                 'create_user' => true,
             ],
         ])
-        ->post('/api/v1/carts/-actions/checkout');
+        ->post(serverUrl('/carts/-actions/checkout'));
 
     $id = $response
         ->assertSuccessful()
@@ -137,7 +137,7 @@ test('a user can be registered when checking out', function () {
         $id = decodeHashedId($cart->draftOrder, $id);
     }
 
-    $this->assertDatabaseHas((new Order())->getTable(), [
+    $this->assertDatabaseHas((new Order)->getTable(), [
         'id' => $id,
     ]);
 
@@ -184,7 +184,7 @@ test('it validates existing user before being registered when checking out', fun
                 'create_user' => true,
             ],
         ])
-        ->post('/api/v1/carts/-actions/checkout');
+        ->post(serverUrl('/carts/-actions/checkout'));
 
     $response
         ->assertStatus(422)
@@ -223,7 +223,7 @@ it('does not forget cart after checkout if configured', function () {
                 'create_user' => false,
             ],
         ])
-        ->post('/api/v1/carts/-actions/checkout');
+        ->post(serverUrl('/carts/-actions/checkout'));
 
     $response
         ->assertSuccessful();
@@ -258,7 +258,7 @@ it('forgets cart after checkout if configured', function () {
                 'create_user' => false,
             ],
         ])
-        ->post('/api/v1/carts/-actions/checkout');
+        ->post(serverUrl('/carts/-actions/checkout'));
 
     $response
         ->assertSuccessful();
@@ -292,7 +292,7 @@ it('returns signed urls for order actions', function () {
                 'create_user' => false,
             ],
         ])
-        ->post('/api/v1/carts/-actions/checkout');
+        ->post(serverUrl('/carts/-actions/checkout'));
 
     $response
         ->assertSuccessful()
