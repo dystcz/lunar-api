@@ -10,7 +10,7 @@ enum Availability: string implements Arrayable
     case ALWAYS = 'always';
     case IN_STOCK = 'in_stock';
     case OUT_OF_STOCK = 'out_of_stock';
-    case BACKORDER = 'backorder';
+    case BACKORDER = 'in_stock_or_on_backorder';
     case PREORDER = 'preorder';
 
     /**
