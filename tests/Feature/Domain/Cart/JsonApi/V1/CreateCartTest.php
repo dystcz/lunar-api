@@ -32,7 +32,7 @@ it('can automatically create cart when configured', function () {
 
 it('does not automatically create cart when configured', function () {
     /** @var TestCase $this */
-    Config::set('lunar.cart.auto_create', false);
+    Config::set('lunar.cart_session.auto_create', false);
 
     $response = $this
         ->jsonApi()
