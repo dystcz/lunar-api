@@ -53,7 +53,7 @@ it('can list related cart lines', function () {
 
 it('cannot list related cart lines without session and when not logged in', function () {
     /** @var TestCase $this */
-    $this->cartSession->forget();
+    $this->cartSession->forget(delete: false);
 
     $response = $this
         ->jsonApi()
@@ -84,7 +84,7 @@ it('can list cart lines relationships when logged in', function () {
 
 it('cannot list cart lines relationships without session and when not logged in', function () {
     /** @var TestCase $this */
-    $this->cartSession->forget();
+    $this->cartSession->forget(delete: false);
 
     $response = $this
         ->jsonApi()
