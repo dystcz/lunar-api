@@ -47,8 +47,6 @@ abstract class RouteGroup implements RouteGroupContract
 
     /**
      * Get prefix for route group.
-     *
-     * @return ?string
      */
     protected function getPrefix(): ?string
     {

@@ -11,8 +11,7 @@ class CreatePaymentIntent extends Action
 {
     public function __construct(
         protected PaymentAdaptersRegister $register
-    ) {
-    }
+    ) {}
 
     /**
      * Create payment intent.

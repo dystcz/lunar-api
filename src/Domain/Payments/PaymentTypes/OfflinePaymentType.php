@@ -17,8 +17,7 @@ class OfflinePaymentType extends AbstractPayment
 {
     public function __construct(
         protected PaymentAdaptersRegister $register
-    ) {
-    }
+    ) {}
 
     /**
      * {@inheritDoc}

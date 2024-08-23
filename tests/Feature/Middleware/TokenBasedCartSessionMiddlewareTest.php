@@ -16,9 +16,9 @@ test('if cart is created and returns a token', function () {
 
     $middleware = new TokenBasedCartSessionMiddleware;
 
-    $request = (new Request())->setRouteResolver(fn () => Route::getRoutes()->getByName('v1.carts.myCart'));
+    $request = (new Request)->setRouteResolver(fn () => Route::getRoutes()->getByName('v1.carts.myCart'));
 
-    $response = $middleware->handle($request, fn () => new Illuminate\Http\Response());
+    $response = $middleware->handle($request, fn () => new Illuminate\Http\Response);
 
     expect($response->headers->get('X-Cart-Token'))->toBeString();
 });
@@ -42,11 +42,11 @@ test('if a new cart is created when the order is placed', function () {
 
     $middleware = new TokenBasedCartSessionMiddleware;
 
-    $request = (new Request())->setRouteResolver(fn () => Route::getRoutes()->getByName('v1.carts.myCart'));
+    $request = (new Request)->setRouteResolver(fn () => Route::getRoutes()->getByName('v1.carts.myCart'));
 
     $request->headers->set('X-Cart-Token', $token);
 
-    $response = $middleware->handle($request, fn ($request) => new Illuminate\Http\Response());
+    $response = $middleware->handle($request, fn ($request) => new Illuminate\Http\Response);
 
     $this->assertNotEquals($token, $response->headers->get('X-Cart-Token'));
 });
@@ -56,11 +56,11 @@ test('it should create a new cart and return the token if cart is not found by t
 
     $middleware = new TokenBasedCartSessionMiddleware;
 
-    $request = (new Request())->setRouteResolver(fn () => Route::getRoutes()->getByName('v1.carts.myCart'));
+    $request = (new Request)->setRouteResolver(fn () => Route::getRoutes()->getByName('v1.carts.myCart'));
 
     $request->headers->set('X-Cart-Token', $token);
 
-    $response = $middleware->handle($request, fn ($request) => new Illuminate\Http\Response());
+    $response = $middleware->handle($request, fn ($request) => new Illuminate\Http\Response);
 
     expect($response->headers->get('X-Cart-Token'))->not()->toEqual($token);
 });
@@ -76,11 +76,11 @@ test('it should use the cart as the current cart if the cart associated with the
 
     $middleware = new TokenBasedCartSessionMiddleware;
 
-    $request = (new Request())->setRouteResolver(fn () => Route::getRoutes()->getByName('v1.carts.myCart'));
+    $request = (new Request)->setRouteResolver(fn () => Route::getRoutes()->getByName('v1.carts.myCart'));
 
     $request->headers->set('X-Cart-Token', $token);
 
-    $response = $middleware->handle($request, fn ($request) => new Illuminate\Http\Response());
+    $response = $middleware->handle($request, fn ($request) => new Illuminate\Http\Response);
 
     expect(CartSession::current()->meta['token'])->toEqual($token);
 });

@@ -22,7 +22,7 @@ class PaymentBreakdown implements CastsAttributes, SerializesCastableAttributes
      */
     public function get($model, $key, $value, $attributes)
     {
-        $breakdown = new \Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown();
+        $breakdown = new \Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown;
 
         $breakdown->items = Collection::make(
             json_decode($value, false)

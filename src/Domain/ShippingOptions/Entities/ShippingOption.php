@@ -21,8 +21,7 @@ class ShippingOption implements Arrayable
         public Price $price,
         public Currency $currency,
         public array $meta,
-    ) {
-    }
+    ) {}
 
     /**
      * Get name.
