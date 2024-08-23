@@ -78,7 +78,7 @@ test('product is in stock when any variant has stock', function () {
         )
         ->create();
 
-    expect((new IsPurchasable())($product))->toBeTrue();
+    expect((new IsPurchasable)($product))->toBeTrue();
 })->group('products');
 
 test('product is in stock when any variant has purchasable to always', function () {
@@ -94,7 +94,7 @@ test('product is in stock when any variant has purchasable to always', function 
         )
         ->create();
 
-    expect((new IsPurchasable())($product))->toBeTrue();
+    expect((new IsPurchasable)($product))->toBeTrue();
 })->group('products');
 
 test('product is in stock when any variant can be purchased always', function () {
@@ -106,7 +106,7 @@ test('product is in stock when any variant can be purchased always', function ()
         )
         ->create();
 
-    expect((new IsPurchasable())($product))->toBeTrue();
+    expect((new IsPurchasable)($product))->toBeTrue();
 });
 
 test('product is out of stock when no variant can be purchased', function () {
@@ -118,5 +118,5 @@ test('product is out of stock when no variant can be purchased', function () {
         )
         ->create();
 
-    expect((new IsPurchasable())($product))->toBeFalse();
+    expect((new IsPurchasable)($product))->toBeFalse();
 })->group('products');

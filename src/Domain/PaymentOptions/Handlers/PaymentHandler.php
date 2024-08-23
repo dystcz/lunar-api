@@ -6,7 +6,5 @@ use Lunar\Models\Cart;
 
 abstract class PaymentHandler
 {
-    public function handle(Cart $cart): void
-    {
-    }
+    public function handle(Cart $cart): void {}
 }

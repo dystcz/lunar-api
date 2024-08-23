@@ -10,8 +10,7 @@ class UserData implements UserDataContract
         public string $email,
         public ?string $name = null,
         public ?string $password = null,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the email.

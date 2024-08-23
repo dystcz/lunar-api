@@ -10,9 +10,7 @@ use Lunar\Models\Cart;
 
 class OfflinePaymentAdapter extends PaymentAdapter
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Get payment driver on which this adapter binds.

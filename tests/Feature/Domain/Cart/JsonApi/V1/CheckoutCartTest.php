@@ -54,7 +54,7 @@ test('a user can checkout a cart', function () {
         $id = decodeHashedId($cart->draftOrder, $id);
     }
 
-    $this->assertDatabaseHas((new Order())->getTable(), [
+    $this->assertDatabaseHas((new Order)->getTable(), [
         'id' => $id,
     ]);
 
@@ -137,7 +137,7 @@ test('a user can be registered when checking out', function () {
         $id = decodeHashedId($cart->draftOrder, $id);
     }
 
-    $this->assertDatabaseHas((new Order())->getTable(), [
+    $this->assertDatabaseHas((new Order)->getTable(), [
         'id' => $id,
     ]);
 
