@@ -17,7 +17,7 @@ uses(TestCase::class, RefreshDatabase::class);
 
 it('can run add payment line pipeline', function () {
     /** @var TestCase $this */
-    $currency = Currency::factory()->create();
+    $currency = Currency::getDefault();
 
     $cart = Cart::factory()->create([
         'currency_id' => $currency->id,
@@ -54,7 +54,7 @@ it('can run add payment line pipeline', function () {
 
 it('can update payment line if exists', function () {
     /** @var TestCase $this */
-    $currency = Currency::factory()->create();
+    $currency = Currency::getDefault();
 
     $cart = Cart::factory()->create([
         'currency_id' => $currency->id,

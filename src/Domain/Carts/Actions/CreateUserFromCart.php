@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Actions;
 
+use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressRequest;
 use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
@@ -9,6 +10,7 @@ use Dystcz\LunarApi\Domain\Users\Contracts\CreatesUserFromCart;
 use Dystcz\LunarApi\Domain\Users\Contracts\RegistersUser;
 use Dystcz\LunarApi\Domain\Users\Data\UserData;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Validator;
 use RuntimeException;
 
 class CreateUserFromCart implements CreatesUserFromCart
@@ -48,7 +50,7 @@ class CreateUserFromCart implements CreatesUserFromCart
 
         $customer = $this->getCustomer($user, $shippingAddress);
 
-        $customer->addresses()->createMany($this->getAddresses($cart));
+        $customer->addresses()->createMany($this->getDataForCustomerAddresses($cart));
 
         $cart->update(['user_id' => $user->id]);
 
@@ -81,14 +83,14 @@ class CreateUserFromCart implements CreatesUserFromCart
     /**
      * Get addresses from cart.
      */
-    protected function getAddresses(Cart $cart): array
+    protected function getDataForCustomerAddresses(Cart $cart): array
     {
         $shippingAddress = $cart->shippingAddress;
         $billingAddress = $cart->billingAddress;
 
         $addresses = [
-            $this->getAddress($shippingAddress),
-            $this->getAddress($billingAddress),
+            'shipping' => $this->getAddressData($shippingAddress, $billingAddress),
+            'billing' => $this->getAddressData($billingAddress, $shippingAddress),
         ];
 
         return array_filter($addresses);
@@ -97,26 +99,37 @@ class CreateUserFromCart implements CreatesUserFromCart
     /**
      * Get address data in array.
      */
-    protected function getAddress(?CartAddress $address): ?array
+    protected function getAddressData(?CartAddress $primary, ?CartAddress $secondary): ?array
     {
-        return ! $address ? null : [
-            'country_id' => $address->country_id,
-            'title' => $address->title,
-            'first_name' => $address->first_name,
-            'last_name' => $address->last_name,
-            'company_name' => $address->company_name,
-            'line_one' => $address->line_one,
-            'line_two' => $address->line_two,
-            'line_three' => $address->line_three,
-            'city' => $address->city,
-            'state' => $address->state,
-            'postcode' => $address->postcode,
-            'delivery_instructions' => $address->delivery_instructions,
-            'contact_email' => $address->contact_email,
-            'contact_phone' => $address->contact_phone,
-            'meta' => (array) $address->meta,
-            'shipping_default' => $address->type === 'shipping',
-            'billing_default' => $address->type === 'billing',
+        if (! $primary) {
+            return null;
+        }
+
+        $data = [
+            'country_id' => $primary->country_id ?? $secondary->country_id,
+            'title' => $primary->title ?? $secondary->title,
+            'first_name' => $primary->first_name ?? $secondary->first_name,
+            'last_name' => $primary->last_name ?? $secondary->last_name,
+            'company_name' => $primary->company_name ?? $secondary->company_name,
+            'line_one' => $primary->line_one ?? $secondary->line_one,
+            'line_two' => $primary->line_two ?? $secondary->line_two,
+            'line_three' => $primary->line_three ?? $secondary->line_three,
+            'city' => $primary->city ?? $secondary->city,
+            'state' => $primary->state ?? $secondary->state,
+            'postcode' => $primary->postcode ?? $secondary->postcode,
+            'delivery_instructions' => $primary->delivery_instructions ?? $secondary->delivery_instructions,
+            'contact_email' => $primary->contact_email ?? $secondary->contact_email,
+            'contact_phone' => $primary->contact_phone ?? $secondary->contact_phone,
+            'meta' => (array) ($primary->meta ?? $secondary->meta),
+            'shipping_default' => $primary->type === 'shipping',
+            'billing_default' => $primary->type === 'billing',
         ];
+
+        /** @var AddressRequest $addressRequest */
+        $addressRequest = new AddressRequest;
+
+        $validator = Validator::make($data, $addressRequest->modelRules());
+
+        return $validator->passes() ? $data : null;
     }
 }

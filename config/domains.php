@@ -258,7 +258,7 @@ return [
         'model' => Dystcz\LunarApi\Domain\ProductOptions\Models\ProductOption::class,
         'lunar_model' => Lunar\Models\ProductOption::class,
         'policy' => Dystcz\LunarApi\Domain\ProductOptions\Policies\ProductOptionPolicy::class,
-        'schema' => null,
+        'schema' => Dystcz\LunarApi\Domain\ProductOptions\JsonApi\V1\ProductOptionSchema::class,
         'resource' => Dystcz\LunarApi\Domain\ProductOptions\JsonApi\V1\ProductOptionResource::class,
         'query' => Dystcz\LunarApi\Domain\ProductOptions\JsonApi\V1\ProductOptionQuery::class,
         'collection_query' => Dystcz\LunarApi\Domain\ProductOptions\JsonApi\V1\ProductOptionCollectionQuery::class,

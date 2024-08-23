@@ -26,7 +26,7 @@ class CartAddressSchema extends Schema
             'cart',
             'country',
 
-            // ...parent::includePaths(),
+            ...parent::includePaths(),
         ];
     }
 
@@ -50,7 +50,6 @@ class CartAddressSchema extends Schema
                 ->serializeUsing(
                     static fn (?ArrayObject $value) => $value?->collect()->get('company_tin') ?? null,
                 ),
-
             Str::make('line_one'),
             Str::make('line_two'),
             Str::make('line_three'),
@@ -71,7 +70,7 @@ class CartAddressSchema extends Schema
             BelongsTo::make('cart')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            // ...parent::fields(),
+            ...parent::fields(),
         ];
     }
 

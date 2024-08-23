@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Media\Contracts;
 
+use Dystcz\LunarApi\Domain\Media\Data\ConversionOptions;
 use Spatie\MediaLibrary\HasMedia;
 
 interface MediaConversion
@@ -13,6 +14,8 @@ interface MediaConversion
 
     /**
      * Get conversions.
+     *
+     * @return array<int, ConversionOptions>
      */
     public static function conversions(): array;
 }

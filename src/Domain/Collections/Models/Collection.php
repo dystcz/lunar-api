@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Collections\Models;
 
+use Dystcz\LunarApi\Base\Contracts\Translatable;
 use Dystcz\LunarApi\Domain\Attributes\Traits\InteractsWithAttributes;
 use Dystcz\LunarApi\Domain\Collections\Factories\CollectionFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
@@ -11,7 +12,7 @@ use Lunar\Models\Collection as LunarCollection;
 /**
  * @method HasMany attributes()
  */
-class Collection extends LunarCollection
+class Collection extends LunarCollection implements Translatable
 {
     use HashesRouteKey;
     use InteractsWithAttributes;
