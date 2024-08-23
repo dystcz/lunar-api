@@ -20,7 +20,7 @@ it('can remove a cart line', function () {
         'currency_id' => $currency->id,
     ]);
 
-    $purchasable = ProductVariant::factory()->create();
+    $purchasable = ProductVariant::factory()->state(['stock' => 1])->create();
 
     Price::factory()->create([
         'price' => 100,
@@ -52,7 +52,7 @@ it('can remove a cart line', function () {
 test('only the owner of the cart can delete cart lines', function () {
     /** @var TestCase $this */
     $cartLine = CartLine::factory()
-        ->for(ProductVariantFactory::new(), 'purchasable')
+        ->for(ProductVariantFactory::new()->state(['stock' => 1]), 'purchasable')
         ->create();
 
     $response = $this
