@@ -9,24 +9,19 @@ interface Translatable
      *
      * @param  string  $attribute
      * @param  string  $locale
-     * @return string
+     * @return string|null
      */
     public function translate($attribute, $locale = null);
 
     /**
      * Translate a value from attribute data.
-     *
-     * @param  string  $attribute
-     * @param  string  $locale
-     * @return string
      */
-    public function translateAttribute($attribute, $locale = null);
+    public function translateAttribute(string $attribute, ?string $locale = null): mixed;
 
     /**
      * Shorthand to translate an attribute.
      *
-     * @param  mixed  $params
-     * @return void
+     * @return string|null
      */
-    public function attr(...$params);
+    public function attr(...$params): mixed;
 }
