@@ -72,10 +72,8 @@ class Product extends LunarProduct implements HasAvailability, Translatable
             return $this->productType->mappedAttributes();
         }
 
-        $attributeClass = ModelManifest::get(AttributeContract::class);
-
         $relation = new MorphToMany(
-            $attributeClass::query(),
+            ModelManifest::get(AttributeContract::class)::query(),
             new ProductType(['id' => $this->product_type_id]),
             'attributable',
             "{$prefix}attributables",
