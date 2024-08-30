@@ -350,9 +350,9 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     protected function registerModels(): void
     {
-        ModelManifest::register(
-            DomainConfigCollection::make()->getModelsForModelManifest(),
-        );
+        foreach (DomainConfigCollection::make()->getModelsForModelManifest() as $contract => $model) {
+            ModelManifest::replace($contract, $model);
+        }
     }
 
     /**
