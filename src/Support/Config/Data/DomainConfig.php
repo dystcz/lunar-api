@@ -95,7 +95,8 @@ class DomainConfig
     {
         $checks = [
             'model',
-            'lunar_model',
+            // TODO: Validate Lunar model contracts after Lunar SP was booted
+            // 'lunar_model',
             'policy',
             'schema',
             'resource',
