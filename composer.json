@@ -51,9 +51,7 @@
     }
   },
   "scripts": {
-    "post-update-cmd": [
-      "vendor/bin/testbench ide-helper:generate"
-    ],
+    "post-update-cmd": [],
     "post-autoload-dump": "@composer run prepare",
     "artisan": "vendor/bin/testbench",
     "clear": "vendor/bin/testbench package:purge --ansi",
