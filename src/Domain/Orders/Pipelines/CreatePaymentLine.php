@@ -19,7 +19,7 @@ class CreatePaymentLine
     public function handle(Order $order, Closure $next)
     {
         /** @var Cart $cart */
-        $cart = $order->cart->calculate();
+        $cart = $order->cart->recalculate();
 
         if ($paymentOption = $cart->getPaymentOption()) {
             $paymentLine = $order->lines->first(function ($orderLine) use ($paymentOption) {
