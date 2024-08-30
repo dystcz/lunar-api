@@ -12,6 +12,7 @@ use Lunar\Exceptions\DisallowMultipleCartOrdersException;
 use Lunar\Facades\DB;
 use Lunar\Facades\ModelManifest;
 use Lunar\Jobs\Orders\MarkAsNewCustomer;
+use Lunar\Models\Contracts\Cart as CartContract;
 use Lunar\Models\Contracts\Order as OrderContract;
 
 final class CreateOrder extends AbstractAction
@@ -20,13 +21,13 @@ final class CreateOrder extends AbstractAction
      * Execute the action.
      */
     public function execute(
-        Cart $cart,
+        CartContract $cart,
         bool $allowMultipleOrders = false,
         ?int $orderIdToUpdate = null
     ): self {
         $this->passThrough = DB::transaction(function () use ($cart, $allowMultipleOrders, $orderIdToUpdate) {
-
             /** @var Order $order */
+            /** @var Cart $cart */
             $order = $cart->draftOrder($orderIdToUpdate)->first() ?: App::make(ModelManifest::get(OrderContract::class));
 
             if ($cart->hasCompletedOrders() && ! $allowMultipleOrders) {
