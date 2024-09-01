@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\Orders\Pipelines;
 
 use Closure;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
-use Lunar\Facades\ModelManifest;
+use Illuminate\Support\Facades\App;
 use Lunar\Models\Contracts\Order as OrderContract;
 use Lunar\Models\Contracts\OrderLine as OrderLineContract;
 use Lunar\Pipelines\Order\Creation\CreateOrderLines as LunarCreateOrderLines;
@@ -26,13 +26,11 @@ class CreateOrderLines extends LunarCreateOrderLines
 
         $cart->recalculate();
 
-        $orderLineClass = ModelManifest::get(OrderLineContract::class);
-
         foreach ($cart->lines as $cartLine) {
             $orderLine = $order->lines->first(function ($line) use ($cartLine) {
                 return $line->purchasable_id == $cartLine->purchasable_id &&
                     $line->purchasable_type == $cartLine->purchasable_type;
-            }) ?: new $orderLineClass;
+            }) ?: App::make(OrderLineContract::class);
 
             $orderLine->fill([
                 'order_id' => $order->id,

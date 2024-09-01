@@ -6,7 +6,7 @@ use Closure;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
-use Lunar\Facades\ModelManifest;
+use Illuminate\Support\Facades\App;
 use Lunar\Models\Contracts\Order as OrderContract;
 use Lunar\Models\Contracts\OrderLine as OrderLineContract;
 
@@ -24,14 +24,12 @@ class CreatePaymentLine
         /** @var Cart $cart */
         $cart = $order->cart->recalculate();
 
-        $orderLineClass = ModelManifest::get(OrderLineContract::class);
-
         if ($paymentOption = $cart->getPaymentOption()) {
             $paymentLine = $order->lines->first(function ($orderLine) use ($paymentOption) {
                 return $orderLine->type == 'payment' &&
                     $orderLine->purchasable_type == PaymentOption::class &&
                     $orderLine->identifier == $paymentOption->getIdentifier();
-            }) ?: new $orderLineClass;
+            }) ?: App::make(OrderLineContract::class);
 
             $paymentLine->fill([
                 'order_id' => $order->id,

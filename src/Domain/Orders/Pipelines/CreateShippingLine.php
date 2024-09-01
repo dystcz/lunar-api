@@ -3,8 +3,8 @@
 namespace Dystcz\LunarApi\Domain\Orders\Pipelines;
 
 use Closure;
+use Illuminate\Support\Facades\App;
 use Lunar\DataTypes\ShippingOption;
-use Lunar\Facades\ModelManifest;
 use Lunar\Models\Contracts\Order as OrderContract;
 use Lunar\Models\Contracts\OrderLine as OrderLineContract;
 
@@ -18,8 +18,6 @@ class CreateShippingLine
     {
         $cart = $order->cart->recalculate();
 
-        $orderLineClass = ModelManifest::get(OrderLineContract::class);
-
         // If we have a shipping address with a shipping option.
         if (($shippingAddress = $cart->shippingAddress) &&
             ($shippingOption = $cart->getShippingOption())
@@ -28,7 +26,7 @@ class CreateShippingLine
                 return $orderLine->type == 'shipping' &&
                     $orderLine->purchasable_type == ShippingOption::class &&
                     $orderLine->identifier == $shippingOption->getIdentifier();
-            }) ?: new $orderLineClass;
+            }) ?: App::make(OrderLineContract::class);
 
             $shippingLine->fill([
                 'order_id' => $order->id,
