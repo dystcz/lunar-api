@@ -3,12 +3,12 @@
 namespace Dystcz\LunarApi\Domain\Orders\Pipelines;
 
 use Closure;
-use Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine;
-use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Support\Facades\App;
 use Lunar\DataTypes\ShippingOption;
 use Lunar\Models\Contracts\Order as OrderContract;
 use Lunar\Models\Contracts\OrderLine as OrderLineContract;
+use Lunar\Models\Order;
+use Lunar\Models\OrderLine;
 
 class CreateShippingLine
 {

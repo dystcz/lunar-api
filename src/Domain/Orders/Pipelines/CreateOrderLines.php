@@ -3,14 +3,13 @@
 namespace Dystcz\LunarApi\Domain\Orders\Pipelines;
 
 use Closure;
-use Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine;
-use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Support\Facades\App;
 use Lunar\Models\Contracts\Order as OrderContract;
 use Lunar\Models\Contracts\OrderLine as OrderLineContract;
-use Lunar\Pipelines\Order\Creation\CreateOrderLines as LunarCreateOrderLines;
+use Lunar\Models\Order;
+use Lunar\Models\OrderLine;
 
-class CreateOrderLines extends LunarCreateOrderLines
+class CreateOrderLines
 {
     /**
      * @param  Closure(OrderContract): mixed  $next
