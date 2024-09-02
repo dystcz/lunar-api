@@ -7,7 +7,7 @@ use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use Lunar\Models\Url;
+use Lunar\Models\Contracts\Url;
 
 class UrlSchema extends Schema
 {

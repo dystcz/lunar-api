@@ -15,7 +15,7 @@ use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
-use Lunar\Models\Order;
+use Lunar\Models\Contracts\Order;
 
 class OrderSchema extends Schema
 {

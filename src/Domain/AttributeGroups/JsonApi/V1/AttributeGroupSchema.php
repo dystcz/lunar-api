@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\AttributeGroups\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Lunar\Models\AttributeGroup;
+use Lunar\Models\Contracts\AttributeGroup;
 
 class AttributeGroupSchema extends Schema
 {

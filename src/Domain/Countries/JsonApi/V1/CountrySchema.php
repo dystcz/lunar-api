@@ -6,7 +6,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use Lunar\Models\Country;
+use Lunar\Models\Contracts\Country;
 
 class CountrySchema extends Schema
 {

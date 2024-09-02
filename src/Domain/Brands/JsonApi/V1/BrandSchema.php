@@ -11,7 +11,7 @@ use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
-use Lunar\Models\Brand;
+use Lunar\Models\Contracts\Brand;
 
 class BrandSchema extends Schema
 {

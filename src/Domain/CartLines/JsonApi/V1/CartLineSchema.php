@@ -10,7 +10,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Resources\Relation;
-use Lunar\Models\CartLine;
+use Lunar\Models\Contracts\CartLine;
 
 class CartLineSchema extends Schema
 {

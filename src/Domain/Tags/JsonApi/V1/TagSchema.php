@@ -8,7 +8,7 @@ use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIn;
-use Lunar\Models\Tag;
+use Lunar\Models\Contracts\Tag;
 
 class TagSchema extends Schema
 {
