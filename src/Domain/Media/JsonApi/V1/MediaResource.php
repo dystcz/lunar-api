@@ -5,10 +5,7 @@ namespace Dystcz\LunarApi\Domain\Media\JsonApi\V1;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\MediaConversion;
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Media\Contracts\MediaConversion as MediaConversionContract;
-use Dystcz\LunarApi\Domain\Media\Data\ConversionOptions;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MediaResource extends JsonApiResource
@@ -44,27 +41,6 @@ class MediaResource extends JsonApiResource
             explode(',', $request->get('media_conversions', '')),
             fn ($conversion) => $model->hasGeneratedConversion($conversion),
         );
-
-        /** @var array<int, MediaConversionContract> $registeredConversions */
-        $registeredConversions = Config::get('lunar.media.conversions', []);
-
-        /** @var array<int, ConversionOptions> $conversionOptions */
-        $conversionOptions = Arr::flatten(array_map(
-            fn (string $class) => $class::conversions(),
-            $registeredConversions,
-        ));
-
-        $conversions = array_values(array_unique(array_map(
-            fn (ConversionOptions $options) => $options->key,
-            array_filter(
-                $conversionOptions,
-                fn (ConversionOptions $options) => in_array($options->key, $conversions),
-            ),
-        )));
-
-        if (empty($conversions) || empty($registeredConversions)) {
-            return parent::allAttributes($request);
-        }
 
         return [
             ...parent::allAttributes($request),
