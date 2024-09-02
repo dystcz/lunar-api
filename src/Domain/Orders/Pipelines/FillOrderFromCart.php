@@ -13,7 +13,7 @@ class FillOrderFromCart
 {
     /**
      * @param  Closure(OrderContract): mixed  $next
-     * @return Closure(OrderContract): mixed
+     * @return Closure
      */
     public function handle(OrderContract $order, Closure $next): mixed
     {
