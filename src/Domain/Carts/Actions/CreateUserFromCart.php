@@ -11,6 +11,7 @@ use Dystcz\LunarApi\Domain\Users\Contracts\RegistersUser;
 use Dystcz\LunarApi\Domain\Users\Data\UserData;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Validator;
+use Lunar\Models\Contracts\Cart as CartContract;
 use RuntimeException;
 
 class CreateUserFromCart implements CreatesUserFromCart
@@ -23,8 +24,9 @@ class CreateUserFromCart implements CreatesUserFromCart
      * Create a user from a cart.
      */
     public function __invoke(
-        Cart $cart,
+        CartContract $cart,
     ): ?Authenticatable {
+        /** @var Cart $cart */
         if ($cart->user_id) {
             return $cart->user;
         }
