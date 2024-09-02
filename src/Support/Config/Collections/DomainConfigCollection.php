@@ -84,7 +84,7 @@ class DomainConfigCollection extends Collection
                 return [];
             }
 
-            return [$domain->lunar_model ?? $domain->model => $domain->policy];
+            return [$domain->model => $domain->policy];
         });
     }
 }
