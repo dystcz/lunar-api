@@ -3,7 +3,8 @@
 namespace Dystcz\LunarApi\Domain\Orders\Actions;
 
 use Dystcz\LunarApi\Domain\Orders\Contracts\OrderStatusContract;
-use Lunar\Models\Order;
+use Dystcz\LunarApi\Domain\Orders\Models\Order;
+use Lunar\Models\Contracts\Order as OrderContract;
 
 class ChangeOrderStatus
 {
@@ -13,8 +14,9 @@ class ChangeOrderStatus
     /**
      * Change order status to pending payment.
      */
-    public function __invoke(Order $order, OrderStatusContract|string $orderStatus): Order
+    public function __invoke(OrderContract $order, OrderStatusContract|string $orderStatus): Order
     {
+        /** @var Order $order */
         $newStatus = $orderStatus instanceof OrderStatusContract
             ? $orderStatus->value
             : $orderStatus;

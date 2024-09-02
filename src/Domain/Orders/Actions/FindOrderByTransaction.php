@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\Actions;
 
-use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Domain\Payments\Data\PaymentIntent;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Lunar\Models\Order;
 
 class FindOrderByTransaction
 {
@@ -15,7 +15,7 @@ class FindOrderByTransaction
      */
     public function __invoke(PaymentIntent $intent): ?Order
     {
-        return Order::query()
+        return Order::modelClass()::query()
             ->whereHas('transactions', fn ($query) => $query->where('reference', $intent->getId()))
             ->firstOrFail();
     }
