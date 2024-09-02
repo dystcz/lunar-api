@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Orders\Pipelines;
 
 use Closure;
+use Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Support\Facades\App;
 use Lunar\Models\Contracts\Order as OrderContract;
@@ -13,9 +14,9 @@ class CreateOrderLines extends LunarCreateOrderLines
 {
     /**
      * @param  Closure(OrderContract): mixed  $next
-     * @return mixed
+     * @return Closure(OrderContract): mixed
      */
-    public function handle(OrderContract $order, Closure $next)
+    public function handle(OrderContract $order, Closure $next): mixed
     {
         /** @var Order $order */
         if (! $order->id) {
@@ -27,6 +28,7 @@ class CreateOrderLines extends LunarCreateOrderLines
         $cart->recalculate();
 
         foreach ($cart->lines as $cartLine) {
+            /** @var OrderLine $orderLine */
             $orderLine = $order->lines->first(function ($line) use ($cartLine) {
                 return $line->purchasable_id == $cartLine->purchasable_id &&
                     $line->purchasable_type == $cartLine->purchasable_type;
