@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\ArrayObject;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\OrderAddress;
 
 class OrderAddressSchema extends Schema
@@ -64,8 +65,11 @@ class OrderAddressSchema extends Schema
             ArrayHash::make('meta')
                 ->hidden(),
 
-            BelongsTo::make('order'),
-            BelongsTo::make('country'),
+            BelongsTo::make('order')
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
+
+            BelongsTo::make('country')
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             ...parent::fields(),
         ];

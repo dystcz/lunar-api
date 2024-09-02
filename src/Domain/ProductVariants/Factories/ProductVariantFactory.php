@@ -90,7 +90,7 @@ class ProductVariantFactory extends \Lunar\Database\Factories\ProductVariantFact
                         'model_id' => $model->id,
                         'model_type' => LunarProductVariant::class,
                         'collection_name' => 'images',
-                        'custom_properties' => ['hovno' => true],
+                        'custom_properties' => ['test' => true],
                     ]), $state)
                     ->count($count),
                 'images',

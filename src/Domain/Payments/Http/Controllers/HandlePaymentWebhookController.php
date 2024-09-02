@@ -12,8 +12,7 @@ class HandlePaymentWebhookController extends Controller implements HandlePayment
 {
     public function __construct(
         protected PaymentAdaptersRegister $register
-    ) {
-    }
+    ) {}
 
     public function __invoke(
         string $paymentDriver,

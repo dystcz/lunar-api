@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\PaymentOptions\Casts;
 
+use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown as PaymentBreakdownValue;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdownItem;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Contracts\Database\Eloquent\SerializesCastableAttributes;
@@ -18,11 +19,11 @@ class PaymentBreakdown implements CastsAttributes, SerializesCastableAttributes
      * @param  string  $key
      * @param  mixed  $value
      * @param  array  $attributes
-     * @return \Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown
+     * @return PaymentBreakdownValue
      */
     public function get($model, $key, $value, $attributes)
     {
-        $breakdown = new \Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown();
+        $breakdown = new PaymentBreakdownValue;
 
         $breakdown->items = Collection::make(
             json_decode($value, false)
@@ -48,14 +49,16 @@ class PaymentBreakdown implements CastsAttributes, SerializesCastableAttributes
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @param  string  $key
-     * @param  \Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown  $value
+     * @param  PaymentBreakdownValue  $value
      * @param  array  $attributes
      * @return array
      */
     public function set($model, $key, $value, $attributes)
     {
-        if ($value && ! is_a($value, \Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown::class)) {
-            throw new \Exception('Payment breakdown must be instance of Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown');
+        $breakdownClass = PaymentBreakdownValue::class;
+
+        if ($value && ! is_a($value, $breakdownClass)) {
+            throw new \Exception("Payment breakdown must be instance of {$breakdownClass}");
         }
 
         if (! $value) {

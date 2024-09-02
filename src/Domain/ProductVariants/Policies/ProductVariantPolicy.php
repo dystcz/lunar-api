@@ -83,6 +83,22 @@ class ProductVariantPolicy
     }
 
     /**
+     * Authorize a user to view variant's lowest price.
+     */
+    public function viewLowestPrice(?Authenticatable $user, ProductVariant $variant): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view variant's highest price.
+     */
+    public function viewHighestPrice(?Authenticatable $user, ProductVariant $variant): bool
+    {
+        return true;
+    }
+
+    /**
      * Authorize a user to view variant's product.
      */
     public function viewProduct(?Authenticatable $user, ProductVariant $variant): bool

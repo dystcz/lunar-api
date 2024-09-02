@@ -92,7 +92,7 @@ class TestTaxDriver implements TaxDriver
     {
         $breakdown = new TaxBreakdown;
 
-        $currency = Currency::first() ?: Currency::factory()->create();
+        $currency = Currency::getDefault() ?: Currency::factory()->create();
 
         $taxAmount = TaxRateAmount::factory()->create();
 

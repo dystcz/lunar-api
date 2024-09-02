@@ -1,11 +1,11 @@
 <?php
 
+use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Models\Price;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -115,6 +115,26 @@ it('can show a product variant with included lowest price', function () {
         ->assertSuccessful()
         ->assertFetchedOne($variant)
         ->assertIsIncluded('prices', $variant->prices->sortBy('price')->first());
+
+})->group('variants');
+
+it('can show a product variant with included highest price', function () {
+    /** @var TestCase $this */
+    $variant = ProductVariantFactory::new()
+        ->for(Product::factory(), 'product')
+        ->has(Price::factory()->count(5), 'prices')
+        ->create();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('variants')
+        ->includePaths('highest_price')
+        ->get(serverUrl('/variants/'.$variant->getRouteKey()));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($variant)
+        ->assertIsIncluded('prices', $variant->prices->sortByDesc('price')->first());
 
 })->group('variants');
 

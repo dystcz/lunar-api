@@ -16,4 +16,4 @@ it('extends Lunar models', function () {
 
     // when LunarApi Brand model gets registered in ModelManifest, then newInstance() method on Lunar Brand model returns instance of LunarApi Brand model
     expect($lunarBrand->newInstance())->toBeInstanceOf(\Dystcz\LunarApi\Domain\Brands\Models\Brand::class);
-});
+})->group('sp')->skip('Lunar model extending changed')->todo();

@@ -8,11 +8,6 @@ use Lunar\Base\CartSessionInterface;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-beforeEach(function () {
-    /** @var TestCase $this */
-    $this->cartSession = App::make(CartSessionInterface::class);
-});
-
 it('can automatically create cart when configured', function () {
     /** @var TestCase $this */
     Config::set('lunar.cart.auto_create', true);
@@ -22,17 +17,22 @@ it('can automatically create cart when configured', function () {
         ->expects('carts')
         ->get(serverUrl('/carts/-actions/my-cart'));
 
-    $cart = $this->cartSession->current();
+    /** @var \Lunar\Managers\CartSessionManager $cartSession */
+    $cartSession = App::make(CartSessionInterface::class);
+
+    $cart = $cartSession->current();
 
     $response
         ->assertSuccessful()
         ->assertFetchedOne($cart);
 
+    $cartSession->forget();
+
 })->group('carts', 'carts.create');
 
 it('does not automatically create cart when configured', function () {
     /** @var TestCase $this */
-    Config::set('lunar.cart.auto_create', false);
+    Config::set('lunar.cart_session.auto_create', false);
 
     $response = $this
         ->jsonApi()

@@ -2,30 +2,35 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Models;
 
+use Dystcz\LunarApi\Base\Contracts\HasAvailability;
+use Dystcz\LunarApi\Base\Contracts\Translatable;
+use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Domain\Products\Actions\IsPurchasable;
 use Dystcz\LunarApi\Domain\Products\Builders\ProductBuilder;
-use Dystcz\LunarApi\Domain\Products\Enums\Availability;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
+use Dystcz\LunarApi\Domain\Products\Traits\InteractsWithAvailability;
+use Dystcz\LunarApi\Domain\ProductTypes\Models\ProductType;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Casts\Attribute as Attr;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Config;
-use Lunar\Models\Attribute as LunarAttribute;
-use Lunar\Models\Price;
+use Lunar\Facades\ModelManifest;
+use Lunar\Models\Contracts\Attribute as AttributeContract;
+use Lunar\Models\Contracts\Price as PriceContract;
+use Lunar\Models\Contracts\ProductVariant as ProductVariantContract;
 use Lunar\Models\Product as LunarProduct;
-use Lunar\Models\ProductType;
-use Lunar\Models\ProductVariant;
 
 /**
  * @method static ProductBuilder query()
  */
-class Product extends LunarProduct
+class Product extends LunarProduct implements HasAvailability, Translatable
 {
     use HashesRouteKey;
+    use InteractsWithAvailability;
 
     /**
      * Create a new factory instance for the model.
@@ -47,21 +52,11 @@ class Product extends LunarProduct
     }
 
     /**
-     * Get availability attribute.
-     */
-    public function availability(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => Availability::of($this),
-        );
-    }
-
-    /**
      * Get purchaseble attribute.
      */
-    public function isPurchasable(): Attribute
+    public function isPurchasable(): Attr
     {
-        return Attribute::make(
+        return Attr::make(
             get: fn () => (new IsPurchasable)($this),
         );
     }
@@ -78,7 +73,7 @@ class Product extends LunarProduct
         }
 
         $relation = new MorphToMany(
-            LunarAttribute::query(),
+            ModelManifest::get(AttributeContract::class)::query(),
             new ProductType(['id' => $this->product_type_id]),
             'attributable',
             "{$prefix}attributables",
@@ -100,14 +95,14 @@ class Product extends LunarProduct
     {
         return $this
             ->hasManyThrough(
-                Price::class,
-                ProductVariant::class,
+                ModelManifest::get(PriceContract::class),
+                ModelManifest::get(ProductVariantContract::class),
                 'product_id',
                 'priceable_id'
             )
             ->where(
                 'priceable_type',
-                ProductVariant::class
+                ModelManifest::get(ProductVariantContract::class)
             );
     }
 
@@ -121,21 +116,50 @@ class Product extends LunarProduct
 
         return $this
             ->hasOneThrough(
-                Price::class,
-                ProductVariant::class,
+                ModelManifest::get(PriceContract::class),
+                ModelManifest::get(ProductVariantContract::class),
                 'product_id',
                 'priceable_id'
             )
             ->where($pricesTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
                 $query->select($pricesTable.'.id')
                     ->from($pricesTable)
-                    ->where('priceable_type', ProductVariant::class)
+                    ->where('priceable_type', ModelManifest::get(ProductVariantContract::class))
                     ->whereIn('priceable_id', function ($query) use ($variantsTable) {
                         $query->select('variants.id')
                             ->from($variantsTable.' as variants')
                             ->whereRaw("variants.product_id = {$variantsTable}.product_id");
                     })
                     ->orderBy($pricesTable.'.price', 'asc')
+                    ->limit(1);
+            });
+    }
+
+    /**
+     * Highest price relation.
+     */
+    public function highestPrice(): HasOneThrough
+    {
+        $pricesTable = $this->prices()->getModel()->getTable();
+        $variantsTable = $this->variants()->getModel()->getTable();
+
+        return $this
+            ->hasOneThrough(
+                ModelManifest::get(PriceContract::class),
+                ModelManifest::get(ProductVariantContract::class),
+                'product_id',
+                'priceable_id'
+            )
+            ->where($pricesTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
+                $query->select($pricesTable.'.id')
+                    ->from($pricesTable)
+                    ->where('priceable_type', ModelManifest::get(ProductVariantContract::class))
+                    ->whereIn('priceable_id', function ($query) use ($variantsTable) {
+                        $query->select('variants.id')
+                            ->from($variantsTable.' as variants')
+                            ->whereRaw("variants.product_id = {$variantsTable}.product_id");
+                    })
+                    ->orderBy($pricesTable.'.price', 'desc')
                     ->limit(1);
             });
     }
@@ -149,17 +173,41 @@ class Product extends LunarProduct
         $variantsTable = $this->variants()->getModel()->getTable();
 
         return $this
-            ->hasOne(ProductVariant::class)
+            ->hasOne(ModelManifest::get(ProductVariantContract::class))
             ->where($variantsTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
                 $query
                     ->select('variants.id')
                     ->from($variantsTable.' as variants')
                     ->join($pricesTable, function ($join) {
                         $join->on('priceable_id', '=', 'variants.id')
-                            ->where('priceable_type', ProductVariant::class);
+                            ->where('priceable_type', ModelManifest::get(ProductVariantContract::class));
                     })
                     ->whereRaw("variants.product_id = {$variantsTable}.product_id")
                     ->orderBy($pricesTable.'.price', 'asc')
+                    ->limit(1);
+            });
+    }
+
+    /**
+     * Most expensive variant relation.
+     */
+    public function mostExpensiveVariant(): HasOne
+    {
+        $pricesTable = $this->prices()->getModel()->getTable();
+        $variantsTable = $this->variants()->getModel()->getTable();
+
+        return $this
+            ->hasOne(ModelManifest::get(ProductVariantContract::class))
+            ->where($variantsTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
+                $query
+                    ->select('variants.id')
+                    ->from($variantsTable.' as variants')
+                    ->join($pricesTable, function ($join) {
+                        $join->on('priceable_id', '=', 'variants.id')
+                            ->where('priceable_type', ModelManifest::get(ProductVariantContract::class));
+                    })
+                    ->whereRaw("variants.product_id = {$variantsTable}.product_id")
+                    ->orderBy($pricesTable.'.price', 'desc')
                     ->limit(1);
             });
     }

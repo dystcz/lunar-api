@@ -1,11 +1,11 @@
 <?php
 
+use Dystcz\LunarApi\Domain\Prices\Models\Price;
+use Dystcz\LunarApi\Domain\ProductAssociations\Models\ProductAssociation;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lunar\Models\Price;
-use Lunar\Models\ProductAssociation;
 
 uses(TestCase::class, RefreshDatabase::class);
 

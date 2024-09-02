@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Lunar\Base\CartSessionInterface;
 use Lunar\Facades\ModelManifest;
 use Lunar\Facades\Payments;
 
@@ -45,7 +46,8 @@ class LunarApiServiceProvider extends ServiceProvider
         $this->app->singleton('lunar-api', fn () => new LunarApi);
         $this->app->singleton('lunar-api-config', fn () => new LunarApiConfig);
 
-        $this->registerControllers();
+        $this->bindControllers();
+        $this->bindModels();
 
         // Register payment adapters register.
         $this->app->singleton(
@@ -56,7 +58,7 @@ class LunarApiServiceProvider extends ServiceProvider
         // Register payment modifiers.
         $this->app->singleton(
             \Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifiers::class,
-            fn (Application $app) => new \Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifiers(),
+            fn (Application $app) => new \Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifiers,
         );
 
         // Register payment manifest.
@@ -196,6 +198,20 @@ class LunarApiServiceProvider extends ServiceProvider
             $orderPipelines[$fillOrderFromCartIndex] = \Dystcz\LunarApi\Domain\Orders\Pipelines\FillOrderFromCart::class;
         }
 
+        // NOTE: Testing
+        // Swap create order lines pipeline
+        $createOrderIndex = array_search(\Lunar\Pipelines\Order\Creation\CreateOrderLines::class, $orderPipelines);
+        if (array_key_exists($createOrderIndex, $orderPipelines)) {
+            $orderPipelines[$createOrderIndex] = \Dystcz\LunarApi\Domain\Orders\Pipelines\CreateOrderLines::class;
+        }
+
+        // NOTE: Testing
+        // Swap create shipping line pipeline
+        $createShippingLineIndex = array_search(\Lunar\Pipelines\Order\Creation\CreateShippingLine::class, $orderPipelines);
+        if (array_key_exists($createShippingLineIndex, $orderPipelines)) {
+            $orderPipelines[$createShippingLineIndex] = \Dystcz\LunarApi\Domain\Orders\Pipelines\CreateShippingLine::class;
+        }
+
         // Push ApplyPayment pipeline after ApplyShipping pipeline
         $createShippingLineIndex = array_search(\Lunar\Pipelines\Order\Creation\CreateShippingLine::class, $orderPipelines);
         if (array_key_exists($createShippingLineIndex, $orderPipelines)) {
@@ -226,9 +242,9 @@ class LunarApiServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register controllers.
+     * Bind controllers.
      */
-    protected function registerControllers(): void
+    protected function bindControllers(): void
     {
         $controllers = [
             \Dystcz\LunarApi\Domain\Addresses\Contracts\AddressesController::class => \Dystcz\LunarApi\Domain\Addresses\Http\Controllers\AddressesController::class,
@@ -329,14 +345,6 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     protected function registerObservers(): void
     {
-        // NOTE: Use custom observer, because Lunar ignores only shipping purchasable type
-        $orderLineEventDispatcher = \Lunar\Models\OrderLine::getEventDispatcher();
-        $orderLineEventDispatcher->forget('eloquent.creating: '.\Lunar\Models\OrderLine::class);
-        $orderLineEventDispatcher->forget('eloquent.updating: '.\Lunar\Models\OrderLine::class);
-
-        $orderLine = ModelManifest::getRegisteredModel(\Lunar\Models\OrderLine::class);
-
-        \Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine::observe(\Dystcz\LunarApi\Domain\OrderLines\Observers\OrderLineObserver::class);
         \Lunar\Models\Order::observe(\Dystcz\LunarApi\Domain\Orders\Observers\OrderObserver::class);
     }
 
@@ -355,19 +363,58 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     protected function registerDynamicRelations(): void
     {
+        \Lunar\Models\ProductVariant::resolveRelationUsing('attributes', function ($model) {
+            return $model
+                ->hasMany(
+                    \Lunar\Models\Attribute::class,
+                    'attribute_type',
+                    'attribute_classname',
+                );
+        });
+
         \Lunar\Models\ProductVariant::resolveRelationUsing('urls', function ($model) {
-            return $model->morphMany(
-                \Lunar\Models\Url::class,
-                'element'
-            );
+            return $model
+                ->morphMany(
+                    \Lunar\Models\Url::class,
+                    'element'
+                );
         });
 
         \Lunar\Models\ProductVariant::resolveRelationUsing('defaultUrl', function ($model) {
-            return $model->morphOne(
-                \Lunar\Models\Url::class,
-                'element'
-            )->whereDefault(true);
+            return $model
+                ->morphOne(
+                    \Lunar\Models\Url::class,
+                    'element'
+                )->whereDefault(true);
         });
+
+        \Lunar\Models\ProductVariant::resolveRelationUsing('otherVariants', function ($model) {
+            return $model
+                ->hasMany(\Lunar\Models\ProductVariant::class, 'product_id', 'product_id')
+                ->where($model->getRouteKeyName(), '!=', $model->getAttribute($model->getRouteKeyName()));
+        });
+    }
+
+    /**
+     * Bind models.
+     */
+    protected function bindModels(): void
+    {
+        $this->app->bind(
+            \Dystcz\LunarApi\Domain\Carts\Contracts\Cart::class,
+            \Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
+        );
+
+        $this->app->bind(
+            \Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart::class,
+            function (Application $app) {
+                /** @var \Lunar\Managers\CartSessionManager */
+                $cartSession = $this->app->make(CartSessionInterface::class);
+
+                /** @var Cart $cart */
+                return $cartSession->current();
+            }
+        );
     }
 
     /**

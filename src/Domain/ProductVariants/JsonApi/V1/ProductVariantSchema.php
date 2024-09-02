@@ -12,6 +12,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
+use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
@@ -33,6 +34,18 @@ class ProductVariantSchema extends Schema
             'product',
             fn ($query) => $query->where('status', '!=', 'draft'),
         );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function with(): array
+    {
+        return [
+            'attributes',
+            'attributes.attributeGroup',
+            ...parent::with(),
+        ];
     }
 
     /**
@@ -75,6 +88,12 @@ class ProductVariantSchema extends Schema
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
 
+            Str::make('sku'),
+            Str::make('gtin'),
+            Str::make('mpn'),
+            Str::make('ean'),
+            Str::make('tax_ref'),
+
             Map::make('availability', [
                 ArrayHash::make('stock')
                     ->extractUsing(
@@ -90,12 +109,27 @@ class ProductVariantSchema extends Schema
 
             BelongsTo::make('product'),
 
+            HasMany::make('attributes', 'attributes')
+                ->type('attributes')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
             HasMany::make('other_variants', 'otherVariants')
                 ->type('variants')
                 ->canCount()
                 ->retainFieldName(),
 
+            HasMany::make('prices')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
             HasOne::make('lowest_price', 'lowestPrice')
+                ->type('prices')
+                ->retainFieldName(),
+
+            HasOne::make('highest_price', 'highestPrice')
                 ->type('prices')
                 ->retainFieldName(),
 
@@ -105,11 +139,6 @@ class ProductVariantSchema extends Schema
 
             HasMany::make('values', 'values')
                 ->type('product-option-values')
-                ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
-
-            HasMany::make('prices')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),

@@ -14,9 +14,7 @@ uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
     /** @var TestCase $this */
-    $currency = Currency::factory()->create([
-        'decimal_places' => 2,
-    ]);
+    $currency = Currency::getDefault();
 
     $cart = Cart::factory()->create([
         'currency_id' => $currency->id,
@@ -28,7 +26,7 @@ beforeEach(function () {
 
     Price::factory()->create([
         'price' => 100,
-        'tier' => 1,
+        'min_quantity' => 1,
         'currency_id' => $currency->id,
         'priceable_type' => $purchasable->getMorphClass(),
         'priceable_id' => $purchasable->id,
