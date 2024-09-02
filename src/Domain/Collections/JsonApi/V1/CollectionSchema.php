@@ -14,7 +14,7 @@ use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereNull;
 use LaravelJsonApi\Eloquent\Resources\Relation;
-use Lunar\Models\Collection;
+use Lunar\Models\Contracts\Collection;
 
 class CollectionSchema extends Schema
 {

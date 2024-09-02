@@ -13,7 +13,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Base\ValueObjects\Cart\DiscountBreakdown as LunarDiscountBreakdown;
-use Lunar\Models\Cart;
+use Lunar\Models\Contracts\Cart;
 
 class CartSchema extends Schema
 {

@@ -8,7 +8,7 @@ use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Resources\Relation;
-use Lunar\Models\OrderAddress;
+use Lunar\Models\Contracts\OrderAddress;
 
 class OrderAddressSchema extends Schema
 {

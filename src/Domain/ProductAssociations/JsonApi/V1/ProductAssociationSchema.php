@@ -7,7 +7,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use Lunar\Models\ProductAssociation;
+use Lunar\Models\Contracts\ProductAssociation;
 
 class ProductAssociationSchema extends Schema
 {

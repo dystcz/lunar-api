@@ -8,7 +8,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Resources\Relation;
-use Lunar\Models\Customer;
+use Lunar\Models\Contracts\Customer;
 
 class CustomerSchema extends Schema
 {

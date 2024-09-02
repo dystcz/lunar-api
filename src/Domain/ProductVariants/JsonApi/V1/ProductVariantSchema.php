@@ -16,7 +16,7 @@ use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
-use Lunar\Models\ProductVariant;
+use Lunar\Models\Contracts\ProductVariant;
 
 class ProductVariantSchema extends Schema
 {

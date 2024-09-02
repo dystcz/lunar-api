@@ -21,6 +21,7 @@ use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema as BaseSchema;
 use LaravelJsonApi\HashIds\HashId;
+use Lunar\Facades\ModelManifest;
 
 abstract class Schema extends BaseSchema implements ExtendableContract, SchemaContract
 {
@@ -67,6 +68,22 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
         $this->extension = App::make(SchemaManifestContract::class)::for(static::class);
 
         $this->server = $server;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function model(): string
+    {
+        if (isset(static::$model) && class_exists(static::$model)) {
+            return static::$model;
+        }
+
+        if (isset(static::$model) && $model = ModelManifest::get(static::$model)) {
+            return $model;
+        }
+
+        throw new LogicException('The model class name must be set.');
     }
 
     /**

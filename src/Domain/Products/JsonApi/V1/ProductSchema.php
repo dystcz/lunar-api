@@ -21,7 +21,7 @@ use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
-use Lunar\Models\Product;
+use Lunar\Models\Contracts\Product;
 
 class ProductSchema extends Schema
 {

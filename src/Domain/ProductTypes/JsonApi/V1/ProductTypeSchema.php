@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\ProductTypes\JsonApi\V1;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
-use Lunar\Models\ProductType;
+use Lunar\Models\Contracts\ProductType;
 
 class ProductTypeSchema extends Schema
 {

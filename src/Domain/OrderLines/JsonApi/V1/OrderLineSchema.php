@@ -9,7 +9,7 @@ use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
-use Lunar\Models\OrderLine;
+use Lunar\Models\Contracts\OrderLine;
 
 class OrderLineSchema extends Schema
 {

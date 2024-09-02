@@ -7,7 +7,7 @@ use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
-use Lunar\Models\Currency;
+use Lunar\Models\Contracts\Currency;
 
 class CurrencySchema extends Schema
 {

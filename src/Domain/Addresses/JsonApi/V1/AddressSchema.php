@@ -12,7 +12,7 @@ use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Resources\Relation;
-use Lunar\Models\Address;
+use Lunar\Models\Contracts\Address;
 
 class AddressSchema extends Schema
 {
