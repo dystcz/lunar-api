@@ -201,20 +201,6 @@ class LunarApiServiceProvider extends ServiceProvider
             $orderPipelines[$fillOrderFromCartIndex] = \Dystcz\LunarApi\Domain\Orders\Pipelines\FillOrderFromCart::class;
         }
 
-        // NOTE: Testing
-        // Swap create order lines pipeline
-        $createOrderIndex = array_search(\Lunar\Pipelines\Order\Creation\CreateOrderLines::class, $orderPipelines);
-        if (array_key_exists($createOrderIndex, $orderPipelines)) {
-            $orderPipelines[$createOrderIndex] = \Dystcz\LunarApi\Domain\Orders\Pipelines\CreateOrderLines::class;
-        }
-
-        // NOTE: Testing
-        // Swap create shipping line pipeline
-        $createShippingLineIndex = array_search(\Lunar\Pipelines\Order\Creation\CreateShippingLine::class, $orderPipelines);
-        if (array_key_exists($createShippingLineIndex, $orderPipelines)) {
-            $orderPipelines[$createShippingLineIndex] = \Dystcz\LunarApi\Domain\Orders\Pipelines\CreateShippingLine::class;
-        }
-
         // Push ApplyPayment pipeline after ApplyShipping pipeline
         $createShippingLineIndex = array_search(\Lunar\Pipelines\Order\Creation\CreateShippingLine::class, $orderPipelines);
         if (array_key_exists($createShippingLineIndex, $orderPipelines)) {
