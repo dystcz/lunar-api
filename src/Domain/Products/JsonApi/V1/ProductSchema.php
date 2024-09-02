@@ -41,11 +41,15 @@ class ProductSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    protected array $with = [
-        'productType',
-        'productType.mappedAttributes',
-        'productType.mappedAttributes.attributeGroup',
-    ];
+    public function with(): array
+    {
+        return [
+            'productType',
+            'productType.mappedAttributes',
+            'productType.mappedAttributes.attributeGroup',
+            ...parent::with(),
+        ];
+    }
 
     /**
      * {@inheritDoc}
@@ -110,6 +114,12 @@ class ProductSchema extends Schema
 
             Str::make('status'),
 
+            HasMany::make('attributes', 'attributes')
+                ->type('attributes')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+
             HasMany::make('associations')
                 ->type('associations')
                 ->canCount(),
@@ -121,6 +131,10 @@ class ProductSchema extends Schema
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasOne::make('cheapest_variant', 'cheapestVariant')
+                ->type('variants')
+                ->retainFieldName(),
+
+            HasOne::make('most_expensive_variant', 'mostExpensiveVariant')
                 ->type('variants')
                 ->retainFieldName(),
 
@@ -141,6 +155,10 @@ class ProductSchema extends Schema
                 ->canCount(),
 
             HasOneThrough::make('lowest_price', 'lowestPrice')
+                ->type('prices')
+                ->retainFieldName(),
+
+            HasOneThrough::make('highest_price', 'highestPrice')
                 ->type('prices')
                 ->retainFieldName(),
 

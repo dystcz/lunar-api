@@ -20,6 +20,5 @@ class OrderStatusChanged
         public Order $order,
         public string $newStatus,
         public string $oldStatus,
-    ) {
-    }
+    ) {}
 }

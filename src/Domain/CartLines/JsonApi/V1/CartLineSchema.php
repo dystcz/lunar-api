@@ -22,6 +22,24 @@ class CartLineSchema extends Schema
     /**
      * {@inheritDoc}
      */
+    public function includePaths(): iterable
+    {
+        return [
+            'purchasable',
+            'purchasable.images',
+            'purchasable.prices',
+            'purchasable.thumbnail',
+            'purchasable.product',
+            'purchasable.product.images',
+            'purchasable.product.thumbnail',
+
+            ...parent::includePaths(),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function fields(): array
     {
         return [

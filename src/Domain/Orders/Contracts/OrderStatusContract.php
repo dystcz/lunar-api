@@ -2,6 +2,4 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\Contracts;
 
-interface OrderStatusContract
-{
-}
+interface OrderStatusContract {}

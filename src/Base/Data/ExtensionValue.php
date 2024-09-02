@@ -13,8 +13,7 @@ class ExtensionValue
 {
     public function __construct(
         private string|Closure|Relation|Field|Filter|SortField $value,
-    ) {
-    }
+    ) {}
 
     /**
      * Create new instance from value.

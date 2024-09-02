@@ -4,13 +4,13 @@ use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Carts\Pipelines\ApplyPayment;
 use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
 use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
+use Dystcz\LunarApi\Domain\Prices\Models\Price;
+use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Lunar\DataTypes\Price as PriceDataType;
 use Lunar\Models\Currency;
-use Lunar\Models\Price;
-use Lunar\Models\ProductVariant;
 use Lunar\Models\TaxClass;
 use Lunar\Models\TaxRateAmount;
 
@@ -22,7 +22,7 @@ beforeEach(function () {
 
 it('can set empty payment totals', function () {
     /** @var TestCase $this */
-    $currency = Currency::factory()->create();
+    $currency = Currency::getDefault();
 
     /** @var Cart $cart */
     $cart = Cart::factory()->create([
@@ -33,14 +33,14 @@ it('can set empty payment totals', function () {
 
     Price::factory()->create([
         'price' => 100,
-        'tier' => 1,
+        'min_quantity' => 1,
         'currency_id' => $currency->id,
-        'priceable_type' => get_class($purchasable),
+        'priceable_type' => $purchasable->getMorphClass(),
         'priceable_id' => $purchasable->id,
     ]);
 
     $cart->lines()->create([
-        'purchasable_type' => get_class($purchasable),
+        'purchasable_type' => $purchasable->getMorphClass(),
         'purchasable_id' => $purchasable->id,
         'quantity' => 1,
     ]);
@@ -60,7 +60,7 @@ it('can set empty payment totals', function () {
 
 it('can set payment totals', function () {
     /** @var TestCase $this */
-    $currency = Currency::factory()->create();
+    $currency = Currency::getDefault();
 
     $cart = Cart::factory()->create([
         'currency_id' => $currency->id,
@@ -96,14 +96,14 @@ it('can set payment totals', function () {
 
     Price::factory()->create([
         'price' => 100,
-        'tier' => 1,
+        'min_quantity' => 1,
         'currency_id' => $currency->id,
-        'priceable_type' => get_class($purchasable),
+        'priceable_type' => $purchasable->getMorphClass(),
         'priceable_id' => $purchasable->id,
     ]);
 
     $cart->lines()->create([
-        'purchasable_type' => get_class($purchasable),
+        'purchasable_type' => $purchasable->getMorphClass(),
         'purchasable_id' => $purchasable->id,
         'quantity' => 1,
     ]);

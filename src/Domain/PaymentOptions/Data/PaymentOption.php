@@ -107,6 +107,22 @@ class PaymentOption implements Arrayable, Purchasable
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function canBeFulfilledAtQuantity(int $quantity): bool
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTotalInventory(): int
+    {
+        return 1;
+    }
+
+    /**
      * Get tax class.
      */
     public function getTaxClass(): TaxClass

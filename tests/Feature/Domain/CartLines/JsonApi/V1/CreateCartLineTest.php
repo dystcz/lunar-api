@@ -56,7 +56,7 @@ it('can add purchasable to the cart', function () {
 
 it('manually creates a cart when cart auto create turned off', function () {
     /** @var TestCase $this */
-    Config::set('lunar.cart.auto_create', false);
+    Config::set('lunar.cart_session.auto_create', false);
 
     $cart = Cart::factory()
         ->withLines()

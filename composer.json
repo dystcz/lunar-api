@@ -25,21 +25,19 @@
   ],
   "require": {
     "php": "^8.2",
-    "illuminate/support": "^10.0",
-    "laravel-json-api/hashids": "^2.0",
-    "laravel-json-api/laravel": "^3.4",
-    "laravel-json-api/non-eloquent": "^3.0",
-    "lunarphp/lunar": "^0.8"
+    "illuminate/support": "^11.0",
+    "laravel-json-api/hashids": "^3.0",
+    "laravel-json-api/laravel": "^4.0",
+    "laravel-json-api/non-eloquent": "^4.0",
+    "lunarphp/lunar": "^1.0.0"
   },
   "require-dev": {
-    "barryvdh/laravel-ide-helper": "^2.13",
-    "driftingly/rector-laravel": "^0.17.0",
-    "laravel-json-api/testing": "^2.1",
+    "barryvdh/laravel-ide-helper": "^3.0",
+    "laravel-json-api/testing": "^3.0",
     "laravel/pint": "^1.7",
-    "orchestra/testbench": "^8.0",
+    "orchestra/testbench": "^9.0",
     "pestphp/pest": "^2.0",
     "pestphp/pest-plugin-laravel": "^2.0",
-    "rector/rector": "^0.15.23",
     "spatie/laravel-ray": "^1.32"
   },
   "autoload": {
@@ -53,9 +51,12 @@
     }
   },
   "scripts": {
+    "post-update-cmd": [],
     "post-autoload-dump": "@composer run prepare",
-    "clear": "@php vendor/bin/testbench package:purge --ansi",
-    "prepare": "@php vendor/bin/testbench package:discover --ansi",
+    "artisan": "vendor/bin/testbench",
+    "clear": "vendor/bin/testbench package:purge --ansi",
+    "prepare": "vendor/bin/testbench package:discover --ansi",
+    "package-test": "vendor/bin/testbench package:test",
     "test": "vendor/bin/pest",
     "test-hashids": "vendor/bin/pest -c phpunit.hashids.xml",
     "test-coverage": "vendor/bin/pest --coverage",

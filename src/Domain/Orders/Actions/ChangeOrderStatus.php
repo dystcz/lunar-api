@@ -8,8 +8,7 @@ use Lunar\Models\Order;
 class ChangeOrderStatus
 {
     public function __construct(
-    ) {
-    }
+    ) {}
 
     /**
      * Change order status to pending payment.

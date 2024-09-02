@@ -19,6 +19,6 @@ it('can read lowest price through relationship', function () {
 
     $response
         ->assertSuccessful()
-        ->assertFetchedOne($product->lowestPrice)
+        ->assertFetchedOne($product->prices->sortBy('price')->first())
         ->assertDoesntHaveIncluded();
 })->group('products');

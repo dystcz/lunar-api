@@ -2,12 +2,16 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Models;
 
+use Dystcz\LunarApi\Base\Contracts\HasAvailability;
+use Dystcz\LunarApi\Base\Contracts\Translatable;
+use Dystcz\LunarApi\Base\Enums\PurchasableStatus;
+use Dystcz\LunarApi\Base\Traits\InteractsWithAvailability;
 use Dystcz\LunarApi\Domain\Attributes\Traits\InteractsWithAttributes;
-use Dystcz\LunarApi\Domain\Products\Enums\Availability;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -16,16 +20,20 @@ use InvalidArgumentException;
 use Lunar\Base\Traits\HasUrls;
 use Lunar\Models\Price as LunarPrice;
 use Lunar\Models\ProductVariant as LunarPoductVariant;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @method MorphMany notifications() Get the notifications relation if `lunar-api-product-notifications` package is installed.
  */
-class ProductVariant extends LunarPoductVariant
+class ProductVariant extends LunarPoductVariant implements HasAvailability, HasMedia, Translatable
 {
     use HashesRouteKey;
     use HasUrls;
     use InteractsWithAttributes;
+    use InteractsWithAvailability;
+    use InteractsWithMedia;
 
     /**
      * Create a new factory instance for the model.
@@ -36,13 +44,19 @@ class ProductVariant extends LunarPoductVariant
     }
 
     /**
-     * Get availability attribute.
+     * Determine when model is considered to be preorderable.
      */
-    public function availability(): Attribute
+    public function isPreorderable(): bool
     {
-        return Attribute::make(
-            get: fn () => Availability::of($this),
-        );
+        /** @var Product $product */
+        $product = $this->product;
+
+        return $product->isPreorderable()
+            && (
+                $this->isAlwaysPurchasable()
+                || $this->isInStock()
+                || $this->isBackorderable()
+            );
     }
 
     /**
@@ -86,7 +100,7 @@ class ProductVariant extends LunarPoductVariant
     {
         return Attribute::make(
             get: fn () => match (true) {
-                $this->purchasable === 'backorder' => $this->backorder,
+                $this->purchasable === PurchasableStatus::BACKORDER => $this->backorder,
                 default => $this->stock,
             }
         );
@@ -128,9 +142,24 @@ class ProductVariant extends LunarPoductVariant
     }
 
     /**
+     * Highest price relation.
+     *
+     * @throws InvalidArgumentException
+     */
+    public function highestPrice(): MorphOne
+    {
+        return $this
+            ->morphOne(
+                LunarPrice::class,
+                'priceable'
+            )
+            ->ofMany('price', 'max');
+    }
+
+    /**
      * Other variants relation.
      */
-    public function otherVariants()
+    public function otherVariants(): HasMany
     {
         return $this
             ->hasMany(LunarPoductVariant::class, 'product_id', 'product_id')

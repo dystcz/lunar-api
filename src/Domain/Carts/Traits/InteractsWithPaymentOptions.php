@@ -46,7 +46,9 @@ trait InteractsWithPaymentOptions
     public ?PaymentBreakdown $paymentBreakdown = null;
 
     /**
-     * Payment tax breakdown.
+     * Payment tax breakdown for the cart.
+     *
+     * @var null|Collection<TaxBreakdown>
      */
     public ?TaxBreakdown $paymentTaxBreakdown = null;
 

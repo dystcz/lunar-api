@@ -14,7 +14,7 @@ class AddressRequest extends ResourceRequest
      *
      * @return array<string,array<int,mixed>>
      */
-    public function rules(): array
+    public function modelRules(): array
     {
         return [
             'title' => [
@@ -89,6 +89,18 @@ class AddressRequest extends ResourceRequest
                 'nullable',
                 'array',
             ],
+        ];
+    }
+
+    /**
+     * Get the validation rules for the resource.
+     *
+     * @return array<string,array<int,mixed>>
+     */
+    public function rules(): array
+    {
+        return [
+            ...$this->modelRules(),
 
             'customer' => [
                 JsonApiRule::toOne(),
