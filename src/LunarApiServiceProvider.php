@@ -150,6 +150,8 @@ class LunarApiServiceProvider extends ServiceProvider
     {
         // Push ApplyPayment pipeline after ApplyShipping pipeline
         $cartPipelines = Config::get('lunar.cart.pipelines.cart', []);
+
+        // Push apply payment pipeline after apply shipping pipeline
         $applyShippingIndex = array_search(\Lunar\Pipelines\Cart\ApplyShipping::class, $cartPipelines);
 
         if (array_key_exists($applyShippingIndex, $cartPipelines)) {
@@ -160,7 +162,7 @@ class LunarApiServiceProvider extends ServiceProvider
             );
         }
 
-        // Push CalculatePayment pipeline after Calculate pipeline
+        // Push calculate payment pipeline after calculate pipeline
         $calculateIndex = array_search(\Lunar\Pipelines\Cart\Calculate::class, $cartPipelines);
 
         if (array_key_exists($calculateIndex, $cartPipelines)) {
@@ -201,7 +203,7 @@ class LunarApiServiceProvider extends ServiceProvider
             $orderPipelines[$fillOrderFromCartIndex] = \Dystcz\LunarApi\Domain\Orders\Pipelines\FillOrderFromCart::class;
         }
 
-        // Push ApplyPayment pipeline after create shipping line pipeline
+        // Push create payment line pipeline after create shipping line pipeline
         $createShippingLineIndex = array_search(\Lunar\Pipelines\Order\Creation\CreateShippingLine::class, $orderPipelines);
         if (array_key_exists($createShippingLineIndex, $orderPipelines)) {
             $orderPipelines = array_merge(
