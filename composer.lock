@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a712f76a6a6c12a9f44616be9e0a6da4",
+    "content-hash": "fe5eef21ae6283828701d6db6e9d73bf",
     "packages": [
         {
             "name": "amphp/amp",
@@ -5761,55 +5761,137 @@
             "time": "2019-12-22T15:06:46+00:00"
         },
         {
-            "name": "lunarphp/core",
-            "version": "1.0.0-beta.1",
+            "name": "lunarphp/lunar",
+            "version": "dev-update-container-resolution",
             "source": {
                 "type": "git",
-                "url": "https://github.com/lunarphp/core.git",
-                "reference": "e236ecb6a54533d9411aaf08e745a2b24829a0af"
+                "url": "https://github.com/theimerj/lunar.git",
+                "reference": "5f877c8a981089a206a9c55d6567ef9279524a57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lunarphp/core/zipball/e236ecb6a54533d9411aaf08e745a2b24829a0af",
-                "reference": "e236ecb6a54533d9411aaf08e745a2b24829a0af",
+                "url": "https://api.github.com/repos/theimerj/lunar/zipball/5f877c8a981089a206a9c55d6567ef9279524a57",
+                "reference": "5f877c8a981089a206a9c55d6567ef9279524a57",
                 "shasum": ""
             },
             "require": {
+                "awcodes/filament-badgeable-column": "^2.3.2",
+                "awcodes/shout": "^2.0.2",
+                "barryvdh/laravel-dompdf": "^2.0",
                 "cartalyst/converter": "^8.0|^9.0",
                 "doctrine/dbal": "^3.6",
+                "dompdf/dompdf": "^2.0.7",
                 "ext-bcmath": "*",
                 "ext-exif": "*",
                 "ext-intl": "*",
+                "filament/filament": "^3.2.25",
+                "filament/spatie-laravel-media-library-plugin": "^3.2",
+                "guzzlehttp/guzzle": "^7.3",
                 "kalnoy/nestedset": "^v6.x-dev",
                 "laravel/framework": "^10.0|^11.0",
                 "laravel/scout": "^10.0",
+                "leandrocfe/filament-apex-charts": "^3.1.3",
+                "livewire/livewire": "^3.0",
                 "lukascivil/treewalker": "0.9.1",
+                "marvinosswald/filament-input-select-affix": "^0.2.0",
+                "meilisearch/meilisearch-php": "^v1.6.0",
                 "php": "^8.2",
                 "spatie/laravel-activitylog": "^4.4",
                 "spatie/laravel-blink": "^1.7",
                 "spatie/laravel-medialibrary": "^11.0.0",
-                "spatie/php-structure-discoverer": "^2.0"
+                "spatie/laravel-permission": "^6.4",
+                "spatie/php-structure-discoverer": "^2.0",
+                "stripe/stripe-php": "^14.4",
+                "technikermathe/blade-lucide-icons": "^v3.0"
+            },
+            "replace": {
+                "lunarphp/admin": "self.version",
+                "lunarphp/core": "self.version",
+                "lunarphp/meilisearch": "self.version",
+                "lunarphp/opayo": "self.version",
+                "lunarphp/paypal": "self.version",
+                "lunarphp/stripe": "self.version",
+                "lunarphp/table-rate-shipping": "self.version"
+            },
+            "require-dev": {
+                "larastan/larastan": "^2.9",
+                "laravel/pint": "1.17.0",
+                "mockery/mockery": "^1.6.9",
+                "orchestra/testbench": "^8.0|^9.0",
+                "pestphp/pest": "^2.34.7",
+                "pestphp/pest-plugin-laravel": "^2.4",
+                "symplify/monorepo-builder": "^10.0"
             },
             "type": "library",
             "extra": {
+                "lunar": {
+                    "name": [
+                        "Meilisearch",
+                        "Opayo Payments",
+                        "Paypal Payments",
+                        "Stripe Payments",
+                        "Table Rate Shipping"
+                    ]
+                },
                 "laravel": {
                     "providers": [
-                        "Lunar\\LunarServiceProvider"
+                        "Lunar\\Shipping\\ShippingServiceProvider",
+                        "Lunar\\Stripe\\StripePaymentsServiceProvider",
+                        "Lunar\\Paypal\\PaypalServiceProvider",
+                        "Lunar\\Opayo\\OpayoServiceProvider",
+                        "Lunar\\Meilisearch\\MeilisearchServiceProvider",
+                        "Lunar\\LunarServiceProvider",
+                        "Lunar\\Admin\\LunarPanelProvider"
                     ]
                 }
             },
             "autoload": {
                 "files": [
-                    "src/helpers.php"
+                    "packages/admin/src/helpers.php",
+                    "packages/core/src/helpers.php"
                 ],
                 "psr-4": {
-                    "Lunar\\": "src",
-                    "Lunar\\Database\\State\\": "database/state",
-                    "Lunar\\Database\\Seeders\\": "database/seeders",
-                    "Lunar\\Database\\Factories\\": "database/factories"
+                    "Lunar\\": "packages/core/src",
+                    "Lunar\\Admin\\": "packages/admin/src/",
+                    "Lunar\\Admin\\Database\\Factories\\": "packages/admin/database/factories",
+                    "Lunar\\Admin\\Database\\State\\": "packages/admin/database/state",
+                    "Lunar\\Database\\Factories\\": "packages/core/database/factories",
+                    "Lunar\\Database\\Seeders\\": "packages/core/database/seeders",
+                    "Lunar\\Database\\State\\": "packages/core/database/state",
+                    "Lunar\\Meilisearch\\": "packages/meilisearch/src/",
+                    "Lunar\\Opayo\\": "packages/opayo/src/",
+                    "Lunar\\Paypal\\": "packages/paypal/src/",
+                    "Lunar\\Shipping\\": "packages/table-rate-shipping/src",
+                    "Lunar\\Shipping\\Database\\Factories\\": "packages/table-rate-shipping/database/factories",
+                    "Lunar\\Stripe\\": "packages/stripe/src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Lunar\\Tests\\Admin\\": "tests/admin",
+                    "Lunar\\Tests\\Core\\": "tests/core",
+                    "Lunar\\Tests\\Opayo\\": "tests/opayo",
+                    "Lunar\\Tests\\Paypal\\": "tests/paypal",
+                    "Lunar\\Tests\\Shipping\\": "tests/shipping",
+                    "Lunar\\Shipping\\Tests\\": "packages/table-rate-shipping/tests",
+                    "Lunar\\Tests\\Stripe\\": "tests/stripe"
+                }
+            },
+            "scripts": {
+                "pint": [
+                    "pint"
+                ],
+                "test:pest": [
+                    "pest"
+                ],
+                "test:phpstan": [
+                    "phpstan analyse"
+                ],
+                "test": [
+                    "@test:pest",
+                    "@test:phpstan"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -5819,87 +5901,17 @@
                     "homepage": "https://lunarphp.io/"
                 }
             ],
-            "description": "Lunar Laravel e-commerce core functionality.",
-            "keywords": [
-                "cart",
-                "e-commerce",
-                "ecommerce",
-                "headless",
-                "laravel",
-                "lunar",
-                "shop",
-                "store"
-            ],
+            "description": "Lunar Monorepo",
             "support": {
-                "source": "https://github.com/lunarphp/core/tree/1.0.0-beta.1"
+                "source": "https://github.com/theimerj/lunar/tree/update-container-resolution"
             },
             "funding": [
                 {
-                    "url": "https://github.com/lunar",
-                    "type": "github"
+                    "type": "github",
+                    "url": "https://github.com/lunarphp"
                 }
             ],
-            "time": "2024-08-28T17:27:42+00:00"
-        },
-        {
-            "name": "lunarphp/lunar",
-            "version": "1.0.0-beta.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lunarphp/admin.git",
-                "reference": "bc718428182613b1a12dd182a26a05fe73a70ad7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lunarphp/admin/zipball/bc718428182613b1a12dd182a26a05fe73a70ad7",
-                "reference": "bc718428182613b1a12dd182a26a05fe73a70ad7",
-                "shasum": ""
-            },
-            "require": {
-                "awcodes/filament-badgeable-column": "^2.3.2",
-                "awcodes/shout": "^2.0.2",
-                "barryvdh/laravel-dompdf": "^2.0",
-                "filament/filament": "^3.2.25",
-                "filament/spatie-laravel-media-library-plugin": "^3.2",
-                "leandrocfe/filament-apex-charts": "^3.1.3",
-                "lunarphp/core": "self.version",
-                "marvinosswald/filament-input-select-affix": "^0.2.0",
-                "spatie/laravel-permission": "^6.4",
-                "technikermathe/blade-lucide-icons": "^v3.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Lunar\\Admin\\LunarPanelProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Lunar\\Admin\\": "src/",
-                    "Lunar\\Admin\\Database\\State\\": "database/state",
-                    "Lunar\\Admin\\Database\\Factories\\": "database/factories"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Admin panel for LunarPHP",
-            "support": {
-                "source": "https://github.com/lunarphp/admin/tree/1.0.0-beta.1"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/lunar",
-                    "type": "github"
-                }
-            ],
-            "time": "2024-08-28T17:31:16+00:00"
+            "time": "2024-09-02T02:41:13+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -6119,6 +6131,73 @@
                 "source": "https://github.com/Masterminds/html5-php/tree/2.9.0"
             },
             "time": "2024-03-31T07:05:07+00:00"
+        },
+        {
+            "name": "meilisearch/meilisearch-php",
+            "version": "v1.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/meilisearch/meilisearch-php.git",
+                "reference": "110be455194fda42ae3a3b8b6a9243479c3a6d19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/meilisearch/meilisearch-php/zipball/110be455194fda42ae3a3b8b6a9243479c3a6d19",
+                "reference": "110be455194fda42ae3a3b8b6a9243479c3a6d19",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.4 || ^8.0",
+                "php-http/discovery": "^1.7",
+                "psr/http-client": "^1.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^7.8.1",
+                "http-interop/http-factory-guzzle": "^1.2.0",
+                "php-cs-fixer/shim": "^3.59.3",
+                "phpstan/extension-installer": "^1.4.1",
+                "phpstan/phpstan": "^1.11.5",
+                "phpstan/phpstan-deprecation-rules": "^1.2.0",
+                "phpstan/phpstan-phpunit": "^1.4.0",
+                "phpstan/phpstan-strict-rules": "^1.6.0",
+                "phpunit/phpunit": "^9.5 || ^10.5"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Use Guzzle ^7 as HTTP client",
+                "http-interop/http-factory-guzzle": "Factory for guzzlehttp/guzzle"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MeiliSearch\\": "src/",
+                    "Meilisearch\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Clementine",
+                    "email": "clementine@meilisearch.com"
+                }
+            ],
+            "description": "PHP wrapper for the Meilisearch API",
+            "keywords": [
+                "api",
+                "client",
+                "instant",
+                "meilisearch",
+                "php",
+                "search"
+            ],
+            "support": {
+                "issues": "https://github.com/meilisearch/meilisearch-php/issues",
+                "source": "https://github.com/meilisearch/meilisearch-php/tree/v1.10.0"
+            },
+            "time": "2024-08-26T23:09:54+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -6745,6 +6824,85 @@
                 "source": "https://github.com/dompdf/php-svg-lib/tree/0.5.4"
             },
             "time": "2024-04-08T12:52:34+00:00"
+        },
+        {
+            "name": "php-http/discovery",
+            "version": "1.19.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-http/discovery.git",
+                "reference": "0700efda8d7526335132360167315fdab3aeb599"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-http/discovery/zipball/0700efda8d7526335132360167315fdab3aeb599",
+                "reference": "0700efda8d7526335132360167315fdab3aeb599",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0|^2.0",
+                "php": "^7.1 || ^8.0"
+            },
+            "conflict": {
+                "nyholm/psr7": "<1.0",
+                "zendframework/zend-diactoros": "*"
+            },
+            "provide": {
+                "php-http/async-client-implementation": "*",
+                "php-http/client-implementation": "*",
+                "psr/http-client-implementation": "*",
+                "psr/http-factory-implementation": "*",
+                "psr/http-message-implementation": "*"
+            },
+            "require-dev": {
+                "composer/composer": "^1.0.2|^2.0",
+                "graham-campbell/phpspec-skip-example-extension": "^5.0",
+                "php-http/httplug": "^1.0 || ^2.0",
+                "php-http/message-factory": "^1.0",
+                "phpspec/phpspec": "^5.1 || ^6.1 || ^7.3",
+                "sebastian/comparator": "^3.0.5 || ^4.0.8",
+                "symfony/phpunit-bridge": "^6.4.4 || ^7.0.1"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Http\\Discovery\\Composer\\Plugin",
+                "plugin-optional": true
+            },
+            "autoload": {
+                "psr-4": {
+                    "Http\\Discovery\\": "src/"
+                },
+                "exclude-from-classmap": [
+                    "src/Composer/Plugin.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com"
+                }
+            ],
+            "description": "Finds and installs PSR-7, PSR-17, PSR-18 and HTTPlug implementations",
+            "homepage": "http://php-http.org",
+            "keywords": [
+                "adapter",
+                "client",
+                "discovery",
+                "factory",
+                "http",
+                "message",
+                "psr17",
+                "psr7"
+            ],
+            "support": {
+                "issues": "https://github.com/php-http/discovery/issues",
+                "source": "https://github.com/php-http/discovery/tree/1.19.4"
+            },
+            "time": "2024-03-29T13:00:05+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -8587,6 +8745,65 @@
                 }
             ],
             "time": "2023-12-25T11:46:58+00:00"
+        },
+        {
+            "name": "stripe/stripe-php",
+            "version": "v14.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stripe/stripe-php.git",
+                "reference": "7e1c4b5d2beadeaeddc42fd1f8a50fdb18b37f30"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/7e1c4b5d2beadeaeddc42fd1f8a50fdb18b37f30",
+                "reference": "7e1c4b5d2beadeaeddc42fd1f8a50fdb18b37f30",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "3.5.0",
+                "phpstan/phpstan": "^1.2",
+                "phpunit/phpunit": "^5.7 || ^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stripe\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stripe and contributors",
+                    "homepage": "https://github.com/stripe/stripe-php/contributors"
+                }
+            ],
+            "description": "Stripe PHP Library",
+            "homepage": "https://stripe.com/",
+            "keywords": [
+                "api",
+                "payment processing",
+                "stripe"
+            ],
+            "support": {
+                "issues": "https://github.com/stripe/stripe-php/issues",
+                "source": "https://github.com/stripe/stripe-php/tree/v14.10.0"
+            },
+            "time": "2024-06-13T21:04:47+00:00"
         },
         {
             "name": "symfony/clock",
@@ -10959,16 +11176,16 @@
         },
         {
             "name": "technikermathe/blade-lucide-icons",
-            "version": "v3.61.0",
+            "version": "v3.63.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PascaleBeier/blade-lucide-icons.git",
-                "reference": "7e97df7e7692e558480c908fd842d5456c03e61d"
+                "reference": "f7947fd758d8d37902ad33de94f0d64732ec30f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PascaleBeier/blade-lucide-icons/zipball/7e97df7e7692e558480c908fd842d5456c03e61d",
-                "reference": "7e97df7e7692e558480c908fd842d5456c03e61d",
+                "url": "https://api.github.com/repos/PascaleBeier/blade-lucide-icons/zipball/f7947fd758d8d37902ad33de94f0d64732ec30f5",
+                "reference": "f7947fd758d8d37902ad33de94f0d64732ec30f5",
                 "shasum": ""
             },
             "require": {
@@ -11018,9 +11235,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PascaleBeier/blade-lucide-icons/issues",
-                "source": "https://github.com/PascaleBeier/blade-lucide-icons/tree/v3.61.0"
+                "source": "https://github.com/PascaleBeier/blade-lucide-icons/tree/v3.63.0"
             },
-            "time": "2024-08-26T00:06:23+00:00"
+            "time": "2024-09-02T00:06:28+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -16105,9 +16322,18 @@
             "time": "2024-04-29T21:42:39+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "lunarphp/lunar",
+            "version": "dev-update-container-resolution",
+            "alias": "1.0.0-beta.1",
+            "alias_normalized": "1.0.0.0-beta1"
+        }
+    ],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "lunarphp/lunar": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
