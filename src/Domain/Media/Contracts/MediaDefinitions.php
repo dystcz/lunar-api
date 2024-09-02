@@ -3,14 +3,15 @@
 namespace Dystcz\LunarApi\Domain\Media\Contracts;
 
 use Dystcz\LunarApi\Domain\Media\Data\ConversionOptions;
+use Lunar\Base\MediaDefinitionsInterface;
 use Spatie\MediaLibrary\HasMedia;
 
-interface MediaConversion
+interface MediaDefinitions extends MediaDefinitionsInterface
 {
     /**
      * Apply conversions to a model.
      */
-    public function apply(HasMedia $model): void;
+    public static function applyConversions(HasMedia $model): void;
 
     /**
      * Get conversions.

@@ -7,17 +7,19 @@ use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdownItem;
 use Lunar\DataTypes\Price;
+use Lunar\Models\Contracts\Cart as CartContract;
 
 class ApplyPayment
 {
     /**
      * Called just before cart totals are calculated.
      *
-     * @param  Closure(Cart): void  $next
-     * @return void
+     * @param  Closure(CartContract): void  $next
+     * @return Closure
      */
-    public function handle(Cart $cart, Closure $next)
+    public function handle(CartContract $cart, Closure $next): mixed
     {
+        /** @var Cart $cart */
         $paymentSubTotal = 0;
         $paymentBreakdown = $cart->paymentBreakdown ?: new PaymentBreakdown;
         $paymentOption = $cart->paymentOption ?: $cart->getPaymentOption();

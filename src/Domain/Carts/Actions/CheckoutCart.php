@@ -10,6 +10,7 @@ use Dystcz\LunarApi\Domain\Payments\Actions\CreatePaymentIntent;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\CartSessionInterface;
+use Lunar\Models\Contracts\Cart as CartContract;
 
 class CheckoutCart implements CheckoutCartContract
 {
@@ -30,8 +31,9 @@ class CheckoutCart implements CheckoutCartContract
     /**
      * Checkout cart.
      */
-    public function __invoke(Cart $cart): Order
+    public function __invoke(CartContract $cart): Order
     {
+        /** @var Cart $cart */
         /** @var Order $order */
         $order = $cart->createOrder(
             allowMultipleOrders: Config::get('lunar-api.general.checkout.multiple_orders_per_cart', false),

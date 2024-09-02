@@ -6,6 +6,7 @@ use Dystcz\LunarApi\Base\Traits\InteractsWithAvailability as BaseInteractsWithAv
 use Dystcz\LunarApi\Domain\Products\Enums\Availability;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
+use Lunar\Models\Contracts\ProductVariant as ProductVariantContract;
 
 trait InteractsWithAvailability
 {
@@ -57,7 +58,8 @@ trait InteractsWithAvailability
         /** @var Product $this */
         $this->setAttribute(
             'variants_availability',
-            $this->variants->map(function (ProductVariant $variant) {
+            $this->variants->map(function (ProductVariantContract $variant) {
+                /** @var ProductVariant $variant */
                 if (! $variant->relationLoaded('product')) {
                     $variant->setRelation('product', $this);
                 }

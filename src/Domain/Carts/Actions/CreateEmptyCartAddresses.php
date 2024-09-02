@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\Carts\Actions;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Support\Actions\Action;
+use Lunar\Models\Contracts\Cart as CartContract;
 
 class CreateEmptyCartAddresses extends Action
 {
@@ -12,8 +13,9 @@ class CreateEmptyCartAddresses extends Action
     /**
      * Create empty addresses for a cart.
      */
-    public function handle(Cart $cart): void
+    public function handle(CartContract $cart): void
     {
+        /** @var Cart $cart */
         $cart->setShippingAddress([
             'country_id' => null,
             'title' => null,

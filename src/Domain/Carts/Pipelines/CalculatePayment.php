@@ -8,17 +8,19 @@ use Lunar\Base\ValueObjects\Cart\TaxBreakdown;
 use Lunar\Base\ValueObjects\Cart\TaxBreakdownAmount;
 use Lunar\DataTypes\Price;
 use Lunar\Facades\Taxes;
+use Lunar\Models\Contracts\Cart as CartContract;
 
 class CalculatePayment
 {
     /**
      * Called just before cart totals are calculated.
      *
-     * @param  Closure(Cart): void  $next
-     * @return void
+     * @param  Closure(CartContract): void  $next
+     * @return Closure
      */
-    public function handle(Cart $cart, Closure $next)
+    public function handle(CartContract $cart, Closure $next): mixed
     {
+        /** @var Cart $cart */
         $paymentOption = $cart->paymentOption ?: $cart->getPaymentOption();
 
         if (! $paymentOption) {
