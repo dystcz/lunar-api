@@ -5,6 +5,7 @@ export default defineConfig({
   lang: "en-US",
   title: "Lunar API Documentation",
   description: "API layer for Lunar ecommerce package",
+  base: "/lunar-api/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [{ text: "Home", link: "/" }],
