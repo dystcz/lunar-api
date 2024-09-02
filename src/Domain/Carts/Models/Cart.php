@@ -10,6 +10,7 @@ use Dystcz\LunarApi\Domain\Carts\Traits\InteractsWithPaymentOptions;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown;
 use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
+use Lunar\Base\ValueObjects\Cart\TaxBreakdown;
 use Lunar\DataTypes\Price;
 use Lunar\Models\Cart as LunarCart;
 
@@ -21,6 +22,7 @@ use Lunar\Models\Cart as LunarCart;
  * @property PaymentOption|null $paymentOptionOverride
  * @property array $paymentEstimateMeta
  * @property PaymentBreakdown|null $paymentBreakdown
+ * @property TaxBreakdown|null $paymentTaxBreakdown
  *
  * @method Cart setPaymentOption(PaymentOption $option, bool $refresh = true)
  * @method Cart unsetPaymentOption(PaymentOption $option, bool $refresh = true)

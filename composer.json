@@ -29,7 +29,7 @@
     "laravel-json-api/hashids": "^3.0",
     "laravel-json-api/laravel": "^4.0",
     "laravel-json-api/non-eloquent": "^4.0",
-    "lunarphp/lunar": "^1.0.0-alpha"
+    "lunarphp/lunar": "^1.0.0"
   },
   "require-dev": {
     "barryvdh/laravel-ide-helper": "^3.0",
@@ -51,9 +51,7 @@
     }
   },
   "scripts": {
-    "post-update-cmd": [
-      "vendor/bin/testbench ide-helper:generate"
-    ],
+    "post-update-cmd": [],
     "post-autoload-dump": "@composer run prepare",
     "artisan": "vendor/bin/testbench",
     "clear": "vendor/bin/testbench package:purge --ansi",

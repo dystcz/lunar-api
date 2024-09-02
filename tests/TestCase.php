@@ -27,8 +27,6 @@ use Lunar\Models\TaxClass;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-use function Orchestra\Testbench\workbench_path;
-
 abstract class TestCase extends OrchestraTestCase
 {
     use JsonApiTestHelpers;

@@ -201,6 +201,20 @@ class LunarApiServiceProvider extends ServiceProvider
             $orderPipelines[$fillOrderFromCartIndex] = \Dystcz\LunarApi\Domain\Orders\Pipelines\FillOrderFromCart::class;
         }
 
+        // NOTE: Testing
+        // Swap create order lines pipeline
+        $createOrderIndex = array_search(\Lunar\Pipelines\Order\Creation\CreateOrderLines::class, $orderPipelines);
+        if (array_key_exists($createOrderIndex, $orderPipelines)) {
+            $orderPipelines[$createOrderIndex] = \Dystcz\LunarApi\Domain\Orders\Pipelines\CreateOrderLines::class;
+        }
+
+        // NOTE: Testing
+        // Swap create shipping line pipeline
+        $createShippingLineIndex = array_search(\Lunar\Pipelines\Order\Creation\CreateShippingLine::class, $orderPipelines);
+        if (array_key_exists($createShippingLineIndex, $orderPipelines)) {
+            $orderPipelines[$createShippingLineIndex] = \Dystcz\LunarApi\Domain\Orders\Pipelines\CreateShippingLine::class;
+        }
+
         // Push ApplyPayment pipeline after ApplyShipping pipeline
         $createShippingLineIndex = array_search(\Lunar\Pipelines\Order\Creation\CreateShippingLine::class, $orderPipelines);
         if (array_key_exists($createShippingLineIndex, $orderPipelines)) {
@@ -334,14 +348,6 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     protected function registerObservers(): void
     {
-        // NOTE: Use custom observer, because Lunar ignores only shipping purchasable type
-        $orderLineEventDispatcher = \Lunar\Models\OrderLine::getEventDispatcher();
-        $orderLineEventDispatcher->forget('eloquent.creating: '.\Lunar\Models\OrderLine::class);
-        $orderLineEventDispatcher->forget('eloquent.updating: '.\Lunar\Models\OrderLine::class);
-
-        $orderLine = ModelManifest::getRegisteredModel(\Lunar\Models\OrderLine::class);
-
-        \Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine::observe(\Dystcz\LunarApi\Domain\OrderLines\Observers\OrderLineObserver::class);
         \Lunar\Models\Order::observe(\Dystcz\LunarApi\Domain\Orders\Observers\OrderObserver::class);
     }
 
@@ -350,9 +356,9 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     protected function registerModels(): void
     {
-        ModelManifest::register(
-            DomainConfigCollection::make()->getModelsForModelManifest(),
-        );
+        foreach (DomainConfigCollection::make()->getModelsForModelManifest() as $contract => $model) {
+            ModelManifest::replace($contract, $model);
+        }
     }
 
     /**
