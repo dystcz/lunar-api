@@ -1,0 +1,36 @@
+# name: Deploy docs preview to Pages
+#
+# on: [pull_request]
+#
+# concurrency: preview-${{ github.ref }}
+#
+# defaults:
+#   run:
+#     working-directory: ./docs
+#
+# jobs:
+#   # Deploy preview job
+#   deploy-preview:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0
+#       - name: Setup Node
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 20
+#           cache: npm
+#           cache-dependency-path: "./docs/package-lock.json"
+#       - name: Setup Pages
+#         uses: actions/configure-pages@v4
+#       - name: Install dependencies
+#         run: npm ci
+#       - name: Build with VitePress
+#         run: npm run docs:build --base=/lunar-api/docs/preview/${{ github.event.number }}
+#       - name: Deploy preview
+#         uses: rossjrw/pr-preview-action@v1
+#         with:
+#           source-dir: docs/.vitepress/dist
+#           umbrella-dir: docs/preview
