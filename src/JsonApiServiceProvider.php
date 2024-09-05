@@ -45,7 +45,7 @@ class JsonApiServiceProvider extends ServiceProvider
         // Register schema manifest implementation
         $this->app->singleton(
             \Dystcz\LunarApi\Base\Contracts\SchemaManifest::class,
-            fn ($app, $params) => new \Dystcz\LunarApi\Base\Manifests\SchemaManifest($params),
+            fn ($app, $params) => new \Dystcz\LunarApi\Base\Manifests\SchemaManifest,
         );
 
         // Register resource extension implementation
@@ -57,7 +57,7 @@ class JsonApiServiceProvider extends ServiceProvider
         // Register resource manifest implementation
         $this->app->singleton(
             \Dystcz\LunarApi\Base\Contracts\ResourceManifest::class,
-            fn ($app, $params) => new \Dystcz\LunarApi\Base\Manifests\ResourceManifest($params),
+            fn ($app) => new \Dystcz\LunarApi\Base\Manifests\ResourceManifest,
         );
     }
 }
