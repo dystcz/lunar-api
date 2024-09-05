@@ -21,10 +21,16 @@ use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema as BaseSchema;
 use LaravelJsonApi\HashIds\HashId;
+use LogicException;
 use Lunar\Facades\ModelManifest;
 
 abstract class Schema extends BaseSchema implements ExtendableContract, SchemaContract
 {
+    /**
+     * {@inheritDoc}
+     */
+    public static string $model;
+
     /**
      * The maximum depth of include paths.
      */
