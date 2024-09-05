@@ -15,6 +15,6 @@ class GetModelKey extends Action
      */
     public function handle(Model|string $model): string
     {
-        return Str::snake(Str::pluralStudly(class_basename($this)));
+        return Str::snake(class_basename($this));
     }
 }
