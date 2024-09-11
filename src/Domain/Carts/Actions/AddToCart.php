@@ -6,6 +6,7 @@ use Dystcz\LunarApi\Domain\CartLines\Data\CartLineData;
 use Dystcz\LunarApi\Domain\CartLines\Models\CartLine;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Support\Actions\Action;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\App;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
@@ -26,7 +27,7 @@ class AddToCart extends Action
         /** @var Cart $cart */
         $cart = $this->getCart();
 
-        $purchasable = $data->purchasable_type::find($data->purchasable_id);
+        $purchasable = Relation::getMorphedModel($data->purchasable_type)::find($data->purchasable_id);
 
         $cart = $cart->add(
             purchasable: $purchasable,
