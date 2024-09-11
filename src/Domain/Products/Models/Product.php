@@ -20,9 +20,8 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Config;
 use Lunar\Facades\ModelManifest;
 use Lunar\Models\Contracts\Attribute as AttributeContract;
-use Lunar\Models\Contracts\Price as PriceContract;
-use Lunar\Models\Contracts\ProductVariant as ProductVariantContract;
 use Lunar\Models\Product as LunarProduct;
+use Lunar\Models\ProductVariant;
 
 /**
  * @method static ProductBuilder query()
@@ -95,14 +94,14 @@ class Product extends LunarProduct implements HasAvailability, Translatable
     {
         return $this
             ->hasManyThrough(
-                ModelManifest::get(PriceContract::class),
-                ModelManifest::get(ProductVariantContract::class),
+                Price::modelClass(),
+                ProductVariant::modelClass(),
                 'product_id',
                 'priceable_id'
             )
             ->where(
                 'priceable_type',
-                ModelManifest::get(ProductVariantContract::class)
+                (new (ProductVariant::modelClass()))->getMorphClass()
             );
     }
 
@@ -114,19 +113,17 @@ class Product extends LunarProduct implements HasAvailability, Translatable
         $pricesTable = $this->prices()->getModel()->getTable();
         $variantsTable = $this->variants()->getModel()->getTable();
 
-        $productVariantClass = ModelManifest::get(ProductVariantContract::class);
-
         return $this
             ->hasOneThrough(
-                ModelManifest::get(PriceContract::class),
-                ModelManifest::get(ProductVariantContract::class),
+                Price::modelClass(),
+                ProductVariant::modelClass(),
                 'product_id',
                 'priceable_id'
             )
-            ->where($pricesTable.'.id', function ($query) use ($variantsTable, $pricesTable, $productVariantClass) {
+            ->where($pricesTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
                 $query->select($pricesTable.'.id')
                     ->from($pricesTable)
-                    ->where('priceable_type', (new $productVariantClass)->getMorphClass())
+                    ->where('priceable_type', (new (ProductVariant::modelClass()))->getMorphClass())
                     ->whereIn('priceable_id', function ($query) use ($variantsTable) {
                         $query->select('variants.id')
                             ->from($variantsTable.' as variants')
@@ -145,19 +142,17 @@ class Product extends LunarProduct implements HasAvailability, Translatable
         $pricesTable = $this->prices()->getModel()->getTable();
         $variantsTable = $this->variants()->getModel()->getTable();
 
-        $productVariantClass = ModelManifest::get(ProductVariantContract::class);
-
         return $this
             ->hasOneThrough(
-                ModelManifest::get(PriceContract::class),
-                ModelManifest::get(ProductVariantContract::class),
+                Price::modelClass(),
+                ProductVariant::modelClass(),
                 'product_id',
                 'priceable_id'
             )
-            ->where($pricesTable.'.id', function ($query) use ($variantsTable, $pricesTable, $productVariantClass) {
+            ->where($pricesTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
                 $query->select($pricesTable.'.id')
                     ->from($pricesTable)
-                    ->where('priceable_type', (new $productVariantClass)->getMorphClass())
+                    ->where('priceable_type', (new (ProductVariant::modelClass()))->getMorphClass())
                     ->whereIn('priceable_id', function ($query) use ($variantsTable) {
                         $query->select('variants.id')
                             ->from($variantsTable.' as variants')
@@ -176,17 +171,15 @@ class Product extends LunarProduct implements HasAvailability, Translatable
         $pricesTable = $this->prices()->getModel()->getTable();
         $variantsTable = $this->variants()->getModel()->getTable();
 
-        $productVariantClass = ModelManifest::get(ProductVariantContract::class);
-
         return $this
-            ->hasOne($productVariantClass)
-            ->where($variantsTable.'.id', function ($query) use ($variantsTable, $pricesTable, $productVariantClass) {
+            ->hasOne(ProductVariant::modelClass())
+            ->where($variantsTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
                 $query
                     ->select('variants.id')
                     ->from($variantsTable.' as variants')
-                    ->join($pricesTable, function ($join) use ($productVariantClass) {
+                    ->join($pricesTable, function ($join) {
                         $join->on('priceable_id', '=', 'variants.id')
-                            ->where('priceable_type', (new $productVariantClass)->getMorphClass());
+                            ->where('priceable_type', (new (ProductVariant::modelClass()))->getMorphClass());
                     })
                     ->whereRaw("variants.product_id = {$variantsTable}.product_id")
                     ->orderBy($pricesTable.'.price', 'asc')
@@ -202,17 +195,15 @@ class Product extends LunarProduct implements HasAvailability, Translatable
         $pricesTable = $this->prices()->getModel()->getTable();
         $variantsTable = $this->variants()->getModel()->getTable();
 
-        $productVariantClass = ModelManifest::get(ProductVariantContract::class);
-
         return $this
-            ->hasOne($productVariantClass)
-            ->where($variantsTable.'.id', function ($query) use ($variantsTable, $pricesTable, $productVariantClass) {
+            ->hasOne(ProductVariant::modelClass())
+            ->where($variantsTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
                 $query
                     ->select('variants.id')
                     ->from($variantsTable.' as variants')
-                    ->join($pricesTable, function ($join) use ($productVariantClass) {
+                    ->join($pricesTable, function ($join) {
                         $join->on('priceable_id', '=', 'variants.id')
-                            ->where('priceable_type', (new $productVariantClass)->getMorphClass());
+                            ->where('priceable_type', (new (ProductVariant::modelClass()))->getMorphClass());
                     })
                     ->whereRaw("variants.product_id = {$variantsTable}.product_id")
                     ->orderBy($pricesTable.'.price', 'desc')
