@@ -9,8 +9,6 @@ use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 
 class UserRouteGroup extends RouteGroup
 {
-    public array $middleware = [];
-
     /**
      * Register routes.
      */
@@ -18,6 +16,7 @@ class UserRouteGroup extends RouteGroup
     {
         JsonApiRoute::server('v1')
             ->prefix('v1')
+            ->middleware('auth')
             ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), UsersController::class)
                     ->relationships(function ($relationships) {

@@ -7,7 +7,6 @@ use Dystcz\LunarApi\Domain\CartLines\Models\CartLine;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Support\Actions\Action;
 use Illuminate\Support\Facades\App;
-use JetBrains\PhpStorm\ArrayShape;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
 
@@ -20,7 +19,6 @@ class AddToCart extends Action
         $this->cartSession = App::make(CartSessionInterface::class);
     }
 
-    #[ArrayShape([Cart::class, CartLine::class])]
     public function handle(CartLineData $data): array
     {
         $cart = $this->getCart();

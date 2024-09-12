@@ -1,3 +1,4 @@
+.env
 /legacy
 /vendor
 composer.phar

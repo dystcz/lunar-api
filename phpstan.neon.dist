@@ -1,18 +1,19 @@
 includes:
-    - ./vendor/nunomaduro/larastan/extension.neon
+    - ./vendor/larastan/larastan/extension.neon
 
 parameters:
+
+    level: 0
 
     paths:
         - src
 
-    # The level 9 is the highest level
-    level: 5
+    excludePaths:
+        - /tests/*
+        - /vendor/*
+
+    checkOctaneCompatibility: true
 
     ignoreErrors:
-        - '#PHPDoc tag @var#'
-
-    excludePaths:
-        - ./*/*/FileToBeExcluded.php
-
-    checkMissingIterableValueType: false
+        -
+            message: '#Unsafe usage of new static\(\).#'

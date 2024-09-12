@@ -61,7 +61,7 @@ class LunarApiServiceProvider extends ServiceProvider
         // Register payment modifiers.
         $this->app->singleton(
             \Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifiers::class,
-            fn (Application $app) => new \Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifiers(),
+            fn (Application $app) => new \Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifiers,
         );
 
         // Register payment manifest.
