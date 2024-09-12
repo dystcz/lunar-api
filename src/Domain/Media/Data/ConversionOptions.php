@@ -14,8 +14,7 @@ class ConversionOptions implements Arrayable
         public array $collections = [],
         public bool $responsive = true,
         public bool $queue = true,
-    ) {
-    }
+    ) {}
 
     /**
      * Static constructor.

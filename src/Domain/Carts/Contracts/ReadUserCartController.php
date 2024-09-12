@@ -7,6 +7,4 @@ use Dystcz\LunarApi\Base\Contracts\Swappable;
 /**
  * @see \Dystcz\LunarApi\Domain\Carts\Http\Controllers\ReadUserCartController
  */
-interface ReadUserCartController extends Swappable
-{
-}
+interface ReadUserCartController extends Swappable {}

@@ -11,6 +11,5 @@ class OrderPaymentSuccessful
 
     public function __construct(
         public Order $order,
-    ) {
-    }
+    ) {}
 }

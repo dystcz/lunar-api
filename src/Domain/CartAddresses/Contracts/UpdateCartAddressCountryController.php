@@ -4,6 +4,4 @@ namespace Dystcz\LunarApi\Domain\CartAddresses\Contracts;
 
 use Dystcz\LunarApi\Base\Contracts\Swappable;
 
-interface UpdateCartAddressCountryController extends Swappable
-{
-}
+interface UpdateCartAddressCountryController extends Swappable {}

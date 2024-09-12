@@ -15,7 +15,7 @@ jobs:
         php: [8.2, 8.3]
         laravel: [10]
 
-    name: "PHP ${{ matrix.php }} - L${{ matrix.laravel }} ${{ matrix.dependencies == 'highest' && '↑' || '↓' }}"
+    name: "PHP ${{ matrix.php }} - L${{ matrix.laravel }}"
 
     runs-on: "ubuntu-latest"
 
@@ -32,7 +32,7 @@ jobs:
           coverage: "none"
 
       - name: "Install dependencies from composer.json"
-        run: "composer update --with='laravel/framework:${{ matrix.laravel }}' --no-interaction --no-progress"
+        run: "composer update --with='illuminate/support:${{ matrix.laravel }}' --no-interaction --no-progress"
 
       - name: "Run PHPStan"
         run: ./vendor/bin/phpstan

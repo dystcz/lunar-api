@@ -49,7 +49,7 @@ class AttributeData extends Attribute
     ) {
         parent::__construct($fieldName, $column);
 
-        $this->attributes = $attributes ?? new Collection();
+        $this->attributes = $attributes ?? new Collection;
     }
 
     /**
