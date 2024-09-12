@@ -448,11 +448,6 @@ class LunarApiServiceProvider extends ServiceProvider
     protected function bindModels(): void
     {
         $this->app->bind(
-            \Dystcz\LunarApi\Domain\Carts\Contracts\Cart::class,
-            \Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
-        );
-
-        $this->app->bind(
             \Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart::class,
             function (Application $app) {
                 /** @var \Lunar\Managers\CartSessionManager */
