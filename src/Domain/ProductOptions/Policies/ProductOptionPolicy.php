@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\ProductOptions\Policies;
 
-use Dystcz\LunarApi\Domain\Products\Models\ProductOption;
+use Dystcz\LunarApi\Domain\ProductOptions\Models\ProductOption;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
