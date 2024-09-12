@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\OrderAddresses\Policies;
 
-use Dystcz\LunarApi\Domain\OrderAddresses\Models\OrderAddress;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\OrderAddress;
 
 class OrderAddressPolicy
 {

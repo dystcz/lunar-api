@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Orders\Policies;
 
 use Dystcz\LunarApi\Domain\Checkout\Enums\CheckoutProtectionStrategy;
-use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
@@ -11,6 +10,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
+use Lunar\Models\Contracts\Order;
 
 class OrderPolicy
 {

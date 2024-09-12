@@ -2,13 +2,14 @@
 
 namespace Dystcz\LunarApi\Domain\CartLines\Policies;
 
-use Dystcz\LunarApi\Domain\CartLines\Models\CartLine;
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Lunar\Base\CartSessionInterface;
+use Lunar\Models\Contracts\Cart;
+use Lunar\Models\Contracts\CartLine;
 
 class CartLinePolicy
 {
@@ -74,7 +75,7 @@ class CartLinePolicy
     public function check(?Authenticatable $user, CartLine $cartLine): bool
     {
         /** @var Cart $cart */
-        $cart = $this->cartSession->current();
+        $cart = App::make(CurrentSessionCart::class);
 
         return $cart->lines->contains($cartLine->id);
     }

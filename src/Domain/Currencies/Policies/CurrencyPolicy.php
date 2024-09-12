@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Currencies\Policies;
 
-use Dystcz\LunarApi\Domain\Currencies\Models\Currency;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Currency;
 
 class CurrencyPolicy
 {

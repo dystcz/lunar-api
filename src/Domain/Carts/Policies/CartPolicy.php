@@ -2,12 +2,12 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Policies;
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Lunar\Base\CartSessionInterface;
+use Lunar\Models\Contracts\Cart;
 
 class CartPolicy
 {
@@ -15,16 +15,9 @@ class CartPolicy
 
     private Request $request;
 
-    /**
-     * @var CartSessionManager
-     */
-    private CartSessionInterface $cartSession;
-
     public function __construct()
     {
         $this->request = App::get('request');
-
-        $this->cartSession = App::make(CartSessionInterface::class);
     }
 
     /**
@@ -120,6 +113,6 @@ class CartPolicy
      */
     protected function check(?Authenticatable $user, Cart $cart): bool
     {
-        return (string) $this->cartSession->current()?->getRouteKey() === (string) $cart->getRouteKey();
+        return (string) App::make(CurrentSessionCart::class)?->getRouteKey() === (string) $cart->getRouteKey();
     }
 }

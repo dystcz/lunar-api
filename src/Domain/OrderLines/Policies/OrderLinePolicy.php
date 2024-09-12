@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\OrderLines\Policies;
 
-use Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\OrderLine;
 
 class OrderLinePolicy
 {

@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Countries\Policies;
 
-use Dystcz\LunarApi\Domain\Countries\Models\Country;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Country;
 
 class CountryPolicy
 {

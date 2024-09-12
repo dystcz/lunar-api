@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Prices\Policies;
 
-use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Price;
 
 class PricePolicy
 {

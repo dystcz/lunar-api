@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Collections\Policies;
 
-use Dystcz\LunarApi\Domain\Collections\Models\Collection;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Collection;
 
 class CollectionPolicy
 {

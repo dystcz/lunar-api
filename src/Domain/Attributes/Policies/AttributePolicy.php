@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Attributes\Policies;
 
-use Dystcz\LunarApi\Domain\Attributes\Models\Attribute;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Attribute;
 
 class AttributePolicy
 {

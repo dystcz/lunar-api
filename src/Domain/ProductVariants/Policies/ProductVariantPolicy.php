@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Policies;
 
-use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\ProductVariant;
 
 class ProductVariantPolicy
 {

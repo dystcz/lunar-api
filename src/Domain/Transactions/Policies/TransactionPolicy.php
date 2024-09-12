@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Transactions\Policies;
 
-use Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Transaction;
 
 class TransactionPolicy
 {
@@ -21,7 +21,7 @@ class TransactionPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, OrderLine $line): bool
+    public function view(?Authenticatable $user, Transaction $line): bool
     {
         return true;
     }
@@ -37,7 +37,7 @@ class TransactionPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, OrderLine $line): bool
+    public function update(?Authenticatable $user, Transaction $line): bool
     {
         return false;
     }
@@ -45,7 +45,7 @@ class TransactionPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, OrderLine $line): bool
+    public function delete(?Authenticatable $user, Transaction $line): bool
     {
         return false;
     }

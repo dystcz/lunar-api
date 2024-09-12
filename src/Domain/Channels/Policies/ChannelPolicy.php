@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Channels\Policies;
 
-use Dystcz\LunarApi\Domain\Channels\Models\Channel;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Channel;
 
 class ChannelPolicy
 {

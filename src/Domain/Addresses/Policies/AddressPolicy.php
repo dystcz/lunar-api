@@ -2,10 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\Addresses\Policies;
 
-use Dystcz\LunarApi\Domain\Addresses\Models\Address;
-use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Address;
+use Lunar\Models\Customer;
 
 class AddressPolicy
 {
@@ -72,7 +72,7 @@ class AddressPolicy
      */
     public function check(Authenticatable $user, Address $address): bool
     {
-        $customersTable = (new Customer)->getTable();
+        $customersTable = (new (Customer::modelClass()))->getTable();
 
         /** @var User $user */
         return $user

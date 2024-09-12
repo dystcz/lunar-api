@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Tags\Policies;
 
-use Dystcz\LunarApi\Domain\Tags\Models\Tag;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Tag;
 
 class TagPolicy
 {

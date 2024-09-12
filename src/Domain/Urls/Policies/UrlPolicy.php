@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Urls\Policies;
 
-use Dystcz\LunarApi\Domain\Urls\Models\Url;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Url;
 
 class UrlPolicy
 {
