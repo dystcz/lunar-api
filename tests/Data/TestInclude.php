@@ -19,8 +19,7 @@ class TestInclude
         public ?Factory $factory = null,
         public ?string $factory_relation = null,
         public string $factory_relation_method = 'has',
-    ) {
-    }
+    ) {}
 
     /**
      * Get relation.
