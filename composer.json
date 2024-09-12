@@ -33,6 +33,7 @@
   },
   "require-dev": {
     "barryvdh/laravel-ide-helper": "^3.0",
+    "larastan/larastan": "^2.0",
     "laravel-json-api/testing": "^3.0",
     "laravel/pint": "^1.7",
     "orchestra/testbench": "^9.0",
