@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Payments\Contracts;
 
-use Dystcz\LunarApi\Base\Contracts\Swappable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

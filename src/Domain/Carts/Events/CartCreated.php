@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Events;
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Illuminate\Foundation\Events\Dispatchable;
+use Lunar\Models\Contracts\Cart;
 
 class CartCreated
 {
