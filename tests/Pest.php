@@ -1,6 +1,6 @@
 <?php
 
-use Dystcz\LunarApi\Support\Models\Actions\GetModelKey;
+use Dystcz\LunarApi\Support\Models\Actions\ModelKey;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
 use Illuminate\Foundation\Testing\TestCase as IlluminateTestCase;
 use Illuminate\Support\Collection;
@@ -41,7 +41,7 @@ function decodeHashedId(BaseModel $model, mixed $id): mixed
     /** @var \Vinkla\Hashids\Facades\Hashids $hashids */
     $hashids = App::get('hashids');
 
-    return $hashids->connection((new GetModelKey)($model))->decode($id);
+    return $hashids->connection(ModelKey::get($model))->decode($id);
 }
 
 /**
