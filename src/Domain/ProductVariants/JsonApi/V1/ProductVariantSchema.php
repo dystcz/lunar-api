@@ -110,7 +110,7 @@ class ProductVariantSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasMany::make('other-variants', 'otherVariants')
+            HasMany::make('other-product-variants', 'otherVariants')
                 ->type(ModelType::get(ProductVariant::class))
                 ->canCount()
                 ->countAs('other_variants_count'),

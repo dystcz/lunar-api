@@ -174,7 +174,7 @@ it('can show a product variant with other variants included', function () {
     $response = $this
         ->jsonApi()
         ->expects('product-variants')
-        ->includePaths('other-variants')
+        ->includePaths('other-product-variants')
         ->get(serverUrl('/product-variants/').$variant->getRouteKey());
 
     $response
@@ -200,11 +200,11 @@ it('can show a product with other variants count', function () {
     $response = $this
         ->jsonApi()
         ->expects('product-variants')
-        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}?with-count=other-variants"));
+        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}?with-count=other-product-variants"));
 
     $response
         ->assertSuccessful()
         ->assertFetchedOne($variant);
 
-    expect($response->json('data.relationships.other-variants.meta.count'))->toBe(3);
+    expect($response->json('data.relationships.other-product-variants.meta.count'))->toBe(3);
 })->group('variants');

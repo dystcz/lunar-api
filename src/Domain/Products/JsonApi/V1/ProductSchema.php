@@ -76,9 +76,9 @@ class ProductSchema extends Schema
             'brand.default-url',
             'brand.thumbnail',
 
-            'cheapest-variant',
-            'cheapest-variant.images',
-            'cheapest-variant.prices',
+            'cheapest-product-variant',
+            'cheapest-product-variant.images',
+            'cheapest-product-variant.prices',
 
             'collections',
             'collections.default-url',
@@ -130,11 +130,11 @@ class ProductSchema extends Schema
                 ->canCount()
                 ->countAs('channels_count'),
 
-            HasOne::make('cheapest-variant', 'cheapestVariant')
+            HasOne::make('cheapest-product-variant', 'cheapestVariant')
                 ->type(ModelType::get(ProductVariant::class))
                 ->retainFieldName(),
 
-            HasOne::make('most-expensive-variant', 'mostExpensiveVariant')
+            HasOne::make('most-expensive-product-variant', 'mostExpensiveVariant')
                 ->type(ModelType::get(ProductVariant::class))
                 ->retainFieldName(),
 
@@ -151,7 +151,7 @@ class ProductSchema extends Schema
                 ->canCount()
                 ->countAs('images_count'),
 
-            HasMany::make('inverse-associations', 'inverseAssociations')
+            HasMany::make('inverse-product-associations', 'inverseAssociations')
                 ->type(ModelType::get(ProductAssociation::class))
                 ->retainFieldName()
                 ->canCount()

@@ -20,7 +20,7 @@ it('can list other product variants through relationship', function () {
     $response = $this
         ->jsonApi()
         ->expects('product-variants')
-        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}/other-variants"));
+        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}/other-product-variants"));
 
     $response
         ->assertSuccessful()
