@@ -8,11 +8,11 @@ use Dystcz\LunarApi\Domain\Payments\Enums\PaymentIntentStatus;
 use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdapter;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Lunar\Models\Cart;
+use Lunar\Models\Contracts\Cart as CartContract;
 
 class TestPaymentAdapter extends PaymentAdapter
 {
-    public function createIntent(Cart $cart, array $meta = [], ?int $amount = null): PaymentIntentContract
+    public function createIntent(CartContract $cart, array $meta = [], ?int $amount = null): PaymentIntentContract
     {
         $intent = [
             'id' => 1,

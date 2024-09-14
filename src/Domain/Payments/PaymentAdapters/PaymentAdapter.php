@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Payments\PaymentAdapters;
 
 use BadMethodCallException;
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent;
 use Dystcz\LunarApi\Domain\Payments\Enums\TransactionType;
@@ -14,8 +15,9 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\MessageBag;
 use Lunar\Exceptions\Carts\CartException;
-use Lunar\Models\Cart;
-use Lunar\Models\Transaction;
+use Lunar\Models\Contracts\Cart as CartContract;
+use Lunar\Models\Contracts\Order as OrderContract;
+use Lunar\Models\Contracts\Transaction as TransactionContract;
 
 abstract class PaymentAdapter
 {
@@ -44,7 +46,7 @@ abstract class PaymentAdapter
      * Create payment intent.
      *
      * @param  array<string,mixed>  $meta */
-    abstract public function createIntent(Cart $cart, array $meta = [], ?int $amount = null): PaymentIntent;
+    abstract public function createIntent(CartContract $cart, array $meta = [], ?int $amount = null): PaymentIntent;
 
     /**
      * Handle incoming webhook call.
@@ -59,7 +61,7 @@ abstract class PaymentAdapter
      * @throws BadMethodCallException
      */
     public function createTransaction(
-        Cart|Order $model,
+        CartContract|OrderContract $model,
         TransactionType|string $type,
         string $reference,
         string $status,
@@ -67,9 +69,9 @@ abstract class PaymentAdapter
         ?int $amount = null,
         ?int $parentId = null,
         array $meta = [],
-    ): Transaction {
+    ): TransactionContract {
 
-        if (! $order = $model instanceof Cart ? $this->getOrCreateOrder($model) : $model) {
+        if (! $order = $model instanceof CartContract ? $this->getOrCreateOrder($model) : $model) {
             throw new CartException(new MessageBag(['Cart has no order.']));
         }
 
@@ -95,7 +97,7 @@ abstract class PaymentAdapter
      *
      * @throws BadMethodCallException
      */
-    public function createIntentTransaction(Cart $cart, PaymentIntent $paymentIntent, array $meta = []): Transaction
+    public function createIntentTransaction(CartContract $cart, PaymentIntent $paymentIntent, array $meta = []): TransactionContract
     {
         if (! $order = $this->getOrCreateOrder($cart)) {
             throw new CartException(new MessageBag(['Cart has no order.']));
@@ -120,13 +122,16 @@ abstract class PaymentAdapter
      * @throws BadMethodCallException
      */
     protected function getTransactionData(
-        Order $order,
+        OrderContract $order,
         TransactionType|string $type,
         int $amount,
         string $reference,
         string $status,
         array $meta = [],
     ): TransactionData {
+
+        /** @var Order $order */
+
         return new TransactionData(
             order_id: $order->getRouteKey(),
             type: $type instanceof TransactionType ? $type->value : $type,
@@ -147,10 +152,12 @@ abstract class PaymentAdapter
      * @throws BadMethodCallException
      */
     protected function getTransactionDataForIntent(
-        Order $order,
+        OrderContract $order,
         PaymentIntent $paymentIntent,
         array $meta = [],
     ): TransactionData {
+
+        /** @var Order $order */
         return new TransactionData(
             order_id: $order->getRouteKey(),
             type: TransactionType::INTENT->value,
@@ -168,8 +175,9 @@ abstract class PaymentAdapter
      *
      * @throws \Lunar\Exceptions\DisallowMultipleCartOrdersException
      */
-    protected function getOrCreateOrder(Cart $cart): Order
+    protected function getOrCreateOrder(CartContract $cart): OrderContract
     {
+        /** @var Cart $cart */
         $allowMultiple = Config::get('lunar-api.general.checkout.multiple_orders_per_cart', false);
 
         return $this->getOrderFromCart($cart) ?: $cart->createOrder(allowMultipleOrders: $allowMultiple);
@@ -178,8 +186,9 @@ abstract class PaymentAdapter
     /**
      * Get order from cart.
      */
-    protected function getOrderFromCart(Cart $cart): ?Order
+    protected function getOrderFromCart(CartContract $cart): ?OrderContract
     {
+        /** @var Cart $cart */
         return $cart->draftOrder ?: $cart->completedOrder;
     }
 }

@@ -5,15 +5,15 @@ namespace Dystcz\LunarApi\Domain\Payments\Actions;
 use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentSuccessful;
 use Lunar\Base\DataTransferObjects\PaymentAuthorize;
 use Lunar\Facades\Payments;
-use Lunar\Models\Cart;
-use Lunar\Models\Order;
+use Lunar\Models\Contracts\Cart as CartContract;
+use Lunar\Models\Contracts\Order as OrderContract;
 
 class AuthorizeOfflinePayment
 {
     /**
      * @param  array<string,mixed>  $meta
      */
-    public function __invoke(Order $order, Cart $cart, string $paymentType = 'offline', ?array $meta = null): void
+    public function __invoke(OrderContract $order, CartContract $cart, string $paymentType = 'offline', ?array $meta = null): void
     {
         /** @var PaymentAuthorize $payment */
         $payment = Payments::driver('offline')
