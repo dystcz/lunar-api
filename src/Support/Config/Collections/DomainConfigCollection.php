@@ -47,6 +47,16 @@ class DomainConfigCollection extends Collection
     }
 
     /**
+     * Get schemas from domain config.
+     */
+    public function getSchemaByType(string $type): self
+    {
+        $this->firstWhere(
+            fn (DomainConfig $domain) => $domain->schema::type() === $type,
+        );
+    }
+
+    /**
      * Get routes from domain config.
      */
     public function getRoutes(): self
