@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Products\Traits;
+namespace Dystcz\LunarApi\Domain\Products\Concerns;
 
 use Dystcz\LunarApi\Base\Traits\InteractsWithAvailability as BaseInteractsWithAvailability;
 use Dystcz\LunarApi\Domain\Products\Enums\Availability;
