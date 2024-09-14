@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Attributes\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Attributes\Models\Attribute;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
+use Lunar\Models\Contracts\Attribute;
 
 class AttributeSchema extends Schema
 {

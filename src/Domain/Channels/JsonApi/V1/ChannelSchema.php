@@ -2,11 +2,11 @@
 
 namespace Dystcz\LunarApi\Domain\Channels\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Channels\Models\Channel;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use Lunar\Models\Contracts\Channel;
 
 class ChannelSchema extends Schema
 {
