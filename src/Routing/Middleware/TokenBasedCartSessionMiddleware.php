@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Lunar\Facades\CartSession;
+use Lunar\Models\Contracts\Cart as CartContract;
 use Lunar\Models\Order;
 
 class TokenBasedCartSessionMiddleware
@@ -90,14 +91,14 @@ class TokenBasedCartSessionMiddleware
      * Find a cart by the token
      *
      * @param  string  $token  The token
-     * @return Cart|null The cart or null if not found
+     * @return CartContract|null The cart or null if not found
      */
-    public function findCartByToken(string $token): ?Cart
+    public function findCartByToken(string $token): ?CartContract
     {
         /**
          * @var Cart $cart
          */
-        $cart = Cart::where('meta->token', $token)->first();
+        $cart = Cart::modelClass()::where('meta->token', $token)->first();
 
         if ($cart === null) {
             return $this->createCartWithToken();
@@ -105,9 +106,7 @@ class TokenBasedCartSessionMiddleware
 
         if ($order = $cart->orders()->first()) {
 
-            /**
-             * @var Order $order
-             */
+            /** @var Order $order */
             $orderIsPlaced = $order->isPlaced();
 
             if ($orderIsPlaced) {
@@ -156,10 +155,11 @@ class TokenBasedCartSessionMiddleware
     /**
      * Create a new cart and return the token
      *
-     * @return Cart The cart
+     * @return CartContract The cart
      */
-    public function createCartWithToken(): Cart
+    public function createCartWithToken(): CartContract
     {
+        /** @var Cart $cart */
         $cart = CartSession::current();
 
         $token = $this->generateToken();
