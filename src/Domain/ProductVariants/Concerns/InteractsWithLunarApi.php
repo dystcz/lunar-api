@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Base\Traits\InteractsWithAvailability;
 use Dystcz\LunarApi\Domain\Attributes\Traits\InteractsWithAttributes;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
+use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariantMedia;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
