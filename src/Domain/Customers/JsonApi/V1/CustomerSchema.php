@@ -52,7 +52,8 @@ class CustomerSchema extends Schema
             Str::make('vat_no'),
 
             HasMany::make('orders')
-                ->canCount(),
+                ->canCount()
+                ->countAs('orders_count'),
 
             HasMany::make('addresses'),
 
