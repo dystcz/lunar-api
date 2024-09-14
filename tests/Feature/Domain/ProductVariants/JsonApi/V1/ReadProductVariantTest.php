@@ -22,7 +22,7 @@ it('can show product variant detail', function () {
         ->assertSuccessful()
         ->assertFetchedOne($variant)
         ->assertDoesntHaveIncluded();
-})->group('variants');
+})->group('product-variants');
 
 it('returns error response when product variant does not exists', function () {
     /** @var TestCase $this */
@@ -56,7 +56,7 @@ test('can show a product variant with included images', function () {
         ->assertSuccessful()
         ->assertFetchedOne($variant)
         ->assertIsIncluded('media', $variant->images->first());
-})->group('variants');
+})->group('product-variants');
 
 it('can show a product variant with included thumbnail', function () {
     /** @var TestCase $this */
@@ -77,7 +77,7 @@ it('can show a product variant with included thumbnail', function () {
         ->assertSuccessful()
         ->assertFetchedOne($variant)
         ->assertIsIncluded('media', $variant->thumbnail);
-})->group('variants');
+})->group('product-variants');
 
 it('can show a product variant with included product', function () {
     /** @var TestCase $this */
@@ -96,7 +96,7 @@ it('can show a product variant with included product', function () {
         ->assertFetchedOne($variant)
         ->assertIsIncluded('products', $variant->product);
 
-})->group('variants');
+})->group('product-variants');
 
 it('can show a product variant with included lowest price', function () {
     /** @var TestCase $this */
@@ -116,7 +116,7 @@ it('can show a product variant with included lowest price', function () {
         ->assertFetchedOne($variant)
         ->assertIsIncluded('prices', $variant->prices->sortBy('price')->first());
 
-})->group('variants');
+})->group('product-variants');
 
 it('can show a product variant with included highest price', function () {
     /** @var TestCase $this */
@@ -136,7 +136,7 @@ it('can show a product variant with included highest price', function () {
         ->assertFetchedOne($variant)
         ->assertIsIncluded('prices', $variant->prices->sortByDesc('price')->first());
 
-})->group('variants');
+})->group('product-variants');
 
 it('can show a product variant with included prices', function () {
     /** @var TestCase $this */
@@ -159,7 +159,7 @@ it('can show a product variant with included prices', function () {
         $response->assertIsIncluded('prices', $price);
     }
 
-})->group('variants');
+})->group('product-variants');
 
 it('can show a product variant with other variants included', function () {
     /** @var TestCase $this */
@@ -185,7 +185,7 @@ it('can show a product variant with other variants included', function () {
         $response->assertIsIncluded('product-variants', $variant);
     }
 
-})->group('variants');
+})->group('product-variants');
 
 it('can show a product with other variants count', function () {
     /** @var TestCase $this */
@@ -207,4 +207,4 @@ it('can show a product with other variants count', function () {
         ->assertFetchedOne($variant);
 
     expect($response->json('data.relationships.other-product-variants.meta.count'))->toBe(3);
-})->group('variants');
+})->group('product-variants');

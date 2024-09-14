@@ -7,14 +7,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-it('can list images through relationship', function () {
+it('can list product variant images through relationship', function () {
     /** @var TestCase $this */
-    $variants = ProductVariantFactory::new()
+    $variant = ProductVariantFactory::new()
         ->for(Product::factory(), 'product')
         ->withImages(3)
         ->create();
-
-    $variant = $variants->first();
 
     $response = $this
         ->jsonApi()
@@ -25,4 +23,23 @@ it('can list images through relationship', function () {
         ->assertSuccessful()
         ->assertFetchedMany($variant->images)
         ->assertDoesntHaveIncluded();
-})->group('variants');
+})->group('product-variants');
+
+it('can count product variant images', function () {
+    /** @var TestCase $this */
+    $variant = ProductVariantFactory::new()
+        ->for(Product::factory(), 'product')
+        ->withImages(3)
+        ->create();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('product-variants')
+        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}?with-count=images"));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($variant);
+
+    expect($response->json('data.relationships.images.meta.count'))->toBe(3);
+})->group('products-variants', 'counts');
