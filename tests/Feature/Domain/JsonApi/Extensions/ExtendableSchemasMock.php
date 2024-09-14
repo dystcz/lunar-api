@@ -35,8 +35,8 @@ class ExtendableSchemasMock extends Schema
     public function includePaths(): array
     {
         return [
-            'include_one',
-            'include_two',
+            'include-one',
+            'include-two',
 
             ...parent::includePaths(),
         ];

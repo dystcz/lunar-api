@@ -30,10 +30,10 @@ it('can list customers orders', function () {
         ->jsonApi()
         ->expects('orders')
         ->includePaths(
-            'product_lines.purchasable.product',
-            'product_lines.purchasable.prices',
+            'product-lines.purchasable.product',
+            'product-lines.purchasable.prices',
         )
-        ->get("/api/v1/customers/{$customer->getRouteKey()}/orders");
+        ->get(serverUrl("/customers/{$customer->getRouteKey()}/orders"));
 
     $orderLine = $customer->orders->first()->lines->first();
 
@@ -42,4 +42,4 @@ it('can list customers orders', function () {
         ->assertIsIncluded('product-variants', $orderLine->purchasable)
         ->assertIsIncluded('products', $orderLine->purchasable->product)
         ->assertIsIncluded('prices', $orderLine->purchasable->prices->first());
-});
+})->group('orders');

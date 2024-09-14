@@ -80,8 +80,8 @@ it('can merge carts when user logs in', function () {
     $response = $this
         ->jsonApi()
         ->expects('carts')
-        ->includePaths('cart_lines')
-        ->get('/api/v1/carts/-actions/my-cart');
+        ->includePaths('cart-lines')
+        ->get(serverUrl('/carts/-actions/my-cart'));
 
     $response
         ->assertSuccessful()
@@ -108,8 +108,8 @@ it('can merge carts when user logs in', function () {
         ->actingAs($user)
         ->jsonApi()
         ->expects('carts')
-        ->includePaths('cart_lines')
-        ->get('/api/v1/carts/-actions/my-cart');
+        ->includePaths('cart-lines')
+        ->get(serverUrl('/carts/-actions/my-cart'));
 
     $mergedUserCartLines = $this->cartSession->current()->lines->map(fn ($line) => [
         'type' => 'cart-lines',

@@ -43,7 +43,7 @@ it('can list related cart lines', function () {
         ->actingAs($this->user)
         ->jsonApi()
         ->expects('cart-lines')
-        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/cart_lines"));
+        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/cart-lines"));
 
     $response
         ->assertSuccessful()
@@ -58,7 +58,7 @@ it('cannot list related cart lines without session and when not logged in', func
     $response = $this
         ->jsonApi()
         ->expects('cart-lines')
-        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/cart_lines"));
+        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/cart-lines"));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',
@@ -74,7 +74,7 @@ it('can list cart lines relationships when logged in', function () {
         ->actingAs($this->user)
         ->jsonApi()
         ->expects('cart-lines')
-        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/relationships/cart_lines"));
+        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/relationships/cart-lines"));
 
     $response
         ->assertSuccessful()
@@ -89,7 +89,7 @@ it('cannot list cart lines relationships without session and when not logged in'
     $response = $this
         ->jsonApi()
         ->expects('cart-lines')
-        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/relationships/cart_lines"));
+        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/relationships/cart-lines"));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',

@@ -108,7 +108,7 @@ it('can show a product variant with included lowest price', function () {
     $response = $this
         ->jsonApi()
         ->expects('product-variants')
-        ->includePaths('lowest_price')
+        ->includePaths('lowest-price')
         ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
 
     $response
@@ -128,7 +128,7 @@ it('can show a product variant with included highest price', function () {
     $response = $this
         ->jsonApi()
         ->expects('product-variants')
-        ->includePaths('highest_price')
+        ->includePaths('highest-price')
         ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
 
     $response
@@ -174,7 +174,7 @@ it('can show a product variant with other variants included', function () {
     $response = $this
         ->jsonApi()
         ->expects('product-variants')
-        ->includePaths('other_variants')
+        ->includePaths('other-variants')
         ->get(serverUrl('/product-variants/').$variant->getRouteKey());
 
     $response
@@ -200,11 +200,11 @@ it('can show a product with other variants count', function () {
     $response = $this
         ->jsonApi()
         ->expects('product-variants')
-        ->get(serverUrl('/product-variants/').$variant->getRouteKey().'?with-count=other_variants');
+        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}?with-count=other-variants"));
 
     $response
         ->assertSuccessful()
         ->assertFetchedOne($variant);
 
-    expect($response->json('data.relationships.other_variants.meta.count'))->toBe(3);
+    expect($response->json('data.relationships.other-variants.meta.count'))->toBe(3);
 })->group('variants');
