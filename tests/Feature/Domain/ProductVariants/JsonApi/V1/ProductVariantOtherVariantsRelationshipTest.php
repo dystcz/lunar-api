@@ -21,7 +21,7 @@ it('can list other product variants through relationship', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects(ModelType::get(ProductVariantContract::class))
+        ->expects('product-variants')
         ->get(serverUrl("/product-variants/{$variant->getRouteKey()}/other_variants"));
 
     $response

@@ -20,7 +20,7 @@ it('can list prices through relationship', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects(ModelType::get(ProductVariantContract::class))
+        ->expects('product-variants')
         ->get(serverUrl("/products/{$product->getRouteKey()}/product-variants"));
 
     $response

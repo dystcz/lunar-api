@@ -19,7 +19,7 @@ it('can list bare product variants', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects(ModelType::get(ProductVariantContract::class))
+        ->expects('product-variants')
         ->get(serverUrl('/product-variants'));
 
     $response
@@ -38,7 +38,7 @@ it('cannot list variants of unpublished products', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects(ModelType::get(ProductVariantContract::class))
+        ->expects('product-variants')
         ->get(serverUrl('/product-variants'));
 
     $response

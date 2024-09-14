@@ -17,7 +17,7 @@ it('can read cheapest variant through relationship', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects(ModelType::get(ProductVariantContract::class))
+        ->expects('product-variants')
         ->get(serverUrl("/products/{$product->getRouteKey()}/cheapest_variant"));
 
     $response
