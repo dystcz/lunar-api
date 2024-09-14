@@ -53,7 +53,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's associations.
      */
-    public function viewAssociations(?Authenticatable $user, ProductContract $product): bool
+    public function viewProductAssociations(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -165,7 +165,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's variants.
      */
-    public function viewVariants(?Authenticatable $user, ProductContract $product): bool
+    public function viewProductVariants(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
