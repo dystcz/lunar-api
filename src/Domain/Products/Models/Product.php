@@ -18,8 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Config;
-use Lunar\Facades\ModelManifest;
-use Lunar\Models\Contracts\Attribute as AttributeContract;
+use Lunar\Models\Attribute;
 use Lunar\Models\Product as LunarProduct;
 use Lunar\Models\ProductVariant;
 
@@ -72,7 +71,7 @@ class Product extends LunarProduct implements HasAvailability, Translatable
         }
 
         $relation = new MorphToMany(
-            ModelManifest::get(AttributeContract::class)::query(),
+            Attribute::modelClass()::query(),
             new ProductType(['id' => $this->product_type_id]),
             'attributable',
             "{$prefix}attributables",
