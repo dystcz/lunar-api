@@ -99,6 +99,14 @@ class ProductPolicy
     }
 
     /**
+     * Authorize a user to view product's channels.
+     */
+    public function viewChannels(?Authenticatable $user, ProductContract $product): bool
+    {
+        return true;
+    }
+
+    /**
      * Authorize a user to view product's images.
      */
     public function viewImages(?Authenticatable $user, ProductContract $product): bool
