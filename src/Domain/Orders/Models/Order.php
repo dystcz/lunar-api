@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Orders\Models;
 
 use Dystcz\LunarApi\Domain\Orders\Concerns\InteractsWithLunarApi;
+use Dystcz\LunarApi\Domain\Orders\Contracts\Order as OrderContract;
 use Lunar\Models\Order as LunarOrder;
 
 /**
@@ -19,7 +20,7 @@ use Lunar\Models\Order as LunarOrder;
  * @property Illuminate\Database\Eloquent\Collection $latest_transaction
  * @property Illuminate\Database\Eloquent\Collection $latestTransaction
  */
-class Order extends LunarOrder
+class Order extends LunarOrder implements OrderContract
 {
     use InteractsWithLunarApi;
 }

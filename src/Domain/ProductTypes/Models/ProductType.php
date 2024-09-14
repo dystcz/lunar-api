@@ -2,11 +2,12 @@
 
 namespace Dystcz\LunarApi\Domain\ProductTypes\Models;
 
+use Dystcz\LunarApi\Domain\ProductTypes\Contracts\ProductType as ProductTypeContract;
 use Dystcz\LunarApi\Domain\ProductTypes\Factories\ProductTypeFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Lunar\Models\ProductType as LunarProductType;
 
-class ProductType extends LunarProductType
+class ProductType extends LunarProductType implements ProductTypeContract
 {
     use HashesRouteKey;
 

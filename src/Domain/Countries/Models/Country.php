@@ -2,11 +2,12 @@
 
 namespace Dystcz\LunarApi\Domain\Countries\Models;
 
+use Dystcz\LunarApi\Domain\Countries\Contracts\Country as CountryContract;
 use Dystcz\LunarApi\Domain\Countries\Factories\CountryFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Lunar\Models\Country as LunarCountry;
 
-class Country extends LunarCountry
+class Country extends LunarCountry implements CountryContract
 {
     use HashesRouteKey;
 

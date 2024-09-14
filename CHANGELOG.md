@@ -5,6 +5,7 @@
 ### Changes
 
 -   Model logic extracted to traits
+-   Added contracts for all models
 -   Added `images` relationship route for `collections`
 -   Added countable relationship tests
 
