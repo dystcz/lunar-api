@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\PaymentOptions\Contracts;
 
 use Closure;
-use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 use Illuminate\Support\Collection;
 use Lunar\Models\Contracts\Cart as CartContract;
 

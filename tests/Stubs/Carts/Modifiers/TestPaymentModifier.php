@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers;
 
-use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
 use Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifier;
 use Lunar\DataTypes\Price;

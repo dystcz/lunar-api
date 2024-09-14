@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\PaymentOptions\Data;
+namespace Dystcz\LunarApi\Domain\PaymentOptions\Entities;
 
 use Closure;
 use Illuminate\Contracts\Support\Arrayable;

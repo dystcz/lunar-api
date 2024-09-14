@@ -6,7 +6,7 @@ use Dystcz\LunarApi\Domain\Carts\Actions\SetPaymentOption;
 use Dystcz\LunarApi\Domain\Carts\Actions\UnsetPaymentOption;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown;
-use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;

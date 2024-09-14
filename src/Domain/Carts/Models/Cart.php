@@ -7,7 +7,7 @@ use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Traits\InteractsWithPaymentOptions;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown;
-use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Lunar\Base\ValueObjects\Cart\TaxBreakdown;
 use Lunar\DataTypes\Price;

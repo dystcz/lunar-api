@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\PaymentOptions\Facades;
 
 use Closure;
 use Dystcz\LunarApi\Domain\PaymentOptions\Contracts\PaymentManifest as PaymentManifestContract;
-use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
 use Lunar\Models\Contracts\Cart as CartContract;

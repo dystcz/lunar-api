@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\PaymentOptions\Manifests;
 
 use Closure;
 use Dystcz\LunarApi\Domain\PaymentOptions\Contracts\PaymentManifest as PaymentManifestContract;
-use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 use Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifiers;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
