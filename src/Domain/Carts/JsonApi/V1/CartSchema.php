@@ -153,12 +153,4 @@ class CartSchema extends Schema
             ...parent::fields(),
         ];
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'carts';
-    }
 }

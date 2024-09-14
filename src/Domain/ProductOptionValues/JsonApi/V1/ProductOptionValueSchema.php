@@ -55,12 +55,4 @@ class ProductOptionValueSchema extends Schema
             ...parent::filters(),
         ];
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'product-option-values';
-    }
 }

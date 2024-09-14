@@ -36,12 +36,4 @@ class CurrencySchema extends Schema
             HasMany::make('prices'),
         ];
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'currencies';
-    }
 }

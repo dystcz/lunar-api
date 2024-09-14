@@ -46,12 +46,4 @@ class CollectionGroupSchema extends Schema
             ...parent::filters(),
         ];
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'collection-groups';
-    }
 }

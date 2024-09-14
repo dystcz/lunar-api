@@ -44,12 +44,4 @@ class CountrySchema extends Schema
     {
         return PagePagination::make();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'countries';
-    }
 }

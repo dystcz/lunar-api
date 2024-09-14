@@ -30,12 +30,4 @@ class UserSchema extends Schema
     {
         return false;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'users';
-    }
 }

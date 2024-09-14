@@ -69,12 +69,4 @@ class ProductAssociationSchema extends Schema
             ...parent::filters(),
         ];
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'associations';
-    }
 }

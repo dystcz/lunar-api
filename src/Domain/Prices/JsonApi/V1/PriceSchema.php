@@ -143,12 +143,4 @@ class PriceSchema extends Schema
             ...parent::filters(),
         ];
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'prices';
-    }
 }

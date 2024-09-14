@@ -46,12 +46,4 @@ class TaxZoneSchema extends Schema
             ...parent::filters(),
         ];
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'tax-zones';
-    }
 }

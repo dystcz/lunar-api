@@ -254,12 +254,4 @@ class OrderSchema extends Schema
             ...parent::filters(),
         ];
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'orders';
-    }
 }

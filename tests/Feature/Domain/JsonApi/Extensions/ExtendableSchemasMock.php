@@ -70,9 +70,4 @@ class ExtendableSchemasMock extends Schema
             ...parent::sortables(),
         ];
     }
-
-    public static function type(): string
-    {
-        return 'products';
-    }
 }

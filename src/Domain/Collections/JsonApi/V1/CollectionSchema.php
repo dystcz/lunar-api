@@ -126,12 +126,4 @@ class CollectionSchema extends Schema
             ...parent::filters(),
         ];
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'collections';
-    }
 }
