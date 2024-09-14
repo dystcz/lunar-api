@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Facades\ModelManifest;
-use Lunar\Facades\Payments;
 
 class LunarApiServiceProvider extends ServiceProvider
 {
@@ -449,11 +448,10 @@ class LunarApiServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             \Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart::class,
-            function (Application $app) {
-                /** @var \Lunar\Managers\CartSessionManager */
+            function (Application $app): ?\Lunar\Models\Contracts\Cart {
+                /** @var \Lunar\Managers\CartSessionManager $cartSession */
                 $cartSession = $this->app->make(CartSessionInterface::class);
 
-                /** @var Cart $cart */
                 return $cartSession->current();
             }
         );
