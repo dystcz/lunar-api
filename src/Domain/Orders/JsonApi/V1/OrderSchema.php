@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Orders\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
@@ -16,6 +17,9 @@ use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Contracts\Order;
+use Lunar\Models\Contracts\OrderAddress;
+use Lunar\Models\Contracts\OrderLine;
+use Lunar\Models\Contracts\Transaction;
 
 class OrderSchema extends Schema
 {
@@ -181,27 +185,27 @@ class OrderSchema extends Schema
 
             HasMany::make('order_lines', 'lines')
                 ->retainFieldName()
-                ->type('order-lines'),
+                ->type(ModelType::get(OrderLine::class)),
 
             HasMany::make('product_lines', 'productLines')
                 ->retainFieldName()
-                ->type('order-lines'),
+                ->type(ModelType::get(OrderLine::class)),
 
             HasMany::make('digital_lines', 'digitalLines')
                 ->retainFieldName()
-                ->type('order-lines'),
+                ->type(ModelType::get(OrderLine::class)),
 
             HasMany::make('physical_lines', 'physicalLines')
                 ->retainFieldName()
-                ->type('order-lines'),
+                ->type(ModelType::get(OrderLine::class)),
 
             HasMany::make('shipping_lines', 'shippingLines')
                 ->retainFieldName()
-                ->type('order-lines'),
+                ->type(ModelType::get(OrderLine::class)),
 
             HasMany::make('payment_lines', 'paymentLines')
                 ->retainFieldName()
-                ->type('order-lines'),
+                ->type(ModelType::get(OrderLine::class)),
 
             BelongsTo::make('customer')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
@@ -213,27 +217,27 @@ class OrderSchema extends Schema
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasMany::make('order_addresses', 'addresses')
-                ->type('order-addresses')
+                ->type(ModelType::get(OrderAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasOne::make('shipping_address', 'shippingAddress')
-                ->type('order-addresses')
+                ->type(ModelType::get(OrderAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasOne::make('billing_address', 'billingAddress')
-                ->type('order-addresses')
+                ->type(ModelType::get(OrderAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasOne::make('latest_transaction', 'latestTransaction')
-                ->type('transactions')
+                ->type(ModelType::get(Transaction::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasMany::make('transactions')
-                ->type('transactions')
+                ->type(ModelType::get(Transaction::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             ...parent::fields(),

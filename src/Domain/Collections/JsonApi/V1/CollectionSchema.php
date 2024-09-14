@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Sorts\InDefaultOrder;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
@@ -15,6 +16,9 @@ use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereNull;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Contracts\Collection;
+use Lunar\Models\Contracts\CollectionGroup;
+use Lunar\Models\Contracts\Url;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class CollectionSchema extends Schema
 {
@@ -68,22 +72,22 @@ class CollectionSchema extends Schema
                 ->hidden(),
 
             HasOne::make('default_url', 'defaultUrl')
-                ->type('urls')
+                ->type(ModelType::get(Url::class))
                 ->retainFieldName(),
 
             HasMany::make('images', 'images')
-                ->type('media')
+                ->type(ModelType::get(Media::class))
                 ->canCount(),
 
             BelongsTo::make('group', 'group')
-                ->type('collection-groups')
+                ->type(ModelType::get(CollectionGroup::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasMany::make('products')
                 ->canCount(),
 
             HasOne::make('thumbnail', 'thumbnail')
-                ->type('media'),
+                ->type(ModelType::get(Media::class)),
 
             HasMany::make('urls')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),

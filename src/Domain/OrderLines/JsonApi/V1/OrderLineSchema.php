@@ -3,6 +3,8 @@
 namespace Dystcz\LunarApi\Domain\OrderLines\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Domain\ShippingOptions\Entities\ShippingOption;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
@@ -10,6 +12,8 @@ use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use Lunar\Models\Contracts\OrderLine;
+use Lunar\Models\Contracts\Product;
+use Lunar\Models\Contracts\ProductVariant;
 
 class OrderLineSchema extends Schema
 {
@@ -102,7 +106,11 @@ class OrderLineSchema extends Schema
                 ),
 
             MorphTo::make('purchasable', 'purchasable')
-                ->types('products', 'variants', 'shipping-options')
+                ->types(
+                    ModelType::get(Product::class),
+                    ModelType::get(ProductVariant::class),
+                    ModelType::get(ShippingOption::class),
+                )
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
