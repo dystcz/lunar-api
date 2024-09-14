@@ -4,6 +4,7 @@
 
 ### Changes
 
+-   Model logic extracted to traits
 -   Added `images` relationship route for `collections`
 -   Added countable relationship tests
 
