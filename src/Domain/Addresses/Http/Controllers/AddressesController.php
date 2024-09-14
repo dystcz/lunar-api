@@ -7,7 +7,6 @@ use Dystcz\LunarApi\Domain\Addresses\Contracts\AddressesController as AddressesC
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressQuery;
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressRequest;
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressSchema;
-use Dystcz\LunarApi\Domain\Addresses\Models\Address;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Destroy;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
@@ -16,6 +15,8 @@ use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
+use Lunar\Models\Address;
+use Lunar\Models\Contracts\Address as AddressContract;
 
 class AddressesController extends Controller implements AddressesControllerContract
 {
@@ -37,7 +38,7 @@ class AddressesController extends Controller implements AddressesControllerContr
         AddressRequest $request,
         AddressQuery $query,
     ): DataResponse {
-        $this->authorize('create', Address::class);
+        $this->authorize('create', Address::modelClass());
 
         $meta = [
             'company_in' => $request->validated('company_in', null),
@@ -68,7 +69,7 @@ class AddressesController extends Controller implements AddressesControllerContr
         AddressSchema $schema,
         AddressRequest $request,
         AddressQuery $query,
-        Address $address,
+        AddressContract $address,
     ): DataResponse {
         $this->authorize('update', $address);
 

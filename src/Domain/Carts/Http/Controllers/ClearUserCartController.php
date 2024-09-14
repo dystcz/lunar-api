@@ -4,7 +4,6 @@ namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Carts\Contracts\ClearUserCartController as ClearUserCartControllerContract;
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\App;
 use Lunar\Base\CartSessionInterface;
@@ -13,7 +12,7 @@ use Lunar\Managers\CartSessionManager;
 class ClearUserCartController extends Controller implements ClearUserCartControllerContract
 {
     /**
-     * @param  CartSessionManager  $cartSession
+     * @var CartSessionManager
      */
     private CartSessionInterface $cartSession;
 
@@ -27,9 +26,10 @@ class ClearUserCartController extends Controller implements ClearUserCartControl
      */
     public function clear(): JsonResponse
     {
+        //TODO: Create tests
         $this->authorize('clear', $this->cartSession->current());
 
-        $this->cartSession->clear();
+        $this->cartSession->forget();
 
         return new JsonResponse(status: 204);
     }

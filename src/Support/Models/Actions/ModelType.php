@@ -6,15 +6,17 @@ use Dystcz\LunarApi\Support\Actions\Action;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class GetModelKey extends Action
+class ModelType extends Action
 {
     /**
      * Get model key.
      *
      * @param  Model|class-string  $model
      */
-    public function handle(Model|string $model): string
+    public static function get(Model|string $model, bool $plural = true): string
     {
-        return Str::snake(Str::pluralStudly(class_basename($this)));
+        $type = Str::kebab(class_basename($model));
+
+        return $plural ? Str::plural($type) : $type;
     }
 }

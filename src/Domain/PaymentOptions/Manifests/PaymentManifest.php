@@ -4,11 +4,11 @@ namespace Dystcz\LunarApi\Domain\PaymentOptions\Manifests;
 
 use Closure;
 use Dystcz\LunarApi\Domain\PaymentOptions\Contracts\PaymentManifest as PaymentManifestContract;
-use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 use Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifiers;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
-use Lunar\Models\Cart;
+use Lunar\Models\Contracts\Cart as CartContract;
 
 class PaymentManifest implements PaymentManifestContract
 {
@@ -77,7 +77,7 @@ class PaymentManifest implements PaymentManifestContract
     /**
      * {@inheritDoc}
      */
-    public function getOptions(Cart $cart): Collection
+    public function getOptions(CartContract $cart): Collection
     {
         app(Pipeline::class)
             ->send($cart)
@@ -91,7 +91,7 @@ class PaymentManifest implements PaymentManifestContract
     /**
      * {@inheritDoc}
      */
-    public function getOption(Cart $cart, string $identifier): ?PaymentOption
+    public function getOption(CartContract $cart, string $identifier): ?PaymentOption
     {
         if (filled($this->getOptionUsing)) {
             $paymentOption = ($this->getOptionUsing)($cart, $identifier);
@@ -109,7 +109,7 @@ class PaymentManifest implements PaymentManifestContract
     /**
      * {@inheritDoc}
      */
-    public function getPaymentOption(Cart $cart): ?PaymentOption
+    public function getPaymentOption(CartContract $cart): ?PaymentOption
     {
         if (! $cart->payment_option) {
             return null;

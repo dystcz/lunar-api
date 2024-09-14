@@ -12,6 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(TestCase::class, RefreshDatabase::class);
 
 it('can read products associations', function () {
+    /** @var TestCase $this */
     /** @var Product $productA */
     $productA = ProductFactory::new()->create();
 
@@ -33,13 +34,13 @@ it('can read products associations', function () {
         ->jsonApi()
         ->expects('products')
         ->includePaths(
-            'associations',
-            // 'associations.target.thumbnail'
+            'product-associations',
+            // 'product-associations.target.thumbnail'
         )
-        ->get('/api/v1/products/'.$productA->getRouteKey());
+        ->get(serverUrl("/products/{$productA->getRouteKey}()"));
 
     $response->assertFetchedOne($productA);
-    // ->assertIsIncluded('associations', $productA->associations->first())
+    // ->assertIsIncluded('product-associations', $productA->associations->first())
     // ->assertIsIncluded('products', $productB)
     // ->assertIsIncluded('media', $productB->thumbnail)
     // ->assertIsIncluded('variants', $productB->variants->first())

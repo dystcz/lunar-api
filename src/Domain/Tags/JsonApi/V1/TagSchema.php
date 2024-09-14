@@ -3,12 +3,14 @@
 namespace Dystcz\LunarApi\Domain\Tags\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIn;
 use Lunar\Models\Contracts\Tag;
+use Lunar\Models\Contracts\Url;
 
 class TagSchema extends Schema
 {
@@ -40,7 +42,7 @@ class TagSchema extends Schema
             Str::make('value'),
 
             // MorphTo::make('taggables', 'taggables')
-            //     ->type('products'),
+            //     ->type(ModelType::get(Url::class)),
 
             ...parent::fields(),
         ];
@@ -60,13 +62,5 @@ class TagSchema extends Schema
 
             ...parent::filters(),
         ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'tags';
     }
 }

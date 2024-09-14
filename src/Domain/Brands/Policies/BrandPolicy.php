@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Brands\Policies;
 
-use Dystcz\LunarApi\Domain\Brands\Models\Brand;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Brand as BrandContract;
 
 class BrandPolicy
 {
@@ -21,7 +21,7 @@ class BrandPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, Brand $brand): bool
+    public function view(?Authenticatable $user, BrandContract $brand): bool
     {
         return true;
     }
@@ -37,7 +37,7 @@ class BrandPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, Brand $brand): bool
+    public function update(?Authenticatable $user, BrandContract $brand): bool
     {
         return false;
     }
@@ -45,7 +45,7 @@ class BrandPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, Brand $brand): bool
+    public function delete(?Authenticatable $user, BrandContract $brand): bool
     {
         return false;
     }

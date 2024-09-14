@@ -2,11 +2,12 @@
 
 namespace Dystcz\LunarApi\Domain\Payments\PaymentAdapters;
 
+use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent as PaymentIntentContract;
 use Dystcz\LunarApi\Domain\Payments\Data\OfflinePaymentIntent;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Lunar\Models\Cart;
+use Lunar\Models\Contracts\Cart as CartContract;
 
 class OfflinePaymentAdapter extends PaymentAdapter
 {
@@ -37,8 +38,9 @@ class OfflinePaymentAdapter extends PaymentAdapter
     /**
      * Create payment intent.
      */
-    public function createIntent(Cart $cart, array $meta = [], ?int $amount = null): PaymentIntentContract
+    public function createIntent(CartContract $cart, array $meta = [], ?int $amount = null): PaymentIntentContract
     {
+        /** @var Cart $cart */
         $cart = $this->updateCartMeta($cart, $meta);
         $order = $this->getOrCreateOrder($cart);
 
@@ -66,14 +68,15 @@ class OfflinePaymentAdapter extends PaymentAdapter
      *
      * @param  array<string,mixed>  $meta
      */
-    protected function updateCartMeta(Cart $cart, array $meta = []): Cart
+    protected function updateCartMeta(CartContract $cart, array $meta = []): CartContract
     {
         if (empty($meta)) {
             return $cart;
         }
 
+        /** @var Cart $cart */
         $cart->update('meta', [
-            ...$this->cart->meta,
+            ...$cart->meta,
             ...$meta,
         ]);
 

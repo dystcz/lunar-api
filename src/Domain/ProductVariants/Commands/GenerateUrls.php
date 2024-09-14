@@ -30,7 +30,7 @@ class GenerateUrls extends Command
         $this->info('Generating urls for variants...');
 
         $this->withProgressBar(
-            ProductVariant::query()->cursor(),
+            ProductVariant::modelClass()::query()->cursor(),
             function ($variant) {
                 if ($generator = Config::get('lunar.urls.generator')) {
                     app($generator)->handle($variant);

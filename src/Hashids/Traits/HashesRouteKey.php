@@ -4,7 +4,6 @@ namespace Dystcz\LunarApi\Hashids\Traits;
 
 use Dystcz\LunarApi\Hashids\Facades\HashidsConnections;
 use Dystcz\LunarApi\LunarApi;
-use Dystcz\LunarApi\Support\Models\Actions\GetModelKey;
 use Hashids\Hashids;
 use Illuminate\Support\Arr;
 use Vinkla\Hashids\Facades\Hashids as HashidsFacade;
@@ -87,6 +86,6 @@ trait HashesRouteKey
         /** @var \Lunar\Base\BaseModel $model */
         $model = $this;
 
-        return HashidsConnections::getModelConnection((new GetModelKey)($model));
+        return HashidsConnections::getModelConnection($model->getMorphClass());
     }
 }

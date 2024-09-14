@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\PaymentOptions\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 use LaravelJsonApi\Core\Schema\Schema;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\NonEloquent\Fields\Attribute;

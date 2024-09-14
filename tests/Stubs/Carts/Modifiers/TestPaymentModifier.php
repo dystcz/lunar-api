@@ -2,17 +2,19 @@
 
 namespace Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers;
 
-use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
 use Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifier;
 use Lunar\DataTypes\Price;
-use Lunar\Models\Cart;
+use Lunar\Models\Contracts\Cart as CartContract;
+use Lunar\Models\Contracts\Currency as CurrencyContract;
+use Lunar\Models\Contracts\TaxClass as TaxClassContract;
 use Lunar\Models\Currency;
 use Lunar\Models\TaxClass;
 
 class TestPaymentModifier extends PaymentModifier
 {
-    public function handle(Cart $cart): void
+    public function handle(CartContract $cart): void
     {
         PaymentManifest::addOption(
             new PaymentOption(
@@ -30,16 +32,16 @@ class TestPaymentModifier extends PaymentModifier
     /**
      * Get the currency for the shipping option.
      */
-    public function getCurrency(Cart $cart): Currency
+    public function getCurrency(CartContract $cart): CurrencyContract
     {
-        return $cart->currency ?? Currency::query()->first();
+        return $cart->currency ?? Currency::modelClass()::query()->first();
     }
 
     /**
      * Get the tax class for the shipping option.
      */
-    public function getTaxClass(): TaxClass
+    public function getTaxClass(): TaxClassContract
     {
-        return TaxClass::query()->first() ?? TaxClass::factory()->create();
+        return TaxClass::modelClass()::query()->first() ?? TaxClass::modelClass()::factory()->create();
     }
 }

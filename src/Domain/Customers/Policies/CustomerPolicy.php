@@ -2,10 +2,11 @@
 
 namespace Dystcz\LunarApi\Domain\Customers\Policies;
 
-use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Users\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Customer as CustomerContract;
+use Lunar\Models\Customer;
 
 class CustomerPolicy
 {
@@ -22,7 +23,7 @@ class CustomerPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(Authenticatable $user, Customer $customer): bool
+    public function view(Authenticatable $user, CustomerContract $customer): bool
     {
         return $this->check($user, $customer);
     }
@@ -38,7 +39,7 @@ class CustomerPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(Authenticatable $user, Customer $customer): bool
+    public function update(Authenticatable $user, CustomerContract $customer): bool
     {
         return $this->check($user, $customer);
     }
@@ -46,7 +47,7 @@ class CustomerPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(Authenticatable $user, Customer $customer): bool
+    public function delete(Authenticatable $user, CustomerContract $customer): bool
     {
         return $this->check($user, $customer);
     }
@@ -54,7 +55,7 @@ class CustomerPolicy
     /**
      * Authorize a user to view a customer's addresses.
      */
-    public function viewAddresses(Authenticatable $user, Customer $customer): bool
+    public function viewAddresses(Authenticatable $user, CustomerContract $customer): bool
     {
         return $this->check($user, $customer);
     }
@@ -62,7 +63,7 @@ class CustomerPolicy
     /**
      * Authorize a user to view a customer's orders.
      */
-    public function viewOrders(Authenticatable $user, Customer $customer): bool
+    public function viewOrders(Authenticatable $user, CustomerContract $customer): bool
     {
         return $this->check($user, $customer);
     }
@@ -70,9 +71,9 @@ class CustomerPolicy
     /**
      * Determine whether the user can view the model.
      */
-    protected function check(Authenticatable $user, Customer $customer): bool
+    protected function check(Authenticatable $user, CustomerContract $customer): bool
     {
-        $customersTable = (new Customer)->getTable();
+        $customersTable = (new (Customer::modelClass()))->getTable();
 
         /** @var User $user */
         return $user

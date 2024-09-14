@@ -10,7 +10,7 @@ class UnsetCoupon
     /**
      * Apply coupon.
      */
-    public function __invoke(CartContract $cart): Cart
+    public function __invoke(CartContract $cart): CartContract
     {
         /** @var Cart $cart */
         $cart->coupon_code = null;

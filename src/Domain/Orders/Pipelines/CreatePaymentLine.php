@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\Orders\Pipelines;
 use Closure;
 use Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
-use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 use Illuminate\Support\Facades\App;
 use Lunar\Models\Contracts\Order as OrderContract;
 use Lunar\Models\Contracts\OrderLine as OrderLineContract;

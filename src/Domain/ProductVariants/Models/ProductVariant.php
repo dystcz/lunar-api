@@ -135,7 +135,7 @@ class ProductVariant extends LunarPoductVariant implements HasAvailability, HasM
     {
         return $this
             ->morphOne(
-                LunarPrice::class,
+                LunarPrice::modelClass(),
                 'priceable'
             )
             ->ofMany('price', 'min');
@@ -150,7 +150,7 @@ class ProductVariant extends LunarPoductVariant implements HasAvailability, HasM
     {
         return $this
             ->morphOne(
-                LunarPrice::class,
+                LunarPrice::modelClass(),
                 'priceable'
             )
             ->ofMany('price', 'max');
@@ -162,7 +162,15 @@ class ProductVariant extends LunarPoductVariant implements HasAvailability, HasM
     public function otherVariants(): HasMany
     {
         return $this
-            ->hasMany(LunarPoductVariant::class, 'product_id', 'product_id')
-            ->where($this->getRouteKeyName(), '!=', $this->getAttribute($this->getRouteKeyName()));
+            ->hasMany(
+                LunarPoductVariant::modelClass(),
+                'product_id',
+                'product_id',
+            )
+            ->where(
+                $this->getRouteKeyName(),
+                '!=',
+                $this->getAttribute($this->getRouteKeyName()),
+            );
     }
 }

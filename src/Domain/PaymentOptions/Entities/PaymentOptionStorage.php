@@ -2,7 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\PaymentOptions\Entities;
 
-use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
 use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
 use Generator;
 use Illuminate\Support\Collection;

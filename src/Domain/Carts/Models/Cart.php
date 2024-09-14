@@ -2,13 +2,12 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Models;
 
-use Dystcz\LunarApi\Domain\Carts\Contracts\Cart as CartContract;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart;
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Traits\InteractsWithPaymentOptions;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown;
-use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Lunar\Base\ValueObjects\Cart\TaxBreakdown;
 use Lunar\DataTypes\Price;
@@ -28,7 +27,7 @@ use Lunar\Models\Cart as LunarCart;
  * @method Cart unsetPaymentOption(PaymentOption $option, bool $refresh = true)
  * @method ?PaymentOption getPaymentOption()
  */
-class Cart extends LunarCart implements CartContract, CurrentSessionCart
+class Cart extends LunarCart implements CurrentSessionCart
 {
     use HashesRouteKey;
     use InteractsWithPaymentOptions;

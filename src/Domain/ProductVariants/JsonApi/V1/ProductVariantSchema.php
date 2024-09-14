@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
@@ -16,7 +17,12 @@ use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
+use Lunar\Models\Contracts\Attribute;
+use Lunar\Models\Contracts\Price;
+use Lunar\Models\Contracts\ProductOptionValue;
 use Lunar\Models\Contracts\ProductVariant;
+use Lunar\Models\Contracts\Url;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProductVariantSchema extends Schema
 {
@@ -110,13 +116,13 @@ class ProductVariantSchema extends Schema
             BelongsTo::make('product'),
 
             HasMany::make('attributes', 'attributes')
-                ->type('attributes')
+                ->type(ModelType::get(Attribute::class))
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
             HasMany::make('other_variants', 'otherVariants')
-                ->type('variants')
+                ->type(ModelType::get(ProductVariant::class))
                 ->canCount()
                 ->retainFieldName(),
 
@@ -126,31 +132,31 @@ class ProductVariantSchema extends Schema
                 ),
 
             HasOne::make('lowest_price', 'lowestPrice')
-                ->type('prices')
+                ->type(ModelType::get(Price::class))
                 ->retainFieldName(),
 
             HasOne::make('highest_price', 'highestPrice')
-                ->type('prices')
+                ->type(ModelType::get(Price::class))
                 ->retainFieldName(),
 
             HasMany::make('images', 'images')
-                ->type('media')
+                ->type(ModelType::get(Media::class))
                 ->canCount(),
 
             HasMany::make('values', 'values')
-                ->type('product-option-values')
+                ->type(ModelType::get(ProductOptionValue::class))
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
             HasOne::make('default_url', 'defaultUrl')
-                ->type('urls')
+                ->type(ModelType::get(Url::class))
                 ->retainFieldName(),
 
             HasMany::make('urls'),
 
             HasOneThrough::make('thumbnail')
-                ->type('media'),
+                ->type(ModelType::get(Media::class)),
 
             ...parent::fields(),
         ];
@@ -173,13 +179,5 @@ class ProductVariantSchema extends Schema
 
             ...parent::filters(),
         ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'variants';
     }
 }

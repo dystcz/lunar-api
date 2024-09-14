@@ -14,7 +14,7 @@ class ChangeOrderStatus
     /**
      * Change order status to pending payment.
      */
-    public function __invoke(OrderContract $order, OrderStatusContract|string $orderStatus): Order
+    public function __invoke(OrderContract $order, OrderStatusContract|string $orderStatus): OrderContract
     {
         /** @var Order $order */
         $newStatus = $orderStatus instanceof OrderStatusContract

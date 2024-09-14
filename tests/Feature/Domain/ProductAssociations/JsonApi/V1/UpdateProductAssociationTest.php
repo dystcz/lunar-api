@@ -17,10 +17,10 @@ beforeEach(function () {
 
 test('users cannot update product associations', function () {
     /** @var TestCase $this */
-    $response = $this->updateTest('associations', ProductAssociation::class, []);
+    $response = $this->updateTest('product-associations', ProductAssociation::class, []);
 
     $response->assertErrorStatus([
         'status' => '404',
         'title' => 'Not Found',
     ]);
-})->group('associations', 'policies');
+})->group('produuct-associations', 'policies');

@@ -3,8 +3,10 @@
 namespace Dystcz\LunarApi\Domain\ProductTypes\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use Lunar\Models\Contracts\Attribute;
 use Lunar\Models\Contracts\ProductType;
 
 class ProductTypeSchema extends Schema
@@ -37,7 +39,7 @@ class ProductTypeSchema extends Schema
             Str::make('name'),
 
             // HasMany::make('mapped_attributes', 'mappedAttributes')
-            //     ->type('attributes')
+            //     ->type(ModelType::get(Attribute::class))
             //     ->serializeUsing(
             //         static fn ($relation) => $relation->withoutLinks()
             //     ),
@@ -54,13 +56,5 @@ class ProductTypeSchema extends Schema
         return [
             ...parent::filters(),
         ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'product-types';
     }
 }

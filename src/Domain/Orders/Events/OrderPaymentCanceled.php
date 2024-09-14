@@ -6,14 +6,14 @@ use Dystcz\LunarApi\Domain\Payments\Contracts\FailedPaymentEventContract;
 use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent;
 use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdapter;
 use Illuminate\Foundation\Events\Dispatchable;
-use Lunar\Models\Order;
+use Lunar\Models\Contracts\Order as OrderContract;
 
 class OrderPaymentCanceled implements FailedPaymentEventContract
 {
     use Dispatchable;
 
     public function __construct(
-        public Order $order,
+        public OrderContract $order,
         public PaymentAdapter $paymentAdapter,
         public PaymentIntent $paymentIntent,
     ) {}
@@ -29,7 +29,7 @@ class OrderPaymentCanceled implements FailedPaymentEventContract
     /**
      * Get order.
      */
-    public function getOrder(): Order
+    public function getOrder(): OrderContract
     {
         return $this->order;
     }

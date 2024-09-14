@@ -2,10 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\Prices\Actions;
 
-use Dystcz\LunarApi\Domain\TaxZones\Models\TaxZone;
 use Lunar\Base\Purchasable;
 use Lunar\DataTypes\Price;
 use Lunar\Facades\Pricing;
+use Lunar\Models\TaxZone;
 
 class GetPriceWithoutDefaultTax
 {
@@ -18,7 +18,7 @@ class GetPriceWithoutDefaultTax
         $currency = $price->currency;
         $subTotal = $price->value;
 
-        $priceWithoutVat = new Price(intval($subTotal / (100 + TaxZone::getDefaultPercentage()) * 100), $currency);
+        $priceWithoutVat = new Price(intval($subTotal / (100 + TaxZone::modelClass()::getDefaultPercentage()) * 100), $currency);
 
         return $priceWithoutVat;
     }

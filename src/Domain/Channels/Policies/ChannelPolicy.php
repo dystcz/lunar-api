@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Channels\Policies;
 
-use Dystcz\LunarApi\Domain\Channels\Models\Channel;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Channel as ChannelContract;
 
 class ChannelPolicy
 {
@@ -21,7 +21,7 @@ class ChannelPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, Channel $channel): bool
+    public function view(?Authenticatable $user, ChannelContract $channel): bool
     {
         return true;
     }
@@ -37,7 +37,7 @@ class ChannelPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, Channel $channel): bool
+    public function update(?Authenticatable $user, ChannelContract $channel): bool
     {
         return false;
     }
@@ -45,7 +45,7 @@ class ChannelPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, Channel $channel): bool
+    public function delete(?Authenticatable $user, ChannelContract $channel): bool
     {
         return false;
     }

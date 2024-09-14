@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Tags\Policies;
 
-use Dystcz\LunarApi\Domain\Tags\Models\Tag;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Tag as TagContract;
 
 class TagPolicy
 {
@@ -21,7 +21,7 @@ class TagPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, Tag $tag): bool
+    public function view(?Authenticatable $user, TagContract $tag): bool
     {
         return true;
     }
@@ -31,22 +31,22 @@ class TagPolicy
      */
     public function create(?Authenticatable $user): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, Tag $tag): bool
+    public function update(?Authenticatable $user, TagContract $tag): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, Tag $tag): bool
+    public function delete(?Authenticatable $user, TagContract $tag): bool
     {
-        return true;
+        return false;
     }
 }

@@ -2,12 +2,12 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Policies;
 
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Lunar\Base\CartSessionInterface;
+use Lunar\Models\Contracts\Cart as CartContract;
 
 class CartPolicy
 {
@@ -15,16 +15,9 @@ class CartPolicy
 
     private Request $request;
 
-    /**
-     * @var CartSessionManager
-     */
-    private CartSessionInterface $cartSession;
-
     public function __construct()
     {
         $this->request = App::get('request');
-
-        $this->cartSession = App::make(CartSessionInterface::class);
     }
 
     /**
@@ -38,7 +31,7 @@ class CartPolicy
     /**
      * Authorize a user to view cart's cart lines.
      */
-    public function viewCartLines(?Authenticatable $user, Cart $cart): bool
+    public function viewCartLines(?Authenticatable $user, CartContract $cart): bool
     {
         return $this->check($user, $cart);
     }
@@ -46,7 +39,7 @@ class CartPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, Cart $cart): bool
+    public function view(?Authenticatable $user, CartContract $cart): bool
     {
         return $this->check($user, $cart);
     }
@@ -62,7 +55,7 @@ class CartPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, Cart $cart): bool
+    public function update(?Authenticatable $user, CartContract $cart): bool
     {
         return false;
     }
@@ -70,7 +63,7 @@ class CartPolicy
     /**
      * Determine whether the user can create empty addresses.
      */
-    public function createEmptyAddresses(?Authenticatable $user, Cart $cart): bool
+    public function createEmptyAddresses(?Authenticatable $user, CartContract $cart): bool
     {
         return $this->check($user, $cart);
     }
@@ -78,7 +71,7 @@ class CartPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function checkout(?Authenticatable $user, Cart $cart): bool
+    public function checkout(?Authenticatable $user, CartContract $cart): bool
     {
         return $this->check($user, $cart);
     }
@@ -86,7 +79,7 @@ class CartPolicy
     /**
      * Determine whether the user can update payment option.
      */
-    public function updatePaymentOption(?Authenticatable $user, Cart $cart): bool
+    public function updatePaymentOption(?Authenticatable $user, CartContract $cart): bool
     {
         return $this->check($user, $cart);
     }
@@ -94,7 +87,7 @@ class CartPolicy
     /**
      * Determine whether the user can update coupon.
      */
-    public function updateCoupon(?Authenticatable $user, Cart $cart): bool
+    public function updateCoupon(?Authenticatable $user, CartContract $cart): bool
     {
         return $this->check($user, $cart);
     }
@@ -102,7 +95,7 @@ class CartPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function clear(?Authenticatable $user, Cart $cart): bool
+    public function clear(?Authenticatable $user, CartContract $cart): bool
     {
         return true;
     }
@@ -110,7 +103,7 @@ class CartPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, Cart $cart): bool
+    public function delete(?Authenticatable $user, CartContract $cart): bool
     {
         return false;
     }
@@ -118,8 +111,8 @@ class CartPolicy
     /**
      * Determine whether the user can view the model.
      */
-    protected function check(?Authenticatable $user, Cart $cart): bool
+    protected function check(?Authenticatable $user, CartContract $cart): bool
     {
-        return (string) $this->cartSession->current()?->getRouteKey() === (string) $cart->getRouteKey();
+        return (string) App::make(CurrentSessionCart::class)?->getRouteKey() === (string) $cart->getRouteKey();
     }
 }

@@ -19,7 +19,7 @@ it('can list images through relationship', function () {
     $response = $this
         ->jsonApi()
         ->expects('media')
-        ->get(serverUrl("/variants/{$variant->getRouteKey()}/images"));
+        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}/images"));
 
     $response
         ->assertSuccessful()

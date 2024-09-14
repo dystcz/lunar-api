@@ -29,10 +29,11 @@
     "laravel-json-api/hashids": "^3.0",
     "laravel-json-api/laravel": "^4.0",
     "laravel-json-api/non-eloquent": "^4.0",
-    "lunarphp/lunar": "^1.0.0"
+    "lunarphp/lunar": "dev-lun-156-unable-to-create-order as 1.0.0-beta.1"
   },
   "require-dev": {
     "barryvdh/laravel-ide-helper": "^3.0",
+    "larastan/larastan": "^2.0",
     "laravel-json-api/testing": "^3.0",
     "laravel/pint": "^1.7",
     "orchestra/testbench": "^9.0",
@@ -40,6 +41,12 @@
     "pestphp/pest-plugin-laravel": "^2.0",
     "spatie/laravel-ray": "^1.32"
   },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/lunarphp/lunar.git"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "Dystcz\\LunarApi\\": "src"

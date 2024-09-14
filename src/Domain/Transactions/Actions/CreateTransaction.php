@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Transactions\Actions;
 
 use Dystcz\LunarApi\Domain\Transactions\Data\TransactionData;
-use Dystcz\LunarApi\Domain\Transactions\Models\Transaction;
+use Lunar\Models\Transaction;
 
 class CreateTransaction
 {
@@ -12,7 +12,7 @@ class CreateTransaction
      */
     public function __invoke(TransactionData $transactionData): Transaction
     {
-        return Transaction::updateOrCreate([
+        return Transaction::modelClass()::updateOrCreate([
             'order_id' => $transactionData->order_id,
             'parent_transaction_id' => $transactionData->parent_transaction_id,
             'reference' => $transactionData->reference,

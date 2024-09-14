@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Tests\Stubs\Policies;
 
-use Dystcz\LunarApi\Domain\Brands\Models\Brand;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Brand;
 
 class TestBrandPolicy
 {

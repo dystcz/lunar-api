@@ -11,7 +11,7 @@ class SetCoupon
     /**
      * Apply coupon.
      */
-    public function __invoke(CartContract $cart, string $couponCode): Cart
+    public function __invoke(CartContract $cart, string $couponCode): CartContract
     {
         /** @var Cart $cart */
         $cart->coupon_code = Str::upper($couponCode);

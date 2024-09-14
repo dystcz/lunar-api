@@ -8,15 +8,17 @@ use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\CreatePaymentIntentRequest;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Domain\Payments\Actions\CreatePaymentIntent;
 use LaravelJsonApi\Core\Responses\DataResponse;
+use Lunar\Models\Contracts\Order as OrderContract;
 use RuntimeException;
 
 class CreatePaymentIntentController extends Controller implements CreatePaymentIntentControllerContract
 {
     public function createPaymentIntent(
         CreatePaymentIntentRequest $request,
-        Order $order,
+        OrderContract $order,
         CreatePaymentIntent $createPaymentIntent,
     ): DataResponse {
+        /** @var Order $order */
         $this->authorize('update', $order);
 
         $paymentMethod = $request->validated('payment_method');

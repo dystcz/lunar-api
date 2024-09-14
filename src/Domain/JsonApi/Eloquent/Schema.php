@@ -6,8 +6,9 @@ use Dystcz\LunarApi\Base\Contracts\Extendable as ExtendableContract;
 use Dystcz\LunarApi\Base\Contracts\SchemaExtension as SchemaExtensionContract;
 use Dystcz\LunarApi\Base\Contracts\SchemaManifest as SchemaManifestContract;
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\Schema as SchemaContract;
+use Dystcz\LunarApi\Domain\JsonApi\Core\Schema\TypeResolver;
 use Dystcz\LunarApi\LunarApi;
-use Dystcz\LunarApi\Support\Models\Actions\GetModelKey;
+use Dystcz\LunarApi\Support\Models\Actions\ModelKey;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
@@ -21,10 +22,16 @@ use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema as BaseSchema;
 use LaravelJsonApi\HashIds\HashId;
+use LogicException;
 use Lunar\Facades\ModelManifest;
 
 abstract class Schema extends BaseSchema implements ExtendableContract, SchemaContract
 {
+    /**
+     * {@inheritDoc}
+     */
+    public static string $model;
+
     /**
      * The maximum depth of include paths.
      */
@@ -68,6 +75,16 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
         $this->extension = App::make(SchemaManifestContract::class)::for(static::class);
 
         $this->server = $server;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function type(): string
+    {
+        $resolver = new TypeResolver;
+
+        return $resolver(static::class);
     }
 
     /**
@@ -318,7 +335,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     {
         if (LunarApi::usesHashids()) {
             return HashId::make($column)
-                ->useConnection((new GetModelKey)(self::model()))
+                ->useConnection(ModelKey::get(self::model()))
                 ->alreadyHashed();
         }
 

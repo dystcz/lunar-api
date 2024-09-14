@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\CartLines\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
@@ -11,6 +12,8 @@ use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Contracts\CartLine;
+use Lunar\Models\Contracts\Product;
+use Lunar\Models\Contracts\ProductVariant;
 
 class CartLineSchema extends Schema
 {
@@ -85,18 +88,13 @@ class CartLineSchema extends Schema
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             MorphTo::make('purchasable', 'purchasable')
-                ->types('products', 'variants')
+                ->types(
+                    ModelType::get(Product::class),
+                    ModelType::get(ProductVariant::class),
+                )
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             ...parent::fields(),
         ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'cart-lines';
     }
 }

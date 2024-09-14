@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Orders\Policies;
 
 use Dystcz\LunarApi\Domain\Checkout\Enums\CheckoutProtectionStrategy;
-use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
@@ -11,6 +10,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
+use Lunar\Models\Contracts\Order as OrderContract;
 
 class OrderPolicy
 {
@@ -41,7 +41,7 @@ class OrderPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, Order $order): bool
+    public function view(?Authenticatable $user, OrderContract $order): bool
     {
         return $this->check($user, $order);
     }
@@ -57,7 +57,7 @@ class OrderPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, Order $order): bool
+    public function update(?Authenticatable $user, OrderContract $order): bool
     {
         return $this->check($user, $order);
     }
@@ -65,7 +65,7 @@ class OrderPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, Order $order): bool
+    public function delete(?Authenticatable $user, OrderContract $order): bool
     {
         return $this->check($user, $order);
     }
@@ -73,7 +73,7 @@ class OrderPolicy
     /**
      * Authorize a user to view order's order lines.
      */
-    public function viewOrderLines(?Authenticatable $user, Order $order): bool
+    public function viewOrderLines(?Authenticatable $user, OrderContract $order): bool
     {
         return $this->check($user, $order);
     }
@@ -81,7 +81,7 @@ class OrderPolicy
     /**
      * Authorize a user to view order's digital lines.
      */
-    public function viewDigitalLines(?Authenticatable $user, Order $order): bool
+    public function viewDigitalLines(?Authenticatable $user, OrderContract $order): bool
     {
         return $this->check($user, $order);
     }
@@ -89,7 +89,7 @@ class OrderPolicy
     /**
      * Authorize a user to view order's product lines.
      */
-    public function viewProductLines(?Authenticatable $user, Order $order): bool
+    public function viewProductLines(?Authenticatable $user, OrderContract $order): bool
     {
         return $this->check($user, $order);
     }
@@ -97,7 +97,7 @@ class OrderPolicy
     /**
      * Authorize a user to view order's physical lines.
      */
-    public function viewPhysicalLines(?Authenticatable $user, Order $order): bool
+    public function viewPhysicalLines(?Authenticatable $user, OrderContract $order): bool
     {
         return $this->check($user, $order);
     }
@@ -105,7 +105,7 @@ class OrderPolicy
     /**
      * Authorize a user to view order's shipping lines.
      */
-    public function viewShippingLines(?Authenticatable $user, Order $order): bool
+    public function viewShippingLines(?Authenticatable $user, OrderContract $order): bool
     {
         return $this->check($user, $order);
     }
@@ -113,7 +113,7 @@ class OrderPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function viewSigned(?Authenticatable $user, Order $order): bool
+    public function viewSigned(?Authenticatable $user, OrderContract $order): bool
     {
         // If order check payment status signature is valid or env is local
         if ($this->checkValidSignature() || App::environment('local')) {
@@ -140,7 +140,7 @@ class OrderPolicy
     /**
      * Determine whether the user can view the model.
      */
-    protected function check(?Authenticatable $user, Order $order): bool
+    protected function check(?Authenticatable $user, OrderContract $order): bool
     {
         $protectionStrategy = Config::get(
             'lunar-api.general.checkout.checkout_protection_strategy',

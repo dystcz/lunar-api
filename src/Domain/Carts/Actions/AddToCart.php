@@ -6,8 +6,8 @@ use Dystcz\LunarApi\Domain\CartLines\Data\CartLineData;
 use Dystcz\LunarApi\Domain\CartLines\Models\CartLine;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Support\Actions\Action;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\App;
-use JetBrains\PhpStorm\ArrayShape;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
 use Lunar\Models\Contracts\Cart as CartContract;
@@ -22,13 +22,12 @@ class AddToCart extends Action
         $this->cartSession = App::make(CartSessionInterface::class);
     }
 
-    #[ArrayShape([CartContract::class, CartLineContract::class])]
     public function handle(CartLineData $data): array
     {
         /** @var Cart $cart */
         $cart = $this->getCart();
 
-        $purchasable = $data->purchasable_type::find($data->purchasable_id);
+        $purchasable = Relation::getMorphedModel($data->purchasable_type)::find($data->purchasable_id);
 
         $cart = $cart->add(
             purchasable: $purchasable,

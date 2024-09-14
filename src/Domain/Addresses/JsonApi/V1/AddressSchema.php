@@ -86,12 +86,4 @@ class AddressSchema extends Schema
             ...parent::fields(),
         ];
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'addresses';
-    }
 }

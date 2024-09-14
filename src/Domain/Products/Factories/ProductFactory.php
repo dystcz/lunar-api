@@ -2,25 +2,22 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Factories;
 
-use Dystcz\LunarApi\Domain\Brands\Models\Brand;
 use Dystcz\LunarApi\Domain\Media\Factories\MediaFactory;
-use Dystcz\LunarApi\Domain\Products\Models\Product;
-use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Illuminate\Support\Facades\Config;
 use Lunar\Database\Factories\ProductFactory as LunarProductFactory;
 use Lunar\FieldTypes\Text;
+use Lunar\Models\Brand;
 use Lunar\Models\ProductType;
+use Lunar\Models\ProductVariant;
 
 class ProductFactory extends LunarProductFactory
 {
-    protected $model = Product::class;
-
     public function definition(): array
     {
         return [
-            'product_type_id' => ProductType::factory(),
+            'product_type_id' => ProductType::modelClass()::factory(),
             'status' => 'published',
-            'brand_id' => Brand::factory(),
+            'brand_id' => Brand::modelClass()::factory(),
             'attribute_data' => collect([
                 'name' => new Text($this->faker->name),
                 'description' => new Text($this->faker->sentence),
@@ -46,7 +43,7 @@ class ProductFactory extends LunarProductFactory
     public function withPrices(int $count = 1): self
     {
         return $this->has(
-            ProductVariantFactory::new()->count($count)->withPrice(),
+            ProductVariant::modelClass()::factory()->count($count)->withPrice(),
             'variants',
         );
     }
