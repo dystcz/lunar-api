@@ -2,14 +2,11 @@
 
 namespace Dystcz\LunarApi\Domain\CartAddresses\Factories;
 
-use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Lunar\Database\Factories\CartAddressFactory as LunarCartAddressFactory;
 use Lunar\Models\Country;
 
 class CartAddressFactory extends LunarCartAddressFactory
 {
-    protected $model = CartAddress::class;
-
     public function definition(): array
     {
         return [
@@ -28,7 +25,7 @@ class CartAddressFactory extends LunarCartAddressFactory
             'contact_phone' => $this->faker->phoneNumber,
             'type' => 'shipping',
             'meta' => ['has_dog' => 'yes'],
-            'country_id' => Country::first() ?? Country::factory(),
+            'country_id' => Country::modelClass()::first() ?? Country::modelClass()::factory(),
         ];
     }
 }

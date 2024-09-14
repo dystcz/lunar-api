@@ -2,24 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Discounts\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
-use Lunar\DiscountTypes\AmountOff;
-use Lunar\Models\Discount;
+use Lunar\Database\Factories\DiscountFactory as LunarDiscountFactory;
 
-class DiscountFactory extends Factory
-{
-    protected $model = Discount::class;
-
-    public function definition(): array
-    {
-        $name = $this->faker->unique()->name;
-
-        return [
-            'name' => $name,
-            'handle' => Str::snake($name),
-            'type' => AmountOff::class,
-            'starts_at' => now(),
-        ];
-    }
-}
+class DiscountFactory extends LunarDiscountFactory {}
