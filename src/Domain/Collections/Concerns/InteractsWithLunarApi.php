@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\Collections\Concerns;
 
 use Dystcz\LunarApi\Domain\Attributes\Traits\InteractsWithAttributes;
 use Dystcz\LunarApi\Domain\Collections\Factories\CollectionFactory;
+use Dystcz\LunarApi\Domain\Collections\Models\Collection;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Config;
@@ -23,10 +24,8 @@ trait InteractsWithLunarApi
 
     public function images(): MorphMany
     {
-        /** @var \Lunar\Models\Collection $model */
-        $model = $this;
-
-        return $model
+        /** @var Collection $this */
+        return $this
             ->media()
             ->where(
                 'collection_name',
