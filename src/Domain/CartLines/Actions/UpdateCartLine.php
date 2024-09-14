@@ -3,26 +3,18 @@
 namespace Dystcz\LunarApi\Domain\CartLines\Actions;
 
 use Dystcz\LunarApi\Domain\CartLines\Data\CartLineData;
-use Dystcz\LunarApi\Domain\CartLines\Models\CartLine;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Support\Actions\Action;
 use Illuminate\Support\Facades\App;
-use Lunar\Base\CartSessionInterface;
-use Lunar\Managers\CartSessionManager;
+use Lunar\Models\Contracts\CartLine as CartLineContract;
 
 class UpdateCartLine extends Action
 {
-    protected CartSessionManager $cartSession;
-
-    public function __construct(
-    ) {
-        $this->cartSession = App::make(CartSessionInterface::class);
-    }
-
-    public function handle(CartLineData $data, CartLine $cartLine): array
+    public function handle(CartLineData $data, CartLineContract $cartLine): array
     {
         /** @var Cart $cart */
-        $cart = $this->cartSession->current();
+        $cart = App::make(CurrentSessionCart::class);
 
         $cart = $cart->updateLine(
             cartLineId: $cartLine->id,
@@ -31,7 +23,7 @@ class UpdateCartLine extends Action
         );
 
         $cartLine = $cart->lines->firstWhere(
-            fn (CartLine $cartLine) => $cartLine->is($cartLine)
+            fn (CartLineContract $cartLine) => $cartLine->is($cartLine)
         );
 
         return [$cart, $cartLine];
