@@ -7,10 +7,11 @@ use Dystcz\LunarApi\Domain\CartAddresses\Contracts\CartAddressesController as Ca
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressQuery;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressRequest;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema;
-use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
+use Lunar\Models\CartAddress;
+use Lunar\Models\Contracts\CartAddress as CartAddressContract;
 
 class CartAddressesController extends Controller implements CartAddressesControllerContract
 {
@@ -27,7 +28,7 @@ class CartAddressesController extends Controller implements CartAddressesControl
         CartAddressRequest $request,
         CartAddressQuery $query,
     ): DataResponse {
-        $this->authorize('create', CartAddress::class);
+        $this->authorize('create', CartAddress::modelClass());
 
         $validatedRequest = $request->validated();
 
@@ -61,7 +62,7 @@ class CartAddressesController extends Controller implements CartAddressesControl
         CartAddressSchema $schema,
         CartAddressRequest $request,
         CartAddressQuery $query,
-        CartAddress $cartAddress,
+        CartAddressContract $cartAddress,
     ): DataResponse {
         $this->authorize('update', $cartAddress);
 

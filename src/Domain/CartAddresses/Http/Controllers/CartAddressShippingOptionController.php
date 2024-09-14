@@ -5,10 +5,10 @@ namespace Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers;
 use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\CartAddresses\Contracts\CartAddressShippingOptionController as CartAddressShippingOptionControllerContract;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema;
-use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\SetShippingOptionRequest;
 use Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\UnsetShippingOptionRequest;
 use LaravelJsonApi\Core\Responses\DataResponse;
+use Lunar\Models\Contracts\CartAddress as CartAddressContract;
 
 class CartAddressShippingOptionController extends Controller implements CartAddressShippingOptionControllerContract
 {
@@ -18,7 +18,7 @@ class CartAddressShippingOptionController extends Controller implements CartAddr
     public function setShippingOption(
         CartAddressSchema $schema,
         SetShippingOptionRequest $request,
-        CartAddress $cartAddress,
+        CartAddressContract $cartAddress,
     ): DataResponse {
         $this->authorize('update', $cartAddress);
 
@@ -42,7 +42,7 @@ class CartAddressShippingOptionController extends Controller implements CartAddr
     public function unsetShippingOption(
         CartAddressSchema $schema,
         UnsetShippingOptionRequest $request,
-        CartAddress $cartAddress,
+        CartAddressContract $cartAddress,
     ): DataResponse {
         $this->authorize('update', $cartAddress);
 
