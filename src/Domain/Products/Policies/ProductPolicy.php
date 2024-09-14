@@ -69,7 +69,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's cheapest variant.
      */
-    public function viewCheapestVariant(?Authenticatable $user, ProductContract $product): bool
+    public function viewCheapestProductVariant(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -77,7 +77,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's most expensive variant.
      */
-    public function viewMostExpensiveVariant(?Authenticatable $user, ProductContract $product): bool
+    public function viewMostExpensiveProductVariant(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -109,7 +109,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's inverse associations.
      */
-    public function viewInverseAssociations(?Authenticatable $user, ProductContract $product): bool
+    public function viewInverseProductAssociations(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
