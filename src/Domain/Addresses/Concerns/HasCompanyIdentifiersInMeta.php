@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Addresses\Traits;
+namespace Dystcz\LunarApi\Domain\Addresses\Concerns;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
