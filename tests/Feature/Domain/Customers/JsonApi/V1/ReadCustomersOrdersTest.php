@@ -39,7 +39,7 @@ it('can list customers orders', function () {
 
     $response->assertFetchedMany($expected)
         ->assertIsIncluded('order-lines', $orderLine)
-        ->assertIsIncluded('variants', $orderLine->purchasable)
+        ->assertIsIncluded('product-variants', $orderLine->purchasable)
         ->assertIsIncluded('products', $orderLine->purchasable->product)
         ->assertIsIncluded('prices', $orderLine->purchasable->prices->first());
 });

@@ -2,8 +2,10 @@
 
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Lunar\Models\Contracts\ProductVariant as ProductVariantContract;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -19,8 +21,8 @@ it('can list other product variants through relationship', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
-        ->get(serverUrl("/variants/{$variant->getRouteKey()}/other_variants"));
+        ->expects(ModelType::get(ProductVariantContract::class))
+        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}/other_variants"));
 
     $response
         ->assertSuccessful()

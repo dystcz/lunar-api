@@ -2,9 +2,11 @@
 
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use Dystcz\LunarApi\Tests\Stubs\Users\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Lunar\Models\Contracts\ProductVariant as ProductVariantContract;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -17,7 +19,7 @@ beforeEach(function () {
 
 test('products cannot be deleted', function () {
     /** @var TestCase $this */
-    $response = $this->deleteTest('variants', ProductVariant::class);
+    $response = $this->deleteTest(ModelType::get(ProductVariantContract::class), ProductVariant::class);
 
     $response->assertErrorStatus([
         'status' => '405',

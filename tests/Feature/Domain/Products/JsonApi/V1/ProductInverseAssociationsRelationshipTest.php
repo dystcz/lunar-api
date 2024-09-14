@@ -27,7 +27,7 @@ it('can list product inverse associations through relationship', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('associations')
+        ->expects('product-associations')
         ->get(serverUrl("/products/{$productB->getRouteKey()}/inverse_associations"));
 
     $response

@@ -19,7 +19,7 @@ it('can read thumbnail through relationship', function () {
     $response = $this
         ->jsonApi()
         ->expects('media')
-        ->get(serverUrl("/variants/{$variant->getRouteKey()}/thumbnail"));
+        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}/thumbnail"));
 
     $response
         ->assertSuccessful()

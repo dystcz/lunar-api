@@ -19,7 +19,7 @@ it('can read product through relationship', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->get(serverUrl("/variants/{$variant->getRouteKey()}/product"));
+        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}/product"));
 
     $response
         ->assertSuccessful()

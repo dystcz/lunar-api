@@ -2,8 +2,10 @@
 
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Lunar\Models\Contracts\ProductVariant as ProductVariantContract;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -15,7 +17,7 @@ it('can read cheapest variant through relationship', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
+        ->expects(ModelType::get(ProductVariantContract::class))
         ->get(serverUrl("/products/{$product->getRouteKey()}/cheapest_variant"));
 
     $response

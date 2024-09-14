@@ -7,10 +7,10 @@ uses(TestCase::class, RefreshDatabase::class);
 
 test('users cannot create new product associations', function () {
     /** @var TestCase $this */
-    $response = $this->createTest('associations', []);
+    $response = $this->createTest('product-associations', []);
 
     $response->assertErrorStatus([
         'status' => '404',
         'title' => 'Not Found',
     ]);
-})->group('associations', 'policies');
+})->group('product-associations', 'policies');

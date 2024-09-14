@@ -4,8 +4,10 @@ use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Lunar\Models\Contracts\ProductVariant as ProductVariantContract;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -15,8 +17,8 @@ it('can show product variant detail', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
-        ->get(serverUrl('/variants/'.$variant->getRouteKey()));
+        ->expects(ModelType::get(ProductVariantContract::class))
+        ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
 
     $response
         ->assertSuccessful()
@@ -28,8 +30,8 @@ it('returns error response when product variant does not exists', function () {
     /** @var TestCase $this */
     $response = $this
         ->jsonApi()
-        ->expects('variants')
-        ->get(serverUrl('/variants/1'));
+        ->expects(ModelType::get(ProductVariantContract::class))
+        ->get(serverUrl('/product-variants/1'));
 
     $response
         ->assertErrorStatus([
@@ -48,9 +50,9 @@ test('can show a product variant with included images', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
+        ->expects(ModelType::get(ProductVariantContract::class))
         ->includePaths('images')
-        ->get(serverUrl('/variants/'.$variant->getRouteKey()));
+        ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
 
     $response
         ->assertSuccessful()
@@ -69,9 +71,9 @@ it('can show a product variant with included thumbnail', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
+        ->expects(ModelType::get(ProductVariantContract::class))
         ->includePaths('thumbnail')
-        ->get(serverUrl('/variants/'.$variant->getRouteKey()));
+        ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
 
     $response
         ->assertSuccessful()
@@ -87,9 +89,9 @@ it('can show a product variant with included product', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
+        ->expects(ModelType::get(ProductVariantContract::class))
         ->includePaths('product')
-        ->get(serverUrl('/variants/'.$variant->getRouteKey()));
+        ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
 
     $response
         ->assertSuccessful()
@@ -107,9 +109,9 @@ it('can show a product variant with included lowest price', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
+        ->expects(ModelType::get(ProductVariantContract::class))
         ->includePaths('lowest_price')
-        ->get(serverUrl('/variants/'.$variant->getRouteKey()));
+        ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
 
     $response
         ->assertSuccessful()
@@ -127,9 +129,9 @@ it('can show a product variant with included highest price', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
+        ->expects(ModelType::get(ProductVariantContract::class))
         ->includePaths('highest_price')
-        ->get(serverUrl('/variants/'.$variant->getRouteKey()));
+        ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
 
     $response
         ->assertSuccessful()
@@ -147,9 +149,9 @@ it('can show a product variant with included prices', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
+        ->expects(ModelType::get(ProductVariantContract::class))
         ->includePaths('prices')
-        ->get(serverUrl('/variants/'.$variant->getRouteKey()));
+        ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
 
     $response
         ->assertSuccessful()
@@ -173,16 +175,16 @@ it('can show a product variant with other variants included', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
+        ->expects(ModelType::get(ProductVariantContract::class))
         ->includePaths('other_variants')
-        ->get(serverUrl('/variants/').$variant->getRouteKey());
+        ->get(serverUrl('/product-variants/').$variant->getRouteKey());
 
     $response
         ->assertSuccessful()
         ->assertFetchedOne($variant);
 
     foreach ($otherVariants as $variant) {
-        $response->assertIsIncluded('variants', $variant);
+        $response->assertIsIncluded(ModelType::get(ProductVariantContract::class), $variant);
     }
 
 })->group('variants');
@@ -199,8 +201,8 @@ it('can show a product with other variants count', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
-        ->get(serverUrl('/variants/').$variant->getRouteKey().'?withCount=other_variants');
+        ->expects(ModelType::get(ProductVariantContract::class))
+        ->get(serverUrl('/product-variants/').$variant->getRouteKey().'?withCount=other_variants');
 
     $response
         ->assertSuccessful()

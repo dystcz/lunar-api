@@ -27,8 +27,8 @@ it('can list product associations through relationship', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('associations')
-        ->get(serverUrl("/products/{$productA->getRouteKey()}/associations"));
+        ->expects('product-associations')
+        ->get(serverUrl("/products/{$productA->getRouteKey()}/product-associations"));
 
     $response
         ->assertSuccessful()

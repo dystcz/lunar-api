@@ -3,8 +3,10 @@
 use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Lunar\Models\Contracts\ProductVariant as ProductVariantContract;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -17,8 +19,8 @@ it('can list bare product variants', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
-        ->get(serverUrl('/variants'));
+        ->expects(ModelType::get(ProductVariantContract::class))
+        ->get(serverUrl('/product-variants'));
 
     $response
         ->assertSuccessful()
@@ -36,8 +38,8 @@ it('cannot list variants of unpublished products', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
-        ->get(serverUrl('/variants'));
+        ->expects(ModelType::get(ProductVariantContract::class))
+        ->get(serverUrl('/product-variants'));
 
     $response
         ->assertSuccessful()
