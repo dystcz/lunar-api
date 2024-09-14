@@ -49,9 +49,9 @@ class DomainConfigCollection extends Collection
     /**
      * Get schemas from domain config.
      */
-    public function getSchemaByType(string $type): self
+    public function getSchemaByType(string $type): string
     {
-        $this->firstWhere(
+        return $this->firstWhere(
             fn (DomainConfig $domain) => $domain->schema::type() === $type,
         );
     }
