@@ -15,7 +15,7 @@ class TaxZone extends LunarTaxZone
         $key = 'lunar_default_tax_zone_percentage';
 
         return BlinkFacade::once($key, function () {
-            return floatval(TaxZone::getDefault()->taxAmounts->first()?->percentage);
+            return floatval(static::getDefault()->taxAmounts->first()?->percentage);
         });
     }
 }

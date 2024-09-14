@@ -352,4 +352,15 @@ return [
         'collection_query' => Dystcz\LunarApi\Domain\Urls\JsonApi\V1\UrlCollectionQuery::class,
         'routes' => Dystcz\LunarApi\Domain\Urls\Http\Routing\UrlRouteGroup::class,
     ],
+
+    'tax_zones' => [
+        'model' => Dystcz\LunarApi\Domain\TaxZones\Models\TaxZone::class,
+        'lunar_model' => Lunar\Models\Contracts\TaxZone::class,
+        'policy' => Dystcz\LunarApi\Domain\TaxZones\Policies\TaxZonePolicy::class,
+        'schema' => Dystcz\LunarApi\Domain\TaxZones\JsonApi\V1\TaxZoneSchema::class,
+        'resource' => Dystcz\LunarApi\Domain\TaxZones\JsonApi\V1\TaxZoneResource::class,
+        'query' => Dystcz\LunarApi\Domain\TaxZones\JsonApi\V1\TaxZoneQuery::class,
+        'collection_query' => Dystcz\LunarApi\Domain\TaxZones\JsonApi\V1\TaxZoneCollectionQuery::class,
+        'routes' => null,
+    ],
 ];
