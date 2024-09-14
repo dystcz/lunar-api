@@ -21,6 +21,7 @@ class CollectionRouteGroup extends RouteGroup implements RouteGroupContract
             ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), CollectionsController::class)
                     ->relationships(function (Relationships $relationships) {
+                        $relationships->hasMany('images')->readOnly();
                         $relationships->hasMany('products')->readOnly();
                         $relationships->hasOne('default-url')->readOnly();
                     })

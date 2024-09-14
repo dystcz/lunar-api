@@ -28,7 +28,7 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
                         $relationships->hasOne('most-expensive-product-variant')->readOnly();
                         $relationships->hasMany('collections')->readOnly();
                         $relationships->hasOne('default-url')->readOnly();
-                        $relationships->hasOne('images')->readOnly();
+                        $relationships->hasMany('images')->readOnly();
                         $relationships->hasMany('inverse-product-associations')->readOnly();
                         $relationships->hasOne('lowest-price')->readOnly();
                         $relationships->hasOne('highest-price')->readOnly();
