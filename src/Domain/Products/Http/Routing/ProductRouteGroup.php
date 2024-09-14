@@ -21,7 +21,7 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
             ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), ProductsController::class)
                     ->relationships(function (Relationships $relationships) {
-                        $relationships->hasMany('associations')->readOnly();
+                        $relationships->hasMany('product-associations')->readOnly();
                         $relationships->hasOne('brand')->readOnly();
                         $relationships->hasOne('cheapest_variant')->readOnly();
                         $relationships->hasOne('most_expensive_variant')->readOnly();
@@ -35,7 +35,7 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
                         $relationships->hasMany('tags')->readOnly();
                         $relationships->hasOne('thumbnail')->readOnly();
                         $relationships->hasMany('urls')->readOnly();
-                        $relationships->hasMany('variants')->readOnly();
+                        $relationships->hasMany('product-variants')->readOnly();
                     })
                     ->only('index', 'show')
                     ->readOnly();
