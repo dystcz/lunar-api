@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\PaymentOptions\Handlers;
 
-use Lunar\Models\Cart;
+use Lunar\Models\Contracts\Cart as CartContract;
 
 abstract class PaymentHandler
 {
-    public function handle(Cart $cart): void {}
+    public function handle(CartContract $cart): void {}
 }

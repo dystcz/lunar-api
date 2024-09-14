@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\PaymentOptions\Contracts;
 use Closure;
 use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
 use Illuminate\Support\Collection;
-use Lunar\Models\Cart;
+use Lunar\Models\Contracts\Cart as CartContract;
 
 interface PaymentManifest
 {
@@ -36,15 +36,15 @@ interface PaymentManifest
     /**
      * Return available options for a given cart.
      */
-    public function getOptions(Cart $cart): Collection;
+    public function getOptions(CartContract $cart): Collection;
 
     /**
      * Return available option for a given cart by identifier.
      */
-    public function getOption(Cart $cart, string $identifier): ?PaymentOption;
+    public function getOption(CartContract $cart, string $identifier): ?PaymentOption;
 
     /**
      * Retrieve payment option for a given cart
      */
-    public function getPaymentOption(Cart $cart): ?PaymentOption;
+    public function getPaymentOption(CartContract $cart): ?PaymentOption;
 }

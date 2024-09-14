@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use Lunar\Base\Purchasable;
 use Lunar\DataTypes\Price;
-use Lunar\Models\Cart;
-use Lunar\Models\Currency;
+use Lunar\Models\Contracts\Cart as CartContract;
+use Lunar\Models\Contracts\Currency as CurrencyContract;
+use Lunar\Models\Contracts\TaxClass as TaxClassContract;
 use Lunar\Models\TaxClass;
 
 class PaymentOption implements Arrayable, Purchasable
@@ -24,7 +25,7 @@ class PaymentOption implements Arrayable, Purchasable
         public string $identifier,
         public string $driver,
         public Price $price,
-        public TaxClass $taxClass,
+        public TaxClassContract $taxClass,
         public ?string $taxReference = null,
         public ?string $option = null,
         public bool $collect = false,
@@ -37,7 +38,7 @@ class PaymentOption implements Arrayable, Purchasable
     /**
      * Modify the cart during pipeline execution.
      *
-     * @param  Closure(Cart, PaymentOption): Cart  $closure
+     * @param  Closure(CartContract, PaymentOption): CartContract  $closure
      */
     public function modifyCartUsing(Closure $closure): self
     {
@@ -83,7 +84,7 @@ class PaymentOption implements Arrayable, Purchasable
     /**
      * Get curency.
      */
-    public function getCurrency(): Currency
+    public function getCurrency(): CurrencyContract
     {
         return $this->getPrice()->currency;
     }
@@ -124,6 +125,8 @@ class PaymentOption implements Arrayable, Purchasable
 
     /**
      * Get tax class.
+     *
+     * @return TaxClassContract
      */
     public function getTaxClass(): TaxClass
     {
