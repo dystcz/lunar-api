@@ -25,4 +25,4 @@ it('can read product through relationship', function () {
         ->assertSuccessful()
         ->assertFetchedOne($variant->product)
         ->assertDoesntHaveIncluded();
-})->group('variants');
+})->group('product-variants');

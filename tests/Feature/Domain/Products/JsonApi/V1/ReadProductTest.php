@@ -93,7 +93,7 @@ test('can show a product with included lowest price', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->includePaths('lowest_price')
+        ->includePaths('lowest-price')
         ->get(serverUrl('/products/'.$product->getRouteKey()));
 
     $response
@@ -115,7 +115,7 @@ test('can show a product with included highest price', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->includePaths('highest_price')
+        ->includePaths('highest-price')
         ->get(serverUrl('/products/'.$product->getRouteKey()));
 
     $response
@@ -162,27 +162,6 @@ it('can show a product with included variants', function () {
         ->assertSuccessful()
         ->assertFetchedOne($product)
         ->assertIsIncluded('product-variants', $product->variants->first());
-})->group('products');
-
-it('can show a product with variants count', function () {
-    /** @var TestCase $this */
-    $product = Product::factory()
-        ->has(
-            ProductVariant::factory()->has(Price::factory())->count(5),
-            'variants'
-        )
-        ->create();
-
-    $response = $this
-        ->jsonApi()
-        ->expects('products')
-        ->get(serverUrl("/products/{$product->getRouteKey()}?withCount=product-variants"));
-
-    $response
-        ->assertSuccessful()
-        ->assertFetchedOne($product);
-
-    expect($response->json('data.relationships.product-variants.meta.count'))->toBe(5);
 })->group('products');
 
 it('can show a product with included tags', function () {

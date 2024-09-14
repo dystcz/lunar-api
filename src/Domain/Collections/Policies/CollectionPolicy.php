@@ -51,17 +51,25 @@ class CollectionPolicy
     }
 
     /**
-     * Authorize a user to view collections's products.
+     * Authorize a user to view collection's default url.
      */
-    public function viewProducts(?Authenticatable $user, CollectionContract $collection): bool
+    public function viewDefaultUrl(?Authenticatable $user, CollectionContract $collection): bool
     {
         return true;
     }
 
     /**
-     * Authorize a user to view collection's default url.
+     * Authorize a user to view collections's images.
      */
-    public function viewDefaultUrl(?Authenticatable $user, CollectionContract $collection): bool
+    public function viewImages(?Authenticatable $user, CollectionContract $collection): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view collections's products.
+     */
+    public function viewProducts(?Authenticatable $user, CollectionContract $collection): bool
     {
         return true;
     }

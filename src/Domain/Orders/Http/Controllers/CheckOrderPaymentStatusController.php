@@ -26,7 +26,7 @@ class CheckOrderPaymentStatusController extends Controller implements CheckOrder
 
         return DataResponse::make($order)
             ->withIncludePaths([
-                'latest_transaction',
+                'latest-transaction',
             ])
             ->withSparseFieldSets([
                 'orders' => [

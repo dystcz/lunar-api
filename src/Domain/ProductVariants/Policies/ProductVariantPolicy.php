@@ -69,7 +69,7 @@ class ProductVariantPolicy
     /**
      * Authorize a user to view other variants.
      */
-    public function viewOtherVariants(?Authenticatable $user, ProductVariantContract $variant): bool
+    public function viewOtherProductVariants(?Authenticatable $user, ProductVariantContract $variant): bool
     {
         return true;
     }

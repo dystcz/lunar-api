@@ -37,37 +37,37 @@ class CartSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'cart_lines',
-            'cart_lines.purchasable',
-            'cart_lines.purchasable.default_url',
-            'cart_lines.purchasable.images',
-            'cart_lines.purchasable.prices',
-            'cart_lines.purchasable.product',
-            'cart_lines.purchasable.product.collections',
-            'cart_lines.purchasable.product.default_url',
-            'cart_lines.purchasable.product.images',
-            'cart_lines.purchasable.product.product_type',
-            'cart_lines.purchasable.product.thumbnail',
-            'cart_lines.purchasable.thumbnail',
-            'cart_lines.purchasable.values',
+            'cart-lines',
+            'cart-lines.purchasable',
+            'cart-lines.purchasable.default-url',
+            'cart-lines.purchasable.images',
+            'cart-lines.purchasable.prices',
+            'cart-lines.purchasable.product',
+            'cart-lines.purchasable.product.collections',
+            'cart-lines.purchasable.product.default-url',
+            'cart-lines.purchasable.product.images',
+            'cart-lines.purchasable.product.product_type',
+            'cart-lines.purchasable.product.thumbnail',
+            'cart-lines.purchasable.thumbnail',
+            'cart-lines.purchasable.values',
 
             'order',
-            'order.product_lines',
-            'order.product_lines.purchasable',
-            'order.product_lines.purchasable.thumbnail',
-            'order.product_lines.purchasable.default_url',
-            'order.product_lines.purchasable.product',
-            'order.product_lines.purchasable.product.thumbnail',
-            'order.product_lines.purchasable.product.default_url',
+            'order.product-lines',
+            'order.product-lines.purchasable',
+            'order.product-lines.purchasable.thumbnail',
+            'order.product-lines.purchasable.default-url',
+            'order.product-lines.purchasable.product',
+            'order.product-lines.purchasable.product.thumbnail',
+            'order.product-lines.purchasable.product.default-url',
 
-            'cart_addresses',
-            'cart_addresses.country',
+            'cart-addresses',
+            'cart-addresses.country',
 
-            'shipping_address',
-            'shipping_address.country',
+            'shipping-address',
+            'shipping-address.country',
 
-            'billing_address',
-            'billing_address.country',
+            'billing-address',
+            'billing-address.country',
 
             ...parent::includePaths(),
         ];
@@ -135,21 +135,21 @@ class CartSchema extends Schema
                 ->type(ModelType::get(Order::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('cart_lines', 'lines')
+            HasMany::make('cart-lines', 'lines')
                 ->type(ModelType::get(CartLine::class))
                 ->retainFieldName(),
 
-            HasMany::make('cart_addresses', 'addresses')
+            HasMany::make('cart-addresses', 'addresses')
                 ->type(ModelType::get(CartAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('shipping_address', 'shippingAddress')
+            HasOne::make('shipping-address', 'shippingAddress')
                 ->type(ModelType::get(CartAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('billing_address', 'billingAddress')
+            HasOne::make('billing-address', 'billingAddress')
                 ->type(ModelType::get(CartAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),

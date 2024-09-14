@@ -40,12 +40,12 @@ it('can read order details without signature when user is logged in and owns the
         ->actingAs($user)
         ->jsonApi()
         ->includePaths(
-            'product_lines.purchasable.product',
-            'product_lines.purchasable.prices',
-            'product_lines.purchasable.images',
-            'product_lines.currency',
+            'product-lines.purchasable.product',
+            'product-lines.purchasable.prices',
+            'product-lines.purchasable.images',
+            'product-lines.currency',
             'customer',
-            'order_addresses',
+            'order-addresses',
         )
         ->expects('orders')
         ->get('/api/v1/orders/'.$order->getRouteKey());
@@ -85,7 +85,7 @@ it('can read order details when accessing order with valid signature', function 
                 'create_user' => false,
             ],
         ])
-        ->post('/api/v1/carts/-actions/checkout');
+        ->post(serverUrl('/carts/-actions/checkout'));
 
     $signedUrl = $response->json()['links']['self.signed'];
 
@@ -130,9 +130,9 @@ it('returns unauthorized if the user does not own the order', function () {
 
     $response = $this
         ->jsonApi()
-        ->includePaths('productLines')
+        ->includePaths('product-lines')
         ->expects('orders')
-        ->get('http://localhost/api/v1/orders/'.$order->getRouteKey());
+        ->get(serverUrl("/orders/{$order->getRouteKey()}"));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',

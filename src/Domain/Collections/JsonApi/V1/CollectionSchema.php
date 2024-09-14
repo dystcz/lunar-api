@@ -38,7 +38,7 @@ class CollectionSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'default_url',
+            'default-url',
             'images',
             'thumbnail',
             'urls',
@@ -46,9 +46,9 @@ class CollectionSchema extends Schema
             'group',
 
             'products',
-            'products.default_url',
+            'products.default-url',
             'products.images',
-            'products.lowest_price',
+            'products.lowest-price',
             'products.prices',
             'products.thumbnail',
             'products.urls',
@@ -71,7 +71,7 @@ class CollectionSchema extends Schema
             Number::make('parent_id', 'parent_id')
                 ->hidden(),
 
-            HasOne::make('default_url', 'defaultUrl')
+            HasOne::make('default-url', 'defaultUrl')
                 ->type(ModelType::get(Url::class))
                 ->retainFieldName(),
 

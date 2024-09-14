@@ -45,7 +45,7 @@ class Query extends ResourceQuery
                 'string',
                 JsonApiRule::sort(),
             ],
-            'withCount' => [
+            'with-count' => [
                 'nullable',
                 'string',
                 JsonApiRule::countable(),
