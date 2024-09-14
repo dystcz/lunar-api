@@ -30,6 +30,8 @@ jobs:
           extensions: "dom, curl, libxml, mbstring, zip, fileinfo"
           tools: "composer:v2"
           coverage: "none"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Install dependencies from composer.json"
         if: "matrix.dependencies != 'lowest'"
