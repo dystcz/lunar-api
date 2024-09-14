@@ -8,31 +8,32 @@
 
 1. Changed relationship names and routes
    Because Schemas now use type naming derived from pluralized morph aliases, relationship names and thus routes had to change as well.
-   `associations` → `product-associations`
-   `attribute_group` → `attribute-group`
-   `billing_address` → `billing-address`
-   `cart_lines` → `cart-lines`
-   `cheapest_variant` → `cheapest-product-variant`
-   `default_url` → `default-url`
-   `digital_lines` → `digital-lines`
-   `highest_price` → `highest-price`
-   `inverse_associations` → `inverse-product-associations`
-   `latest_transaction` → `latest-transaction`
-   `lowest_price` → `lowest-price`
-   `most_expensive_variant` → `most-expensive-product-variant`
-   `order_addresses` → `order-addresses`
-   `order_lines` → `order-lines`
-   `other_variants` → `other-product-variants`
-   `payment_lines` → `payment-lines`
-   `physical_lines` → `physical-lines`
-   `product_lines` → `product-lines`
-   `produst_type` → `product-type`
-   `shipping_address` → `shipping-address`
-   `shipping_address` → `shipping-address`
-   `shipping_lines` → `shipping-lines`
+   
+   `associations` → `product-associations`<br>
+   `attribute_group` → `attribute-group`<br>
+   `billing_address` → `billing-address`<br>
+   `cart_lines` → `cart-lines`<br>
+   `cheapest_variant` → `cheapest-product-variant`<br>
+   `default_url` → `default-url`<br>
+   `digital_lines` → `digital-lines`<br>
+   `highest_price` → `highest-price`<br>
+   `inverse_associations` → `inverse-product-associations`<br>
+   `latest_transaction` → `latest-transaction`<br>
+   `lowest_price` → `lowest-price`<br>
+   `most_expensive_variant` → `most-expensive-product-variant`<br>
+   `order_addresses` → `order-addresses`<br>
+   `order_lines` → `order-lines`<br>
+   `other_variants` → `other-product-variants`<br>
+   `payment_lines` → `payment-lines`<br>
+   `physical_lines` → `physical-lines`<br>
+   `product_lines` → `product-lines`<br>
+   `produst_type` → `product-type`<br>
+   `shipping_address` → `shipping-address`<br>
+   `shipping_address` → `shipping-address`<br>
+   `shipping_lines` → `shipping-lines`<br>
    `variants` → `product-variants`
 
-2. Changed withCount query parameter
+3. Changed withCount query parameter
    `?withCount=` → `?with-count=`
 
 ## 0.8.8
