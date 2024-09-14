@@ -7,13 +7,15 @@ use Dystcz\LunarApi\Domain\Orders\Contracts\MarkOrderPendingPaymentController as
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Domain\Payments\Actions\MarkPendingPayment;
 use LaravelJsonApi\Core\Responses\DataResponse;
+use Lunar\Models\Contracts\Order as OrderContract;
 
 class MarkOrderPendingPaymentController extends Controller implements MarkOrderPendingPaymentControllerContract
 {
     public function markPendingPayment(
-        Order $order,
+        OrderContract $order,
         MarkPendingPayment $markPendingPayment,
     ): DataResponse {
+        /** @var Order $order */
         $this->authorize('viewSigned', $order);
 
         $order = $markPendingPayment($order);

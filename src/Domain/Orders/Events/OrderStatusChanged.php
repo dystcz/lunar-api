@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\Orders\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Lunar\Models\Order;
+use Lunar\Models\Contracts\Order as OrderContract;
 
 class OrderStatusChanged
 {
@@ -17,7 +17,7 @@ class OrderStatusChanged
      * @return void
      */
     public function __construct(
-        public Order $order,
+        public OrderContract $order,
         public string $newStatus,
         public string $oldStatus,
     ) {}

@@ -63,7 +63,7 @@ class Order extends LunarOrder
     public function latestTransaction(): HasOne
     {
         return $this
-            ->hasOne(Transaction::class)
+            ->hasOne(Transaction::modelClass())
             ->latestOfMany();
     }
 }

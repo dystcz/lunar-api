@@ -7,13 +7,15 @@ use Dystcz\LunarApi\Domain\Orders\Contracts\MarkOrderAwaitingPaymentController a
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Dystcz\LunarApi\Domain\Payments\Actions\MarkAwaitingPayment;
 use LaravelJsonApi\Core\Responses\DataResponse;
+use Lunar\Models\Contracts\Order as OrderContract;
 
 class MarkOrderAwaitingPaymentController extends Controller implements MarkOrderAwaitingPaymentControllerContract
 {
     public function markAwaitingPayment(
-        Order $order,
+        OrderContract $order,
         MarkAwaitingPayment $markAwaitingPayment,
     ): DataResponse {
+        /** @var Order $order */
         $this->authorize('viewSigned', $order);
 
         $order = $markAwaitingPayment($order);

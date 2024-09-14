@@ -13,6 +13,7 @@ use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Update;
+use Lunar\Models\Contracts\Order as OrderContract;
 
 class OrdersController extends Controller implements OrdersControllerContract
 {
@@ -26,8 +27,9 @@ class OrdersController extends Controller implements OrdersControllerContract
      *
      * @return \Illuminate\Contracts\Support\Responsable|\Illuminate\Http\Response
      */
-    public function show(OrderSchema $schema, OrderQuery $request, Order $order): DataResponse
+    public function show(OrderSchema $schema, OrderQuery $request, OrderContract $order): DataResponse
     {
+        /** @var Order $model */
         $model = $schema
             ->repository()
             ->queryOne($order)
