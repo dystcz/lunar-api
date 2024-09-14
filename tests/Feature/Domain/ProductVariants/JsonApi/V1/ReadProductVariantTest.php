@@ -200,7 +200,7 @@ it('can show a product with other variants count', function () {
     $response = $this
         ->jsonApi()
         ->expects('product-variants')
-        ->get(serverUrl('/product-variants/').$variant->getRouteKey().'?withCount=other_variants');
+        ->get(serverUrl('/product-variants/').$variant->getRouteKey().'?with-count=other_variants');
 
     $response
         ->assertSuccessful()
