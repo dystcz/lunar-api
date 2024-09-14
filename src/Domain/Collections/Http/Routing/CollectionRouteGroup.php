@@ -22,7 +22,7 @@ class CollectionRouteGroup extends RouteGroup implements RouteGroupContract
                 $server->resource($this->getPrefix(), CollectionsController::class)
                     ->relationships(function (Relationships $relationships) {
                         $relationships->hasMany('products')->readOnly();
-                        $relationships->hasOne('default_url')->readOnly();
+                        $relationships->hasOne('default-url')->readOnly();
                     })
                     ->only('index', 'show')
                     ->readOnly();

@@ -21,7 +21,7 @@ class AttributeSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'attribute_group',
+            'attribute-group',
 
             ...parent::includePaths(),
         ];
@@ -35,7 +35,7 @@ class AttributeSchema extends Schema
         return [
             $this->idField(),
 
-            BelongsTo::make('attribute_group', 'attributeGroup')
+            BelongsTo::make('attribute-group', 'attributeGroup')
                 ->retainFieldName()
                 ->type(ModelType::get(AttributeGroup::class))
                 ->serializeUsing(

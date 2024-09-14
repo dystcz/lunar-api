@@ -29,7 +29,7 @@ class BrandSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'default_url',
+            'default-url',
             'urls',
             'thumbnail',
 
@@ -47,7 +47,7 @@ class BrandSchema extends Schema
 
             Str::make('name'),
 
-            HasOne::make('default_url', 'defaultUrl')
+            HasOne::make('default-url', 'defaultUrl')
                 ->type(ModelType::get(Url::class))
                 ->retainFieldName(),
 

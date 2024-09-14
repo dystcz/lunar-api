@@ -57,23 +57,12 @@ class ProductVariantSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function mergeIncludePathsFrom(): iterable
-    {
-        return [
-            'products' => 'product',
-            'variants' => 'other_variants',
-        ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function includePaths(): iterable
     {
         return [
-            'default_url',
+            'default-url',
             'images',
-            'lowest_price',
+            'lowest-price',
             'prices',
             'thumbnail',
             'urls',
@@ -121,21 +110,21 @@ class ProductVariantSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasMany::make('other_variants', 'otherVariants')
+            HasMany::make('other-variants', 'otherVariants')
                 ->type(ModelType::get(ProductVariant::class))
                 ->canCount()
-                ->retainFieldName(),
+                ->countAs('other_variants_count'),
 
             HasMany::make('prices')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasOne::make('lowest_price', 'lowestPrice')
+            HasOne::make('lowest-price', 'lowestPrice')
                 ->type(ModelType::get(Price::class))
                 ->retainFieldName(),
 
-            HasOne::make('highest_price', 'highestPrice')
+            HasOne::make('highest-price', 'highestPrice')
                 ->type(ModelType::get(Price::class))
                 ->retainFieldName(),
 
@@ -149,7 +138,7 @@ class ProductVariantSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasOne::make('default_url', 'defaultUrl')
+            HasOne::make('default-url', 'defaultUrl')
                 ->type(ModelType::get(Url::class))
                 ->retainFieldName(),
 
