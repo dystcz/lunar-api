@@ -73,7 +73,7 @@ class CustomerPolicy
      */
     protected function check(Authenticatable $user, CustomerContract $customer): bool
     {
-        $customersTable = (new Customer)->getTable();
+        $customersTable = (new (Customer::modelClass()))->getTable();
 
         /** @var User $user */
         return $user

@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\AttributeGroups\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Lunar\Models\Contracts\AttributeGroup;
+use Lunar\Models\Contracts\AttributeGroup as AttributeGroupContract;
 
 class AttributeGroupPolicy
 {
@@ -21,7 +21,7 @@ class AttributeGroupPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, AttributeGroup $attributeGroup): bool
+    public function view(?Authenticatable $user, AttributeGroupContract $attributeGroup): bool
     {
         return true;
     }
@@ -37,7 +37,7 @@ class AttributeGroupPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, AttributeGroup $attributeGroup): bool
+    public function update(?Authenticatable $user, AttributeGroupContract $attributeGroup): bool
     {
         return true;
     }
@@ -45,7 +45,7 @@ class AttributeGroupPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, AttributeGroup $attributeGroup): bool
+    public function delete(?Authenticatable $user, AttributeGroupContract $attributeGroup): bool
     {
         return true;
     }

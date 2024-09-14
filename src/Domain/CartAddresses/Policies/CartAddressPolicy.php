@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Lunar\Models\Cart;
-use Lunar\Models\Contracts\CartAddress;
+use Lunar\Models\Contracts\CartAddress as CartAddressContract;
 
 class CartAddressPolicy
 {
@@ -33,7 +33,7 @@ class CartAddressPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, CartAddress $cartAddress): bool
+    public function view(?Authenticatable $user, CartAddressContract $cartAddress): bool
     {
         return $this->check($user, $cartAddress);
     }
@@ -61,7 +61,7 @@ class CartAddressPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, CartAddress $cartAddress): bool
+    public function update(?Authenticatable $user, CartAddressContract $cartAddress): bool
     {
         return $this->check($user, $cartAddress);
     }
@@ -69,7 +69,7 @@ class CartAddressPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, CartAddress $cartAddress): bool
+    public function delete(?Authenticatable $user, CartAddressContract $cartAddress): bool
     {
         return $this->check($user, $cartAddress);
     }
@@ -77,7 +77,7 @@ class CartAddressPolicy
     /**
      * Determine whether the user can view the model.
      */
-    protected function check(?Authenticatable $user, CartAddress $cartAddress): bool
+    protected function check(?Authenticatable $user, CartAddressContract $cartAddress): bool
     {
         return (string) App::make(CurrentSessionCart::class)?->getRouteKey() === (string) $cartAddress->cart->getRouteKey();
     }

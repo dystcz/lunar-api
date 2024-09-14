@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\ProductOptions\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Lunar\Models\Contracts\ProductOption;
+use Lunar\Models\Contracts\ProductOption as ProductOptionContract;
 
 class ProductOptionPolicy
 {
@@ -21,7 +21,7 @@ class ProductOptionPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, ProductOption $productOption): bool
+    public function view(?Authenticatable $user, ProductOptionContract $productOption): bool
     {
         return true;
     }
@@ -31,22 +31,22 @@ class ProductOptionPolicy
      */
     public function create(?Authenticatable $user): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, ProductOption $productOption): bool
+    public function update(?Authenticatable $user, ProductOptionContract $productOption): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, ProductOption $productOption): bool
+    public function delete(?Authenticatable $user, ProductOptionContract $productOption): bool
     {
-        return true;
+        return false;
     }
 }

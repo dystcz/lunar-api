@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\ProductAssociations\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Lunar\Models\Contracts\ProductAssociation;
+use Lunar\Models\Contracts\ProductAssociation as ProductAssociationContract;
 
 class ProductAssociationPolicy
 {
@@ -21,7 +21,7 @@ class ProductAssociationPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, ProductAssociation $association): bool
+    public function view(?Authenticatable $user, ProductAssociationContract $association): bool
     {
         return true;
     }
@@ -37,7 +37,7 @@ class ProductAssociationPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, ProductAssociation $association): bool
+    public function update(?Authenticatable $user, ProductAssociationContract $association): bool
     {
         return false;
     }
@@ -45,7 +45,7 @@ class ProductAssociationPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, ProductAssociation $association): bool
+    public function delete(?Authenticatable $user, ProductAssociationContract $association): bool
     {
         return false;
     }

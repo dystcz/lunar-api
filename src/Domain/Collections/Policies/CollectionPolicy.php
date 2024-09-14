@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\Collections\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Lunar\Models\Contracts\Collection;
+use Lunar\Models\Contracts\Collection as CollectionContract;
 
 class CollectionPolicy
 {
@@ -21,7 +21,7 @@ class CollectionPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, Collection $collection): bool
+    public function view(?Authenticatable $user, CollectionContract $collection): bool
     {
         return true;
     }
@@ -37,7 +37,7 @@ class CollectionPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, Collection $collection): bool
+    public function update(?Authenticatable $user, CollectionContract $collection): bool
     {
         return false;
     }
@@ -45,7 +45,7 @@ class CollectionPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, Collection $collection): bool
+    public function delete(?Authenticatable $user, CollectionContract $collection): bool
     {
         return false;
     }
@@ -53,7 +53,7 @@ class CollectionPolicy
     /**
      * Authorize a user to view collections's products.
      */
-    public function viewProducts(?Authenticatable $user, Collection $collection): bool
+    public function viewProducts(?Authenticatable $user, CollectionContract $collection): bool
     {
         return true;
     }
@@ -61,7 +61,7 @@ class CollectionPolicy
     /**
      * Authorize a user to view collection's default url.
      */
-    public function viewDefaultUrl(?Authenticatable $user, Collection $collection): bool
+    public function viewDefaultUrl(?Authenticatable $user, CollectionContract $collection): bool
     {
         return true;
     }

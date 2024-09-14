@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\CollectionGroups\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Lunar\Models\Contracts\CollectionGroup;
+use Lunar\Models\Contracts\CollectionGroup as CollectionGroupContract;
 
 class CollectionGroupPolicy
 {
@@ -21,7 +21,7 @@ class CollectionGroupPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, CollectionGroup $group): bool
+    public function view(?Authenticatable $user, CollectionGroupContract $group): bool
     {
         return true;
     }
@@ -37,7 +37,7 @@ class CollectionGroupPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, CollectionGroup $group): bool
+    public function update(?Authenticatable $user, CollectionGroupContract $group): bool
     {
         return false;
     }
@@ -45,7 +45,7 @@ class CollectionGroupPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, CollectionGroup $group): bool
+    public function delete(?Authenticatable $user, CollectionGroupContract $group): bool
     {
         return false;
     }
