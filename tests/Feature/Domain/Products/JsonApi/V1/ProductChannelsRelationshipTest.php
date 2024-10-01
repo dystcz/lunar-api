@@ -37,7 +37,7 @@ it('can count product channels', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->get(serverUrl("/products/{$product->getRouteKey()}?with-count=channels"));
+        ->get(serverUrl("/products/{$product->getRouteKey()}?with_count=channels"));
 
     $response
         ->assertSuccessful()

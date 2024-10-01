@@ -33,7 +33,7 @@ it('can count product collections', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->get(serverUrl("/products/{$product->getRouteKey()}?with-count=collections"));
+        ->get(serverUrl("/products/{$product->getRouteKey()}?with_count=collections"));
 
     $response
         ->assertSuccessful()

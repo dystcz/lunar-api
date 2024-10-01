@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Carts\Traits;
+namespace Dystcz\LunarApi\Domain\Carts\Concerns;
 
 use Dystcz\LunarApi\Domain\Carts\Actions\SetPaymentOption;
 use Dystcz\LunarApi\Domain\Carts\Actions\UnsetPaymentOption;

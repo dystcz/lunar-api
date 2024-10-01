@@ -2,4 +2,6 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Contracts;
 
-interface Cart {}
+use Lunar\Models\Contracts\Cart as LunarCart;
+
+interface Cart extends CurrentSessionCart, LunarCart {}

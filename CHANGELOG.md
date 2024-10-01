@@ -4,6 +4,8 @@
 
 ### Changes
 
+-   Model logic extracted to traits
+-   Added contracts for all models
 -   Added `images` relationship route for `collections`
 -   Added countable relationship tests
 
@@ -37,7 +39,7 @@
     `variants` → `product-variants`
 
 2. Changed withCount query parameter
-   `?withCount=` → `?with-count=`
+   `?withCount=` → `?with_count=`
 
 ## 0.8.8
 

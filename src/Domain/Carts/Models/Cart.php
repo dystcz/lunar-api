@@ -2,13 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Models;
 
-use Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart;
-use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
-use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
-use Dystcz\LunarApi\Domain\Carts\Traits\InteractsWithPaymentOptions;
+use Dystcz\LunarApi\Domain\Carts\Concerns\InteractsWithLunarApi;
+use Dystcz\LunarApi\Domain\Carts\Contracts\Cart as CartContract;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown;
 use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
-use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Lunar\Base\ValueObjects\Cart\TaxBreakdown;
 use Lunar\DataTypes\Price;
 use Lunar\Models\Cart as LunarCart;
@@ -27,41 +24,7 @@ use Lunar\Models\Cart as LunarCart;
  * @method Cart unsetPaymentOption(PaymentOption $option, bool $refresh = true)
  * @method ?PaymentOption getPaymentOption()
  */
-class Cart extends LunarCart implements CurrentSessionCart
+class Cart extends LunarCart implements CartContract
 {
-    use HashesRouteKey;
-    use InteractsWithPaymentOptions;
-
-    /**
-     * Create a new instance of the Model.
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->cachableProperties = array_merge($this->cachableProperties, [
-            'paymentOption',
-            'paymentSubTotal',
-            'paymentTaxTotal',
-            'paymentTotal',
-            'paymentTaxBreakdown',
-        ]);
-    }
-
-    /**
-     * Create a new factory instance for the model.
-     */
-    protected static function newFactory(): CartFactory
-    {
-        return CartFactory::new();
-    }
-
-    /**
-     * The event map for the model.
-     *
-     * @var array
-     */
-    protected $dispatchesEvents = [
-        'created' => CartCreated::class,
-    ];
+    use InteractsWithLunarApi;
 }

@@ -55,7 +55,7 @@ it('can count product associations', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->get(serverUrl("/products/{$productA->getRouteKey()}?with-count=product-associations"));
+        ->get(serverUrl("/products/{$productA->getRouteKey()}?with_count=product-associations"));
 
     $response
         ->assertSuccessful()
