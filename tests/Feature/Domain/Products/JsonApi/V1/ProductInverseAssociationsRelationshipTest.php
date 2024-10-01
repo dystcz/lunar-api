@@ -55,7 +55,7 @@ it('can count inverse product associations', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->get(serverUrl("/products/{$productB->getRouteKey()}?with-count=inverse-product-associations"));
+        ->get(serverUrl("/products/{$productB->getRouteKey()}?with_count=inverse-product-associations"));
 
     $response
         ->assertSuccessful()

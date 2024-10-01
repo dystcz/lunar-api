@@ -39,7 +39,7 @@ it('can count customer orders', function () {
     $response = $this
         ->jsonApi()
         ->expects('customers')
-        ->get(serverUrl("/customers/{$customer->getRouteKey()}?with-count=orders"));
+        ->get(serverUrl("/customers/{$customer->getRouteKey()}?with_count=orders"));
 
     $response
         ->assertSuccessful()
