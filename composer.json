@@ -29,7 +29,7 @@
     "laravel-json-api/hashids": "^3.0",
     "laravel-json-api/laravel": "^4.0",
     "laravel-json-api/non-eloquent": "^4.0",
-    "lunarphp/lunar": "dev-lun-156-unable-to-create-order as 1.0.0-beta.1"
+    "lunarphp/lunar": "dev-update-container-resolution as 1.0.0-beta.1"
   },
   "require-dev": {
     "barryvdh/laravel-ide-helper": "^3.0",
@@ -44,7 +44,7 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/lunarphp/lunar.git"
+      "url": "https://github.com/theimerj/lunar.git"
     }
   ],
   "autoload": {
