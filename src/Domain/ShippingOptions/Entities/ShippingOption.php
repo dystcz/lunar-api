@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Lunar\DataTypes\Price;
-use Lunar\Models\Currency;
+use Lunar\Models\Contracts\Currency as CurrencyContract;
 
 class ShippingOption implements Arrayable
 {
@@ -19,7 +19,7 @@ class ShippingOption implements Arrayable
         public string $name,
         public string $description,
         public Price $price,
-        public Currency $currency,
+        public CurrencyContract $currency,
         public array $meta,
     ) {}
 
@@ -66,7 +66,7 @@ class ShippingOption implements Arrayable
     /**
      * Get curency.
      */
-    public function getCurrency(): Currency
+    public function getCurrency(): CurrencyContract
     {
         return $this->currency;
     }

@@ -2,10 +2,10 @@
 
 namespace Dystcz\LunarApi\Domain\Addresses\Policies;
 
-use Dystcz\LunarApi\Domain\Addresses\Models\Address;
-use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Address as AddressContract;
+use Lunar\Models\Customer;
 
 class AddressPolicy
 {
@@ -22,7 +22,7 @@ class AddressPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(Authenticatable $user, Address $address): bool
+    public function view(Authenticatable $user, AddressContract $address): bool
     {
         return $this->check($user, $address);
     }
@@ -30,7 +30,7 @@ class AddressPolicy
     /**
      * Determine whether the user can view address country.
      */
-    public function viewCountry(Authenticatable $user, Address $address): bool
+    public function viewCountry(Authenticatable $user, AddressContract $address): bool
     {
         return $this->check($user, $address);
     }
@@ -38,7 +38,7 @@ class AddressPolicy
     /**
      * Determine whether the user can view address customer.
      */
-    public function viewCustomer(Authenticatable $user, Address $address): bool
+    public function viewCustomer(Authenticatable $user, AddressContract $address): bool
     {
         return $this->check($user, $address);
     }
@@ -54,7 +54,7 @@ class AddressPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(Authenticatable $user, Address $address): bool
+    public function update(Authenticatable $user, AddressContract $address): bool
     {
         return $this->check($user, $address);
     }
@@ -62,7 +62,7 @@ class AddressPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(Authenticatable $user, Address $address): bool
+    public function delete(Authenticatable $user, AddressContract $address): bool
     {
         return $this->check($user, $address);
     }
@@ -70,9 +70,9 @@ class AddressPolicy
     /**
      * Determine whether the user can access the model.
      */
-    public function check(Authenticatable $user, Address $address): bool
+    public function check(Authenticatable $user, AddressContract $address): bool
     {
-        $customersTable = (new Customer)->getTable();
+        $customersTable = (new (Customer::modelClass()))->getTable();
 
         /** @var User $user */
         return $user

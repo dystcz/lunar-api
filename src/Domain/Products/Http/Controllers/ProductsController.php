@@ -11,6 +11,7 @@ use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
+use Lunar\Models\Contracts\Product as ProductContract;
 
 class ProductsController extends Controller implements ProductsControllerContract
 {
@@ -19,8 +20,9 @@ class ProductsController extends Controller implements ProductsControllerContrac
     use FetchRelated;
     use FetchRelationship;
 
-    public function read(?Product $product, ProductQuery $query): void
+    public function read(?ProductContract $product, ProductQuery $query): void
     {
+        /** @var Product $product */
         $productId = $product?->id;
 
         if ($productId && App::has('lunar-api-product-views')) {

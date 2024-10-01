@@ -2,21 +2,11 @@
 
 namespace Dystcz\LunarApi\Domain\Addresses\Models;
 
-use Dystcz\LunarApi\Domain\Addresses\Factories\AddressFactory;
-use Dystcz\LunarApi\Domain\Addresses\Traits\HasCompanyIdentifiersInMeta;
-use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
+use Dystcz\LunarApi\Domain\Addresses\Concerns\InteractsWithLunarApi;
+use Dystcz\LunarApi\Domain\Addresses\Contracts\Address as AddressContract;
 use Lunar\Models\Address as LunarAddress;
 
-class Address extends LunarAddress
+class Address extends LunarAddress implements AddressContract
 {
-    use HasCompanyIdentifiersInMeta;
-    use HashesRouteKey;
-
-    /**
-     * Create a new factory instance for the model.
-     */
-    protected static function newFactory(): AddressFactory
-    {
-        return AddressFactory::new();
-    }
+    use InteractsWithLunarApi;
 }

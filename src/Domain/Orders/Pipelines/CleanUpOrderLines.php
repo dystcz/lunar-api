@@ -3,15 +3,18 @@
 namespace Dystcz\LunarApi\Domain\Orders\Pipelines;
 
 use Closure;
-use Lunar\Models\Order;
+use Dystcz\LunarApi\Domain\Orders\Models\Order;
+use Lunar\Models\Contracts\Order as OrderContract;
 
 class CleanUpOrderLines
 {
     /**
+     * @param  Closure(OrderContract): mixed  $next
      * @return Closure
      */
-    public function handle(Order $order, Closure $next)
+    public function handle(OrderContract $order, Closure $next): mixed
     {
+        /** @var Order $order */
         $cart = $order->cart;
 
         $purchasableTypeGroups = $cart->lines->groupBy('purchasable_type');

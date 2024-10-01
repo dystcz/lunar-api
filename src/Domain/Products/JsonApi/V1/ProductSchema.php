@@ -7,6 +7,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\InStockFilter;
 use Dystcz\LunarApi\Domain\Products\JsonApi\Filters\ProductFilterCollection;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
@@ -21,7 +22,14 @@ use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
-use Lunar\Models\Product;
+use Lunar\Models\Contracts\Attribute;
+use Lunar\Models\Contracts\Brand;
+use Lunar\Models\Contracts\Price;
+use Lunar\Models\Contracts\Product;
+use Lunar\Models\Contracts\ProductAssociation;
+use Lunar\Models\Contracts\ProductVariant;
+use Lunar\Models\Contracts\Url;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProductSchema extends Schema
 {
@@ -54,40 +62,29 @@ class ProductSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function mergeIncludePathsFrom(): iterable
-    {
-        return [
-            'associations' => ['associations', 'inverse_associations'],
-            'variants' => ['cheapest_variant', 'variants'],
-        ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function includePaths(): iterable
     {
         return [
-            'default_url',
+            'default-url',
             'images',
-            'lowest_price',
+            'lowest-price',
             'prices',
             'thumbnail',
             'urls',
 
             'brand',
-            'brand.default_url',
+            'brand.default-url',
             'brand.thumbnail',
 
-            'cheapest_variant',
-            'cheapest_variant.images',
-            'cheapest_variant.prices',
+            'cheapest-product-variant',
+            'cheapest-product-variant.images',
+            'cheapest-product-variant.prices',
 
             'collections',
-            'collections.default_url',
+            'collections.default-url',
             'collections.group',
 
-            'product_type',
+            'product-type',
             'tags',
 
             ...parent::includePaths(),
@@ -115,71 +112,81 @@ class ProductSchema extends Schema
             Str::make('status'),
 
             HasMany::make('attributes', 'attributes')
-                ->type('attributes')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
-                ),
+                )
+                ->type(ModelType::get(Attribute::class)),
 
-            HasMany::make('associations')
-                ->type('associations')
-                ->canCount(),
+            HasMany::make('product-associations', 'associations')
+                ->type(ModelType::get(ProductAssociation::class))
+                ->canCount()
+                ->countAs('product_associations_count'),
 
-            BelongsTo::make('brand'),
+            BelongsTo::make('brand')
+                ->type(ModelType::get(Brand::class)),
 
             HasMany::make('channels')
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks())
                 ->canCount()
-                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
+                ->countAs('channels_count'),
 
-            HasOne::make('cheapest_variant', 'cheapestVariant')
-                ->type('variants')
+            HasOne::make('cheapest-product-variant', 'cheapestVariant')
+                ->type(ModelType::get(ProductVariant::class))
                 ->retainFieldName(),
 
-            HasOne::make('most_expensive_variant', 'mostExpensiveVariant')
-                ->type('variants')
+            HasOne::make('most-expensive-product-variant', 'mostExpensiveVariant')
+                ->type(ModelType::get(ProductVariant::class))
                 ->retainFieldName(),
 
             HasMany::make('collections')
-                ->canCount(),
+                ->canCount()
+                ->countAs('collections_count'),
 
-            HasOne::make('default_url', 'defaultUrl')
-                ->type('urls')
+            HasOne::make('default-url', 'defaultUrl')
+                ->type(ModelType::get(Url::class))
                 ->retainFieldName(),
 
             HasMany::make('images', 'images')
-                ->type('media')
-                ->canCount(),
+                ->type(ModelType::get(Media::class))
+                ->canCount()
+                ->countAs('images_count'),
 
-            HasMany::make('inverse_associations', 'inverseAssociations')
-                ->type('associations')
+            HasMany::make('inverse-product-associations', 'inverseAssociations')
+                ->type(ModelType::get(ProductAssociation::class))
                 ->retainFieldName()
-                ->canCount(),
+                ->canCount()
+                ->countAs('inverse_associations_count'),
 
-            HasOneThrough::make('lowest_price', 'lowestPrice')
-                ->type('prices')
+            HasOneThrough::make('lowest-price', 'lowestPrice')
+                ->type(ModelType::get(Price::class))
                 ->retainFieldName(),
 
-            HasOneThrough::make('highest_price', 'highestPrice')
-                ->type('prices')
+            HasOneThrough::make('highest-price', 'highestPrice')
+                ->type(ModelType::get(Price::class))
                 ->retainFieldName(),
 
             HasManyThrough::make('prices')
-                ->canCount(),
+                ->canCount()
+                ->countAs('prices_count'),
 
-            BelongsTo::make('product_type', 'productType')
+            BelongsTo::make('product-type', 'productType')
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasMany::make('tags')
-                ->canCount(),
+                ->canCount()
+                ->countAs('tags_count'),
 
             HasOne::make('thumbnail', 'thumbnail')
-                ->type('media'),
+                ->type(ModelType::get(Media::class)),
 
             HasMany::make('urls')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('variants')
-                ->canCount(),
+            HasMany::make('product-variants', 'variants')
+                ->type(ModelType::get(ProductVariant::class))
+                ->canCount()
+                ->countAs('product_variants_count'),
 
             ...parent::fields(),
         ];
@@ -218,7 +225,7 @@ class ProductSchema extends Schema
 
             WhereHas::make($this, 'urls', 'urls'),
 
-            WhereHas::make($this, 'product_type'),
+            WhereHas::make($this, 'product-type'),
 
             WhereHas::make($this, 'channels'),
 
@@ -230,13 +237,5 @@ class ProductSchema extends Schema
 
             ...parent::filters(),
         ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'products';
     }
 }

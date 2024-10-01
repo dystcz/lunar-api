@@ -3,11 +3,13 @@
 namespace Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use Lunar\Models\ProductAssociation;
+use Lunar\Models\Contracts\Product;
+use Lunar\Models\Contracts\ProductAssociation;
 
 class ProductAssociationSchema extends Schema
 {
@@ -15,16 +17,6 @@ class ProductAssociationSchema extends Schema
      * {@inheritDoc}
      */
     public static string $model = ProductAssociation::class;
-
-    /**
-     * {@inheritDoc}
-     */
-    public function mergeIncludePathsFrom(): iterable
-    {
-        return [
-            'products' => ['target', 'parent'],
-        ];
-    }
 
     /**
      * {@inheritDoc}
@@ -47,10 +39,10 @@ class ProductAssociationSchema extends Schema
             Str::make('type'),
 
             HasOne::make('target')
-                ->type('products'),
+                ->type(ModelType::get(Product::class)),
 
             HasOne::make('parent')
-                ->type('products'),
+                ->type(ModelType::get(Product::class)),
 
             ...parent::fields(),
         ];
@@ -68,13 +60,5 @@ class ProductAssociationSchema extends Schema
 
             ...parent::filters(),
         ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'associations';
     }
 }

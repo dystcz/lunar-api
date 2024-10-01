@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Brands\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
@@ -11,7 +12,9 @@ use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
-use Lunar\Models\Brand;
+use Lunar\Models\Contracts\Brand;
+use Lunar\Models\Contracts\Url;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class BrandSchema extends Schema
 {
@@ -26,7 +29,7 @@ class BrandSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'default_url',
+            'default-url',
             'urls',
             'thumbnail',
 
@@ -44,12 +47,12 @@ class BrandSchema extends Schema
 
             Str::make('name'),
 
-            HasOne::make('default_url', 'defaultUrl')
-                ->type('urls')
+            HasOne::make('default-url', 'defaultUrl')
+                ->type(ModelType::get(Url::class))
                 ->retainFieldName(),
 
             HasOne::make('thumbnail')
-                ->type('media'),
+                ->type(ModelType::get(Media::class)),
 
             HasMany::make('urls')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
@@ -77,13 +80,5 @@ class BrandSchema extends Schema
 
             ...parent::filters(),
         ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'brands';
     }
 }

@@ -28,7 +28,7 @@ class PaymentBreakdown implements CastsAttributes, SerializesCastableAttributes
         $breakdown->items = Collection::make(
             json_decode($value, false)
         )->mapWithKeys(function ($payment, $key) {
-            $currency = Currency::query()
+            $currency = Currency::modelClass()::query()
                 ->where('code', $payment->currency->code)
                 ->first();
 

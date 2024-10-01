@@ -17,10 +17,10 @@ beforeEach(function () {
 
 test('product associations cannot be deleted', function () {
     /** @var TestCase $this */
-    $response = $this->deleteTest('associations', ProductAssociation::class);
+    $response = $this->deleteTest('product-associations', ProductAssociation::class);
 
     $response->assertErrorStatus([
         'status' => '404',
         'title' => 'Not Found',
     ]);
-})->group('associations', 'policies');
+})->group('product-associations', 'policies');

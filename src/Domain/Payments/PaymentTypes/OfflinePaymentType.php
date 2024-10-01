@@ -10,7 +10,7 @@ use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
 use Lunar\Base\DataTransferObjects\PaymentAuthorize;
 use Lunar\Base\DataTransferObjects\PaymentCapture;
 use Lunar\Base\DataTransferObjects\PaymentRefund;
-use Lunar\Models\Transaction;
+use Lunar\Models\Contracts\Transaction as TransactionContract;
 use Lunar\PaymentTypes\AbstractPayment;
 
 class OfflinePaymentType extends AbstractPayment
@@ -45,7 +45,7 @@ class OfflinePaymentType extends AbstractPayment
     /**
      * Create transaction for the payment.
      */
-    protected function createCaptureTransaction(string $paymentType): Transaction
+    protected function createCaptureTransaction(string $paymentType): TransactionContract
     {
         $paymentAdapter = $this->register->get($paymentType);
 
@@ -71,7 +71,7 @@ class OfflinePaymentType extends AbstractPayment
     /**
      * {@inheritDoc}
      */
-    public function refund(Transaction $transaction, int $amount = 0, $notes = null): PaymentRefund
+    public function refund(TransactionContract $transaction, int $amount = 0, $notes = null): PaymentRefund
     {
         return new PaymentRefund(true);
     }
@@ -79,7 +79,7 @@ class OfflinePaymentType extends AbstractPayment
     /**
      * {@inheritDoc}
      */
-    public function capture(Transaction $transaction, $amount = 0): PaymentCapture
+    public function capture(TransactionContract $transaction, $amount = 0): PaymentCapture
     {
         return new PaymentCapture(true);
     }

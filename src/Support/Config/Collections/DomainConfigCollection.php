@@ -49,6 +49,16 @@ class DomainConfigCollection extends Collection
     }
 
     /**
+     * Get schemas from domain config.
+     */
+    public function getSchemaByType(string $type): string
+    {
+        return $this->firstWhere(
+            fn (DomainConfig $domain) => $domain->schema::type() === $type,
+        );
+    }
+
+    /**
      * Get routes from domain config.
      */
     public function getRoutes(): self
@@ -86,7 +96,7 @@ class DomainConfigCollection extends Collection
                 return [];
             }
 
-            return [$domain->lunar_model ?? $domain->model => $domain->policy];
+            return [$domain->model => $domain->policy];
         });
     }
 }

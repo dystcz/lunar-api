@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Attributes\Policies;
 
-use Dystcz\LunarApi\Domain\Attributes\Models\Attribute;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Attribute as AttributeContract;
 
 class AttributePolicy
 {
@@ -21,7 +21,7 @@ class AttributePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, Attribute $attribute): bool
+    public function view(?Authenticatable $user, AttributeContract $attribute): bool
     {
         return true;
     }
@@ -37,7 +37,7 @@ class AttributePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, Attribute $attribute): bool
+    public function update(?Authenticatable $user, AttributeContract $attribute): bool
     {
         return true;
     }
@@ -45,7 +45,7 @@ class AttributePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, Attribute $attribute): bool
+    public function delete(?Authenticatable $user, AttributeContract $attribute): bool
     {
         return true;
     }

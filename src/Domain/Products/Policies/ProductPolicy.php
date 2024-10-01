@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Products\Policies;
 
-use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Product as ProductContract;
 
 class ProductPolicy
 {
@@ -21,7 +21,7 @@ class ProductPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, Product $product): bool
+    public function view(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -37,7 +37,7 @@ class ProductPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, Product $product): bool
+    public function update(?Authenticatable $user, ProductContract $product): bool
     {
         return false;
     }
@@ -45,7 +45,7 @@ class ProductPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, Product $product): bool
+    public function delete(?Authenticatable $user, ProductContract $product): bool
     {
         return false;
     }
@@ -53,7 +53,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's associations.
      */
-    public function viewAssociations(?Authenticatable $user, Product $product): bool
+    public function viewProductAssociations(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -61,7 +61,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's brand.
      */
-    public function viewBrand(?Authenticatable $user, Product $product): bool
+    public function viewBrand(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -69,7 +69,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's cheapest variant.
      */
-    public function viewCheapestVariant(?Authenticatable $user, Product $product): bool
+    public function viewCheapestProductVariant(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -77,7 +77,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's most expensive variant.
      */
-    public function viewMostExpensiveVariant(?Authenticatable $user, Product $product): bool
+    public function viewMostExpensiveProductVariant(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -85,7 +85,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's collections.
      */
-    public function viewCollections(?Authenticatable $user, Product $product): bool
+    public function viewCollections(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -93,7 +93,15 @@ class ProductPolicy
     /**
      * Authorize a user to view product's default url.
      */
-    public function viewDefaultUrl(?Authenticatable $user, Product $product): bool
+    public function viewDefaultUrl(?Authenticatable $user, ProductContract $product): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view product's channels.
+     */
+    public function viewChannels(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -101,7 +109,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's images.
      */
-    public function viewImages(?Authenticatable $user, Product $product): bool
+    public function viewImages(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -109,7 +117,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's inverse associations.
      */
-    public function viewInverseAssociations(?Authenticatable $user, Product $product): bool
+    public function viewInverseProductAssociations(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -117,7 +125,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's prices.
      */
-    public function viewPrices(?Authenticatable $user, Product $product): bool
+    public function viewPrices(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -125,7 +133,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's lowest price.
      */
-    public function viewLowestPrice(?Authenticatable $user, Product $product): bool
+    public function viewLowestPrice(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -133,7 +141,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's highest price.
      */
-    public function viewHighestPrice(?Authenticatable $user, Product $product): bool
+    public function viewHighestPrice(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -141,7 +149,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's tags.
      */
-    public function viewTags(?Authenticatable $user, Product $product): bool
+    public function viewTags(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -149,7 +157,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's thumbnail.
      */
-    public function viewThumbnail(?Authenticatable $user, Product $product): bool
+    public function viewThumbnail(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -157,7 +165,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's urls.
      */
-    public function viewUrls(?Authenticatable $user, Product $product): bool
+    public function viewUrls(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }
@@ -165,7 +173,7 @@ class ProductPolicy
     /**
      * Authorize a user to view product's variants.
      */
-    public function viewVariants(?Authenticatable $user, Product $product): bool
+    public function viewProductVariants(?Authenticatable $user, ProductContract $product): bool
     {
         return true;
     }

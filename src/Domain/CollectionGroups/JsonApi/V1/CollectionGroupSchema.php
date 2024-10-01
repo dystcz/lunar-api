@@ -6,7 +6,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use Lunar\Models\CollectionGroup;
+use Lunar\Models\Contracts\CollectionGroup;
 
 class CollectionGroupSchema extends Schema
 {
@@ -45,13 +45,5 @@ class CollectionGroupSchema extends Schema
 
             ...parent::filters(),
         ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'collection-groups';
     }
 }

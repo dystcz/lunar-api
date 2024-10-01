@@ -2,15 +2,14 @@
 
 namespace Dystcz\LunarApi\Domain\CartAddresses\Policies;
 
-use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart;
 use Dystcz\LunarApi\LunarApi;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Lunar\Base\CartSessionInterface;
-use Lunar\Managers\CartSessionManager;
+use Lunar\Models\Cart;
+use Lunar\Models\Contracts\CartAddress as CartAddressContract;
 
 class CartAddressPolicy
 {
@@ -18,16 +17,9 @@ class CartAddressPolicy
 
     private Request $request;
 
-    /**
-     * @var CartSessionManager
-     */
-    private CartSessionInterface $cartSession;
-
     public function __construct()
     {
         $this->request = App::get('request');
-
-        $this->cartSession = App::make(CartSessionInterface::class);
     }
 
     /**
@@ -41,7 +33,7 @@ class CartAddressPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, CartAddress $cartAddress): bool
+    public function view(?Authenticatable $user, CartAddressContract $cartAddress): bool
     {
         return $this->check($user, $cartAddress);
     }
@@ -58,10 +50,10 @@ class CartAddressPolicy
         }
 
         if (LunarApi::usesHashids()) {
-            $cartAddressCartId = (new Cart)->decodedRouteKey($cartAddressCartId);
+            $cartAddressCartId = (new (Cart::modelClass()))->decodedRouteKey($cartAddressCartId);
         }
 
-        $cartId = $this->cartSession->current()->getRouteKey();
+        $cartId = App::make(CurrentSessionCart::class)?->getRouteKey();
 
         return (string) $cartId === (string) $cartAddressCartId;
     }
@@ -69,7 +61,7 @@ class CartAddressPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, CartAddress $cartAddress): bool
+    public function update(?Authenticatable $user, CartAddressContract $cartAddress): bool
     {
         return $this->check($user, $cartAddress);
     }
@@ -77,7 +69,7 @@ class CartAddressPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, CartAddress $cartAddress): bool
+    public function delete(?Authenticatable $user, CartAddressContract $cartAddress): bool
     {
         return $this->check($user, $cartAddress);
     }
@@ -85,8 +77,8 @@ class CartAddressPolicy
     /**
      * Determine whether the user can view the model.
      */
-    protected function check(?Authenticatable $user, CartAddress $cartAddress): bool
+    protected function check(?Authenticatable $user, CartAddressContract $cartAddress): bool
     {
-        return (string) $this->cartSession->current()?->getRouteKey() === (string) $cartAddress->cart->getRouteKey();
+        return (string) App::make(CurrentSessionCart::class)?->getRouteKey() === (string) $cartAddress->cart->getRouteKey();
     }
 }

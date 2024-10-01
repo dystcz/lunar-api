@@ -22,10 +22,10 @@ it('can read default url through relationship', function () {
     $response = $this
         ->jsonApi()
         ->expects('urls')
-        ->get(serverUrl("/variants/{$variant->getRouteKey()}/urls"));
+        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}/urls"));
 
     $response
         ->assertSuccessful()
         ->assertFetchedMany($variant->urls)
         ->assertDoesntHaveIncluded();
-})->group('variants');
+})->group('product-variants');

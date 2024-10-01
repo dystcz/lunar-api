@@ -9,7 +9,7 @@ use LaravelJsonApi\Core\Json\Hash;
 use LaravelJsonApi\Core\Support\Arr as JsonApiArr;
 use LaravelJsonApi\Eloquent\Fields\Attribute;
 use Lunar\FieldTypes\Dropdown;
-use Lunar\Models\Attribute as AttributeModel;
+use Lunar\Models\Contracts\Attribute as AttributeContract;
 
 class AttributeData extends Attribute
 {
@@ -33,14 +33,14 @@ class AttributeData extends Attribute
     /**
      * Extra attributes.
      *
-     * @var Collection<AttributeModel>|null
+     * @var Collection<AttributeContract>|null
      */
     protected Collection $attributes;
 
     /**
      * Attribute constructor.
      *
-     * @param  Collection<AttributeModel>  $attributes
+     * @param  Collection<AttributeContract>  $attributes
      */
     public function __construct(
         string $fieldName,
@@ -55,7 +55,7 @@ class AttributeData extends Attribute
     /**
      * Create an array attribute.
      *
-     * @param  Collection<AttributeModel>  $attributes
+     * @param  Collection<AttributeContract>  $attributes
      */
     public static function make(
         string $fieldName,
@@ -103,7 +103,7 @@ class AttributeData extends Attribute
     /**
      * Set extra attributes.
      *
-     * @param  Collection<AttributeModel>  $attributes
+     * @param  Collection<AttributeContract>  $attributes
      */
     public function addAttributes(Collection $attributes): self
     {
@@ -134,7 +134,7 @@ class AttributeData extends Attribute
 
             if ($this->groupAttributes) {
                 $value = $attributes
-                    ->groupBy(fn (AttributeModel $attribute) => $attribute->attributeGroup->handle)
+                    ->groupBy(fn (AttributeContract $attribute) => $attribute->attributeGroup->handle)
                     ->map(fn (Collection $attributes, string $group) => $this->mapAttributes($attributes, $model));
 
                 return Hash::cast($value);
@@ -149,11 +149,11 @@ class AttributeData extends Attribute
     /**
      * Map the attributes.
      *
-     * @param  Collection<AttributeModel>  $attributes
+     * @param  Collection<AttributeContract>  $attributes
      */
     protected function mapAttributes(Collection $attributes, object $model): Collection
     {
-        return $attributes->mapWithKeys(function (AttributeModel $attribute) use ($model) {
+        return $attributes->mapWithKeys(function (AttributeContract $attribute) use ($model) {
             $value = match ($attribute->type) {
                 Dropdown::class => $this->getDropdownValue($attribute, $model),
                 default => null
@@ -175,7 +175,7 @@ class AttributeData extends Attribute
     /**
      * Get the dropdown field type value.
      */
-    protected function getDropdownValue(AttributeModel $attribute, object $model): mixed
+    protected function getDropdownValue(AttributeContract $attribute, object $model): mixed
     {
         $value = Arr::first(
             $attribute->configuration['lookups'] ?? [],

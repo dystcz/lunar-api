@@ -4,7 +4,6 @@ namespace Dystcz\LunarApi\Domain\Countries\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Queries\CollectionQuery;
 use Illuminate\Support\Facades\Config;
-use LaravelJsonApi\Validation\Rule as JsonApiRule;
 
 class CountryCollectionQuery extends CollectionQuery
 {
@@ -17,41 +16,29 @@ class CountryCollectionQuery extends CollectionQuery
     {
         // Set the maximum page size to 250, so that the frontend can fetch all countries at once.
         // This is not an issue, because the countries are cached.
-        Config::set('lunar-api.general.pagination.max_size', 250);
+        // Config::set('lunar-api.general.pagination.max_size', 250);
 
         return [
             ...parent::rules(),
 
-            'fields' => [
+            // TODO: Check if this works
+            'page.size' => [
                 'nullable',
-                'array',
-                JsonApiRule::fieldSets(),
+                'integer',
+                'between:1,250',
             ],
-            'filter' => [
-                'nullable',
-                'array',
-                JsonApiRule::filter(),
-            ],
-            'include' => [
-                'nullable',
-                'string',
-                JsonApiRule::includePaths(),
-            ],
-            'page' => [
-                'nullable',
-                'array',
-                JsonApiRule::page(),
-            ],
-            'sort' => [
-                'nullable',
-                'string',
-                JsonApiRule::sort(),
-            ],
-            'withCount' => [
-                'nullable',
-                'string',
-                JsonApiRule::countable(),
-            ],
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string,string>
+     */
+    public function messages(): array
+    {
+        return [
+            ...parent::messages(),
         ];
     }
 }

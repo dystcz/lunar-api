@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
 class JsonApiServiceProvider extends ServiceProvider
@@ -23,6 +24,9 @@ class JsonApiServiceProvider extends ServiceProvider
         \LaravelJsonApi\Laravel\LaravelJsonApi::defaultCollectionQuery(
             \Dystcz\LunarApi\Domain\JsonApi\Queries\CollectionQuery::class,
         );
+        \LaravelJsonApi\Laravel\LaravelJsonApi::withCountQueryParameter(
+            'with_count',
+        );
     }
 
     /**
@@ -39,25 +43,25 @@ class JsonApiServiceProvider extends ServiceProvider
         // Register schema extension implementation
         $this->app->bind(
             \Dystcz\LunarApi\Base\Contracts\SchemaExtension::class,
-            fn ($app, $params) => new \Dystcz\LunarApi\Base\Extensions\SchemaExtension(...$params),
+            fn (Application $app, mixed $params) => new \Dystcz\LunarApi\Base\Extensions\SchemaExtension(...$params),
         );
 
         // Register schema manifest implementation
         $this->app->singleton(
             \Dystcz\LunarApi\Base\Contracts\SchemaManifest::class,
-            fn ($app, $params) => new \Dystcz\LunarApi\Base\Manifests\SchemaManifest($params),
+            fn (Application $app) => new \Dystcz\LunarApi\Base\Manifests\SchemaManifest,
         );
 
         // Register resource extension implementation
         $this->app->bind(
             \Dystcz\LunarApi\Base\Contracts\ResourceExtension::class,
-            fn ($app, $params) => new \Dystcz\LunarApi\Base\Extensions\ResourceExtension(...$params),
+            fn (Application $app, mixed $params) => new \Dystcz\LunarApi\Base\Extensions\ResourceExtension(...$params),
         );
 
         // Register resource manifest implementation
         $this->app->singleton(
             \Dystcz\LunarApi\Base\Contracts\ResourceManifest::class,
-            fn ($app, $params) => new \Dystcz\LunarApi\Base\Manifests\ResourceManifest($params),
+            fn (Application $app) => new \Dystcz\LunarApi\Base\Manifests\ResourceManifest,
         );
     }
 }

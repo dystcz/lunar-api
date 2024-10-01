@@ -22,6 +22,8 @@ jobs:
           tools: composer:v2
           coverage: none
           ini-values: error_reporting=E_ALL
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set Laravel Version
         run: composer require "laravel/framework:^${{ matrix.laravel }}" --no-update

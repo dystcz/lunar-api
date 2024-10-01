@@ -13,7 +13,7 @@ use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use Lunar\Models\Price;
+use Lunar\Models\Contracts\Price;
 
 class PriceSchema extends Schema
 {
@@ -142,13 +142,5 @@ class PriceSchema extends Schema
 
             ...parent::filters(),
         ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'prices';
     }
 }

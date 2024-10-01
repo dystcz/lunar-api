@@ -15,8 +15,8 @@ it('can read most expensive variant through relationship', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
-        ->get(serverUrl("/products/{$product->getRouteKey()}/most_expensive_variant"));
+        ->expects('product-variants')
+        ->get(serverUrl("/products/{$product->getRouteKey()}/most-expensive-product-variant"));
 
     $response
         ->assertSuccessful()

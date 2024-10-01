@@ -6,7 +6,7 @@ use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
-use Lunar\Models\Product;
+use Lunar\Models\Contracts\Product;
 
 class ExtendableSchemasMock extends Schema
 {
@@ -35,8 +35,8 @@ class ExtendableSchemasMock extends Schema
     public function includePaths(): array
     {
         return [
-            'include_one',
-            'include_two',
+            'include-one',
+            'include-two',
 
             ...parent::includePaths(),
         ];
@@ -69,10 +69,5 @@ class ExtendableSchemasMock extends Schema
 
             ...parent::sortables(),
         ];
-    }
-
-    public static function type(): string
-    {
-        return 'products';
     }
 }

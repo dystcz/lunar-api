@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\Payments\Actions;
 use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent;
 use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
 use Dystcz\LunarApi\Support\Actions\Action;
-use Lunar\Models\Cart;
+use Lunar\Models\Contracts\Cart as CartContract;
 
 class CreatePaymentIntent extends Action
 {
@@ -18,7 +18,7 @@ class CreatePaymentIntent extends Action
      *
      * @param  array<string,mixed>  $meta
      */
-    public function handle(string $paymentMethod, Cart $cart, array $meta = [], ?int $amount = null): PaymentIntent
+    public function handle(string $paymentMethod, CartContract $cart, array $meta = [], ?int $amount = null): PaymentIntent
     {
         $payment = $this->register->get($paymentMethod);
 

@@ -6,10 +6,10 @@ use Dystcz\LunarApi\Base\Contracts\Extendable as ExtendableContract;
 use Dystcz\LunarApi\Base\Contracts\SchemaExtension as SchemaExtensionContract;
 use Dystcz\LunarApi\Base\Contracts\SchemaManifest as SchemaManifestContract;
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\Schema as SchemaContract;
+use Dystcz\LunarApi\Domain\JsonApi\Core\Schema\TypeResolver;
 use Dystcz\LunarApi\LunarApi;
-use Dystcz\LunarApi\Support\Models\Actions\GetModelKey;
+use Dystcz\LunarApi\Support\Models\Actions\ModelKey;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
@@ -21,9 +21,16 @@ use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema as BaseSchema;
 use LaravelJsonApi\HashIds\HashId;
+use LogicException;
+use Lunar\Facades\ModelManifest;
 
 abstract class Schema extends BaseSchema implements ExtendableContract, SchemaContract
 {
+    /**
+     * {@inheritDoc}
+     */
+    public static string $model;
+
     /**
      * The maximum depth of include paths.
      */
@@ -54,11 +61,6 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     protected SchemaExtensionContract $extension;
 
     /**
-     * Already merged include paths from other schemas.
-     */
-    protected array $mergedIncludePaths = [];
-
-    /**
      * Schema constructor.
      */
     public function __construct(
@@ -67,6 +69,37 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
         $this->extension = App::make(SchemaManifestContract::class)::for(static::class);
 
         $this->server = $server;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function type(): string
+    {
+        $resolver = new TypeResolver;
+
+        return $resolver(static::class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function model(): string
+    {
+        if (! isset(static::$model)) {
+            throw new LogicException('The model class name must be set.');
+        }
+
+        if (class_exists(static::$model)) {
+            return static::$model;
+        }
+
+        if (App::isBooted() && $model = ModelManifest::get(static::$model)) {
+            return $model;
+        }
+
+        return static::$model;
+
     }
 
     /**
@@ -122,16 +155,6 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     }
 
     /**
-     * Merge include paths from other schema types.
-     *
-     * @return array<string,string> Schema type and relationship name pairs.
-     */
-    public function mergeIncludePathsFrom(): iterable
-    {
-        return [];
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function includePaths(): iterable
@@ -145,74 +168,12 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
         }
 
         $extendedIncludePaths = $this->extension->includePaths()->resolve($this);
-        $mergedIncludePaths = $this->getMergedIncludePaths();
 
         return [
-            ...$mergedIncludePaths,
             ...$extendedIncludePaths,
 
             ...parent::includePaths(),
         ];
-    }
-
-    /**
-     * Get merged include paths from other schemas.
-     */
-    protected function getMergedIncludePaths(): array
-    {
-        return Collection::make($this->mergeIncludePathsFrom())
-            ->reduce(
-                function (array $carry, string|array $relationship, string $type) {
-                    $relationships = Arr::wrap($relationship);
-
-                    return array_merge(
-                        $carry,
-                        ...array_map(
-                            fn (string $relationship) => $this->getIncludePathsFor($type, $relationship),
-                            $relationships,
-                        ),
-                    );
-                },
-                [],
-            );
-    }
-
-    /**
-     * Get include paths for schema type.
-     *
-     * @return string[]|iterable
-     */
-    protected function getIncludePathsFor(string $type, string $relationship): array
-    {
-        $mergeKey = $this->getMergeKey($type);
-
-        if (array_key_exists($mergeKey, $this->mergedIncludePaths)) {
-            $includePaths = $this->mergedIncludePaths[$mergeKey];
-
-            return $this->mapIncludePathsForRelationship($includePaths, $relationship);
-        }
-
-        $this->mergedIncludePaths[$mergeKey] = [];
-
-        $includePaths = $this->server->schemas()->schemaFor($type)->includePaths();
-
-        $this->mergedIncludePaths[$mergeKey] = $includePaths;
-
-        return $this->mapIncludePathsForRelationship($includePaths, $relationship);
-    }
-
-    /**
-     * Map include paths for relationship.
-     */
-    protected function mapIncludePathsForRelationship(array $includePaths, string $relationship): array
-    {
-        return array_merge(
-            [$relationship],
-            array_map(
-                fn (string $path) => "{$relationship}.{$path}",
-                $includePaths,
-            )
-        );
     }
 
     /**
@@ -301,7 +262,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     {
         if (LunarApi::usesHashids()) {
             return HashId::make($column)
-                ->useConnection((new GetModelKey)(self::model()))
+                ->useConnection(ModelKey::get(self::model()))
                 ->alreadyHashed();
         }
 

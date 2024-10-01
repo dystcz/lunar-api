@@ -4,7 +4,9 @@ namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
+use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Illuminate\Http\Request;
+use Lunar\Models\Contracts\ProductVariant as ProductVariantContract;
 
 class ProductResource extends JsonApiResource
 {
@@ -19,7 +21,10 @@ class ProductResource extends JsonApiResource
         $model = $this->resource;
 
         if ($model->relationLoaded('variants')) {
-            $model->variants->each(fn ($variant) => $variant->setRelation('product', $model));
+            /** @var ProductVariant $variant */
+            $model->variants->each(
+                fn (ProductVariantContract $variant) => $variant->setRelation('product', $model),
+            );
         }
 
         if ($model->relationLoaded('cheapestVariant')) {

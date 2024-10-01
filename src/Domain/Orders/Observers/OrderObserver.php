@@ -4,6 +4,7 @@ namespace Dystcz\LunarApi\Domain\Orders\Observers;
 
 use Dystcz\LunarApi\Domain\Orders\Events\OrderStatusChanged;
 use Illuminate\Support\Facades\Event;
+use Lunar\Models\Contracts\Order as OrderContract;
 use Lunar\Models\Order;
 
 class OrderObserver
@@ -11,7 +12,7 @@ class OrderObserver
     /**
      * Handle the Order "updating" event.
      */
-    public function updating(Order $order): void
+    public function updating(OrderContract $order): void
     {
         //
     }
@@ -19,7 +20,7 @@ class OrderObserver
     /**
      * Handle the Order "updated" event.
      */
-    public function updated(Order $order): void
+    public function updated(OrderContract $order): void
     {
         if ($order->wasChanged('status')) {
             Event::dispatch(

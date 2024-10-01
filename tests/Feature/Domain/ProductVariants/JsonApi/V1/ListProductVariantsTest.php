@@ -17,14 +17,14 @@ it('can list bare product variants', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
-        ->get(serverUrl('/variants'));
+        ->expects('product-variants')
+        ->get(serverUrl('/product-variants'));
 
     $response
         ->assertSuccessful()
         ->assertFetchedMany($variants)
         ->assertDoesntHaveIncluded();
-})->group('variants');
+})->group('product-variants');
 
 it('cannot list variants of unpublished products', function () {
     /** @var TestCase $this */
@@ -36,8 +36,8 @@ it('cannot list variants of unpublished products', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('variants')
-        ->get(serverUrl('/variants'));
+        ->expects('product-variants')
+        ->get(serverUrl('/product-variants'));
 
     $response
         ->assertSuccessful()

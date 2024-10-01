@@ -3,14 +3,17 @@
 namespace Dystcz\LunarApi\Domain\Carts\Actions;
 
 use Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressRequest;
-use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
-use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Users\Contracts\CreatesUserFromCart;
 use Dystcz\LunarApi\Domain\Users\Contracts\RegistersUser;
 use Dystcz\LunarApi\Domain\Users\Data\UserData;
+use Dystcz\LunarApi\Domain\Users\Models\User;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Validator;
+use Lunar\Models\Contracts\Cart as CartContract;
+use Lunar\Models\Contracts\CartAddress as CartAddressContract;
+use Lunar\Models\Contracts\Customer as CustomerContract;
+use Lunar\Models\Customer;
 use RuntimeException;
 
 class CreateUserFromCart implements CreatesUserFromCart
@@ -23,8 +26,9 @@ class CreateUserFromCart implements CreatesUserFromCart
      * Create a user from a cart.
      */
     public function __invoke(
-        Cart $cart,
+        CartContract $cart,
     ): ?Authenticatable {
+        /** @var Cart $cart */
         if ($cart->user_id) {
             return $cart->user;
         }
@@ -59,8 +63,9 @@ class CreateUserFromCart implements CreatesUserFromCart
     /**
      * Get or create a customer.
      */
-    protected function getCustomer(Authenticatable $user, CartAddress $shippingAddress): Customer
+    protected function getCustomer(Authenticatable $user, CartAddressContract $shippingAddress): CustomerContract
     {
+        /** @var User $user */
         /** @var Customer $customer */
         $customer = $user->customers()->first();
 
@@ -71,6 +76,7 @@ class CreateUserFromCart implements CreatesUserFromCart
             ]);
         }
 
+        /** @var ShippingAddress $shippingAddress */
         $customer->first_name = $customer->first_name ?: $shippingAddress->first_name;
         $customer->last_name = $customer->last_name ?: $shippingAddress->last_name;
 
@@ -82,7 +88,7 @@ class CreateUserFromCart implements CreatesUserFromCart
     /**
      * Get addresses from cart.
      */
-    protected function getDataForCustomerAddresses(Cart $cart): array
+    protected function getDataForCustomerAddresses(CartContract $cart): array
     {
         $shippingAddress = $cart->shippingAddress;
         $billingAddress = $cart->billingAddress;
@@ -98,7 +104,7 @@ class CreateUserFromCart implements CreatesUserFromCart
     /**
      * Get address data in array.
      */
-    protected function getAddressData(?CartAddress $primary, ?CartAddress $secondary): ?array
+    protected function getAddressData(?CartAddressContract $primary, ?CartAddressContract $secondary): ?array
     {
         if (! $primary) {
             return null;

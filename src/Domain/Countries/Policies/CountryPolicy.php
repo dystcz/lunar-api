@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Countries\Policies;
 
-use Dystcz\LunarApi\Domain\Countries\Models\Country;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Country as CountryContract;
 
 class CountryPolicy
 {
@@ -21,7 +21,7 @@ class CountryPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, Country $country): bool
+    public function view(?Authenticatable $user, CountryContract $country): bool
     {
         return true;
     }
@@ -31,22 +31,22 @@ class CountryPolicy
      */
     public function create(?Authenticatable $user): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, Country $country): bool
+    public function update(?Authenticatable $user, CountryContract $country): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, Country $country): bool
+    public function delete(?Authenticatable $user, CountryContract $country): bool
     {
-        return true;
+        return false;
     }
 }

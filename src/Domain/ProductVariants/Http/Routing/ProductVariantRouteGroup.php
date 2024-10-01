@@ -22,12 +22,12 @@ class ProductVariantRouteGroup extends RouteGroup implements RouteGroupContract
                 $server
                     ->resource($this->getPrefix(), ProductVariantsController::class)
                     ->relationships(function (Relationships $relationships) {
-                        $relationships->hasOne('default_url')->readOnly();
+                        $relationships->hasOne('default-url')->readOnly();
                         $relationships->hasMany('images')->readOnly();
-                        $relationships->hasMany('other_variants')->readOnly();
+                        $relationships->hasMany('other-product-variants')->readOnly();
                         $relationships->hasMany('prices')->readOnly();
-                        $relationships->hasOne('lowest_price')->readOnly();
-                        $relationships->hasOne('highest_price')->readOnly();
+                        $relationships->hasOne('lowest-price')->readOnly();
+                        $relationships->hasOne('highest-price')->readOnly();
                         $relationships->hasMany('product')->readOnly();
                         $relationships->hasOne('thumbnail')->readOnly();
                         $relationships->hasMany('urls')->readOnly();

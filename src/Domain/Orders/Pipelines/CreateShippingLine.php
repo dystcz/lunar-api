@@ -7,21 +7,25 @@ use Illuminate\Support\Facades\App;
 use Lunar\DataTypes\ShippingOption;
 use Lunar\Models\Contracts\Order as OrderContract;
 use Lunar\Models\Contracts\OrderLine as OrderLineContract;
+use Lunar\Models\Order;
+use Lunar\Models\OrderLine;
 
 class CreateShippingLine
 {
     /**
      * @param  Closure(OrderContract): mixed  $next
-     * @return mixed
+     * @return Closure
      */
-    public function handle(OrderContract $order, Closure $next)
+    public function handle(OrderContract $order, Closure $next): mixed
     {
+        /** @var Order $order */
         $cart = $order->cart->recalculate();
 
         // If we have a shipping address with a shipping option.
         if (($shippingAddress = $cart->shippingAddress) &&
             ($shippingOption = $cart->getShippingOption())
         ) {
+            /** @var OrderLine $shippingLine */
             $shippingLine = $order->lines->first(function ($orderLine) use ($shippingOption) {
                 return $orderLine->type == 'shipping' &&
                     $orderLine->purchasable_type == ShippingOption::class &&

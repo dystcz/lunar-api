@@ -8,14 +8,16 @@ use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\CheckOrderPaymentStatusQuery;
 use Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderSchema;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use LaravelJsonApi\Core\Responses\DataResponse;
+use Lunar\Models\Contracts\Order as OrderContract;
 
 class CheckOrderPaymentStatusController extends Controller implements CheckOrderPaymentStatusControllerContract
 {
     public function checkOrderPaymentStatus(
         OrderSchema $schema,
         CheckOrderPaymentStatusQuery $query,
-        Order $order,
+        OrderContract $order,
     ): DataResponse {
+        /** @var Order $order */
         $this->authorize('viewSigned', $order);
 
         $order->load([
@@ -24,7 +26,7 @@ class CheckOrderPaymentStatusController extends Controller implements CheckOrder
 
         return DataResponse::make($order)
             ->withIncludePaths([
-                'latest_transaction',
+                'latest-transaction',
             ])
             ->withSparseFieldSets([
                 'orders' => [

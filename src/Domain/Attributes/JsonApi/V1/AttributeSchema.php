@@ -2,9 +2,11 @@
 
 namespace Dystcz\LunarApi\Domain\Attributes\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\Attributes\Models\Attribute;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
+use Lunar\Models\Contracts\Attribute;
+use Lunar\Models\Contracts\AttributeGroup;
 
 class AttributeSchema extends Schema
 {
@@ -19,7 +21,7 @@ class AttributeSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'attribute_group',
+            'attribute-group',
 
             ...parent::includePaths(),
         ];
@@ -33,22 +35,14 @@ class AttributeSchema extends Schema
         return [
             $this->idField(),
 
-            BelongsTo::make('attribute_group', 'attributeGroup')
+            BelongsTo::make('attribute-group', 'attributeGroup')
                 ->retainFieldName()
-                ->type('attribute-groups')
+                ->type(ModelType::get(AttributeGroup::class))
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks()
                 ),
 
             ...parent::fields(),
         ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'attributes';
     }
 }

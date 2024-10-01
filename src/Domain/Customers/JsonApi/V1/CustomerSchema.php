@@ -8,7 +8,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Resources\Relation;
-use Lunar\Models\Customer;
+use Lunar\Models\Contracts\Customer;
 
 class CustomerSchema extends Schema
 {
@@ -52,7 +52,8 @@ class CustomerSchema extends Schema
             Str::make('vat_no'),
 
             HasMany::make('orders')
-                ->canCount(),
+                ->canCount()
+                ->countAs('orders_count'),
 
             HasMany::make('addresses'),
 
@@ -61,13 +62,5 @@ class CustomerSchema extends Schema
 
             ...parent::fields(),
         ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'customers';
     }
 }

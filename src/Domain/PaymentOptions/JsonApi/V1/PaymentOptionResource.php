@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\PaymentOptions\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
-use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 
 class PaymentOptionResource extends JsonApiResource
 {

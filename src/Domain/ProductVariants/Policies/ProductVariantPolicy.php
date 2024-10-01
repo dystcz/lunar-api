@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\ProductVariants\Policies;
 
-use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\ProductVariant as ProductVariantContract;
 
 class ProductVariantPolicy
 {
@@ -21,7 +21,7 @@ class ProductVariantPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, ProductVariant $variant): bool
+    public function view(?Authenticatable $user, ProductVariantContract $variant): bool
     {
         return true;
     }
@@ -37,7 +37,7 @@ class ProductVariantPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, ProductVariant $variant): bool
+    public function update(?Authenticatable $user, ProductVariantContract $variant): bool
     {
         return false;
     }
@@ -45,7 +45,7 @@ class ProductVariantPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, ProductVariant $variant): bool
+    public function delete(?Authenticatable $user, ProductVariantContract $variant): bool
     {
         return false;
     }
@@ -53,7 +53,7 @@ class ProductVariantPolicy
     /**
      * Authorize a user to view variant's default url.
      */
-    public function viewDefaultUrl(?Authenticatable $user, ProductVariant $variant): bool
+    public function viewDefaultUrl(?Authenticatable $user, ProductVariantContract $variant): bool
     {
         return true;
     }
@@ -61,7 +61,7 @@ class ProductVariantPolicy
     /**
      * Authorize a user to view variant's images.
      */
-    public function viewImages(?Authenticatable $user, ProductVariant $variant): bool
+    public function viewImages(?Authenticatable $user, ProductVariantContract $variant): bool
     {
         return true;
     }
@@ -69,7 +69,7 @@ class ProductVariantPolicy
     /**
      * Authorize a user to view other variants.
      */
-    public function viewOtherVariants(?Authenticatable $user, ProductVariant $variant): bool
+    public function viewOtherProductVariants(?Authenticatable $user, ProductVariantContract $variant): bool
     {
         return true;
     }
@@ -77,7 +77,7 @@ class ProductVariantPolicy
     /**
      * Authorize a user to view variant's prices.
      */
-    public function viewPrices(?Authenticatable $user, ProductVariant $variant): bool
+    public function viewPrices(?Authenticatable $user, ProductVariantContract $variant): bool
     {
         return true;
     }
@@ -85,7 +85,7 @@ class ProductVariantPolicy
     /**
      * Authorize a user to view variant's lowest price.
      */
-    public function viewLowestPrice(?Authenticatable $user, ProductVariant $variant): bool
+    public function viewLowestPrice(?Authenticatable $user, ProductVariantContract $variant): bool
     {
         return true;
     }
@@ -93,7 +93,7 @@ class ProductVariantPolicy
     /**
      * Authorize a user to view variant's highest price.
      */
-    public function viewHighestPrice(?Authenticatable $user, ProductVariant $variant): bool
+    public function viewHighestPrice(?Authenticatable $user, ProductVariantContract $variant): bool
     {
         return true;
     }
@@ -101,7 +101,7 @@ class ProductVariantPolicy
     /**
      * Authorize a user to view variant's product.
      */
-    public function viewProduct(?Authenticatable $user, ProductVariant $variant): bool
+    public function viewProduct(?Authenticatable $user, ProductVariantContract $variant): bool
     {
         return true;
     }
@@ -109,7 +109,7 @@ class ProductVariantPolicy
     /**
      * Authorize a user to view variant's thumbnail.
      */
-    public function viewThumbnail(?Authenticatable $user, ProductVariant $variant): bool
+    public function viewThumbnail(?Authenticatable $user, ProductVariantContract $variant): bool
     {
         return true;
     }
@@ -117,7 +117,7 @@ class ProductVariantPolicy
     /**
      * Authorize a user to view variant's urls.
      */
-    public function viewUrls(?Authenticatable $user, ProductVariant $variant): bool
+    public function viewUrls(?Authenticatable $user, ProductVariantContract $variant): bool
     {
         return true;
     }

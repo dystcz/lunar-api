@@ -10,6 +10,7 @@ use Illuminate\Validation\Validator;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
+use Lunar\Models\Contracts\Cart as CartContract;
 
 class CheckoutCartRequest extends ResourceRequest
 {
@@ -70,7 +71,7 @@ class CheckoutCartRequest extends ResourceRequest
     /**
      * Validate the shipping option.
      */
-    protected function validateShippingOption(Validator $validator, Cart $cart): void
+    protected function validateShippingOption(Validator $validator, CartContract $cart): void
     {
         /** @var CartAddress $shippingAddress */
         $shippingAddress = $cart->shippingAddress;
@@ -86,7 +87,7 @@ class CheckoutCartRequest extends ResourceRequest
     /**
      * Validate the stock.
      */
-    protected function validateStock(Validator $validator, Cart $cart): void
+    protected function validateStock(Validator $validator, CartContract $cart): void
     {
         if (! Config::get('lunar-api.general.checkout.check_stock_on_checkout')) {
             return;

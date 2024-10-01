@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Products\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Queries\CollectionQuery;
-use LaravelJsonApi\Validation\Rule as JsonApiRule;
 
 class ProductCollectionQuery extends CollectionQuery
 {
@@ -16,37 +15,6 @@ class ProductCollectionQuery extends CollectionQuery
     {
         return [
             ...parent::rules(),
-
-            'fields' => [
-                'nullable',
-                'array',
-                JsonApiRule::fieldSets(),
-            ],
-            'filter' => [
-                'nullable',
-                'array',
-                JsonApiRule::filter(),
-            ],
-            'include' => [
-                'nullable',
-                'string',
-                JsonApiRule::includePaths(),
-            ],
-            'page' => [
-                'nullable',
-                'array',
-                JsonApiRule::page(),
-            ],
-            'sort' => [
-                'nullable',
-                'string',
-                JsonApiRule::sort(),
-            ],
-            'withCount' => [
-                'nullable',
-                'string',
-                JsonApiRule::countable(),
-            ],
         ];
     }
 

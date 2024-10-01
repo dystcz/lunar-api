@@ -5,28 +5,25 @@ namespace Dystcz\LunarApi\Domain\ProductVariants\Factories;
 use Dystcz\LunarApi\Domain\Media\Factories\MediaFactory;
 use Dystcz\LunarApi\Domain\Prices\Models\Price;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
-use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use Lunar\FieldTypes\Text;
 use Lunar\Models\Currency;
-use Lunar\Models\ProductVariant as LunarProductVariant;
+use Lunar\Models\ProductVariant;
 use Lunar\Models\TaxClass;
 use Lunar\Models\TaxRateAmount;
 
 class ProductVariantFactory extends \Lunar\Database\Factories\ProductVariantFactory
 {
-    protected $model = ProductVariant::class;
-
     /**
      * Define the model's default state.
      */
     public function definition(): array
     {
         return [
-            'product_id' => Product::factory(),
-            'tax_class_id' => TaxClass::factory()
-                ->hasTaxRateAmounts(TaxRateAmount::factory()),
+            'product_id' => Product::modelClass()::factory(),
+            'tax_class_id' => TaxClass::modelClass()::factory()
+                ->hasTaxRateAmounts(TaxRateAmount::modelClass()::factory()),
             'sku' => Str::random(12),
             'unit_quantity' => 1,
             'gtin' => $this->faker->unique()->isbn13,
@@ -46,10 +43,10 @@ class ProductVariantFactory extends \Lunar\Database\Factories\ProductVariantFact
     public function withPrice(?int $price = null, ?int $comparePrice = null): static
     {
         return $this->has(
-            Price::factory()->state([
+            Price::modelClass()::factory()->state([
                 'price' => $price ?? $this->faker->numberBetween(100, 1000),
                 'compare_price' => $comparePrice ?? $this->faker->numberBetween(100),
-                'currency_id' => Currency::getDefault(),
+                'currency_id' => Currency::modelClass()::getDefault(),
             ]),
         );
     }
@@ -66,7 +63,7 @@ class ProductVariantFactory extends \Lunar\Database\Factories\ProductVariantFact
         return $this->hasAttached(
             MediaFactory::new()->state(fn ($data, $model) => array_merge([
                 'model_id' => $model->id,
-                'model_type' => LunarProductVariant::class,
+                'model_type' => (new (ProductVariant::modelClass()))->getMorphClass(),
                 'collection_name' => 'images',
             ]), $state),
             ['primary' => true],
@@ -88,7 +85,7 @@ class ProductVariantFactory extends \Lunar\Database\Factories\ProductVariantFact
                 MediaFactory::new()
                     ->state(fn ($data, $model) => array_merge([
                         'model_id' => $model->id,
-                        'model_type' => LunarProductVariant::class,
+                        'model_type' => (new (ProductVariant::modelClass()))->getMorphClass(),
                         'collection_name' => 'images',
                         'custom_properties' => ['test' => true],
                     ]), $state)

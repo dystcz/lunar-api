@@ -2,10 +2,9 @@
 
 namespace Dystcz\LunarApi\Hashids\Managers;
 
-use Dystcz\LunarApi\Support\Models\Actions\GetModelKey;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
-use Lunar\Facades\ModelManifest;
 
 class HashidsConnectionsManager
 {
@@ -47,12 +46,10 @@ class HashidsConnectionsManager
      */
     protected function getConnectionsFromModels(): Collection
     {
-        return ModelManifest::getBaseModelClasses()->mapWithKeys(function (string $baseModelClass) {
-            $connectionKey = (new GetModelKey)($baseModelClass);
-
+        return Collection::make(Relation::morphMap())->mapWithKeys(function (string $modelClass, $connectionKey) {
             return [
                 $connectionKey => [
-                    'salt' => $baseModelClass.Config::get('app.key'),
+                    'salt' => $modelClass.Config::get('app.key'),
                     'length' => Config::get('lunar-api.hashids.default_length', 16),
                     'alphabet' => Config::get(
                         'lunar-api.hashids.default_alphabet',

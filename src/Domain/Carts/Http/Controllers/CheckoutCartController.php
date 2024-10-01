@@ -6,28 +6,16 @@ use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCart;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCartController as CheckoutCartControllerContract;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CheckoutCartRequest;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use LaravelJsonApi\Contracts\Store\Store as StoreContract;
 use LaravelJsonApi\Core\Responses\DataResponse;
-use Lunar\Base\CartSessionInterface;
-use Lunar\Managers\CartSessionManager;
 
 class CheckoutCartController extends Controller implements CheckoutCartControllerContract
 {
-    /**
-     * @var CartSessionManager
-     */
-    private CartSessionInterface $cartSession;
-
-    public function __construct()
-    {
-        $this->cartSession = App::make(CartSessionInterface::class);
-    }
-
     /**
      * Checkout user's cart.
      */
@@ -35,12 +23,10 @@ class CheckoutCartController extends Controller implements CheckoutCartControlle
         StoreContract $store,
         CheckoutCartRequest $request,
         CreateUserFromCart $createUserFromCartAction,
-        CheckoutCart $checkoutCartAction
+        CheckoutCart $checkoutCartAction,
+        ?CurrentSessionCart $cart
     ): DataResponse {
-
         /** @var Cart $cart */
-        $cart = $this->cartSession->current();
-
         $this->authorize('checkout', $cart);
 
         if ($request->validated('create_user', false)) {
@@ -50,6 +36,7 @@ class CheckoutCartController extends Controller implements CheckoutCartControlle
         /** @var Order $order */
         $order = ($checkoutCartAction)($cart);
 
+        // TODO: Refactor to default json:api links
         return DataResponse::make($order)
             ->withLinks([
                 'self.signed' => URL::signedRoute(

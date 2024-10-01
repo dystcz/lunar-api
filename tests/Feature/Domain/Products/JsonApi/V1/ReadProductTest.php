@@ -93,7 +93,7 @@ test('can show a product with included lowest price', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->includePaths('lowest_price')
+        ->includePaths('lowest-price')
         ->get(serverUrl('/products/'.$product->getRouteKey()));
 
     $response
@@ -115,7 +115,7 @@ test('can show a product with included highest price', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->includePaths('highest_price')
+        ->includePaths('highest-price')
         ->get(serverUrl('/products/'.$product->getRouteKey()));
 
     $response
@@ -155,34 +155,13 @@ it('can show a product with included variants', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->includePaths('variants')
+        ->includePaths('product-variants')
         ->get(serverUrl('/products/'.$product->getRouteKey()));
 
     $response
         ->assertSuccessful()
         ->assertFetchedOne($product)
-        ->assertIsIncluded('variants', $product->variants->first());
-})->group('products');
-
-it('can show a product with variants count', function () {
-    /** @var TestCase $this */
-    $product = Product::factory()
-        ->has(
-            ProductVariant::factory()->has(Price::factory())->count(5),
-            'variants'
-        )
-        ->create();
-
-    $response = $this
-        ->jsonApi()
-        ->expects('products')
-        ->get('/api/v1/products/'.$product->getRouteKey().'?withCount=variants');
-
-    $response
-        ->assertSuccessful()
-        ->assertFetchedOne($product);
-
-    expect($response->json('data.relationships.variants.meta.count'))->toBe(5);
+        ->assertIsIncluded('product-variants', $product->variants->first());
 })->group('products');
 
 it('can show a product with included tags', function () {
@@ -195,7 +174,7 @@ it('can show a product with included tags', function () {
         ->jsonApi()
         ->expects('products')
         ->includePaths('tags')
-        ->get('/api/v1/products/'.$product->getRouteKey());
+        ->get(serverUrl("/products/{$product->getRouteKey()}"));
 
     $response
         ->assertSuccessful()

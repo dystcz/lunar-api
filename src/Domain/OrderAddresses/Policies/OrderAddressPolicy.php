@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\OrderAddresses\Policies;
 
-use Dystcz\LunarApi\Domain\OrderAddresses\Models\OrderAddress;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\OrderAddress as OrderAddressContract;
 
 class OrderAddressPolicy
 {
@@ -21,7 +21,7 @@ class OrderAddressPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, OrderAddress $orderAddress): bool
+    public function view(?Authenticatable $user, OrderAddressContract $orderAddress): bool
     {
         return true;
     }
@@ -37,7 +37,7 @@ class OrderAddressPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, OrderAddress $orderAddress): bool
+    public function update(?Authenticatable $user, OrderAddressContract $orderAddress): bool
     {
         return false;
     }
@@ -45,7 +45,7 @@ class OrderAddressPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, OrderAddress $orderAddress): bool
+    public function delete(?Authenticatable $user, OrderAddressContract $orderAddress): bool
     {
         return false;
     }

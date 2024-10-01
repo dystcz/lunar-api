@@ -3,9 +3,9 @@
 namespace Dystcz\LunarApi\Domain\Orders\Pipelines;
 
 use Closure;
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
-use Dystcz\LunarApi\Domain\PaymentOptions\Data\PaymentOption;
+use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 use Illuminate\Support\Facades\App;
 use Lunar\Models\Contracts\Order as OrderContract;
 use Lunar\Models\Contracts\OrderLine as OrderLineContract;
@@ -13,18 +13,16 @@ use Lunar\Models\Contracts\OrderLine as OrderLineContract;
 class CreatePaymentLine
 {
     /**
-     * Create payment line for order.
-     *
      * @param  Closure(OrderContract): mixed  $next
-     * @return mixed
+     * @return Closure
      */
-    public function handle(OrderContract $order, Closure $next)
+    public function handle(OrderContract $order, Closure $next): mixed
     {
         /** @var Order $order */
-        /** @var Cart $cart */
         $cart = $order->cart->recalculate();
 
         if ($paymentOption = $cart->getPaymentOption()) {
+            /** @var OrderLine $paymentLine */
             $paymentLine = $order->lines->first(function ($orderLine) use ($paymentOption) {
                 return $orderLine->type == 'payment' &&
                     $orderLine->purchasable_type == PaymentOption::class &&

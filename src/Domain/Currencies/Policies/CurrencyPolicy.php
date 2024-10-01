@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\Currencies\Policies;
 
-use Dystcz\LunarApi\Domain\Currencies\Models\Currency;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\Currency as CurrencyContract;
 
 class CurrencyPolicy
 {
@@ -21,7 +21,7 @@ class CurrencyPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, Currency $currency): bool
+    public function view(?Authenticatable $user, CurrencyContract $currency): bool
     {
         return true;
     }
@@ -37,7 +37,7 @@ class CurrencyPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, Currency $currency): bool
+    public function update(?Authenticatable $user, CurrencyContract $currency): bool
     {
         return true;
     }
@@ -45,7 +45,7 @@ class CurrencyPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, Currency $currency): bool
+    public function delete(?Authenticatable $user, CurrencyContract $currency): bool
     {
         return true;
     }

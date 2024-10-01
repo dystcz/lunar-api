@@ -3,29 +3,17 @@
 namespace Dystcz\LunarApi\Domain\Carts\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
-use Dystcz\LunarApi\Domain\Carts\Contracts\Cart;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart;
 use Dystcz\LunarApi\Domain\Carts\Contracts\ReadUserCartController as ReadUserCartControllerContract;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartQuery;
 use Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartSchema;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Core\Responses\DataResponse;
-use Lunar\Base\CartSessionInterface;
+use Lunar\Models\Cart;
 
 class ReadUserCartController extends Controller implements ReadUserCartControllerContract
 {
-    /**
-     * @var \Lunar\Managers\CartSessionManager
-     */
-    private CartSessionInterface $cartSession;
-
-    public function __construct()
-    {
-        $this->cartSession = App::make(CartSessionInterface::class);
-    }
-
     /**
      * Read user's cart.
      *
@@ -33,7 +21,7 @@ class ReadUserCartController extends Controller implements ReadUserCartControlle
      */
     public function myCart(CartSchema $schema, CartQuery $query, ?CurrentSessionCart $cart): DataResponse
     {
-        $this->authorize('viewAny', Cart::class);
+        $this->authorize('viewAny', Cart::modelClass());
 
         // If cart auto creation is disabled and no cart is found
         if (! $cart) {

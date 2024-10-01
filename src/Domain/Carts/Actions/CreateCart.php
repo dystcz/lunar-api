@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\App;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
 use Lunar\Models\Cart;
+use Lunar\Models\Contracts\Cart as CartContract;
 
 class CreateCart extends Action
 {
@@ -25,9 +26,9 @@ class CreateCart extends Action
     /**
      * Create a new cart.
      */
-    public function handle(): Cart
+    public function handle(): CartContract
     {
-        $cart = Cart::create([
+        $cart = Cart::modelClass()::create([
             'currency_id' => $this->cartSession->getCurrency()->id,
             'channel_id' => $this->cartSession->getChannel()->id,
             'user_id' => $this->authManager->user()?->id,

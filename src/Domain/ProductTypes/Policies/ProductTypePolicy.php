@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\ProductTypes\Policies;
 
-use Dystcz\LunarApi\Domain\Products\Models\ProductType;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lunar\Models\Contracts\ProductType as ProductTypeContract;
 
 class ProductTypePolicy
 {
@@ -21,7 +21,7 @@ class ProductTypePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, ProductType $productType): bool
+    public function view(?Authenticatable $user, ProductTypeContract $productType): bool
     {
         return true;
     }
@@ -31,22 +31,22 @@ class ProductTypePolicy
      */
     public function create(?Authenticatable $user): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, ProductType $productType): bool
+    public function update(?Authenticatable $user, ProductTypeContract $productType): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, ProductType $productType): bool
+    public function delete(?Authenticatable $user, ProductTypeContract $productType): bool
     {
-        return true;
+        return false;
     }
 }

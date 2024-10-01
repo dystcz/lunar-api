@@ -19,7 +19,7 @@ it('can read highest price through relationship', function () {
     $response = $this
         ->jsonApi()
         ->expects('prices')
-        ->get(serverUrl("/variants/{$variant->getRouteKey()}/highest_price"));
+        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}/highest-price"));
 
     $response
         ->assertSuccessful()

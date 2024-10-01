@@ -7,8 +7,8 @@ use Dystcz\LunarApi\Domain\CartAddresses\Contracts\ContinuousUpdateCartAddressCo
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressContinuousUpdateRequest;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressQuery;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema;
-use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use LaravelJsonApi\Core\Responses\DataResponse;
+use Lunar\Models\Contracts\CartAddress as CartAddressContract;
 
 class ContinuousUpdateCartAddressController extends Controller implements ContinuousUpdateCartAddressControllerContract
 {
@@ -21,7 +21,7 @@ class ContinuousUpdateCartAddressController extends Controller implements Contin
         CartAddressSchema $schema,
         CartAddressContinuousUpdateRequest $request,
         CartAddressQuery $query,
-        CartAddress $cartAddress,
+        CartAddressContract $cartAddress,
     ): DataResponse {
         $this->authorize('update', $cartAddress);
 
