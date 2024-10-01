@@ -25,7 +25,7 @@ class JsonApiServiceProvider extends ServiceProvider
             \Dystcz\LunarApi\Domain\JsonApi\Queries\CollectionQuery::class,
         );
         \LaravelJsonApi\Laravel\LaravelJsonApi::withCountQueryParameter(
-            'with-count',
+            'with_count',
         );
     }
 

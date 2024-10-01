@@ -32,7 +32,7 @@ it('can count product images', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->get(serverUrl("/products/{$product->getRouteKey()}?with-count=images"));
+        ->get(serverUrl("/products/{$product->getRouteKey()}?with_count=images"));
 
     $response
         ->assertSuccessful()

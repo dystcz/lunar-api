@@ -37,7 +37,7 @@
     `variants` → `product-variants`
 
 2. Changed withCount query parameter
-   `?withCount=` → `?with-count=`
+   `?withCount=` → `?with_count=`
 
 ## 0.8.8
 
