@@ -21,16 +21,6 @@ class ProductAssociationSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function mergeIncludePathsFrom(): iterable
-    {
-        return [
-            'products' => ['target', 'parent'],
-        ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function includePaths(): iterable
     {
         return [

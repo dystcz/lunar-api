@@ -10,7 +10,6 @@ use Dystcz\LunarApi\Domain\JsonApi\Core\Schema\TypeResolver;
 use Dystcz\LunarApi\LunarApi;
 use Dystcz\LunarApi\Support\Models\Actions\ModelKey;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
@@ -60,11 +59,6 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      * Schema extension.
      */
     protected SchemaExtensionContract $extension;
-
-    /**
-     * Already merged include paths from other schemas.
-     */
-    protected array $mergedIncludePaths = [];
 
     /**
      * Schema constructor.
@@ -156,16 +150,6 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     }
 
     /**
-     * Merge include paths from other schema types.
-     *
-     * @return array<string,string> Schema type and relationship name pairs.
-     */
-    public function mergeIncludePathsFrom(): iterable
-    {
-        return [];
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function includePaths(): iterable
@@ -179,74 +163,12 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
         }
 
         $extendedIncludePaths = $this->extension->includePaths()->resolve($this);
-        $mergedIncludePaths = $this->getMergedIncludePaths();
 
         return [
-            ...$mergedIncludePaths,
             ...$extendedIncludePaths,
 
             ...parent::includePaths(),
         ];
-    }
-
-    /**
-     * Get merged include paths from other schemas.
-     */
-    protected function getMergedIncludePaths(): array
-    {
-        return Collection::make($this->mergeIncludePathsFrom())
-            ->reduce(
-                function (array $carry, string|array $relationship, string $type) {
-                    $relationships = Arr::wrap($relationship);
-
-                    return array_merge(
-                        $carry,
-                        ...array_map(
-                            fn (string $relationship) => $this->getIncludePathsFor($type, $relationship),
-                            $relationships,
-                        ),
-                    );
-                },
-                [],
-            );
-    }
-
-    /**
-     * Get include paths for schema type.
-     *
-     * @return string[]|iterable
-     */
-    protected function getIncludePathsFor(string $type, string $relationship): array
-    {
-        $mergeKey = $this->getMergeKey($type);
-
-        if (array_key_exists($mergeKey, $this->mergedIncludePaths)) {
-            $includePaths = $this->mergedIncludePaths[$mergeKey];
-
-            return $this->mapIncludePathsForRelationship($includePaths, $relationship);
-        }
-
-        $this->mergedIncludePaths[$mergeKey] = [];
-
-        $includePaths = $this->server->schemas()->schemaFor($type)->includePaths();
-
-        $this->mergedIncludePaths[$mergeKey] = $includePaths;
-
-        return $this->mapIncludePathsForRelationship($includePaths, $relationship);
-    }
-
-    /**
-     * Map include paths for relationship.
-     */
-    protected function mapIncludePathsForRelationship(array $includePaths, string $relationship): array
-    {
-        return array_merge(
-            [$relationship],
-            array_map(
-                fn (string $path) => "{$relationship}.{$path}",
-                $includePaths,
-            )
-        );
     }
 
     /**
