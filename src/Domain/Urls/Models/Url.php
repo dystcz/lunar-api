@@ -2,11 +2,11 @@
 
 namespace Dystcz\LunarApi\Domain\Urls\Models;
 
+use Dystcz\LunarApi\Domain\Urls\Concerns\InteractsWithLunarApi;
 use Dystcz\LunarApi\Domain\Urls\Contracts\Url as UrlContract;
-use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Lunar\Models\Url as LunarUrl;
 
 class Url extends LunarUrl implements UrlContract
 {
-    use HashesRouteKey;
+    use InteractsWithLunarApi;
 }
