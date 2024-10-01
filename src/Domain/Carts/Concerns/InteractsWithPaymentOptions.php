@@ -4,7 +4,6 @@ namespace Dystcz\LunarApi\Domain\Carts\Concerns;
 
 use Dystcz\LunarApi\Domain\Carts\Actions\SetPaymentOption;
 use Dystcz\LunarApi\Domain\Carts\Actions\UnsetPaymentOption;
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Carts\ValueObjects\PaymentBreakdown;
 use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 use Dystcz\LunarApi\Domain\PaymentOptions\Facades\PaymentManifest;
@@ -12,6 +11,8 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\ValueObjects\Cart\TaxBreakdown;
 use Lunar\DataTypes\Price;
+use Lunar\Models\Cart;
+use Lunar\Models\Contracts\Cart as CartContract;
 
 trait InteractsWithPaymentOptions
 {
@@ -55,7 +56,7 @@ trait InteractsWithPaymentOptions
     /**
      * Set the payment option for the cart.
      */
-    public function setPaymentOption(PaymentOption $option, bool $refresh = true): Cart
+    public function setPaymentOption(PaymentOption $option, bool $refresh = true): CartContract
     {
         /** @var Cart $cart */
         $cart = $this;
