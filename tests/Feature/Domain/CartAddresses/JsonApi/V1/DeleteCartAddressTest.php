@@ -22,7 +22,7 @@ beforeEach(function () {
 
 test('cart addresses cannot be deleted', function () {
     /** @var TestCase $this */
-    $response = $this->deleteTest('cart-addresses', $this->cartAddress);
+    $response = $this->deleteTest('cart_addresses', $this->cartAddress);
 
     $response->assertErrorStatus([
         'status' => '405',

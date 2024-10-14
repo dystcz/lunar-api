@@ -62,7 +62,7 @@ it('can list collections with included collection group', function () {
         ->assertFetchedMany($models)
         ->assertIncluded(
             mapModelsToResponseData(
-                'collection-groups',
+                'collection_groups',
                 $models->pluck('group'),
             ),
         );

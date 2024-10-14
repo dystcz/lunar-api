@@ -112,6 +112,7 @@ class ProductVariantSchema extends Schema
 
             HasMany::make('other_product_variants', 'otherVariants')
                 ->type(SchemaType::get(ProductVariant::class))
+                ->retainFieldName()
                 ->canCount()
                 ->countAs('other_product_variants_count'),
 

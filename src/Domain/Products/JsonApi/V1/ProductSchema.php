@@ -27,6 +27,7 @@ use Lunar\Models\Contracts\Brand;
 use Lunar\Models\Contracts\Price;
 use Lunar\Models\Contracts\Product;
 use Lunar\Models\Contracts\ProductAssociation;
+use Lunar\Models\Contracts\ProductType;
 use Lunar\Models\Contracts\ProductVariant;
 use Lunar\Models\Contracts\Url;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -55,6 +56,7 @@ class ProductSchema extends Schema
             'productType',
             'productType.mappedAttributes',
             'productType.mappedAttributes.attributeGroup',
+
             ...parent::with(),
         ];
     }
@@ -119,6 +121,7 @@ class ProductSchema extends Schema
 
             HasMany::make('product_associations', 'associations')
                 ->type(SchemaType::get(ProductAssociation::class))
+                ->retainFieldName()
                 ->canCount()
                 ->countAs('product_associations_count'),
 
@@ -171,6 +174,7 @@ class ProductSchema extends Schema
 
             BelongsTo::make('product_type', 'productType')
                 ->retainFieldName()
+                ->type(SchemaType::get(ProductType::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasMany::make('tags')
@@ -185,6 +189,7 @@ class ProductSchema extends Schema
 
             HasMany::make('product_variants', 'variants')
                 ->type(SchemaType::get(ProductVariant::class))
+                ->retainFieldName()
                 ->canCount()
                 ->countAs('product_variants_count'),
 

@@ -19,7 +19,7 @@ beforeEach(function () {
 
     $this->data = [
         'id' => (string) $this->cartAddress->getRouteKey(),
-        'type' => 'cart-addresses',
+        'type' => 'cart_addresses',
         'relationships' => [
             'country' => [
                 'data' => [
@@ -39,9 +39,9 @@ test('users can update cart address country', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('cart-addresses')
+        ->expects('cart_addresses')
         ->withData($this->data)
-        ->patch(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}/-actions/update-country"));
+        ->patch(serverUrl("/cart_addresses/{$this->cartAddress->getRouteKey()}/-actions/update-country"));
 
     $response
         ->assertSuccessful()
@@ -57,9 +57,9 @@ test('only the user who owns the cart address can update its country', function 
     /** @var TestCase $this */
     $response = $this
         ->jsonApi()
-        ->expects('cart-addresses')
+        ->expects('cart_addresses')
         ->withData($this->data)
-        ->patch(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}/-actions/update-country"));
+        ->patch(serverUrl("/cart_addresses/{$this->cartAddress->getRouteKey()}/-actions/update-country"));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',

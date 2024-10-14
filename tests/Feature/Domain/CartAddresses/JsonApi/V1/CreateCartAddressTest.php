@@ -18,7 +18,7 @@ beforeEach(function () {
     $this->cartAddress = CartAddress::factory()->make();
 
     $this->data = [
-        'type' => 'cart-addresses',
+        'type' => 'cart_addresses',
         'attributes' => [
             'address_type' => $this->cartAddress->type,
             'first_name' => $this->cartAddress->first_name,
@@ -55,13 +55,13 @@ test('cart address can be created', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('cart-addresses')
+        ->expects('cart_addresses')
         ->withData($this->data)
         ->includePaths('cart', 'country')
-        ->post(serverUrl('/cart-addresses'));
+        ->post(serverUrl('/cart_addresses'));
 
     $id = $response
-        ->assertCreatedWithServerId(serverUrl('/cart-addresses', true), $this->data)
+        ->assertCreatedWithServerId(serverUrl('/cart_addresses', true), $this->data)
         ->id();
 
     if (LunarApi::usesHashids()) {
@@ -77,10 +77,10 @@ test('only the user who owns the cart can assign an address to it', function () 
     /** @var TestCase $this */
     $response = $this
         ->jsonApi()
-        ->expects('cart-addresses')
+        ->expects('cart_addresses')
         ->withData($this->data)
         ->includePaths('cart')
-        ->post(serverUrl('/cart-addresses'));
+        ->post(serverUrl('/cart_addresses'));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',
