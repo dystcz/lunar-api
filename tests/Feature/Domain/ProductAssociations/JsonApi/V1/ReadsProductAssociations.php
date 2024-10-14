@@ -34,13 +34,13 @@ it('can read products associations', function () {
         ->jsonApi()
         ->expects('products')
         ->includePaths(
-            'product-associations',
-            // 'product-associations.target.thumbnail'
+            'product_associations',
+            // 'product_associations.target.thumbnail'
         )
         ->get(serverUrl("/products/{$productA->getRouteKey}()"));
 
     $response->assertFetchedOne($productA);
-    // ->assertIsIncluded('product-associations', $productA->associations->first())
+    // ->assertIsIncluded('product_associations', $productA->associations->first())
     // ->assertIsIncluded('products', $productB)
     // ->assertIsIncluded('media', $productB->thumbnail)
     // ->assertIsIncluded('variants', $productB->variants->first())

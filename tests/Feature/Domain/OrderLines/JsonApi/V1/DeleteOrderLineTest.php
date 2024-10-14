@@ -17,7 +17,7 @@ beforeEach(function () {
 
 test('users cannot delete order lines', function () {
     /** @var TestCase $this */
-    $response = $this->deleteTest('order-lines', OrderLine::class);
+    $response = $this->deleteTest('order_lines', OrderLine::class);
 
     $response->assertErrorStatus([
         'status' => '404',

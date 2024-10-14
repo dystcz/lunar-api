@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Dystcz\LunarApi\Support\Models\Actions\ModelType;
+use Dystcz\LunarApi\Support\Models\Actions\SchemaType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
@@ -60,9 +60,9 @@ class ProductVariantSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'default-url',
+            'default_url',
             'images',
-            'lowest-price',
+            'lowest_price',
             'prices',
             'thumbnail',
             'urls',
@@ -105,47 +105,47 @@ class ProductVariantSchema extends Schema
             BelongsTo::make('product'),
 
             HasMany::make('attributes', 'attributes')
-                ->type(ModelType::get(Attribute::class))
+                ->type(SchemaType::get(Attribute::class))
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasMany::make('other-product-variants', 'otherVariants')
-                ->type(ModelType::get(ProductVariant::class))
+            HasMany::make('other_product_variants', 'otherVariants')
+                ->type(SchemaType::get(ProductVariant::class))
                 ->canCount()
-                ->countAs('other_variants_count'),
+                ->countAs('other_product_variants_count'),
 
             HasMany::make('prices')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasOne::make('lowest-price', 'lowestPrice')
-                ->type(ModelType::get(Price::class))
+            HasOne::make('lowest_price', 'lowestPrice')
+                ->type(SchemaType::get(Price::class))
                 ->retainFieldName(),
 
-            HasOne::make('highest-price', 'highestPrice')
-                ->type(ModelType::get(Price::class))
+            HasOne::make('highest_price', 'highestPrice')
+                ->type(SchemaType::get(Price::class))
                 ->retainFieldName(),
 
             HasMany::make('images', 'images')
-                ->type(ModelType::get(Media::class))
+                ->type(SchemaType::get(Media::class))
                 ->canCount(),
 
             HasMany::make('values', 'values')
-                ->type(ModelType::get(ProductOptionValue::class))
+                ->type(SchemaType::get(ProductOptionValue::class))
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            HasOne::make('default-url', 'defaultUrl')
-                ->type(ModelType::get(Url::class))
+            HasOne::make('default_url', 'defaultUrl')
+                ->type(SchemaType::get(Url::class))
                 ->retainFieldName(),
 
             HasMany::make('urls'),
 
             HasOneThrough::make('thumbnail')
-                ->type(ModelType::get(Media::class)),
+                ->type(SchemaType::get(Media::class)),
 
             ...parent::fields(),
         ];

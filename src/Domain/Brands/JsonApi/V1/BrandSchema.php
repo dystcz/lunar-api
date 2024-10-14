@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Brands\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Dystcz\LunarApi\Support\Models\Actions\ModelType;
+use Dystcz\LunarApi\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
@@ -29,7 +29,7 @@ class BrandSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'default-url',
+            'default_url',
             'urls',
             'thumbnail',
 
@@ -47,12 +47,12 @@ class BrandSchema extends Schema
 
             Str::make('name'),
 
-            HasOne::make('default-url', 'defaultUrl')
-                ->type(ModelType::get(Url::class))
+            HasOne::make('default_url', 'defaultUrl')
+                ->type(SchemaType::get(Url::class))
                 ->retainFieldName(),
 
             HasOne::make('thumbnail')
-                ->type(ModelType::get(Media::class)),
+                ->type(SchemaType::get(Media::class)),
 
             HasMany::make('urls')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),

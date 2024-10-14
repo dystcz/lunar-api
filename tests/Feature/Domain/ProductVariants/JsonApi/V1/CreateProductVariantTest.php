@@ -9,7 +9,7 @@ uses(TestCase::class, RefreshDatabase::class);
 
 test('users cannot create new product variants', function () {
     /** @var TestCase $this */
-    $response = $this->createTest('product-variants', []);
+    $response = $this->createTest('product_variants', []);
 
     $response->assertErrorStatus([
         'status' => '405',

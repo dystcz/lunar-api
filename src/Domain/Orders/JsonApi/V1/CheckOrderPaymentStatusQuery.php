@@ -39,7 +39,7 @@ class CheckOrderPaymentStatusQuery extends ResourceQuery
                 'nullable',
                 'string',
                 JsonApiRule::includePaths([
-                    'latest-transaction',
+                    'latest_transaction',
                 ]),
             ],
         ];

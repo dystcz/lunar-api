@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\OrderLines\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\ShippingOptions\Entities\ShippingOption;
-use Dystcz\LunarApi\Support\Models\Actions\ModelType;
+use Dystcz\LunarApi\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
@@ -107,9 +107,9 @@ class OrderLineSchema extends Schema
 
             MorphTo::make('purchasable', 'purchasable')
                 ->types(
-                    ModelType::get(Product::class),
-                    ModelType::get(ProductVariant::class),
-                    ModelType::get(ShippingOption::class),
+                    SchemaType::get(Product::class),
+                    SchemaType::get(ProductVariant::class),
+                    SchemaType::get(ShippingOption::class),
                 )
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),

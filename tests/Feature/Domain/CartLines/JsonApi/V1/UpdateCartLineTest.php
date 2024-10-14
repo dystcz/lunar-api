@@ -18,7 +18,7 @@ it('can add purchasable to the cart', function () {
     $cartLine = $cart->lines->first();
 
     $data = [
-        'type' => 'cart-lines',
+        'type' => 'cart_lines',
         'attributes' => [
             'quantity' => $cartLine->quantity,
             'purchasable_id' => $cartLine->purchasable_id,
@@ -29,12 +29,12 @@ it('can add purchasable to the cart', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('cart-lines')
+        ->expects('cart_lines')
         ->withData($data)
-        ->post(serverUrl('/cart-lines'));
+        ->post(serverUrl('/cart_lines'));
 
     $id = $response
-        ->assertCreatedWithServerId('http://localhost/api/v1/cart-lines', $data)
+        ->assertCreatedWithServerId('http://localhost/api/v1/cart_lines', $data)
         ->id();
 
     if (LunarApi::usesHashids()) {
@@ -64,7 +64,7 @@ it('can update a cart line', function () {
     CartSession::use($cart);
 
     $data = [
-        'type' => 'cart-lines',
+        'type' => 'cart_lines',
         'id' => (string) $cartLine->getRouteKey(),
         'attributes' => [
             'purchasable_id' => $cartLine->purchasable_id,
@@ -75,9 +75,9 @@ it('can update a cart line', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('cart-lines')
+        ->expects('cart_lines')
         ->withData($data)
-        ->patch('/api/v1/cart-lines/'.$cartLine->getRouteKey());
+        ->patch('/api/v1/cart_lines/'.$cartLine->getRouteKey());
 
     $response->assertFetchedOne($cartLine);
 
@@ -94,7 +94,7 @@ test('only the owner of the cart can update cart lines', function () {
         ->create();
 
     $data = [
-        'type' => 'cart-lines',
+        'type' => 'cart_lines',
         'id' => (string) $cartLine->getRouteKey(),
         'attributes' => [
             'purchasable_id' => $cartLine->purchasable_id,
@@ -105,9 +105,9 @@ test('only the owner of the cart can update cart lines', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('cart-lines')
+        ->expects('cart_lines')
         ->withData($data)
-        ->patch('/api/v1/cart-lines/'.$cartLine->getRouteKey());
+        ->patch('/api/v1/cart_lines/'.$cartLine->getRouteKey());
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',

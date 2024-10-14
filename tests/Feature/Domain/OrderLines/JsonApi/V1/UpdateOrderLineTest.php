@@ -17,7 +17,7 @@ beforeEach(function () {
 
 test('users cannot update order lines', function () {
     /** @var TestCase $this */
-    $response = $this->updateTest('order-lines', OrderLine::class, []);
+    $response = $this->updateTest('order_lines', OrderLine::class, []);
 
     $response->assertErrorStatus([
         'status' => '404',

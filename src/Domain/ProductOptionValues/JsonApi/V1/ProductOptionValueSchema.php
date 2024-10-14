@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\ProductOptionValues\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Dystcz\LunarApi\Support\Models\Actions\ModelType;
+use Dystcz\LunarApi\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use Lunar\Models\Contracts\ProductOption;
@@ -42,7 +42,7 @@ class ProductOptionValueSchema extends Schema
 
             BelongsTo::make('option', 'option')
                 ->readOnly()
-                ->type(ModelType::get(ProductOption::class)),
+                ->type(SchemaType::get(ProductOption::class)),
 
             ...parent::fields(),
         ];

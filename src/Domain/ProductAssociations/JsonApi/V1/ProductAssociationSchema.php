@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Dystcz\LunarApi\Support\Models\Actions\ModelType;
+use Dystcz\LunarApi\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
@@ -39,10 +39,10 @@ class ProductAssociationSchema extends Schema
             Str::make('type'),
 
             HasOne::make('target')
-                ->type(ModelType::get(Product::class)),
+                ->type(SchemaType::get(Product::class)),
 
             HasOne::make('parent')
-                ->type(ModelType::get(Product::class)),
+                ->type(SchemaType::get(Product::class)),
 
             ...parent::fields(),
         ];

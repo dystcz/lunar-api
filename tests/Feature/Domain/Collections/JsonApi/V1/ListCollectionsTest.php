@@ -82,7 +82,7 @@ it('can list collections with included default url', function () {
     $response = $this
         ->jsonApi()
         ->expects('collections')
-        ->includePaths('default-url')
+        ->includePaths('default_url')
         ->get('/api/v1/collections');
 
     $response
@@ -112,7 +112,7 @@ it('can list collections with included products', function () {
             relation: 'prices',
             relationCallback: fn (IlluminateCollection $models) => $models->pluck('products')->flatten()->pluck('prices')->flatten(),
         ),
-        'products.lowest-price' => new TestInclude(
+        'products.lowest_price' => new TestInclude(
             type: 'prices',
             relation: 'lowestPrice',
             relationCallback: fn (IlluminateCollection $models) => $models->pluck('products')->flatten()->pluck('lowestPrice'),

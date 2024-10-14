@@ -54,7 +54,7 @@ it('can merge carts when user logs in', function () {
         ->create();
 
     $userCartLines = $userCart->lines->map(fn ($line) => [
-        'type' => 'cart-lines',
+        'type' => 'cart_lines',
         'id' => (string) $line->getRouteKey(),
         'attributes' => [
             'purchasable_type' => $line->purchasable_type,
@@ -67,7 +67,7 @@ it('can merge carts when user logs in', function () {
         ->create();
 
     $sessionCartLines = $sessionCart->lines->map(fn ($line) => [
-        'type' => 'cart-lines',
+        'type' => 'cart_lines',
         'id' => (string) $line->getRouteKey(),
         'attributes' => [
             'purchasable_type' => $line->purchasable_type,
@@ -80,7 +80,7 @@ it('can merge carts when user logs in', function () {
     $response = $this
         ->jsonApi()
         ->expects('carts')
-        ->includePaths('cart-lines')
+        ->includePaths('cart_lines')
         ->get(serverUrl('/carts/-actions/my-cart'));
 
     $response
@@ -108,11 +108,11 @@ it('can merge carts when user logs in', function () {
         ->actingAs($user)
         ->jsonApi()
         ->expects('carts')
-        ->includePaths('cart-lines')
+        ->includePaths('cart_lines')
         ->get(serverUrl('/carts/-actions/my-cart'));
 
     $mergedUserCartLines = $this->cartSession->current()->lines->map(fn ($line) => [
-        'type' => 'cart-lines',
+        'type' => 'cart_lines',
         'id' => (string) $line->getRouteKey(),
         'attributes' => [
             'purchasable_type' => $line->purchasable_type,

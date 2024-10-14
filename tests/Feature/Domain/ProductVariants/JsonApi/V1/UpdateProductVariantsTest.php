@@ -17,7 +17,7 @@ beforeEach(function () {
 
 test('product variants cannot be updated', function () {
     /** @var TestCase $this */
-    $response = $this->updateTest('product-variants', ProductVariant::class, []);
+    $response = $this->updateTest('product_variants', ProductVariant::class, []);
 
     $response->assertErrorStatus([
         'status' => '405',
