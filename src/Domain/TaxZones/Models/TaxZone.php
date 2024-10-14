@@ -2,20 +2,11 @@
 
 namespace Dystcz\LunarApi\Domain\TaxZones\Models;
 
+use Dystcz\LunarApi\Domain\TaxZones\Concerns\InteractsWithLunarApi;
+use Dystcz\LunarApi\Domain\TaxZones\Contracts\TaxZone as TaxZoneContract;
 use Lunar\Models\TaxZone as LunarTaxZone;
-use Spatie\LaravelBlink\BlinkFacade;
 
-class TaxZone extends LunarTaxZone
+class TaxZone extends LunarTaxZone implements TaxZoneContract
 {
-    /**
-     * Get the default tax percentage.
-     */
-    public static function getDefaultPercentage(): float
-    {
-        $key = 'lunar_default_tax_zone_percentage';
-
-        return BlinkFacade::once($key, function () {
-            return floatval(static::getDefault()->taxAmounts->first()?->percentage);
-        });
-    }
+    use InteractsWithLunarApi;
 }

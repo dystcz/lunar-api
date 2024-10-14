@@ -86,15 +86,20 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      */
     public static function model(): string
     {
-        if (isset(static::$model) && class_exists(static::$model)) {
+        if (! isset(static::$model)) {
+            throw new LogicException('The model class name must be set.');
+        }
+
+        if (class_exists(static::$model)) {
             return static::$model;
         }
 
-        if (isset(static::$model) && $model = ModelManifest::get(static::$model)) {
+        if (App::isBooted() && $model = ModelManifest::get(static::$model)) {
             return $model;
         }
 
-        throw new LogicException('The model class name must be set.');
+        return static::$model;
+
     }
 
     /**

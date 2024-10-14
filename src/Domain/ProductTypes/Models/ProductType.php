@@ -2,19 +2,11 @@
 
 namespace Dystcz\LunarApi\Domain\ProductTypes\Models;
 
-use Dystcz\LunarApi\Domain\ProductTypes\Factories\ProductTypeFactory;
-use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
+use Dystcz\LunarApi\Domain\ProductTypes\Concerns\InteractsWithLunarApi;
+use Dystcz\LunarApi\Domain\ProductTypes\Contracts\ProductType as ProductTypeContract;
 use Lunar\Models\ProductType as LunarProductType;
 
-class ProductType extends LunarProductType
+class ProductType extends LunarProductType implements ProductTypeContract
 {
-    use HashesRouteKey;
-
-    /**
-     * Create a new factory instance for the model.
-     */
-    protected static function newFactory(): ProductTypeFactory
-    {
-        return ProductTypeFactory::new();
-    }
+    use InteractsWithLunarApi;
 }
