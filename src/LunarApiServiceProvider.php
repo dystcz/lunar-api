@@ -42,11 +42,8 @@ class LunarApiServiceProvider extends ServiceProvider
             $this->registerPolicies();
         });
 
-        // Register the main class to use with the facade.
-        $this->app->singleton(
-            'lunar-api',
-            fn () => new LunarApi,
-        );
+        $this->app->singleton('lunar-api', fn () => new LunarApi);
+        $this->app->singleton('lunar-api-config', fn () => new LunarApiConfig);
 
         $this->bindControllers();
         $this->bindModels();
@@ -399,9 +396,9 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     protected function registerModels(): void
     {
-        foreach (DomainConfigCollection::make()->getModelsForModelManifest() as $contract => $model) {
-            ModelManifest::replace($contract, $model);
-        }
+        ModelManifest::register(
+            DomainConfigCollection::make()->getModels(),
+        );
     }
 
     /**
