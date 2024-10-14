@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\CartLines\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Dystcz\LunarApi\Support\Models\Actions\ModelType;
+use Dystcz\LunarApi\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
@@ -89,8 +89,8 @@ class CartLineSchema extends Schema
 
             MorphTo::make('purchasable', 'purchasable')
                 ->types(
-                    ModelType::get(Product::class),
-                    ModelType::get(ProductVariant::class),
+                    SchemaType::get(Product::class),
+                    SchemaType::get(ProductVariant::class),
                 )
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 

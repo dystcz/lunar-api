@@ -17,8 +17,8 @@ it('cannot list order lines without order', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('order-lines')
-        ->get(serverUrl('/order-lines'));
+        ->expects('order_lines')
+        ->get(serverUrl('/order_lines'));
 
     $response->assertErrorStatus([
         'status' => '404',

@@ -4,7 +4,7 @@ namespace Dystcz\LunarApi\Domain\Carts\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Discounts\Data\DiscountBreakdown;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Dystcz\LunarApi\Support\Models\Actions\ModelType;
+use Dystcz\LunarApi\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\Map;
@@ -37,37 +37,37 @@ class CartSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'cart-lines',
-            'cart-lines.purchasable',
-            'cart-lines.purchasable.default-url',
-            'cart-lines.purchasable.images',
-            'cart-lines.purchasable.prices',
-            'cart-lines.purchasable.product',
-            'cart-lines.purchasable.product.collections',
-            'cart-lines.purchasable.product.default-url',
-            'cart-lines.purchasable.product.images',
-            'cart-lines.purchasable.product.product_type',
-            'cart-lines.purchasable.product.thumbnail',
-            'cart-lines.purchasable.thumbnail',
-            'cart-lines.purchasable.values',
+            'cart_lines',
+            'cart_lines.purchasable',
+            'cart_lines.purchasable.default_url',
+            'cart_lines.purchasable.images',
+            'cart_lines.purchasable.prices',
+            'cart_lines.purchasable.product',
+            'cart_lines.purchasable.product.collections',
+            'cart_lines.purchasable.product.default_url',
+            'cart_lines.purchasable.product.images',
+            'cart_lines.purchasable.product.product_type',
+            'cart_lines.purchasable.product.thumbnail',
+            'cart_lines.purchasable.thumbnail',
+            'cart_lines.purchasable.values',
 
             'order',
-            'order.product-lines',
-            'order.product-lines.purchasable',
-            'order.product-lines.purchasable.thumbnail',
-            'order.product-lines.purchasable.default-url',
-            'order.product-lines.purchasable.product',
-            'order.product-lines.purchasable.product.thumbnail',
-            'order.product-lines.purchasable.product.default-url',
+            'order.product_lines',
+            'order.product_lines.purchasable',
+            'order.product_lines.purchasable.thumbnail',
+            'order.product_lines.purchasable.default_url',
+            'order.product_lines.purchasable.product',
+            'order.product_lines.purchasable.product.thumbnail',
+            'order.product_lines.purchasable.product.default_url',
 
-            'cart-addresses',
-            'cart-addresses.country',
+            'cart_addresses',
+            'cart_addresses.country',
 
-            'shipping-address',
-            'shipping-address.country',
+            'shipping_address',
+            'shipping_address.country',
 
-            'billing-address',
-            'billing-address.country',
+            'billing_address',
+            'billing_address.country',
 
             ...parent::includePaths(),
         ];
@@ -132,25 +132,25 @@ class CartSchema extends Schema
                 ->hidden(),
 
             HasOne::make('order', 'draftOrder')
-                ->type(ModelType::get(Order::class))
+                ->type(SchemaType::get(Order::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('cart-lines', 'lines')
-                ->type(ModelType::get(CartLine::class))
+            HasMany::make('cart_lines', 'lines')
+                ->type(SchemaType::get(CartLine::class))
                 ->retainFieldName(),
 
-            HasMany::make('cart-addresses', 'addresses')
-                ->type(ModelType::get(CartAddress::class))
+            HasMany::make('cart_addresses', 'addresses')
+                ->type(SchemaType::get(CartAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('shipping-address', 'shippingAddress')
-                ->type(ModelType::get(CartAddress::class))
+            HasOne::make('shipping_address', 'shippingAddress')
+                ->type(SchemaType::get(CartAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('billing-address', 'billingAddress')
-                ->type(ModelType::get(CartAddress::class))
+            HasOne::make('billing_address', 'billingAddress')
+                ->type(SchemaType::get(CartAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 

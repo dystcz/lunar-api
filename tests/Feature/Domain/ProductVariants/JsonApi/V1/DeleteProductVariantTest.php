@@ -17,7 +17,7 @@ beforeEach(function () {
 
 test('products cannot be deleted', function () {
     /** @var TestCase $this */
-    $response = $this->deleteTest('product-variants', ProductVariant::class);
+    $response = $this->deleteTest('product_variants', ProductVariant::class);
 
     $response->assertErrorStatus([
         'status' => '405',

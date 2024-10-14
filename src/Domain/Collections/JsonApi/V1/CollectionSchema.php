@@ -5,7 +5,7 @@ namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Sorts\InDefaultOrder;
-use Dystcz\LunarApi\Support\Models\Actions\ModelType;
+use Dystcz\LunarApi\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
@@ -38,7 +38,7 @@ class CollectionSchema extends Schema
     public function includePaths(): iterable
     {
         return [
-            'default-url',
+            'default_url',
             'images',
             'thumbnail',
             'urls',
@@ -46,9 +46,9 @@ class CollectionSchema extends Schema
             'group',
 
             'products',
-            'products.default-url',
+            'products.default_url',
             'products.images',
-            'products.lowest-price',
+            'products.lowest_price',
             'products.prices',
             'products.thumbnail',
             'products.urls',
@@ -71,23 +71,23 @@ class CollectionSchema extends Schema
             Number::make('parent_id', 'parent_id')
                 ->hidden(),
 
-            HasOne::make('default-url', 'defaultUrl')
-                ->type(ModelType::get(Url::class))
+            HasOne::make('default_url', 'defaultUrl')
+                ->type(SchemaType::get(Url::class))
                 ->retainFieldName(),
 
             HasMany::make('images', 'images')
-                ->type(ModelType::get(Media::class))
+                ->type(SchemaType::get(Media::class))
                 ->canCount(),
 
             BelongsTo::make('group', 'group')
-                ->type(ModelType::get(CollectionGroup::class))
+                ->type(SchemaType::get(CollectionGroup::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasMany::make('products')
                 ->canCount(),
 
             HasOne::make('thumbnail', 'thumbnail')
-                ->type(ModelType::get(Media::class)),
+                ->type(SchemaType::get(Media::class)),
 
             HasMany::make('urls')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),

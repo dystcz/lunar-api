@@ -22,7 +22,7 @@ beforeEach(function () {
 
     $this->data = [
         'id' => (string) $this->cartAddress->getRouteKey(),
-        'type' => 'cart-addresses',
+        'type' => 'cart_addresses',
         'attributes' => [
             'shipping_option' => $this->shippingOption->identifier,
         ],
@@ -35,9 +35,9 @@ test('users can set a shipping option to cart address', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('cart-addresses')
+        ->expects('cart_addresses')
         ->withData($this->data)
-        ->patch(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}/-actions/set-shipping-option"));
+        ->patch(serverUrl("/cart_addresses/{$this->cartAddress->getRouteKey()}/-actions/set-shipping-option"));
 
     $response
         ->assertSuccessful()
@@ -56,15 +56,15 @@ it('validates shipping option attribute when setting shipping option to cart add
 
     $response = $this
         ->jsonApi()
-        ->expects('cart-addresses')
+        ->expects('cart_addresses')
         ->withData([
             'id' => (string) $this->cartAddress->getRouteKey(),
-            'type' => 'cart-addresses',
+            'type' => 'cart_addresses',
             'attributes' => [
                 'shipping_option' => null,
             ],
         ])
-        ->patch(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}/-actions/set-shipping-option"));
+        ->patch(serverUrl("/cart_addresses/{$this->cartAddress->getRouteKey()}/-actions/set-shipping-option"));
 
     $response->assertErrorStatus([
         'detail' => __('lunar-api::validations.shipping.set_shipping_option.shipping_option.required'),
@@ -78,9 +78,9 @@ test('only the user who owns the cart address can set shipping option for it', f
 
     $response = $this
         ->jsonApi()
-        ->expects('cart-addresses')
+        ->expects('cart_addresses')
         ->withData($this->data)
-        ->patch(serverUrl("/cart-addresses/{$this->cartAddress->getRouteKey()}/-actions/set-shipping-option"));
+        ->patch(serverUrl("/cart_addresses/{$this->cartAddress->getRouteKey()}/-actions/set-shipping-option"));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',

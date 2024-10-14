@@ -25,12 +25,12 @@ class OrderRouteGroup extends RouteGroup
             ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), OrdersController::class)
                     ->relationships(function (Relationships $relationships) {
-                        $relationships->hasMany('order-lines')->readOnly();
-                        $relationships->hasMany('product-lines')->readOnly();
-                        $relationships->hasMany('digital-lines')->readOnly();
-                        $relationships->hasMany('physical-lines')->readOnly();
-                        $relationships->hasMany('shipping-lines')->readOnly();
-                        $relationships->hasMany('payment-lines')->readOnly();
+                        $relationships->hasMany('order_lines')->readOnly();
+                        $relationships->hasMany('product_lines')->readOnly();
+                        $relationships->hasMany('digital_lines')->readOnly();
+                        $relationships->hasMany('physical_lines')->readOnly();
+                        $relationships->hasMany('shipping_lines')->readOnly();
+                        $relationships->hasMany('payment_lines')->readOnly();
                         $relationships->hasMany('transactions')->readOnly();
                     })
                     ->only('show', 'update');

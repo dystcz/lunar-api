@@ -5,9 +5,8 @@ namespace Dystcz\LunarApi\Domain\Orders\Pipelines;
 use Closure;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
 use Lunar\Actions\Orders\GenerateOrderReference;
-use Lunar\Facades\ModelManifest;
-use Lunar\Models\Contracts\Currency as CurrencyContract;
 use Lunar\Models\Contracts\Order as OrderContract;
+use Lunar\Models\Currency;
 
 class FillOrderFromCart
 {
@@ -39,7 +38,7 @@ class FillOrderFromCart
             'tax_total' => $cart->taxTotal->value,
             'currency_code' => $cart->currency->code,
             'exchange_rate' => $cart->currency->exchange_rate,
-            'compare_currency_code' => ModelManifest::get(CurrencyContract::class)::getDefault()?->code,
+            'compare_currency_code' => Currency::modelClass()::getDefault()?->code,
             'meta' => $cart->meta,
         ])->save();
 

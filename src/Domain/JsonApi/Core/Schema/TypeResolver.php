@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\JsonApi\Core\Schema;
 
-use Dystcz\LunarApi\Support\Models\Actions\ModelType;
+use Dystcz\LunarApi\Support\Models\Actions\SchemaType;
 
 final class TypeResolver
 {
@@ -27,6 +27,6 @@ final class TypeResolver
             return self::$cache[$schemaClass];
         }
 
-        return ModelType::get($schemaClass::model());
+        return SchemaType::get($schemaClass::model());
     }
 }

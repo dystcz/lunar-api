@@ -12,8 +12,8 @@ it('cannot list cart lines without cart', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('cart-lines')
-        ->get(serverUrl('/cart-lines'));
+        ->expects('cart_lines')
+        ->get(serverUrl('/cart_lines'));
 
     $response->assertErrorStatus([
         'status' => '405',

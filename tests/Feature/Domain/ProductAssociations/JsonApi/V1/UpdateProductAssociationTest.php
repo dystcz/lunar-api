@@ -17,7 +17,7 @@ beforeEach(function () {
 
 test('users cannot update product associations', function () {
     /** @var TestCase $this */
-    $response = $this->updateTest('product-associations', ProductAssociation::class, []);
+    $response = $this->updateTest('product_associations', ProductAssociation::class, []);
 
     $response->assertErrorStatus([
         'status' => '404',

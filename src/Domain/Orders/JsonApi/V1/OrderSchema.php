@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Orders\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Dystcz\LunarApi\Support\Models\Actions\ModelType;
+use Dystcz\LunarApi\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
@@ -39,16 +39,16 @@ class OrderSchema extends Schema
     {
         return [
             // Addresses
-            'order-addresses',
-            'order-addresses.country',
+            'order_addresses',
+            'order_addresses.country',
 
             // Shipping address
-            'shipping-address',
-            'shipping-address.country',
+            'shipping_address',
+            'shipping_address.country',
 
             // Billing address
-            'billing-address',
-            'billing-address.country',
+            'billing_address',
+            'billing_address.country',
 
             // Currency
             'currency',
@@ -57,46 +57,46 @@ class OrderSchema extends Schema
             'customer',
 
             // Digital product lines
-            'digital-lines',
-            'digital-lines.currency',
-            'digital-lines.purchasable',
-            'digital-lines.purchasable.prices',
-            'digital-lines.purchasable.images',
-            'digital-lines.purchasable.thumbnail',
-            'digital-lines.purchasable.product',
-            'digital-lines.purchasable.product.thumbnail',
+            'digital_lines',
+            'digital_lines.currency',
+            'digital_lines.purchasable',
+            'digital_lines.purchasable.prices',
+            'digital_lines.purchasable.images',
+            'digital_lines.purchasable.thumbnail',
+            'digital_lines.purchasable.product',
+            'digital_lines.purchasable.product.thumbnail',
 
             // Order Lines
-            'order-lines',
-            'order-lines.currency',
+            'order_lines',
+            'order_lines.currency',
 
             // Physical product lines
-            'physical-lines',
-            'physical-lines.currency',
-            'physical-lines.purchasable',
-            'physical-lines.purchasable.prices',
-            'physical-lines.purchasable.images',
-            'physical-lines.purchasable.thumbnail',
-            'physical-lines.purchasable.product',
-            'physical-lines.purchasable.product.thumbnail',
+            'physical_lines',
+            'physical_lines.currency',
+            'physical_lines.purchasable',
+            'physical_lines.purchasable.prices',
+            'physical_lines.purchasable.images',
+            'physical_lines.purchasable.thumbnail',
+            'physical_lines.purchasable.product',
+            'physical_lines.purchasable.product.thumbnail',
 
             // Product lines
-            'product-lines',
-            'product-lines.currency',
-            'product-lines.purchasable',
-            'product-lines.purchasable.prices',
-            'product-lines.purchasable.images',
-            'product-lines.purchasable.thumbnail',
-            'product-lines.purchasable.product',
-            'product-lines.purchasable.product.thumbnail',
+            'product_lines',
+            'product_lines.currency',
+            'product_lines.purchasable',
+            'product_lines.purchasable.prices',
+            'product_lines.purchasable.images',
+            'product_lines.purchasable.thumbnail',
+            'product_lines.purchasable.product',
+            'product_lines.purchasable.product.thumbnail',
 
             // Shipping lines
-            'shipping-lines',
-            'shipping-lines.currency',
+            'shipping_lines',
+            'shipping_lines.currency',
 
             // Payment lines
-            'payment-lines',
-            'payment-lines.currency',
+            'payment_lines',
+            'payment_lines.currency',
 
             // Transactions
             'transactions',
@@ -183,29 +183,29 @@ class OrderSchema extends Schema
 
             ArrayHash::make('meta'),
 
-            HasMany::make('order-lines', 'lines')
+            HasMany::make('order_lines', 'lines')
                 ->retainFieldName()
-                ->type(ModelType::get(OrderLine::class)),
+                ->type(SchemaType::get(OrderLine::class)),
 
-            HasMany::make('product-lines', 'productLines')
+            HasMany::make('product_lines', 'productLines')
                 ->retainFieldName()
-                ->type(ModelType::get(OrderLine::class)),
+                ->type(SchemaType::get(OrderLine::class)),
 
-            HasMany::make('digital-lines', 'digitalLines')
+            HasMany::make('digital_lines', 'digitalLines')
                 ->retainFieldName()
-                ->type(ModelType::get(OrderLine::class)),
+                ->type(SchemaType::get(OrderLine::class)),
 
-            HasMany::make('physical-lines', 'physicalLines')
+            HasMany::make('physical_lines', 'physicalLines')
                 ->retainFieldName()
-                ->type(ModelType::get(OrderLine::class)),
+                ->type(SchemaType::get(OrderLine::class)),
 
-            HasMany::make('shipping-lines', 'shippingLines')
+            HasMany::make('shipping_lines', 'shippingLines')
                 ->retainFieldName()
-                ->type(ModelType::get(OrderLine::class)),
+                ->type(SchemaType::get(OrderLine::class)),
 
-            HasMany::make('payment-lines', 'paymentLines')
+            HasMany::make('payment_lines', 'paymentLines')
                 ->retainFieldName()
-                ->type(ModelType::get(OrderLine::class)),
+                ->type(SchemaType::get(OrderLine::class)),
 
             BelongsTo::make('customer')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
@@ -216,28 +216,28 @@ class OrderSchema extends Schema
             BelongsTo::make('currency')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('order-addresses', 'addresses')
-                ->type(ModelType::get(OrderAddress::class))
+            HasMany::make('order_addresses', 'addresses')
+                ->type(SchemaType::get(OrderAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('shipping-address', 'shippingAddress')
-                ->type(ModelType::get(OrderAddress::class))
+            HasOne::make('shipping_address', 'shippingAddress')
+                ->type(SchemaType::get(OrderAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('billing-address', 'billingAddress')
-                ->type(ModelType::get(OrderAddress::class))
+            HasOne::make('billing_address', 'billingAddress')
+                ->type(SchemaType::get(OrderAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('latest-transaction', 'latestTransaction')
-                ->type(ModelType::get(Transaction::class))
+            HasOne::make('latest_transaction', 'latestTransaction')
+                ->type(SchemaType::get(Transaction::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasMany::make('transactions')
-                ->type(ModelType::get(Transaction::class))
+                ->type(SchemaType::get(Transaction::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             ...parent::fields(),

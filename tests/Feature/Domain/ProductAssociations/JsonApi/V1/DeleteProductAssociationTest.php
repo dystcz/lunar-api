@@ -17,7 +17,7 @@ beforeEach(function () {
 
 test('product associations cannot be deleted', function () {
     /** @var TestCase $this */
-    $response = $this->deleteTest('product-associations', ProductAssociation::class);
+    $response = $this->deleteTest('product_associations', ProductAssociation::class);
 
     $response->assertErrorStatus([
         'status' => '404',
