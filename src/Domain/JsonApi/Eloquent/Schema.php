@@ -84,6 +84,18 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     /**
      * {@inheritDoc}
      */
+    public function uriType(): string
+    {
+        if ($this->uriType) {
+            return $this->uriType;
+        }
+
+        return $this->uriType = $this->type();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public static function model(): string
     {
         if (! isset(static::$model)) {
