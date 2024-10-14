@@ -11,8 +11,11 @@
 
 ### ⚠️ Breaking changes
 
-1. Changed relationship names and routes
-   Because Schemas now use type naming derived from pluralized morph aliases, relationship names and thus routes had to change as well.
+1. Changed relationship names and routes, because Schemas now use type naming
+   derived from snake_cased, pluralized morph aliases,
+   relationship names and thus routes had to change as well.
+
+    **Relationships:**
 
     `associations` → `product_associations`<br>
     `cheapest_variant` → `cheapest_product_variant`<br>
@@ -20,6 +23,13 @@
     `most_expensive_variant` → `most_expensive_product_variant`<br>
     `other_variants` → `other_product_variants`<br>
     `variants` → `product_variants`
+
+    **Routes:**
+
+    `/cart-addresses` → `/cart_addresses`<br>
+    `/orders/{order}/order-lines` → `/orders/{order}/order_lines`<br>
+    `/products/{product}/relationships/lowest-price` → `/products/{product}/relationships/lowest_price`<br>
+    ...
 
 2. Changed withCount query parameter
    `?withCount=` → `?with_count=`
