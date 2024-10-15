@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0-beta.2
+
+### Changes
+
+-   Fixed attribute mapping for `collections`
+-   Added tests for `collections` `default_url` relationship and includes
+-   Fixed dynamic relationships
+
 ## 1.0.0-beta.1
 
 ### Changes
