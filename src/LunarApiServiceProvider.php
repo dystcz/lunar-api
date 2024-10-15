@@ -412,16 +412,16 @@ class LunarApiServiceProvider extends ServiceProvider
         \Lunar\Models\ProductVariant::resolveRelationUsing('attributes', function ($model) {
             return $model
                 ->hasMany(
-                    \Lunar\Models\Attribute::class,
+                    \Lunar\Models\Attribute::modelClass(),
                     'attribute_type',
-                    'attribute_classname',
+                    'attribute_type',
                 );
         });
 
         \Lunar\Models\ProductVariant::resolveRelationUsing('urls', function ($model) {
             return $model
                 ->morphMany(
-                    \Lunar\Models\Url::class,
+                    \Lunar\Models\Url::modelClass(),
                     'element'
                 );
         });
@@ -429,14 +429,14 @@ class LunarApiServiceProvider extends ServiceProvider
         \Lunar\Models\ProductVariant::resolveRelationUsing('defaultUrl', function ($model) {
             return $model
                 ->morphOne(
-                    \Lunar\Models\Url::class,
+                    \Lunar\Models\Url::modelClass(),
                     'element'
                 )->whereDefault(true);
         });
 
         \Lunar\Models\ProductVariant::resolveRelationUsing('otherVariants', function ($model) {
             return $model
-                ->hasMany(\Lunar\Models\ProductVariant::class, 'product_id', 'product_id')
+                ->hasMany(\Lunar\Models\ProductVariant::modelClass(), 'product_id', 'product_id')
                 ->where($model->getRouteKeyName(), '!=', $model->getAttribute($model->getRouteKeyName()));
         });
     }
