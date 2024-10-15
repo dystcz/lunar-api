@@ -155,7 +155,6 @@ abstract class TestCase extends OrchestraTestCase
                 'password' => 'secret',
             ]);
         });
-
     }
 
     /**

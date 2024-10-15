@@ -35,6 +35,18 @@ class CollectionSchema extends Schema
     /**
      * {@inheritDoc}
      */
+    public function with(): array
+    {
+        return [
+            'attributes',
+
+            ...parent::with(),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function includePaths(): iterable
     {
         return [
