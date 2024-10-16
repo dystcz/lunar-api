@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\CartAddresses\Policies;
 
 use Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart;
-use Dystcz\LunarApi\LunarApi;
+use Dystcz\LunarApi\Facades\LunarApi;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;

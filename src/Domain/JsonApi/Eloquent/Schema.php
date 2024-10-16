@@ -7,7 +7,7 @@ use Dystcz\LunarApi\Base\Contracts\SchemaExtension as SchemaExtensionContract;
 use Dystcz\LunarApi\Base\Contracts\SchemaManifest as SchemaManifestContract;
 use Dystcz\LunarApi\Domain\JsonApi\Contracts\Schema as SchemaContract;
 use Dystcz\LunarApi\Domain\JsonApi\Core\Schema\TypeResolver;
-use Dystcz\LunarApi\LunarApi;
+use Dystcz\LunarApi\Facades\LunarApi;
 use Dystcz\LunarApi\Support\Models\Actions\ModelKey;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;

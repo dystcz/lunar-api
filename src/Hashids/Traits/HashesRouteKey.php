@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Hashids\Traits;
 
+use Dystcz\LunarApi\Facades\LunarApi;
 use Dystcz\LunarApi\Hashids\Facades\HashidsConnections;
-use Dystcz\LunarApi\LunarApi;
 use Hashids\Hashids;
 use Illuminate\Support\Arr;
 use Vinkla\Hashids\Facades\Hashids as HashidsFacade;
