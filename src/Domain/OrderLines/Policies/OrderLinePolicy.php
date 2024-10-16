@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\OrderLines\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
+use Dystcz\LunarApi\Domain\Auth\Concerns\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Lunar\Models\Contracts\OrderLine as OrderLineContract;
 
@@ -31,6 +31,10 @@ class OrderLinePolicy
      */
     public function create(?Authenticatable $user): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -39,6 +43,10 @@ class OrderLinePolicy
      */
     public function update(?Authenticatable $user, OrderLineContract $line): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -47,6 +55,10 @@ class OrderLinePolicy
      */
     public function delete(?Authenticatable $user, OrderLineContract $line): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 }

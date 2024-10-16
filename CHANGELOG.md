@@ -7,6 +7,8 @@
 -   Fixed attribute mapping for `collections`
 -   Added tests for `collections` `default_url` relationship and includes
 -   Fixed dynamic relationships
+-   Added configurable auth guard `/Dystcz/LunarApi/Facades/LunarApi::authGuard($guard)`
+-   Updated policies to grant more privileges to Filament admins
 
 ## 1.0.0-beta.1
 

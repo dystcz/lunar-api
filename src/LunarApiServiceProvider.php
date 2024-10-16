@@ -6,6 +6,8 @@ use Dystcz\LunarApi\Domain\Carts\Actions\CheckoutCart;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Users\Actions\CreateUser;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
+use Dystcz\LunarApi\Facades\LunarApi;
+use Dystcz\LunarApi\LunarApi as Api;
 use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Config;
@@ -45,7 +47,7 @@ class LunarApiServiceProvider extends ServiceProvider
         // Register the main class to use with the facade.
         $this->app->singleton(
             'lunar-api',
-            fn () => new LunarApi,
+            fn () => new Api,
         );
 
         $this->bindControllers();

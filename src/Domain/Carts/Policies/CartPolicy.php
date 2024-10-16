@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Carts\Policies;
 
+use Dystcz\LunarApi\Domain\Auth\Concerns\HandlesAuthorization;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart;
-use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -29,18 +29,158 @@ class CartPolicy
     }
 
     /**
-     * Authorize a user to view cart's cart lines.
-     */
-    public function viewCartLines(?Authenticatable $user, CartContract $cart): bool
-    {
-        return $this->check($user, $cart);
-    }
-
-    /**
      * Determine whether the user can view the model.
      */
     public function view(?Authenticatable $user, CartContract $cart): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return $this->check($user, $cart);
+    }
+
+    /**
+     * Authorize a user to view cart's addresses.
+     */
+    public function viewAddresses(?Authenticatable $user, CartContract $cart): bool
+    {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return $this->check($user, $cart);
+    }
+
+    /**
+     * Authorize a user to view cart's shipping addresses.
+     */
+    public function viewShippingAddress(?Authenticatable $user, CartContract $cart): bool
+    {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return $this->check($user, $cart);
+    }
+
+    /**
+     * Authorize a user to view cart's billing addresses.
+     */
+    public function viewBillingAddress(?Authenticatable $user, CartContract $cart): bool
+    {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return $this->check($user, $cart);
+    }
+
+    /**
+     * Authorize a user to view cart's cart lines.
+     */
+    public function viewLines(?Authenticatable $user, CartContract $cart): bool
+    {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return $this->check($user, $cart);
+    }
+
+    /**
+     * Authorize a user to view cart's orders.
+     */
+    public function viewOrders(?Authenticatable $user, CartContract $cart): bool
+    {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return $this->check($user, $cart);
+    }
+
+    /**
+     * Authorize a user to view cart's draft order.
+     */
+    public function viewDraftOrder(?Authenticatable $user, CartContract $cart): bool
+    {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return $this->check($user, $cart);
+    }
+
+    /**
+     * Authorize a user to view cart's completed orders.
+     */
+    public function viewCompletedOrders(?Authenticatable $user, CartContract $cart): bool
+    {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return $this->check($user, $cart);
+    }
+
+    /**
+     * Authorize a user to view cart's completed order.
+     */
+    public function viewCompletedOrder(?Authenticatable $user, CartContract $cart): bool
+    {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return $this->check($user, $cart);
+    }
+
+    /**
+     * Authorize a user to view cart's cart lines.
+     */
+    public function viewCartLines(?Authenticatable $user, CartContract $cart): bool
+    {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return $this->check($user, $cart);
+    }
+
+    /**
+     * Authorize a user to view cart's currency.
+     */
+    public function viewCurrency(?Authenticatable $user, CartContract $cart): bool
+    {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return $this->check($user, $cart);
+    }
+
+    /**
+     * Authorize a user to view cart's user.
+     */
+    public function viewUser(?Authenticatable $user, CartContract $cart): bool
+    {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return $this->check($user, $cart);
+    }
+
+    /**
+     * Authorize a user to view cart's customer.
+     */
+    public function viewCustomer(?Authenticatable $user, CartContract $cart): bool
+    {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return $this->check($user, $cart);
     }
 
@@ -57,6 +197,10 @@ class CartPolicy
      */
     public function update(?Authenticatable $user, CartContract $cart): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -105,6 +249,10 @@ class CartPolicy
      */
     public function delete(?Authenticatable $user, CartContract $cart): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 

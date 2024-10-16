@@ -1,12 +1,13 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Transactions\Policies;
+namespace Dystcz\LunarApi\Domain\Discounts\Policies;
 
 use Dystcz\LunarApi\Domain\Auth\Concerns\HandlesAuthorization;
+use Dystcz\LunarApi\Domain\Users\Models\User;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Lunar\Models\Contracts\Transaction as TransactionContract;
+use Lunar\Models\Contracts\Discount as DiscountContract;
 
-class TransactionPolicy
+class DiscountPolicy
 {
     use HandlesAuthorization;
 
@@ -25,7 +26,7 @@ class TransactionPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, TransactionContract $line): bool
+    public function view(?Authenticatable $user, DiscountContract $model): bool
     {
         if ($this->isFilamentAdmin($user)) {
             return true;
@@ -49,7 +50,7 @@ class TransactionPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, TransactionContract $line): bool
+    public function update(?Authenticatable $user, DiscountContract $model): bool
     {
         if ($this->isFilamentAdmin($user)) {
             return true;
@@ -61,7 +62,7 @@ class TransactionPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, TransactionContract $line): bool
+    public function delete(?Authenticatable $user, DiscountContract $model): bool
     {
         if ($this->isFilamentAdmin($user)) {
             return true;

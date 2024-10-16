@@ -3,7 +3,7 @@
 use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Countries\Models\Country;
-use Dystcz\LunarApi\LunarApi;
+use Dystcz\LunarApi\Facades\LunarApi;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;

@@ -2,9 +2,9 @@
 
 namespace Dystcz\LunarApi\Domain\CartAddresses\Policies;
 
+use Dystcz\LunarApi\Domain\Auth\Concerns\HandlesAuthorization;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart;
-use Dystcz\LunarApi\LunarApi;
-use Illuminate\Auth\Access\HandlesAuthorization;
+use Dystcz\LunarApi\Facades\LunarApi;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -27,7 +27,11 @@ class CartAddressPolicy
      */
     public function viewAny(?Authenticatable $user): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -35,6 +39,10 @@ class CartAddressPolicy
      */
     public function view(?Authenticatable $user, CartAddressContract $cartAddress): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return $this->check($user, $cartAddress);
     }
 
@@ -43,6 +51,10 @@ class CartAddressPolicy
      */
     public function create(?Authenticatable $user): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         $cartAddressCartId = $this->request->input('data.relationships.cart.data.id', 0);
 
         if (! $cartAddressCartId) {
@@ -63,6 +75,10 @@ class CartAddressPolicy
      */
     public function update(?Authenticatable $user, CartAddressContract $cartAddress): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return $this->check($user, $cartAddress);
     }
 
@@ -71,6 +87,10 @@ class CartAddressPolicy
      */
     public function delete(?Authenticatable $user, CartAddressContract $cartAddress): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return $this->check($user, $cartAddress);
     }
 

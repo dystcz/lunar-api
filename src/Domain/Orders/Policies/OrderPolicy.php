@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\Orders\Policies;
 
+use Dystcz\LunarApi\Domain\Auth\Concerns\HandlesAuthorization;
 use Dystcz\LunarApi\Domain\Checkout\Enums\CheckoutProtectionStrategy;
-use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -35,7 +35,11 @@ class OrderPolicy
      */
     public function viewAny(?Authenticatable $user): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -43,6 +47,10 @@ class OrderPolicy
      */
     public function view(?Authenticatable $user, OrderContract $order): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return $this->check($user, $order);
     }
 
@@ -59,6 +67,10 @@ class OrderPolicy
      */
     public function update(?Authenticatable $user, OrderContract $order): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return $this->check($user, $order);
     }
 
@@ -67,6 +79,10 @@ class OrderPolicy
      */
     public function delete(?Authenticatable $user, OrderContract $order): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return $this->check($user, $order);
     }
 
@@ -75,6 +91,10 @@ class OrderPolicy
      */
     public function viewOrderLines(?Authenticatable $user, OrderContract $order): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return $this->check($user, $order);
     }
 
@@ -83,6 +103,10 @@ class OrderPolicy
      */
     public function viewDigitalLines(?Authenticatable $user, OrderContract $order): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return $this->check($user, $order);
     }
 
@@ -91,6 +115,10 @@ class OrderPolicy
      */
     public function viewProductLines(?Authenticatable $user, OrderContract $order): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return $this->check($user, $order);
     }
 
@@ -99,6 +127,10 @@ class OrderPolicy
      */
     public function viewPhysicalLines(?Authenticatable $user, OrderContract $order): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return $this->check($user, $order);
     }
 
@@ -107,6 +139,10 @@ class OrderPolicy
      */
     public function viewShippingLines(?Authenticatable $user, OrderContract $order): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return $this->check($user, $order);
     }
 

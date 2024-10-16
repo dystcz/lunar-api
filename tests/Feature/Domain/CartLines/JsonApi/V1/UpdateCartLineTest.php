@@ -4,7 +4,7 @@ use Dystcz\LunarApi\Domain\CartLines\Models\CartLine;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
 use Dystcz\LunarApi\Domain\ProductVariants\Factories\ProductVariantFactory;
-use Dystcz\LunarApi\LunarApi;
+use Dystcz\LunarApi\Facades\LunarApi;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Facades\CartSession;

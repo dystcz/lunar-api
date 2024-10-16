@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi;
 
+use Dystcz\LunarApi\Facades\LunarApi;
 use Dystcz\LunarApi\Hashids\Facades\HashidsConnections;
 use Illuminate\Support\ServiceProvider;
 

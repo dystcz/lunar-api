@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\TaxZones\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
+use Dystcz\LunarApi\Domain\Auth\Concerns\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Lunar\Models\Contracts\TaxZone as TaxZoneContract;
 
@@ -15,7 +15,11 @@ class TaxZonePolicy
      */
     public function viewAny(?Authenticatable $user): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -23,7 +27,11 @@ class TaxZonePolicy
      */
     public function view(?Authenticatable $user, TaxZoneContract $tag): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -31,6 +39,10 @@ class TaxZonePolicy
      */
     public function create(?Authenticatable $user): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -39,6 +51,10 @@ class TaxZonePolicy
      */
     public function update(?Authenticatable $user, TaxZoneContract $tag): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -47,6 +63,10 @@ class TaxZonePolicy
      */
     public function delete(?Authenticatable $user, TaxZoneContract $tag): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 }

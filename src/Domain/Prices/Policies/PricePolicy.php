@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Prices\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
+use Dystcz\LunarApi\Domain\Auth\Concerns\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Lunar\Models\Contracts\Price as PriceContract;
 
@@ -31,6 +31,10 @@ class PricePolicy
      */
     public function create(?Authenticatable $user): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -39,6 +43,10 @@ class PricePolicy
      */
     public function update(?Authenticatable $user, PriceContract $price): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -47,6 +55,10 @@ class PricePolicy
      */
     public function delete(?Authenticatable $user, PriceContract $price): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 }
