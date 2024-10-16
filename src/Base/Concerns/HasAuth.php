@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 trait HasAuth
 {
-    protected string $authGuard = 'api';
+    protected string $authGuard = 'web';
 
     public function auth(): Guard
     {
