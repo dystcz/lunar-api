@@ -133,6 +133,14 @@ abstract class TestCase extends OrchestraTestCase
             /**
              * App configuration.
              */
+            $config->set('auth.defaults', [
+                'guard' => 'api',
+                'passwords' => 'users',
+            ]);
+            $config->set('auth.guards.api', [
+                'driver' => 'session',
+                'provider' => 'users',
+            ]);
             $config->set('auth.providers.users', [
                 'driver' => 'eloquent',
                 'model' => \Dystcz\LunarApi\Tests\Stubs\Users\User::class,
