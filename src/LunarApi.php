@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi;
 
+use Dystcz\LunarApi\Base\Concerns;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCart;
 use Dystcz\LunarApi\Domain\Users\Contracts\CreatesNewUsers;
 use Dystcz\LunarApi\Domain\Users\Contracts\CreatesUserFromCart;
@@ -11,42 +12,52 @@ use Illuminate\Support\Facades\Config;
 
 class LunarApi
 {
+    use Concerns\HasAuth;
+
     /**
      * Create new user using class.
      */
-    public static function createUserUsing(string $class): void
+    public function createUserUsing(string $class): static
     {
         App::singleton(CreatesNewUsers::class, $class);
+
+        return $this;
     }
 
     /**
      * Create user from cart using class.
      */
-    public static function createUserFromCartUsing(string $class): void
+    public function createUserFromCartUsing(string $class): static
     {
         App::singleton(CreatesUserFromCart::class, $class);
+
+        return $this;
     }
 
     /**
      * Register user using class.
      */
-    public static function registerUserUsing(string $class): void
+    public function registerUserUsing(string $class): static
     {
         App::singleton(RegistersUser::class, $class);
+
+        return $this;
     }
 
     /**
      * Checkout cart using class.
      */
-    public static function checkoutCartUsing(string $class): void
+    public function checkoutCartUsing(string $class): static
     {
         App::singleton(CheckoutCart::class, $class);
+
+        return $this;
     }
 
     /**
      * Check if hashids are used.
      */
-    public static function usesHashids(): bool
+    public function usesHashids(): bool
     {
         return Config::get('lunar-api.general.use_hashids', false);
     }
