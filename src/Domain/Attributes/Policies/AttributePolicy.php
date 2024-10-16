@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Attributes\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
+use Dystcz\LunarApi\Domain\Auth\Concerns\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Lunar\Models\Contracts\Attribute as AttributeContract;
 
@@ -15,7 +15,11 @@ class AttributePolicy
      */
     public function viewAny(?Authenticatable $user): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -23,7 +27,11 @@ class AttributePolicy
      */
     public function view(?Authenticatable $user, AttributeContract $attribute): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -31,7 +39,11 @@ class AttributePolicy
      */
     public function create(?Authenticatable $user): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -39,7 +51,11 @@ class AttributePolicy
      */
     public function update(?Authenticatable $user, AttributeContract $attribute): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -47,6 +63,10 @@ class AttributePolicy
      */
     public function delete(?Authenticatable $user, AttributeContract $attribute): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 }

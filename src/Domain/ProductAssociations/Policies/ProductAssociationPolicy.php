@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\ProductAssociations\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
+use Dystcz\LunarApi\Domain\Auth\Concerns\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Lunar\Models\Contracts\ProductAssociation as ProductAssociationContract;
 
@@ -31,6 +31,10 @@ class ProductAssociationPolicy
      */
     public function create(?Authenticatable $user): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -39,6 +43,10 @@ class ProductAssociationPolicy
      */
     public function update(?Authenticatable $user, ProductAssociationContract $association): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -47,6 +55,26 @@ class ProductAssociationPolicy
      */
     public function delete(?Authenticatable $user, ProductAssociationContract $association): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
+    }
+
+    /**
+     * Authorize a user to view associations's parent.
+     */
+    public function viewParent(?Authenticatable $user, ProductAssociationContract $product): bool
+    {
+        return true;
+    }
+
+    /**
+     * Authorize a user to view associations's target.
+     */
+    public function viewTarget(?Authenticatable $user, ProductAssociationContract $product): bool
+    {
+        return true;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Currencies\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
+use Dystcz\LunarApi\Domain\Auth\Concerns\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Lunar\Models\Contracts\Currency as CurrencyContract;
 
@@ -31,7 +31,11 @@ class CurrencyPolicy
      */
     public function create(?Authenticatable $user): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -39,7 +43,11 @@ class CurrencyPolicy
      */
     public function update(?Authenticatable $user, CurrencyContract $currency): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -47,6 +55,10 @@ class CurrencyPolicy
      */
     public function delete(?Authenticatable $user, CurrencyContract $currency): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 }
