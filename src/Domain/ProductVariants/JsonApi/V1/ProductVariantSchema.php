@@ -133,10 +133,14 @@ class ProductVariantSchema extends Schema
                 ->type(SchemaType::get(Media::class))
                 ->canCount(),
 
-            HasMany::make('values', 'values')
+            HasMany::make('product_option_values', 'values')
+                ->retainFieldName()
                 ->type(SchemaType::get(ProductOptionValue::class))
+                ->readOnly()
+                ->canCount()
+                ->countAs('product_option_values_count')
                 ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
+                    static fn ($relation) => $relation->withoutLinks()
                 ),
 
             HasOne::make('default_url', 'defaultUrl')

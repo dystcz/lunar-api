@@ -119,6 +119,14 @@ class ProductVariantPolicy
     }
 
     /**
+     * Authorize a user to view variant's product option values.
+     */
+    public function viewProductOptionValues(?Authenticatable $user, ProductVariantContract $variant): bool
+    {
+        return true;
+    }
+
+    /**
      * Authorize a user to view variant's thumbnail.
      */
     public function viewThumbnail(?Authenticatable $user, ProductVariantContract $variant): bool
