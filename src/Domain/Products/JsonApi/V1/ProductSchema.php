@@ -193,6 +193,12 @@ class ProductSchema extends Schema
                 ->canCount()
                 ->countAs('product_variants_count'),
 
+            HasMany::make('product_options', 'productOptions')
+                ->retainFieldName()
+                ->type('product_options')
+                ->canCount()
+                ->countAs('product_options_count'),
+
             ...parent::fields(),
         ];
     }
