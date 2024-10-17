@@ -40,9 +40,12 @@ class ProductOptionValueSchema extends Schema
                     fn (ProductOptionValue $model, string $attribute) => $model->translate($attribute),
                 ),
 
-            BelongsTo::make('option', 'option')
+            BelongsTo::make('product_option', 'option')
                 ->readOnly()
-                ->type(SchemaType::get(ProductOption::class)),
+                ->type(SchemaType::get(ProductOption::class))
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks()
+                ),
 
             ...parent::fields(),
         ];
