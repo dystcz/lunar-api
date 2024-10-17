@@ -9,6 +9,16 @@
 -   Fixed dynamic relationships
 -   Added configurable auth guard `/Dystcz/LunarApi/Facades/LunarApi::authGuard($guard)`
 -   Updated policies to grant more privileges to Filament admins
+-   Added `product_options` relationship for `products`
+
+### ⚠️ Breaking changes
+
+1. Changed relationship names.
+
+    **Relationships:**
+
+    `product_options.values` → `product_options.product_option_values`<br>
+    `product_variants.values` → `product_variants.product_option_values`<br>
 
 ## 1.0.0-beta.1
 

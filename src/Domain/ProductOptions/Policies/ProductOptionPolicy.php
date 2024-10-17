@@ -61,4 +61,12 @@ class ProductOptionPolicy
 
         return false;
     }
+
+    /**
+     * Authorize a user to view variant's product option values.
+     */
+    public function viewProductOptionValues(?Authenticatable $user, ProductOptionContract $productOption): bool
+    {
+        return true;
+    }
 }
