@@ -49,9 +49,13 @@ class ProductOptionSchema extends Schema
             Str::make('handle')
                 ->readOnly(),
 
-            HasMany::make('values', 'values')
+            HasMany::make('product_option_values', 'values')
                 ->type(SchemaType::get(ProductOptionValue::class))
-                ->readOnly(),
+                ->canCount()
+                ->countAs('product_option_values_count')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks()
+                ),
 
             ...parent::fields(),
         ];
