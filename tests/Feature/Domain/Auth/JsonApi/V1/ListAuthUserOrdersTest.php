@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(TestCase::class, RefreshDatabase::class)
     ->group('auth', 'users', 'me');
 
-it('can list all of users orders', function () {
+it('can list all of auth users orders', function () {
     /** @var TestUser $this */
     $user = User::factory()->create();
 
@@ -31,7 +31,7 @@ it('can list all of users orders', function () {
     $response->assertFetchedMany([$order]);
 });
 
-it('can find users order by ref number', function () {
+it('can find auth users order by ref number', function () {
     /** @var TestUser $this */
     $user = User::factory()->create();
 
