@@ -43,7 +43,7 @@ class AuthController extends Controller
     /**
      * Log the user in.
      */
-    public function login(LoginRequest $request): DataResponse
+    public function login(LoginRequest $request): JsonResponse
     {
         if (! Auth::guard(LunarApi::getAuthGuard())->attempt($request->only('email', 'password'))) {
             return new JsonResponse([
