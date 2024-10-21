@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Users\JsonApi\V1;
+namespace Dystcz\LunarApi\Domain\Auth\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\Users\Models\User;
 use Illuminate\Validation\Rule;
@@ -42,7 +42,6 @@ class UserWithoutPasswordRequest extends ResourceRequest
      */
     public function messages(): array
     {
-        // TODO: Translate
         return [
             'name.string' => __('lunar-api::validations.users.name.string'),
             'name.max' => __('lunar-api::validations.users.name.max'),
