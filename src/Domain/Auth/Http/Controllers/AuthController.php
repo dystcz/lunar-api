@@ -43,18 +43,17 @@ class AuthController extends Controller
     /**
      * Log the user in.
      */
-    public function login(LoginRequest $request): JsonResponse
+    public function login(LoginRequest $request): DataResponse
     {
-        // TODO: Translate
         if (! Auth::guard(LunarApi::getAuthGuard())->attempt($request->only('email', 'password'))) {
             return new JsonResponse([
-                'message' => __('lunar-api::validations.auth.failed_attempt'),
+                'message' => __('lunar-api::validations.auth.attempt.failed'),
                 'success' => false,
             ], 422);
         }
 
         return new JsonResponse([
-            'message' => __('lunar-api::validations.auth.success'),
+            'message' => __('lunar-api::validations.auth.attempt.success'),
             'success' => true,
         ], 200);
     }

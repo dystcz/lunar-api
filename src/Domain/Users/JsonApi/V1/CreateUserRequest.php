@@ -44,9 +44,7 @@ class CreateUserRequest extends ResourceRequest
      */
     public function messages(): array
     {
-        // TODO: Translate
         return [
-
             'email.required' => __('lunar-api::validations.auth.email.required'),
             'email.string' => __('lunar-api::validations.auth.email.string'),
             'email.email' => __('lunar-api::validations.auth.email.email'),
@@ -57,8 +55,8 @@ class CreateUserRequest extends ResourceRequest
             'password.string' => __('lunar-api::validations.auth.password.string'),
             'password.confirmed' => __('lunar-api::validations.auth.password.confirmed'),
 
-            // 'accept_terms.required' => __('validation.auth.accept_terms.required'),
-            // 'accept_terms.accepted' => __('validation.auth.accept_terms.accepted'),
+            'accept_terms.required' => __('validation.auth.accept_terms.required'),
+            'accept_terms.accepted' => __('validation.auth.accept_terms.accepted'),
         ];
     }
 }

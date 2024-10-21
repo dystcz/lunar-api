@@ -39,7 +39,6 @@ class NewPasswordRequest extends ResourceRequest
      */
     public function messages(): array
     {
-        // TODO: Translate
         return [
             'email.required' => __('lunar-api::validations.users.email.required'),
             'email.email' => __('lunar-api::validations.users.email.email'),

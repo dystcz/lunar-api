@@ -41,7 +41,6 @@ class LoginRequest extends FormRequest
      */
     public function messages(): array
     {
-        // TODO: Translate
         return [
             'email.required' => __('lunar-api::validations.auth.email.required'),
             'email.string' => __('lunar-api::validations.auth.email.string'),

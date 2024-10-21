@@ -2,6 +2,27 @@
 
 return [
 
+    'auth' => [
+        'email' => [
+            'required' => 'Prosím zadejte svou e-mailovou adresu.',
+            'string' => 'E-mailová adresa musí být řetězec.',
+            'email' => 'Prosím zadejte platnou e-mailovou adresu.',
+            'unique' => 'Tuto e-mailovou adresu již někdo používá.',
+            'max' => 'Emailová adresa musí být kratší než :max znaků.',
+        ],
+
+        'password' => [
+            'required' => 'Prosím zadejte heslo.',
+            'min' => 'Heslo musí obsahovat alespoň :min znaků.',
+            'confirmed' => 'Prosím potvrďte své heslo.',
+        ],
+
+        'attempt' => [
+            'failed' => 'S těmito údaji nebylo možné vás přihlásit.',
+            'success' => 'Byli jste úspěšně přihlášeni.',
+        ],
+    ],
+
     'addresses' => [
         'first_name' => [
             'required' => 'Pole jméno je povinné.',
@@ -75,6 +96,9 @@ return [
         ],
         'shipping_option' => [
             'required' => 'Prosím vyberte možnost doručení.',
+        ],
+        'payment_option' => [
+            'required' => 'Prosím vyberte platební metodu.',
         ],
         'products' => [
             'out_of_stock' => 'Některý z produktů není dostupný v požadovaném množství.',
@@ -198,6 +222,12 @@ return [
         'meta' => [
             'array' => 'Pole meta musí být pole.',
         ],
+        'set_payment_option' => [
+            'payment_option' => [
+                'required' => 'Prosím vyberte platební metodu.',
+                'string' => 'Pole platební metoda musí být řetězec.',
+            ],
+        ],
     ],
 
     'shipping' => [
@@ -209,12 +239,50 @@ return [
         ],
     ],
 
-    'payments' => [
-        'set_payment_option' => [
-            'payment_option' => [
-                'required' => 'Prosím vyberte platební metodu.',
-                'string' => 'Pole platební metoda musí být řetězec.',
-            ],
+    'users' => [
+        'name' => [
+            'string' => 'Jméno musí být řetězec.',
+            'max' => 'Jméno musí být kratší než :max znaků.',
+        ],
+        'first_name' => [
+            'required' => 'Prosím zadejte své jméno.',
+            'string' => 'Jméno musí být řetězec.',
+            'max' => 'Jméno musí být kratší než :max znaků.',
+        ],
+        'last_name' => [
+            'required' => 'Prosím zadejte své příjmení.',
+            'string' => 'Příjmení musí být řetězec.',
+            'max' => 'Příjmení musí být kratší než :max znaků.',
+        ],
+        'email' => [
+            'required' => 'Prosím zadejte svou e-mailovou adresu.',
+            'string' => 'E-mailová adresa musí být řetězec.',
+            'email' => 'Prosím zadejte platnou e-mailovou adresu.',
+            'unique' => 'Tuto e-mailovou adresu již někdo používá.',
+            'max' => 'Emailová adresa musí být kratší než :max znaků.',
+        ],
+        'password' => [
+            'required' => 'Prosím zadejte heslo.',
+            'string' => 'Heslo musí být řetězec.',
+            'min' => 'Heslo musí obsahovat alespoň :min znaků.',
+            'confirmed' => 'Prosím potvrďte své heslo.',
+        ],
+        'old_password' => [
+            'required' => 'Prosím zadejte současné heslo.',
+            'string' => 'Heslo musí být řetězec.',
+            'correct' => 'Bylo zadáno nesprávné heslo.',
+        ],
+        'token' => [
+            'required' => 'Chybí unikátní token.',
+            'string' => 'Token musí být řetězec.',
+        ],
+        'phone' => [
+            'required' => 'Prosím zadejte telefon.',
+            'phone' => 'Prosím zadejte platné telefonní číslo.',
+        ],
+        'accept_terms' => [
+            'required' => 'Musíte souhlasit s našimi podmínkami.',
+            'accepted' => 'Musíte souhlasit s našimi podmínkami.',
         ],
     ],
 ];

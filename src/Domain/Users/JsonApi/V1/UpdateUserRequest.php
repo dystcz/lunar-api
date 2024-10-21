@@ -43,7 +43,6 @@ class UpdateUserRequest extends ResourceRequest
      */
     public function messages(): array
     {
-        // TODO: Translate
         return [
             'name.string' => __('lunar-api::validation.users.name.string'),
             'name.max' => __('lunar-api::validation.users.name.max'),

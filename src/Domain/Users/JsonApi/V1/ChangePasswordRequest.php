@@ -38,7 +38,6 @@ class ChangePasswordRequest extends ResourceRequest
      */
     public function messages(): array
     {
-        // TODO: Translate
         return [
             'password.min' => __('lunar-api::validations.users.password.min'),
             'password.required' => __('lunar-api::validations.users.password.required'),
