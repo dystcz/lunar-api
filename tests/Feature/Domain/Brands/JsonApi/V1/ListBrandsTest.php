@@ -3,8 +3,8 @@
 use Dystcz\LunarApi\Domain\Brands\Models\Brand;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Media\Factories\MediaFactory;
-use Dystcz\LunarApi\Tests\Data\TestInclude;
 use Dystcz\LunarApi\Domain\Users\Models\User;
+use Dystcz\LunarApi\Tests\Data\TestInclude;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;

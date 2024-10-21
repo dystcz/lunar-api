@@ -3,8 +3,8 @@
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
-use Dystcz\LunarApi\Facades\LunarApi;
 use Dystcz\LunarApi\Domain\Users\Models\User;
+use Dystcz\LunarApi\Facades\LunarApi;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
