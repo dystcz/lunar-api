@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Users\Factories;
 
-use Dystcz\LunarApi\Tests\Stubs\Users\User;
+use Dystcz\LunarApi\Domain\Users\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 
