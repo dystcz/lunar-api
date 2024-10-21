@@ -15,7 +15,7 @@ class DomainConfig
      */
     public function __construct(
         public ?string $model = null,
-        public ?string $lunar_model = null,
+        public ?string $model_contract = null,
         public ?string $policy = null,
         public ?string $schema = null,
         public ?string $resource = null,
@@ -47,19 +47,19 @@ class DomainConfig
     }
 
     /**
-     * Check if domain has lunar model.
+     * Check if domain has model contract.
      */
-    public function hasLunarModel(): bool
+    public function hasModelContract(): bool
     {
-        return ! is_null($this->lunar_model);
+        return ! is_null($this->model_contract);
     }
 
     /**
      * Check if domain has model and lunar model.
      */
-    public function swapsLunarModel(): bool
+    public function swapsModel(): bool
     {
-        return $this->hasModel() && $this->hasLunarModel();
+        return $this->hasModel() && $this->hasModelContract();
     }
 
     /**
@@ -95,8 +95,6 @@ class DomainConfig
     {
         $checks = [
             'model',
-            // TODO: Validate Lunar model contracts after Lunar SP was booted
-            // 'lunar_model',
             'policy',
             'schema',
             'resource',
