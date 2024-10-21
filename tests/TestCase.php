@@ -2,14 +2,14 @@
 
 namespace Dystcz\LunarApi\Tests;
 
-use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
 use Dystcz\LunarApi\Domain\PaymentOptions\Modifiers\PaymentModifiers;
+use Dystcz\LunarApi\Facades\LunarApi;
 use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\TestPaymentModifier;
 use Dystcz\LunarApi\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestTaxDriver;
 use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
-use Dystcz\LunarApi\Tests\Stubs\Users\JsonApi\V1\UserSchema;
 use Dystcz\LunarApi\Tests\Traits\JsonApiTestHelpers;
+use Illuminate\Contracts\Auth\Authenticatable as User;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
@@ -45,6 +45,7 @@ abstract class TestCase extends OrchestraTestCase
         Currency::factory()->create([
             'code' => 'EUR',
             'decimal_places' => 2,
+            'default' => true,
         ]);
 
         Country::factory()->create([
@@ -66,11 +67,6 @@ abstract class TestCase extends OrchestraTestCase
         ]);
 
         TaxClass::factory()->create();
-
-        /**
-         * Schema configuration.
-         */
-        SchemaManifestFacade::registerSchema(UserSchema::class);
 
         App::get(ShippingModifiers::class)->add(TestShippingModifier::class);
         App::get(PaymentModifiers::class)->add(TestPaymentModifier::class);
@@ -135,8 +131,16 @@ abstract class TestCase extends OrchestraTestCase
              */
             $config->set('auth.providers.users', [
                 'driver' => 'eloquent',
-                'model' => \Dystcz\LunarApi\Tests\Stubs\Users\User::class,
+                'model' => \Dystcz\LunarApi\Domain\Users\Models\User::class,
             ]);
+
+            $config->set('auth.passwords.users', [
+                'provider' => 'users',
+                'table' => 'password_resets',
+                'expire' => 60,
+                'throttle' => 60,
+            ]);
+
             // $config->set('auth.defaults', [
             //     'guard' => 'api',
             //     'passwords' => 'users',
@@ -172,17 +176,6 @@ abstract class TestCase extends OrchestraTestCase
     {
         $this->loadLaravelMigrations();
         // $this->loadMigrationsFrom(workbench_path('database/migrations'));
-
-        // NOTE: MySQL migrations do not play nice with Lunar testing for some reason
-        // // artisan($this, 'lunar:install');
-        // // artisan($this, 'vendor:publish', ['--tag' => 'lunar']);
-        // // artisan($this, 'vendor:publish', ['--tag' => 'lunar.migrations']);
-        //
-        // // artisan($this, 'migrate', ['--database' => 'mysql']);
-        //
-        // $this->beforeApplicationDestroyed(
-        //     fn () => artisan($this, 'migrate:rollback', ['--database' => 'mysql'])
-        // );
     }
 
     /**
@@ -194,5 +187,16 @@ abstract class TestCase extends OrchestraTestCase
             ExceptionHandler::class,
             TestExceptionHandler::class
         );
+    }
+
+    /**
+     * Set the currently logged in user for the application.
+     *
+     * @param  string|null  $guard
+     * @return $this
+     */
+    public function actingAs(User $user, $guard = null): TestCase
+    {
+        return $this->be($user, $guard ?? LunarApi::getAuthGuard());
     }
 }
