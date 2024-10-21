@@ -15,6 +15,6 @@ trait HashesIds
 
     public function usesHashids(): bool
     {
-        return $this->hashesIds;
+        return $this->hashIds;
     }
 }
