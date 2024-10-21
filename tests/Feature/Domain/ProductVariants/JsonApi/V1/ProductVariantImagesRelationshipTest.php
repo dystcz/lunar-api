@@ -17,7 +17,7 @@ it('can list product variant images through relationship', function () {
     $response = $this
         ->jsonApi()
         ->expects('media')
-        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}/images"));
+        ->get(serverUrl("/product_variants/{$variant->getRouteKey()}/images"));
 
     $response
         ->assertSuccessful()
@@ -34,8 +34,8 @@ it('can count product variant images', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('product-variants')
-        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}?with_count=images"));
+        ->expects('product_variants')
+        ->get(serverUrl("/product_variants/{$variant->getRouteKey()}?with_count=images"));
 
     $response
         ->assertSuccessful()

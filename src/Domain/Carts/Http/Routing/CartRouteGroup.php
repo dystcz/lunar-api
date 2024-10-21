@@ -27,7 +27,7 @@ class CartRouteGroup extends RouteGroup
             ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), CartsController::class)
                     ->relationships(function (Relationships $relationships) {
-                        $relationships->hasMany('cart-lines')->readOnly();
+                        $relationships->hasMany('cart_lines')->readOnly();
                     })
                     ->only('show');
 

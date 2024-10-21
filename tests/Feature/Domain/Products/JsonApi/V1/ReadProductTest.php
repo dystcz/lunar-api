@@ -93,7 +93,7 @@ test('can show a product with included lowest price', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->includePaths('lowest-price')
+        ->includePaths('lowest_price')
         ->get(serverUrl('/products/'.$product->getRouteKey()));
 
     $response
@@ -115,7 +115,7 @@ test('can show a product with included highest price', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->includePaths('highest-price')
+        ->includePaths('highest_price')
         ->get(serverUrl('/products/'.$product->getRouteKey()));
 
     $response
@@ -155,13 +155,13 @@ it('can show a product with included variants', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->includePaths('product-variants')
+        ->includePaths('product_variants')
         ->get(serverUrl('/products/'.$product->getRouteKey()));
 
     $response
         ->assertSuccessful()
         ->assertFetchedOne($product)
-        ->assertIsIncluded('product-variants', $product->variants->first());
+        ->assertIsIncluded('product_variants', $product->variants->first());
 })->group('products');
 
 it('can show a product with included tags', function () {

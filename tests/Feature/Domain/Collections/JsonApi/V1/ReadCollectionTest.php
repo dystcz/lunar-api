@@ -58,3 +58,36 @@ it('can read products in a collection', function () {
         );
 
 })->group('collections');
+
+it('can show a collection with included default url', function () {
+    /** @var TestCase $this */
+    generateUrls();
+
+    $model = Collection::factory()
+        ->create();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('collections')
+        ->includePaths('default_url')
+        ->get(serverUrl('/collections/'.$model->getRouteKey()));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($model)
+        ->assertIsIncluded('urls', $model->defaultUrl);
+})->group('collections');
+
+it('can show a collection with correctly mapped attributes', function () {
+    /** @var TestCase $this */
+    generateUrls();
+
+    $model = Collection::factory()
+        ->create();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('collections')
+        ->get(serverUrl('/collections/'.$model->getRouteKey()));
+
+})->group('collections')->todo();

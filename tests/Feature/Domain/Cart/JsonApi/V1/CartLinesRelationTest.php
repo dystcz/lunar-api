@@ -3,7 +3,7 @@
 use Dystcz\LunarApi\Domain\CartLines\Models\CartLine;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
-use Dystcz\LunarApi\Tests\Stubs\Users\User;
+use Dystcz\LunarApi\Domain\Users\Models\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
@@ -31,7 +31,7 @@ beforeEach(function () {
 it('can list related cart lines', function () {
     /** @var TestCase $this */
     $expected = $this->cart->lines->map(fn (CartLine $line) => [
-        'type' => 'cart-lines',
+        'type' => 'cart_lines',
         'id' => (string) $line->getRouteKey(),
         'attributes' => [
             'purchasable_id' => $line->purchasable_id,
@@ -42,8 +42,8 @@ it('can list related cart lines', function () {
     $response = $this
         ->actingAs($this->user)
         ->jsonApi()
-        ->expects('cart-lines')
-        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/cart-lines"));
+        ->expects('cart_lines')
+        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/cart_lines"));
 
     $response
         ->assertSuccessful()
@@ -57,8 +57,8 @@ it('cannot list related cart lines without session and when not logged in', func
 
     $response = $this
         ->jsonApi()
-        ->expects('cart-lines')
-        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/cart-lines"));
+        ->expects('cart_lines')
+        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/cart_lines"));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',
@@ -73,14 +73,14 @@ it('can list cart lines relationships when logged in', function () {
     $response = $this
         ->actingAs($this->user)
         ->jsonApi()
-        ->expects('cart-lines')
-        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/relationships/cart-lines"));
+        ->expects('cart_lines')
+        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/relationships/cart_lines"));
 
     $response
         ->assertSuccessful()
         ->assertFetchedMany($this->cart->lines);
 
-})->group('cart.cart-lines');
+})->group('cart.cart_lines');
 
 it('cannot list cart lines relationships without session and when not logged in', function () {
     /** @var TestCase $this */
@@ -88,8 +88,8 @@ it('cannot list cart lines relationships without session and when not logged in'
 
     $response = $this
         ->jsonApi()
-        ->expects('cart-lines')
-        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/relationships/cart-lines"));
+        ->expects('cart_lines')
+        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/relationships/cart_lines"));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',

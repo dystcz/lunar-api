@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\ProductOptions\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
+use Dystcz\LunarApi\Domain\Auth\Concerns\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Lunar\Models\Contracts\ProductOption as ProductOptionContract;
 
@@ -31,6 +31,10 @@ class ProductOptionPolicy
      */
     public function create(?Authenticatable $user): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -39,6 +43,10 @@ class ProductOptionPolicy
      */
     public function update(?Authenticatable $user, ProductOptionContract $productOption): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -47,6 +55,18 @@ class ProductOptionPolicy
      */
     public function delete(?Authenticatable $user, ProductOptionContract $productOption): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
+    }
+
+    /**
+     * Authorize a user to view variant's product option values.
+     */
+    public function viewProductOptionValues(?Authenticatable $user, ProductOptionContract $productOption): bool
+    {
+        return true;
     }
 }

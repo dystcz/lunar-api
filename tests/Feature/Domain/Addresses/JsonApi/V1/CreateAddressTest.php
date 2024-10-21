@@ -3,8 +3,8 @@
 use Dystcz\LunarApi\Domain\Addresses\Models\Address;
 use Dystcz\LunarApi\Domain\Countries\Models\Country;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
-use Dystcz\LunarApi\LunarApi;
-use Dystcz\LunarApi\Tests\Stubs\Users\User;
+use Dystcz\LunarApi\Domain\Users\Models\User;
+use Dystcz\LunarApi\Facades\LunarApi;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;

@@ -21,7 +21,7 @@ class BrandRouteGroup extends RouteGroup implements RouteGroupContract
             ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), BrandsController::class)
                     ->relationships(function (Relationships $relationships) {
-                        $relationships->hasOne('default-url')->readOnly();
+                        $relationships->hasOne('default_url')->readOnly();
                     })
                     ->only('index', 'show')
                     ->readOnly();

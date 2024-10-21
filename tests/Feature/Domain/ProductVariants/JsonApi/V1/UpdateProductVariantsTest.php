@@ -2,7 +2,7 @@
 
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
-use Dystcz\LunarApi\Tests\Stubs\Users\User;
+use Dystcz\LunarApi\Domain\Users\Models\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -17,7 +17,7 @@ beforeEach(function () {
 
 test('product variants cannot be updated', function () {
     /** @var TestCase $this */
-    $response = $this->updateTest('product-variants', ProductVariant::class, []);
+    $response = $this->updateTest('product_variants', ProductVariant::class, []);
 
     $response->assertErrorStatus([
         'status' => '405',

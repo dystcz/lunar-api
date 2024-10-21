@@ -5,12 +5,11 @@ use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
-use Dystcz\LunarApi\LunarApi;
-use Dystcz\LunarApi\Tests\Stubs\Users\User;
+use Dystcz\LunarApi\Domain\Users\Models\User;
+use Dystcz\LunarApi\Facades\LunarApi;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\CartSessionInterface;
 
@@ -32,7 +31,7 @@ it('can add purchasable to a cart which does not yet exist', function () {
         ->create();
 
     $data = [
-        'type' => 'cart-lines',
+        'type' => 'cart_lines',
         'attributes' => [
             'quantity' => 1,
             'purchasable_id' => (int) $purchasable->getRouteKey(),
@@ -43,13 +42,13 @@ it('can add purchasable to a cart which does not yet exist', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('cart-lines')
+        ->expects('cart_lines')
         ->withData($data)
-        ->post(serverUrl('/cart-lines'));
+        ->post(serverUrl('/cart_lines'));
 
     $id = $response
         ->assertSuccessful()
-        ->assertCreatedWithServerId(serverUrl('/cart-lines', true), $data)
+        ->assertCreatedWithServerId(serverUrl('/cart_lines', true), $data)
         ->id();
 
     $cartLine = CartLine::query()
@@ -73,7 +72,15 @@ it('can associate existing cart to users after they log in', function () {
     Config::set('lunar.cart.auto_create', true);
 
     $cart = Cart::factory()->create();
-    $user = User::factory()->has(Customer::factory())->create();
+    $user = User::factory()->has(Customer::factory())->create([
+        'password' => Hash::make('password'),
+    ]);
+
+    $response = $this
+        ->post(serverUrl('/auth/-actions/login'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
 
     /** @var ProductVariant $purchasable */
     $purchasable = ProductVariant::factory()
@@ -87,7 +94,7 @@ it('can associate existing cart to users after they log in', function () {
     $this->cartSession->use($cart);
 
     $data = [
-        'type' => 'cart-lines',
+        'type' => 'cart_lines',
         'attributes' => [
             'quantity' => 1,
             'purchasable_id' => (int) $purchasable->getRouteKey(),
@@ -96,7 +103,11 @@ it('can associate existing cart to users after they log in', function () {
         ],
     ];
 
-    Auth::guard('web')->login($user);
+    $response = $this
+        ->post(serverUrl('/auth/-actions/login'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
 
     $cart = $cart->fresh();
 
@@ -128,7 +139,7 @@ it('can add purchasable to an existing cart', function () {
     $this->assertEmpty($cart->lines);
 
     $data = [
-        'type' => 'cart-lines',
+        'type' => 'cart_lines',
         'attributes' => [
             'quantity' => 1,
             'purchasable_id' => (int) $purchasable->getRouteKey(),
@@ -139,13 +150,13 @@ it('can add purchasable to an existing cart', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('cart-lines')
+        ->expects('cart_lines')
         ->withData($data)
-        ->post(serverUrl('/cart-lines'));
+        ->post(serverUrl('/cart_lines'));
 
     $id = $response
         ->assertSuccessful()
-        ->assertCreatedWithServerId(serverUrl('/cart-lines', true), $data)
+        ->assertCreatedWithServerId(serverUrl('/cart_lines', true), $data)
         ->id();
 
     $cartLine = CartLine::query()
@@ -175,7 +186,7 @@ it('manually creates a cart when cart auto create turned off', function () {
     $cartLine = $cart->lines->first();
 
     $data = [
-        'type' => 'cart-lines',
+        'type' => 'cart_lines',
         'attributes' => [
             'quantity' => $cartLine->quantity,
             'purchasable_id' => $cartLine->purchasable_id,
@@ -199,13 +210,13 @@ it('manually creates a cart when cart auto create turned off', function () {
     // This adds cart to session
     $response = $this
         ->jsonApi()
-        ->expects('cart-lines')
+        ->expects('cart_lines')
         ->withData($data)
-        ->post(serverUrl('/cart-lines'));
+        ->post(serverUrl('/cart_lines'));
 
     $id = $response
         ->assertSuccessful()
-        ->assertCreatedWithServerId(serverUrl('/cart-lines', true), $data)
+        ->assertCreatedWithServerId(serverUrl('/cart_lines', true), $data)
         ->id();
 
     $response = $this

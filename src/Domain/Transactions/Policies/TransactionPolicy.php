@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Transactions\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
+use Dystcz\LunarApi\Domain\Auth\Concerns\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Lunar\Models\Contracts\Transaction as TransactionContract;
 
@@ -15,7 +15,11 @@ class TransactionPolicy
      */
     public function viewAny(?Authenticatable $user): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -23,7 +27,11 @@ class TransactionPolicy
      */
     public function view(?Authenticatable $user, TransactionContract $line): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -31,6 +39,10 @@ class TransactionPolicy
      */
     public function create(?Authenticatable $user): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -39,6 +51,10 @@ class TransactionPolicy
      */
     public function update(?Authenticatable $user, TransactionContract $line): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -47,6 +63,10 @@ class TransactionPolicy
      */
     public function delete(?Authenticatable $user, TransactionContract $line): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return false;
     }
 }

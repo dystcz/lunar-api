@@ -2,27 +2,45 @@
 
 namespace Dystcz\LunarApi\Domain\Users\Http\Routing;
 
+use Dystcz\LunarApi\Domain\Users\Contracts\ChangePasswordController;
 use Dystcz\LunarApi\Domain\Users\Contracts\UsersController;
+use Dystcz\LunarApi\Facades\LunarApi;
+use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Dystcz\LunarApi\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
+use LaravelJsonApi\Laravel\Routing\ActionRegistrar;
+use LaravelJsonApi\Laravel\Routing\Relationships;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 
-class UserRouteGroup extends RouteGroup
+class UserRouteGroup extends RouteGroup implements RouteGroupContract
 {
     /**
      * Register routes.
      */
-    public function routes(?string $prefix = null, array|string $middleware = []): void
+    public function routes(): void
     {
         JsonApiRoute::server('v1')
             ->prefix('v1')
-            ->middleware('auth')
             ->resources(function (ResourceRegistrar $server) {
-                $server->resource($this->getPrefix(), UsersController::class)
-                    ->relationships(function ($relationships) {
+                $authGuard = LunarApi::getAuthGuard();
+
+                $server
+                    ->resource('users', UsersController::class)
+                    ->relationships(function (Relationships $relationships) {
                         $relationships->hasMany('customers')->readOnly();
                     })
-                    ->only('');
+                    ->only('store', 'update');
+
+                $server
+                    ->resource('users', ChangePasswordController::class)
+                    ->only('')
+                    ->actions('-actions', function (ActionRegistrar $actions) {
+                        $actions
+                            ->withId()
+                            ->patch('change-password', 'update')
+                            ->name('users.change-password');
+                    })
+                    ->middleware('auth:'.LunarApi::getAuthGuard());
             });
     }
 }

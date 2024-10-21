@@ -3,7 +3,7 @@
 use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
-use Dystcz\LunarApi\Tests\Stubs\Users\User;
+use Dystcz\LunarApi\Domain\Users\Models\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -22,7 +22,7 @@ beforeEach(function () {
 
 test('cart addresses cannot be deleted', function () {
     /** @var TestCase $this */
-    $response = $this->deleteTest('cart-addresses', $this->cartAddress);
+    $response = $this->deleteTest('cart_addresses', $this->cartAddress);
 
     $response->assertErrorStatus([
         'status' => '405',

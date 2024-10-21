@@ -1,21 +1,23 @@
 <?php
 
-use Dystcz\LunarApi\Support\Models\Actions\ModelType;
+use Dystcz\LunarApi\Support\Models\Actions\SchemaType;
 
 /*
  * Lunar API domains configuration
  */
 return [
     'auth' => [
+        'schema' => Dystcz\LunarApi\Domain\Auth\JsonApi\V1\AuthSchema::class,
+        'routes' => Dystcz\LunarApi\Domain\Auth\Http\Routing\AuthRouteGroup::class,
         'notifications' => [
             'reset_password' => Illuminate\Auth\Notifications\ResetPassword::class,
             'verify_email' => Illuminate\Auth\Notifications\VerifyEmail::class,
         ],
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Address::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Address::class) => [
         'model' => Dystcz\LunarApi\Domain\Addresses\Models\Address::class,
-        'lunar_model' => Lunar\Models\Contracts\Address::class,
+        'model_contract' => Lunar\Models\Contracts\Address::class,
         'policy' => Dystcz\LunarApi\Domain\Addresses\Policies\AddressPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Addresses\JsonApi\V1\AddressResource::class,
@@ -24,9 +26,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\Addresses\Http\Routing\AddressRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Attribute::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Attribute::class) => [
         'model' => Dystcz\LunarApi\Domain\Attributes\Models\Attribute::class,
-        'lunar_model' => Lunar\Models\Contracts\Attribute::class,
+        'model_contract' => Lunar\Models\Contracts\Attribute::class,
         'policy' => Dystcz\LunarApi\Domain\Attributes\Policies\AttributePolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Attributes\JsonApi\V1\AttributeSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Attributes\JsonApi\V1\AttributeResource::class,
@@ -35,9 +37,9 @@ return [
         'routes' => null,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\AttributeGroup::class) => [
+    SchemaType::get(Lunar\Models\Contracts\AttributeGroup::class) => [
         'model' => Dystcz\LunarApi\Domain\AttributeGroups\Models\AttributeGroup::class,
-        'lunar_model' => Lunar\Models\Contracts\AttributeGroup::class,
+        'model_contract' => Lunar\Models\Contracts\AttributeGroup::class,
         'policy' => Dystcz\LunarApi\Domain\AttributeGroups\Policies\AttributeGroupPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\AttributeGroups\JsonApi\V1\AttributeGroupSchema::class,
         'resource' => Dystcz\LunarApi\Domain\AttributeGroups\JsonApi\V1\AttributeGroupResource::class,
@@ -46,9 +48,9 @@ return [
         'routes' => null,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\ProductAssociation::class) => [
+    SchemaType::get(Lunar\Models\Contracts\ProductAssociation::class) => [
         'model' => Dystcz\LunarApi\Domain\ProductAssociations\Models\ProductAssociation::class,
-        'lunar_model' => Lunar\Models\Contracts\ProductAssociation::class,
+        'model_contract' => Lunar\Models\Contracts\ProductAssociation::class,
         'policy' => Dystcz\LunarApi\Domain\ProductAssociations\Policies\ProductAssociationPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1\ProductAssociationSchema::class,
         'resource' => Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1\ProductAssociationResource::class,
@@ -57,9 +59,9 @@ return [
         'routes' => null,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Brand::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Brand::class) => [
         'model' => Dystcz\LunarApi\Domain\Brands\Models\Brand::class,
-        'lunar_model' => Lunar\Models\Contracts\Brand::class,
+        'model_contract' => Lunar\Models\Contracts\Brand::class,
         'policy' => Dystcz\LunarApi\Domain\Brands\Policies\BrandPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Brands\JsonApi\V1\BrandSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Brands\JsonApi\V1\BrandResource::class,
@@ -68,9 +70,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\Brands\Http\Routing\BrandRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\CartAddress::class) => [
+    SchemaType::get(Lunar\Models\Contracts\CartAddress::class) => [
         'model' => Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress::class,
-        'lunar_model' => Lunar\Models\Contracts\CartAddress::class,
+        'model_contract' => Lunar\Models\Contracts\CartAddress::class,
         'policy' => Dystcz\LunarApi\Domain\CartAddresses\Policies\CartAddressPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema::class,
         'resource' => Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressResource::class,
@@ -79,9 +81,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\CartAddresses\Http\Routing\CartAddressRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\CartLine::class) => [
+    SchemaType::get(Lunar\Models\Contracts\CartLine::class) => [
         'model' => Dystcz\LunarApi\Domain\CartLines\Models\CartLine::class,
-        'lunar_model' => Lunar\Models\Contracts\CartLine::class,
+        'model_contract' => Lunar\Models\Contracts\CartLine::class,
         'policy' => Dystcz\LunarApi\Domain\CartLines\Policies\CartLinePolicy::class,
         'schema' => Dystcz\LunarApi\Domain\CartLines\JsonApi\V1\CartLineSchema::class,
         'resource' => Dystcz\LunarApi\Domain\CartLines\JsonApi\V1\CartLineResource::class,
@@ -90,9 +92,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\CartLines\Http\Routing\CartLineRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Cart::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Cart::class) => [
         'model' => Dystcz\LunarApi\Domain\Carts\Models\Cart::class,
-        'lunar_model' => Lunar\Models\Contracts\Cart::class,
+        'model_contract' => Lunar\Models\Contracts\Cart::class,
         'policy' => Dystcz\LunarApi\Domain\Carts\Policies\CartPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Carts\JsonApi\V1\CartResource::class,
@@ -101,9 +103,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\Carts\Http\Routing\CartRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Channel::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Channel::class) => [
         'model' => Dystcz\LunarApi\Domain\Channels\Models\Channel::class,
-        'lunar_model' => Lunar\Models\Contracts\Channel::class,
+        'model_contract' => Lunar\Models\Contracts\Channel::class,
         'policy' => Dystcz\LunarApi\Domain\Channels\Policies\ChannelPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Channels\JsonApi\V1\ChannelSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Channels\JsonApi\V1\ChannelResource::class,
@@ -112,9 +114,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\Channels\Http\Routing\ChannelRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Collection::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Collection::class) => [
         'model' => Dystcz\LunarApi\Domain\Collections\Models\Collection::class,
-        'lunar_model' => Lunar\Models\Contracts\Collection::class,
+        'model_contract' => Lunar\Models\Contracts\Collection::class,
         'policy' => Dystcz\LunarApi\Domain\Collections\Policies\CollectionPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Collections\JsonApi\V1\CollectionResource::class,
@@ -123,9 +125,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\Collections\Http\Routing\CollectionRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\CollectionGroup::class) => [
+    SchemaType::get(Lunar\Models\Contracts\CollectionGroup::class) => [
         'model' => Dystcz\LunarApi\Domain\CollectionGroups\Models\CollectionGroup::class,
-        'lunar_model' => Lunar\Models\Contracts\CollectionGroup::class,
+        'model_contract' => Lunar\Models\Contracts\CollectionGroup::class,
         'policy' => Dystcz\LunarApi\Domain\CollectionGroups\Policies\CollectionGroupPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1\CollectionGroupSchema::class,
         'resource' => Dystcz\LunarApi\Domain\CollectionGroups\JsonApi\V1\CollectionGroupResource::class,
@@ -134,9 +136,9 @@ return [
         'routes' => null,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Country::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Country::class) => [
         'model' => Dystcz\LunarApi\Domain\Countries\Models\Country::class,
-        'lunar_model' => Lunar\Models\Contracts\Country::class,
+        'model_contract' => Lunar\Models\Contracts\Country::class,
         'policy' => Dystcz\LunarApi\Domain\Countries\Policies\CountryPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Countries\JsonApi\V1\CountrySchema::class,
         'resource' => Dystcz\LunarApi\Domain\Countries\JsonApi\V1\CountryResource::class,
@@ -145,9 +147,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\Countries\Http\Routing\CountryRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Currency::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Currency::class) => [
         'model' => Dystcz\LunarApi\Domain\Currencies\Models\Currency::class,
-        'lunar_model' => Lunar\Models\Contracts\Currency::class,
+        'model_contract' => Lunar\Models\Contracts\Currency::class,
         'policy' => Dystcz\LunarApi\Domain\Currencies\Policies\CurrencyPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Currencies\JsonApi\V1\CurrencySchema::class,
         'resource' => Dystcz\LunarApi\Domain\Currencies\JsonApi\V1\CurrencyResource::class,
@@ -156,9 +158,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\Currencies\Http\Routing\CurrencyRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Customer::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Customer::class) => [
         'model' => Dystcz\LunarApi\Domain\Customers\Models\Customer::class,
-        'lunar_model' => Lunar\Models\Contracts\Customer::class,
+        'model_contract' => Lunar\Models\Contracts\Customer::class,
         'policy' => Dystcz\LunarApi\Domain\Customers\Policies\CustomerPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Customers\JsonApi\V1\CustomerSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Customers\JsonApi\V1\CustomerResource::class,
@@ -169,7 +171,7 @@ return [
 
     // 'discounts' => [
     //     'model' => Dystcz\LunarApi\Domain\Discounts\Models\Discount::class,
-    //     'lunar_model' => Lunar\Models\Contracts\Discount::class,
+    //     'model_contract' => Lunar\Models\Contracts\Discount::class,
     //     'policy' => Dystcz\LunarApi\Domain\Discounts\Policies\DiscountPolicy::class,
     //     'schema' => Dystcz\LunarApi\Domain\Discounts\JsonApi\V1\DiscountSchema::class,
     //     'resource' => Dystcz\LunarApi\Domain\Discounts\JsonApi\V1\DiscountResource::class,
@@ -179,9 +181,9 @@ return [
     //
     // ],
 
-    ModelType::get(Spatie\MediaLibrary\MediaCollections\Models\Media::class) => [
+    SchemaType::get(Spatie\MediaLibrary\MediaCollections\Models\Media::class) => [
         'model' => Spatie\MediaLibrary\MediaCollections\Models\Media::class,
-        'lunar_model' => null,
+        'model_contract' => null,
         'policy' => Dystcz\LunarApi\Domain\Media\Policies\MediaPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Media\JsonApi\V1\MediaResource::class,
@@ -190,9 +192,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\Media\Http\Routing\MediaRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Order::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Order::class) => [
         'model' => Dystcz\LunarApi\Domain\Orders\Models\Order::class,
-        'lunar_model' => Lunar\Models\Contracts\Order::class,
+        'model_contract' => Lunar\Models\Contracts\Order::class,
         'policy' => Dystcz\LunarApi\Domain\Orders\Policies\OrderPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Orders\JsonApi\V1\OrderResource::class,
@@ -201,9 +203,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\Orders\Http\Routing\OrderRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\OrderAddress::class) => [
+    SchemaType::get(Lunar\Models\Contracts\OrderAddress::class) => [
         'model' => Dystcz\LunarApi\Domain\OrderAddresses\Models\OrderAddress::class,
-        'lunar_model' => Lunar\Models\Contracts\OrderAddress::class,
+        'model_contract' => Lunar\Models\Contracts\OrderAddress::class,
         'policy' => Dystcz\LunarApi\Domain\OrderAddresses\Policies\OrderAddressPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\OrderAddresses\JsonApi\V1\OrderAddressSchema::class,
         'resource' => Dystcz\LunarApi\Domain\OrderAddresses\JsonApi\V1\OrderAddressResource::class,
@@ -212,9 +214,9 @@ return [
         'routes' => null,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\OrderLine::class) => [
+    SchemaType::get(Lunar\Models\Contracts\OrderLine::class) => [
         'model' => Dystcz\LunarApi\Domain\OrderLines\Models\OrderLine::class,
-        'lunar_model' => Lunar\Models\Contracts\OrderLine::class,
+        'model_contract' => Lunar\Models\Contracts\OrderLine::class,
         'policy' => Dystcz\LunarApi\Domain\OrderLines\Policies\OrderLinePolicy::class,
         'schema' => Dystcz\LunarApi\Domain\OrderLines\JsonApi\V1\OrderLineSchema::class,
         'resource' => Dystcz\LunarApi\Domain\OrderLines\JsonApi\V1\OrderLineResource::class,
@@ -223,9 +225,9 @@ return [
         'routes' => null,
     ],
 
-    ModelType::get(Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption::class) => [
+    SchemaType::get(Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption::class) => [
         'model' => null,
-        'lunar_model' => null,
+        'model_contract' => null,
         'policy' => null,
         'schema' => Dystcz\LunarApi\Domain\PaymentOptions\JsonApi\V1\PaymentOptionSchema::class,
         'resource' => Dystcz\LunarApi\Domain\PaymentOptions\JsonApi\V1\PaymentOptionResource::class,
@@ -234,9 +236,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\PaymentOptions\Http\Routing\PaymentOptionRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Price::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Price::class) => [
         'model' => Dystcz\LunarApi\Domain\Prices\Models\Price::class,
-        'lunar_model' => Lunar\Models\Contracts\Price::class,
+        'model_contract' => Lunar\Models\Contracts\Price::class,
         'policy' => Dystcz\LunarApi\Domain\Prices\Policies\PricePolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Prices\JsonApi\V1\PriceResource::class,
@@ -245,9 +247,9 @@ return [
         'routes' => null,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\ProductAssociation::class) => [
+    SchemaType::get(Lunar\Models\Contracts\ProductAssociation::class) => [
         'model' => Dystcz\LunarApi\Domain\ProductAssociations\Models\ProductAssociation::class,
-        'lunar_model' => Lunar\Models\Contracts\ProductAssociation::class,
+        'model_contract' => Lunar\Models\Contracts\ProductAssociation::class,
         'policy' => Dystcz\LunarApi\Domain\ProductAssociations\Policies\ProductAssociationPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1\ProductAssociationSchema::class,
         'resource' => Dystcz\LunarApi\Domain\ProductAssociations\JsonApi\V1\ProductAssociationResource::class,
@@ -256,9 +258,9 @@ return [
         'routes' => null,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\ProductOption::class) => [
+    SchemaType::get(Lunar\Models\Contracts\ProductOption::class) => [
         'model' => Dystcz\LunarApi\Domain\ProductOptions\Models\ProductOption::class,
-        'lunar_model' => Lunar\Models\Contracts\ProductOption::class,
+        'model_contract' => Lunar\Models\Contracts\ProductOption::class,
         'policy' => Dystcz\LunarApi\Domain\ProductOptions\Policies\ProductOptionPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\ProductOptions\JsonApi\V1\ProductOptionSchema::class,
         'resource' => Dystcz\LunarApi\Domain\ProductOptions\JsonApi\V1\ProductOptionResource::class,
@@ -267,9 +269,9 @@ return [
         'routes' => null,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\ProductOptionValue::class) => [
+    SchemaType::get(Lunar\Models\Contracts\ProductOptionValue::class) => [
         'model' => Dystcz\LunarApi\Domain\ProductOptionValues\Models\ProductOptionValue::class,
-        'lunar_model' => Lunar\Models\Contracts\ProductOptionValue::class,
+        'model_contract' => Lunar\Models\Contracts\ProductOptionValue::class,
         'policy' => Dystcz\LunarApi\Domain\ProductOptionValues\Policies\ProductOptionValuePolicy::class,
         'schema' => Dystcz\LunarApi\Domain\ProductOptionValues\JsonApi\V1\ProductOptionValueSchema::class,
         'resource' => Dystcz\LunarApi\Domain\ProductOptionValues\JsonApi\V1\ProductOptionValueResource::class,
@@ -278,9 +280,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\ProductOptionValues\Http\Routing\ProductOptionValueRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\ProductType::class) => [
+    SchemaType::get(Lunar\Models\Contracts\ProductType::class) => [
         'model' => Dystcz\LunarApi\Domain\ProductTypes\Models\ProductType::class,
-        'lunar_model' => Lunar\Models\Contracts\ProductType::class,
+        'model_contract' => Lunar\Models\Contracts\ProductType::class,
         'policy' => Dystcz\LunarApi\Domain\ProductTypes\Policies\ProductTypePolicy::class,
         'schema' => Dystcz\LunarApi\Domain\ProductTypes\JsonApi\V1\ProductTypeSchema::class,
         'resource' => Dystcz\LunarApi\Domain\ProductTypes\JsonApi\V1\ProductTypeResource::class,
@@ -289,9 +291,9 @@ return [
         'routes' => null,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Product::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Product::class) => [
         'model' => Dystcz\LunarApi\Domain\Products\Models\Product::class,
-        'lunar_model' => Lunar\Models\Contracts\Product::class,
+        'model_contract' => Lunar\Models\Contracts\Product::class,
         'policy' => Dystcz\LunarApi\Domain\Products\Policies\ProductPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductResource::class,
@@ -300,9 +302,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\Products\Http\Routing\ProductRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\ProductVariant::class) => [
+    SchemaType::get(Lunar\Models\Contracts\ProductVariant::class) => [
         'model' => Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant::class,
-        'lunar_model' => Lunar\Models\Contracts\ProductVariant::class,
+        'model_contract' => Lunar\Models\Contracts\ProductVariant::class,
         'policy' => Dystcz\LunarApi\Domain\ProductVariants\Policies\ProductVariantPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema::class,
         'resource' => Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantResource::class,
@@ -311,9 +313,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\ProductVariants\Http\Routing\ProductVariantRouteGroup::class,
     ],
 
-    ModelType::get(Dystcz\LunarApi\Domain\ShippingOptions\Entities\ShippingOption::class) => [
+    SchemaType::get(Dystcz\LunarApi\Domain\ShippingOptions\Entities\ShippingOption::class) => [
         'model' => null,
-        'lunar_model' => null,
+        'model_contract' => null,
         'policy' => null,
         'schema' => Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\ShippingOptionSchema::class,
         'resource' => Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1\ShippingOptionResource::class,
@@ -322,9 +324,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\ShippingOptions\Http\Routing\ShippingOptionRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Tag::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Tag::class) => [
         'model' => Dystcz\LunarApi\Domain\Tags\Models\Tag::class,
-        'lunar_model' => Lunar\Models\Contracts\Tag::class,
+        'model_contract' => Lunar\Models\Contracts\Tag::class,
         'policy' => Dystcz\LunarApi\Domain\Tags\Policies\TagPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Tags\JsonApi\V1\TagSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Tags\JsonApi\V1\TagResource::class,
@@ -333,9 +335,9 @@ return [
         'routes' => Dystcz\LunarApi\Domain\Tags\Http\Routing\TagRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Transaction::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Transaction::class) => [
         'model' => Dystcz\LunarApi\Domain\Transactions\Models\Transaction::class,
-        'lunar_model' => Lunar\Models\Contracts\Transaction::class,
+        'model_contract' => Lunar\Models\Contracts\Transaction::class,
         'policy' => Dystcz\LunarApi\Domain\Transactions\Policies\TransactionPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Transactions\JsonApi\V1\TransactionSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Transactions\JsonApi\V1\TransactionResource::class,
@@ -344,9 +346,9 @@ return [
         'routes' => null,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\Url::class) => [
+    SchemaType::get(Lunar\Models\Contracts\Url::class) => [
         'model' => Dystcz\LunarApi\Domain\Urls\Models\Url::class,
-        'lunar_model' => Lunar\Models\Contracts\Url::class,
+        'model_contract' => Lunar\Models\Contracts\Url::class,
         'policy' => Dystcz\LunarApi\Domain\Urls\Policies\UrlPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Urls\JsonApi\V1\UrlSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Urls\JsonApi\V1\UrlResource::class,
@@ -355,9 +357,20 @@ return [
         'routes' => Dystcz\LunarApi\Domain\Urls\Http\Routing\UrlRouteGroup::class,
     ],
 
-    ModelType::get(Lunar\Models\Contracts\TaxZone::class) => [
+    SchemaType::get(Dystcz\LunarApi\Domain\Users\Contracts\User::class) => [
+        'model' => Dystcz\LunarApi\Domain\Users\Models\User::class,
+        'model_contract' => Dystcz\LunarApi\Domain\Users\Contracts\User::class,
+        'policy' => Dystcz\LunarApi\Domain\Users\Policies\UserPolicy::class,
+        'schema' => Dystcz\LunarApi\Domain\Users\JsonApi\V1\UserSchema::class,
+        'resource' => Dystcz\LunarApi\Domain\Users\JsonApi\V1\UserResource::class,
+        'query' => Dystcz\LunarApi\Domain\Users\JsonApi\V1\UserQuery::class,
+        'collection_query' => Dystcz\LunarApi\Domain\Users\JsonApi\V1\UserCollectionQuery::class,
+        'routes' => Dystcz\LunarApi\Domain\Users\Http\Routing\UserRouteGroup::class,
+    ],
+
+    SchemaType::get(Lunar\Models\Contracts\TaxZone::class) => [
         'model' => Dystcz\LunarApi\Domain\TaxZones\Models\TaxZone::class,
-        'lunar_model' => Lunar\Models\Contracts\TaxZone::class,
+        'model_contract' => Lunar\Models\Contracts\TaxZone::class,
         'policy' => Dystcz\LunarApi\Domain\TaxZones\Policies\TaxZonePolicy::class,
         'schema' => Dystcz\LunarApi\Domain\TaxZones\JsonApi\V1\TaxZoneSchema::class,
         'resource' => Dystcz\LunarApi\Domain\TaxZones\JsonApi\V1\TaxZoneResource::class,

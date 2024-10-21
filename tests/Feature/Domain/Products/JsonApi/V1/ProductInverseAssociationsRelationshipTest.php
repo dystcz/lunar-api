@@ -27,8 +27,8 @@ it('can list inverse productassociations through relationship', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('product-associations')
-        ->get(serverUrl("/products/{$productB->getRouteKey()}/inverse-product-associations"));
+        ->expects('product_associations')
+        ->get(serverUrl("/products/{$productB->getRouteKey()}/inverse_product_associations"));
 
     $response
         ->assertSuccessful()
@@ -55,11 +55,11 @@ it('can count inverse product associations', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->get(serverUrl("/products/{$productB->getRouteKey()}?with_count=inverse-product-associations"));
+        ->get(serverUrl("/products/{$productB->getRouteKey()}?with_count=inverse_product_associations"));
 
     $response
         ->assertSuccessful()
         ->assertFetchedOne($productB);
 
-    expect($response->json('data.relationships.inverse-product-associations.meta.count'))->toBe(1);
+    expect($response->json('data.relationships.inverse_product_associations.meta.count'))->toBe(1);
 })->group('products', 'counts');

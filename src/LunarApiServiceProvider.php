@@ -6,6 +6,7 @@ use Dystcz\LunarApi\Domain\Carts\Actions\CheckoutCart;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Users\Actions\CreateUser;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
+use Dystcz\LunarApi\Facades\LunarApi as LunarApiFacade;
 use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Config;
@@ -82,10 +83,10 @@ class LunarApiServiceProvider extends ServiceProvider
         $this->registerEvents();
         $this->registerPayments();
 
-        LunarApi::createUserUsing(CreateUser::class);
-        LunarApi::createUserFromCartUsing(CreateUserFromCart::class);
-        LunarApi::registerUserUsing(RegisterUser::class);
-        LunarApi::checkoutCartUsing(CheckoutCart::class);
+        LunarApiFacade::createUserUsing(CreateUser::class);
+        LunarApiFacade::createUserFromCartUsing(CreateUserFromCart::class);
+        LunarApiFacade::registerUserUsing(RegisterUser::class);
+        LunarApiFacade::checkoutCartUsing(CheckoutCart::class);
 
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
@@ -324,6 +325,12 @@ class LunarApiServiceProvider extends ServiceProvider
             \Dystcz\LunarApi\Domain\Tags\Contracts\TagsController::class => \Dystcz\LunarApi\Domain\Tags\Http\Controllers\TagsController::class,
             \Dystcz\LunarApi\Domain\Urls\Contracts\UrlsController::class => \Dystcz\LunarApi\Domain\Urls\Http\Controllers\UrlsController::class,
             \Dystcz\LunarApi\Domain\Users\Contracts\UsersController::class => \Dystcz\LunarApi\Domain\Users\Http\Controllers\UsersController::class,
+            \Dystcz\LunarApi\Domain\Users\Contracts\ChangePasswordController::class => \Dystcz\LunarApi\Domain\Users\Http\Controllers\ChangePasswordController::class,
+            \Dystcz\LunarApi\Domain\Auth\Contracts\AuthUserOrdersController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\AuthUserOrdersController::class,
+            \Dystcz\LunarApi\Domain\Auth\Contracts\RegisterUserWithoutPasswordController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\RegisterUserWithoutPasswordController::class,
+            \Dystcz\LunarApi\Domain\Auth\Contracts\AuthController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\AuthController::class,
+            \Dystcz\LunarApi\Domain\Auth\Contracts\PasswordResetLinkController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\PasswordResetLinkController::class,
+            \Dystcz\LunarApi\Domain\Auth\Contracts\NewPasswordController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\NewPasswordController::class,
         ];
 
         foreach ($controllers as $abstract => $concrete) {
@@ -409,16 +416,16 @@ class LunarApiServiceProvider extends ServiceProvider
         \Lunar\Models\ProductVariant::resolveRelationUsing('attributes', function ($model) {
             return $model
                 ->hasMany(
-                    \Lunar\Models\Attribute::class,
+                    \Lunar\Models\Attribute::modelClass(),
                     'attribute_type',
-                    'attribute_classname',
+                    'attribute_type',
                 );
         });
 
         \Lunar\Models\ProductVariant::resolveRelationUsing('urls', function ($model) {
             return $model
                 ->morphMany(
-                    \Lunar\Models\Url::class,
+                    \Lunar\Models\Url::modelClass(),
                     'element'
                 );
         });
@@ -426,14 +433,14 @@ class LunarApiServiceProvider extends ServiceProvider
         \Lunar\Models\ProductVariant::resolveRelationUsing('defaultUrl', function ($model) {
             return $model
                 ->morphOne(
-                    \Lunar\Models\Url::class,
+                    \Lunar\Models\Url::modelClass(),
                     'element'
                 )->whereDefault(true);
         });
 
         \Lunar\Models\ProductVariant::resolveRelationUsing('otherVariants', function ($model) {
             return $model
-                ->hasMany(\Lunar\Models\ProductVariant::class, 'product_id', 'product_id')
+                ->hasMany(\Lunar\Models\ProductVariant::modelClass(), 'product_id', 'product_id')
                 ->where($model->getRouteKeyName(), '!=', $model->getAttribute($model->getRouteKeyName()));
         });
     }

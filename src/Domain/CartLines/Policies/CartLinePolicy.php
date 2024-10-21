@@ -2,8 +2,8 @@
 
 namespace Dystcz\LunarApi\Domain\CartLines\Policies;
 
+use Dystcz\LunarApi\Domain\Auth\Concerns\HandlesAuthorization;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CurrentSessionCart;
-use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -34,7 +34,11 @@ class CartLinePolicy
      */
     public function viewAny(?Authenticatable $user): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -42,7 +46,11 @@ class CartLinePolicy
      */
     public function view(?Authenticatable $user, CartLineContract $cartLine): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return $this->check($user, $cartLine);
     }
 
     /**
@@ -58,6 +66,10 @@ class CartLinePolicy
      */
     public function update(?Authenticatable $user, CartLineContract $cartLine): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return $this->check($user, $cartLine);
     }
 
@@ -66,6 +78,10 @@ class CartLinePolicy
      */
     public function delete(?Authenticatable $user, CartLineContract $cartLine): bool
     {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
         return $this->check($user, $cartLine);
     }
 

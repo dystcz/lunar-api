@@ -3,7 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Tags\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Dystcz\LunarApi\Support\Models\Actions\ModelType;
+use Dystcz\LunarApi\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
@@ -42,7 +42,7 @@ class TagSchema extends Schema
             Str::make('value'),
 
             // MorphTo::make('taggables', 'taggables')
-            //     ->type(ModelType::get(Url::class)),
+            //     ->type(SchemaType::get(Url::class)),
 
             ...parent::fields(),
         ];

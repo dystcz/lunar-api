@@ -21,22 +21,23 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
             ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), ProductsController::class)
                     ->relationships(function (Relationships $relationships) {
-                        $relationships->hasMany('product-associations')->readOnly();
+                        $relationships->hasMany('product_associations')->readOnly();
                         $relationships->hasOne('brand')->readOnly();
-                        $relationships->hasOne('cheapest-product-variant')->readOnly();
+                        $relationships->hasOne('cheapest_product_variant')->readOnly();
                         $relationships->hasOne('channels')->readOnly();
-                        $relationships->hasOne('most-expensive-product-variant')->readOnly();
+                        $relationships->hasOne('most_expensive_product_variant')->readOnly();
                         $relationships->hasMany('collections')->readOnly();
-                        $relationships->hasOne('default-url')->readOnly();
+                        $relationships->hasOne('default_url')->readOnly();
                         $relationships->hasMany('images')->readOnly();
-                        $relationships->hasMany('inverse-product-associations')->readOnly();
-                        $relationships->hasOne('lowest-price')->readOnly();
-                        $relationships->hasOne('highest-price')->readOnly();
+                        $relationships->hasMany('inverse_product_associations')->readOnly();
+                        $relationships->hasOne('lowest_price')->readOnly();
+                        $relationships->hasOne('highest_price')->readOnly();
                         $relationships->hasMany('prices')->readOnly();
                         $relationships->hasMany('tags')->readOnly();
                         $relationships->hasOne('thumbnail')->readOnly();
                         $relationships->hasMany('urls')->readOnly();
-                        $relationships->hasMany('product-variants')->readOnly();
+                        $relationships->hasMany('product_variants')->readOnly();
+                        $relationships->hasMany('product_options')->readOnly();
                     })
                     ->only('index', 'show')
                     ->readOnly();

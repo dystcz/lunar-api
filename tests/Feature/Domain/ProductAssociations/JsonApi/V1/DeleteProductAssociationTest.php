@@ -2,7 +2,7 @@
 
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\ProductAssociations\Models\ProductAssociation;
-use Dystcz\LunarApi\Tests\Stubs\Users\User;
+use Dystcz\LunarApi\Domain\Users\Models\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -17,7 +17,7 @@ beforeEach(function () {
 
 test('product associations cannot be deleted', function () {
     /** @var TestCase $this */
-    $response = $this->deleteTest('product-associations', ProductAssociation::class);
+    $response = $this->deleteTest('product_associations', ProductAssociation::class);
 
     $response->assertErrorStatus([
         'status' => '404',

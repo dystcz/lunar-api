@@ -7,7 +7,7 @@ use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Exception;
 use Illuminate\Support\Str;
 use LaravelJsonApi\Contracts\Schema\Schema;
-use Lunar\Base\BaseModel;
+use Lunar\Base\Traits\HasModelExtending;
 
 class DomainConfig
 {
@@ -17,7 +17,7 @@ class DomainConfig
     public function __construct(
         public string $domain,
         public ?string $model = null,
-        public ?string $lunar_model = null,
+        public ?string $model_contract = null,
         public ?string $policy = null,
         public ?string $schema = null,
         public ?string $resource = null,
@@ -126,19 +126,19 @@ class DomainConfig
     }
 
     /**
-     * Check if domain has lunar model.
+     * Check if domain has model contract.
      */
-    public function hasLunarModel(): bool
+    public function hasModelContract(): bool
     {
-        return ! is_null($this->getLunarModel());
+        return ! is_null($this->model_contract);
     }
 
     /**
      * Check if domain has model and lunar model.
      */
-    public function swapsLunarModel(): bool
+    public function swapsModel(): bool
     {
-        return $this->hasModel() && $this->hasLunarModel();
+        return $this->hasModel() && $this->hasModelContract();
     }
 
     /**
@@ -178,8 +178,6 @@ class DomainConfig
     {
         $checks = [
             'model',
-            // TODO: Validate Lunar model contracts after Lunar SP was booted
-            // 'lunar_model',
             'policy',
             'schema',
             'resource',
@@ -202,14 +200,14 @@ class DomainConfig
      */
     private function validateModel(): void
     {
-        if (! $this->swapsLunarModel()) {
+        if (! $this->swapsModel()) {
             return;
         }
 
-        $this->validateSubclassOf(
+        $this->validateClassUses(
             'model',
             $this->getModel(),
-            BaseModel::class,
+            HasModelExtending::class,
         );
     }
 
@@ -272,6 +270,21 @@ class DomainConfig
 
         if (! class_exists($class)) {
             throw new Exception("{$type} class {$class} does not exist.");
+        }
+    }
+
+    /**
+     * Validate that a class uses a trait.
+     *
+     * @param  class-string  $class
+     * @param  trait-string  $trait
+     */
+    private function validateClassUses(string $type, string $class, string $trait): void
+    {
+        $traits = class_uses_recursive($class);
+
+        if (! in_array($trait, $traits)) {
+            throw new Exception("{$type} class {$class} does not use {$trait}.");
         }
     }
 

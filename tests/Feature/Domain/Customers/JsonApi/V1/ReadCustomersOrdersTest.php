@@ -2,7 +2,7 @@
 
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
-use Dystcz\LunarApi\Tests\Stubs\Users\User;
+use Dystcz\LunarApi\Domain\Users\Models\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -30,16 +30,16 @@ it('can list customers orders', function () {
         ->jsonApi()
         ->expects('orders')
         ->includePaths(
-            'product-lines.purchasable.product',
-            'product-lines.purchasable.prices',
+            'product_lines.purchasable.product',
+            'product_lines.purchasable.prices',
         )
         ->get(serverUrl("/customers/{$customer->getRouteKey()}/orders"));
 
     $orderLine = $customer->orders->first()->lines->first();
 
     $response->assertFetchedMany($expected)
-        ->assertIsIncluded('order-lines', $orderLine)
-        ->assertIsIncluded('product-variants', $orderLine->purchasable)
+        ->assertIsIncluded('order_lines', $orderLine)
+        ->assertIsIncluded('product_variants', $orderLine->purchasable)
         ->assertIsIncluded('products', $orderLine->purchasable->product)
         ->assertIsIncluded('prices', $orderLine->purchasable->prices->first());
 })->group('orders');

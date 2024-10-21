@@ -15,8 +15,8 @@ it('can show product variant detail', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('product-variants')
-        ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
+        ->expects('product_variants')
+        ->get(serverUrl('/product_variants/'.$variant->getRouteKey()));
 
     $response
         ->assertSuccessful()
@@ -28,8 +28,8 @@ it('returns error response when product variant does not exists', function () {
     /** @var TestCase $this */
     $response = $this
         ->jsonApi()
-        ->expects('product-variants')
-        ->get(serverUrl('/product-variants/1'));
+        ->expects('product_variants')
+        ->get(serverUrl('/product_variants/1'));
 
     $response
         ->assertErrorStatus([
@@ -48,15 +48,15 @@ test('can show a product variant with included images', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('product-variants')
+        ->expects('product_variants')
         ->includePaths('images')
-        ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
+        ->get(serverUrl('/product_variants/'.$variant->getRouteKey()));
 
     $response
         ->assertSuccessful()
         ->assertFetchedOne($variant)
         ->assertIsIncluded('media', $variant->images->first());
-})->group('product-variants');
+})->group('product_variants');
 
 it('can show a product variant with included thumbnail', function () {
     /** @var TestCase $this */
@@ -69,9 +69,9 @@ it('can show a product variant with included thumbnail', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('product-variants')
+        ->expects('product_variants')
         ->includePaths('thumbnail')
-        ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
+        ->get(serverUrl('/product_variants/'.$variant->getRouteKey()));
 
     $response
         ->assertSuccessful()
@@ -87,9 +87,9 @@ it('can show a product variant with included product', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('product-variants')
+        ->expects('product_variants')
         ->includePaths('product')
-        ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
+        ->get(serverUrl('/product_variants/'.$variant->getRouteKey()));
 
     $response
         ->assertSuccessful()
@@ -107,9 +107,9 @@ it('can show a product variant with included lowest price', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('product-variants')
-        ->includePaths('lowest-price')
-        ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
+        ->expects('product_variants')
+        ->includePaths('lowest_price')
+        ->get(serverUrl('/product_variants/'.$variant->getRouteKey()));
 
     $response
         ->assertSuccessful()
@@ -127,9 +127,9 @@ it('can show a product variant with included highest price', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('product-variants')
-        ->includePaths('highest-price')
-        ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
+        ->expects('product_variants')
+        ->includePaths('highest_price')
+        ->get(serverUrl('/product_variants/'.$variant->getRouteKey()));
 
     $response
         ->assertSuccessful()
@@ -147,9 +147,9 @@ it('can show a product variant with included prices', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('product-variants')
+        ->expects('product_variants')
         ->includePaths('prices')
-        ->get(serverUrl('/product-variants/'.$variant->getRouteKey()));
+        ->get(serverUrl('/product_variants/'.$variant->getRouteKey()));
 
     $response
         ->assertSuccessful()
@@ -173,16 +173,16 @@ it('can show a product variant with other variants included', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('product-variants')
-        ->includePaths('other-product-variants')
-        ->get(serverUrl('/product-variants/').$variant->getRouteKey());
+        ->expects('product_variants')
+        ->includePaths('other_product_variants')
+        ->get(serverUrl('/product_variants/').$variant->getRouteKey());
 
     $response
         ->assertSuccessful()
         ->assertFetchedOne($variant);
 
     foreach ($otherVariants as $variant) {
-        $response->assertIsIncluded('product-variants', $variant);
+        $response->assertIsIncluded('product_variants', $variant);
     }
 
 })->group('product-variants');
@@ -199,12 +199,12 @@ it('can show a product with other variants count', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('product-variants')
-        ->get(serverUrl("/product-variants/{$variant->getRouteKey()}?with_count=other-product-variants"));
+        ->expects('product_variants')
+        ->get(serverUrl("/product_variants/{$variant->getRouteKey()}?with_count=other_product_variants"));
 
     $response
         ->assertSuccessful()
         ->assertFetchedOne($variant);
 
-    expect($response->json('data.relationships.other-product-variants.meta.count'))->toBe(3);
+    expect($response->json('data.relationships.other_product_variants.meta.count'))->toBe(3);
 })->group('product-variants');

@@ -20,8 +20,8 @@ it('can list product variants through relationship', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('product-variants')
-        ->get(serverUrl("/products/{$product->getRouteKey()}/product-variants"));
+        ->expects('product_variants')
+        ->get(serverUrl("/products/{$product->getRouteKey()}/product_variants"));
 
     $response
         ->assertSuccessful()
@@ -41,11 +41,11 @@ it('can count product variants', function () {
     $response = $this
         ->jsonApi()
         ->expects('products')
-        ->get(serverUrl("/products/{$product->getRouteKey()}?with_count=product-variants"));
+        ->get(serverUrl("/products/{$product->getRouteKey()}?with_count=product_variants"));
 
     $response
         ->assertSuccessful()
         ->assertFetchedOne($product);
 
-    expect($response->json('data.relationships.product-variants.meta.count'))->toBe(5);
+    expect($response->json('data.relationships.product_variants.meta.count'))->toBe(5);
 })->group('products', 'counts');

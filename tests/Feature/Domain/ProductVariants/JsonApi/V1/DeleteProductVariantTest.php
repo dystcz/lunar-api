@@ -2,7 +2,7 @@
 
 use Dystcz\LunarApi\Domain\Customers\Models\Customer;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
-use Dystcz\LunarApi\Tests\Stubs\Users\User;
+use Dystcz\LunarApi\Domain\Users\Models\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -17,7 +17,7 @@ beforeEach(function () {
 
 test('products cannot be deleted', function () {
     /** @var TestCase $this */
-    $response = $this->deleteTest('product-variants', ProductVariant::class);
+    $response = $this->deleteTest('product_variants', ProductVariant::class);
 
     $response->assertErrorStatus([
         'status' => '405',

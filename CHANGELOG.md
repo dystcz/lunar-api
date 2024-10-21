@@ -1,5 +1,48 @@
 # Changelog
 
+## 1.0.0-beta.3
+
+### Changes
+
+-   Added complete `User` model
+-   Added create (register) user endpoint (`POST` `/users`)
+-   Added update user endpoint (`PATCH` `/users`)
+-   Added change user password endpoint (`PATCH` `/users/-actions/change-password`)
+-   Added `AuthUser` json-api proxy
+-   Added custom `ProxySchema`
+-   Added login endpoint for logged in user (`POST` `/auth/-actions/login`)
+-   Added logout endpoint for logged in user (`POST` `/auth/-actions/logout`)
+-   Added "me" endpoint for logged in user (`GET` `/auth/-actions/me`)
+-   Added "my orders" endpoint for logged in user (`/auth/-actions/me/orders`)
+-   Added "register without password" endpoint (`POST` `/auth/-actions/register-without-password`)
+-   Added forgotten password endpoint (`POST` `/auth/-actions/forgot-password`)
+-   Added reset password endpoint (`POST` `/auth/-actions/reset-password`)
+-   Added create new password endpoint (`GET` `/auth/-actions/reset-password/{token}`)
+
+### ⚠️ Breaking changes
+
+-   Renamed `lunar_model` to `model_contract` in `domains.php` config file
+
+## 1.0.0-beta.2
+
+### Changes
+
+-   Fixed attribute mapping for `collections`
+-   Added tests for `collections` `default_url` relationship and includes
+-   Fixed dynamic relationships
+-   Added configurable auth guard `/Dystcz/LunarApi/Facades/LunarApi::authGuard($guard)`
+-   Updated policies to grant more privileges to Filament admins
+-   Added `product_options` relationship for `products`
+
+### ⚠️ Breaking changes
+
+1. Changed relationship names.
+
+    **Relationships:**
+
+    `product_options.values` → `product_options.product_option_values`<br>
+    `product_variants.values` → `product_variants.product_option_values`<br>
+
 ## 1.0.0-beta.1
 
 ### Changes
@@ -11,32 +54,25 @@
 
 ### ⚠️ Breaking changes
 
-1. Changed relationship names and routes
-   Because Schemas now use type naming derived from pluralized morph aliases, relationship names and thus routes had to change as well.
+1. Changed relationship names and routes, because Schemas now use type naming
+   derived from snake_cased, pluralized morph aliases,
+   relationship names and thus routes had to change as well.
 
-    `associations` → `product-associations`<br>
-    `attribute_group` → `attribute-group`<br>
-    `billing_address` → `billing-address`<br>
-    `cart_lines` → `cart-lines`<br>
-    `cheapest_variant` → `cheapest-product-variant`<br>
-    `default_url` → `default-url`<br>
-    `digital_lines` → `digital-lines`<br>
-    `highest_price` → `highest-price`<br>
-    `inverse_associations` → `inverse-product-associations`<br>
-    `latest_transaction` → `latest-transaction`<br>
-    `lowest_price` → `lowest-price`<br>
-    `most_expensive_variant` → `most-expensive-product-variant`<br>
-    `order_addresses` → `order-addresses`<br>
-    `order_lines` → `order-lines`<br>
-    `other_variants` → `other-product-variants`<br>
-    `payment_lines` → `payment-lines`<br>
-    `physical_lines` → `physical-lines`<br>
-    `product_lines` → `product-lines`<br>
-    `produst_type` → `product-type`<br>
-    `shipping_address` → `shipping-address`<br>
-    `shipping_address` → `shipping-address`<br>
-    `shipping_lines` → `shipping-lines`<br>
-    `variants` → `product-variants`
+    **Relationships:**
+
+    `associations` → `product_associations`<br>
+    `cheapest_variant` → `cheapest_product_variant`<br>
+    `inverse_associations` → `inverse_product_associations`<br>
+    `most_expensive_variant` → `most_expensive_product_variant`<br>
+    `other_variants` → `other_product_variants`<br>
+    `variants` → `product_variants`
+
+    **Routes:**
+
+    `/cart-addresses` → `/cart_addresses`<br>
+    `/orders/{order}/order-lines` → `/orders/{order}/order_lines`<br>
+    `/products/{product}/relationships/lowest-price` → `/products/{product}/relationships/lowest_price`<br>
+    ...
 
 2. Changed withCount query parameter
    `?withCount=` → `?with_count=`

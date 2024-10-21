@@ -2,7 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Urls\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
+use Dystcz\LunarApi\Domain\Auth\Concerns\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Lunar\Models\Contracts\Url as UrlContract;
 
@@ -31,7 +31,11 @@ class UrlPolicy
      */
     public function create(?Authenticatable $user): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -39,7 +43,11 @@ class UrlPolicy
      */
     public function update(?Authenticatable $user, UrlContract $url): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -47,6 +55,10 @@ class UrlPolicy
      */
     public function delete(?Authenticatable $user, UrlContract $url): bool
     {
-        return true;
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return false;
     }
 }

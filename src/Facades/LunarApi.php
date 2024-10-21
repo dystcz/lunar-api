@@ -5,12 +5,15 @@ namespace Dystcz\LunarApi\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static void createUserUsing(string $class)
- * @method static void createUserFromCartUsing(string $class)
- * @method static void registerUserUsing(string $class)
- * @method static void checkoutCartUsing(string $class)
- * @method static void useHashids(bool $useHashids = true)
- * @method static bool usesHashids()
+ * @method static \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard guard(string|null $name = null)
+ * @method static \Dystcz\LunarApi\LunarApi authGuard(string $name) Set the auth guard
+ * @method static string getAuthGuard() Get the auth guard
+ * @method static \Dystcz\LunarApi\LunarApi createUserUsing(class-string $class)
+ * @method static \Dystcz\LunarApi\LunarApi createUserFromCartUsing(class-string $class)
+ * @method static \Dystcz\LunarApi\LunarApi registerUserUsing(class-string $class)
+ * @method static \Dystcz\LunarApi\LunarApi checkoutCartUsing(class-string $class)
+ * @method static \Dystcz\LunarApi\LunarApi hashIds(bool $value) Set ID hashing
+ * @method static bool usesHashids() Check if the API hashes resource IDs
  *
  * @see \Dystcz\LunarApi\LunarApi
  */

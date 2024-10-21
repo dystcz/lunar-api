@@ -6,7 +6,7 @@ use Dystcz\LunarApi\Base\Controller;
 use Dystcz\LunarApi\Domain\CartAddresses\Contracts\UpdateCartAddressCountryController as UpdateCartAddressCountryControllerContract;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\CartAddressSchema;
 use Dystcz\LunarApi\Domain\CartAddresses\JsonApi\V1\UpdateCartAddressCountryRequest;
-use Dystcz\LunarApi\LunarApi;
+use Dystcz\LunarApi\Facades\LunarApi;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use Lunar\Models\Contracts\CartAddress as CartAddressContract;
 use Lunar\Models\Country;

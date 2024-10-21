@@ -4,7 +4,7 @@ use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Checkout\Enums\CheckoutProtectionStrategy;
 use Dystcz\LunarApi\Domain\Orders\Models\Order;
-use Dystcz\LunarApi\Tests\Stubs\Users\User;
+use Dystcz\LunarApi\Domain\Users\Models\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
@@ -40,19 +40,19 @@ it('can read order details without signature when user is logged in and owns the
         ->actingAs($user)
         ->jsonApi()
         ->includePaths(
-            'product-lines.purchasable.product',
-            'product-lines.purchasable.prices',
-            'product-lines.purchasable.images',
-            'product-lines.currency',
+            'product_lines.purchasable.product',
+            'product_lines.purchasable.prices',
+            'product_lines.purchasable.images',
+            'product_lines.currency',
             'customer',
-            'order-addresses',
+            'order_addresses',
         )
         ->expects('orders')
         ->get('/api/v1/orders/'.$order->getRouteKey());
 
     $response
         ->assertFetchedOne($order)
-        ->assertIsIncluded('order-lines', $order->lines->first());
+        ->assertIsIncluded('order_lines', $order->lines->first());
 
 })->group('orders');
 
@@ -130,7 +130,7 @@ it('returns unauthorized if the user does not own the order', function () {
 
     $response = $this
         ->jsonApi()
-        ->includePaths('product-lines')
+        ->includePaths('product_lines')
         ->expects('orders')
         ->get(serverUrl("/orders/{$order->getRouteKey()}"));
 

@@ -17,8 +17,8 @@ it('can list bare product variants', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('product-variants')
-        ->get(serverUrl('/product-variants'));
+        ->expects('product_variants')
+        ->get(serverUrl('/product_variants'));
 
     $response
         ->assertSuccessful()
@@ -36,8 +36,8 @@ it('cannot list variants of unpublished products', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('product-variants')
-        ->get(serverUrl('/product-variants'));
+        ->expects('product_variants')
+        ->get(serverUrl('/product_variants'));
 
     $response
         ->assertSuccessful()
