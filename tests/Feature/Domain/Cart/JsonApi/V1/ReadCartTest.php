@@ -1,7 +1,7 @@
 <?php
 
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
-use Dystcz\LunarApi\Tests\Stubs\Users\User;
+use Dystcz\LunarApi\Domain\Users\Models\User;
 use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Foundation\Testing\RefreshDatabase;

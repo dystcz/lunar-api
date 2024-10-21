@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
+use Lunar\Base\Migration;
 
 return new class extends Migration
 {
@@ -13,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         // Orders
-        Schema::table(Config::get('lunar.database.table_prefix').'orders', function (Blueprint $table) {
+        Schema::table($this->prefix.'orders', function (Blueprint $table) {
             $table->json('payment_breakdown')->nullable()->after('shipping_total');
             $table->integer('payment_total')->default(0)->unsigned()->index()->after('payment_breakdown');
         });
 
         // Carts
-        Schema::table(Config::get('lunar.database.table_prefix').'carts', function (Blueprint $table) {
+        Schema::table($this->prefix.'carts', function (Blueprint $table) {
             $table->string('payment_option')->nullable()->index()->after('order_id');
         });
     }
@@ -30,13 +29,13 @@ return new class extends Migration
     public function down(): void
     {
         // Orders
-        Schema::table(Config::get('lunar.database.table_prefix').'orders', function (Blueprint $table) {
+        Schema::table($this->prefix.'orders', function (Blueprint $table) {
             $table->dropColumn('payment_breakdown');
             $table->dropColumn('payment_total');
         });
 
         // Carts
-        Schema::table(Config::get('lunar.database.table_prefix').'carts', function (Blueprint $table) {
+        Schema::table($this->prefix.'carts', function (Blueprint $table) {
             $table->dropColumn('payment_option');
         });
     }

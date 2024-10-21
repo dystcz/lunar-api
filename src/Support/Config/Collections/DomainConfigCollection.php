@@ -76,11 +76,11 @@ class DomainConfigCollection extends Collection
     public function getModelsForModelManifest(): self
     {
         return $this->mapWithKeys(function (DomainConfig $domain) {
-            if (! $domain->swapsLunarModel()) {
+            if (! $domain->swapsModel()) {
                 return [];
             }
 
-            return [$domain->lunar_model => $domain->model];
+            return [$domain->model_contract => $domain->model];
         });
     }
 

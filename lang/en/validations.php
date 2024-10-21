@@ -5,6 +5,7 @@ return [
     'auth' => [
         'email' => [
             'required' => 'Please enter your email address.',
+            'string' => 'Email address must be a string.',
             'email' => 'Please enter a valid email address.',
             'unique' => 'This email address is already in use.',
             'max' => 'Your email address must be less than :max characters long.',
@@ -14,6 +15,11 @@ return [
             'required' => 'Please enter a password.',
             'min' => 'Your password must be at least :min characters long.',
             'confirmed' => 'Please confirm your password.',
+        ],
+
+        'attempt' => [
+            'failed' => 'These credentials do not match our records.',
+            'success' => 'You have been successfully logged in.',
         ],
     ],
 
@@ -216,6 +222,12 @@ return [
         'meta' => [
             'array' => 'Meta field must be an array.',
         ],
+        'set_payment_option' => [
+            'payment_option' => [
+                'required' => 'Please select a payment method.',
+                'string' => 'Payment method field must be a string.',
+            ],
+        ],
     ],
 
     'shipping' => [
@@ -227,12 +239,50 @@ return [
         ],
     ],
 
-    'payments' => [
-        'set_payment_option' => [
-            'payment_option' => [
-                'required' => 'Please select a payment method.',
-                'string' => 'Payment method field must be a string.',
-            ],
+    'users' => [
+        'name' => [
+            'string' => 'Name must be a string.',
+            'max' => 'Name must be shorter than :max characters.',
+        ],
+        'first_name' => [
+            'required' => 'Please enter your first name.',
+            'string' => 'First name must be a string.',
+            'max' => 'First name must be shorter than :max characters.',
+        ],
+        'last_name' => [
+            'required' => 'Please enter your last name.',
+            'string' => 'Last name must be a string.',
+            'max' => 'Last name must be shorter than :max characters.',
+        ],
+        'email' => [
+            'required' => 'Please enter your email address.',
+            'string' => 'Email address must be a string.',
+            'email' => 'Please enter a valid email address.',
+            'unique' => 'This email address is already in use.',
+            'max' => 'Email address must be shorter than :max characters.',
+        ],
+        'password' => [
+            'required' => 'Please enter a password.',
+            'string' => 'Password must be a string.',
+            'min' => 'Password must be at least :min characters.',
+            'confirmed' => 'Please confirm your password.',
+        ],
+        'old_password' => [
+            'required' => 'Please enter the current password.',
+            'string' => 'Password must be a string.',
+            'correct' => 'The entered password is incorrect.',
+        ],
+        'token' => [
+            'required' => 'A unique token is missing.',
+            'string' => 'Token must be a string.',
+        ],
+        'phone' => [
+            'required' => 'Please enter a phone number.',
+            'phone' => 'Please enter a valid phone number.',
+        ],
+        'accept_terms' => [
+            'required' => 'You must agree to our terms.',
+            'accepted' => 'You must agree to our terms.',
         ],
     ],
 ];
