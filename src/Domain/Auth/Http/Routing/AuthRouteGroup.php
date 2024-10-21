@@ -3,6 +3,7 @@
 namespace Dystcz\LunarApi\Domain\Auth\Http\Routing;
 
 use Dystcz\LunarApi\Domain\Auth\Contracts\AuthController;
+use Dystcz\LunarApi\Domain\Auth\Contracts\AuthUserOrdersController;
 use Dystcz\LunarApi\Domain\Auth\Contracts\PasswordResetLinkController;
 use Dystcz\LunarApi\Domain\Auth\Contracts\RegisterUserWithoutPasswordController;
 use Dystcz\LunarApi\Domain\Auth\Http\Controllers\NewPasswordController;
@@ -40,6 +41,12 @@ class AuthRouteGroup extends RouteGroup implements RouteGroupContract
                             ->name('auth.login')
                             ->withoutMiddleware('auth:'.LunarApi::getAuthGuard());
                     })->middleware('auth:'.LunarApi::getAuthGuard());
+
+                $server->resource('auth', AuthUserOrdersController::class)->only('')
+                    ->actions('-actions/me', function (ActionRegistrar $actions) {
+                        $actions->get('orders', 'index')->name('my-orders');
+                    })
+                    ->middleware('auth:'.LunarApi::getAuthGuard());
 
                 $server->resource('auth', RegisterUserWithoutPasswordController::class)->only('')
                     ->actions('-actions', function (ActionRegistrar $actions) {

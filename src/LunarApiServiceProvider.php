@@ -330,7 +330,7 @@ class LunarApiServiceProvider extends ServiceProvider
             \Dystcz\LunarApi\Domain\Urls\Contracts\UrlsController::class => \Dystcz\LunarApi\Domain\Urls\Http\Controllers\UrlsController::class,
             \Dystcz\LunarApi\Domain\Users\Contracts\UsersController::class => \Dystcz\LunarApi\Domain\Users\Http\Controllers\UsersController::class,
             \Dystcz\LunarApi\Domain\Users\Contracts\ChangePasswordController::class => \Dystcz\LunarApi\Domain\Users\Http\Controllers\ChangePasswordController::class,
-            \Dystcz\LunarApi\Domain\Users\Contracts\UserOrdersController::class => \Dystcz\LunarApi\Domain\Users\Http\Controllers\UserOrdersController::class,
+            \Dystcz\LunarApi\Domain\Auth\Contracts\AuthUserOrdersController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\AuthUserOrdersController::class,
             \Dystcz\LunarApi\Domain\Auth\Contracts\RegisterUserWithoutPasswordController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\RegisterUserWithoutPasswordController::class,
             \Dystcz\LunarApi\Domain\Auth\Contracts\AuthController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\AuthController::class,
             \Dystcz\LunarApi\Domain\Auth\Contracts\PasswordResetLinkController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\PasswordResetLinkController::class,

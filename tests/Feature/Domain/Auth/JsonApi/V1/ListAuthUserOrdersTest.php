@@ -6,7 +6,7 @@ use Dystcz\LunarApi\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(TestCase::class, RefreshDatabase::class)
-    ->group('users');
+    ->group('auth', 'users', 'me');
 
 it('can list all of users orders', function () {
     /** @var TestUser $this */
@@ -26,7 +26,7 @@ it('can list all of users orders', function () {
             'product_lines.purchasable.images',
             'product_lines.purchasable.product',
         )
-        ->get(serverUrl('/users/-actions/me/orders'));
+        ->get(serverUrl('/auth/-actions/me/orders'));
 
     $response->assertFetchedMany([$order]);
 });
@@ -51,7 +51,7 @@ it('can find users order by ref number', function () {
             'product_lines.purchasable.product',
         )
         ->filter(['reference' => $order->reference])
-        ->get(serverUrl('/users/-actions/me/orders'));
+        ->get(serverUrl('/auth/-actions/me/orders'));
 
     $response->assertFetchedMany([$order]);
 });

@@ -3,7 +3,6 @@
 namespace Dystcz\LunarApi\Domain\Users\Http\Routing;
 
 use Dystcz\LunarApi\Domain\Users\Contracts\ChangePasswordController;
-use Dystcz\LunarApi\Domain\Users\Contracts\UserOrdersController;
 use Dystcz\LunarApi\Domain\Users\Contracts\UsersController;
 use Dystcz\LunarApi\Facades\LunarApi;
 use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
@@ -42,16 +41,6 @@ class UserRouteGroup extends RouteGroup implements RouteGroupContract
                             ->name('users.change-password');
                     })
                     ->middleware('auth:'.LunarApi::getAuthGuard());
-
-                /**
-                 * Me
-                 */
-                $server->resource('users', UserOrdersController::class)->only('')
-                    ->actions('-actions/me', function (ActionRegistrar $actions) {
-                        $actions->get('orders', 'index')->name('my-orders');
-                    })
-                    ->middleware('auth:'.LunarApi::getAuthGuard());
-
             });
     }
 }
