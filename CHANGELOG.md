@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.0.0-beta.3
+
+### Changes
+
+-   Added complete `User` model
+-   Added create (register) user endpoint (`POST` `/users`)
+-   Added update user endpoint (`PATCH` `/users`)
+-   Added change user password endpoint (`PATCH` `/users/-actions/change-password`)
+-   Added `AuthUser` json-api proxy
+-   Added custom `ProxySchema`
+-   Added login endpoint for logged in user (`POST` `/auth/-actions/login`)
+-   Added logout endpoint for logged in user (`POST` `/auth/-actions/logout`)
+-   Added "me" endpoint for logged in user (`GET` `/auth/-actions/me`)
+-   Added "my orders" endpoint for logged in user (`/auth/-actions/me/orders`)
+-   Added "register without password" endpoint (`POST` `/auth/-actions/register-without-password`)
+-   Added forgotten password endpoint (`POST` `/auth/-actions/forgot-password`)
+-   Added reset password endpoint (`POST` `/auth/-actions/reset-password`)
+-   Added create new password endpoint (`GET` `/auth/-actions/reset-password/{token}`)
+
+### ⚠️ Breaking changes
+
+-   Renamed `lunar_model` to `model_contract` in `domains.php` config file
+
 ## 1.0.0-beta.2
 
 ### Changes
