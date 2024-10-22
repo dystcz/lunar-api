@@ -56,7 +56,7 @@ it('can set empty payment totals', function () {
     });
 
     $this->assertInstanceOf(PriceDataType::class, $cart->paymentSubTotal);
-})->group('payment-options', 'carts.payment-options');
+})->group('payment_options', 'carts.payment_options');
 
 it('can set payment totals', function () {
     /** @var TestCase $this */
@@ -116,4 +116,4 @@ it('can set payment totals', function () {
 
     $this->assertInstanceOf(PriceDataType::class, $cart->paymentSubTotal);
     $this->assertEquals(500, $cart->paymentSubTotal->value);
-})->group('payment-options', 'carts.payment-options');
+})->group('payment_options', 'carts.payment_options');

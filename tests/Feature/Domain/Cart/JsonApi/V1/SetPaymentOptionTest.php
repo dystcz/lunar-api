@@ -44,7 +44,7 @@ test('users can set a payment option to cart', function () {
     ]);
 
     expect($this->cart->fresh()->payment_option)->toBe($data['attributes']['payment_option']);
-})->group('carts', 'payment-options');
+})->group('carts', 'payment_options');
 
 it('validates payment option attribute when setting payment option to cart', function () {
     /** @var TestCase $this */
@@ -63,4 +63,4 @@ it('validates payment option attribute when setting payment option to cart', fun
         'detail' => __('lunar-api::validations.payments.set_payment_option.payment_option.required'),
         'status' => '422',
     ]);
-})->group('carts', 'payment-options');
+})->group('carts', 'payment_options');

@@ -68,4 +68,16 @@ class PaymentOptionSchema extends Schema
 
         return $resolver(static::class);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function uriType(): string
+    {
+        if ($this->uriType) {
+            return $this->uriType;
+        }
+
+        return $this->uriType = $this->type();
+    }
 }

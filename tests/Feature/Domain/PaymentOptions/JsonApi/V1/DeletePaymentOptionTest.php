@@ -18,11 +18,11 @@ test('payment options cannot be deleted', function () {
     /** @var TestCase $this */
     $response = $this
         ->jsonApi()
-        ->expects('payment-options')
-        ->delete(serverUrl('/payment-options/1'));
+        ->expects('payment_options')
+        ->delete(serverUrl('/payment_options/1'));
 
     $response->assertErrorStatus([
         'status' => '405',
         'title' => 'Method Not Allowed',
     ]);
-})->group('payment-options', 'policies');
+})->group('payment_options', 'policies');
