@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Dystcz\LunarApi\LunarApi checkoutCartUsing(class-string $class)
  * @method static \Dystcz\LunarApi\LunarApi hashIds(bool $value) Set ID hashing
  * @method static bool usesHashids() Check if the API hashes resource IDs
+ * @method static string getRoot()
  *
  * @see \Dystcz\LunarApi\LunarApi
  */

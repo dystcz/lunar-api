@@ -14,8 +14,8 @@ it('can list payment options', function () {
     /** @var TestCase $this */
     $response = $this
         ->jsonApi()
-        ->expects('payment-options')
-        ->get(serverUrl('/payment-options'));
+        ->expects('payment_options')
+        ->get(serverUrl('/payment_options'));
 
     $response->assertSuccessful();
 
@@ -24,7 +24,7 @@ it('can list payment options', function () {
     $response->assertFetchedMany(
         $options->map(function (PaymentOption $paymentOption) {
             return [
-                'type' => 'payment-options',
+                'type' => 'payment_options',
                 'id' => Str::slug($paymentOption->getId()),
                 'attributes' => [
                     'driver' => $paymentOption->getDriver(),
@@ -42,4 +42,4 @@ it('can list payment options', function () {
         })->toArray()
     );
 
-})->group('payment-options');
+})->group('payment_options');

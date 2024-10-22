@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Users\Models;
 
+use Dystcz\LunarApi\Base\Attributes\ReplaceModel;
 use Dystcz\LunarApi\Domain\Users\Concerns\InteractsWithLunarApi;
 use Dystcz\LunarApi\Domain\Users\Contracts\User as UserContract;
 use Dystcz\LunarApi\Domain\Users\Factories\UserFactory;
@@ -13,14 +14,14 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Config;
-use Lunar\Base\LunarUser as LunarUserContract;
 use Lunar\Base\Traits\HasModelExtending;
 use Lunar\Base\Traits\LunarUser;
 use Lunar\Models\Cart;
 use Lunar\Models\Customer;
 use Lunar\Models\Order;
 
-class User extends Authenticatable implements LunarUserContract, UserContract
+#[ReplaceModel(UserContract::class)]
+class User extends Authenticatable implements UserContract
 {
     use HasFactory;
     use HasModelExtending;

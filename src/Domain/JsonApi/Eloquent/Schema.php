@@ -12,7 +12,6 @@ use Dystcz\LunarApi\Support\Models\Actions\ModelKey;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Str;
 use LaravelJsonApi\Contracts\Server\Server;
 use LaravelJsonApi\Core\Schema\IncludePathIterator;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
@@ -119,7 +118,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      */
     public static function resource(): string
     {
-        $type = Str::snake(static::type());
+        $type = static::type();
 
         return Config::get(
             "lunar-api.domains.{$type}.resource",
@@ -132,7 +131,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      */
     public static function authorizer(): string
     {
-        $type = Str::snake(static::type());
+        $type = static::type();
 
         return Config::get(
             "lunar-api.domains.{$type}.authorizer",

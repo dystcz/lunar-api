@@ -40,7 +40,7 @@ test('users can unset a shipping option from cart address', function () {
     ]);
 
     expect($this->cartAddress->fresh()->shipping_option)->toBeNull();
-})->group('cart-addresses', 'shipping-options');
+})->group('cart-addresses', 'shipping_options');
 
 test('only the user who owns the cart address can unset shipping option for it', function () {
     /** @var TestCase $this */
@@ -56,4 +56,4 @@ test('only the user who owns the cart address can unset shipping option for it',
         'status' => '401',
         'title' => 'Unauthorized',
     ]);
-})->group('cart-addresses', 'shipping-options');
+})->group('cart-addresses', 'shipping_options');

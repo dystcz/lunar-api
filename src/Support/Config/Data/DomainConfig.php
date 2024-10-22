@@ -2,18 +2,21 @@
 
 namespace Dystcz\LunarApi\Support\Config\Data;
 
+use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
+use Dystcz\LunarApi\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Exception;
 use Illuminate\Support\Str;
+use LaravelJsonApi\Contracts\Schema\Schema;
+use Lunar\Base\Traits\HasModelExtending;
 
 class DomainConfig
 {
     /**
-     * @param  array<string,mixed>  $route_actions
-     * @param  array<string,class-string>  $actions
-     * @param  array<string,class-string>  $notifications
-     * @param  array<string,mixed>  $settings
+     * @param  array<int,mixed>  $rest
+     * @param  array<int,interface-string>  $controllers
      */
     public function __construct(
+        public string $domain,
         public ?string $model = null,
         public ?string $model_contract = null,
         public ?string $policy = null,
@@ -22,12 +25,98 @@ class DomainConfig
         public ?string $query = null,
         public ?string $collection_query = null,
         public ?string $routes = null,
-        public array $route_actions = [],
-        public array $actions = [],
-        public array $notifications = [],
-        public array $settings = [],
+        public array $controllers = [],
+        array ...$rest,
     ) {
         $this->validate();
+    }
+
+    /**
+     * Get domain name.
+     */
+    public function getDomain(): string
+    {
+        return $this->domain;
+    }
+
+    /**
+     * Get model class.
+     *
+     * @return class-string|null
+     */
+    public function getModel(): ?string
+    {
+        return $this->model;
+    }
+
+    /**
+     * Get model contract.
+     *
+     * @return interface-string|null
+     */
+    public function getModelContract(): ?string
+    {
+        return $this->model_contract;
+    }
+
+    /**
+     * Get policy class.
+     *
+     * @return class-string|null
+     */
+    public function getPolicy(): ?string
+    {
+        return $this->policy;
+    }
+
+    /**
+     * Get schema class.
+     *
+     * @return class-string|null
+     */
+    public function getSchema(): ?string
+    {
+        return $this->schema;
+    }
+
+    /**
+     * Get resource class.
+     *
+     * @return class-string|null
+     */
+    public function getResource(): ?string
+    {
+        return $this->resource;
+    }
+
+    /**
+     * Get query class.
+     *
+     * @return class-string|null
+     */
+    public function getQuery(): ?string
+    {
+        return $this->query;
+    }
+
+    /**
+     * Get collection query class.
+     *
+     * @return class-string|null
+     */
+    public function getCollectionQuery(): ?string
+    {
+        return $this->collection_query;
+    }
+
+    /**
+     * Get routes class.
+     *
+     * @return class-string|null
+     */
+    public function getRoutes(): ?string
+    {
+        return $this->routes;
     }
 
     /**
@@ -35,7 +124,15 @@ class DomainConfig
      */
     public function hasSchema(): bool
     {
-        return ! is_null($this->schema);
+        return ! is_null($this->getSchema());
+    }
+
+    /**
+     * Check if domain has resource.
+     */
+    public function hasResource(): bool
+    {
+        return ! is_null($this->getResource());
     }
 
     /**
@@ -43,7 +140,7 @@ class DomainConfig
      */
     public function hasModel(): bool
     {
-        return ! is_null($this->model);
+        return ! is_null($this->getModel());
     }
 
     /**
@@ -67,7 +164,7 @@ class DomainConfig
      */
     public function hasPolicy(): bool
     {
-        return ! is_null($this->policy);
+        return ! is_null($this->getPolicy());
     }
 
     /**
@@ -75,7 +172,7 @@ class DomainConfig
      */
     public function hasRoutes(): bool
     {
-        return ! is_null($this->routes);
+        return ! is_null($this->getRoutes());
     }
 
     /**
@@ -84,8 +181,12 @@ class DomainConfig
     public function validate(): void
     {
         $this->validateClassExistence();
+        $this->validateModel();
+        $this->validateSchema();
+        $this->validateResource();
+        $this->validateRoutes();
 
-        // TODO: Add remaining checks
+        // ...
     }
 
     /**
@@ -113,6 +214,70 @@ class DomainConfig
     }
 
     /**
+     * Validate model.
+     */
+    private function validateModel(): void
+    {
+        if (! $this->swapsModel()) {
+            return;
+        }
+
+        $this->validateClassUses(
+            'model',
+            $this->getModel(),
+            HasModelExtending::class,
+        );
+    }
+
+    /**
+     * Validate schema.
+     */
+    private function validateSchema(): void
+    {
+        if (! $this->hasSchema()) {
+            return;
+        }
+
+        $this->validateClassImplements(
+            'schema',
+            $this->getSchema(),
+            Schema::class,
+        );
+    }
+
+    /**
+     * Validate resource.
+     */
+    private function validateResource(): void
+    {
+        if (! $this->hasResource()) {
+            return;
+        }
+
+        $this->validateSubclassOf(
+            'resource',
+            $this->getResource(),
+            JsonApiResource::class,
+        );
+    }
+
+    /**
+     * Validate domain route groups.
+     */
+    private function validateRoutes(): void
+    {
+        if (! $this->hasRoutes()) {
+            return;
+        }
+
+        $this->validateClassImplements(
+            'routes',
+            $this->getRoutes(),
+            RouteGroupContract::class,
+        );
+    }
+
+    /**
      * Validate that a class exists.
      *
      * @param  class-string  $class
@@ -123,6 +288,21 @@ class DomainConfig
 
         if (! class_exists($class)) {
             throw new Exception("{$type} class {$class} does not exist.");
+        }
+    }
+
+    /**
+     * Validate that a class uses a trait.
+     *
+     * @param  class-string  $class
+     * @param  trait-string  $trait
+     */
+    private function validateClassUses(string $type, string $class, string $trait): void
+    {
+        $traits = class_uses_recursive($class);
+
+        if (! in_array($trait, $traits)) {
+            throw new Exception("{$type} class {$class} does not use {$trait}.");
         }
     }
 

@@ -77,4 +77,4 @@ it('can calculate payment option price', function () {
 
     $this->assertEquals(600, $cart->paymentTotal->value);
     $this->assertEquals(1000, $cart->total->value);
-})->group('carts', 'carts.payment-options');
+})->group('carts', 'carts.payment_options');

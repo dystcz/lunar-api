@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\PaymentOptions\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\JsonApi\Core\Schema\TypeResolver;
 use Dystcz\LunarApi\Domain\PaymentOptions\Entities\PaymentOption;
 use LaravelJsonApi\Core\Schema\Schema;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
@@ -43,6 +44,16 @@ class PaymentOptionSchema extends Schema
     /**
      * {@inheritDoc}
      */
+    public function repository(): PaymentOptionRepository
+    {
+        return PaymentOptionRepository::make()
+            ->withServer($this->server)
+            ->withSchema($this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function authorizable(): bool
     {
         return false;
@@ -51,10 +62,22 @@ class PaymentOptionSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function repository(): PaymentOptionRepository
+    public static function type(): string
     {
-        return PaymentOptionRepository::make()
-            ->withServer($this->server)
-            ->withSchema($this);
+        $resolver = new TypeResolver;
+
+        return $resolver(static::class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function uriType(): string
+    {
+        if ($this->uriType) {
+            return $this->uriType;
+        }
+
+        return $this->uriType = $this->type();
     }
 }

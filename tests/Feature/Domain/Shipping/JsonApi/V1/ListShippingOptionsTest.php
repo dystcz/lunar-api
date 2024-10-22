@@ -26,8 +26,8 @@ it('can list shipping options for a cart', function () {
     /** @var TestCase $this */
     $response = $this
         ->jsonApi()
-        ->expects('shipping-options')
-        ->get(serverUrl('/shipping-options'));
+        ->expects('shipping_options')
+        ->get(serverUrl('/shipping_options'));
 
     $response->assertSuccessful();
 
@@ -35,7 +35,7 @@ it('can list shipping options for a cart', function () {
 
     $response->assertFetchedMany([
         [
-            'type' => 'shipping-options',
+            'type' => 'shipping_options',
             'id' => 'ffcdel',
             'attributes' => [
                 'name' => 'Basic Delivery',
@@ -49,7 +49,7 @@ it('can list shipping options for a cart', function () {
             ],
         ],
     ]);
-})->group('shipping-options');
+})->group('shipping_options');
 
 it('can list shipping options for a cart based on country', function () {
     /** @var TestCase $this */
@@ -69,8 +69,8 @@ it('can list shipping options for a cart based on country', function () {
 
     $response = $this
         ->jsonApi()
-        ->expects('shipping-options')
-        ->get(serverUrl('/shipping-options'));
+        ->expects('shipping_options')
+        ->get(serverUrl('/shipping_options'));
 
     $response->assertSuccessful();
 
@@ -78,7 +78,7 @@ it('can list shipping options for a cart based on country', function () {
 
     $response->assertFetchedMany([
         [
-            'type' => 'shipping-options',
+            'type' => 'shipping_options',
             'id' => (string) Str::slug($shippingOptions[0]->getIdentifier()),
             'attributes' => [
                 'name' => $shippingOptions[0]->getName(),
@@ -87,7 +87,7 @@ it('can list shipping options for a cart based on country', function () {
             ],
         ],
         [
-            'type' => 'shipping-options',
+            'type' => 'shipping_options',
             'id' => (string) Str::slug($shippingOptions[1]->getIdentifier()),
             'attributes' => [
                 'name' => $shippingOptions[1]->getName(),
@@ -96,4 +96,4 @@ it('can list shipping options for a cart based on country', function () {
             ],
         ],
     ]);
-})->group('shipping-options');
+})->group('shipping_options');

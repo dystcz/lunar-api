@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\ShippingOptions\JsonApi\V1;
 
+use Dystcz\LunarApi\Domain\JsonApi\Core\Schema\TypeResolver;
 use Dystcz\LunarApi\Domain\ShippingOptions\Entities\ShippingOption;
 use LaravelJsonApi\Core\Schema\Schema;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
@@ -36,6 +37,16 @@ class ShippingOptionSchema extends Schema
     /**
      * {@inheritDoc}
      */
+    public function repository(): ShippingOptionRepository
+    {
+        return ShippingOptionRepository::make()
+            ->withServer($this->server)
+            ->withSchema($this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function authorizable(): bool
     {
         return false;
@@ -44,10 +55,22 @@ class ShippingOptionSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function repository(): ShippingOptionRepository
+    public static function type(): string
     {
-        return ShippingOptionRepository::make()
-            ->withServer($this->server)
-            ->withSchema($this);
+        $resolver = new TypeResolver;
+
+        return $resolver(static::class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function uriType(): string
+    {
+        if ($this->uriType) {
+            return $this->uriType;
+        }
+
+        return $this->uriType = $this->type();
     }
 }

@@ -6,8 +6,7 @@ use Dystcz\LunarApi\Domain\Carts\Actions\CheckoutCart;
 use Dystcz\LunarApi\Domain\Carts\Actions\CreateUserFromCart;
 use Dystcz\LunarApi\Domain\Users\Actions\CreateUser;
 use Dystcz\LunarApi\Domain\Users\Actions\RegisterUser;
-use Dystcz\LunarApi\Facades\LunarApi;
-use Dystcz\LunarApi\LunarApi as Api;
+use Dystcz\LunarApi\Facades\LunarApi as LunarApiFacade;
 use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Config;
@@ -15,7 +14,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Base\CartSessionInterface;
-use Lunar\Facades\ModelManifest;
+use Lunar\Facades\ModelManifest as ModelManifestFacade;
 
 class LunarApiServiceProvider extends ServiceProvider
 {
@@ -44,11 +43,8 @@ class LunarApiServiceProvider extends ServiceProvider
             $this->registerPolicies();
         });
 
-        // Register the main class to use with the facade.
-        $this->app->singleton(
-            'lunar-api',
-            fn () => new Api,
-        );
+        $this->app->singleton('lunar-api', fn () => new LunarApi);
+        $this->app->singleton('lunar-api-config', fn () => new LunarApiConfig);
 
         $this->bindControllers();
         $this->bindModels();
@@ -87,10 +83,10 @@ class LunarApiServiceProvider extends ServiceProvider
         $this->registerEvents();
         $this->registerPayments();
 
-        LunarApi::createUserUsing(CreateUser::class);
-        LunarApi::createUserFromCartUsing(CreateUserFromCart::class);
-        LunarApi::registerUserUsing(RegisterUser::class);
-        LunarApi::checkoutCartUsing(CheckoutCart::class);
+        LunarApiFacade::createUserUsing(CreateUser::class);
+        LunarApiFacade::createUserFromCartUsing(CreateUserFromCart::class);
+        LunarApiFacade::registerUserUsing(RegisterUser::class);
+        LunarApiFacade::checkoutCartUsing(CheckoutCart::class);
 
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
@@ -408,7 +404,7 @@ class LunarApiServiceProvider extends ServiceProvider
     protected function registerModels(): void
     {
         foreach (DomainConfigCollection::make()->getModelsForModelManifest() as $contract => $model) {
-            ModelManifest::replace($contract, $model);
+            ModelManifestFacade::add($contract, $model);
         }
     }
 
