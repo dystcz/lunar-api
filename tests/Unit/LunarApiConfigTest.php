@@ -45,9 +45,9 @@ it('can list configured models for lunar model manifest', function () {
 
     expect($models)->toBeInstanceOf(\Illuminate\Support\Collection::class);
 
-    $registeredModels = ModelManifest::getRegisteredModels();
-
-    $this->assertSame($models->toArray(), $registeredModels->toArray());
+    foreach ($models as $contract => $model) {
+        $this->assertSame($model, ModelManifest::get($contract));
+    }
 
 })->group('config');
 
