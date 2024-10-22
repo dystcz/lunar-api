@@ -359,7 +359,7 @@ return [
 
     SchemaType::get(Dystcz\LunarApi\Domain\Users\Contracts\User::class) => [
         'model' => Dystcz\LunarApi\Domain\Users\Models\User::class,
-        'model_contract' => Lunar\Base\LunarUser::class,
+        'model_contract' => Dystcz\LunarApi\Domain\Users\Contracts\User::class,
         'policy' => Dystcz\LunarApi\Domain\Users\Policies\UserPolicy::class,
         'schema' => Dystcz\LunarApi\Domain\Users\JsonApi\V1\UserSchema::class,
         'resource' => Dystcz\LunarApi\Domain\Users\JsonApi\V1\UserResource::class,

@@ -14,15 +14,14 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Config;
-use Lunar\Base\LunarUser as LunarUserContract;
 use Lunar\Base\Traits\HasModelExtending;
 use Lunar\Base\Traits\LunarUser;
 use Lunar\Models\Cart;
 use Lunar\Models\Customer;
 use Lunar\Models\Order;
 
-#[ReplaceModel(LunarUserContract::class)]
-class User extends Authenticatable implements LunarUserContract, UserContract
+#[ReplaceModel(UserContract::class)]
+class User extends Authenticatable implements UserContract
 {
     use HasFactory;
     use HasModelExtending;
