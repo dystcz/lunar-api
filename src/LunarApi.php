@@ -8,4 +8,9 @@ class LunarApi
 {
     use Concerns\HasAuth;
     use Concerns\HashesIds;
+
+    public function getRoot(): string
+    {
+        return __DIR__;
+    }
 }
