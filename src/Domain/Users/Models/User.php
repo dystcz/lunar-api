@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarApi\Domain\Users\Models;
 
+use Dystcz\LunarApi\Base\Attributes\ReplaceModel;
 use Dystcz\LunarApi\Domain\Users\Concerns\InteractsWithLunarApi;
 use Dystcz\LunarApi\Domain\Users\Contracts\User as UserContract;
 use Dystcz\LunarApi\Domain\Users\Factories\UserFactory;
@@ -20,6 +21,7 @@ use Lunar\Models\Cart;
 use Lunar\Models\Customer;
 use Lunar\Models\Order;
 
+#[ReplaceModel(LunarUserContract::class)]
 class User extends Authenticatable implements LunarUserContract, UserContract
 {
     use HasFactory;
