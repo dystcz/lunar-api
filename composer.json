@@ -29,7 +29,8 @@
     "laravel-json-api/hashids": "^3.0",
     "laravel-json-api/laravel": "^4.0",
     "laravel-json-api/non-eloquent": "^4.0",
-    "lunarphp/lunar": "^1.0.0-beta.1"
+    "lunarphp/lunar": "^1.0.0-beta.3",
+    "spatie/php-structure-discoverer": "^2.0"
   },
   "require-dev": {
     "barryvdh/laravel-ide-helper": "^3.0",
