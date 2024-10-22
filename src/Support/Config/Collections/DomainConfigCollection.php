@@ -75,7 +75,7 @@ class DomainConfigCollection extends Collection
     /**
      * Get models for Lunar model manifest.
      */
-    public function getModels(): self
+    public function getModelsForModelManifest(): self
     {
         return $this->mapWithKeys(function (DomainConfig $domain) {
             if (! $domain->swapsModel()) {

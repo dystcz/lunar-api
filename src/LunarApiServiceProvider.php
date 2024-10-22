@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Base\CartSessionInterface;
-use Lunar\Facades\ModelManifest;
+use Lunar\Facades\ModelManifest as ModelManifestFacade;
 
 class LunarApiServiceProvider extends ServiceProvider
 {
@@ -403,9 +403,9 @@ class LunarApiServiceProvider extends ServiceProvider
      */
     protected function registerModels(): void
     {
-        ModelManifest::register(
-            DomainConfigCollection::make()->getModels(),
-        );
+        foreach (DomainConfigCollection::make()->getModelsForModelManifest() as $contract => $model) {
+            ModelManifestFacade::add($contract, $model);
+        }
     }
 
     /**

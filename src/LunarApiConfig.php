@@ -35,7 +35,7 @@ class LunarApiConfig
      */
     public function getModels(): Collection
     {
-        return $this->config->getModels();
+        return $this->config->getModelsForModelManifest();
     }
 
     /**
