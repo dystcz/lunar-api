@@ -18,11 +18,11 @@ test('shipping options cannot be deleted', function () {
     /** @var TestCase $this */
     $response = $this
         ->jsonApi()
-        ->expects('shipping-options')
-        ->delete(serverUrl('/shipping-options/1'));
+        ->expects('shipping_options')
+        ->delete(serverUrl('/shipping_options/1'));
 
     $response->assertErrorStatus([
         'status' => '405',
         'title' => 'Method Not Allowed',
     ]);
-})->group('shipping-options', 'policies');
+})->group('shipping_options', 'policies');

@@ -21,10 +21,10 @@ test('shipping options cannot be updated', function () {
     /** @var TestCase $this */
     $shippingOption = App::get(ShippingModifiers::class)->getModifiers()->first();
 
-    $response = $this->updateTest('shipping-options', Tag::class, []);
+    $response = $this->updateTest('shipping_options', Tag::class, []);
 
     $response->assertErrorStatus([
         'status' => '405',
         'title' => 'Method Not Allowed',
     ]);
-})->group('shipping-options', 'policies');
+})->group('shipping_options', 'policies');

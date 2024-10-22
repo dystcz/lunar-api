@@ -48,7 +48,7 @@ test('users can set a shipping option to cart address', function () {
     ]);
 
     expect($this->cartAddress->fresh()->shipping_option)->toBe($this->data['attributes']['shipping_option']);
-})->group('cart-addresses', 'shipping-options');
+})->group('cart-addresses', 'shipping_options');
 
 it('validates shipping option attribute when setting shipping option to cart address', function () {
     /** @var TestCase $this */
@@ -70,7 +70,7 @@ it('validates shipping option attribute when setting shipping option to cart add
         'detail' => __('lunar-api::validations.shipping.set_shipping_option.shipping_option.required'),
         'status' => '422',
     ]);
-})->group('cart-addresses', 'shipping-options');
+})->group('cart-addresses', 'shipping_options');
 
 test('only the user who owns the cart address can set shipping option for it', function () {
     /** @var TestCase $this */
@@ -87,4 +87,4 @@ test('only the user who owns the cart address can set shipping option for it', f
         'status' => '401',
         'title' => 'Unauthorized',
     ]);
-})->group('cart-addresses', 'shipping-options');
+})->group('cart-addresses', 'shipping_options');
