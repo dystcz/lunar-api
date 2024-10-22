@@ -13,6 +13,7 @@ class DomainConfig
 {
     /**
      * @param  array<int,mixed>  $rest
+     * @param  array<int,interface-string>  $controllers
      */
     public function __construct(
         public string $domain,
@@ -24,6 +25,7 @@ class DomainConfig
         public ?string $query = null,
         public ?string $collection_query = null,
         public ?string $routes = null,
+        public array $controllers = [],
         array ...$rest,
     ) {
         $this->validate();
@@ -39,6 +41,8 @@ class DomainConfig
 
     /**
      * Get model class.
+     *
+     * @return class-string|null
      */
     public function getModel(): ?string
     {
@@ -46,15 +50,19 @@ class DomainConfig
     }
 
     /**
-     * Get lunar model class.
+     * Get model contract.
+     *
+     * @return interface-string|null
      */
-    public function getLunarModel(): ?string
+    public function getModelContract(): ?string
     {
-        return $this->lunar_model;
+        return $this->model_contract;
     }
 
     /**
      * Get policy class.
+     *
+     * @return class-string|null
      */
     public function getPolicy(): ?string
     {
@@ -63,6 +71,8 @@ class DomainConfig
 
     /**
      * Get schema class.
+     *
+     * @return class-string|null
      */
     public function getSchema(): ?string
     {
@@ -71,6 +81,8 @@ class DomainConfig
 
     /**
      * Get resource class.
+     *
+     * @return class-string|null
      */
     public function getResource(): ?string
     {
@@ -79,6 +91,8 @@ class DomainConfig
 
     /**
      * Get query class.
+     *
+     * @return class-string|null
      */
     public function getQuery(): ?string
     {
@@ -87,6 +101,8 @@ class DomainConfig
 
     /**
      * Get collection query class.
+     *
+     * @return class-string|null
      */
     public function getCollectionQuery(): ?string
     {
@@ -95,6 +111,8 @@ class DomainConfig
 
     /**
      * Get routes class.
+     *
+     * @return class-string|null
      */
     public function getRoutes(): ?string
     {
