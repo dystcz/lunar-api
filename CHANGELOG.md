@@ -22,6 +22,8 @@
 ### ⚠️ Breaking changes
 
 -   Renamed `lunar_model` to `model_contract` in `domains.php` config file
+-   Renamed `shipping-options` to `shipping_options`
+-   Renamed `payment-options` to `payment_options`
 
 ## 1.0.0-beta.2
 
