@@ -18,6 +18,8 @@
 -   Added forgotten password endpoint (`POST` `/auth/-actions/forgot-password`)
 -   Added reset password endpoint (`POST` `/auth/-actions/reset-password`)
 -   Added create new password endpoint (`GET` `/auth/-actions/reset-password/{token}`)
+-   Added `variantValues` relationship to `Product` model
+-   Added `product_option_values` relationship to `ProductSchema` (scoped to variant values using `variantValues` relationship)
 
 ### ⚠️ Breaking changes
 
