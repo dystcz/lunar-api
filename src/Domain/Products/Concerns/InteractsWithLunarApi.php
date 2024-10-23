@@ -11,17 +11,22 @@ use Dystcz\LunarApi\Domain\ProductTypes\Models\ProductType;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute as Attr;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Config;
 use Lunar\Models\Attribute;
+use Lunar\Models\ProductOptionValue;
 use Lunar\Models\ProductVariant;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 trait InteractsWithLunarApi
 {
     use HashesRouteKey;
+    use HasRelationships;
     use InteractsWithAvailability;
 
     /**
@@ -220,5 +225,20 @@ trait InteractsWithLunarApi
             ->prices()
             ->where('tier', 1)
             ->where('customer_group_id', null);
+    }
+
+    /**
+     * @return HasManyDeep<ProductOptionValue,Product>
+     */
+    public function variantValues(): HasManyDeep
+    {
+        /** @var Product $this */
+        $variantsTable = $this->variants()->getModel()->getTable();
+        $prefix = Config::get('lunar.database.table_prefix');
+
+        return $this->hasManyDeepFromRelations(
+            $this->variants(),
+            (new ProductVariant)->values(),
+        );
     }
 }

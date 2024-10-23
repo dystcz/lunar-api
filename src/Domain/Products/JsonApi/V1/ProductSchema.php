@@ -27,6 +27,7 @@ use Lunar\Models\Contracts\Brand;
 use Lunar\Models\Contracts\Price;
 use Lunar\Models\Contracts\Product;
 use Lunar\Models\Contracts\ProductAssociation;
+use Lunar\Models\Contracts\ProductOptionValue;
 use Lunar\Models\Contracts\ProductType;
 use Lunar\Models\Contracts\ProductVariant;
 use Lunar\Models\Contracts\Url;
@@ -198,6 +199,16 @@ class ProductSchema extends Schema
                 ->type('product_options')
                 ->canCount()
                 ->countAs('product_options_count'),
+
+            HasMany::make('product_option_values', 'variantValues')
+                ->retainFieldName()
+                ->type(SchemaType::get(ProductOptionValue::class))
+                ->readOnly()
+                ->canCount()
+                ->countAs('product_option_values_count')
+                ->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks()
+                ),
 
             ...parent::fields(),
         ];
