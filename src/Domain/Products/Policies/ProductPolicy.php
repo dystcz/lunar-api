@@ -197,4 +197,12 @@ class ProductPolicy
     {
         return true;
     }
+
+    /**
+     * Authorize a user to view product's option values.
+     */
+    public function viewProductOptionValues(?Authenticatable $user, ProductContract $product): bool
+    {
+        return true;
+    }
 }
