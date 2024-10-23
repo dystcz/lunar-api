@@ -38,6 +38,7 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
                         $relationships->hasMany('urls')->readOnly();
                         $relationships->hasMany('product_variants')->readOnly();
                         $relationships->hasMany('product_options')->readOnly();
+                        $relationships->hasMany('product_option_values')->readOnly();
                     })
                     ->only('index', 'show')
                     ->readOnly();
