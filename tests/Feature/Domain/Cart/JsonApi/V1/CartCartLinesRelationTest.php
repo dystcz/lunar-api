@@ -49,7 +49,31 @@ it('can list related cart lines', function () {
         ->assertSuccessful()
         ->assertFetchedMany($expected);
 
-})->group('cart.cart-lines');
+})->group('cart', 'cart_lines');
+
+it('can list related cart lines with purchasable product option values included', function () {
+    /** @var TestCase $this */
+    $expected = $this->cart->lines->map(fn (CartLine $line) => [
+        'type' => 'cart_lines',
+        'id' => (string) $line->getRouteKey(),
+        'attributes' => [
+            'purchasable_id' => $line->purchasable_id,
+            'purchasable_type' => $line->purchasable_type,
+        ],
+    ])->all();
+
+    $response = $this
+        ->actingAs($this->user)
+        ->jsonApi()
+        ->expects('cart_lines')
+        ->includePaths('purchasable.product_option_values')
+        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/cart_lines"));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedMany($expected);
+
+})->group('cart', 'cart_lines');
 
 it('cannot list related cart lines without session and when not logged in', function () {
     /** @var TestCase $this */
@@ -66,7 +90,7 @@ it('cannot list related cart lines without session and when not logged in', func
         'title' => 'Unauthorized',
     ]);
 
-})->group('cart.cart-lines', 'policies');
+})->group('cart', 'policies');
 
 it('can list cart lines relationships when logged in', function () {
     /** @var TestCase $this */
@@ -80,7 +104,7 @@ it('can list cart lines relationships when logged in', function () {
         ->assertSuccessful()
         ->assertFetchedMany($this->cart->lines);
 
-})->group('cart.cart_lines');
+})->group('cart', 'cart_lines');
 
 it('cannot list cart lines relationships without session and when not logged in', function () {
     /** @var TestCase $this */
@@ -97,4 +121,4 @@ it('cannot list cart lines relationships without session and when not logged in'
         'title' => 'Unauthorized',
     ]);
 
-})->group('cart.cart-lines', 'policies');
+})->group('cart', 'cart_lines', 'policies');
