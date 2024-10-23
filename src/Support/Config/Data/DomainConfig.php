@@ -26,7 +26,13 @@ class DomainConfig
         public array $actions = [],
         public array $notifications = [],
         public array $settings = [],
+        /** @deprecated lunar_model is deprecated, use model_contract instead */
+        ?string $lunar_model = null,
     ) {
+        if ($lunar_model) {
+            $this->model_contract = $lunar_model;
+        }
+
         $this->validate();
     }
 
