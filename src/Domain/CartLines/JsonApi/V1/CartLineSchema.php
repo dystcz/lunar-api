@@ -81,6 +81,8 @@ class CartLineSchema extends Schema
                     ),
             ]),
 
+            Number::make('quantity'),
+
             ArrayHash::make('meta'),
 
             BelongsTo::make('cart')
