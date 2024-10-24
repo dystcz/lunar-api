@@ -49,7 +49,7 @@ it('can list related cart lines', function () {
         ->assertSuccessful()
         ->assertFetchedMany($expected);
 
-})->group('cart', 'cart_lines');
+})->group('carts', 'cart_lines');
 
 it('can list related cart lines with purchasable product option values included', function () {
     /** @var TestCase $this */
@@ -73,7 +73,7 @@ it('can list related cart lines with purchasable product option values included'
         ->assertSuccessful()
         ->assertFetchedMany($expected);
 
-})->group('cart', 'cart_lines');
+})->group('carts', 'cart_lines');
 
 it('cannot list related cart lines without session and when not logged in', function () {
     /** @var TestCase $this */
@@ -90,7 +90,7 @@ it('cannot list related cart lines without session and when not logged in', func
         'title' => 'Unauthorized',
     ]);
 
-})->group('cart', 'policies');
+})->group('carts', 'policies');
 
 it('can list cart lines relationships when logged in', function () {
     /** @var TestCase $this */
@@ -121,4 +121,4 @@ it('cannot list cart lines relationships without session and when not logged in'
         'title' => 'Unauthorized',
     ]);
 
-})->group('cart', 'cart_lines', 'policies');
+})->group('carts', 'cart_lines', 'policies');

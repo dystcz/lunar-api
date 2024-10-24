@@ -35,6 +35,7 @@ class CartLineSchema extends Schema
             'purchasable.product',
             'purchasable.product.images',
             'purchasable.product.thumbnail',
+            'purchasable.product_option_values',
 
             ...parent::includePaths(),
         ];

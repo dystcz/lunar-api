@@ -102,7 +102,8 @@ class ProductVariantSchema extends Schema
                     ),
             ]),
 
-            BelongsTo::make('product'),
+            BelongsTo::make('product')
+                ->readOnly(),
 
             HasMany::make('attributes', 'attributes')
                 ->type(SchemaType::get(Attribute::class))

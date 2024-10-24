@@ -48,6 +48,7 @@ class CartSchema extends Schema
             'cart_lines.purchasable.product.images',
             'cart_lines.purchasable.product.product_type',
             'cart_lines.purchasable.product.thumbnail',
+            'cart_lines.purchasable.product_option_values',
             'cart_lines.purchasable.thumbnail',
             'cart_lines.purchasable.values',
 
@@ -59,6 +60,7 @@ class CartSchema extends Schema
             'order.product_lines.purchasable.product',
             'order.product_lines.purchasable.product.thumbnail',
             'order.product_lines.purchasable.product.default_url',
+            'order.product_lines.purchasable.product_option_values',
 
             'cart_addresses',
             'cart_addresses.country',
