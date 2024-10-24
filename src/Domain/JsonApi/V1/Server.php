@@ -22,7 +22,7 @@ class Server extends BaseServer
      */
     public function serving(): void
     {
-        // no-op
+        //
     }
 
     /**
