@@ -63,6 +63,7 @@ it('can read cart with cart lines included', function () {
             'cart_lines.purchasable.prices',
             'cart_lines.purchasable.product.thumbnail',
             'cart_lines.purchasable.product_option_values',
+            'cart_lines.purchasable.product_option_values.product_option',
         )
         ->get(serverUrl("/carts/{$cart->getRouteKey()}"));
 
