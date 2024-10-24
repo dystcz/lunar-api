@@ -12,11 +12,6 @@ use Lunar\Models\Contracts\CartAddress as CartAddressContract;
 
 class ContinuousUpdateCartAddressController extends Controller implements ContinuousUpdateCartAddressControllerContract
 {
-    /**
-     * Update an existing resource.
-     *
-     * @return \Illuminate\Contracts\Support\Responsable|\Illuminate\Http\Response
-     */
     public function continuousUpdate(
         CartAddressSchema $schema,
         CartAddressContinuousUpdateRequest $request,

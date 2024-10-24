@@ -30,10 +30,8 @@ class CartAddressesController extends Controller implements CartAddressesControl
     ): DataResponse {
         $this->authorize('create', CartAddress::modelClass());
 
-        $validatedRequest = $request->validated();
-
         $meta = [
-            ...$validatedRequest['meta'] ?? [],
+            ...$request->validated('meta') ?? [],
             'company_in' => $request->validated('company_in', null),
             'company_tin' => $request->validated('company_tin', null),
         ];
@@ -66,10 +64,8 @@ class CartAddressesController extends Controller implements CartAddressesControl
     ): DataResponse {
         $this->authorize('update', $cartAddress);
 
-        $validatedRequest = $request->validated();
-
         $meta = array_merge($cartAddress->meta?->toArray() ?? [], [
-            ...$validatedRequest['meta'] ?? [],
+            ...$request->validated('meta') ?? [],
             'company_in' => $request->validated('company_in', null),
             'company_tin' => $request->validated('company_tin', null),
         ]);
