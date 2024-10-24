@@ -71,7 +71,7 @@ test('cart address can be created', function () {
     $this->assertDatabaseHas($this->cartAddress->getTable(), [
         'id' => $id,
     ]);
-})->group('cart-addresses');
+})->group('cart_addresses');
 
 test('only the user who owns the cart can assign an address to it', function () {
     /** @var TestCase $this */
@@ -87,4 +87,4 @@ test('only the user who owns the cart can assign an address to it', function () 
         'status' => '401',
         'title' => 'Unauthorized',
     ]);
-})->group('cart-addresses');
+})->group('cart_addresses');

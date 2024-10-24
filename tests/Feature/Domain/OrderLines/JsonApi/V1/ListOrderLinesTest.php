@@ -25,4 +25,4 @@ it('cannot list order lines without order', function () {
         'title' => 'Not Found',
     ]);
 
-})->group('order-lines', 'policies');
+})->group('order_lines', 'policies');

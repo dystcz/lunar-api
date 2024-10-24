@@ -51,7 +51,7 @@ test('users can update cart address country', function () {
         'country_id' => $this->country->id,
     ]);
 
-})->group('cart-addresses');
+})->group('cart_addresses');
 
 test('only the user who owns the cart address can update its country', function () {
     /** @var TestCase $this */
@@ -66,4 +66,4 @@ test('only the user who owns the cart address can update its country', function 
         'status' => '401',
         'title' => 'Unauthorized',
     ]);
-})->group('cart-addresses');
+})->group('cart_addresses');

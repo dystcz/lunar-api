@@ -36,6 +36,7 @@ class CartLineSchema extends Schema
             'purchasable.product.images',
             'purchasable.product.thumbnail',
             'purchasable.product_option_values',
+            'purchasable.product_option_values.product_option',
 
             ...parent::includePaths(),
         ];
@@ -80,7 +81,6 @@ class CartLineSchema extends Schema
                     ),
             ]),
 
-            // WARNING: DEPRECATED: Duplicate value, already present in prices.quantity
             Number::make('quantity'),
 
             ArrayHash::make('meta'),

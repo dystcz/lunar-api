@@ -20,4 +20,4 @@ it('cannot list cart lines without cart', function () {
         'title' => 'Method Not Allowed',
     ]);
 
-})->group('cart-lines', 'policies');
+})->group('cart_lines', 'policies');

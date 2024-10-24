@@ -65,7 +65,7 @@ it('can add purchasable to a cart which does not yet exist', function () {
         'purchasable_type' => $cartLine->purchasable_type,
         'quantity' => $cartLine->quantity,
     ]);
-})->group('cart-lines');
+})->group('cart_lines');
 
 it('can associate existing cart to users after they log in', function () {
     /** @var TestCase $this */
@@ -122,7 +122,7 @@ it('can associate existing cart to users after they log in', function () {
         'id' => $cartId ?? $cart->id,
         'user_id' => $userId ?? $cart->user->id,
     ]);
-})->group('cart-lines');
+})->group('cart_lines');
 
 it('can add purchasable to an existing cart', function () {
     /** @var TestCase $this */
@@ -173,7 +173,7 @@ it('can add purchasable to an existing cart', function () {
         'purchasable_type' => $cartLine->purchasable_type,
         'quantity' => $cartLine->quantity,
     ]);
-})->group('cart-lines');
+})->group('cart_lines');
 
 it('manually creates a cart when cart auto create turned off', function () {
     /** @var TestCase $this */
@@ -242,4 +242,4 @@ it('manually creates a cart when cart auto create turned off', function () {
         'quantity' => $cartLine->quantity,
     ]);
 
-})->group('cart-lines', 'carts');
+})->group('cart_lines', 'carts');

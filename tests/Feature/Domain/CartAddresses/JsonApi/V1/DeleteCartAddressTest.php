@@ -28,4 +28,4 @@ test('cart addresses cannot be deleted', function () {
         'status' => '405',
         'title' => 'Method Not Allowed',
     ]);
-})->group('cart-addresses', 'policies');
+})->group('cart_addresses', 'policies');

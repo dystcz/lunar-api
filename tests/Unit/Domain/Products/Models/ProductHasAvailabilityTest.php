@@ -39,7 +39,7 @@ it('can determine product is in stock', function () {
 
     $this->assertTrue($product->availability === Availability::IN_STOCK);
 
-})->group('products-variants', 'availability');
+})->group('product_variants', 'availability');
 
 it('can determine product is backorder', function () {
     /** @var TestCase $this */
@@ -67,7 +67,7 @@ it('can determine product is backorder', function () {
 
     $this->assertTrue($product->availability === Availability::BACKORDER);
 
-})->group('products-variants', 'availability');
+})->group('product_variants', 'availability');
 
 it('can determine product is preorder', function () {
     /** @var TestCase $this */
@@ -91,7 +91,7 @@ it('can determine product is preorder', function () {
         ]);
 
     $this->assertTrue($product->availability === Availability::PREORDER);
-})->group('products-variants', 'availability');
+})->group('product_variants', 'availability');
 
 it('can determine product is out of stock', function () {
     /** @var TestCase $this */
@@ -110,4 +110,4 @@ it('can determine product is out of stock', function () {
         ->create();
 
     $this->assertTrue($product->availability === Availability::OUT_OF_STOCK);
-})->group('products-variants', 'availability');
+})->group('product_variants', 'availability');

@@ -23,4 +23,4 @@ test('product associations cannot be deleted', function () {
         'status' => '404',
         'title' => 'Not Found',
     ]);
-})->group('product-associations', 'policies');
+})->group('product_associations', 'policies');

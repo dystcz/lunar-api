@@ -23,7 +23,7 @@ it('can list product variant images through relationship', function () {
         ->assertSuccessful()
         ->assertFetchedMany($variant->images)
         ->assertDoesntHaveIncluded();
-})->group('product-variants');
+})->group('product_variants');
 
 it('can count product variant images', function () {
     /** @var TestCase $this */
@@ -42,4 +42,4 @@ it('can count product variant images', function () {
         ->assertFetchedOne($variant);
 
     expect($response->json('data.relationships.images.meta.count'))->toBe(3);
-})->group('products-variants', 'counts');
+})->group('product_variants', 'counts');

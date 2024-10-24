@@ -36,7 +36,7 @@ it('can list product options values through relationship', function () {
         ->assertSuccessful()
         ->assertFetchedMany($variant->values)
         ->assertDoesntHaveIncluded();
-})->group('product-variants');
+})->group('product_variants');
 
 it('can count product option values', function () {
     /** @var TestCase $this */
@@ -66,4 +66,4 @@ it('can count product option values', function () {
         ->assertFetchedOne($variant);
 
     expect($response->json('data.relationships.product_option_values.meta.count'))->toBe(2);
-})->group('product-variants', 'counts');
+})->group('product_variants', 'counts');

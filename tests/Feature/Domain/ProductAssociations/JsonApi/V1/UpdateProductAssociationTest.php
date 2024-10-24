@@ -23,4 +23,4 @@ test('users cannot update product associations', function () {
         'status' => '404',
         'title' => 'Not Found',
     ]);
-})->group('produuct-associations', 'policies');
+})->group('product_associations', 'policies');

@@ -45,4 +45,4 @@ it('can read products associations', function () {
     // ->assertIsIncluded('media', $productB->thumbnail)
     // ->assertIsIncluded('variants', $productB->variants->first())
     // ->assertIsIncluded('prices', $productB->variants->first()->prices->first());
-})->group('product-associations');
+})->group('product_associations');

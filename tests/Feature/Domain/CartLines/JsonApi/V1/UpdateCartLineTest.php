@@ -47,7 +47,7 @@ it('can add purchasable to the cart', function () {
         'purchasable_type' => $cartLine->purchasable_type,
         'quantity' => $cartLine->quantity,
     ]);
-})->group('cart-lines');
+})->group('cart_lines');
 
 it('can update a cart line', function () {
     /** @var TestCase $this */
@@ -85,7 +85,7 @@ it('can update a cart line', function () {
         'id' => $cartLine->getKey(),
         'quantity' => $data['attributes']['quantity'],
     ]);
-})->group('cart-lines');
+})->group('cart_lines');
 
 test('only the owner of the cart can update cart lines', function () {
     /** @var TestCase $this */
@@ -114,4 +114,4 @@ test('only the owner of the cart can update cart lines', function () {
         'status' => '401',
         'title' => 'Unauthorized',
     ]);
-})->group('cart-lines', 'policies');
+})->group('cart_lines', 'policies');

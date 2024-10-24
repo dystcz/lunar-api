@@ -24,7 +24,7 @@ it('can list bare product variants', function () {
         ->assertSuccessful()
         ->assertFetchedMany($variants)
         ->assertDoesntHaveIncluded();
-})->group('product-variants');
+})->group('product_variants');
 
 it('cannot list variants of unpublished products', function () {
     /** @var TestCase $this */

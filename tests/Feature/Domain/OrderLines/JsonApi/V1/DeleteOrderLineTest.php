@@ -23,4 +23,4 @@ test('users cannot delete order lines', function () {
         'status' => '404',
         'title' => 'Not Found',
     ]);
-})->group('order-lines', 'policies');
+})->group('order_lines', 'policies');

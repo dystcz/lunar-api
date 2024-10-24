@@ -36,7 +36,7 @@ it('can determine variant is always purchasable', function () {
     $variant = $product->variants->first();
 
     assertTrue($variant->availability === Availability::ALWAYS);
-})->group('products-variants', 'availability');
+})->group('product_variants', 'availability');
 
 it('can determine variant is in stock', function () {
     /** @var TestCase $this */
@@ -66,7 +66,7 @@ it('can determine variant is in stock', function () {
 
     assertTrue($variant->availability === Availability::IN_STOCK);
 
-})->group('products-variants', 'availability');
+})->group('product_variants', 'availability');
 
 it('can determine variant is backorder', function () {
     /** @var TestCase $this */
@@ -96,7 +96,7 @@ it('can determine variant is backorder', function () {
 
     assertTrue($variant->availability === Availability::BACKORDER);
 
-})->group('products-variants', 'availability');
+})->group('product_variants', 'availability');
 
 it('can determine variant is preorder', function () {
     /** @var TestCase $this */
@@ -142,7 +142,7 @@ it('can determine variant is preorder', function () {
 
     assertTrue($variant->availability === Availability::PREORDER);
 
-})->group('products-variants', 'availability');
+})->group('product_variants', 'availability');
 
 it('can determine variant is out of stock', function () {
     /** @var TestCase $this */
@@ -181,4 +181,4 @@ it('can determine variant is out of stock', function () {
 
     assertTrue($variant->availability === Availability::OUT_OF_STOCK);
 
-})->group('products-variants', 'availability');
+})->group('product_variants', 'availability');

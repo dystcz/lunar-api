@@ -25,4 +25,4 @@ it('can read lowest price through relationship', function () {
         ->assertSuccessful()
         ->assertFetchedOne($variant->prices->sortBy('price')->first())
         ->assertDoesntHaveIncluded();
-})->group('product-variants');
+})->group('product_variants');
