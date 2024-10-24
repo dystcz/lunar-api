@@ -44,6 +44,33 @@ it('can read the cart from session', function () {
 
 })->group('carts', 'carts.read');
 
+it('can read cart with cart lines included', function () {
+    /** @var TestCase $this */
+    $user = User::factory()->create();
+
+    $cart = CartFactory::new()
+        ->for($user)
+        ->withLines()
+        ->create();
+
+    $this->cartSession->use($cart);
+
+    $response = $this
+        ->actingAs($user)
+        ->jsonApi()
+        ->expects('carts')
+        ->includePaths(
+            'cart_lines.purchasable.prices',
+            'cart_lines.purchasable.product.thumbnail',
+            'cart_lines.purchasable.product_option_values',
+        )
+        ->get(serverUrl("/carts/{$cart->getRouteKey()}"));
+
+    $response
+        ->assertSuccessful();
+
+})->group('carts');
+
 it('can merge carts when user logs in', function () {
     /** @var TestCase $this */
     $user = User::factory()->create();
