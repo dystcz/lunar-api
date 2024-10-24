@@ -22,6 +22,8 @@ class ProductOptionValueSchema extends Schema
     public function includePaths(): iterable
     {
         return [
+            'product_option',
+
             ...parent::includePaths(),
         ];
     }
