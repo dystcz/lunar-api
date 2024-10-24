@@ -13,10 +13,19 @@ class CreateEmptyCartAddresses extends Action
     /**
      * Create empty addresses for a cart.
      */
-    public function handle(CartContract $cart): void
+    public function handle(CartContract $cart): CartContract
     {
         /** @var Cart $cart */
-        $cart->setShippingAddress([
+        $cart = $this->createShippingAddress($cart);
+        $cart = $this->createBillingAddress($cart);
+
+        return $cart;
+    }
+
+    public function createShippingAddress(CartContract $cart): CartContract
+    {
+        /** @var Cart $cart */
+        return $cart->setShippingAddress([
             'country_id' => null,
             'title' => null,
             'first_name' => null,
@@ -33,8 +42,12 @@ class CreateEmptyCartAddresses extends Action
             'contact_phone' => null,
             'meta' => null,
         ]);
+    }
 
-        $cart->setBillingAddress([
+    public function createBillingAddress(CartContract $cart): CartContract
+    {
+        /** @var Cart $cart */
+        return $cart->setBillingAddress([
             'country_id' => null,
             'title' => null,
             'first_name' => null,
