@@ -28,4 +28,4 @@ it('can read default url through relationship', function () {
         ->assertSuccessful()
         ->assertFetchedOne($variant->defaultUrl)
         ->assertDoesntHaveIncluded();
-})->group('product-variants');
+})->group('product_variants');

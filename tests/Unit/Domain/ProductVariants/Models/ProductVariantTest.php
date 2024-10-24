@@ -17,4 +17,4 @@ test('product variant creates url after being created', function () {
 
     expect($variant->urls)->toHaveCount(1);
 
-})->group('product-variants');
+})->group('product_variants');

@@ -38,4 +38,4 @@ test('users can unset a payment option from cart', function () {
     ]);
 
     expect($this->cart->fresh()->payment_option)->toBeNull();
-})->group('carts', 'payment-options');
+})->group('carts', 'payment_options');

@@ -13,4 +13,4 @@ test('users cannot create new product associations', function () {
         'status' => '404',
         'title' => 'Not Found',
     ]);
-})->group('product-associations', 'policies');
+})->group('product_associations', 'policies');

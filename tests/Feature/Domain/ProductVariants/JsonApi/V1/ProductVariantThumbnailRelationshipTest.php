@@ -25,4 +25,4 @@ it('can read thumbnail through relationship', function () {
         ->assertSuccessful()
         ->assertFetchedOne($variant->thumbnail)
         ->assertDoesntHaveIncluded();
-})->group('product-variants');
+})->group('product_variants');

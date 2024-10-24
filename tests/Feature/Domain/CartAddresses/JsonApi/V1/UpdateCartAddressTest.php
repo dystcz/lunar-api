@@ -58,7 +58,7 @@ test('a cart address can be update', function () {
         'contact_phone' => $this->data['attributes']['contact_phone'],
         'delivery_instructions' => $this->data['attributes']['delivery_instructions'],
     ]);
-})->group('cart-addresses');
+})->group('cart_addresses');
 
 test('only the user who owns the cart can assign address to it', function () {
     /** @var TestCase $this */
@@ -73,4 +73,4 @@ test('only the user who owns the cart can assign address to it', function () {
         'status' => '401',
         'title' => 'Unauthorized',
     ]);
-})->group('cart-addresses');
+})->group('cart_addresses');

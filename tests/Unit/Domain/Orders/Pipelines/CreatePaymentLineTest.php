@@ -50,7 +50,7 @@ it('can run add payment line pipeline', function () {
 
     $this->assertCount(1, $order->paymentLines);
     $this->assertEquals('HELL', $order->paymentLines->first()->identifier);
-})->group('orders', 'payment-lines');
+})->group('orders', 'payment_lines');
 
 it('can update payment line if exists', function () {
     /** @var TestCase $this */
@@ -94,4 +94,4 @@ it('can update payment line if exists', function () {
 
     $this->assertCount(1, $order->paymentLines);
     $this->assertEquals('FAIR', $order->paymentLines->first()->identifier);
-})->group('orders', 'payment-lines');
+})->group('orders', 'payment_lines');
