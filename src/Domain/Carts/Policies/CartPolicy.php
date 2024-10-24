@@ -149,6 +149,18 @@ class CartPolicy
     }
 
     /**
+     * Authorize a user to view cart's cart addresses.
+     */
+    public function viewCartAddresses(?Authenticatable $user, CartContract $cart): bool
+    {
+        if ($this->isFilamentAdmin($user)) {
+            return true;
+        }
+
+        return $this->check($user, $cart);
+    }
+
+    /**
      * Authorize a user to view cart's purchasable.
      */
     public function viewPurchasable(?Authenticatable $user, CartContract $cart): bool
